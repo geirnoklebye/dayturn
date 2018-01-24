@@ -198,9 +198,5 @@ public:
 	static S32 writeEx(const std::string& filename, const void *buf, S32 offset, S32 nbytes, LLVolatileAPRPool* pool = nullptr); // offset<0 means append
 //*******************************************************************************************************************************
 };
-namespace nd::aprhelper
-    {
-        std::string LL_COMMON_API ndConvertFilename(std::string const &aFilename);
-    }
 
 #endif // LL_LLAPR_H
