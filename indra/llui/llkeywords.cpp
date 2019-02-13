@@ -346,12 +346,14 @@ void LLKeywords::processTokensGroup(const LLSD& tokens, const std::string& group
 						break;
 					case LLKeywordToken::TT_FUNCTION:
 						tooltip = getAttribute("return") + " " + outer_itr->first + "(" + getArguments(arguments) + ");";
+/* 
 						tooltip.append("\nEnergy: ");
 						tooltip.append(getAttribute("energy").empty() ? "0.0" : getAttribute("energy"));
 						if (!getAttribute("sleep").empty())
 						{
 							tooltip += ", Sleep: " + getAttribute("sleep");
 						}
+ */
 					default:
 						break;
 				}
