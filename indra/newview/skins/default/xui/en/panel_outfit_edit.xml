@@ -401,7 +401,8 @@ It is calculated as border_size + 2*UIResizeBarOverlap
                 name="shop_btn_1"
                 top="1"
                 tool_tip="Visit the SL Marketplace. You can also select something you are wearing, then click here to see more things like it"
-                width="31" />
+                width="31"
+                only_in_sl="true"/>
     </panel>
 
 
@@ -476,7 +477,8 @@ It is calculated as border_size + 2*UIResizeBarOverlap
                 name="shop_btn_2"
                 top="1"
                 tool_tip="Visit the SL Marketplace. You can also select something you are wearing, then click here to see more things like it"
-                width="31" />
+                width="31"
+                only_in_sl="true"/>
     </panel>
 
     <!-- SAVE AND REVERT BUTTONS -->
