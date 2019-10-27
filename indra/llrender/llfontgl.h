@@ -165,6 +165,10 @@ public:
 
 	static void initClass(F32 screen_dpi, F32 x_scale, F32 y_scale, const std::string& app_dir,const std::string& fonts_file, F32 size_mod, bool create_gl_textures = true);
 
+	       void dumpTextures();
+	static void dumpFonts();
+	static void dumpFontTextures();
+
 	// Load sans-serif, sans-serif-small, etc.
 	// Slow, requires multiple seconds to load fonts.
 	static bool loadDefaultFonts();
