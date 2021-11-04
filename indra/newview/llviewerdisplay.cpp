@@ -890,7 +890,6 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 				glh::matrix4f proj = get_current_projection();
 				glh::matrix4f mod = get_current_modelview();
 				glViewport(0,0,512,512);
-				LLVOAvatar::updateFreezeCounter() ;
 
 				LLVOAvatar::updateImpostors();
 

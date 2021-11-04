@@ -635,7 +635,6 @@ private:
 //-----------------------------------------------------------------------------
 // Static Data
 //-----------------------------------------------------------------------------
-S32 LLVOAvatar::sFreezeCounter = 0;
 U32 LLVOAvatar::sMaxNonImpostors = 12; // Set from RenderAvatarMaxNonImpostors
 bool LLVOAvatar::sLimitNonImpostors = false; // True unless RenderAvatarMaxNonImpostors is 0 (unlimited)
 F32 LLVOAvatar::sRenderDistance = 256.f;
@@ -4311,8 +4310,7 @@ void LLVOAvatar::computeUpdatePeriod()
         && (!isSelf() || visually_muted)
         && !isUIAvatar()
         && (sLimitNonImpostors || visually_muted)
-        && !mNeedsAnimUpdate 
-        && !sFreezeCounter)
+        && !mNeedsAnimUpdate)
 	{
 		const LLVector4a* ext = mDrawable->getSpatialExtents();
 		LLVector4a size;
@@ -10498,23 +10496,6 @@ LLHost LLVOAvatar::getObjectHost() const
 	else
 	{
 		return LLHost();
-	}
-}
-
-//static
-void LLVOAvatar::updateFreezeCounter(S32 counter)
-{
-	if(counter)
-	{
-		sFreezeCounter = counter;
-	}
-	else if(sFreezeCounter > 0)
-	{
-		sFreezeCounter--;
-	}
-	else
-	{
-		sFreezeCounter = 0;
 	}
 }
 
