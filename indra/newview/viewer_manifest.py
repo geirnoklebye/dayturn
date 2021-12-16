@@ -520,7 +520,7 @@ class WindowsManifest(ViewerManifest):
                 self.path("alut.dll")
 
             # For textures
-            self.path("openjpeg.dll")
+            self.path("openjp2.dll")
 
             # Uriparser
             self.path("uriparser.dll")

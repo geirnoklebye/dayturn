@@ -65,7 +65,7 @@ if(WINDOWS)
 
     set(release_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
     set(release_files
-        openjpeg.dll
+        openjp2.dll
         libapr-1.dll
         libaprutil-1.dll
         libapriconv-1.dll
@@ -257,8 +257,7 @@ elseif(LINUX)
           libexpat.so.1
           libgmodule-2.0.so.0 
           libgobject-2.0.so 
-          libopenjpeg.so
-          libopenjpeg.so.1.4.0
+          libopenjp2.so
          )
     else(${ARCH} STREQUAL "x86_64")
       set(vivox_src_dir "${ARCH_PREBUILT_DIRS_RELEASE}")
