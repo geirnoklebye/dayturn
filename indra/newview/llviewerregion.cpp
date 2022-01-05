@@ -99,8 +99,6 @@ extern bool gIsInSecondLife; //Opensim or SecondLife
 
 // The server only keeps our pending agent info for 60 seconds.
 // We want to allow for seed cap retry, but its not useful after that 60 seconds.
-// Give it 3 chances, each at 18 seconds to give ourselves a few seconds to connect anyways if we give up.
-const S32 MAX_SEED_CAP_ATTEMPTS_BEFORE_LOGIN = 3;
 // Even though we gave up on login, keep trying for caps after we are logged in:
 const S32 MAX_CAP_REQUEST_ATTEMPTS = 30;
 const U32 DEFAULT_MAX_REGION_WIDE_PRIM_COUNT = 15000;
@@ -182,7 +180,6 @@ public:
         mCompositionp(NULL),
         mEventPoll(NULL),
         mSeedCapMaxAttempts(MAX_CAP_REQUEST_ATTEMPTS),
-        mSeedCapMaxAttemptsBeforeLogin(MAX_SEED_CAP_ATTEMPTS_BEFORE_LOGIN),
         mSeedCapAttempts(0),
         mHttpResponderID(0),
         mLastCameraUpdate(0),
@@ -235,7 +232,6 @@ public:
 	LLEventPoll* mEventPoll;
 
 	S32 mSeedCapMaxAttempts;
-	S32 mSeedCapMaxAttemptsBeforeLogin;
 	S32 mSeedCapAttempts;
 
 	S32 mHttpResponderID;
@@ -290,23 +286,17 @@ void LLViewerRegionImpl::requestBaseCapabilitiesCoro(U64 regionHandle)
         if (url.empty())
         {
             LL_WARNS("AppInit", "Capabilities") << "Failed to get seed capabilities, and can not determine url!" << LL_ENDL;
+            regionp->setCapabilitiesError();
             return; // this error condition is not recoverable.
         }
 
         // record that we just entered a new region
         newRegionEntry(*regionp);
 
-        // After a few attempts, continue login.  But keep trying to get the caps:
-        if (impl->mSeedCapAttempts >= impl->mSeedCapMaxAttemptsBeforeLogin &&
-            STATE_SEED_GRANTED_WAIT == LLStartUp::getStartupState())
-        {
-            LLStartUp::setStartupState(STATE_SEED_CAP_GRANTED);
-        }
-
         if (impl->mSeedCapAttempts > impl->mSeedCapMaxAttempts)
         {
-            // *TODO: Give a user pop-up about this error?
             LL_WARNS("AppInit", "Capabilities") << "Failed to get seed capabilities from '" << url << "' after " << impl->mSeedCapAttempts << " attempts.  Giving up!" << LL_ENDL;
+            regionp->setCapabilitiesError();
             return;  // this error condition is not recoverable.
         }
 
@@ -398,11 +388,6 @@ void LLViewerRegionImpl::requestBaseCapabilitiesCoro(U64 regionHandle)
 														 << " region name " << regionp->getName() << LL_ENDL;
         regionp->setCapabilitiesReceived(true);
 
-        if (STATE_SEED_GRANTED_WAIT == LLStartUp::getStartupState())
-        {
-            LLStartUp::setStartupState(STATE_SEED_CAP_GRANTED);
-        }
-
         break;
     } 
     while (true);
@@ -446,6 +431,11 @@ void LLViewerRegionImpl::requestBaseCapabilitiesCompleteCoro(U64 regionHandle)
         if (url.empty())
         {
             LL_WARNS("AppInit", "Capabilities") << "Failed to get seed capabilities, and can not determine url!" << LL_ENDL;
+            if (regionp->getCapability("Seed").empty())
+            {
+                // initial attempt failed to get this cap as well
+                regionp->setCapabilitiesError();
+            }
             break; // this error condition is not recoverable.
         }
 
@@ -647,7 +637,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mCacheLoaded(false),
 	mCacheDirty(false),
 	mReleaseNotesRequested(false),
-	mCapabilitiesReceived(false),
+	mCapabilitiesState(CAPABILITIES_STATE_INIT),
 	mWidth(region_width_meters),
 	mSimulatorFeaturesReceived(false),
 	mBitsReceived(0.f),
@@ -3349,12 +3339,17 @@ bool LLViewerRegion::isCapabilityAvailable(const std::string& name) const
 
 bool LLViewerRegion::capabilitiesReceived() const
 {
-	return mCapabilitiesReceived;
+	return mCapabilitiesState == CAPABILITIES_STATE_RECEIVED;
+}
+
+bool LLViewerRegion::capabilitiesError() const
+{
+    return mCapabilitiesState == CAPABILITIES_STATE_ERROR;
 }
 
 void LLViewerRegion::setCapabilitiesReceived(bool received)
 {
-	mCapabilitiesReceived = received;
+	mCapabilitiesState = received ? CAPABILITIES_STATE_RECEIVED : CAPABILITIES_STATE_INIT;
 
 	// Tell interested parties that we've received capabilities,
 	// so that they can safely use getCapability().
@@ -3367,6 +3362,11 @@ void LLViewerRegion::setCapabilitiesReceived(bool received)
 		// This is a single-shot signal. Forget callbacks to save resources.
 		mCapabilitiesReceivedSignal.disconnect_all_slots();
 	}
+}
+
+void LLViewerRegion::setCapabilitiesError()
+{
+    mCapabilitiesState = CAPABILITIES_STATE_ERROR;
 }
 
 boost::signals2::connection LLViewerRegion::setCapabilitiesReceivedCallback(const caps_received_signal_t::slot_type& cb)
