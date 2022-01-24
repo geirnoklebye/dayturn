@@ -2222,6 +2222,7 @@ bool LLScrollListCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
 			registrar.add("Url.SendIM", boost::bind(&LLScrollListCtrl::sendIM, id));
 			registrar.add("Url.AddFriend", boost::bind(&LLScrollListCtrl::addFriend, id));
 			registrar.add("Url.RemoveFriend", boost::bind(&LLScrollListCtrl::removeFriend, id));
+            registrar.add("Url.ReportAbuse", boost::bind(&LLScrollListCtrl::reportAbuse, id, is_group));
 			registrar.add("Url.Execute", boost::bind(&LLScrollListCtrl::showNameDetails, id, is_group));
 			registrar.add("Url.CopyLabel", boost::bind(&LLScrollListCtrl::copyNameToClipboard, id, is_group));
 			registrar.add("Url.CopyUrl", boost::bind(&LLScrollListCtrl::copySLURLToClipboard, id, is_group));
@@ -2290,6 +2291,15 @@ void LLScrollListCtrl::removeFriend(std::string id)
 {
 	std::string slurl = "secondlife:///app/agent/" + id + "/about";
 	LLUrlAction::removeFriend(slurl);
+}
+
+void LLScrollListCtrl::reportAbuse(std::string id, bool is_group)
+{
+    if (!is_group)
+    {
+        std::string slurl = "secondlife:///app/agent/" + id + "/about";
+        LLUrlAction::reportAbuse(slurl);
+    }
 }
 
 void LLScrollListCtrl::showNameDetails(std::string id, bool is_group)

@@ -48,6 +48,7 @@
 #include "llspeakers.h" //for LLIMSpeakerMgr
 #include "lltrans.h"
 #include "llfloaterreg.h"
+#include "llfloaterreporter.h"
 #include "llfloatersidepanelcontainer.h"
 #include "llmutelist.h"
 #include "llstylemap.h"
@@ -442,6 +443,11 @@ public:
 		{
 			LLAvatarActions::pay(getAvatarId());
 		}
+        else if (level == "report_abuse")
+        {
+            std::string time = getChild<LLTextBox>("time_box")->getValue().asString();
+            LLFloaterReporter::showFromChat(mAvatarID, mFrom, time, mText);
+        }
 		else if (level == "block_unblock")
 		{
 			LLAvatarActions::toggleMute(getAvatarId(), LLMute::flagVoiceChat);
@@ -579,6 +585,10 @@ public:
 		{
 			return canModerate(userdata);
 		}
+        else if (level == "report_abuse")
+        {
+            return gAgentID != mAvatarID;
+        }
 		else if (level == "can_ban_member")
 		{
 			return canBanGroupMember(getAvatarId());
@@ -848,6 +858,12 @@ public:
 		mAvatarID = chat.mFromID;
 		mSessionID = chat.mSessionID;
 		mSourceType = chat.mSourceType;
+
+        // To be able to report a message, we need a copy of it's text
+        // and it's easier to store text directly than trying to get
+        // it from a lltextsegment or chat's mEditor
+        mText = chat.mText;
+
 //CA
 		mType = chat.mChatType; // FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
 //ca
@@ -1398,6 +1414,7 @@ protected:
 //ca
 	std::string			mFrom;
 	LLUUID				mSessionID;
+    std::string			mText;
 
 	S32					mMinUserNameWidth;
 	const LLFontGL*		mUserNameFont;
