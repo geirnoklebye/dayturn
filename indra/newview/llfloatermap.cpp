@@ -77,35 +77,44 @@ LLFloaterMap::~LLFloaterMap()
 
 bool LLFloaterMap::postBuild()
 {
-	mMap = getChild<LLNetMap>("Net Map");
-	if (gSavedSettings.getbool("DoubleClickTeleport"))
-	{
-		mMap->setToolTipMsg(getString("AltToolTipMsg"));
-	}
-	else if (gSavedSettings.getbool("DoubleClickShowWorldMap"))
-	{
-		mMap->setToolTipMsg(getString("ToolTipMsg"));
-	}
-	sendChildToBack(mMap);
-	
-	mTextBoxNorth = getChild<LLTextBox> ("floater_map_north");
-	mTextBoxEast = getChild<LLTextBox> ("floater_map_east");
-	mTextBoxWest = getChild<LLTextBox> ("floater_map_west");
-	mTextBoxSouth = getChild<LLTextBox> ("floater_map_south");
-	mTextBoxSouthEast = getChild<LLTextBox> ("floater_map_southeast");
-	mTextBoxNorthEast = getChild<LLTextBox> ("floater_map_northeast");
-	mTextBoxSouthWest = getChild<LLTextBox> ("floater_map_southwest");
-	mTextBoxNorthWest = getChild<LLTextBox> ("floater_map_northwest");
+    mMap = getChild<LLNetMap>("Net Map");
+    mMap->setToolTipMsg(getString("ToolTipMsg"));
+    mMap->setParcelNameMsg(getString("ParcelNameMsg"));
+    mMap->setParcelSalePriceMsg(getString("ParcelSalePriceMsg"));
+    mMap->setParcelSaleAreaMsg(getString("ParcelSaleAreaMsg"));
+    mMap->setParcelOwnerMsg(getString("ParcelOwnerMsg"));
+    mMap->setRegionNameMsg(getString("RegionNameMsg"));
+    mMap->setToolTipHintMsg(getString("ToolTipHintMsg"));
+    mMap->setAltToolTipHintMsg(getString("AltToolTipHintMsg"));
+    sendChildToBack(mMap);
 
-	updateMinorDirections();
+    mTextBoxNorth     = getChild<LLTextBox>("floater_map_north");
+    mTextBoxEast      = getChild<LLTextBox>("floater_map_east");
+    mTextBoxWest      = getChild<LLTextBox>("floater_map_west");
+    mTextBoxSouth     = getChild<LLTextBox>("floater_map_south");
+    mTextBoxSouthEast = getChild<LLTextBox>("floater_map_southeast");
+    mTextBoxNorthEast = getChild<LLTextBox>("floater_map_northeast");
+    mTextBoxSouthWest = getChild<LLTextBox>("floater_map_southwest");
+    mTextBoxNorthWest = getChild<LLTextBox>("floater_map_northwest");
 
-	// Get the drag handle all the way in back
-	sendChildToBack(getDragHandle());
+    mTextBoxNorth->reshapeToFitText();
+    mTextBoxEast->reshapeToFitText();
+    mTextBoxWest->reshapeToFitText();
+    mTextBoxSouth->reshapeToFitText();
+    mTextBoxSouthEast->reshapeToFitText();
+    mTextBoxNorthEast->reshapeToFitText();
+    mTextBoxSouthWest->reshapeToFitText();
+    mTextBoxNorthWest->reshapeToFitText();
 
-	// keep onscreen
-	gFloaterView->adjustToFitScreen(this, false);
+    updateMinorDirections();
 
-	return true;
+    // Get the drag handle all the way in back
+    sendChildToBack(getDragHandle());
+
+    // keep onscreen
+    gFloaterView->adjustToFitScreen(this, false);
+
+    return true;
 }
 
 bool LLFloaterMap::handleDoubleClick(S32 x, S32 y, MASK mask)
@@ -140,8 +149,8 @@ bool LLFloaterMap::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 void LLFloaterMap::setDirectionPos( LLTextBox* text_box, F32 rotation )
 {
-	// Rotation is in radians.
-	// Rotation of 0 means x = 1, y = 0 on the unit circle.
+    // Rotation is in radians.
+    // Rotation of 0 means x = 1, y = 0 on the unit circle.
 
 	F32 map_half_height = (F32)(getRect().getHeight() / 2) - getHeaderHeight()/2;
 	F32 map_half_width = (F32)(getRect().getWidth() / 2) ;

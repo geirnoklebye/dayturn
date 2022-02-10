@@ -85,8 +85,17 @@ public:
 
 	void			refreshParcelOverlay() { mUpdateParcelImage = true; }
 
-	void			setScale( F32 scale );
-	void			setToolTipMsg(const std::string& msg) { mToolTipMsg = msg; }
+    void            setScale(F32 scale);
+
+    void            setToolTipMsg(const std::string& msg) { mToolTipMsg = msg; }
+    void            setParcelNameMsg(const std::string& msg) { mParcelNameMsg = msg; }
+    void            setParcelSalePriceMsg(const std::string& msg) { mParcelSalePriceMsg = msg; }
+    void            setParcelSaleAreaMsg(const std::string& msg) { mParcelSaleAreaMsg = msg; }
+    void            setParcelOwnerMsg(const std::string& msg) { mParcelOwnerMsg = msg; }
+    void            setRegionNameMsg(const std::string& msg) { mRegionNameMsg = msg; }
+    void            setToolTipHintMsg(const std::string& msg) { mToolTipHintMsg = msg; }
+    void            setAltToolTipHintMsg(const std::string& msg) { mAltToolTipHintMsg = msg; }
+
 	void			renderScaledPointGlobal( const LLVector3d& pos, const LLColor4U &color, F32 radius );
 
 	// <FS:Ansariel> Mark avatar feature
@@ -147,7 +156,14 @@ private:
 	LLUUID				mClosestAgentToCursor;
 	LLVector3d			mClosestAgentPosition;
 
-	std::string	mToolTipMsg;
+    std::string     mToolTipMsg;
+    std::string     mParcelNameMsg;
+    std::string     mParcelSalePriceMsg;
+    std::string     mParcelSaleAreaMsg;
+    std::string     mParcelOwnerMsg;
+    std::string     mRegionNameMsg;
+    std::string     mToolTipHintMsg;
+    std::string     mAltToolTipHintMsg;
 
 	// <FS:Ansariel> Mark avatar feature
 	typedef std::map<LLUUID, LLColor4> avatar_marks_map_t;
