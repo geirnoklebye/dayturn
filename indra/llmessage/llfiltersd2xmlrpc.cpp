@@ -1,4 +1,4 @@
-/** 
+/**
  * @file llfiltersd2xmlrpc.cpp
  * @author Phoenix
  * @date 2005-04-26
@@ -6,27 +6,27 @@
  * $LicenseInfo:firstyear=2005&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
 
-/** 
- * xml rpc request: 
+/**
+ * xml rpc request:
  * <code>
  * <?xml version="1.0"?>
  * <methodCall><methodName>examples.getStateName</methodName>
@@ -57,17 +57,17 @@
  * <code>
  * { 'method':'...', 'parameter':...]}
  * </code>
- * 
+ *
  * llsd rpc response:
  * <code>
  * { 'response':... }
  * </code>
- * 
+ *
  * llsd rpc fault: 
  * <code>
  * { 'fault': {'code':i..., 'description':'...'} }
  * </code>
- * 
+ *
  */
 
 #include "linden_common.h"
@@ -75,7 +75,13 @@
 
 #include <sstream>
 #include <iterator>
+
+#ifdef LL_USESYSTEMLIBS
+#include <xmlrpc.h>
+#else
 #include <xmlrpc-epi/xmlrpc.h>
+#endif
+
 #include "apr_base64.h"
 
 #include "llbuffer.h"
@@ -277,12 +283,12 @@ void LLFilterSD2XMLRPC::streamOut(std::ostream& ostr, const LLSD& sd)
 		if(!buffer.empty())
 		{
 			// *TODO: convert to LLBase64
-			int b64_buffer_length = apr_base64_encode_len(buffer.size());
+            int b64_buffer_length = apr_base64_encode_len(static_cast<int>(buffer.size()));
 			char* b64_buffer = new char[b64_buffer_length];
 			b64_buffer_length = apr_base64_encode_binary(
 				b64_buffer,
 				&buffer[0],
-				buffer.size());
+                static_cast<int>(buffer.size()));
 			ostr.write(b64_buffer, b64_buffer_length - 1);
 			delete[] b64_buffer;
 		}
