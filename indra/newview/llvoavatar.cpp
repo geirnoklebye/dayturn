@@ -2647,7 +2647,11 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 	if (!(gPipeline.hasRenderType(mIsControlAvatar ? LLPipeline::RENDER_TYPE_CONTROL_AV : LLPipeline::RENDER_TYPE_AVATAR))
 		&& !disable_all_render_types && !isSelf())
 	{
-		return;
+        if (!mIsControlAvatar)
+        {
+            idleUpdateNameTag( mLastRootPos );
+        }
+        return;
 	}
 
     // Update should be happening max once per frame.
