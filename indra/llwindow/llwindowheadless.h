@@ -32,73 +32,78 @@
 class LLWindowHeadless : public LLWindow
 {
 public:
-	/*virtual*/ void show() {};
-	/*virtual*/ void hide() {};
-	/*virtual*/ void close() {};
-	/*virtual*/ bool getVisible() {return false;};
-	/*virtual*/ bool getMinimized() {return false;};
-	/*virtual*/ bool getMaximized() {return false;};
-	/*virtual*/ bool maximize() {return false;};
-	/*virtual*/ void minimize() {};
-	/*virtual*/ void restore() {};
+	/*virtual*/ void show() override {}
+	/*virtual*/ void hide() override {}
+	/*virtual*/ void close() override {}
+	/*virtual*/ bool getVisible() override {return false;}
+	/*virtual*/ bool getMinimized() override {return false;}
+	/*virtual*/ bool getMaximized() override {return false;}
+	/*virtual*/ bool maximize() override {return false;}
+	/*virtual*/ void minimize() override {}
+	/*virtual*/ void restore() override {}
+	// TODO: LLWindow::getFullscreen() is (intentionally?) NOT virtual.
+	// Apparently the coder of LLWindowHeadless didn't realize that. Is it a
+	// mistake to shadow the base-class method with an LLWindowHeadless
+	// override when called on the subclass, yet call the base-class method
+	// when indirecting through a polymorphic pointer or reference?
 	/*virtual*/ bool getFullscreen() {return false;};
-	/*virtual*/ bool getPosition(LLCoordScreen *position) {return false;};
-	/*virtual*/ bool getSize(LLCoordScreen *size) {return false;};
-	/*virtual*/ bool getSize(LLCoordWindow *size) {return false;};
-	/*virtual*/ bool setPosition(LLCoordScreen position) {return false;};
-	/*virtual*/ bool setSizeImpl(LLCoordScreen size) {return false;};
-	/*virtual*/ bool setSizeImpl(LLCoordWindow size) {return false;};
-	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool enable_vsync, const LLCoordScreen * const posp = nullptr) {return false;};
-    void* createSharedContext()  { return nullptr; }
-    void makeContextCurrent(void*)  {}
-    void destroySharedContext(void*)  {}
-    /*virtual*/ void toggleVSync(bool enable_vsync) { }
-    /*virtual*/ bool setCursorPosition(LLCoordWindow position) {return false;};
-    /*virtual*/ bool getCursorPosition(LLCoordWindow *position) {return false;};
+	/*virtual*/ bool getPosition(LLCoordScreen *position) override {return false;}
+	/*virtual*/ bool getSize(LLCoordScreen *size) override {return false;}
+	/*virtual*/ bool getSize(LLCoordWindow *size) override {return false;}
+	/*virtual*/ bool setPosition(LLCoordScreen position) override {return false;}
+	/*virtual*/ bool setSizeImpl(LLCoordScreen size) override {return false;}
+	/*virtual*/ bool setSizeImpl(LLCoordWindow size) override {return false;}
+	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool enable_vsync, const LLCoordScreen * const posp = nullptr) override {return false;};
+    void* createSharedContext()  override { return nullptr; }
+    void makeContextCurrent(void*)  override {}
+    void destroySharedContext(void*)  override {}
+    /*virtual*/ void toggleVSync(bool enable_vsync) override { }
+    /*virtual*/ bool setCursorPosition(LLCoordWindow position) override {return false;}
+    /*virtual*/ bool getCursorPosition(LLCoordWindow *position) override {return false;}
 #if LL_WINDOWS
-    /*virtual*/ bool getCursorDelta(LLCoordCommon* delta) { return false; }
+    /*virtual*/ bool getCursorDelta(LLCoordCommon* delta) override { return false; }
 #endif
     /*virtual*/ bool isWrapMouse() const override { return true; }
-	/*virtual*/ void showCursor() {};
-	/*virtual*/ void hideCursor() {};
-	/*virtual*/ void showCursorFromMouseMove() {};
-	/*virtual*/ void hideCursorUntilMouseMove() {};
-	/*virtual*/ bool isCursorHidden() {return false;};
-	/*virtual*/ void updateCursor() {};
-	//virtual ECursorType getCursor() { return mCurrentCursor; };
-	/*virtual*/ void captureMouse() {};
-	/*virtual*/ void releaseMouse() {};
-	/*virtual*/ void setMouseClipping( bool b ) {};
-	/*virtual*/ bool isClipboardTextAvailable() {return false; };
-	/*virtual*/ bool pasteTextFromClipboard(LLWString &dst) {return false; };
-	/*virtual*/ bool copyTextToClipboard(const LLWString &src) {return false; };
-	/*virtual*/ void flashIcon(F32 seconds) {};
-	/*virtual*/ F32 getGamma() {return 1.0f; };
-	/*virtual*/ bool setGamma(const F32 gamma) {return false; }; // Set the gamma
-	/*virtual*/ void setFSAASamples(const U32 fsaa_samples) { }
-	/*virtual*/ U32 getFSAASamples() { return 0; }
-	/*virtual*/ bool restoreGamma() {return false; };	// Restore original gamma table (before updating gamma)
-	//virtual ESwapMethod getSwapMethod() { return mSwapMethod; }
-	/*virtual*/ void gatherInput() {};
-	/*virtual*/ void delayInputProcessing() {};
-	/*virtual*/ void swapBuffers();
+	/*virtual*/ void showCursor() override {}
+	/*virtual*/ void hideCursor() override {}
+	/*virtual*/ void showCursorFromMouseMove() override {}
+	/*virtual*/ void hideCursorUntilMouseMove() override {}
+	/*virtual*/ bool isCursorHidden() override {return false;}
+	/*virtual*/ void updateCursor() override {}
+	//virtual ECursorType getCursor() override { return mCurrentCursor; }
+	/*virtual*/ void captureMouse() override {}
+	/*virtual*/ void releaseMouse() override {}
+	/*virtual*/ void setMouseClipping( bool b ) override {}
+	/*virtual*/ bool isClipboardTextAvailable() override {return false; }
+	/*virtual*/ bool pasteTextFromClipboard(LLWString &dst) override {return false; }
+	/*virtual*/ bool copyTextToClipboard(const LLWString &src) override {return false; }
+	/*virtual*/ void flashIcon(F32 seconds) override {}
+	/*virtual*/ F32 getGamma() override {return 1.0f; }
+	/*virtual*/ bool setGamma(const F32 gamma) override {return false; } // Set the gamma
+	/*virtual*/ void setFSAASamples(const U32 fsaa_samples) override { }
+	/*virtual*/ U32 getFSAASamples() override { return 0; }
+	/*virtual*/ bool restoreGamma() override {return false; }	// Restore original gamma table (before updating gamma)
+	//virtual ESwapMethod getSwapMethod() override { return mSwapMethod; }
+	/*virtual*/ void gatherInput() override {}
+	/*virtual*/ void delayInputProcessing() override {}
+	/*virtual*/ void swapBuffers() override;
 
 	
     // handy coordinate space conversion routines
-	/*virtual*/ bool convertCoords(LLCoordScreen from, LLCoordWindow *to) { return false; };
-	/*virtual*/ bool convertCoords(LLCoordWindow from, LLCoordScreen *to) { return false; };
-	/*virtual*/ bool convertCoords(LLCoordWindow from, LLCoordGL *to) { return false; };
-	/*virtual*/ bool convertCoords(LLCoordGL from, LLCoordWindow *to) { return false; };
-	/*virtual*/ bool convertCoords(LLCoordScreen from, LLCoordGL *to) { return false; };
-	/*virtual*/ bool convertCoords(LLCoordGL from, LLCoordScreen *to) { return false; };
+	/*virtual*/ bool convertCoords(LLCoordScreen from, LLCoordWindow *to) override { return false; }
+	/*virtual*/ bool convertCoords(LLCoordWindow from, LLCoordScreen *to) override { return false; }
+	/*virtual*/ bool convertCoords(LLCoordWindow from, LLCoordGL *to) override { return false; }
+	/*virtual*/ bool convertCoords(LLCoordGL from, LLCoordWindow *to) override { return false; }
+	/*virtual*/ bool convertCoords(LLCoordScreen from, LLCoordGL *to) override { return false; }
+	/*virtual*/ bool convertCoords(LLCoordGL from, LLCoordScreen *to) override { return false; }
 
-	/*virtual*/ LLWindowResolution* getSupportedResolutions(S32 &num_resolutions) { return nullptr; };
-	/*virtual*/ F32	getNativeAspectRatio() { return 1.0f; };
-	/*virtual*/ F32 getPixelAspectRatio() { return 1.0f; };
-	/*virtual*/ void setNativeAspectRatio(F32 ratio) {}
+	/*virtual*/ LLWindowResolution* getSupportedResolutions(S32 &num_resolutions) override { return nullptr; }
+	/*virtual*/ F32	getNativeAspectRatio() override { return 1.0f; }
+	/*virtual*/ F32 getPixelAspectRatio() override { return 1.0f; }
+	/*virtual*/ void setNativeAspectRatio(F32 ratio) override {}
 
-	/*virtual*/ void *getPlatformWindow() { return nullptr; };
-	/*virtual*/ void bringToFront() {};
+	/*virtual*/ void *getPlatformWindow() override { return nullptr; }
+	/*virtual*/ void bringToFront() override {}
 	
 	LLWindowHeadless(LLWindowCallbacks* callbacks,
 		const std::string& title, const std::string& name,
