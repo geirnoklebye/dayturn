@@ -445,8 +445,30 @@ public:
 		}
         else if (level == "report_abuse")
         {
-            std::string time = getChild<LLTextBox>("time_box")->getValue().asString();
-            LLFloaterReporter::showFromChat(mAvatarID, mFrom, time, mText);
+            std::string time_string;
+            if (mTime > 0) // have frame time
+            {
+                time_t current_time = time_corrected();
+                time_t message_time = current_time - LLFrameTimer::getElapsedSeconds() + mTime;
+
+                time_string = "[" + LLTrans::getString("TimeMonth") + "]/["
+                    + LLTrans::getString("TimeDay") + "]/["
+                    + LLTrans::getString("TimeYear") + "] ["
+                    + LLTrans::getString("TimeHour") + "]:["
+                    + LLTrans::getString("TimeMin") + "]";
+
+                LLSD substitution;
+
+                substitution["datetime"] = (S32)message_time;
+                LLStringUtil::format(time_string, substitution);
+            }
+            else
+            {
+                // From history. This might be not full.
+                // See LLChatLogParser::parse if it needs to include full date
+                time_string = getChild<LLTextBox>("time_box")->getValue().asString();
+            }
+            LLFloaterReporter::showFromChat(mAvatarID, mFrom, time_string, mText);
         }
 		else if (level == "block_unblock")
 		{
@@ -863,6 +885,7 @@ public:
         // and it's easier to store text directly than trying to get
         // it from a lltextsegment or chat's mEditor
         mText = chat.mText;
+        mTime = chat.mTime;
 
 //CA
 		mType = chat.mChatType; // FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
@@ -1415,6 +1438,7 @@ protected:
 	std::string			mFrom;
 	LLUUID				mSessionID;
     std::string			mText;
+    F64					mTime;
 
 	S32					mMinUserNameWidth;
 	const LLFontGL*		mUserNameFont;
