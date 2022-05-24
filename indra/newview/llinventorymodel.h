@@ -304,6 +304,10 @@ public:
 	// Follow parent chain to the top.
     EAnscestorResult getObjectTopmostAncestor(const LLUUID& object_id, LLUUID& result) const;
 
+	// <FS:Beq>  FIRE-31674 ignore suitcase contents
+	bool isInSuitcase(const LLInventoryCategory * cat) const;
+	// </FS:Beq>
+
 	//--------------------------------------------------------------------
 	// Find
 	//--------------------------------------------------------------------
