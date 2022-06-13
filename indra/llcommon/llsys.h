@@ -130,6 +130,7 @@ public:
 	void stream(std::ostream& s) const;	///< output text info to s
 
 	U32Kilobytes getPhysicalMemoryKB() const; 
+    static U32Kilobytes getHardwareMemSize(); // Because some Mac linkers won't let us reference extern gSysMemory from a different lib.
 
 	//get the available memory infomation in KiloBytes.
 	static void getAvailableMemoryKB(U32Kilobytes& avail_physical_mem_kb, U32Kilobytes& avail_virtual_mem_kb);

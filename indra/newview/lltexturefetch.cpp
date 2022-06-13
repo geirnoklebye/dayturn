@@ -579,8 +579,6 @@ private:
 	S32 mRequestedDiscard;
     S32 mLoadedDiscard;
     S32 mDecodedDiscard;
-	S32 mFullWidth;
-	S32 mFullHeight;
 	LLFrameTimer mRequestedDeltaTimer;
 	LLFrameTimer mFetchDeltaTimer;
 	LLTimer mCacheReadTimer;
