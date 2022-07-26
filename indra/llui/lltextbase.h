@@ -660,6 +660,8 @@ protected:
 		return mLabel.getString() + getToolTip();
 	}
 
+    std::vector<LLRect> getSelectionRects();
+
 protected:
 	// text segmentation and flow
 	segment_set_t       		mSegments;
