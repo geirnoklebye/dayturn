@@ -264,6 +264,7 @@ private:
 
 	void onUpdateFilterTerm( bool force = false );
 	void collectSearchableItems();
+    void filterIgnorableNotifications();
 
     std::map<std::string, bool> mIgnorableNotifs;
 };
