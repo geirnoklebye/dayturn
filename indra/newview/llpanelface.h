@@ -98,11 +98,11 @@ public:
 	LLPanelFace();
 	virtual ~LLPanelFace();
 
-    void draw();
-
 	void			refresh();
     void			refreshMedia();
     void			unloadMedia();
+
+	/*virtual*/ void draw();
 
 	LLMaterialPtr createDefaultMaterial(LLMaterialPtr current_material)
 	{

@@ -350,6 +350,17 @@ LLPanelFace::~LLPanelFace()
     unloadMedia();
 }
 
+void LLPanelFace::draw()
+{
+    updateCopyTexButton();
+
+    // grab media name/title and update the UI widget
+    // Todo: move it, it's preferable not to update
+    // labels inside draw
+    updateMediaTitle();
+
+    LLPanel::draw();
+}
 
 void LLPanelFace::sendTexture()
 {
@@ -1896,17 +1907,6 @@ void LLPanelFace::unloadMedia()
     // destroy media source used to grab media title
     if (mTitleMedia)
         mTitleMedia->unloadMediaSource();
-}
-
-void LLPanelFace::draw()
-{
-    // grab media name/title and update the UI widget
-    // Todo: move it, it's preferable not to update
-    // labels inside draw
-    updateMediaTitle();
-
-    //	mCheckSelectIndividual->set(gSavedSettings.getBOOL("EditLinkedParts"));
-    LLPanel::draw();
 }
 
 //////////////////////////////////////////////////////////////////////////////
