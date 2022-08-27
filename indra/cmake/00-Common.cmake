@@ -46,6 +46,13 @@ endif()
 set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING
     "Supported build types." FORCE)
 
+# The viewer code base can now be successfully compiled with -std=c++14. But
+# turning that on in the generic viewer-build-variables/variables file would
+# potentially require tweaking each of our ~50 third-party library builds.
+# Until we decide to set -std=c++14 in viewer-build-variables/variables, set
+# it locally here: we want to at least prevent inadvertently reintroducing
+# viewer code that would fail with C++14.
+set(CMAKE_CXX_STANDARD 17)
 
 # Platform-specific compilation flags. All non-Darwin removed
 
@@ -59,13 +66,7 @@ if (DARWIN)
   # see Variables.cmake.
   string(REPLACE "-gdwarf-2" "-g${CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT}"
     CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  # The viewer code base can now be successfully compiled with -std=c++17. But
-  # turning that on in the generic viewer-build-variables/variables file would
-  # potentially require tweaking each of our ~50 third-party library builds.
-  # Until we decide to set -std=c++17 in viewer-build-variables/variables, set
-  # it locally here: we want to at least prevent inadvertently reintroducing
-  # viewer code that would fail with C++17.        
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DARWIN_extra_cstar_flags} -std=gnu++17")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DARWIN_extra_cstar_flags}")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${DARWIN_extra_cstar_flags}")
   # NOTE: it's critical that the optimization flag is put in front.
   # NOTE: it's critical to have both CXX_FLAGS and C_FLAGS covered.
@@ -75,6 +76,11 @@ if (DARWIN)
   set(CMAKE_C_FLAGS_RELEASE "-O3 ${CMAKE_C_FLAGS_RELEASE}")  
   set(ENABLE_SIGNING TRUE)
   set(SIGNING_IDENTITY "Developer ID Application: Geir Noklebye")
+
+
+  # required for clang-15/xcode-15 since our boost package still uses deprecated std::unary_function/binary_function
+  # see https://developer.apple.com/documentation/xcode-release-notes/xcode-15-release-notes#C++-Standard-Library
+  # add_compile_definitions(_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
 
   if (CMAKE_CXX_COMPILER MATCHES ".*clang")
     set(CMAKE_COMPILER_IS_CLANGXX 1)
