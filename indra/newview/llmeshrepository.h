@@ -286,7 +286,7 @@ public:
 	std::set<UUIDBasedRequest> mSkinRequests;
 	
 	// list of completed skin info requests
-	std::list<LLMeshSkinInfo> mSkinInfoQ;
+	std::list<LLMeshSkinInfo*> mSkinInfoQ;
 
 	//set of requested decompositions
 	std::set<UUIDBasedRequest> mDecompositionRequests;
@@ -586,7 +586,8 @@ public:
 	void notifyLoadedMeshes();
 	void notifyMeshLoaded(const LLVolumeParams& mesh_params, LLVolume* volume);
 	void notifyMeshUnavailable(const LLVolumeParams& mesh_params, S32 lod);
-	void notifySkinInfoReceived(LLMeshSkinInfo& info);
+	void notifySkinInfoReceived(LLMeshSkinInfo* info);
+	void notifySkinInfoUnavailable(const LLUUID& info);
 	void notifyDecompositionReceived(LLModel::Decomposition* info);
 
 	S32 getActualMeshLOD(const LLVolumeParams& mesh_params, S32 lod);
@@ -622,10 +623,7 @@ public:
 	// <FS:Ansariel> DAE export
 	LLUUID getCreatorFromHeader(const LLUUID& mesh_id);
 
-	// <FS:Ansariel> Faster lookup
-	//typedef std::unordered_map<LLUUID, LLMeshSkinInfo> skin_map;
-	typedef boost::unordered_map<LLUUID, LLMeshSkinInfo, FSUUIDHash> skin_map;
-	// </FS:Ansariel>
+	typedef std::unordered_map<LLUUID, LLPointer<LLMeshSkinInfo>> skin_map;
 	skin_map mSkinMap;
 
 	typedef std::map<LLUUID, LLModel::Decomposition*> decomposition_map;
@@ -661,6 +659,8 @@ public:
 	std::vector<LLMeshUploadThread*> mUploadWaitList;
 
 	LLPhysicsDecomp* mDecompThread;
+
+	LLFrameTimer     mSkinInfoCullTimer;
 	
 	class inventory_data
 	{
