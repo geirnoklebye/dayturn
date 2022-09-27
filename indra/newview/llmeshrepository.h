@@ -580,6 +580,7 @@ public:
 	void shutdown();
 	S32 update();
 
+	void unregisterMesh(LLVOVolume* volume);
 	//mesh management functions
 	S32 loadMesh(LLVOVolume* volume, const LLVolumeParams& mesh_params, S32 detail = 0, S32 last_lod = -1);
 	
@@ -592,7 +593,7 @@ public:
 
 	S32 getActualMeshLOD(const LLVolumeParams& mesh_params, S32 lod);
 	static S32 getActualMeshLOD(LLSD& header, S32 lod);
-	const LLMeshSkinInfo* getSkinInfo(const LLUUID& mesh_id, const LLVOVolume* requesting_obj = nullptr);
+	const LLMeshSkinInfo* getSkinInfo(const LLUUID& mesh_id, LLVOVolume* requesting_obj = nullptr);
 	LLModel::Decomposition* getDecomposition(const LLUUID& mesh_id);
 	void fetchPhysicsShape(const LLUUID& mesh_id);
 	bool hasPhysicsShape(const LLUUID& mesh_id);
@@ -617,7 +618,7 @@ public:
 	static void metricsProgress(unsigned int count);
 	static void metricsUpdate();
 	
-	typedef boost::unordered_map<LLUUID, std::vector<LLUUID> > mesh_load_map;
+	typedef boost::unordered_map<LLUUID, std::vector<LLVOVolume*> > mesh_load_map;
 	mesh_load_map mLoadingMeshes[4];
 	
 	// <FS:Ansariel> DAE export
@@ -634,7 +635,7 @@ public:
 	std::vector<LLMeshRepoThread::LODRequest> mPendingRequests;
 	
 	//list of mesh ids awaiting skin info
-	typedef std::map<LLUUID, std::set<LLUUID> > skin_load_map;
+	typedef boost::unordered_map<LLUUID, std::vector<LLVOVolume*> > skin_load_map;
 	skin_load_map mLoadingSkins;
 
 	//list of mesh ids that need to send skin info fetch requests
