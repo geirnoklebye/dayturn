@@ -1939,20 +1939,7 @@ EMeshProcessingResult LLMeshRepoThread::lodReceived(const LLVolumeParams& mesh_p
 	}
 
 	LLPointer<LLVolume> volume = new LLVolume(mesh_params, LLVolumeLODGroup::getVolumeScaleFromDetail(lod));
-	std::istringstream stream;
-	try
-	{
-		std::string mesh_string((char*)data, data_size);
-		stream.str(mesh_string);
-	}
-	catch (std::bad_alloc&)
-	{
-		// out of memory, we won't be able to process this mesh
-		LL_WARNS() << "Aborting on lodReceived" << LL_ENDL;
-		return MESH_OUT_OF_MEMORY;
-	}
-
-	if (volume->unpackVolumeFaces(stream, data_size))
+	if (volume->unpackVolumeFaces(data, data_size))
 	{
 		if (volume->getNumFaces() > 0)
 		{
@@ -1982,10 +1969,7 @@ bool LLMeshRepoThread::skinInfoReceived(const LLUUID& mesh_id, U8* data, S32 dat
 	{
         try
         {
-            std::string res_str((char*)data, data_size);
-            std::istringstream stream(res_str);
-
-            U32 uzip_result = LLUZipHelper::unzip_llsd(skin, stream, data_size);
+            U32 uzip_result = LLUZipHelper::unzip_llsd(skin, data, data_size);
             if (uzip_result != LLUZipHelper::ZR_OK)
             {
                 LL_WARNS(LOG_MESH) << "Mesh skin info parse error.  Not a valid mesh asset!  ID:  " << mesh_id
@@ -2031,10 +2015,7 @@ bool LLMeshRepoThread::decompositionReceived(const LLUUID& mesh_id, U8* data, S3
     {
         try
         {
-            std::string res_str((char*)data, data_size);
-            std::istringstream stream(res_str);
-
-            U32 uzip_result = LLUZipHelper::unzip_llsd(decomp, stream, data_size);
+            U32 uzip_result = LLUZipHelper::unzip_llsd(decomp, data, data_size);
             if (uzip_result != LLUZipHelper::ZR_OK)
             {
                 LL_WARNS(LOG_MESH) << "Mesh decomposition parse error.  Not a valid mesh asset!  ID:  " << mesh_id
@@ -2043,7 +2024,7 @@ bool LLMeshRepoThread::decompositionReceived(const LLUUID& mesh_id, U8* data, S3
                 return false;
             }
         }
-        catch (std::bad_alloc&)
+        catch (const std::bad_alloc&)
         {
             LL_WARNS(LOG_MESH) << "Out of memory for mesh ID " << mesh_id << " of size: " << data_size << LL_ENDL;
             return false;
@@ -2080,21 +2061,7 @@ EMeshProcessingResult LLMeshRepoThread::physicsShapeReceived(const LLUUID& mesh_
 		volume_params.setSculptID(mesh_id, LL_SCULPT_TYPE_MESH);
 		LLPointer<LLVolume> volume = new LLVolume(volume_params,0);
 
-        std::istringstream stream;
-        try
-        {
-            std::string mesh_string((char*)data, data_size);
-            stream.str(mesh_string);
-        }
-        catch (std::bad_alloc&)
-        {
-            // out of memory, we won't be able to process this mesh
-			LL_WARNS() << "Out of memory in physics for " << mesh_id << LL_ENDL;
-            delete d;
-            return MESH_OUT_OF_MEMORY;
-        }
-
-		if (volume->unpackVolumeFaces(stream, data_size))
+		if (volume->unpackVolumeFaces(data, data_size))
 		{
 			d->mPhysicsShapeMesh.clear();
 
@@ -3573,6 +3540,7 @@ void LLMeshRepository::init()
 	mMeshMutex = new LLMutex();
 	
 	LLConvexDecomposition::getInstance()->initSystem();
+
     if (!LLConvexDecomposition::isFunctional())
     {
         LL_INFOS(LOG_MESH) << "Using STUB for LLConvexDecomposition" << LL_ENDL;
@@ -4599,12 +4567,7 @@ F32 LLMeshRepository::getStreamingCostLegacy(LLSD& header, F32 radius, S32* byte
 		*unscaled_value = weighted_avg;
 	}
 
-	// <FS:ND> replace often called setting with LLCachedControl
-	//	return weighted_avg/gSavedSettings.getU32("MeshTriangleBudget")*15000.f;
-
-	static LLCachedControl< U32 > MeshTriangleBudget( gSavedSettings, "MeshTriangleBudget",250000);
-	return weighted_avg/MeshTriangleBudget*15000.f;
-	// </FS:ND>
+	return weighted_avg/gSavedSettings.getU32("MeshTriangleBudget")*15000.f;
 }
 
 LLMeshCostData::LLMeshCostData()
@@ -5359,11 +5322,7 @@ void LLMeshRepository::buildPhysicsMesh(LLModel::Decomposition& decomp)
 bool LLMeshRepository::meshUploadEnabled()
 {
 	LLViewerRegion *region = gAgent.getRegion();
-	// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-	//if(gSavedSettings.getBOOL("MeshEnabled") &&
-	static LLCachedControl<bool> meshEnabled(gSavedSettings, "MeshEnabled",true);
-	if(meshEnabled &&
-	// </FS:Ansariel>
+	if(gSavedSettings.getbool("MeshEnabled") &&
 	   region)
 	{
 		return region->meshUploadEnabled();
@@ -5374,11 +5333,7 @@ bool LLMeshRepository::meshUploadEnabled()
 bool LLMeshRepository::meshRezEnabled()
 {
 	LLViewerRegion *region = gAgent.getRegion();
-	// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-	//if(gSavedSettings.getBOOL("MeshEnabled") && 
-	static LLCachedControl<bool> meshEnabled(gSavedSettings, "MeshEnabled",true);
-	if(meshEnabled &&
-	// </FS:Ansariel>
+	if(gSavedSettings.getbool("MeshEnabled") && 
 	   region)
 	{
 		return region->meshRezEnabled();
@@ -5551,9 +5506,9 @@ void on_new_single_inventory_upload_complete(
             LLInventoryPanel::openInventoryPanelAndSetSelection(TRUE, server_response["new_inventory_item"].asUUID(), TRUE, TAKE_FOCUS_NO, TRUE);
         }
 
-            // restore keyboard focus
-            gFocusMgr.setKeyboardFocus(focus);
-        }
+        // restore keyboard focus
+        gFocusMgr.setKeyboardFocus(focus);
+    }
     else
     {
         LL_WARNS() << "Can't find a folder to put it in" << LL_ENDL;
