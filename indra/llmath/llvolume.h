@@ -1103,8 +1103,12 @@ protected:
 	bool generate();
 	void createVolumeFaces();
 public:
-	virtual bool unpackVolumeFaces(std::istream& is, S32 size);
+	bool unpackVolumeFaces(std::istream& is, S32 size);
+	bool unpackVolumeFaces(U8* in_data, S32 size);
+private:
+	bool unpackVolumeFacesInternal(const LLSD& mdl);
 
+public:
 	virtual void setMeshAssetLoaded(bool loaded);
 	virtual bool isMeshAssetLoaded();
 
