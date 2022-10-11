@@ -1753,11 +1753,11 @@ void LLPanelEditWearable::onClickedImportBtn()
 class LLMetricSystemHandler : public LLCommandHandler
 {
 public:
-        LLMetricSystemHandler() : LLCommandHandler("metricsystem", UNTRUSTED_THROTTLE) { }
+        LLMetricSystemHandler() : LLCommandHandler("metricsystem", UNTRUSTED_CLICK_ONLY) { }
 
         bool handle(const LLSD& params, const LLSD& query_map, LLMediaCtrl* web)
         {
-                // change height units TRUE for meters and FALSE for feet
+                // change height units true for meters and false for feet
                 bool new_value = (gSavedSettings.getbool("HeightUnits") == false) ? true : false;
                 gSavedSettings.setbool("HeightUnits", new_value);
                 return true;

@@ -60,7 +60,32 @@ class LLGroupHandler : public LLCommandHandler
 {
 public:
 	// requires trusted browser to trigger
-	LLGroupHandler() : LLCommandHandler("group", UNTRUSTED_THROTTLE) { }
+	LLGroupHandler() : LLCommandHandler("group", UNTRUSTED_CLICK_ONLY) { }
+
+    virtual bool canHandleUntrusted(
+        const LLSD& params,
+        const LLSD& query_map,
+        LLMediaCtrl* web,
+        const std::string& nav_type)
+    {
+        if (params.size() < 1)
+        {
+            return true; // don't block, will fail later
+        }
+
+        if (nav_type == NAV_TYPE_CLICKED)
+        {
+            return true;
+        }
+
+        const std::string verb = params[0].asString();
+        if (verb == "create")
+        {
+            return false;
+        }
+        return true;
+    }
+
 	bool handle(const LLSD& tokens, const LLSD& query_map,
 				LLMediaCtrl* web)
 	{
@@ -69,7 +94,7 @@ public:
 			return true;
 		}
 
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableGroupInfo"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableGroupInfo"))
 		{
 			LLNotificationsUtil::add("NoGroupInfo", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
@@ -104,7 +129,7 @@ public:
 		}
 
 		LLUUID group_id;
-		if (!group_id.set(tokens[0], FALSE))
+		if (!group_id.set(tokens[0], false))
 		{
 			return false;
 		}

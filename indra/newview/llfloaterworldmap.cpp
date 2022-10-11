@@ -123,12 +123,12 @@ class LLWorldMapHandler : public LLCommandHandler
 {
 public:
 	// requires trusted browser to trigger
-	LLWorldMapHandler() : LLCommandHandler("worldmap", UNTRUSTED_THROTTLE ) { }
+	LLWorldMapHandler() : LLCommandHandler("worldmap", UNTRUSTED_CLICK_ONLY ) { }
 	
 	bool handle(const LLSD& params, const LLSD& query_map,
 				LLMediaCtrl* web)
 	{
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableWorldMap"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableWorldMap"))
 		{
 			LLNotificationsUtil::add("NoWorldMap", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
@@ -160,13 +160,13 @@ class LLMapTrackAvatarHandler : public LLCommandHandler
 {
 public:
 	// requires trusted browser to trigger
-	LLMapTrackAvatarHandler() : LLCommandHandler("maptrackavatar", UNTRUSTED_THROTTLE) 
+	LLMapTrackAvatarHandler() : LLCommandHandler("maptrackavatar", UNTRUSTED_CLICK_ONLY) 
 	{ 
 	}
 	
 	bool handle(const LLSD& params, const LLSD& query_map, LLMediaCtrl* web)
 	{
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableWorldMap"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableWorldMap"))
 		{
 			LLNotificationsUtil::add("NoWorldMap", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;

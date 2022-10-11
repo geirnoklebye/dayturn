@@ -63,6 +63,30 @@ public:
     // requires trusted browser to trigger
     LLPickHandler() : LLCommandHandler("pick", UNTRUSTED_THROTTLE) { }
 
+    virtual bool canHandleUntrusted(
+        const LLSD& params,
+        const LLSD& query_map,
+        LLMediaCtrl* web,
+        const std::string& nav_type)
+    {
+        if (params.size() < 1)
+        {
+            return true; // don't block, will fail later
+        }
+
+        if (nav_type == NAV_TYPE_CLICKED)
+        {
+            return true;
+        }
+
+        const std::string verb = params[0].asString();
+        if (verb == "create")
+        {
+            return false;
+        }
+        return true;
+    }
+
     bool handle(const LLSD& params, const LLSD& query_map,
         LLMediaCtrl* web)
     {
@@ -71,7 +95,7 @@ public:
             return true;
         }
 
-        if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnablePicks"))
+        if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnablePicks"))
         {
             LLNotificationsUtil::add("NoPicks", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
             return true;
@@ -92,7 +116,7 @@ public:
 
         // get the ID for the pick_id
         LLUUID pick_id;
-        if (!pick_id.set(params[0], FALSE))
+        if (!pick_id.set(params[0], false))
         {
             return false;
         }
