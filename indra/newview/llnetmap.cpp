@@ -108,8 +108,7 @@ LLNetMap::LLNetMap (const Params & p)
 	mParcelRawImagep(),
 	mParcelImagep(),
 	mClosestAgentToCursor(),
-	mToolTipMsg(),
-	mPopupMenu(NULL)
+	mToolTipMsg()
 {
 	mScale = gSavedSettings.getF32("MiniMapScale");
 	mPixelsPerMeter = mScale / REGION_WIDTH_METERS;
@@ -118,6 +117,12 @@ LLNetMap::LLNetMap (const Params & p)
 
 LLNetMap::~LLNetMap()
 {
+	auto menu = static_cast<LLMenuGL*>(mPopupMenuHandle.get());
+	if (menu)
+	{
+		menu->die();
+		mPopupMenuHandle.markDead();
+	}
 }
 
 bool LLNetMap::postBuild()
@@ -139,7 +144,8 @@ bool LLNetMap::postBuild()
 	LLViewerParcelMgr::instance().setCollisionUpdateCallback(boost::bind(&LLNetMap::refreshParcelOverlay, this));
 	LLViewerParcelOverlay::setUpdateCallback(boost::bind(&LLNetMap::refreshParcelOverlay, this));
 
-	mPopupMenu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_mini_map.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+	LLMenuGL* menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>("menu_mini_map.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+	mPopupMenuHandle = menu->getHandle();
 	return true;
 }
 
@@ -333,23 +339,23 @@ void LLNetMap::draw()
 				gGL.end();
 
 				// Draw water
-            gGL.flush();
-			{
-				if (regionp->getLand().getWaterTexture())
+				gGL.flush();
 				{
-					gGL.getTexUnit(0)->bind(regionp->getLand().getWaterTexture());
-					gGL.begin(LLRender::QUADS);
-						gGL.texCoord2f(0.f, 1.f);
-						gGL.vertex2f(left, top);
-						gGL.texCoord2f(0.f, 0.f);
-						gGL.vertex2f(left, bottom);
-						gGL.texCoord2f(1.f, 0.f);
-						gGL.vertex2f(right, bottom);
-						gGL.texCoord2f(1.f, 1.f);
-						gGL.vertex2f(right, top);
-					gGL.end();
+					if (regionp->getLand().getWaterTexture())
+					{
+						gGL.getTexUnit(0)->bind(regionp->getLand().getWaterTexture());
+						gGL.begin(LLRender::QUADS);
+							gGL.texCoord2f(0.f, 1.f);
+							gGL.vertex2f(left, top);
+							gGL.texCoord2f(0.f, 0.f);
+							gGL.vertex2f(left, bottom);
+							gGL.texCoord2f(1.f, 0.f);
+							gGL.vertex2f(right, bottom);
+							gGL.texCoord2f(1.f, 1.f);
+							gGL.vertex2f(right, top);
+						gGL.end();
+					}
 				}
-			}
             	gGL.flush();
 			}
 		}
@@ -511,7 +517,6 @@ void LLNetMap::draw()
 			// </FS:Ansariel>	
 			
 			LLColor4 color = getAvatarColor(uuid);	// <FS:CR>
-
 
 			LLWorldMapView::drawAvatar(
 				pos_map.mV[VX], pos_map.mV[VY], 
@@ -791,7 +796,7 @@ bool LLNetMap::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	return true;
 }
 
-bool LLNetMap::handleToolTip( S32 x, S32 y, MASK mask )
+bool LLNetMap::handleToolTip(S32 x, S32 y, MASK mask)
 {
 	if (gDisconnected)
 	{
@@ -1003,7 +1008,7 @@ bool LLNetMap::createImage(LLPointer<LLImageRaw>& rawimagep) const
 	return false;
 }
 
-BOOL LLNetMap::handleMouseDown( S32 x, S32 y, MASK mask )
+BOOL LLNetMap::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (!(mask & MASK_SHIFT)) return FALSE;
 
@@ -1016,7 +1021,7 @@ BOOL LLNetMap::handleMouseDown( S32 x, S32 y, MASK mask )
 	return TRUE;
 }
 
-BOOL LLNetMap::handleMouseUp( S32 x, S32 y, MASK mask )
+BOOL LLNetMap::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if(abs(mMouseDown.mX-x)<3 && abs(mMouseDown.mY-y)<3)
 		handleClick(x,y,mask);
@@ -1069,24 +1074,13 @@ void LLNetMap::handleShowProfile(const LLSD& sdParam) const
 }
 BOOL LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	if (mPopupMenu)
+	auto menu = static_cast<LLMenuGL*>(mPopupMenuHandle.get());
+	if (menu)
 	{
-		mClosestAgentRightClick = mClosestAgentToCursor;
-		mClosestAgentsRightClick = mClosestAgentsToCursor;
-		mPosGlobalRightClick = viewPosToGlobal(x, y);
-
-		mPopupMenu->setItemVisible("Add to Set Multiple", mClosestAgentsToCursor.size() > 0); // 1 in FS because it has an avatar menu under More...
-		mPopupMenu->setItemVisible("View Profile", mClosestAgentsToCursor.size() == 1);
-//		bool can_show_names = !RlvActions::hasBehaviour(RLV_BHVR_SHOWNAMES);
-		bool can_show_names = true;
-		mPopupMenu->setItemEnabled("Add to Set Multiple", can_show_names);
-		mPopupMenu->setItemEnabled("View Profile", can_show_names);
-		mPopupMenu->setItemVisible("MarkAvatar", mClosestAgentToCursor.notNull());
-		mPopupMenu->setItemEnabled("Place Profile", true); //RlvActions::canShowLocation());
-		mPopupMenu->buildDrawLabels();
-		mPopupMenu->updateParent(LLMenuGL::sMenuContainer);
-		mPopupMenu->setItemVisible("Stop Tracking", LLTracker::isTracking(0));
-		LLMenuGL::showPopup(this, mPopupMenu, x, y);
+		menu->buildDrawLabels();
+		menu->updateParent(LLMenuGL::sMenuContainer);
+		menu->setItemEnabled("Stop Tracking", LLTracker::isTracking(0));
+		LLMenuGL::showPopup(this, menu, x, y);
 	}
 	return TRUE;
 }
@@ -1151,8 +1145,9 @@ void LLNetMap::renderPropertyLinesForRegion(const LLViewerRegion* region)
 
 	U32* pTextureData = (U32*)mParcelRawImagep->getData();
 
-        static LLUIColor map_property_line_colour = LLUIColorTable::instance().getColor("NetMapPropertyLineColor", LLColor4::red);
-  //no longer used - same colours as land overlay are used now
+  	static LLUIColor map_property_line_colour = LLUIColorTable::instance().getColor("NetMapPropertyLineColor", LLColor4(LLColor3(LLColor4::yellow), 0.5f));
+
+  	//no longer used - same colours as land overlay are used now
 	//static LLUIColor map_for_sale_colour = LLUIColorTable::instance().getColor("NetMapPropertyForSaleColor", LLColor4::yellow);
 
 	//const U32 colour_for_sale = LLColor4U(map_for_sale_colour.get()).asRGBA();
@@ -1463,12 +1458,10 @@ LLColor4 LLNetMap::getAvatarColor(const LLUUID& avatar_id)
 
 void LLNetMap::handleStopTracking (const LLSD& userdata)
 {
-	if (mPopupMenu)
+	auto menu = static_cast<LLMenuGL*>(mPopupMenuHandle.get());
+	if (menu)
 	{
-		// <FS:Ansariel> Hide tracking option instead of disabling
-		//mPopupMenu->setItemEnabled ("Stop Tracking", false);
-		mPopupMenu->setItemVisible ("Stop Tracking", false);
-		// </FS:Ansariel>
+		menu->setItemEnabled ("Stop Tracking", false);
 		LLTracker::stopTracking (LLTracker::isTracking(NULL));
 	}
 }

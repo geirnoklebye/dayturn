@@ -176,8 +176,6 @@ public:
 
 		LLUUID getTextureID() {return mMediaTextureID;}
 
-		void updateContextMenuParent(LLView* pNewParent);
-
         // The Browser windows want keyup and keydown events. Overridden from LLFocusableElement to return true.
         virtual bool    wantsKeyUpKeyDown() const;
         virtual bool    wantsReturnKey() const;
@@ -222,7 +220,7 @@ public:
 			mTextureHeight;
 
 		class LLWindowShade* mWindowShade;
-		LLContextMenu* mContextMenu;
+		LLHandle<LLContextMenu> mContextMenuHandle;
 };
 
 #endif // LL_LLMediaCtrl_H

@@ -170,7 +170,7 @@ private:
 	void handleOverlayToggle(const LLSD& sdParam);
 
 	void handleAddToContactSet();
-	LLMenuGL*		mPopupMenu;
+    LLHandle<LLView> mPopupMenuHandle;
 	static uuid_vec_t	sSelected;
 };
 
