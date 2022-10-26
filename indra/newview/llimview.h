@@ -210,7 +210,8 @@ public:
 	 */
 	// <FS:Ansariel> Added is_announcement parameter
 	//bool addMessage(const LLUUID& session_id, const std::string& from, const LLUUID& other_participant_id, const std::string& utf8_text, bool log2file = true, bool is_region_msg = false);
-	bool addMessage(const LLUUID& session_id, const std::string& from, const LLUUID& other_participant_id, const std::string& utf8_text, bool log2file = true, bool is_announcement = false, bool keyword_alert_performed = false, bool is_region_msg = false);
+	void addMessage(const LLUUID& session_id, const std::string& from, const LLUUID& other_participant_id, const std::string& utf8_text, bool log2file = true, bool is_announcement = false, bool keyword_alert_performed = false, bool is_region_msg = false);
+    void processAddingMessage(const LLUUID& session_id, const std::string& from, const LLUUID& other_participant_id, const std::string& utf8_text, bool log2file = true, bool is_announcement = false, bool keyword_alert_performed = false);
 
 	/**
 	 * Similar to addMessage(...) above but won't send a signal about a new message added
@@ -224,7 +225,7 @@ public:
 	/**
 	 * Add a system message to an IM Model
 	 */
-	bool proccessOnlineOfflineNotification(const LLUUID& session_id, const std::string& utf8_text);
+	void proccessOnlineOfflineNotification(const LLUUID& session_id, const std::string& utf8_text);
 
 	/**
 	 * Get a session's name. 
