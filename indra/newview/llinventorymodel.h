@@ -471,7 +471,7 @@ public:
 	// not notify observers (though maybe it should...)
 	void purgeDescendentsOf(const LLUUID& id);
 protected:
-	void updateLinkedObjectsFromPurge(const LLUUID& baseobj_id);
+    void rebuildLinkItems(LLInventoryModel::item_array_t& items);
 	
 	//--------------------------------------------------------------------
 	// Reorder
