@@ -26,16 +26,23 @@
 #ifndef LL_STDTYPES_H
 #define LL_STDTYPES_H
 
+#include <cassert>
 #include <cfloat>
 #include <climits>
 #include <cstdint>
+#include <limits>
+#include <type_traits>
 
-typedef int8_t				S8;
-typedef uint8_t				U8;
+typedef signed char			S8;
+typedef unsigned char		U8;
 typedef signed short		S16;
 typedef unsigned short		U16;
 typedef signed int			S32;
 typedef unsigned int		U32;
+
+// to express an index that might go negative
+// (ssize_t is provided by SOME compilers, don't collide)
+//typedef typename std::make_signed<size_t>::type llssize;
 
 #if LL_WINDOWS
 // https://docs.microsoft.com/en-us/cpp/build/reference/zc-wchar-t-wchar-t-is-native-type
@@ -64,7 +71,7 @@ typedef unsigned __int64		U64;
 #define U64L(a)					(a)
 #else
 typedef long long int			S64;
-typedef long long unsigned int		U64;
+typedef long long unsigned int	U64;
 #if LL_DARWIN
 #define S64L(a)				(a##LL)
 #define U64L(a)				(a##ULL)
@@ -113,6 +120,97 @@ typedef U32             		TPACKETID;
 
 typedef U8 LLPCode;
 
-#define	LL_ARRAY_SIZE( _kArray ) ( sizeof( (_kArray) ) / sizeof( _kArray[0] ) )
+#define	LL_ARRAY_SIZE(_kArray) ( sizeof((_kArray)) / sizeof((_kArray)[0]))
+
+/*****************************************************************************
+*   Narrowing
+*****************************************************************************/
+/**
+ * narrow() is used to cast a wider type to a narrower type with validation.
+ *
+ * In many cases we take the size() of a container and try to pass it to an
+ * S32 or a U32 parameter. We used to be able to assume that the size of
+ * anything we could fit into memory could be expressed as a 32-bit int. With
+ * 64-bit viewers, though, size_t as returned by size() and length() and so
+ * forth is 64 bits, and the compiler is unhappy about stuffing such values
+ * into 32-bit types.
+ *
+ * It works to force the compiler to truncate, e.g. static_cast<S32>(len) or
+ * S32(len) or (S32)len, but we can do better.
+ *
+ * For:
+ * @code
+ * std::vector<Object> container;
+ * void somefunc(S32 size);
+ * @endcode
+ * call:
+ * @code
+ * somefunc(narrow(container.size()));
+ * @endcode
+ *
+ * narrow() truncates but, in RelWithDebInfo builds, it validates (using
+ * assert()) that the passed value can validly be expressed by the destination
+ * type.
+ */
+// narrow_holder is a struct that accepts the passed value as its original
+// type and provides templated conversion functions to other types. Once we're
+// building with compilers that support Class Template Argument Deduction, we
+// can rename this class template 'narrow' and eliminate the narrow() factory
+// function below.
+template <typename FROM>
+class narrow_holder
+{
+private:
+    FROM mValue;
+
+public:
+    narrow_holder(FROM value): mValue(value) {}
+
+    /*---------------------- Narrowing unsigned to signed ----------------------*/
+    template <typename TO,
+            typename std::enable_if<std::is_unsigned<FROM>::value &&
+                    std::is_signed<TO>::value,
+                    bool>::type = true>
+    inline
+    operator TO() const
+    {
+        // The reason we skip the
+        // assert(value >= std::numeric_limits<TO>::lowest());
+        // in the overload below is that to perform the above comparison, the
+        // compiler promotes the signed lowest() to the unsigned FROM type,
+        // making it hugely positive -- so a reasonable 'value' will always
+        // fail the assert().
+        assert(mValue <= std::numeric_limits<TO>::max());
+        return static_cast<TO>(mValue);
+    }
+
+    /*----------------------- Narrowing all other cases ------------------------*/
+    template <typename TO,
+            typename std::enable_if<! (std::is_unsigned<FROM>::value &&
+                    std::is_signed<TO>::value),
+                    bool>::type = true>
+    inline
+    operator TO() const
+    {
+        // two different assert()s so we can tell which condition failed
+        assert(mValue <= std::numeric_limits<TO>::max());
+        // Funny, with floating point types min() is "positive epsilon" rather
+        // than "largest negative" -- that's lowest().
+        assert(mValue >= std::numeric_limits<TO>::lowest());
+        // Do we really expect to use this with floating point types?
+        // If so, does it matter if a very small value truncates to zero?
+        //assert(fabs(mValue) >= std::numeric_limits<TO>::min());
+        return static_cast<TO>(mValue);
+    }
+};
+
+/// narrow() factory function returns a narrow_holder<FROM>(), which can be
+/// implicitly converted to the target type.
+template <typename FROM>
+inline
+narrow_holder<FROM> narrow(FROM value)
+{
+    return { value };
+}
 
 #endif
