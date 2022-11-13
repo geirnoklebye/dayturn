@@ -599,7 +599,8 @@ void PeriodicRecording::nextPeriod()
 
 	// Since mRecordingPeriods always has at least one entry, we can always
 	// safely subtract 1 from its size().
-	mNumRecordedPeriods = llmin(mRecordingPeriods.size() - 1, mNumRecordedPeriods + 1);
+    mNumRecordedPeriods = mRecordingPeriods.empty()? 0 :
+        llmin(mRecordingPeriods.size() - 1, mNumRecordedPeriods + 1);
 }
 
 void PeriodicRecording::appendRecording(Recording& recording)

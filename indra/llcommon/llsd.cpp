@@ -36,6 +36,18 @@
 #include "llsdserialize.h"
 #include "stringize.h"
 
+#include <limits>
+
+// Defend against a caller forcibly passing a negative number into an unsigned
+// size_t index param
+inline
+bool was_negative(size_t i)
+{
+    return (i > std::numeric_limits<int>::max());
+}
+#define NEGATIVE_EXIT(i) if (was_negative(i)) return
+#define NEGATIVE_RETURN(i, result) NEGATIVE_EXIT(i) (result)
+
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 #define NAME_UNNAMED_NAMESPACE
 #endif
@@ -549,6 +561,7 @@ namespace
 
 	LLSD ImplArray::get(size_t i) const
 	{
+        NEGATIVE_RETURN(i, LLSD());
 		DataVector::size_type index = i;
 
 		return (index < mData.size()) ? mData[index] : LLSD();
@@ -556,6 +569,7 @@ namespace
 
 	void ImplArray::set(size_t i, const LLSD& v)
 	{
+        NEGATIVE_EXIT(i);
 		DataVector::size_type index = i;
 
 		if (index >= mData.size())
@@ -568,6 +582,7 @@ namespace
 
 	void ImplArray::insert(size_t i, const LLSD& v)
 	{
+        NEGATIVE_EXIT(i);
 		DataVector::size_type index = i;
 
 		if (index >= mData.size())	// tbd - sanity check limit for index ?
@@ -586,6 +601,7 @@ namespace
 
 	void ImplArray::erase(size_t i)
 	{
+        NEGATIVE_EXIT(i);
 		DataVector::size_type index = i;
 
 		if (index < mData.size())
@@ -596,7 +612,7 @@ namespace
 
 	LLSD& ImplArray::ref(size_t i)
 	{
-		DataVector::size_type index = i;
+        DataVector::size_type index = was_negative(i)? 0 : i;
 
 		if (index >= mData.size())
 		{
@@ -608,6 +624,7 @@ namespace
 
 	const LLSD& ImplArray::ref(size_t i) const
 	{
+        NEGATIVE_RETURN(i, undef());
 		DataVector::size_type index = i;
 
 		if (index >= mData.size())
@@ -825,9 +842,6 @@ LLSD::LLSD(const String& v) : impl(nullptr)	{ ALLOC_LLSD_OBJECT;	assign(v); }
 LLSD::LLSD(const Date& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
 LLSD::LLSD(const URI& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
 LLSD::LLSD(const Binary& v) : impl(nullptr)	{ ALLOC_LLSD_OBJECT;	assign(v); }
-
-// Convenience Constructors
-LLSD::LLSD(F32 v) : impl(nullptr)				{ ALLOC_LLSD_OBJECT;	assign((Real)v); }
 
 // Scalar Assignment
 void LLSD::assign(Boolean v)			{ safe(impl).assign(impl, v); }
