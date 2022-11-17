@@ -81,7 +81,6 @@ public:
 	LLInventoryPanel* getAllItemsPanel();
 	void selectAllItemsPanel();
 	const LLInventoryPanel* getActivePanel() const { return mActivePanel; }
-	void resetFilters();
 
 	bool isRecentItemsPanelSelected();
 
@@ -97,6 +96,9 @@ public:
 	static void newLiteWindow(); // KKA-827 Just inventory, no recent/worn
 
 	void toggleFindOptions();
+
+	void resetFilters();
+    void resetAllItemsFilters();
 
 protected:
 	//
