@@ -193,6 +193,7 @@ set(llcommon_HEADER_FILES
     llinitdestroyclass.h
     llinitparam.h
     llinstancetracker.h
+    llinstancetrackersubclass.h
     llkeybind.h
     llkeythrottle.h
     llleap.h
