@@ -29,6 +29,7 @@
 
 #include "llimage.h"
 #include "llpointer.h"
+#include "threadpool_fwd.h"
 #include "llworkerthread.h"
 
 class LLImageDecodeThread : public LLQueuedThread
