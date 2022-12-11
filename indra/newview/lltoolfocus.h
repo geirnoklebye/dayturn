@@ -65,6 +65,7 @@ protected:
 	bool	mOutsideSlopX;
 	bool	mOutsideSlopY;
 	bool	mValidClickPoint;
+    bool	mClickPickPending;
 	bool	mValidSelection;
 	bool	mMouseSteering;
 	S32		mMouseUpX;	// needed for releaseMouse()
