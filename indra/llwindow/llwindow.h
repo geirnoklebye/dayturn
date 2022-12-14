@@ -197,7 +197,14 @@ public:
 
     // windows only DirectInput8 for joysticks
     virtual void* getDirectInput8() { return nullptr; };
-    virtual bool getInputDevices(U32 device_type_filter, void * devices_callback, void* userdata) { return false; };
+    virtual bool getInputDevices(U32 device_type_filter,
+                                 std::function<void(std::string&, LLSD::Binary&, void*)> osx_callback,
+                                 void* win_callback,
+                                 void* userdata)
+    {
+        return false;
+    };
+
 protected:
 	LLWindow(LLWindowCallbacks* callbacks, bool fullscreen, U32 flags);
 	virtual ~LLWindow();

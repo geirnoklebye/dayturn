@@ -608,6 +608,9 @@ std::unique_ptr<std::vector<std::string>> LLFilePicker::navOpenFilterProc(ELoadF
     switch(filter)
     {
         case FFLOAD_ALL:
+        case FFLOAD_EXE:
+            allowedv->push_back("app");
+            allowedv->push_back("exe");
             allowedv->push_back("wav");
             allowedv->push_back("bvh");
             allowedv->push_back("anim");
@@ -631,8 +634,6 @@ std::unique_ptr<std::vector<std::string>> LLFilePicker::navOpenFilterProc(ELoadF
             allowedv->push_back("tpic");
             allowedv->push_back("png");
             break;
-        case FFLOAD_EXE:
-            break;
         case FFLOAD_WAV:
             allowedv->push_back("wav");
             break;
@@ -640,7 +641,7 @@ std::unique_ptr<std::vector<std::string>> LLFilePicker::navOpenFilterProc(ELoadF
             allowedv->push_back("bvh");
             allowedv->push_back("anim");
             break;
-	case FFLOAD_MODEL:
+		case FFLOAD_MODEL:
         case FFLOAD_COLLADA:
             allowedv->push_back("dae");
             break;
@@ -659,12 +660,12 @@ std::unique_ptr<std::vector<std::string>> LLFilePicker::navOpenFilterProc(ELoadF
             break;
         case FFLOAD_DIRECTORY:
             break;
-	// <FS:CR> Import filter
-	case FFLOAD_IMPORT:
+		// <FS:CR> Import filter
+		case FFLOAD_IMPORT:
             allowedv->push_back("oxp");
             //allowedv->push_back("hpa");
 	    break;
-	// </FS:CR>
+		// </FS:CR>
         default:
             LL_WARNS() << "Unsupported format." << LL_ENDL;
     }

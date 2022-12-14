@@ -26,6 +26,7 @@
  */
 
 
+#include <errno.h>
 #include "llopenglview-objc.h"
 #include "llwindowmacosx-objc.h"
 #include "llappdelegate-objc.h"
