@@ -31,6 +31,9 @@
 #include "llbool.h"
 
 #if LIB_NDOF
+#if LL_DARWIN
+#define TARGET_OS_MAC 1
+#endif
 #include "ndofdev_external.h"
 #else
 #define NDOF_Device	void
@@ -55,6 +58,7 @@ public:
 	void initDevice(LLSD &guid);
 	void initDevice(void * preffered_device /*LPDIRECTINPUTDEVICE8*/);
 	void initDevice(void * preffered_device /*LPDIRECTINPUTDEVICE8*/, std::string &name, LLSD &guid);
+    bool initDevice(NDOF_Device * ndof_device, LLSD::Binary &guid);
 	void terminate();
 
 	void updateStatus();
