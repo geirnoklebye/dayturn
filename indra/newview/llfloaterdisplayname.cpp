@@ -160,18 +160,16 @@ void LLFloaterDisplayName::onCancel()
 
 void LLFloaterDisplayName::onReset()
 {
-	if (LLAvatarNameCache::getInstance()->hasNameLookupURL())
-	{
-		LLViewerDisplayName::set("",boost::bind(&LLFloaterDisplayName::onCacheSetName, this, _1, _2, _3));
-	}	
-	else
-	{
-		LLNotificationsUtil::add("SetDisplayNameFailedGeneric");
-	}
-	
-	setVisible(false);
-}
+    LLAvatarName av_name;
+    if (!LLAvatarNameCache::get(gAgent.getID(), &av_name))
+    {
+        return;
+    }
+    getChild<LLUICtrl>("display_name_editor")->setValue(av_name.getCompleteName());
 
+    getChild<LLUICtrl>("display_name_confirm")->clear();
+    getChild<LLUICtrl>("display_name_confirm")->setFocus(TRUE);
+}
 
 void LLFloaterDisplayName::onSave()
 {
