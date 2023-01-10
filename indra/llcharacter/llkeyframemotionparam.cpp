@@ -64,7 +64,7 @@ LLKeyframeMotionParam::LLKeyframeMotionParam( const LLUUID &id) : LLMotion(id)
 //-----------------------------------------------------------------------------
 LLKeyframeMotionParam::~LLKeyframeMotionParam()
 {
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		motion_list_t& motionList = motion_pair.second;
 		for (const ParameterizedMotion& paramMotion : motionList)
@@ -88,7 +88,7 @@ LLMotion::LLMotionInitStatus LLKeyframeMotionParam::onInitialize(LLCharacter *ch
 		return STATUS_FAILURE;	
 	}
 	
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		motion_list_t& motionList = motion_pair.second;
 		for (const ParameterizedMotion& paramMotion : motionList)
@@ -138,7 +138,7 @@ LLMotion::LLMotionInitStatus LLKeyframeMotionParam::onInitialize(LLCharacter *ch
 //-----------------------------------------------------------------------------
 bool LLKeyframeMotionParam::onActivate()
 {
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		motion_list_t& motionList = motion_pair.second;
 		for (const ParameterizedMotion& paramMotion : motionList)
@@ -158,7 +158,7 @@ bool LLKeyframeMotionParam::onUpdate(F32 time, U8* joint_mask)
 	F32 weightFactor = 1.f / (F32)mParameterizedMotions.size();
 
 	// zero out all pose weights
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		motion_list_t& motionList = motion_pair.second;
 		for (const ParameterizedMotion& paramMotion : motionList)
@@ -169,7 +169,7 @@ bool LLKeyframeMotionParam::onUpdate(F32 time, U8* joint_mask)
 	}
 
 
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		const std::string& paramName = motion_pair.first;
 		F32* paramValue = (F32 *)mCharacter->getAnimationData(paramName);
@@ -272,7 +272,7 @@ bool LLKeyframeMotionParam::onUpdate(F32 time, U8* joint_mask)
 //-----------------------------------------------------------------------------
 void LLKeyframeMotionParam::onDeactivate()
 {
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		motion_list_t& motionList = motion_pair.second;
 		for (const ParameterizedMotion& paramMotion : motionList)
@@ -308,7 +308,7 @@ bool LLKeyframeMotionParam::addKeyframeMotion(char *name, const LLUUID &id, char
 //-----------------------------------------------------------------------------
 void LLKeyframeMotionParam::setDefaultKeyframeMotion(char *name)
 {
-	for (motion_map_t::value_type motion_pair : mParameterizedMotions)
+	for (motion_map_t::value_type& motion_pair : mParameterizedMotions)
 	{
 		motion_list_t& motionList = motion_pair.second;
 		for (const ParameterizedMotion& paramMotion : motionList)
