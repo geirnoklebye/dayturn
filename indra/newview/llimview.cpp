@@ -1263,12 +1263,12 @@ void LLIMModel::addMessage(const LLUUID& session_id, const std::string& from, co
     }
     else
     {
-        processAddingMessage(session_id, from, from_id, utf8_text, log2file);
+        processAddingMessage(session_id, from, from_id, utf8_text, log2file, is_region_msg);
     }
 }
 
 void LLIMModel::processAddingMessage(const LLUUID& session_id, const std::string& from, const LLUUID& from_id,
-    const std::string& utf8_text, bool log2file /* = true */, bool is_announcement, bool keyword_alert_performed)
+    const std::string& utf8_text, bool log2file /* = true */, bool is_announcement, bool keyword_alert_performed, bool is_region_msg /* = false */)
 {
     LLIMSession* session = addMessageSilently(session_id, from, from_id, utf8_text, log2file);
     if (!session) return;
@@ -1291,6 +1291,8 @@ void LLIMModel::processAddingMessage(const LLUUID& session_id, const std::string
 	arg["session_type"] = session->mSessionType;
 	arg["is_announcement"] = is_announcement; // <FS:Ansariel> Indicator if it's an announcement
 	arg["keyword_alert_performed"] = keyword_alert_performed; // <FS:Ansariel> Pass info if keyword alert has been performed
+    arg["is_region_msg"] = is_region_msg;
+
 	mNewMsgSignal(arg);
 }
 
@@ -2191,8 +2193,6 @@ void LLOutgoingCallDialog::show(const LLSD& key)
 
 	std::string callee_name = mPayload["session_name"].asString();
 
-	LLUUID session_id = mPayload["session_id"].asUUID();
-
 	if (callee_name == "anonymous") // obsolete? Likely was part of avaline support
 	{
 		callee_name = getString("anonymous");
@@ -2576,7 +2576,7 @@ void LLIncomingCallDialog::processCallResponse(S32 response, const LLSD &payload
 				}
 			}
 			
-			LLUUID new_session_id = gIMMgr->addSession(correct_session_name, type, session_id, true);
+			gIMMgr->addSession(correct_session_name, type, session_id, true);
 
 			std::string url = gAgent.getRegion()->getCapability(
 				"ChatSessionRequest");
@@ -2662,7 +2662,7 @@ bool inviteUserResponse(const LLSD& notification, const LLSD& response)
 			}
 			else
 			{
-				LLUUID new_session_id = gIMMgr->addSession(
+				gIMMgr->addSession(
 					payload["session_name"].asString(),
 					type,
 					session_id, true);
