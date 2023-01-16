@@ -245,8 +245,8 @@ namespace Details
             errorCount = 0;
 
             if (!result.isMap() ||
-                !result.get("events") ||
-                !result.get("id"))
+                !result["events"].isArray() ||
+                !result.has("id"))
             {
                 LL_WARNS("LLEventPollImpl") << " <" << counter << "> received event poll with no events or id key: " << result << LL_ENDL;
                 continue;
