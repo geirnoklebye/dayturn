@@ -91,6 +91,7 @@ set(cmake_SOURCE_FILES
     VisualLeakDetector.cmake
 #    WebKitLibPlugin.cmake
     XmlRpcEpi.cmake
+    xxHash.cmake
     ZLIBNG.cmake
     )
 else (LINUX)
