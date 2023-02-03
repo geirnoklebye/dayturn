@@ -123,7 +123,7 @@ LLInspectObject::LLInspectObject(const LLSD& sd)
 	mObjectID(NULL),			// set in onOpen()
 	mObjectFace(0),
 	mObjectSelection(NULL),
-	mMediaImpl(NULL),
+	mMediaImpl(0),
 	mMediaEntry(NULL)
 {
 	// can't make the properties request until the widgets are constructed
@@ -662,9 +662,7 @@ void LLInspectObject::onClickOpen()
 
 void LLInspectObject::onClickMoreInfo()
 {
-	LLSD key;
-	key["task"] = "task";
-	LLFloaterSidePanelContainer::showPanel("inventory", key);
+    LLFloaterReg::showInstance("task_properties");
 	closeFloater();
 }
 
