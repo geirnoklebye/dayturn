@@ -77,6 +77,9 @@ extern const LLUUID SND_OOOH_SCARE_ME;
 extern const LLUUID SND_PAYBACK_TIME;
 extern const LLUUID SND_READY_FOR_BATTLE;
 
+// Original SL collision sounds
+/* 
+
 extern const LLUUID SND_FLESH_FLESH;
 extern const LLUUID SND_FLESH_PLASTIC;
 extern const LLUUID SND_FLESH_RUBBER;
@@ -105,7 +108,61 @@ extern const LLUUID SND_WOOD_FLESH;
 extern const LLUUID SND_WOOD_PLASTIC;
 extern const LLUUID SND_WOOD_RUBBER;
 extern const LLUUID SND_WOOD_WOOD;
+ */
 
+// Opensim collision sounds replacements
+extern const LLUUID SND_FLESH_FLESH;
+extern const LLUUID SND_FLESH_PLASTIC;
+extern const LLUUID SND_FLESH_RUBBER;
+extern const LLUUID SND_GLASS_FLESH;
+extern const LLUUID SND_GLASS_GLASS;
+extern const LLUUID SND_GLASS_PLASTIC;
+extern const LLUUID SND_GLASS_RUBBER;
+extern const LLUUID SND_GLASS_WOOD;
+extern const LLUUID SND_METAL_FLESH;
+extern const LLUUID SND_METAL_GLASS;
+extern const LLUUID SND_METAL_METAL;
+extern const LLUUID SND_METAL_PLASTIC;
+extern const LLUUID SND_METAL_RUBBER;
+extern const LLUUID SND_METAL_WOOD;
+extern const LLUUID SND_PLASTIC_PLASTIC;
+extern const LLUUID SND_PLASTIC_RUBBER;
+extern const LLUUID SND_RUBBER_RUBBER;
+extern const LLUUID SND_STONE_FLESH;
+extern const LLUUID SND_STONE_GLASS;
+extern const LLUUID SND_STONE_METAL;
+extern const LLUUID SND_STONE_PLASTIC;
+extern const LLUUID SND_STONE_RUBBER;
+extern const LLUUID SND_STONE_STONE;
+extern const LLUUID SND_STONE_WOOD;
+extern const LLUUID SND_WOOD_FLESH;
+extern const LLUUID SND_WOOD_PLASTIC;
+extern const LLUUID SND_WOOD_RUBBER;
+extern const LLUUID SND_WOOD_WOOD;
+
+// Opensim collision sounds additions
+extern const LLUUID SND_FLESH_GLASS;
+extern const LLUUID SND_FLESH_METAL;
+extern const LLUUID SND_FLESH_STONE;
+extern const LLUUID SND_FLESH_WOOD;
+extern const LLUUID SND_GLASS_METAL;
+extern const LLUUID SND_GLASS_STONE;
+extern const LLUUID SND_METAL_STONE;
+extern const LLUUID SND_PLASTIC_FLESH;
+extern const LLUUID SND_PLASTIC_GLASS;
+extern const LLUUID SND_PLASTIC_METAL;
+extern const LLUUID SND_PLASTIC_STONE;
+extern const LLUUID SND_PLASTIC_WOOD;
+extern const LLUUID SND_RUBBER_FLESH;
+extern const LLUUID SND_RUBBER_GLASS;
+extern const LLUUID SND_RUBBER_METAL;
+extern const LLUUID SND_RUBBER_PLASTIC;
+extern const LLUUID SND_RUBBER_STONE;
+extern const LLUUID SND_RUBBER_WOOD;
+extern const LLUUID SND_WOOD_GLASS;
+extern const LLUUID SND_WOOD_METAL;
+extern const LLUUID SND_WOOD_STONE;
+// End Opensim collision sounds
 
 extern const LLUUID SND_SLIDE_FLESH_FLESH;
 extern const LLUUID SND_SLIDE_FLESH_PLASTIC;
