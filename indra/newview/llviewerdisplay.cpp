@@ -83,6 +83,7 @@ extern bool gIsInSecondLife; //Opensim or SecondLife
 
 extern LLPointer<LLViewerTexture> gStartTexture;
 extern bool gShiftFrame;
+extern bool gIsInSecondLife; //Opensim or SecondLife 
 
 LLPointer<LLViewerTexture> gDisconnectedImagep = NULL;
 
@@ -295,8 +296,10 @@ static void update_tp_display(bool minimized)
 				gViewerWindow->setShowProgress(true);
 				gViewerWindow->setProgressPercent(llmin(teleport_percent, 0.0f));
 				gViewerWindow->setProgressString(msg);
-				gViewerWindow->setProgressMessage(gAgent.mMOTD);
-			}
+                if (!gIsInSecondLife)
+                    break;
+                gViewerWindow->setProgressMessage(gAgent.mMOTD);
+            }
 			break;
 		}
 
@@ -683,7 +686,10 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 		}
 		
 		gViewerWindow->setProgressPercent( percent_done );
-		gViewerWindow->setProgressMessage(std::string());
+		if (gIsInSecondLife)
+		{
+		    gViewerWindow->setProgressMessage(std::string());
+		}
 	}
 	else
 	if (gRestoreGL)
@@ -705,7 +711,10 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 			
 			gViewerWindow->setProgressPercent( percent_done );
 		}
-		gViewerWindow->setProgressMessage(std::string());
+		if (gIsInSecondLife)
+		{
+		    gViewerWindow->setProgressMessage(std::string());
+		}
 	}
 
 	//////////////////////////
