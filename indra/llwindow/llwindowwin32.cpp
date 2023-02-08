@@ -1299,14 +1299,6 @@ bool LLWindowWin32::switchContext(bool fullscreen, const LLCoordScreen& size, bo
 	LL_INFOS("Window") << "pfd.dwDamageMask:     " << pfd.dwDamageMask << LL_ENDL ;
 	LL_INFOS("Window") << "--- end pixel format dump ---" << LL_ENDL ;
 
-	if (pfd.cColorBits < 32)
-	{
-		OSMessageBox(mCallbacks->translateString("MBTrueColorWindow"),
-			mCallbacks->translateString("MBError"), OSMB_OK);
-        close();
-		return false;
-	}
-
 	if (pfd.cAlphaBits < 8)
 	{
 		OSMessageBox(mCallbacks->translateString("MBAlpha"),
@@ -1596,14 +1588,6 @@ const	S32   max_format  = (S32)num_formats - 1;
 		<< " Alpha Bits " << S32(pfd.cAlphaBits)
 		<< " Depth Bits " << S32(pfd.cDepthBits) 
 		<< LL_ENDL;
-
-	// make sure we have 32 bits per pixel
-	if (pfd.cColorBits < 32 || GetDeviceCaps(mhDC, BITSPIXEL) < 32)
-	{
-		OSMessageBox(mCallbacks->translateString("MBTrueColorWindow"), mCallbacks->translateString("MBError"), OSMB_OK);
-		close();
-		return false;
-	}
 
 	if (pfd.cAlphaBits < 8)
 	{
