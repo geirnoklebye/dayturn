@@ -77,6 +77,7 @@
 #include "llviewerdisplay.h"
 #include "llviewerwindow.h"
 #include "llprogressview.h"
+#include "llviewernetwork.h" //SecondLife or Opensim -- Server or client bake
 #include "llcoros.h"
 #include "lleventcoro.h"
 #include "llcorehttputil.h"
@@ -636,7 +637,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mSimAccess( SIM_ACCESS_MIN ),
 	mBillableFactor(1.0),
 	mMaxTasks(DEFAULT_MAX_REGION_WIDE_PRIM_COUNT),
-	mCentralBakeVersion(1),
+	mCentralBakeVersion(0),
 	mClassID(0),
 	mCPURatio(0),
 	mColoName("unknown"),
@@ -2926,7 +2927,16 @@ void LLViewerRegion::unpackRegionHandshake()
 		mProductName = productName;
 	}
 
-	mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+	if (LLGridManager::getInstance()->isInSecondLife())
+	{
+		mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+	}
+	else
+	{
+		mCentralBakeVersion = region_protocols & 0; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+	}
+
+	//mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
 	LLVLComposition *compp = getComposition();
 	if (compp)
 	{
@@ -3060,6 +3070,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("DeclineGroupInvite"); // ReadOfflineMsgs recieved messages only!!!
 	capabilityNames.append("DispatchRegionInfo");
 	capabilityNames.append("DirectDelivery");
+	capabilityNames.append("DispatchOpenRegionSettings");
 	capabilityNames.append("EnvironmentSettings");
 	capabilityNames.append("EstateAccess");
 	capabilityNames.append("EstateChangeInfo");

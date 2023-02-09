@@ -411,6 +411,7 @@ extern U64Bytes gMemoryAllocated;
 
 extern std::string gLastVersionChannel;
 
+extern std::string gSimulatorType; //Opensim or SecondLife
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
 extern LLVector3 gWindVec;

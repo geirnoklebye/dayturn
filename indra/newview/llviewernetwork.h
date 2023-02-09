@@ -188,6 +188,11 @@ public:
 	/// Is the selected grid one of the hard-coded default grids (Agni or Aditi)
 	bool isSystemGrid() { return isSystemGrid(mGrid); }
 
+	bool isInSLMain();
+	bool isInSLBeta();
+	bool isInOpenSim();
+	bool isInSecondLife() { return (isInSLMain() || isInSLBeta()); }
+
 	/// Is the selected grid a production grid?
 	bool isInProductionGrid();
 	/**
@@ -220,6 +225,9 @@ private:
 	std::string mGridFile;
 	LLSD mGridList;
 	bool mIsInProductionGrid;
+	bool mIsInSLMain;
+	bool mIsInSLBeta;
+	bool mIsInOpenSim;
 };
 
 const S32 MAC_ADDRESS_BYTES = 6;
