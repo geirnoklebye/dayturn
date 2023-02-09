@@ -177,7 +177,14 @@
          label="[APP_NAME]"
          layout="topleft"
          help_topic="preferences_dayturn_tab"
-         name="kokua" />
+         name="dayturn" />
+        <panel
+         class="panel_preference_opensim"
+         filename="panel_preferences_opensim.xml"
+         label="Grids..."
+         layout="topleft"
+         help_topic="preferences_opensim_tab"
+         name="opensim" />
         <panel
          class="panel_preference_crashreports"
          filename="panel_preferences_crashreports.xml"
