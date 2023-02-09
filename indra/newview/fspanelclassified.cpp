@@ -848,12 +848,14 @@ void FSPanelClassifiedEdit::resetControls()
 S32 FSPanelClassifiedEdit::getClassifiedFee()
 {
 	S32 fee = MINIMUM_PRICE_FOR_LISTING;
+/* 
 #ifdef OPENSIM
 	if (LLGridManager::getInstance()->isInOpenSim())
 	{
 		fee = LLGridManager::getInstance()->getClassifiedFee();
 	}
 #endif // OPENSIM
+ */
 	return fee;
 }
 // </FS:CR>

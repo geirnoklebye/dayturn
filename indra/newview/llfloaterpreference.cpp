@@ -128,6 +128,9 @@
 // Firestorm Includes
 #include "lldiriterator.h"	// <Kadah> for populating the fonts combo
 #include "llpanelblockedlist.h"
+#ifdef OPENSIM
+#include "exogroupmutelist.h"
+#endif
 
 #include "lltoolbarview.h"
 #include "../llcrashlogger/llcrashlogger.h"
@@ -4507,13 +4510,15 @@ void FSPanelPreferenceBackup:: doRestoreSettings(const LLSD& notification, const
 		gToolBarView->clearToolbars();
 		LL_INFOS("SettingsBackup") << "reloading toolbars" << LL_ENDL;
 		gToolBarView->loadToolbars(false);
-#ifdef OPENSIM
+/* 
+#ifdef OPENSIM  GN Don't know what this is supposed to do
 		if (LLGridManager::instance().isInOpenSim())
 		{
 			LL_INFOS("SettingsBackup") << "reloading group mute list" << LL_ENDL;
 			exoGroupMuteList::instance().loadMuteList();
 		}
 #endif
+ */
 // not in Kokua
 //		FSAvatarRenderPersistence::instance().loadAvatarRenderSettings();
 //		LLPanelMainInventory::sSaveFilters = false;

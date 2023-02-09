@@ -32,15 +32,22 @@ endif (WINDOWS)
 
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
-      "Build type.  One of: Debug Release RelWithDebInfo" FORCE)
+      "Build type.  One of: Release RelWithDebInfo" FORCE)
 endif (NOT CMAKE_BUILD_TYPE)
+
+# Opensim support
+option(OPENSIM "OpenSim support" ON)
+if (OPENSIM) 
+  add_compile_definitions(OPENSIM)
+  message(STATUS "Compiling with OpenSim support")
+else (OPENSIM)
+	message(STATUS "Compiling without OpenSim support")
+endif (OPENSIM)
 
 if (HAVOK_TPV)
   add_definitions(-DHAVOK_TPV=1)
-  message("-- Compiling with Havok libraries")
+  message( "Compiling with Havok libraries")
 endif (HAVOK_TPV)
-
-#</FS:AW optional opensim support>
 
 add_subdirectory(cmake)
 
