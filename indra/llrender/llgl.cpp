@@ -637,15 +637,15 @@ bool LLGLManager::initGL()
 #if LL_DARWIN
 	if (mGLVendor.find("APPLE") != std::string::npos)
 	{
-		if (mGLRenderer.find("Apple M1"))
-		{
-			mVRAM = 1024;
-			LL_INFOS("RenderInit") << "Setting VRAM for Apple M1 to: " << mVRAM << LL_ENDL;
-		}
-		else if (mGLRenderer.find("Apple M2"))
+		if (mGLRenderer.find("Apple M2"))
 		{
 			mVRAM = 1024;
 			LL_INFOS("RenderInit") << "Setting VRAM for Apple M2 to: " << mVRAM << LL_ENDL;
+		}
+		else if (mGLRenderer.find("Apple M1"))
+		{
+			mVRAM = 1024;
+			LL_INFOS("RenderInit") << "Setting VRAM for Apple M1 to: " << mVRAM << LL_ENDL;
 		}
 	}
 	else if (mGLVendor.substr(0,4) == "ATI ")
