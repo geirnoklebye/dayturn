@@ -11489,6 +11489,29 @@
             <key>tooltip</key>
             <string>Returns the value for header for request_id.\nReturns a string that is the value of the Header for HTTPRequestID.</string>
          </map>
+         <key>llGetInventoryAcquireTime</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>item</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Returns a string with the timestamp that the item was added to the prim's inventory.</string>
+         </map>
          <key>llGetInventoryCreator</key>
          <map>
             <key>energy</key>
@@ -13791,6 +13814,38 @@
                Starts an asynchronous transaction the request a number of keys from the data store. The dataserver callback will be executed with the key returned from this call and a string describing the result. The result is comma-delimited list. The first item is an integer specifying if the transaction succeeded (1) or not (0). In the failure case, the second item will be an integer corresponding to one of the XP_ERROR_... constants. The error XP_ERROR_KEY_NOT_FOUND is returned if First is greater than or equal to the number of keys in the data store. In the success case the subsequent items will be the keys requested. The number of keys returned may be less than requested if the return value is too large or if there is not enough keys remaining. The order keys are returned is not guaranteed but is stable between subsequent calls as long as no keys are added or removed. Because the keys are returned in a comma-delimited list it is not recommended to use commas in key names if this function is used.
             </string>
          </map>
+         <key>llLinkAdjustSoundVolume</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>LinkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string>Link number (0: unlinked, 1: root prim, &gt;1: child prims) or a LINK_* flag</string>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string></string>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Adjusts volume of attached sound.</string>
+         </map>
          <key>llLinkParticleSystem</key>
          <map>
             <key>energy</key>
@@ -13822,6 +13877,111 @@
             </array>
             <key>tooltip</key>
             <string>Creates a particle system in prim LinkNumber based on Rules. An empty list removes a particle system from object.\nList format is [ rule-1, data-1, rule-2, data-2 ... rule-n, data-n ].\nThis is identical to llParticleSystem except that it applies to a specified linked prim and not just the prim the script is in.</string>
+         </map>
+         <key>llLinkPlaySound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>LinkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string>Link number (0: unlinked, 1: root prim, &gt;1: child prims) or a LINK_* flag</string>
+                  </map>
+               </map>
+               <map>
+                  <key>sound</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string></string>
+                  </map>
+               </map>
+               <map>
+                  <key>volume</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string></string>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Plays attached sound once at volume</string>
+         </map>
+         <key>llLinkSetSoundQueueing</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>LinkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string>Link number (0: unlinked, 1: root prim, &gt;1: child prims) or a LINK_* flag</string>
+                  </map>
+               </map>
+               <map>
+                  <key>queue</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string></string>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Set whether attached sounds wait for the current sound to finish. If queue is TRUE, queuing is enabled, if FALSE queuing is disabled. Sound queuing is disabled by default.</string>
+         </map>
+         <key>llLinkSetSoundRadius</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>LinkNumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string>Link number (0: unlinked, 1: root prim, &gt;1: child prims) or a LINK_* flag</string>
+                  </map>
+               </map>
+               <map>
+                  <key>radius</key>
+                  <map>
+                     <key>type</key>
+                     <string>float</string>
+                     <key>tooltip</key>
+                     <string></string>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Establishes a hard cut-off radius for audibility of scripted sounds (both attached and triggered).</string>
          </map>
          <key>llLinkSitTarget</key>
          <map>
@@ -13863,6 +14023,29 @@
             </array>
             <key>tooltip</key>
             <string>Set the sit location for the linked prim(s). If Offset == &lt;0,0,0&gt; clear it.\nSet the sit location for the linked prim(s). The sit location is relative to the prim's position and rotation.</string>
+         </map>
+         <key>llLinkStopSound</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>void</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>linknumber</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Stops the attached sound(s) currently playing, if they were started by llLoopSound</string>
          </map>
          <key>llList2CSV</key>
          <map>
@@ -15408,6 +15591,38 @@
             <key>tooltip</key>
             <string>Navigate to destination.\nDirects an object to travel to a defined position in the region or adjacent regions.</string>
          </map>
+         <key>llObjectGetLinkKey</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.2</real>
+            <key>return</key>
+            <string>key</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>objectid</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string></string>
+         </map>
          <key>llOffsetTexture</key>
          <map>
             <key>energy</key>
@@ -16359,6 +16574,56 @@
             </array>
             <key>tooltip</key>
             <string>Removes the enabled bits in 'flags'.\nSets the vehicle flags to FALSE. Valid parameters can be found in the vehicle flags constants section.</string>
+         </map>
+         <key>llReplaceSubString</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.1</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+                <map>
+                  <key>pattern</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+                </map>
+                <map>
+                  <key>replacement</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+                <map>
+                  <key>count</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Returns a string that is the result of replacing the first count matching instances pattern in src with replacement_pattern.</string>
          </map>
          <key>llRequestAgentData</key>
          <map>
@@ -19392,6 +19657,29 @@
             <key>tooltip</key>
             <string>Returns a string of 40 hex characters that is the SHA1 security Hash of Text.</string>
          </map>
+         <key>llSHA256String</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>src</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string>Returns a string of 64 hex characters that is the "Wikipedia logo" SHA-256 security hash of src.</string>
+         </map>
          <key>llShout</key>
          <map>
             <key>energy</key>
@@ -21573,7 +21861,7 @@
                   </map>
                </map>            
                <map>
-                  <key>start_x</key>
+                  <key>startX</key>
                   <map>
                      <key>type</key>
                      <string>integer</string>
@@ -21582,7 +21870,7 @@
                   </map>
                 </map>
                 <map>
-                  <key>start_y</key>
+                  <key>startY</key>
                   <map>
                      <key>type</key>
                      <string>integer</string>
