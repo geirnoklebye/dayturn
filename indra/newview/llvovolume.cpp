@@ -5932,18 +5932,18 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 						}
 						else
 						{
-							// <FS:ND> Even more crash avoidance ...
-							// if (te->getColor().mV[3] > 0.f || te->getGlow() > 0.f)
-							if (te && (te->getColor().mV[3] > 0.f || te->getGlow() > 0.f))
-							// </FS:ND>
-                            { //only treat as alpha in the pipeline if < 100% transparent
-                                drawablep->setState(LLDrawable::HAS_ALPHA);
-                                add_face(sAlphaFaces, alpha_count, facep);
-                            }
-                            else if (LLDrawPoolAlpha::sShowDebugAlpha)
-                            {
-                                add_face(sAlphaFaces, alpha_count, facep);
-                            }
+							if (te->getColor().mV[3] > 0.f || te->getGlow() > 0.f)
+							{ //only treat as alpha in the pipeline if < 100% transparent
+								drawablep->setState(LLDrawable::HAS_ALPHA);
+								add_face(sAlphaFaces, alpha_count, facep);
+							}
+							else if (LLDrawPoolAlpha::sShowDebugAlpha ||
+								gPipeline.sRenderHighlight &&
+								(LLPipeline::getRenderScriptedBeacons() || LLPipeline::getRenderScriptedTouchBeacons()) &&
+								drawablep->getVObj() && drawablep->getVObj()->flagScripted())
+							{ //draw the transparent face for debugging purposes using a custom texture
+								add_face(sAlphaFaces, alpha_count, facep);
+							}
 						}
 					}
 					else
@@ -5956,10 +5956,7 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 						if (gPipeline.canUseWindLightShadersOnObjects()
 							&& LLPipeline::sRenderBump)
 						{
-							// <FS:ND> We just skip all of this is there is no te entry. This might get some funny results (which would be a face without te anyway).
-							// if (LLPipeline::sRenderDeferred && te->getMaterialParams().notNull()  && !te->getMaterialID().isNull())
-							if (LLPipeline::sRenderDeferred && te && te->getMaterialParams().notNull()  && !te->getMaterialID().isNull())
-							// </FS:ND>
+							if (LLPipeline::sRenderDeferred && te->getMaterialParams().notNull()  && !te->getMaterialID().isNull())
 							{
 								LLMaterial* mat = te->getMaterialParams().get();
 								if (mat->getNormalID().notNull())
