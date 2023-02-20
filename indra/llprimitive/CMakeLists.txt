@@ -63,6 +63,7 @@ set(llprimitive_HEADER_FILES
     llvolumemessage.h
     material_codes.h
     object_flags.h
+    osslconstants.h
     )
         
 set_source_files_properties(${llprimitive_HEADER_FILES}
