@@ -326,7 +326,7 @@ set(viewer_SOURCE_FILES
     llfloateroutfitphotopreview.cpp 
     llfloaterobjectweights.cpp
     llfloateropenobject.cpp
-    llfloatersimpleoutfitsnapshot.cpp
+    llfloatersimplesnapshot.cpp
     llfloaterpathfindingcharacters.cpp
     llfloaterpathfindingconsole.cpp
     llfloaterpathfindinglinksets.cpp
@@ -1008,7 +1008,7 @@ set(viewer_HEADER_FILES
     llfloateroutfitphotopreview.h
     llfloaterobjectweights.h
     llfloateropenobject.h
-    llfloatersimpleoutfitsnapshot.h
+    llfloatersimplesnapshot.h
     llfloaterpathfindingcharacters.h
     llfloaterpathfindingconsole.h
     llfloaterpathfindinglinksets.h
