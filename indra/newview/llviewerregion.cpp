@@ -3053,83 +3053,70 @@ void LLViewerRegion::requestObjects(LLHost host)
 // static
 void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 {
-	capabilityNames.append("AbuseCategories");
+	
+		
+    // Capabilities common to both SecondLife and OpenSim
 	capabilityNames.append("AcceptFriendship");
-	capabilityNames.append("AcceptGroupInvite"); // ReadOfflineMsgs recieved messages only!!!
-	capabilityNames.append("AgentPreferences");
-    capabilityNames.append("AgentProfile");
+    capabilityNames.append("AgentPreferences");
 	capabilityNames.append("AgentState");
 	capabilityNames.append("AttachmentResources");
 	capabilityNames.append("AvatarPickerSearch");
 	capabilityNames.append("AvatarRenderInfo");
 	capabilityNames.append("CharacterProperties");
-	capabilityNames.append("ChatSessionRequest");
+    capabilityNames.append("ChatSessionRequest");
 	capabilityNames.append("CopyInventoryFromNotecard");
 	capabilityNames.append("CreateInventoryCategory");
 	capabilityNames.append("DeclineFriendship");
-	capabilityNames.append("DeclineGroupInvite"); // ReadOfflineMsgs recieved messages only!!!
 	capabilityNames.append("DispatchRegionInfo");
-	capabilityNames.append("DirectDelivery");
-	capabilityNames.append("DispatchOpenRegionSettings");
+    
 	capabilityNames.append("EnvironmentSettings");
+	capabilityNames.append("DispatchOpenRegionSettings");
+	//capabilityNames.append("DispatchWindLightSettings"); // now using EnvironmentSettings for windlight settings
 	capabilityNames.append("EstateAccess");
 	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
     capabilityNames.append("ExtEnvironment");
-
-	capabilityNames.append("FetchLib2");
-	capabilityNames.append("FetchLibDescendents2");
-	capabilityNames.append("FetchInventory2");
-	capabilityNames.append("FetchInventoryDescendents2");
-	capabilityNames.append("IncrementCOFVersion");
-	AISAPI::getCapNames(capabilityNames);
-
-	capabilityNames.append("InterestList");
-
+	
+	if (gSavedSettings.getbool("UseHTTPInventory"))
+	{	
+		capabilityNames.append("FetchLib2");
+		capabilityNames.append("FetchLibDescendents2");
+		capabilityNames.append("FetchInventory2");
+		capabilityNames.append("FetchInventoryDescendents2");
+		capabilityNames.append("IncrementCOFVersion");
+	}
+	
 	capabilityNames.append("GetDisplayNames");
-	capabilityNames.append("GetExperiences");
-	capabilityNames.append("AgentExperiences");
-	capabilityNames.append("FindExperienceByName");
-	capabilityNames.append("GetExperienceInfo");
-	capabilityNames.append("GetAdminExperiences");
-	capabilityNames.append("GetCreatorExperiences");
-	capabilityNames.append("ExperiencePreferences");
-	capabilityNames.append("GroupExperiences");
-	capabilityNames.append("UpdateExperience");
-	capabilityNames.append("IsExperienceAdmin");
-	capabilityNames.append("IsExperienceContributor");
-	capabilityNames.append("RegionExperiences");
-    capabilityNames.append("ExperienceQuery");
+	capabilityNames.append("GetMesh");
+	capabilityNames.append("GetMesh2");
 	capabilityNames.append("GetMetadata");
 	capabilityNames.append("GetObjectCost");
 	capabilityNames.append("GetObjectPhysicsData");
+	capabilityNames.append("GetTexture");
 	capabilityNames.append("GroupAPIv1");
 	capabilityNames.append("GroupMemberData");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("HomeLocation");
 	capabilityNames.append("LandResources");
-	capabilityNames.append("LSLSyntax");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("MeshUploadFlag");	
-	capabilityNames.append("NavMeshGenerationStatus");
+	
 	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("ObjectAnimation");
 	capabilityNames.append("ObjectMedia");
 	capabilityNames.append("ObjectMediaNavigate");
-	capabilityNames.append("ObjectNavMeshProperties");
+	
 	capabilityNames.append("ParcelPropertiesUpdate");
 	capabilityNames.append("ParcelVoiceInfoRequest");
 	capabilityNames.append("ProductInfoRequest");
 	capabilityNames.append("ProvisionVoiceAccountRequest");
-	capabilityNames.append("ReadOfflineMsgs"); // Requires to respond reliably: AcceptFriendship, AcceptGroupInvite, DeclineFriendship, DeclineGroupInvite
-	capabilityNames.append("RegionObjects");
 	capabilityNames.append("RemoteParcelRequest");
 	capabilityNames.append("RenderMaterials");
 	capabilityNames.append("RequestTextureDownload");
 	capabilityNames.append("ResourceCostSelected");
-	capabilityNames.append("RetrieveNavMeshSrc");
-	capabilityNames.append("SearchStatRequest");
+
+    capabilityNames.append("SearchStatRequest");
 	capabilityNames.append("SearchStatTracking");
 	capabilityNames.append("SendPostcard");
 	capabilityNames.append("SendUserReport");
@@ -3139,7 +3126,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("SimConsoleAsync");
 	capabilityNames.append("SimulatorFeatures");
 	capabilityNames.append("StartGroupProposal");
-	capabilityNames.append("TerrainNavMeshProperties");
 	capabilityNames.append("TextureStats");
 	capabilityNames.append("UntrustedSimulatorMessage");
 	capabilityNames.append("UpdateAgentInformation");
@@ -3151,17 +3137,57 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("UpdateNotecardTaskInventory");
 	capabilityNames.append("UpdateScriptAgent");
 	capabilityNames.append("UpdateScriptTask");
-    capabilityNames.append("UpdateSettingsAgentInventory");
     capabilityNames.append("UpdateSettingsTaskInventory");
-    capabilityNames.append("UploadAgentProfileImage");
 	capabilityNames.append("UploadBakedTexture");
-    capabilityNames.append("UserInfo");
-	capabilityNames.append("ViewerAsset"); 
-	capabilityNames.append("ViewerBenefits");
+    capabilityNames.append("ViewerAsset");
 	capabilityNames.append("ViewerMetrics");
-	capabilityNames.append("ViewerStartAuction");
-	capabilityNames.append("ViewerStats");
+	
+    
+    // Capabilities unique to SecondLife
+    if(gIsInSecondLife)
+    {
+        capabilityNames.append("AbuseCategories");
+		capabilityNames.append("AcceptGroupInvite"); // ReadOfflineMsgs recieved messages only!!!
+    	capabilityNames.append("AgentProfile");
+		capabilityNames.append("DeclineGroupInvite"); // ReadOfflineMsgs recieved messages only!!!
+        capabilityNames.append("DirectDelivery");
+        capabilityNames.append("GetExperiences");
+        capabilityNames.append("AgentExperiences");
+        capabilityNames.append("FindExperienceByName");
+        capabilityNames.append("GetExperienceInfo");
+        capabilityNames.append("GetAdminExperiences");
+        capabilityNames.append("GetCreatorExperiences");
+        capabilityNames.append("ExperiencePreferences");
+    	capabilityNames.append("ExperienceQuery");
+        capabilityNames.append("GroupExperiences");
+        capabilityNames.append("UpdateExperience");
+		capabilityNames.append("InterestList");
+        capabilityNames.append("IsExperienceAdmin");
+        capabilityNames.append("IsExperienceContributor");
+        capabilityNames.append("LSLSyntax");
+        capabilityNames.append("RegionExperiences");
+        capabilityNames.append("NavMeshGenerationStatus");
+        capabilityNames.append("ObjectNavMeshProperties");
+        capabilityNames.append("ReadOfflineMsgs");
+		capabilityNames.append("RegionObjects");
+        capabilityNames.append("RetrieveNavMeshSrc");
+        capabilityNames.append("TerrainNavMeshProperties");
+    	capabilityNames.append("UploadAgentProfileImage");
+        capabilityNames.append("UserInfo");
+		capabilityNames.append("ViewerBenefits");
+		capabilityNames.append("ViewerMetrics");
+        capabilityNames.append("ViewerStartAuction");
+        capabilityNames.append("ViewerStats");
 
+    }
+    
+    // Capabilities unique to OpenSim
+    if(!gIsInSecondLife)
+    {
+        // capabilityNames.append("CustomMenuAction"); OnLook specific
+        capabilityNames.append("OpenSimExtras");
+    }
+	
 	// Please add new capabilities alphabetically to reduce
 	// merge conflicts.
 }
