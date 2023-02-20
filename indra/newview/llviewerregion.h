@@ -401,7 +401,43 @@ public:
 	std::string getSimHostName();
 
 	static bool isNewObjectCreationThrottleDisabled() {return sNewObjectCreationThrottle < 0;}
-	
+
+	/* ================================================================
+	 * @name OpenSimExtras Simulator Features capability
+	 * @{
+	 */
+	/// Get region allows export
+	bool getRegionAllowsExport() const;
+	/// Avatar picker url
+	std::string getAvatarPickerURL() const;
+	/// Destination guide url
+	std::string getDestinationGuideURL() const;
+	/// Hypergrid map server url
+	std::string getMapServerURL() const;
+	/// Hypergrid search server url
+	std::string getSearchServerURL() const;
+	/// Buy currency server url
+	std::string getBuyCurrencyServerURL() const;
+	/// Grid login/gateway authority (0.8.1)
+	std::string getGridURL() const;
+	/// Grid name (0.8.1)
+	std::string getGridName() const;
+	/// Grid login/gateway authority (0.8.1)
+	std::string getHGGrid() const;
+	/// Grid name (0.8.1)
+	std::string getHGGridName() const;
+    /// Chat Range (0.8.1)
+    U32 getChatRange() const;
+    /// Shout Range (0.8.1)
+    U32 getShoutRange() const;
+    /// Whisper Range (0.8.1)
+    U32 getWhisperRange() const;
+
+	/// "God names" surname and full account names map
+	std::set<std::string> getGods() const { return mGodNames; };
+	//@}
+
+
 private:
 	void addToVOCacheTree(LLVOCacheEntry* entry);
 	LLViewerObject* addNewObject(LLVOCacheEntry* entry);
@@ -542,6 +578,7 @@ private:
 	orphan_list_t mOrphanMap;
 
 	mutable tex_matrix_t mWorldMapTiles;
+	std::set<std::string> mGodNames;
 
 	class CacheMissItem
 	{
