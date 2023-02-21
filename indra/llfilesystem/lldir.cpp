@@ -188,11 +188,11 @@ S32 LLDir::deleteFilesInDir(const std::string &dirname, const std::string &mask)
 	return count;
 }
 
-U32 LLDir::deleteDirAndContents(const std::string& dir_name)
+uintmax_t LLDir::deleteDirAndContents(const std::string& dir_name)
 {
     //Removes the directory and its contents.  Returns number of files deleted.
 	
-	U32 num_deleted = 0;
+	uintmax_t num_deleted = 0;
 
 	try
 	{
@@ -639,7 +639,7 @@ std::string LLDir::getBaseFileName(const std::string& filepath, bool strip_exten
 std::string LLDir::getDirName(const std::string& filepath) const
 {
 	std::size_t offset = filepath.find_last_of(getDirDelimiter());
-	S32 len = (offset == std::string::npos) ? 0 : offset;
+	size_t len = (offset == std::string::npos) ? 0 : offset;
 	std::string dirname = filepath.substr(0, len);
 	return dirname;
 }

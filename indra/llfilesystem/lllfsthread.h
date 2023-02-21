@@ -130,7 +130,7 @@ public:
 	
 	// static initializers
 	static void initClass(bool local_is_threaded = true); // Setup sLocal
-	static S32 updateClass(U32 ms_elapsed);
+	static size_t updateClass(U32 ms_elapsed);
 	static void cleanupClass();		// Delete sLocal
 
 	
