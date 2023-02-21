@@ -86,7 +86,7 @@ public:
 	}
 
 	// Default:  30
-	void				setTimeout(unsigned int timeout);
+	void				setTimeout(int timeout);
 	unsigned int		getTimeout() const
 	{
 		return mTimeout;

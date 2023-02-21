@@ -46,7 +46,7 @@ public:
     bool checkMaster();                     //True if available.  False if not.
     void releaseMaster( );           //Release master lockfile.
     bool isLockPresent(std::string filename); //Check if lockfile exists.
-    bool isProcessAlive(U32 pid, const std::string& pname);               //Check if pid is alive.
+    bool isProcessAlive(int pid, const std::string& pname);               //Check if pid is alive.
     bool isWaiting();                           //Waiting for master lock to be released.
     LLSD getProcessList();                      //Get next process pid/dir pairs
     void cleanupProcess(std::string proc_dir);               //Remove from list, clean up working dir.
@@ -66,7 +66,7 @@ private:
     bool mCleanUp;
     std::string mMaster;
     std::string mDumpTable;
-    U32 mWaitingPID;            //The process we're waiting on if any.
+    int mWaitingPID;            //The process we're waiting on if any.
     LLFrameTimer mTimer;
 };
 

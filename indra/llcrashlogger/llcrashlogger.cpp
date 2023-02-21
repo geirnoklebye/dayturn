@@ -132,7 +132,7 @@ std::string getStartupStateFromLog(std::string& sllog)
 	std::string startup_state = "STATE_FIRST";
 	std::string startup_token = "Startup state changing from ";
 
-	int index = sllog.rfind(startup_token);
+	unsigned long index = sllog.rfind(startup_token);
 	if (index < 0 || index + startup_token.length() > sllog.length()) {
 		return startup_state;
 	}
@@ -208,7 +208,7 @@ bool LLCrashLogger::readMinidump(std::string minidump_path)
         LL_WARNS("CRASHREPORT") << "failed to open minidump "<<minidump_path<<LL_ENDL;
     }
     
-	return (length>0?true:false);
+	return length > 0;
 }
 
 void LLCrashLogger::gatherFiles()

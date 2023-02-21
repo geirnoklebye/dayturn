@@ -83,7 +83,7 @@ bool LLCrashLock::isProcessAlive(U32 pid, const std::string& pname)
 }
 
 #else   //Everyone Else
-bool LLCrashLock::isProcessAlive(U32 pid, const std::string& pname)
+bool LLCrashLock::isProcessAlive(int pid, const std::string& pname)
 {
     //Will boost.process ever become a reality? 
     std::stringstream cmd;
@@ -151,7 +151,7 @@ bool LLCrashLock::requestMaster( F32 timeout )
         }
     }
     
-	U32 pid = getpid();
+	pid_t pid = getpid();
     lock_sd["pid"] = (LLSD::Integer)pid;
     return putLockFile(mMaster,lock_sd);
 }

@@ -67,7 +67,7 @@ void HttpOptions::setTrace(long level)
 }
 
 
-void HttpOptions::setTimeout(unsigned int timeout)
+void HttpOptions::setTimeout(int timeout)
 {
 	mTimeout = timeout;
 }
