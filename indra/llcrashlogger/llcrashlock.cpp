@@ -43,7 +43,7 @@
 #include <llwin32headers.h>
 #include <TlHelp32.h>
 
-bool LLCrashLock::isProcessAlive(U32 pid, const std::string& pname)
+bool LLCrashLock::isProcessAlive(int pid, const std::string& pname)
 {
 	std::wstring wpname;
 	wpname = std::wstring(pname.begin(), pname.end());
