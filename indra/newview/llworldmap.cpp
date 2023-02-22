@@ -68,7 +68,9 @@ LLSimInfo::LLSimInfo(U64 handle)
 	mAgentsUpdateTime(0),
 	mAccess(0x0),
 	mRegionFlags(0x0),
-	mFirstAgentRequest(true)
+	mFirstAgentRequest(true), 
+	mSizeX(REGION_WIDTH_UNITS),
+	mSizeY(REGION_WIDTH_UNITS)
 //	mWaterHeight(0.f)
 {
 }
@@ -401,7 +403,7 @@ void LLWorldMap::reloadItems(bool force)
 // static public
 // Insert a region in the region map
 // returns true if region inserted, false otherwise
-bool LLWorldMap::insertRegion(U32 x_world, U32 y_world, std::string& name, LLUUID& image_id, U32 accesscode, U32 region_flags)
+bool LLWorldMap::insertRegion(U32 x_world, U32 y_world, U16 x_size, U16 y_size, std::string& name, LLUUID& image_id, U32 accesscode, U32 region_flags)
 {
 	// This region doesn't exist
 	if (accesscode == 255)
@@ -430,6 +432,7 @@ bool LLWorldMap::insertRegion(U32 x_world, U32 y_world, std::string& name, LLUUI
 		siminfo->setRegionFlags(region_flags);
 	//	siminfo->setWaterHeight((F32) water_height);
 		siminfo->setLandForSaleImage(image_id);
+		siminfo->setSize(x_size, y_size);
 
 		// Handle the location tracking (for teleport, UI feedback and info display)
 		if (LLWorldMap::getInstance()->isTrackingInRectangle( x_world, y_world, x_world + REGION_WIDTH_UNITS, y_world + REGION_WIDTH_UNITS))
