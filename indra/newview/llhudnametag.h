@@ -97,7 +97,6 @@ public:
 	// For bubble chat, set the part above the chat text
 	void setLabel(const std::string& label_utf8);
 	void addLabel(const std::string& label_utf8);
-	void addLabelWithColorAndEmphasis(const std::string& label_utf8, const LLColor4& color, bool useBold);
 
 	// Sets the default font for lines with no font specified
 	void setFont(const LLFontGL* font);

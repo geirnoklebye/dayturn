@@ -313,9 +313,7 @@ void LLHUDNameTag::renderText(BOOL for_select)
 		LLRect label_top_rect = screen_rect;
 		const S32 label_height = ll_round((mFontp->getLineHeight() * (F32)mLabelSegments.size() + (VERTICAL_PADDING / 3.f)));
 		label_top_rect.mBottom = label_top_rect.mTop - label_height;
-// CA KKA-936 use the colour from the first element instead of a default
-		LLColor4 label_top_color = mLabelSegments.begin()->mColor;
-//		LLColor4 label_top_color = text_color;
+		LLColor4 label_top_color = text_color;
 		label_top_color.mV[VALPHA] = gSavedSettings.getF32("ChatBubbleOpacity") * alpha_factor;
 
         mRoundedRectTopImgp->draw3D(render_position, x_pixel_vec, y_pixel_vec, label_top_rect, label_top_color);
@@ -492,12 +490,6 @@ void LLHUDNameTag::setLabel(const std::string &label_utf8)
 
 void LLHUDNameTag::addLabel(const std::string& label_utf8)
 {
-	addLabelWithColorAndEmphasis(label_utf8, mColor, false);
-}
-
-void LLHUDNameTag::addLabelWithColorAndEmphasis(const std::string& label_utf8, const LLColor4& lColor, bool useBold)
-{
-	// KKA-936 - extended version with colour set and bold capability for use with name tags
 	LLWString wstr = utf8string_to_wstring(label_utf8);
 	if (!wstr.empty())
 	{
@@ -517,7 +509,7 @@ void LLHUDNameTag::addLabelWithColorAndEmphasis(const std::string& label_utf8, c
 			{
 				S32 segment_length = mFontp->maxDrawableChars(iter->substr(line_length).c_str(), 
 					HUD_TEXT_MAX_WIDTH, wstr.length(), LLFontGL::WORD_BOUNDARY_IF_POSSIBLE);
-				LLHUDTextSegment segment(iter->substr(line_length, segment_length), (useBold ? LLFontGL::BOLD : LLFontGL::NORMAL), lColor, mFontp);
+				LLHUDTextSegment segment(iter->substr(line_length, segment_length), LLFontGL::NORMAL, mColor, mFontp);
 				mLabelSegments.push_back(segment);
 				line_length += segment_length;
 			}
