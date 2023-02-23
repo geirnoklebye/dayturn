@@ -307,7 +307,7 @@ struct HttpStatus
         mDetails = std::shared_ptr<Details>(new Details(type, status));
 	}
 	
-	HttpStatus(int http_status)
+	HttpStatus(long http_status)
 	{
         mDetails = std::shared_ptr<Details>(new Details(http_status, 
 			(http_status >= 200 && http_status <= 299) ? HE_SUCCESS : HE_REPLY_ERROR));
@@ -463,7 +463,7 @@ private:
 
 	struct Details
 	{
-		Details(type_enum_t type, short status):
+		Details(long type, short status):
 			mType(type),
 			mStatus(status),
 			mMessage(),
@@ -482,7 +482,7 @@ private:
             return (mType == rhs.mType) && (mStatus == rhs.mStatus);
         }
 
-		type_enum_t	mType;
+		long 		mType;
 		short		mStatus;
 		std::string	mMessage;
 		LLSD		mErrorData;

@@ -484,13 +484,13 @@ void HttpLibcurl::policyUpdated(int policy_class)
 									 1L);
 			check_curl_multi_setopt(multi_handle,
 									 CURLMOPT_MAX_PIPELINE_LENGTH,
-									 long(options.mPipelining));
+									 options.mPipelining);
 			check_curl_multi_setopt(multi_handle,
 									 CURLMOPT_MAX_HOST_CONNECTIONS,
-									 long(options.mPerHostConnectionLimit));
+									 options.mPerHostConnectionLimit);
 			check_curl_multi_setopt(multi_handle,
 									 CURLMOPT_MAX_TOTAL_CONNECTIONS,
-									 long(options.mConnectionLimit));
+									 options.mConnectionLimit);
 		}
 		else
 		{
