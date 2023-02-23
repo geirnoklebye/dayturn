@@ -65,7 +65,7 @@ const F32 LOD_2_SCREEN_COVERAGE = 0.40f;
 
 std::set<LLPointer<LLHUDNameTag> > LLHUDNameTag::sTextObjects;
 std::vector<LLPointer<LLHUDNameTag> > LLHUDNameTag::sVisibleTextObjects;
-BOOL LLHUDNameTag::sDisplayText = TRUE ;
+bool LLHUDNameTag::sDisplayText = true ;
 const F32 LLHUDNameTag::NAMETAG_MAX_WIDTH = 298.f;
 const F32 LLHUDNameTag::HUD_TEXT_MAX_WIDTH = 190.f;
 
@@ -102,7 +102,7 @@ LLHUDNameTag::LLHUDNameTag(const U8 type)
 	mTextAlignment(ALIGN_TEXT_CENTER),
 	mVertAlignment(ALIGN_VERT_CENTER),
 	mLOD(0),
-	mHidden(FALSE)
+	mHidden(false)
 {
 	LLPointer<LLHUDNameTag> ptr(this);
 	sTextObjects.insert(ptr);
@@ -225,16 +225,15 @@ bool LLHUDNameTag::lineSegmentIntersect(const LLVector4a& start, const LLVector4
 
 void LLHUDNameTag::render()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_UI;
 	if (sDisplayText)
 	{
 		LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE);
 		LLGLDisable gls_stencil(GL_STENCIL_TEST);
-		renderText(FALSE);
+		renderText(false);
 	}
 }
 
-void LLHUDNameTag::renderText(BOOL for_select)
+void LLHUDNameTag::renderText(bool for_select)
 {
 	if (!mVisible || mHidden)
 	{

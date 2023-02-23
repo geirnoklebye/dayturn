@@ -129,8 +129,8 @@ public:
 	/*virtual*/ F32 getDistance() const { return mLastDistance; }
 	S32  getLOD() { return mLOD; }
 	bool getVisible() { return mVisible; }
-	BOOL getHidden() const { return mHidden; }
-	void setHidden( BOOL hide ) { mHidden = hide; }
+	bool getHidden() const { return mHidden; }
+	void setHidden( bool hide ) { mHidden = hide; }
 	void shift(const LLVector3& offset);
 
 	bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a& intersection, bool debug_render = false);
@@ -138,13 +138,13 @@ public:
 	static void shiftAll(const LLVector3& offset);
 	static void addPickable(std::set<LLViewerObject*> &pick_list);
 	static void reshape();
-	static void setDisplayText(BOOL flag) { sDisplayText = flag ; }
+	static void setDisplayText(bool flag) { sDisplayText = flag ; }
 
 protected:
 	LLHUDNameTag(const U8 type);
 
 	/*virtual*/ void render();
-	void renderText(BOOL for_select);
+	void renderText(bool for_select);
 	static void updateAll();
 	void setLOD(S32 lod);
 	S32 getMaxLines();
@@ -179,11 +179,11 @@ private:
 	ETextAlignment	mTextAlignment;
 	EVertAlignment	mVertAlignment;
 	S32				mLOD;
-	BOOL			mHidden;
+	bool			mHidden;
 	LLPointer<LLUIImage> mRoundedRectImgp;
 	LLPointer<LLUIImage> mRoundedRectTopImgp;
 
-	static BOOL    sDisplayText ;
+	static bool    sDisplayText ;
 	static std::set<LLPointer<LLHUDNameTag> > sTextObjects;
 	static std::vector<LLPointer<LLHUDNameTag> > sVisibleTextObjects;
 //	static std::vector<LLPointer<LLHUDNameTag> > sVisibleHUDTextObjects;
