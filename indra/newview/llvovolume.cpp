@@ -1748,7 +1748,7 @@ void LLVOVolume::updateFaceFlags()
 		LLFace *face = mDrawable->getFace(i);
 		if (face)
 		{
-			BOOL fullbright = getTE(i)->getFullbright();
+			bool fullbright = getTE(i)->getFullbright();
 			face->clearState(LLFace::FULLBRIGHT | LLFace::HUD_RENDER | LLFace::LIGHT);
 
 			if (fullbright || (mMaterial == LL_MCODE_LIGHT))
