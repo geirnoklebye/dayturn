@@ -2362,7 +2362,7 @@ void LLKeyframeMotion::onLoadComplete(const LLUUID& asset_uuid,
 			file.read((U8*)buffer, size);	/*Flawfinder: ignore*/
 
 			LL_DEBUGS("Animation") << "Loading keyframe data for: " << motionp->getName() << ":" << motionp->getID() << " (" << size << " bytes)" << LL_ENDL;
-			
+
 			LLDataPackerBinaryBuffer dp(buffer, size);
 			if (motionp->deserialize(dp, asset_uuid))
 			{
