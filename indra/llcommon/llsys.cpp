@@ -353,14 +353,14 @@ LLOSInfo::LLOSInfo() :
 
 #ifndef LL_WINDOWS
 // static
-S32 LLOSInfo::getMaxOpenFiles()
+long LLOSInfo::getMaxOpenFiles()
 {
-	const S32 OPEN_MAX_GUESS = 256;
+	const long OPEN_MAX_GUESS = 256;
 
 #ifdef	OPEN_MAX
-	static S32 open_max = OPEN_MAX;
+	static long open_max = OPEN_MAX;
 #else
-	static S32 open_max = 0;
+	static long open_max = 0;
 #endif
 
 	if (0 == open_max)
@@ -431,7 +431,7 @@ bool LLOSInfo::is64Bit()
     return true;
 #elif defined(_WIN32)
     // 32-bit viewer may be run on both 32-bit and 64-bit Windows, need to elaborate
-    BOOL f64 = FALSE;
+    bool f64 = false;
     return IsWow64Process(GetCurrentProcess(), &f64) && f64;
 #else
     return false;
@@ -930,7 +930,7 @@ public:
         // Both MEM_INFO_WINDOW and MEM_INFO_THROTTLE are in seconds. We need
         // the number of integer MEM_INFO_THROTTLE sample slots that will fit
         // in MEM_INFO_WINDOW. Round up.
-        mSamples(int((MEM_INFO_WINDOW / MEM_INFO_THROTTLE) + 0.7)),
+        mSamples(u_long((MEM_INFO_WINDOW / MEM_INFO_THROTTLE) + 0.7)),
         // Initializing to F32_MAX means that the first real frame will become
         // the slowest ever, which sounds like a good idea.
         mSlowest(F32_MAX)
