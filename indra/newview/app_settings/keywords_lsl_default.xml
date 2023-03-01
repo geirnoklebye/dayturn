@@ -15591,7 +15591,7 @@
             <key>tooltip</key>
             <string>Navigate to destination.\nDirects an object to travel to a defined position in the region or adjacent regions.</string>
          </map>
-         <key>llObjectGetLinkKey</key>
+         <key>llGetObjectLinkKey</key>
          <map>
             <key>energy</key>
             <real>10.0</real>
