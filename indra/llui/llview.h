@@ -289,6 +289,7 @@ public:
 	void 	setAllChildrenEnabled(bool b);
 
 	virtual void	setVisible(bool visible);
+	void			setVisibleDirect(bool visible) { mVisible = visible; }
 	const bool		getVisible() const			{ return isAvailableOnThisGrid() && mVisible; }
 	virtual void	setEnabled(bool enabled);
 	bool			getEnabled() const			{ return isAvailableOnThisGrid() && mEnabled; }

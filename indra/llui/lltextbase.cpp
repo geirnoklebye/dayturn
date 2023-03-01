@@ -1400,9 +1400,9 @@ void LLTextBase::draw()
 		drawCursor();
 	}
  
-	mDocumentView->setVisible(false);
+	mDocumentView->setVisibleDirect(false);
 	LLUICtrl::draw();
-	mDocumentView->setVisible(true);
+	mDocumentView->setVisibleDirect(true);
 }
 
 
