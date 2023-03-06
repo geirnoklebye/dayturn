@@ -3096,7 +3096,7 @@ void LLIMMgr::inviteToSession(
 	std::string question_type = "VoiceInviteQuestionDefault";
 
 	bool voice_invite = false;
-	bool is_linden = LLMuteList::getInstance()->isLinden(caller_name);
+	bool is_linden = LLMuteList::isLinden(caller_name);
 
 
 	if(type == IM_SESSION_P2P_INVITE)

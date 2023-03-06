@@ -192,7 +192,7 @@ void LLMuteList::cleanupSingleton()
     LLAvatarNameCache::getInstance()->setAccountNameChangedCallback(NULL);
 }
 
-bool LLMuteList::isLinden(const std::string& name) const
+bool LLMuteList::isLinden(const std::string& name)
 {
 	std::string username = boost::replace_all_copy(name, ".", " ");
 	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
