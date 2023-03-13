@@ -700,7 +700,7 @@ bool LLXMLNode::parseBuffer(
 	XML_SetUserData(my_parser, (void *)file_node_ptr);
 
 	// Do the parsing
-	if (XML_Parse(my_parser, (const char *)buffer, length, TRUE) != XML_STATUS_OK)
+	if (XML_Parse(my_parser, (const char *)buffer, length, true) != XML_STATUS_OK)
 	{
 		LL_WARNS() << "Error parsing xml error code: "
 				<< XML_ErrorString(XML_GetErrorCode(my_parser))

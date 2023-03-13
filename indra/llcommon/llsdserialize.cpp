@@ -445,7 +445,7 @@ S32 LLSDNotationParser::doParse(std::istream& istr, LLSD& data, S32 max_depth) c
 	{
 		return 0;
 	}
-	S32 parse_count = 1;
+	long parse_count = 1;
 	switch(c)
 	{
 	case '{':
