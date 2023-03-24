@@ -3671,7 +3671,7 @@ bool LLNormalTextSegment::getDimensionsF32(S32 first_char, S32 num_chars, F32& w
 		height = mFontHeight;
 		const LLWString &text = getWText();
 		// if last character is a newline, then return true, forcing line break
-		width = mStyle->getFont()->getWidthF32(text.c_str(), mStart + first_char, num_chars);
+		width = mStyle->getFont()->getWidthF32(text.c_str(), mStart + first_char, num_chars, true);
 	}
 	return false;
 }

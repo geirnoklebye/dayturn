@@ -167,7 +167,7 @@ S32 LLFontGL::render(const LLWString &wstr, S32 begin_offset, F32 x, F32 y, cons
 	if (shadow != NO_SHADOW)
 	{
 		F32 luminance;
-		color.calcHSL(NULL, NULL, &luminance);
+		color.calcHSL(nullptr, nullptr, &luminance);
 		drop_shadow_strength = clamp_rescale(luminance, 0.35f, 0.6f, 0.f, 1.f);
 		if (luminance < 0.35f)
 		{
@@ -267,7 +267,7 @@ S32 LLFontGL::render(const LLWString &wstr, S32 begin_offset, F32 x, F32 y, cons
 		}
 	}
 
-	const LLFontGlyphInfo* next_glyph = NULL;
+	const LLFontGlyphInfo* next_glyph = nullptr;
 
 	const S32 GLYPH_BATCH_SIZE = 30;
 	LLVector3 vertices[GLYPH_BATCH_SIZE * 4];
@@ -283,7 +283,7 @@ S32 LLFontGL::render(const LLWString &wstr, S32 begin_offset, F32 x, F32 y, cons
 		llwchar wch = wstr[i];
 
 		const LLFontGlyphInfo* fgi = next_glyph;
-		next_glyph = NULL;
+		next_glyph = nullptr;
 		if(!fgi)
 		{
 			fgi = mFontFreetype->getGlyphInfo(wch);
@@ -421,7 +421,7 @@ S32 LLFontGL::render(const LLWString &wstr, S32 begin_offset, F32 x, F32 y, cons
 
 S32 LLFontGL::render(const LLWString &text, S32 begin_offset, F32 x, F32 y, const LLColor4 &color) const
 {
-	return render(text, begin_offset, x, y, color, LEFT, BASELINE, NORMAL, NO_SHADOW, S32_MAX, S32_MAX, NULL, false);
+	return render(text, begin_offset, x, y, color, LEFT, BASELINE, NORMAL, NO_SHADOW, S32_MAX, S32_MAX, nullptr, false);
 }
 
 S32 LLFontGL::renderUTF8(const std::string &text, S32 begin_offset, F32 x, F32 y, const LLColor4 &color, HAlign halign,  VAlign valign, U8 style, ShadowType shadow, S32 max_chars, S32 max_pixels,  F32* right_x, bool use_ellipses) const
@@ -495,14 +495,14 @@ F32 LLFontGL::getWidthF32(const std::string& utf8text, S32 begin_offset, S32 max
 	return getWidthF32(wtext.c_str(), begin_offset, max_chars);
 }
 
-F32 LLFontGL::getWidthF32(const llwchar* wchars, S32 begin_offset, S32 max_chars) const
+F32 LLFontGL::getWidthF32(const llwchar* wchars, S32 begin_offset, S32 max_chars, bool no_padding) const
 {
 	const S32 LAST_CHARACTER = LLFontFreetype::LAST_CHAR_FULL;
 
 	F32 cur_x = 0;
 	const S32 max_index = begin_offset + max_chars;
 
-	const LLFontGlyphInfo* next_glyph = NULL;
+	const LLFontGlyphInfo* next_glyph = nullptr;
 
 	F32 width_padding = 0.f;
 	for (S32 i = begin_offset; i < max_index && wchars[i] != 0; i++)
@@ -510,7 +510,7 @@ F32 LLFontGL::getWidthF32(const llwchar* wchars, S32 begin_offset, S32 max_chars
 		llwchar wch = wchars[i];
 
 		const LLFontGlyphInfo* fgi = next_glyph;
-		next_glyph = NULL;
+		next_glyph = nullptr;
 		if(!fgi)
 		{
 			fgi = mFontFreetype->getGlyphInfo(wch);
@@ -518,12 +518,15 @@ F32 LLFontGL::getWidthF32(const llwchar* wchars, S32 begin_offset, S32 max_chars
 
 		F32 advance = mFontFreetype->getXAdvance(fgi);
 
-		// for the last character we want to measure the greater of its width and xadvance values
-		// so keep track of the difference between these values for the each character we measure
-		// so we can fix things up at the end
-		width_padding = llmax(	0.f,											// always use positive padding amount
-								width_padding - advance,						// previous padding left over after advance of current character
-								(F32)(fgi->mWidth + fgi->mXBearing) - advance);	// difference between width of this character and advance to next character
+		if (!no_padding)
+		{
+			// for the last character we want to measure the greater of its width and xadvance values
+			// so keep track of the difference between these values for the each character we measure
+			// so we can fix things up at the end
+			width_padding = llmax(0.f,											// always use positive padding amount
+				width_padding - advance,						// previous padding left over after advance of current character
+				(F32)(fgi->mWidth + fgi->mXBearing) - advance);	// difference between width of this character and advance to next character
+		}
 
 		cur_x += advance;
 		llwchar next_char = wchars[i+1];
@@ -540,8 +543,11 @@ F32 LLFontGL::getWidthF32(const llwchar* wchars, S32 begin_offset, S32 max_chars
 		cur_x = (F32)ll_round(cur_x);
 	}
 
-	// add in extra pixels for last character's width past its xadvance
-	cur_x += width_padding;
+	if (!no_padding)
+	{
+		// add in extra pixels for last character's width past its xadvance
+		cur_x += width_padding;
+	}
 
 	return cur_x / sScaleX;
 }
@@ -575,7 +581,7 @@ S32 LLFontGL::maxDrawableChars(const llwchar* wchars, F32 max_pixels, S32 max_ch
 	F32 scaled_max_pixels =	max_pixels * sScaleX;
 	F32 width_padding = 0.f;
 	
-	LLFontGlyphInfo* next_glyph = NULL;
+	LLFontGlyphInfo* next_glyph = nullptr;
 
 	S32 i;
 	for (i=0; (i < max_chars); i++)
@@ -620,12 +626,12 @@ S32 LLFontGL::maxDrawableChars(const llwchar* wchars, F32 max_pixels, S32 max_ch
 		}
 		
 		LLFontGlyphInfo* fgi = next_glyph;
-		next_glyph = NULL;
+		next_glyph = nullptr;
 		if(!fgi)
 		{
 			fgi = mFontFreetype->getGlyphInfo(wch);
 
-			if (NULL == fgi)
+			if (nullptr == fgi)
 			{
 				return 0;
 			}
@@ -755,7 +761,7 @@ S32 LLFontGL::charFromPixelOffset(const llwchar* wchars, S32 begin_offset, F32 t
 
 	F32 scaled_max_pixels =	max_pixels * sScaleX;
 	
-	const LLFontGlyphInfo* next_glyph = NULL;
+	const LLFontGlyphInfo* next_glyph = nullptr;
 
 	S32 pos;
 	for (pos = begin_offset; pos < max_index; pos++)
@@ -767,7 +773,7 @@ S32 LLFontGL::charFromPixelOffset(const llwchar* wchars, S32 begin_offset, F32 t
 		}
 		
 		const LLFontGlyphInfo* glyph = next_glyph;
-		next_glyph = NULL;
+		next_glyph = nullptr;
 		if(!glyph)
 		{
 			glyph = mFontFreetype->getGlyphInfo(wch);
@@ -881,15 +887,15 @@ void LLFontGL::initClass(F32 screen_dpi, F32 x_scale, F32 y_scale, const std::st
 bool LLFontGL::loadDefaultFonts()
 {
 	bool succ = true;
-	succ &= (NULL != getFontSansSerifSmall());
-	succ &= (NULL != getFontSansSerif());
-	succ &= (NULL != getFontSansSerifBig());
-	succ &= (NULL != getFontSansSerifHuge());
-	succ &= (NULL != getFontSansSerifBold());
-	succ &= (NULL != getFontMonospace());
-	succ &= (NULL != getFontScripting());
-	succ &= (NULL != getFontCascadia());
-	succ &= (NULL != getFontLektonCode());
+	succ &= (nullptr != getFontSansSerifSmall());
+	succ &= (nullptr != getFontSansSerif());
+	succ &= (nullptr != getFontSansSerifBig());
+	succ &= (nullptr != getFontSansSerifHuge());
+	succ &= (nullptr != getFontSansSerifBold());
+	succ &= (nullptr != getFontMonospace());
+	succ &= (nullptr != getFontScripting());
+	succ &= (nullptr != getFontCascadia());
+	succ &= (nullptr != getFontLektonCode());
 	return succ;
 }
 
@@ -906,7 +912,7 @@ void LLFontGL::destroyDefaultFonts()
 {
 	// Remove the actual fonts.
 	delete sFontRegistry;
-	sFontRegistry = NULL;
+	sFontRegistry = nullptr;
 }
 
 //static 
@@ -1144,7 +1150,7 @@ LLFontGL* LLFontGL::getFontByName(const std::string& name)
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
