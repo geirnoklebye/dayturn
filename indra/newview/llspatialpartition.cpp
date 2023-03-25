@@ -2527,12 +2527,12 @@ void renderPhysicsShape(LLDrawable* drawable, LLVOVolume* volume)
 					LLCDMeshData mesh;
 					mesh.mIndexBase = &index[0];
 					mesh.mVertexBase = pos[0].mV;
-					mesh.mNumVertices = pos.size();
+					mesh.mNumVertices = static_cast<int>(pos.size());
 					mesh.mVertexStrideBytes = 12;
 					mesh.mIndexStrideBytes = 6;
 					mesh.mIndexType = LLCDMeshData::INT_16;
 
-					mesh.mNumTriangles = index.size()/3;
+					mesh.mNumTriangles = static_cast<int>(index.size() / 3);
 					
 					LLCDMeshData res;
 
