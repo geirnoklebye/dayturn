@@ -864,7 +864,7 @@ size_t LLTextureCache::update(F32 max_time_ms)
 	static LLFrameTimer timer ;
 	static const F32 MAX_TIME_INTERVAL = 300.f ; //seconds.
 
-	S32 res;
+	size_t res;
 	res = LLWorkerThread::update(max_time_ms);
 
 	mListMutex.lock();
@@ -1429,7 +1429,7 @@ U32 LLTextureCache::openAndReadEntries(std::vector<Entry>& entries)
 
 void LLTextureCache::writeEntriesAndClose(const std::vector<Entry>& entries)
 {
-	S32 num_entries = entries.size();
+	size_t num_entries = entries.size();
 	llassert_always(num_entries == mHeaderEntriesInfo.mEntries);
 	
 	if (!mReadOnly)

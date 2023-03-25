@@ -75,7 +75,7 @@ private:
 		LLUUID mID; // 16 bytes
 		S32 mImageSize; // total size of image if known
 		S32 mBodySize; // size of body file in body cache
-		U32 mTime; // seconds since 1/1/1970
+		time_t mTime; // seconds since 1/1/1970
 	};
 
 #if LL_WINDOWS
@@ -113,7 +113,7 @@ public:
 	LLTextureCache(bool threaded);
 	~LLTextureCache();
 
-	/*virtual*/ size_t update(F32 max_time_ms);	
+	/*virtual*/ size_t update(F32 max_time_ms);
 	
 	void purgeCache(ELLPath location, bool remove_dir = true);
 	void setReadOnly(bool read_only) ;
@@ -140,8 +140,8 @@ public:
 	void unlockWorkers() { mWorkersMutex.unlock(); }
 
 	// debug
-	S32 getNumReads() { return mReaders.size(); }
-	S32 getNumWrites() { return mWriters.size(); }
+	size_t getNumReads() { return mReaders.size(); }
+	size_t getNumWrites() { return mWriters.size(); }
 	S64Bytes getUsage() { return S64Bytes(mTexturesSizeTotal); }
 	S64Bytes getMaxUsage() { return S64Bytes(sCacheMaxTexturesSize); }
 	U32 getEntries() { return mHeaderEntriesInfo.mEntries; }

@@ -575,7 +575,7 @@ public:
 
 	e_debug_state getState()             {return mDebuggerState;}
 	S32  getNumFetchedTextures()         {return mNumFetchedTextures;}
-	S32  getNumFetchingRequests()        {return mFetchingHistory.size();}
+	size_t getNumFetchingRequests()        {return mFetchingHistory.size();}
 	S32  getNumCacheHits()               {return mNumCacheHits;}
 	S32  getNumVisibleFetchedTextures()  {return mNumVisibleFetchedTextures;}
 	S32  getNumVisibleFetchingRequests() {return mNumVisibleFetchingRequests;}
