@@ -66,7 +66,6 @@
 	        <check_box label="Masquer le dossier système vide de l'inventaire" name="DebugHideEmptySystemFolders"/>
 	    </panel>
 	    <panel label="Scripte" name="dayturn_scripting">
-	        <check_box label="Enregistrez les scripts dans l'inventaire sous Mono au lieu de LSL2" name="SaveInventoryScriptsAsMono"/>
 	        <text name="friend_ims" width="195">
 	            Einschränkungen des Skriptdialogs:
 	        </text>

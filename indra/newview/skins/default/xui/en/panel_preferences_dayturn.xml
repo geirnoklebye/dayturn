@@ -777,22 +777,19 @@
          name="KokuaSmallScriptDialogTextFont"
          top_delta="4"
          width="256" />
-            <check_box
-                top_pad="12"
-                height="16"
-                initial_value="false"
-                label="Save scripts in inventory as Mono instead of LSL2"
-                layout="topleft"
-                follows="left|top"
-                left="6"
-                name="SaveInventoryScriptsAsMono"
-                width="350"
-                control_name="SaveInventoryScriptsAsMono"
-                tool_tip="If true then scripts saved in inventory will be saved as Mono.  Otherwise they will be saved as LSL2.  This applies when compiling scripts and not when simply copying them." />
+        <text
+         top_pad="12"
+        layout="topleft"
+        follows="left|top"
+         left="10"
+         name="text_box_scripting_font"
+         width="190">
+          Script Editor Font Name and Size:
+        </text>
         <combo_box
          allow_text_entry="false"
          top="-144"
-         left="200"
+         left="30"
          max_chars="20"
          mouse_opaque="true"
          name="FSScriptingFontName"
@@ -807,7 +804,7 @@
         <combo_box
          allow_text_entry="false"
          top="-144"
-         left="290"
+         left="165"
          max_chars="20"
          mouse_opaque="true"
          name="FSScriptingFontSize"
@@ -822,13 +819,6 @@
              <combo_item name="Medium" value="Medium" label="Medium"/>
              <combo_item name="Large" value="Large" label="Large"/>
         </combo_box>
-        <text
-         top="-140"
-         left="10"
-         name="text_box_scripting_font"
-         width="170">
-          Script Editor Font Name and Size:
-        </text>
     </panel>
   </tab_container>
 </panel>

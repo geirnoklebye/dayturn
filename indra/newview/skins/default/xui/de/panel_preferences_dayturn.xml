@@ -66,7 +66,6 @@
 	        <check_box label="Verstecke leere Systemordner aus dem Inventar" name="DebugHideEmptySystemFolders"/>
 	    </panel>
 	    <panel label="Skripten" name="dayturn_scripting">
-	        <check_box label="Speichert Skripte im Inventar als Mono anstelle von LSL2" name="SaveInventoryScriptsAsMono"/>
 	        <text name="friend_ims" width="195">
 	            Einschränkungen des Skriptdialogs:
 	        </text>
