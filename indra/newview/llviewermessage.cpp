@@ -2720,7 +2720,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			FSKeywords::notify(chat);
 		}
 		// </FS:PP>
-		if (gSavedSettings.getBOOL("TranslateChat") && chat.mSourceType != CHAT_SOURCE_SYSTEM)
+		if (gSavedSettings.getbool("TranslateChat") && chat.mSourceType != CHAT_SOURCE_SYSTEM)
 		{
 			if (chat.mChatStyle == CHAT_STYLE_IRC)
 			{

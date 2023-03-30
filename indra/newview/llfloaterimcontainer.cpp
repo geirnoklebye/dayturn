@@ -1038,7 +1038,7 @@ void LLFloaterIMContainer::onCustomAction(const LLSD& userdata)
 	}
 	if ("Translating.Toggle" == command)
 	{
-		gSavedSettings.setBOOL("TranslateChat", !gSavedSettings.getBOOL("TranslateChat"));
+		gSavedSettings.setbool("TranslateChat", !gSavedSettings.getbool("TranslateChat"));
 	}
 }
 
@@ -1072,11 +1072,11 @@ bool LLFloaterIMContainer::isActionChecked(const LLSD& userdata)
 	}
 	if ("Translating.Enabled" == command)
 	{
-		return gSavedPerAccountSettings.getBOOL("TranslatingEnabled");
+		return gSavedPerAccountSettings.getbool("TranslatingEnabled");
 	}
 	if ("Translating.On" == command)
 	{
-		return gSavedSettings.getBOOL("TranslateChat");
+		return gSavedSettings.getbool("TranslateChat");
 	}
 	return false;
 }

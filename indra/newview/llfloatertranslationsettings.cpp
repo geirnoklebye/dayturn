@@ -88,7 +88,7 @@ bool LLFloaterTranslationSettings::postBuild()
 // virtual
 void LLFloaterTranslationSettings::onOpen(const LLSD& key)
 {
-	mMachineTranslationCB->setValue(gSavedSettings.getBOOL("TranslateChat"));
+	mMachineTranslationCB->setValue(gSavedSettings.getbool("TranslateChat"));
 	mLanguageCombo->setSelectedByValue(gSavedSettings.getString("TranslateLanguage"), true);
 	mTranslationServiceRadioGroup->setSelectedByValue(gSavedSettings.getString("TranslationService"), true);
 
@@ -102,7 +102,7 @@ void LLFloaterTranslationSettings::onOpen(const LLSD& key)
 	else
 	{
 		mBingAPIKeyEditor->setTentative(true);
-		mBingKeyVerified = FALSE;
+		mBingKeyVerified = false;
 	}
 
 	std::string google_key = gSavedSettings.getString("GoogleTranslateAPIKey");
@@ -115,7 +115,7 @@ void LLFloaterTranslationSettings::onOpen(const LLSD& key)
 	else
 	{
 		mGoogleAPIKeyEditor->setTentative(true);
-		mGoogleKeyVerified = FALSE;
+		mGoogleKeyVerified = false;
 	}
 
 	updateControlsEnabledState();
@@ -191,7 +191,7 @@ void LLFloaterTranslationSettings::updateControlsEnabledState()
 		!mGoogleKeyVerified && !getEnteredGoogleKey().empty());
 
 	bool service_verified = (bing_selected && mBingKeyVerified) || (google_selected && mGoogleKeyVerified);
-	gSavedPerAccountSettings.setBOOL("TranslatingEnabled", service_verified);
+	gSavedPerAccountSettings.setbool("TranslatingEnabled", service_verified);
 
 	mOKBtn->setEnabled(!on || service_verified);
 }
@@ -279,12 +279,12 @@ void LLFloaterTranslationSettings::onClose(bool app_quitting)
 	bool google_selected = service == "google";
 
 	bool service_verified = (bing_selected && mBingKeyVerified) || (google_selected && mGoogleKeyVerified);
-	gSavedPerAccountSettings.setBOOL("TranslatingEnabled", service_verified);
+	gSavedPerAccountSettings.setbool("TranslatingEnabled", service_verified);
 
 }
 void LLFloaterTranslationSettings::onBtnOK()
 {
-	gSavedSettings.setBOOL("TranslateChat", mMachineTranslationCB->getValue().asBoolean());
+	gSavedSettings.setbool("TranslateChat", mMachineTranslationCB->getValue().asBoolean());
 	gSavedSettings.setString("TranslateLanguage", mLanguageCombo->getSelectedValue().asString());
 	gSavedSettings.setString("TranslationService", getSelectedService());
 	gSavedSettings.setString("BingTranslateAPIKey", getEnteredBingKey());
