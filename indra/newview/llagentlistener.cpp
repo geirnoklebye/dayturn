@@ -159,7 +159,7 @@ void LLAgentListener::requestTeleport(LLSD const & event_data) const
                                   LLVector3(event_data["x"].asReal(), 
                                             event_data["y"].asReal(), 
                                             event_data["z"].asReal())).getSLURLString();
-        LLURLDispatcher::dispatch(url, "clicked", NULL, false);
+        LLURLDispatcher::dispatch(url, LLCommandHandler::NAV_TYPE_CLICKED, NULL, false);
     }
 }
 
