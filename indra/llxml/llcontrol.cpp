@@ -891,7 +891,6 @@ U32 LLControlGroup::loadFromFileLegacy(const std::string& filename, bool require
 		return 0;
 	}
 
-	U32		item = 0;
 	U32		validitems = 0;
 	S32 version;
 	
@@ -925,8 +924,6 @@ U32 LLControlGroup::loadFromFileLegacy(const std::string& filename, bool require
 		}
 
 		// Got an item.  Load it up.
-		item++;
-
 		// If not declared, assume it's a string
 		if (!declared)
 		{

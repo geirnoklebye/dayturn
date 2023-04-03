@@ -1343,7 +1343,6 @@ bool LLBVHLoader::serialize(LLDataPacker& dp)
 		dp.packS32(joint->mNumRotKeys, "num_rot_keys");
 
 		LLQuaternion::Order order = bvhStringToOrder( joint->mOrder );
-		S32 outcount = 0;
 		S32 frame = 0;
 		for (Key& key : joint->mKeys)
 		{
@@ -1408,7 +1407,6 @@ bool LLBVHLoader::serialize(LLDataPacker& dp)
 			dp.packU16(x, "rot_angle_x");
 			dp.packU16(y, "rot_angle_y");
 			dp.packU16(z, "rot_angle_z");
-			outcount++;
 			frame++;
 		}
 		
