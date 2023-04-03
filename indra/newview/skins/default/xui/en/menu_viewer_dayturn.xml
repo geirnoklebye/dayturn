@@ -1411,7 +1411,7 @@
          function="Tools.EnableToolNotPie" />
       </menu_item_call>
     <menu_item_check
-      label="Advanced Permissions"
+      label="Show Advanced Permissions"
       name="DebugPermissions">
     <menu_item_check.on_check
              function="CheckControl"
