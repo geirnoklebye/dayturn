@@ -18,7 +18,7 @@
       <file>seguiemj.ttf</file>
     </os>
     <os name="Mac">
-      <file>SFCompactDisplay.ttf</file>
+      <file>SFCompact.ttf</file>
       <file>SFNS.ttf</file>
       <file>Menlo.ttc</file>
       <file>Symbol.ttf</file>
@@ -38,7 +38,7 @@
       </os>
     <os name="Mac">
       <file>SFNS.ttf</file>
-      <file>SFCompactDisplay.ttf</file>
+      <file>SFCompact.ttf</file>
       </os>
   </font>
 
@@ -49,7 +49,7 @@
       </os>
     <os name="Mac">
       <file>SFNS.ttf</file>
-      <file>SFCompactDisplay.ttf</file>
+      <file>SFCompact.ttf</file>
       </os>
   </font>
 
@@ -59,7 +59,7 @@
     <file>DejaVuSans-Bold.ttf</file>
     <os name="Mac">
       <file>SFNS.ttf</file>
-      <file>SFCompactDisplay.ttf</file>
+      <file>SFCompact.ttf</file>
       </os>
   </font>
 
@@ -68,8 +68,8 @@
 	font_style="ITALIC">
     <file>DejaVuSans-Oblique.ttf</file>
     <os name="Mac">
-      <file>SFNSItalic.ttf</file>
-      <file>SFCompactDisplay.ttf</file>
+      <file>SFCompactItalic.ttf</file>
+      <file>SFCompact.ttf</file>
       </os>
   </font>
 
@@ -78,8 +78,8 @@
 	font_style="BOLD|ITALIC">
     <file>DejaVuSans-BoldOblique.ttf</file>
     <os name="Mac">
-      <file>SFNSItalic.ttf</file>
-      <file>SFCompactDisplay.ttf</file>
+      <file>SFCompactItalic.ttf</file>
+      <file>SFCompact.ttf</file>
       </os>
   </font>
 
@@ -87,7 +87,7 @@
 	comment="Name of monospace font">
     <file>DejaVuSansMono.ttf</file>
         <os name="Mac">
-      <file>Menlo.ttc</file>
+      <file>SFNSMono.ttf</file>
       </os>
   </font>
 
@@ -164,7 +164,7 @@
 	comment="Name of an optional font used for the script editor">
     <file>SourceCodePro-Regular.ttf</file>
     <os name="Mac">
-      <file>SFNSMono.ttc</file>
+      <file>SFNSMono.ttf</file>
       </os>
   </font>
   <font name="Cascadia"
