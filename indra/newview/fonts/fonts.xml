@@ -179,6 +179,7 @@
 	comment="Name of font to test overriding">
     <file>times.ttf</file>
     <file>DejaVuSans.ttf</file>
+    <file>SFCompact.ttf</file>
   </font>
 
   <font_size name="Scripting"
