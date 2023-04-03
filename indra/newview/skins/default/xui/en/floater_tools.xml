@@ -13,7 +13,7 @@
  single_instance="true"
  save_visibility="true"
  sound_flags="0"
- width="295">
+ width="300">
   <floater.string
      name="grid_screen_text">
     Screen
@@ -906,7 +906,7 @@
      tab_height="25"
      open_tabs_on_drag_and_drop="true"
      top="173"
-     width="295">
+     width="300">
 	
 <panel
 	 border="false"
@@ -917,7 +917,7 @@
 	 help_topic="toolbox_general_tab"
 	 name="General"
 	 top="16"
-	 width="295">
+	 width="300">
 	 <panel.string
 	  name="text deed continued">
 		Deed
@@ -1493,7 +1493,7 @@ even though the user gets a free copy.
          help_topic="toolbox_object_tab"
          name="Object"
          top="16"
-         width="295">
+         width="300">
             <check_box
              height="19"
              label="Locked"
@@ -2332,7 +2332,7 @@ even though the user gets a free copy.
          help_topic="toolbox_features_tab"
          name="Features"
          top_delta="0"
-         width="295">
+         width="300">
 	<panel.string name="None">None</panel.string>
 	<panel.string name="Prim">Prim</panel.string>
 	<panel.string name="Convex Hull">Convex Hull</panel.string>
@@ -2778,7 +2778,7 @@ even though the user gets a free copy.
          help_topic="toolbox_contents_tab"
          name="Contents"
          top_delta="0"
-         width="295">
+         width="300">
             <button
              follows="left|top"
              height="23"
@@ -2847,7 +2847,7 @@ even though the user gets a free copy.
      left_delta="0"
      name="land info panel"
      top_delta="0"
-     width="295">
+     width="300">
     <text
          type="string"
          length="1"
