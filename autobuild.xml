@@ -1443,18 +1443,6 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
         <string>openal</string>
         <key>platforms</key>
         <map>
-          <key>darwin</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>7b28b9e82315043f9e1bad6a839a841c</string>
-              <key>url</key>
-              <string>http://inworldz.com/imprudence/libs/openal_soft-darwin-20130207.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>darwin</string>
-          </map>
           <key>windows</key>
           <map>
             <key>archive</key>
