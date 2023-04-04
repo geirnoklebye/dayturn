@@ -42,7 +42,6 @@
 #include "llerror.h"
 #include "llsdutil.h"
 #include "stringize.h"
-//#include <memory>                   // std::auto_ptr
 
 /*****************************************************************************
 *   LLSDArgsSource

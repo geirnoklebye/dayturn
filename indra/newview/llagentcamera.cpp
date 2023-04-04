@@ -134,7 +134,6 @@ LLAgentCamera::LLAgentCamera() :
 	mCameraFOVZoomFactor(0.f),
 	mCameraCurrentFOVZoomFactor(0.f),
 	mCameraFocusOffset(),
-	mCameraFOVDefault(DEFAULT_FIELD_OF_VIEW),
 
 	mCameraCollidePlane(),
 
@@ -156,7 +155,6 @@ LLAgentCamera::LLAgentCamera() :
 	mFocusObject(NULL),
 	mFocusObjectDist(0.f),
 	mFocusObjectOffset(),
-	mFocusDotRadius( 0.1f ),			// meters
 	mTrackFocusObject(true),
 
 	mAtKey(0), // Either 1, 0, or -1... indicates that movement-key is pressed
