@@ -3087,7 +3087,7 @@ LLIMMgr::LLIMMgr()
 
 	LLIMModel::getInstance()->addNewMsgCallback(boost::bind(&LLFloaterIMSession::sRemoveTypingIndicator, _1));
 
-	gSavedPerAccountSettings.declarebool("FetchGroupChatHistory", true, "Fetch recent messages from group chat servers when a group window opens", LLControlVariable::PERSIST_ALWAYS);
+	gSavedPerAccountSettings.declarebool("FetchGroupChatHistory", false, "Fetch recent messages from group chat servers when a group window opens", LLControlVariable::PERSIST_ALWAYS);
 }
 
 // Add a message to a session.
