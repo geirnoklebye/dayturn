@@ -3087,7 +3087,7 @@ LLIMMgr::LLIMMgr()
 
 	LLIMModel::getInstance()->addNewMsgCallback(boost::bind(&LLFloaterIMSession::sRemoveTypingIndicator, _1));
 
-	gSavedPerAccountSettings.declareBOOL("FetchGroupChatHistory", TRUE, "Fetch recent messages from group chat servers when a group window opens", LLControlVariable::PERSIST_ALWAYS);
+	gSavedPerAccountSettings.declarebool("FetchGroupChatHistory", true, "Fetch recent messages from group chat servers when a group window opens", LLControlVariable::PERSIST_ALWAYS);
 }
 
 // Add a message to a session.
@@ -3237,7 +3237,7 @@ void LLIMMgr::addMessage(
 			}
 
             // Fetch group chat history, enabled by default.
-            if (gSavedPerAccountSettings.getBOOL("FetchGroupChatHistory"))
+            if (gSavedPerAccountSettings.getbool("FetchGroupChatHistory"))
             {
                 std::string chat_url = gAgent.getRegion()->getCapability("ChatSessionRequest");
                 LLCoros::instance().launch("chatterBoxHistoryCoro",
@@ -4023,7 +4023,7 @@ public:
 					im_floater->processSessionUpdate(body["session_info"]);
 
                     // Send request for chat history, if enabled.
-                    if (gSavedPerAccountSettings.getBOOL("FetchGroupChatHistory"))
+                    if (gSavedPerAccountSettings.getbool("FetchGroupChatHistory"))
                     {
                         std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");
                         LLCoros::instance().launch("chatterBoxHistoryCoro",
