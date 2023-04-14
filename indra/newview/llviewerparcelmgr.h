@@ -213,6 +213,7 @@ public:
 	// </FS:Ansariel>
 	void	renderHighlightSegments(const U8* segments, LLViewerRegion* regionp);
 	void	renderCollisionSegments(U8* segments, bool use_pass, LLViewerRegion* regionp);
+    void	resetCollisionTimer();
 
 	void	sendParcelGodForceOwner(const LLUUID& owner_id);
 

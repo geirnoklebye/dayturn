@@ -5225,6 +5225,7 @@ bool attempt_standard_notification(LLMessageSystem* msgsystem)
 				LandBuyAccessBlocked_AdultsOnlyContent
 			 
 			-----------------------------------------------------------------------*/ 
+            LLViewerParcelMgr::getInstance()->resetCollisionTimer();
 			if (handle_special_notification(notificationID, llsdBlock))
 			{
 				return true;
@@ -5371,6 +5372,11 @@ void process_agent_alert_message(LLMessageSystem* msgsystem, void** user_data)
 		BOOL modal = FALSE;
 		msgsystem->getBOOL("AlertData", "Modal", modal);
 		process_alert_core(message, modal);
+
+        if (message.find("Cannot enter parcel") != std::string::npos)
+        {
+            LLViewerParcelMgr::getInstance()->resetCollisionTimer();
+        }
 	}
 }
 
