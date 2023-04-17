@@ -213,7 +213,11 @@ public:
 	// </FS:Ansariel>
 	void	renderHighlightSegments(const U8* segments, LLViewerRegion* regionp);
 	void	renderCollisionSegments(U8* segments, bool use_pass, LLViewerRegion* regionp);
-    void	resetCollisionTimer();
+
+    static S32 PARCEL_BAN_LINES_HIDE;
+    static S32 PARCEL_BAN_LINES_ON_COLLISION;
+    static S32 PARCEL_BAN_LINES_ON_PROXIMITY;
+    void	resetCollisionTimer(); // Ban lines visibility timer
 
 	void	sendParcelGodForceOwner(const LLUUID& owner_id);
 
