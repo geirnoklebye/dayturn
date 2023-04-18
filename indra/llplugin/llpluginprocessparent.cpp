@@ -163,11 +163,6 @@ LLPluginProcessParent::~LLPluginProcessParent()
     {   // If we are quitting, the network sockets will already have been destroyed.
         killSockets();
     }
-
-    if (mPolling.connected())
-    {
-        mPolling.disconnect();
-    }
 }
 
 /*static*/

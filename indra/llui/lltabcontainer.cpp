@@ -1441,7 +1441,7 @@ void LLTabContainer::selectLastTab()
 
 void LLTabContainer::selectNextTab()
 {
-    if (mTabList.size() == 0)
+    if (mTabList.empty())
     {
         return;
     }

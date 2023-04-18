@@ -99,8 +99,9 @@ void LLDiskCache::purge()
 #endif
     if (boost::filesystem::is_directory(cache_path, ec) && !ec.failed())
     {
-        boost::filesystem::directory_iterator iter(cache_path, ec);
-        while (iter != boost::filesystem::directory_iterator() && !ec.failed())
+        for (boost::filesystem::directory_iterator iter(cache_path, ec);
+            iter != boost::filesystem::directory_iterator() && !ec.failed();
+            iter.increment(ec))
         {
             if (boost::filesystem::is_regular_file(*iter, ec) && !ec.failed())
             {
@@ -121,7 +122,6 @@ void LLDiskCache::purge()
                     file_info.push_back(file_info_t(file_time, { file_size, file_path }));
                 }
             }
-            iter.increment(ec);
         }
     }
 
@@ -350,8 +350,9 @@ void LLDiskCache::clearCache()
 #endif
     if (boost::filesystem::is_directory(cache_path, ec) && !ec.failed())
     {
-        boost::filesystem::directory_iterator iter(cache_path, ec);
-        while (iter != boost::filesystem::directory_iterator() && !ec.failed())
+        for (boost::filesystem::directory_iterator iter(cache_path, ec);
+            iter != boost::filesystem::directory_iterator() && !ec.failed();
+            iter.increment(ec))
         {
             if (boost::filesystem::is_regular_file(*iter, ec) && !ec.failed())
             {
@@ -364,7 +365,6 @@ void LLDiskCache::clearCache()
                     }
                 }
             }
-            iter.increment(ec);
         }
     }
 }
@@ -390,8 +390,9 @@ uintmax_t LLDiskCache::dirFileSize(const std::string dir)
 #endif
     if (boost::filesystem::is_directory(dir_path, ec) && !ec.failed())
     {
-        boost::filesystem::directory_iterator iter(dir_path, ec);
-        while (iter != boost::filesystem::directory_iterator() && !ec.failed())
+        for (boost::filesystem::directory_iterator iter(dir_path, ec);
+            iter != boost::filesystem::directory_iterator() && !ec.failed();
+            iter.increment(ec))
         {
             if (boost::filesystem::is_regular_file(*iter, ec) && !ec.failed())
             {
@@ -404,7 +405,6 @@ uintmax_t LLDiskCache::dirFileSize(const std::string dir)
                     }
                 }
             }
-            iter.increment(ec);
         }
     }
 

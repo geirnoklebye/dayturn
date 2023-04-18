@@ -100,12 +100,12 @@ LLSkyTex::LLSkyTex() :
 void LLSkyTex::init(bool isShiny)
 {
     mIsShiny = isShiny;
-	mSkyData = new LLColor4[SKYTEX_RESOLUTION * SKYTEX_RESOLUTION];
-	mSkyDirs = new LLVector3[SKYTEX_RESOLUTION * SKYTEX_RESOLUTION];
+	mSkyData = new LLColor4[U32(SKYTEX_RESOLUTION * SKYTEX_RESOLUTION)];
+	mSkyDirs = new LLVector3[U32(SKYTEX_RESOLUTION * SKYTEX_RESOLUTION)];
 
 	for (S32 i = 0; i < 2; ++i)
 	{
-		mTexture[i] = LLViewerTextureManager::getLocalTexture(FALSE);
+		mTexture[i] = LLViewerTextureManager::getLocalTexture(false);
 		mTexture[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 		mImageRaw[i] = new LLImageRaw(SKYTEX_RESOLUTION, SKYTEX_RESOLUTION, SKYTEX_COMPONENTS);
 
@@ -123,7 +123,7 @@ void LLSkyTex::restoreGL()
 {
 	for (S32 i = 0; i < 2; i++)
 	{
-		mTexture[i] = LLViewerTextureManager::getLocalTexture(FALSE);
+		mTexture[i] = LLViewerTextureManager::getLocalTexture(false);
 		mTexture[i]->setAddressMode(LLTexUnit::TAM_CLAMP);
 	}
 }
