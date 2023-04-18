@@ -125,8 +125,10 @@ public:
 	// requires trusted browser to trigger
 	LLWorldMapHandler() : LLCommandHandler("worldmap", UNTRUSTED_CLICK_ONLY ) { }
 	
-	bool handle(const LLSD& params, const LLSD& query_map,
-				LLMediaCtrl* web)
+	bool handle(const LLSD& params,
+                const LLSD& query_map,
+                const std::string& grid,
+                LLMediaCtrl* web)
 	{
 		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableWorldMap"))
 		{
@@ -164,7 +166,10 @@ public:
 	{ 
 	}
 	
-	bool handle(const LLSD& params, const LLSD& query_map, LLMediaCtrl* web)
+	bool handle(const LLSD& params,
+                const LLSD& query_map,
+                const std::string& grid,
+                LLMediaCtrl* web)
 	{
 		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableWorldMap"))
 		{
