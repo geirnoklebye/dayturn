@@ -85,9 +85,6 @@ add_subdirectory(${LIBS_OPEN_PREFIX}viewer_components)
 # Legacy C++ tests. Build always, run if LL_TESTS is true.
 add_subdirectory(${VIEWER_PREFIX}test)
 
-# teapot
-add_subdirectory(${LIBS_OPEN_PREFIX}teapot)
-
 if (ENABLE_MEDIA_PLUGINS)
 # viewer media plugins
 add_subdirectory(${LIBS_OPEN_PREFIX}media_plugins)

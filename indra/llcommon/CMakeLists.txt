@@ -279,6 +279,10 @@ if (DARWIN)
 # </AV:CR>
 endif (DARWIN)
 
+# Add files from teapot for OpenSim currency support
+list(APPEND llcommon_SOURCE_FILES  "tea.cpp" )
+list(APPEND llcommon_HEADER_FILES "tea.h" )
+
 set_source_files_properties(${llcommon_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
