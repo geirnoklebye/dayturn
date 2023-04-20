@@ -92,7 +92,6 @@ set(cmake_SOURCE_FILES
 #    WebKitLibPlugin.cmake
     XmlRpcEpi.cmake
     ZLIBNG.cmake
-    jemalloc.cmake
     )
 else (LINUX)
 set(cmake_SOURCE_FILES
