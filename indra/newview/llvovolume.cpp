@@ -5808,10 +5808,7 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					const LLTextureEntry* te = facep->getTextureEntry();
 					LLViewerTexture* tex = facep->getTexture();
 
-					// <FS:ND> More crash avoding ...
-					// if (te->getGlow() >= 1.f/255.f)
-					if (te && te->getGlow() >= 1.f/255.f)
-					// </FS:ND>
+					if (te->getGlow() > 0.f)
 					{
 						emissive = true;
 					}
