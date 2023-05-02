@@ -137,11 +137,7 @@
 #include "llviewerstats.h"
 #include "llviewerwindow.h"
 #include "llvoavatarself.h"
-#if LL_LINUX
-#include "winevoicevivox.h"
-#else
 #include "llvoicevivox.h"   
-#endif
 #include "llworldmap.h"
 #include "pipeline.h"
 #include "llviewerjoystick.h"

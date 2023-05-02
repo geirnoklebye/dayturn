@@ -28,11 +28,7 @@
 #include "llvoiceclient.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
-#if LL_LINUX
-#include "winevoicevivox.h"
-#else
-#include "llvoicevivox.h"   
-#endif
+#include "llvoicevivox.h"
 #include "llviewernetwork.h"
 #include "llcommandhandler.h"
 #include "llhttpnode.h"

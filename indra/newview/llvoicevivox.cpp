@@ -690,6 +690,10 @@ void LLVivoxVoiceClient::voiceControlCoro()
         // surviving longer than LLVivoxVoiceClient
         voiceControlStateMachine(state);
     }
+    catch (const LLCoros::Stop&)
+    {
+        LL_DEBUGS("LLVivoxVoiceClient") << "Received a shutdown exception" << LL_ENDL;
+    }
     catch (const LLContinueError&)
     {
         LOG_UNHANDLED_EXCEPTION("LLVivoxVoiceClient");
@@ -5710,7 +5714,7 @@ void LLVivoxVoiceClient::setMicGain(F32 volume)
 bool LLVivoxVoiceClient::getVoiceEnabled(const LLUUID& id)
 {
 	bool result = false;
-	participantStatePtr_t participant = findParticipantByID(id);
+    participantStatePtr_t participant(findParticipantByID(id));
 	if(participant)
 	{
 		// I'm not sure what the semantics of this should be.
@@ -6873,7 +6877,7 @@ void LLVivoxVoiceClient::deleteVoiceFont(const LLUUID& id)
 		if (list_iter->second == id)
 		{
 			LL_DEBUGS("VoiceFont") << "Removing " << id << " from the voice font list." << LL_ENDL;
-			mVoiceFontList.erase(list_iter++);
+            list_iter = mVoiceFontList.erase(list_iter);
 			mVoiceFontListDirty = true;
 		}
 		else
