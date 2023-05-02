@@ -49,50 +49,6 @@
         <key>version</key>
         <string>1.4.5.558565</string>
       </map>
-      <key>ares</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright 1998 by the Massachusetts Institute of Technology.</string>
-        <key>description</key>
-        <string>C-ares, an asynchronous resolver library.</string>
-        <key>license</key>
-        <string>c-ares</string>
-        <key>license_file</key>
-        <string>LICENSES/c-ares.txt</string>
-        <key>name</key>
-        <string>ares</string>
-        <key>platforms</key>
-        <map>
-          <key>darwin</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>88b32c16dfd8015b54be3046c5ef1fba</string>
-              <key>url</key>
-              <string>https://bitbucket.org/dayturn/3p-ares-git/downloads/ares-1.14.0.202010201118-darwin-202010201118.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>darwin</string>
-          </map>
-          <key>windows</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>10b7da9dca246d51b8e70c68b766a1dc</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://bitbucket.org/kokua/3p-ares/downloads/ares-1.10.0.201702011114-windows64-201702011114.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>windows</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1.14.0.202010201118</string>
-      </map>
       <key>boost</key>
       <map>
         <key>copyright</key>
