@@ -11155,8 +11155,9 @@ void LLVOAvatar::calculateUpdateRenderComplexity()
 
 		// Diagnostic output to identify all avatar-related textures.
 		// Does not affect rendering cost calculation.
-		if (isSelf() && debugLoggingEnabled("ARCdetail"))
+		if (isSelf())
 		{
+			LL_DEBUGS("ARCdetail");
 			// print any attachment textures we didn't already know about.
 			for (LLVOVolume::texture_cost_t::iterator it = textures.begin(); it != textures.end(); ++it)
 			{
@@ -11165,13 +11166,13 @@ void LLVOAvatar::calculateUpdateRenderComplexity()
 				   && (all_textures.find(image_id) == all_textures.end()))
 				{
 					// attachment texture not previously seen.
-					LL_DEBUGS("ARCdetail") << "attachment_texture: " << image_id.asString() << LL_ENDL;
+					LL_CONT << "attachment_texture: " << image_id.asString() << '\n';
 					all_textures.insert(image_id);
 				}
 			}
 
 			// print any avatar textures we didn't already know about
-		    for (LLAvatarAppearanceDictionary::Textures::const_iterator iter = LLAvatarAppearance::getDictionary()->getTextures().begin();
+			for (LLAvatarAppearanceDictionary::Textures::const_iterator iter = LLAvatarAppearance::getDictionary()->getTextures().begin();
 			 iter != LLAvatarAppearance::getDictionary()->getTextures().end();
 				 ++iter)
 			{
@@ -11185,10 +11186,11 @@ void LLVOAvatar::calculateUpdateRenderComplexity()
 					continue;
 				if (all_textures.find(image_id) == all_textures.end())
 				{
-					LL_DEBUGS("ARCdetail") << "local_texture: " << texture_dict->mName << ": " << image_id << LL_ENDL;
+					LL_CONT << "local_texture: " << texture_dict->mName << ": " << image_id << '\n';
 					all_textures.insert(image_id);
 				}
 			}
+			LL_ENDL;
 		}
 
         if ( cost != mVisualComplexity )

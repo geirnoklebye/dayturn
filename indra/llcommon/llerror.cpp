@@ -1588,17 +1588,3 @@ namespace LLError
         return out << boost::stacktrace::stacktrace();
     }
 }
-
-bool debugLoggingEnabled(const std::string& tag)
-{
-    LLMutexTrylock lock(getMutex<LOG_MUTEX>(), 5);
-    if (!lock.isLocked())
-    {
-        return false;
-    }
-
-    SettingsConfigPtr s = Globals::getInstance()->getSettingsConfig();
-    LLError::ELevel level = LLError::LEVEL_DEBUG;
-    bool res = checkLevelMap(s->mTagLevelMap, tag, level);
-    return res;
-}
