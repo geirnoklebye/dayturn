@@ -286,6 +286,7 @@ Beq Janus
 	SL-16021
 	SL-18637
 	SL-19317
+	SL-19660
 Beth Walcher
 Bezilon Kasei
 Biancaluce Robbiani
