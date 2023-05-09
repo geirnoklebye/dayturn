@@ -170,6 +170,18 @@ void LLSurface::create(const S32 grids_per_edge,
 	mMetersPerGrid = width / ((F32)(mGridsPerEdge - 1));
 	mMetersPerEdge = mMetersPerGrid * (mGridsPerEdge - 1);
 
+	sTextureSize = width;
+
+	// Trap non-power of 2 widths to avoid GLtexture issues.
+	if ((sTextureSize & (sTextureSize - 1)) != 0)
+	{
+		// Not a power of 2, find the next power of 2
+		sTextureSize = 1 << ((S32)log2(sTextureSize) +1);
+	}
+
+	// Limit to maximum supported texture
+	sTextureSize = std::min(sTextureSize, 1024);
+
 	mOriginGlobal.setVec(origin_global);
 
 	mPVArray.create(mGridsPerEdge, mGridsPerPatchEdge, LLWorld::getInstance()->getRegionScale());
