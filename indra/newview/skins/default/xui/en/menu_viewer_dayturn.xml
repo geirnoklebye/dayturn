@@ -483,14 +483,15 @@
                 function="Tools.StopAllAnimations" />
         </menu_item_call>
 <!-- MK -->
-        <menu_item_call
+<!--        <menu_item_call
             label="Restart All Animations"
             name="Restart All Animations"
             shortcut="control|alt|shift|A">
             <menu_item_call.on_click
              function="Tools.RestartAllAnimations" />
         </menu_item_call>
-      <!-- mk -->	  
+-->
+<!-- mk -->	  
         <menu_item_check
          label="Do Not Let Me Fly"
          name="Disable Fly">
@@ -1935,6 +1936,7 @@
              parameter="LimitSelectDistance" />
         </menu_item_check>
 
+<!-- Disabled for SL
         <menu_item_check
         label="Disable Build Constraints"
         name="Disable Max Build Constraints">
@@ -1945,6 +1947,7 @@
           function="CheckControl"
           parameter="DisableMaxBuildConstraints" />
         </menu_item_check>
+-->
 
         <menu_item_check
          label="Disable Camera Constraints"
@@ -4075,6 +4078,7 @@
                  function="Advanced.ToggleAnimationInfo"
                  parameter="" />
             </menu_item_check>
+<!-- Disabled for SL
             <menu_item_check
              label="Show Look At"
              name="Show Look At">
@@ -4084,6 +4088,7 @@
                 <menu_item_check.on_click
                  function="Advanced.ToggleShowLookAt" />
             </menu_item_check>
+
             <menu_item_check
              label="Show Point At"
              name="Show Point At">
@@ -4093,6 +4098,7 @@
                 <menu_item_check.on_click
                  function="Advanced.ToggleShowPointAt" />
             </menu_item_check>
+-->
             <menu_item_check
              label="Debug Joint Updates"
              name="Debug Joint Updates">
