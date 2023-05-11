@@ -2675,7 +2675,7 @@ function="World.EnvPreset"
              label="Force a Crash in a Coroutine"
              name="Force a Crash in a Coroutine">
                 <menu_item_call.on_click
-                 function="Advanced.Advanced.ForceErrorCoroutineCrash" />
+                 function="Advanced.ForceErrorCoroutineCrash" />
             </menu_item_call>
             <menu_item_call
              label="Force a Crash in a Thread"
