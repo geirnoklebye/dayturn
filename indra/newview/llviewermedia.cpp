@@ -622,14 +622,8 @@ void LLViewerMedia::onIdle(void *dummy_arg)
 //////////////////////////////////////////////////////////////////////////////////////////
 void LLViewerMedia::updateMedia(void *dummy_arg)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA; //LL_RECORD_BLOCK_TIME(FTM_MEDIA_UPDATE);
-
 	// Enable/disable the plugin read thread
-	// <FS:Ansariel> Replace frequently called gSavedSettings
-	//LLPluginProcessParent::setUseReadThread(gSavedSettings.getBOOL("PluginUseReadThread"));
-	static LLCachedControl<bool> sPluginUseReadThread(gSavedSettings, "PluginUseReadThread");
-	LLPluginProcessParent::setUseReadThread(sPluginUseReadThread);
-	// </FS:Ansariel>
+	LLPluginProcessParent::setUseReadThread(gSavedSettings.getbool("PluginUseReadThread"));
 
     // SL-16418 We can't call LLViewerMediaImpl->update() if we are in the state of shutting down.
     if(LLApp::isExiting())
@@ -650,7 +644,6 @@ void LLViewerMedia::updateMedia(void *dummy_arg)
 	impl_list::iterator end = sViewerMediaImplList.end();
 
 	{
-        LL_PROFILE_ZONE_NAMED_CATEGORY_MEDIA("media update interest"); //LL_RECORD_BLOCK_TIME(FTM_MEDIA_UPDATE_INTEREST);
 		for(; iter != end;)
 		{
 			LLViewerMediaImpl* pimpl = *iter++;
@@ -838,7 +831,7 @@ void LLViewerMedia::updateMedia(void *dummy_arg)
 			}
             else
             {
-                if(gAudiop && LLViewerMedia::hasParcelAudio() && restore_parcel_audio && gSavedSettings.getBOOL("MediaTentativeAutoPlay"))
+                if(gAudiop && LLViewerMedia::hasParcelAudio() && restore_parcel_audio && gSavedSettings.getbool("MediaTentativeAutoPlay"))
                 {
                     LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getParcelAudioURL());
                     restore_parcel_audio = false;
@@ -889,18 +882,13 @@ void LLViewerMedia::updateMedia(void *dummy_arg)
 		}
 	}
 
-	// <FS:Ansariel> Replace frequently called gSavedSettings
-	//if(gSavedSettings.getBOOL("MediaPerformanceManagerDebug"))
-	static LLCachedControl<bool> sMediaPerformanceManagerDebug(gSavedSettings, "MediaPerformanceManagerDebug");
-	if(sMediaPerformanceManagerDebug)
-	// </FS:Ansariel>
+	if(gSavedSettings.getbool("MediaPerformanceManagerDebug"))
 	{
 		// Give impls the same ordering as the priority list
 		// they're already in the right order for this.
 	}
 	else
 	{
-        LL_PROFILE_ZONE_NAMED_CATEGORY_MEDIA("media sort2"); // LL_RECORD_BLOCK_TIME(FTM_MEDIA_SORT2);
 		// Use a distance-based sort for proximity values.
 		std::stable_sort(proximity_order.begin(), proximity_order.end(), proximity_comparitor);
 	}
@@ -1449,7 +1437,7 @@ void LLViewerMedia::createSpareBrowserMediaSource()
 	// However, if PluginAttachDebuggerToPlugins is set then don't spawn a spare
 	// SLPlugin process in order to not be confused by an unrelated gdb terminal
 	// popping up at the moment we start a media plugin.
-	if (!mSpareBrowserMediaSource && !gSavedSettings.getBOOL("PluginAttachDebuggerToPlugins"))
+	if (!mSpareBrowserMediaSource && !gSavedSettings.getbool("PluginAttachDebuggerToPlugins"))
 	{
 		// The null owner will keep the browser plugin from fully initializing
 		// (specifically, it keeps LLPluginClassMedia from negotiating a size change,
@@ -1726,7 +1714,7 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 	// If a spare was already created before PluginAttachDebuggerToPlugins was set, don't use it.
     // Do not use a spare if launching with full viewer control (e.g. Twitter and few others)
 	if ((plugin_basename == "media_plugin_cef") &&
-        !gSavedSettings.getBOOL("PluginAttachDebuggerToPlugins") && !clean_browser)
+        !gSavedSettings.getbool("PluginAttachDebuggerToPlugins") && !clean_browser)
 	{
 		media_source = LLViewerMedia::getInstance()->getSpareBrowserMediaSource();
 		if(media_source)
@@ -1774,26 +1762,26 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 			media_source->setZoomFactor(zoom_factor);
 
 			// collect 'cookies enabled' setting from prefs and send to embedded browser
-			bool cookies_enabled = gSavedSettings.getBOOL( "CookiesEnabled" );
+			bool cookies_enabled = gSavedSettings.getbool( "CookiesEnabled" );
 			media_source->cookies_enabled( cookies_enabled || clean_browser);
 
 			// collect 'javascript enabled' setting from prefs and send to embedded browser
-			bool javascript_enabled = gSavedSettings.getBOOL("BrowserJavascriptEnabled");
+			bool javascript_enabled = gSavedSettings.getbool("BrowserJavascriptEnabled");
 			media_source->setJavascriptEnabled(javascript_enabled || clean_browser);
 
 			// collect 'web security disabled' (see Chrome --web-security-disabled) setting from prefs and send to embedded browser
-			bool web_security_disabled = gSavedSettings.getBOOL("BrowserWebSecurityDisabled");
+			bool web_security_disabled = gSavedSettings.getbool("BrowserWebSecurityDisabled");
 			media_source->setWebSecurityDisabled(web_security_disabled || clean_browser);
 
 			// collect setting indicates if local file access from file URLs is allowed from prefs and send to embedded browser
-			bool file_access_from_file_urls = gSavedSettings.getBOOL("BrowserFileAccessFromFileUrls");
+			bool file_access_from_file_urls = gSavedSettings.getbool("BrowserFileAccessFromFileUrls");
 			media_source->setFileAccessFromFileUrlsEnabled(file_access_from_file_urls || clean_browser);
 
 			// As of SL-15559 PDF files do not load in CEF v91 we enable plugins
 			// but explicitly disable Flash (PDF support in CEF is now treated as a plugin)
 			media_source->setPluginsEnabled(true);
 
-			bool media_plugin_debugging_enabled = gSavedSettings.getBOOL("MediaPluginDebugging");
+			bool media_plugin_debugging_enabled = gSavedSettings.getbool("MediaPluginDebugging");
 			media_source->enableMediaPluginDebugging( media_plugin_debugging_enabled  || clean_browser);
 
 			// need to set agent string here before instance created
@@ -1801,12 +1789,12 @@ LLPluginClassMedia* LLViewerMediaImpl::newSourceFromMediaType(std::string media_
 
             // configure and pass proxy setup based on debug settings that are 
             // configured by UI in prefs -> setup
-            media_source->proxy_setup(gSavedSettings.getBOOL("BrowserProxyEnabled"), gSavedSettings.getString("BrowserProxyAddress"), gSavedSettings.getS32("BrowserProxyPort"));
+            media_source->proxy_setup(gSavedSettings.getbool("BrowserProxyEnabled"), gSavedSettings.getString("BrowserProxyAddress"), gSavedSettings.getS32("BrowserProxyPort"));
 
 			media_source->setTarget(target);
 
 			const std::string plugin_dir = gDirUtilp->getLLPluginDir();
-			if (media_source->init(launcher_name, plugin_dir, plugin_name, gSavedSettings.getBOOL("PluginAttachDebuggerToPlugins")))
+			if (media_source->init(launcher_name, plugin_dir, plugin_name, gSavedSettings.getbool("PluginAttachDebuggerToPlugins")))
 			{
 				return media_source;
 			}
@@ -1870,14 +1858,14 @@ bool LLViewerMediaImpl::initializePlugin(const std::string& media_type)
 	if (media_source)
 	{
 		media_source->injectOpenIDCookie();
-		media_source->setDisableTimeout(gSavedSettings.getBOOL("DebugPluginDisableTimeout"));
+		media_source->setDisableTimeout(gSavedSettings.getbool("DebugPluginDisableTimeout"));
 		media_source->setLoop(mMediaLoop);
 		media_source->setAutoScale(mMediaAutoScale);
 		media_source->setBrowserUserAgent(LLViewerMedia::getInstance()->getCurrentUserAgent());
 		media_source->focus(mHasFocus);
 		media_source->setBackgroundColor(mBackgroundColor);
 
-		if(gSavedSettings.getBOOL("BrowserIgnoreSSLCertErrors"))
+		if(gSavedSettings.getbool("BrowserIgnoreSSLCertErrors"))
 		{
 			media_source->ignore_ssl_cert_errors(true);
 		}
@@ -2403,7 +2391,7 @@ void LLViewerMediaImpl::updateJavascriptObject()
 	{
 		// flag to expose this information to internal browser or not.
 		// <FS:Ansariel> Performance improvement
-		//bool enable = gSavedSettings.getBOOL("BrowserEnableJSObject");
+		//bool enable = gSavedSettings.getbool("BrowserEnableJSObject");
 		static LLCachedControl<bool> enable(gSavedSettings, "BrowserEnableJSObject");
 		// </FS:Ansariel>
 
@@ -2840,7 +2828,6 @@ static LLTrace::BlockTimerStatHandle FTM_MEDIA_SET_SUBIMAGE("Set Subimage");
 
 void LLViewerMediaImpl::update()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA; //LL_RECORD_BLOCK_TIME(FTM_MEDIA_DO_UPDATE);
     if(mMediaSource == NULL)
     {
         if(mPriority == LLPluginClassMedia::PRIORITY_UNLOADED)
@@ -2963,8 +2950,6 @@ void LLViewerMediaImpl::update()
 
 bool LLViewerMediaImpl::preMediaTexUpdate(LLViewerMediaTexture*& media_tex, U8*& data, S32& data_width, S32& data_height, S32& x_pos, S32& y_pos, S32& width, S32& height)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA;
-
     bool retval = false;
 
     if (!mTextureUpdatePending)
@@ -3013,7 +2998,6 @@ bool LLViewerMediaImpl::preMediaTexUpdate(LLViewerMediaTexture*& media_tex, U8*&
 //////////////////////////////////////////////////////////////////////////////////////////
 void LLViewerMediaImpl::doMediaTexUpdate(LLViewerMediaTexture* media_tex, U8* data, S32 data_width, S32 data_height, S32 x_pos, S32 y_pos, S32 width, S32 height, bool sync)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA;
     mLock.lock();   // don't allow media source tear-down during update
 
     // wrap "data" in an LLImageRaw but do NOT make a copy
@@ -3050,7 +3034,6 @@ void LLViewerMediaImpl::updateImagesMediaStreams()
 //////////////////////////////////////////////////////////////////////////////////////////
 LLViewerMediaTexture* LLViewerMediaImpl::updateMediaImage()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA;
     if (!mMediaSource)
     {
         return nullptr; // not ready for updating
@@ -3600,7 +3583,6 @@ static LLTrace::BlockTimerStatHandle FTM_MEDIA_CALCULATE_INTEREST("Calculate Int
 
 void LLViewerMediaImpl::calculateInterest()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA; //LL_RECORD_BLOCK_TIME(FTM_MEDIA_CALCULATE_INTEREST);
 	LLViewerMediaTexture* texture = LLViewerTextureManager::findMediaTexture( mTextureId );
 
 	if(texture != NULL)
@@ -3886,7 +3868,7 @@ bool LLViewerMediaImpl::isAutoPlayable() const
 {
 	return (mMediaAutoPlay &&
 			gSavedSettings.getS32("ParcelMediaAutoPlayEnable") != 0 &&
-			gSavedSettings.getBOOL("MediaTentativeAutoPlay"));
+			gSavedSettings.getbool("MediaTentativeAutoPlay"));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
