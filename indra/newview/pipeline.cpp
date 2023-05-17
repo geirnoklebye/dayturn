@@ -63,7 +63,6 @@
 #include "llfeaturemanager.h"
 #include "llfloatertelehub.h"
 #include "llfloaterreg.h"
-#include "llgldbg.h"
 #include "llhudmanager.h"
 #include "llhudnametag.h"
 #include "llhudtext.h"

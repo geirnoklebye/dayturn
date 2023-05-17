@@ -36,7 +36,6 @@ set(llrender_SOURCE_FILES
     llfontgl.cpp
     llfontregistry.cpp
     llgl.cpp
-    llgldbg.cpp
     llglslshader.cpp
     llgltexture.cpp
     llimagegl.cpp
@@ -63,7 +62,6 @@ set(llrender_HEADER_FILES
     llfontbitmapcache.h
     llfontregistry.h
     llgl.h
-    llgldbg.h
     llglheaders.h
     llglslshader.h
     llglstates.h
