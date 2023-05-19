@@ -438,11 +438,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>724e3d09df060e3c8bae5ea1e2add9c4</string>
+              <string>c65937a3e40918113e16fa9d9473c06b</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.10-darwin-202211231607.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.14-darwin-202305191544.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
