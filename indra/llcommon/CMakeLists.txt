@@ -57,7 +57,6 @@ set(llcommon_SOURCE_FILES
     lldependencies.cpp
     lldictionary.cpp
     llerror.cpp
-    llerrorthread.cpp
     llevent.cpp
     lleventapi.cpp
     lleventcoro.cpp
@@ -169,7 +168,6 @@ set(llcommon_HEADER_FILES
     llendianswizzle.h
     llerror.h
     llerrorcontrol.h
-    llerrorthread.h
     llevent.h
     lleventapi.h
     lleventcoro.h

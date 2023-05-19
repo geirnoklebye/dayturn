@@ -82,8 +82,6 @@ void constructViewer()
 	}
 
 	gViewerAppPtr = new LLAppViewerMacOSX();
-
-	gViewerAppPtr->setErrorHandler(LLAppViewer::handleViewerCrash);
 }
 
 bool initViewer()
