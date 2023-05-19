@@ -452,18 +452,18 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>8e615ece79fff1bf12771b6eb7e4d09e</string>
+              <string>1d1031bacddc14292cf30e3ff9370e36</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.10-windows-223271737.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.14-windows-231391414.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>2.02.10.202211231607</string>
+        <string>2.02.14.202305191544</string>
       </map>
       <key>freeglut</key>
       <map>
