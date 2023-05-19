@@ -171,7 +171,7 @@ void LLFloaterDisplayName::onReset()
     {
         // UI is enabled, fill the first field
         getChild<LLUICtrl>("display_name_confirm")->clear();
-        getChild<LLUICtrl>("display_name_confirm")->setFocus(TRUE);
+        getChild<LLUICtrl>("display_name_confirm")->setFocus(true);
     }
     else
     {
