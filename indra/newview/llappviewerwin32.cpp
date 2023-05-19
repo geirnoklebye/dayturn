@@ -503,31 +503,6 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 		return -1;
 	}
 
-    NvDRSSessionHandle hSession = 0;
-    static LLCachedControl<bool> use_nv_api(gSavedSettings, "NvAPICreateApplicationProfile", true);
-    if (use_nv_api)
-    {
-        NvAPI_Status status;
-
-        // Initialize NVAPI
-        status = NvAPI_Initialize();
-
-        if (status == NVAPI_OK)
-        {
-            // Create the session handle to access driver settings
-            status = NvAPI_DRS_CreateSession(&hSession);
-            if (status != NVAPI_OK)
-            {
-                nvapi_error(status);
-            }
-            else
-            {
-                //override driver setting as needed
-                ll_nvapi_init(hSession);
-            }
-        }
-    }
-
 	// Have to wait until after logging is initialized to display LFH info
 	if (num_heaps > 0)
 	{
