@@ -579,11 +579,9 @@ namespace
 	
 	void Globals::invalidateCallSites()
 	{
-		for (CallSiteVector::const_iterator i = callSites.begin();
-			 i != callSites.end();
-			 ++i)
+		for (LLError::CallSite* site : callSites)
 		{
-            (*i)->invalidate();
+            site->invalidate();
 		}
 		
 		callSites.clear();
@@ -1211,12 +1209,8 @@ namespace
         std::string escaped_message;
 
         LLMutexLock lock(&s->mRecorderMutex);
-		for (Recorders::const_iterator i = s->mRecorders.begin();
-			i != s->mRecorders.end();
-			++i)
+		for (LLError::RecorderPtr& r : s->mRecorders)
 		{
-			LLError::RecorderPtr r = *i;
-
             if (!r->enabled())
             {
                 continue;
@@ -1371,8 +1365,7 @@ namespace LLError
 
 		site.mCached = true;
 		g->addCallSite(site);
-		site.mShouldLog = site.mLevel >= compareLevel;
-		return site.mShouldLog;
+		return site.mShouldLog = site.mLevel >= compareLevel;
 	}
 
 
