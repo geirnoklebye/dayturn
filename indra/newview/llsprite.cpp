@@ -60,8 +60,8 @@ LLSprite::LLSprite(const LLUUID &image_uuid) :
 	mPitch(0.f),
 	mYaw(0.f),
 	mPosition(0.0f, 0.0f, 0.0f),
-	mFollow(TRUE),
-	mUseCameraUp(TRUE),
+	mFollow(true),
+	mUseCameraUp(true),
 	mColor(0.5f, 0.5f, 0.5f, 1.0f),
 	mTexMode(GL_REPLACE)
 {
@@ -79,7 +79,6 @@ void LLSprite::updateFace(LLFace &face)
 
 	// First, figure out how many vertices/indices we need.
 	U32 num_vertices, num_indices;
-	U32 vertex_count = 0;
 	
 	// Get the total number of vertices and indices
 	if (mFollow)
@@ -203,25 +202,21 @@ void LLSprite::updateFace(LLFace &face)
 	*verticesp = mC;
 	tex_coordsp++;
 	verticesp++;
-	vertex_count++;
 
 	*tex_coordsp = LLVector2(0.f, 1.f);
 	*verticesp = mB;
 	tex_coordsp++;
 	verticesp++;
-	vertex_count++;
 
 	*tex_coordsp = LLVector2(1.f, 1.f);
 	*verticesp = mA;
 	tex_coordsp++;
 	verticesp++;
-	vertex_count++;
 
 	*tex_coordsp = LLVector2(1.f, 0.0f);
 	*verticesp = mD;
 	tex_coordsp++;
 	verticesp++;
-	vertex_count++;
 
 	// Generate indices, since they're easy.
 	// Just a series of quads.
@@ -272,12 +267,12 @@ void LLSprite::setYaw(F32 yaw)
 	mYaw = yaw; 
 }
 
-void LLSprite::setFollow(const BOOL follow)
+void LLSprite::setFollow(const bool follow)
 {
 	mFollow = follow; 
 }
 
-void LLSprite::setUseCameraUp(const BOOL use_up)
+void LLSprite::setUseCameraUp(const bool use_up)
 {
 	mUseCameraUp = use_up; 
 }

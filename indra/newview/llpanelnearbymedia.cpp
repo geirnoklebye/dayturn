@@ -604,7 +604,7 @@ void LLPanelNearByMedia::refreshList()
 	}
 	
 	// Check whether the debug column has been shown/hidden.
-	bool debug_info_visible = gSavedSettings.getBOOL("MediaPerformanceManagerDebug");
+	bool debug_info_visible = gSavedSettings.getbool("MediaPerformanceManagerDebug");
 	if(debug_info_visible != mDebugInfoVisible)
 	{
 		mDebugInfoVisible = debug_info_visible;
@@ -625,7 +625,6 @@ void LLPanelNearByMedia::refreshList()
 	LLViewerMedia::impl_list impls = media_inst->getPriorityList();
 	LLViewerMedia::impl_list::iterator priority_iter;
 	
-	U32 enabled_count = 0;
 	U32 disabled_count = 0;
 	
 	// iterate over the impl list, creating rows as necessary.
@@ -668,19 +667,16 @@ void LLPanelNearByMedia::refreshList()
 			{
 				disabled_count++;
 			}
-			else {
-				enabled_count++;
 		}
-	}
 	}	
-	mDisableAllCtrl->setEnabled((gSavedSettings.getBOOL("AudioStreamingMusic") || 
-		                         gSavedSettings.getBOOL("AudioStreamingMedia")) &&
+	mDisableAllCtrl->setEnabled((gSavedSettings.getbool("AudioStreamingMusic") || 
+		                         gSavedSettings.getbool("AudioStreamingMedia")) &&
 								(media_inst->isAnyMediaShowing() || 
 								 media_inst->isParcelMediaPlaying() ||
 								 media_inst->isParcelAudioPlaying()));
 
-	mEnableAllCtrl->setEnabled( (gSavedSettings.getBOOL("AudioStreamingMusic") ||
-								gSavedSettings.getBOOL("AudioStreamingMedia")) &&
+	mEnableAllCtrl->setEnabled( (gSavedSettings.getbool("AudioStreamingMusic") ||
+								gSavedSettings.getbool("AudioStreamingMedia")) &&
 							   (disabled_count > 0 ||
 								// parcel media (if we have it, and it isn't playing, enable "start")
 								(media_inst->hasParcelMedia() && ! media_inst->isParcelMediaPlaying()) ||
@@ -1010,7 +1006,7 @@ void LLPanelNearByMedia::updateControls()
 	else {
 		LLViewerMediaImpl* impl = media_inst->getMediaImplFromTextureID(selected_media_id);
 		
-		if (NULL == impl || !gSavedSettings.getBOOL("AudioStreamingMedia"))
+		if (NULL == impl || !gSavedSettings.getbool("AudioStreamingMedia"))
 		{
 			showDisabledControls();
 		}

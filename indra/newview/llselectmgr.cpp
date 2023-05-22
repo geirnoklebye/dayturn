@@ -2322,7 +2322,7 @@ void LLSelectMgr::selectionSetPhysicsType(U8 type)
 			if (object->permModify())
 			{
 				object->setPhysicsShapeType(mType);
-				object->updateFlags(TRUE);
+				object->updateFlags(true);
 			}
 			return true;
 		}
@@ -2341,7 +2341,7 @@ void LLSelectMgr::selectionSetFriction(F32 friction)
 			if (object->permModify())
 			{
 				object->setPhysicsFriction(mFriction);
-				object->updateFlags(TRUE);
+				object->updateFlags(true);
 			}
 			return true;
 		}
@@ -2360,7 +2360,7 @@ void LLSelectMgr::selectionSetGravity(F32 gravity )
 			if (object->permModify())
 			{
 				object->setPhysicsGravity(mGravity);
-				object->updateFlags(TRUE);
+				object->updateFlags(true);
 			}
 			return true;
 		}
@@ -2379,7 +2379,7 @@ void LLSelectMgr::selectionSetDensity(F32 density )
 			if (object->permModify())
 			{
 				object->setPhysicsDensity(mDensity);
-				object->updateFlags(TRUE);
+				object->updateFlags(true);
 			}
 			return true;
 		}
@@ -2398,7 +2398,7 @@ void LLSelectMgr::selectionSetRestitution(F32 restitution)
 			if (object->permModify())
 			{
 				object->setPhysicsRestitution(mRestitution);
-				object->updateFlags(TRUE);
+				object->updateFlags(true);
 			}
 			return true;
 		}
@@ -5223,8 +5223,8 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 	LLViewerRegion*	last_region;
 	LLViewerRegion*	current_region;
 
-	S32 objects_sent = 0;
-	S32 packets_sent = 0;
+// 	S32 objects_sent = 0;
+// 	S32 packets_sent = 0;
 	S32 objects_in_this_packet = 0;
 
 	bool link_operation = message_name == "ObjectLink";
@@ -5356,7 +5356,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 			(*pack_body)(node, user_data);
             // do any related logging
             (*log_func)(node, user_data);
-			++objects_sent;
+//			++objects_sent;
 			++objects_in_this_packet;
 
 			// and on to the next object
@@ -5374,7 +5374,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 		{
 			// otherwise send current message and start new one
 			gMessageSystem->sendReliable( last_region->getHost());
-			packets_sent++;
+//			packets_sent++;
 			objects_in_this_packet = 0;
 
 			gMessageSystem->newMessage(message_name.c_str());
@@ -5391,7 +5391,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 				{
 					// add root instance into new message
 					(*pack_body)(linkset_root, user_data);
-					++objects_sent;
+//					++objects_sent;
 					++objects_in_this_packet;
 				}
 			}
@@ -5405,7 +5405,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 	if (gMessageSystem->getCurrentSendTotal() > 0)
 	{
 		gMessageSystem->sendReliable( current_region->getHost());
-		packets_sent++;
+//		packets_sent++;
 	}
 	else
 	{

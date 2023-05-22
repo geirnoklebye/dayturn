@@ -985,7 +985,7 @@ bool FSFloaterImport::processPrimCreated(LLViewerObject* object)
 			object->setPhysicsFriction(friction);
 			object->setPhysicsDensity(density);
 			object->setPhysicsRestitution(restitution);
-			object->updateFlags(TRUE);
+			object->updateFlags(true);
 		}
 	}
 

@@ -934,7 +934,7 @@ void LLPanelVolume::onPasteFeatures()
         objectp->setPhysicsFriction(clipboard["physics"]["friction"].asReal());
         objectp->setPhysicsDensity(clipboard["physics"]["density"].asReal());
         objectp->setPhysicsRestitution(clipboard["physics"]["restitution"].asReal());
-        objectp->updateFlags(TRUE);
+        objectp->updateFlags(true);
     }
 
     // Flexible
@@ -942,7 +942,7 @@ void LLPanelVolume::onPasteFeatures()
     if (is_flexible && volobjp->canBeFlexible())
     {
         LLVOVolume *volobjp = (LLVOVolume *)objectp;
-        BOOL update_shape = FALSE;
+        bool update_shape = false;
 
         // do before setParameterEntry or it will think that it is already flexi
         update_shape = volobjp->setIsFlexible(is_flexible);

@@ -3842,17 +3842,16 @@ void LLAgent::processScriptControlChange(LLMessageSystem *msg, void **)
 	S32 block_count = msg->getNumberOfBlocks("Data");
 	for (S32 block_index = 0; block_index < block_count; block_index++)
 	{
-		BOOL take_controls;
+		bool take_controls;
 		U32	controls;
-		BOOL passon;
+		bool passon;
 		U32 i;
-		msg->getBOOL("Data", "TakeControls", take_controls, block_index);
+		msg->getbool("Data", "TakeControls", take_controls, block_index);
 		if (take_controls)
 		{
 			// take controls
 			msg->getU32("Data", "Controls", controls, block_index );
-			msg->getBOOL("Data", "PassToAgent", passon, block_index );
-			U32 total_count = 0;
+			msg->getbool("Data", "PassToAgent", passon, block_index );
 			for (i = 0; i < TOTAL_CONTROLS; i++)
 			{
 				if (controls & ( 1 << i))
@@ -3865,7 +3864,6 @@ void LLAgent::processScriptControlChange(LLMessageSystem *msg, void **)
 					{
 						gAgent.mControlsTakenCount[i]++;
 					}
-					total_count++;
 				}
 			}
 		}
@@ -3873,7 +3871,7 @@ void LLAgent::processScriptControlChange(LLMessageSystem *msg, void **)
 		{
 			// release controls
 			msg->getU32("Data", "Controls", controls, block_index );
-			msg->getBOOL("Data", "PassToAgent", passon, block_index );
+			msg->getbool("Data", "PassToAgent", passon, block_index );
 			for (i = 0; i < TOTAL_CONTROLS; i++)
 			{
 				if (controls & ( 1 << i))

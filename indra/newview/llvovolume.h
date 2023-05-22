@@ -176,7 +176,7 @@ public:
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
 				void	markForUpdate(bool priority);
-				void	markForUnload()							{ LLViewerObject::markForUnload(TRUE); mVolumeChanged = TRUE; }
+				void	markForUnload()							{ LLViewerObject::markForUnload(true); mVolumeChanged = true; }
 				void    faceMappingChanged()                    { mFaceMappingChanged=true; };
 
 	/*virtual*/ void	onShift(const LLVector4a &shift_vector); // Called when the drawable shifts

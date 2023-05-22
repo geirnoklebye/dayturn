@@ -92,7 +92,7 @@ public:
 										  LLVector4a* tangent = NULL           // return the surface tangent at the intersection point
 		);
 
-	BOOL			mDirtiedPatch;
+	bool			mDirtiedPatch;
 protected:
 	~LLVOSurfacePatch();
 
@@ -100,8 +100,8 @@ protected:
 	LLFacePool		*getPool();
 	S32				mBaseComp;
 	LLSurfacePatch	*mPatchp;
-	BOOL			mDirtyTexture;
-	BOOL			mDirtyTerrain;
+	bool			mDirtyTexture;
+	bool			mDirtyTerrain;
 
 	S32				mLastNorthStride;
 	S32				mLastEastStride;

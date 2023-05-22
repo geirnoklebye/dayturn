@@ -67,12 +67,12 @@ public:
 
 LLVOSurfacePatch::LLVOSurfacePatch(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	:	LLStaticViewerObject(id, pcode, regionp),
-		mDirtiedPatch(FALSE),
+		mDirtiedPatch(false),
 		mPool(NULL),
 		mBaseComp(0),
 		mPatchp(NULL),
-		mDirtyTexture(FALSE),
-		mDirtyTerrain(FALSE),
+		mDirtyTexture(false),
+		mDirtyTerrain(false),
 		mLastNorthStride(0),
 		mLastEastStride(0),
 		mLastStride(0),
@@ -406,7 +406,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 										LLStrider<U16> &indicesp,
 										U32 &index_offset)
 {
-	S32 vertex_count = 0;
 	S32 i, x, y;
 
 	S32 num_vertices;
@@ -441,7 +440,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 			normalsp++;
 			texCoords0p++;
 			texCoords1p++;
-			vertex_count++;
 		}
 
 		// North patch
@@ -454,7 +452,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 			normalsp++;
 			texCoords0p++;
 			texCoords1p++;
-			vertex_count++;
 		}
 
 
@@ -491,7 +488,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 			normalsp++;
 			texCoords0p++;
 			texCoords1p++;
-			vertex_count++;
 		}
 
 		// Iterate through the north patch's points
@@ -505,7 +501,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 			normalsp++;
 			texCoords0p++;
 			texCoords1p++;
-			vertex_count++;
 		}
 
 
@@ -549,7 +544,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 			normalsp++;
 			texCoords0p++;
 			texCoords1p++;
-			vertex_count++;
 		}
 
 		// Iterate through the north patch's points
@@ -563,7 +557,6 @@ void LLVOSurfacePatch::updateNorthGeometry(LLFace *facep,
 			normalsp++;
 			texCoords0p++;
 			texCoords1p++;
-			vertex_count++;
 		}
 
 		for (i = 0; i < length; i++)
@@ -787,9 +780,9 @@ void LLVOSurfacePatch::setPatch(LLSurfacePatch *patchp)
 
 void LLVOSurfacePatch::dirtyPatch()
 {
-	mDirtiedPatch = TRUE;
+	mDirtiedPatch = true;
 	dirtyGeom();
-	mDirtyTerrain = TRUE;
+	mDirtyTerrain = true;
 	LLVector3 center = mPatchp->getCenterRegion();
 	LLSurface *surfacep = mPatchp->getSurface();
 
@@ -999,7 +992,7 @@ U32 LLVOSurfacePatch::getPartitionType() const
 }
 
 LLTerrainPartition::LLTerrainPartition(LLViewerRegion* regionp)
-: LLSpatialPartition(LLDrawPoolTerrain::VERTEX_DATA_MASK, FALSE, GL_DYNAMIC_DRAW_ARB, regionp)
+: LLSpatialPartition(LLDrawPoolTerrain::VERTEX_DATA_MASK, false, GL_DYNAMIC_DRAW_ARB, regionp)
 {
 	mOcclusionEnabled = false;
 	mInfiniteFarClip = true;
