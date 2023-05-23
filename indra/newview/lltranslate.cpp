@@ -953,6 +953,8 @@ bool LLDeepLTranslationHandler::checkVerificationResponse(
     const LLSD& response,
     int status) const
 {
+    // Might need to parse body to make sure we got
+    // a valid response and not a message
     return status == HTTP_OK;
 }
 
@@ -1004,7 +1006,6 @@ bool LLDeepLTranslationHandler::parseResponse(
     {
         return false;
     }
-    
 
     detected_lang = data["detected_source_language"].asString();
     LLStringUtil::toLower(detected_lang);
@@ -1023,8 +1024,22 @@ bool LLDeepLTranslationHandler::isConfigured() const
 std::string LLDeepLTranslationHandler::parseErrorResponse(
     const std::string& body)
 {
-    // DeepL doesn't seem to have any error handling beyoun http codes
-    return std::string();
+    // Example: "{\"message\":\"One of the request inputs is not valid.\"}"
+
+    Json::Value root;
+    Json::Reader reader;
+
+    if (!reader.parse(body, root))
+    {
+        return std::string();
+    }
+
+    if (!root.isObject() || !root.isMember("message"))
+    {
+        return std::string();
+    }
+
+    return root["message"].asString();
 }
 
 // static
