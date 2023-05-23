@@ -719,13 +719,9 @@ bool LLFolderViewItem::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 
 void LLFolderViewItem::drawOpenFolderArrow(const Params& default_params, const LLUIColor& fg_color)
 {
-/*
-//llfolderviewitem.cpp:647:19: error: variable ‘sProtectedColor’ set but not used [-Werror=unused-but-set-variable]
-	static LLUIColor sProtectedColor = LLUIColorTable::instance().getColor("InventoryProtectedColor", DEFAULT_WHITE);		// ## Zi: Animation Overrider
 	//--------------------------------------------------------------------------------//
 	// Draw open folder arrow
 	//
-*/
 	const S32 TOP_PAD = default_params.item_top_pad;
 
 	if (hasVisibleChildren() || !isFolderComplete())
