@@ -3815,7 +3815,7 @@ void LLAppViewer::writeSystemInfo()
 
 	// Dump some debugging info
 	LL_INFOS("SystemInfo") << "Application: " << LLTrans::getString("APP_NAME") << LL_ENDL;
-	LL_INFOS("SystemInfo") << "Version: " << LLVersionInfo::instance().getChannelAndVersion() << LL_ENDL;
+    LL_INFOS("SystemInfo") << "Version: " << LLTrans::getString("APP_NAME") << " " << LLVersionInfo::instance().getVersion() << LL_ENDL;
 //			<< " version " << ViewerInfo::versionNumber() << LL_ENDL;
 
 	// Dump the local time and time zone
