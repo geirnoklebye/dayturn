@@ -216,7 +216,7 @@ void LLLoginInstance::constructAuthParams(LLPointer<LLCredential> user_credentia
 	request_params["last_exec_duration"] = mLastExecDuration;
 	request_params["mac"] = (char*)hashed_unique_id_string;
 	request_params["version"] = LLVersionInfo::instance().getVersion();
-	request_params["channel"] = LLVersionInfo::instance().getChannel();
+    request_params["channel"] = LLTrans::getString("APP_NAME") + " " + LLVersionInfo::instance().getChannel();
 	request_params["platform"] = mPlatform;
 	request_params["address_size"] = ADDRESS_SIZE;
 	request_params["platform_version"] = mPlatformVersion;
