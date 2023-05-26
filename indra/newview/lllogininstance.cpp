@@ -194,9 +194,9 @@ void LLLoginInstance::constructAuthParams(LLPointer<LLCredential> user_credentia
 	requested_options.append("tutorial_setting");
 	requested_options.append("login-flags");
 	requested_options.append("global-textures");
-	if(gSavedSettings.getBOOL("ConnectAsGod"))
+	if(gSavedSettings.getbool("ConnectAsGod"))
 	{
-		gSavedSettings.setBOOL("UseDebugMenus", TRUE);
+		gSavedSettings.setbool("UseDebugMenus", true);
 		requested_options.append("god-connect");
 	}
 
