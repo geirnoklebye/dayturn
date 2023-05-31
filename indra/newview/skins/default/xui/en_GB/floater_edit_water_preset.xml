@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Edit Water Preset">
-    <panel name="panel_water_preset">
-        <text name="water_color_label">
-            Water Fog Colour
-        </text>
-    </panel>
-</floater>

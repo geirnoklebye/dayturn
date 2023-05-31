@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater name="Hardware Settings Floater">
-    <check_box name="texture compression"
-        tool_tip="Compresses textures in video memory using S3TC, allowing for higher resolution textures to be loaded at the cost of some colour quality." />
-</floater>
