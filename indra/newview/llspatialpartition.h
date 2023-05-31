@@ -309,6 +309,7 @@ public:
 	bool addObject(LLDrawable *drawablep);
 	bool removeObject(LLDrawable *drawablep, bool from_octree = false);
 	bool updateInGroup(LLDrawable *drawablep, bool immediate = false); // Update position if it's in the group
+	void expandExtents(const LLVector4a* addingExtents, const LLXformMatrix& currentTransform);
 	void shift(const LLVector4a &offset);
 	void destroyGL(bool keep_occlusion = false);
 	
@@ -710,8 +711,10 @@ public:
 
 class LLControlAVBridge : public LLVolumeBridge
 {
+	using super = LLVolumeBridge;
 public:
 	LLControlAVBridge(LLDrawable* drawablep, LLViewerRegion* regionp);
+	virtual void updateSpatialExtents();
 };
 
 class LLHUDBridge : public LLVolumeBridge
