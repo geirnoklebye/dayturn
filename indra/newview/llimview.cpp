@@ -77,6 +77,8 @@
 
 #include "llslurl.h"
 
+#include <array>
+
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
 const static std::string ADHOC_NAME_SUFFIX(" Conference");

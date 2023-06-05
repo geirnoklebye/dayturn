@@ -39,8 +39,11 @@
 #include "llatmosphere.h"
 
 #include "llglslshader.h"
+#include "llviewermedia.h"
 
 #include <boost/signals2.hpp>
+
+#include <array>
 
 //-------------------------------------------------------------------------
 class LLViewerCamera;
