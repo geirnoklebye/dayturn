@@ -656,7 +656,7 @@ void LLEmbeddedItems::markSaved()
 	for (std::set<llwchar>::iterator iter = mEmbeddedUsedChars.begin(); iter != mEmbeddedUsedChars.end(); ++iter)
 	{
 		llwchar wc = *iter;
-		sEntries[wc].mSaved = TRUE;
+		sEntries[wc].mSaved = true;
 	}
 }
 
@@ -666,7 +666,7 @@ class LLViewerTextEditor::TextCmdInsertEmbeddedItem : public LLTextBase::TextCmd
 {
 public:
 	TextCmdInsertEmbeddedItem( S32 pos, LLInventoryItem* item )
-		: TextCmd(pos, FALSE), 
+		: TextCmd(pos, false),
 		  mExtCharValue(0)
 	{
 		mItem = item;
@@ -887,7 +887,7 @@ bool LLViewerTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 	{
 		if( allowsEmbeddedItems() )
 		{
-			S32 doc_index = getDocIndexFromLocalCoord(x, y, FALSE);
+			S32 doc_index = getDocIndexFromLocalCoord(x, y, false);
 			llwchar doc_char = getWText()[doc_index];
 			if (mEmbeddedItemList->hasEmbeddedItem(doc_char))
 			{
@@ -1220,8 +1220,8 @@ void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item, llwchar wc 
 //	LLPreviewTexture* preview = LLFloaterReg::showTypedInstance<LLPreviewTexture>("preview_texture", LLSD(item->getAssetUUID()), TAKE_FOCUS_YES);
 // [SL:KB] - Patch: UI-Notecards | Checked: 2010-09-05 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
 	// If there's already a preview of the texture open then we do want it to take focus, otherwise leave it up to the debug setting
-	BOOL fHasInstance = (NULL != LLFloaterReg::findTypedInstance<LLPreviewTexture>("preview_texture", LLSD(item->getAssetUUID())));
-	BOOL fTakeFocus = ( (fHasInstance) || (gSavedSettings.getBOOL("EmbeddedTextureStealsFocus")) ) ? TAKE_FOCUS_YES : TAKE_FOCUS_NO;
+	bool fHasInstance = (NULL != LLFloaterReg::findTypedInstance<LLPreviewTexture>("preview_texture", LLSD(item->getAssetUUID())));
+	bool fTakeFocus = ( (fHasInstance) || (gSavedSettings.getbool("EmbeddedTextureStealsFocus")) ) ? TAKE_FOCUS_YES : TAKE_FOCUS_NO;
 	LLPreviewTexture* preview = LLFloaterReg::showTypedInstance<LLPreviewTexture>("preview_texture", LLSD(item->getAssetUUID()), fTakeFocus);
 // [/SL:KB]
 	if (preview)

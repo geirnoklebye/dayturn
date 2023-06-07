@@ -2085,7 +2085,7 @@ LLTextBase::segment_set_t::const_iterator LLTextBase::getSegIterContaining(S32 i
 LLTextSegmentPtr LLTextBase::getSegmentAtLocalPos( S32 x, S32 y, bool hit_past_end_of_line)
 {
 	// Find the cursor position at the requested local screen position
-	S32 offset = getDocIndexFromLocalCoord( x, y, FALSE, hit_past_end_of_line);
+	S32 offset = getDocIndexFromLocalCoord( x, y, false, hit_past_end_of_line);
 	segment_set_t::iterator seg_iter = getSegIterContaining(offset);
 	if (seg_iter != mSegments.end())
 	{
@@ -2615,7 +2615,7 @@ const LLWString& LLTextBase::getWText() const
 // will be put to its right.  If round is false, the cursor will always be put to the
 // character's left.
 
-S32 LLTextBase::getDocIndexFromLocalCoord( S32 local_x, S32 local_y, BOOL round, bool hit_past_end_of_line) const
+S32 LLTextBase::getDocIndexFromLocalCoord( S32 local_x, S32 local_y, bool round, bool hit_past_end_of_line) const
 {
 	// Figure out which line we're nearest to.
 	LLRect doc_rect = mDocumentView->getRect();
@@ -2892,7 +2892,7 @@ void LLTextBase::changeLine( S32 delta )
     {
         LLRect visible_region = getVisibleDocumentRect();
         S32 new_cursor_pos = getDocIndexFromLocalCoord(mDesiredXPixel,
-                                                       mLineInfoList[new_line].mRect.mBottom + mVisibleTextRect.mBottom - visible_region.mBottom, TRUE);
+                                                       mLineInfoList[new_line].mRect.mBottom + mVisibleTextRect.mBottom - visible_region.mBottom, true);
 		S32 actual_line = getLineNumFromDocIndex(new_cursor_pos);
 		if (actual_line != new_line)
 		{

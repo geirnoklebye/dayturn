@@ -455,7 +455,7 @@ public:
 	F32						getLineSpacingMult() { return mLineSpacingMult; }
 	S32						getLineSpacingPixels() { return mLineSpacingPixels; } // only for multiline
 
-	S32						getDocIndexFromLocalCoord( S32 local_x, S32 local_y, BOOL round, bool hit_past_end_of_line = true) const;
+	S32						getDocIndexFromLocalCoord( S32 local_x, S32 local_y, bool round, bool hit_past_end_of_line = true) const;
 	LLRect					getLocalRectFromDocIndex(S32 pos) const;
 	LLRect					getDocRectFromDocIndex(S32 pos) const;
 
@@ -544,7 +544,7 @@ protected:
 	class TextCmd
 	{
 	public:
-		TextCmd( S32 pos, BOOL group_with_next, LLTextSegmentPtr segment = LLTextSegmentPtr() ) 
+		TextCmd( S32 pos, bool group_with_next, LLTextSegmentPtr segment = LLTextSegmentPtr() )
 		:	mPos(pos), 
 			mGroupWithNext(group_with_next)
 		{
