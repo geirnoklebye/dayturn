@@ -784,7 +784,7 @@ BOOL LLTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		setFocus(true);
 	}
 // [SL:KB] - Patch: UI-Notecards | Checked: 2010-09-12 (Catznip-2.1.2d) | Added: Catznip-2.1.2d
-	setCursorAtLocalPos(x, y, FALSE);
+	setCursorAtLocalPos(x, y, false);
 // [/SL:KB]
 
 	bool show_menu = false;
