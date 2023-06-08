@@ -1365,7 +1365,7 @@ bool check_offer_throttle(const std::string& from_name, bool check_only)
 	LLChat chat;
 	std::string log_message;
 
-	if (!gSavedSettings.getBOOL("ShowNewInventory"))
+	if (!gSavedSettings.getbool("ShowNewInventory"))
 		return false;
 
 	if (check_only)
@@ -6881,7 +6881,7 @@ void process_initiate_download(LLMessageSystem* msg, void**)
 
 void process_script_teleport_request(LLMessageSystem* msg, void**)
 {
-	if (!gSavedSettings.getBOOL("ScriptsCanShowUI")) return;
+	if (!gSavedSettings.getbool("ScriptsCanShowUI")) return;
 
 	std::string object_name;
 	std::string sim_name;

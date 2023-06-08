@@ -367,7 +367,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	// DEBUG PERMISSIONS //
 	///////////////////////
 
-	if( gSavedSettings.getBOOL("DebugPermissions") )
+	if (gSavedSettings.getbool("DebugPermissions"))
 	{
 		BOOL slam_perm 			= FALSE;
 		BOOL overwrite_group	= FALSE;

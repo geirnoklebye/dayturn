@@ -404,7 +404,7 @@ F32 logExceptionBenchmark()
 
 bool LLFeatureManager::loadGPUClass()
 {
-	if (!gSavedSettings.getBOOL("SkipBenchmark"))
+	if (!gSavedSettings.getbool("SkipBenchmark"))
 	{
 		//get memory bandwidth from benchmark
 		F32 gbps;

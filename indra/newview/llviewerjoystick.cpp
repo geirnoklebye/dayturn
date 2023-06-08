@@ -1255,7 +1255,7 @@ void LLViewerJoystick::moveFlycam(bool reset)
 // -----------------------------------------------------------------------------
 bool LLViewerJoystick::toggleFlycam()
 {
-	if (!gSavedSettings.getBOOL("JoystickEnabled") || !gSavedSettings.getBOOL("JoystickFlycamEnabled"))
+	if (!gSavedSettings.getbool("JoystickEnabled") || !gSavedSettings.getbool("JoystickFlycamEnabled"))
 	{
 		mOverrideCamera = false;
 		return false;

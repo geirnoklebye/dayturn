@@ -112,7 +112,7 @@ BOOL LLToolComposite::isSelecting()
 
 void LLToolComposite::handleSelect()
 {
-	if (!gSavedSettings.getBOOL("EditLinkedParts"))
+	if (!gSavedSettings.getbool("EditLinkedParts"))
 	{
 		LLSelectMgr::getInstance()->promoteSelectionToRoot();
 	}

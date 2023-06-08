@@ -87,15 +87,15 @@ U32 LLFloaterPerms::getNextOwnerPermsInverted(std::string prefix)
 {
 	// Sets bits for permissions that are off
 	U32 flags = PERM_MOVE;
-	if ( !gSavedSettings.getBOOL(prefix+"NextOwnerCopy") )
+	if (!gSavedSettings.getbool(prefix+"NextOwnerCopy"))
 	{
 		flags |= PERM_COPY;
 	}
-	if ( !gSavedSettings.getBOOL(prefix+"NextOwnerModify") )
+	if (!gSavedSettings.getbool(prefix+"NextOwnerModify"))
 	{
 		flags |= PERM_MODIFY;
 	}
-	if ( !gSavedSettings.getBOOL(prefix+"NextOwnerTransfer") )
+	if (!gSavedSettings.getbool(prefix+"NextOwnerTransfer"))
 	{
 		flags |= PERM_TRANSFER;
 	}

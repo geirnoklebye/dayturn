@@ -1627,7 +1627,7 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 											 LLQuaternion grid_rotation, 
 											 LLColor4 inner_color)
 {
-	if (!gSavedSettings.getBOOL("GridCrossSections"))
+	if (!gSavedSettings.getbool("GridCrossSections"))
 	{
 		return;
 	}

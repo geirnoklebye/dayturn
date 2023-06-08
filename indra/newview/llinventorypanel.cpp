@@ -317,13 +317,13 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	}
 
 	// hide inbox
-	if (!gSavedSettings.getBOOL("InventoryOutboxMakeVisible"))
+	if (!gSavedSettings.getbool("InventoryOutboxMakeVisible"))
 	{
 		// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 		//getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
 	}
     // hide marketplace listing box, unless we are a marketplace panel
-	if (!gSavedSettings.getBOOL("InventoryOutboxMakeVisible") && !mParams.use_marketplace_folders)
+	if (!gSavedSettings.getbool("InventoryOutboxMakeVisible") && !mParams.use_marketplace_folders)
 	{
 		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_MARKETPLACE_LISTINGS));
     }
@@ -331,7 +331,7 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 	if (getName() != "Worn Items" && getName() != "inventory_inbox")
 	{
-		if (!gSavedSettings.getBOOL("FSShowInboxFolder"))
+		if (!gSavedSettings.getbool("FSShowInboxFolder"))
 		{
 			getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
 		}

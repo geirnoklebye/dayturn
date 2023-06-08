@@ -547,7 +547,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	// DEBUG PERMISSIONS //
 	///////////////////////
 
-	if( gSavedSettings.getBOOL("DebugPermissions") )
+	if (gSavedSettings.getbool("DebugPermissions"))
 	{
 		bool slam_perm 			= false;
 		bool overwrite_group	= false;

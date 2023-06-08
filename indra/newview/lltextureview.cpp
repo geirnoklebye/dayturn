@@ -466,7 +466,7 @@ LLRect LLAvatarTexBar::getRequiredRect()
 {
 	LLRect rect;
 	rect.mTop = 100;
-	if (!gSavedSettings.getBOOL("DebugAvatarRezTime")) rect.mTop = 0;
+	if (!gSavedSettings.getbool("DebugAvatarRezTime")) rect.mTop = 0;
 	return rect;
 }
 

@@ -736,7 +736,7 @@ void LLToolGrabBase::handleHoverActive(S32 x, S32 y, MASK mask)
 			objectp->getRoot() == gAgentAvatarp->getRoot())
 		{
 			// we are essentially editing object position
-			if (!gSavedSettings.getBOOL("EditCameraMovement"))
+			if (!gSavedSettings.getbool("EditCameraMovement"))
 			{
 				// force focus to point in space where we were looking previously
 				// Example of use: follow cam scripts shouldn't affect you when movng objects arouns

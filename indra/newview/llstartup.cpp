@@ -2492,7 +2492,7 @@ void login_callback(S32 option, void *userdata)
 	}
 	else if (QUIT_OPTION == option) // *TODO: THIS CODE SEEMS TO BE UNREACHABLE!!!!! login_callback is never called with option equal to QUIT_OPTION
 	{
-		if (!gSavedSettings.getBOOL("RememberPassword"))
+		if (!gSavedSettings.getbool("RememberPassword"))
 		{
 			// turn off the setting and write out to disk
 			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile") , true );
@@ -2528,7 +2528,7 @@ void show_release_notes_if_required()
     {
 
 #if LL_RELEASE_FOR_DOWNLOAD
-        if (!gSavedSettings.getBOOL("CmdLineSkipUpdater")
+        if (!gSavedSettings.getbool("CmdLineSkipUpdater")
             && !LLAppViewer::instance()->isUpdaterMissing())
         {
             // Instantiate a "relnotes" listener which assumes any arriving event

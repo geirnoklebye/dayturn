@@ -472,7 +472,7 @@ void LLProgressView::initStartTexture(S32 location_id, bool is_in_production)
 
     // Turn off start screen to get around the occasional readback 
     // driver bug
-    if (!gSavedSettings.getBOOL("UseStartScreen"))
+    if (!gSavedSettings.getbool("UseStartScreen"))
     {
         LL_INFOS("AppInit") << "Bitmap load disabled" << LL_ENDL;
         return;
