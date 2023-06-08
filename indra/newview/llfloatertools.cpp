@@ -540,7 +540,7 @@ void LLFloaterTools::refresh()
 			}
 		}
 	}
-	else if (prim_count == 1 && gSavedSettings.getBOOL("EditLinkedParts"))
+	else if (prim_count == 1 && gSavedSettings.getbool("EditLinkedParts"))
 	{
 		//KKA-744 display total number of faces when one link item is selected
 		desc_string = getString("link_number");

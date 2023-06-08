@@ -445,7 +445,7 @@ void LLGroupActions::show(const LLUUID& group_id)
 		return;
 
 // [SL:KB] - Patch: UI-GroupFloaters | Checked: 2011-01-23 (Catznip-2.5)
-	if (!gSavedSettings.getBOOL("ShowGroupFloaters"))
+	if (!gSavedSettings.getbool("ShowGroupFloaters"))
 	{
 // [/SL:KB]
 		LLSD params;
@@ -456,7 +456,7 @@ void LLGroupActions::show(const LLUUID& group_id)
 	    LLFloater *floater = LLFloaterReg::getTypedInstance<LLFloaterSidePanelContainer>("people");
 	    if (!floater->isFrontmost())
 	    {
-	        floater->setVisibleAndFrontmost(TRUE, params);
+	        floater->setVisibleAndFrontmost(true, params);
 	    }
 // [SL:KB] - Patch: UI-GroupFloaters | Checked: 2011-01-23 (Catznip-2.5)
 	}
@@ -483,7 +483,7 @@ void LLGroupActions::showNotices(const LLUUID& group_id)
 	sdParams["action"] = "view_notices";
 
 // [SL:KB] - Patch: UI-GroupFloaters | Checked: 2012-10-17 (Catznip-3.3)
-	if (!gSavedSettings.getBOOL("ShowGroupFloaters"))
+	if (!gSavedSettings.getbool("ShowGroupFloaters"))
 	{
 // [/SL:KB]
 		sdParams["open_tab_name"] = "panel_group_info_sidetray";
@@ -528,7 +528,7 @@ void LLGroupActions::refresh_notices(const LLUUID& group_id)
 
 //	LLFloaterSidePanelContainer::showPanel("people", "panel_group_info_sidetray", params);
 // [SL:KB] - Patch: UI-GroupFloaters | Checked: 2011-01-23 (Catznip-2.5)
-	if ( (!gSavedSettings.getBOOL("ShowGroupFloaters")) || (GV_SIDEPANEL == eGroupVisibility) )
+	if ( (!gSavedSettings.getbool("ShowGroupFloaters")) || (GV_SIDEPANEL == eGroupVisibility) )
 	{
 		LLFloaterSidePanelContainer::showPanel("people", "panel_group_info_sidetray", params);
 	}
@@ -561,7 +561,7 @@ void LLGroupActions::refresh(const LLUUID& group_id)
 
 //	LLFloaterSidePanelContainer::showPanel("people", "panel_group_info_sidetray", params);
 // [SL:KB] - Patch: UI-GroupFloaters | Checked: 2011-01-23 (Catznip-2.5)
-	if ( (!gSavedSettings.getBOOL("ShowGroupFloaters")) || (GV_SIDEPANEL == eGroupVisibility) )
+	if ( (!gSavedSettings.getbool("ShowGroupFloaters")) || (GV_SIDEPANEL == eGroupVisibility) )
 	{
 		LLFloaterSidePanelContainer::showPanel("people", "panel_group_info_sidetray", params);
 	}

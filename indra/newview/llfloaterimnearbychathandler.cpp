@@ -379,7 +379,7 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 	
 	if( ((EChatType)chat_type == CHAT_TYPE_DEBUG_MSG))
 	{
-		if(gSavedSettings.getBOOL("ShowScriptErrors") == FALSE) 
+		if(gSavedSettings.getbool("ShowScriptErrors") == false) 
 			return;
 		if(gSavedSettings.getS32("ShowScriptErrorsLocation")== 1)
 			return;
@@ -572,7 +572,7 @@ void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 	// errors in separate window.
 	if (chat_msg.mChatType == CHAT_TYPE_DEBUG_MSG)
 	{
-		if(gSavedSettings.getBOOL("ShowScriptErrors") == FALSE)
+		if(gSavedSettings.getbool("ShowScriptErrors") == false)
 			return;
 
 		// don't process debug messages from not owned objects, see EXT-7762

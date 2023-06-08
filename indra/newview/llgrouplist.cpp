@@ -563,7 +563,7 @@ void LLGroupListItem::setGroupIconID(const LLUUID& group_icon_id)
 void LLGroupListItem::setGroupIconVisible(bool visible)
 {
 	// Already done? Then do nothing.
-	if (mGroupIcon->getVisible() == (BOOL)visible)
+	if (mGroupIcon->getVisible() == visible)
 		return;
 
 	// Show/hide the group icon.

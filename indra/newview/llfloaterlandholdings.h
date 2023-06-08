@@ -72,7 +72,7 @@ protected:
 	bool mFirstPacketReceived;
 
 	std::string mSortColumn;
-	BOOL mSortAscending;
+	bool mSortAscending;
 };
 
 #endif

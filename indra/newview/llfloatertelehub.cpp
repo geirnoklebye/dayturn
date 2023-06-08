@@ -122,7 +122,7 @@ void LLFloaterTelehub::refresh()
 }
 
 // static
-BOOL LLFloaterTelehub::renderBeacons()
+bool LLFloaterTelehub::renderBeacons()
 {
 	// only render if we've got a telehub
 	LLFloaterTelehub* floater = LLFloaterReg::findTypedInstance<LLFloaterTelehub>("telehubs");

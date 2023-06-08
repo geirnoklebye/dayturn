@@ -61,7 +61,7 @@ bool LLFloaterForgetUser::postBuild()
     mScrollList = getChild<LLScrollListCtrl>("user_list");
 
 
-    bool show_grid_marks = gSavedSettings.getBOOL("ForceShowGrid");
+    bool show_grid_marks = gSavedSettings.getbool("ForceShowGrid");
     show_grid_marks |= !LLGridManager::getInstance()->isInProductionGrid();
 
     std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();

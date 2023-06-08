@@ -137,7 +137,7 @@ bool LLFloaterIMNearbyChat::postBuild()
 	// obsolete, but may be needed for backward compatibility?
 	gSavedSettings.declareS32("nearbychat_showicons_and_names", 2, "NearByChat header settings", LLControlVariable::PERSIST_NONDFT);
 
-	if (gSavedPerAccountSettings.getBOOL("LogShowHistory"))
+	if (gSavedPerAccountSettings.getbool("LogShowHistory"))
 	{
 		loadHistory();
 	}
@@ -513,7 +513,7 @@ void LLFloaterIMNearbyChat::onChatBoxKeystrokeWithText(LLChatEntry* lmInputEdito
 	KEY key = gKeyboard->currentKey();
 
 	// Ignore "special" keys, like backspace, arrows, etc.
-	if (gSavedSettings.getBOOL("ChatAutocompleteGestures")
+	if (gSavedSettings.getbool("ChatAutocompleteGestures")
 		&& length > 1
 		&& raw_text[0] == '/'
 		&& key < KEY_SPECIAL)
@@ -606,7 +606,7 @@ void LLFloaterIMNearbyChat::sendChat( EChatType type )
 
 		// If the user wants to stop chatting on hitting return, lose focus
 		// and go out of chat mode.
-		if (gSavedSettings.getBOOL("CloseChatOnReturn"))
+		if (gSavedSettings.getbool("CloseChatOnReturn"))
 		{
 			stopChat();
 		}

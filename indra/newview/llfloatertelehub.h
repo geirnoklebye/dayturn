@@ -46,7 +46,7 @@ public:
 
 	/*virtual*/ void draw();
 	
-	static BOOL renderBeacons();
+	static bool renderBeacons();
 	static void addBeacons();
 
 	void refresh();

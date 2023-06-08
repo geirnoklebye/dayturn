@@ -341,7 +341,7 @@ bool LLFloaterIMSessionTab::postBuild()
 	mRefreshTimer->start();
 	initBtns();
 
-	if (mIsParticipantListExpanded != (bool)gSavedSettings.getBOOL("IMShowControlPanel"))
+	if (mIsParticipantListExpanded != gSavedSettings.getbool("IMShowControlPanel"))
 	{
 		LLFloaterIMSessionTab::onSlide(this);
 	}
@@ -931,7 +931,7 @@ void LLFloaterIMSessionTab::onSlide(LLFloaterIMSessionTab* self)
            should_be_expanded = self->mParticipantListPanel->isCollapsed();
 
 			// Update the expand/collapse flag of the participant list panel and save it
-            gSavedSettings.setBOOL("IMShowControlPanel", should_be_expanded);
+            gSavedSettings.setbool("IMShowControlPanel", should_be_expanded);
             self->mIsParticipantListExpanded = should_be_expanded;
             
             // Refresh for immediate feedback

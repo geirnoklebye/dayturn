@@ -126,7 +126,7 @@ bool LLFloaterConversationLog::isActionChecked(const LLSD& userdata)
 	}
 	else if ("sort_friends_on_top" == command_name)
 	{
-		return gSavedSettings.getBOOL("SortFriendsFirst");
+		return gSavedSettings.getbool("SortFriendsFirst");
 	}
 
 	return false;

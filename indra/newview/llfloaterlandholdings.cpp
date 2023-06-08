@@ -62,7 +62,7 @@ LLFloaterLandHoldings::LLFloaterLandHoldings(const LLSD& key)
 	mBillableArea(0),
 	mFirstPacketReceived(false),
 	mSortColumn(""),
-	mSortAscending(TRUE)
+	mSortAscending(true)
 {
 }
 

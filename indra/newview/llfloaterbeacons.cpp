@@ -41,14 +41,14 @@ LLFloaterBeacons::LLFloaterBeacons(const LLSD& seed)
 	// therefore it is OK to not initialize the pipeline state before needed.
 	// Note also that we should replace those pipeline statics with direct lookup of the saved settings
 	// eliminating the need to keep these states in sync.
-	LLPipeline::setRenderScriptedTouchBeacons(gSavedSettings.getBOOL("scripttouchbeacon"));
-	LLPipeline::setRenderScriptedBeacons(     gSavedSettings.getBOOL("scriptsbeacon"));
-	LLPipeline::setRenderPhysicalBeacons(     gSavedSettings.getBOOL("physicalbeacon"));
-	LLPipeline::setRenderSoundBeacons(        gSavedSettings.getBOOL("soundsbeacon"));
-	LLPipeline::setRenderParticleBeacons(     gSavedSettings.getBOOL("particlesbeacon"));
-	LLPipeline::setRenderHighlights(          gSavedSettings.getBOOL("renderhighlights"));
-	LLPipeline::setRenderBeacons(             gSavedSettings.getBOOL("renderbeacons"));
-	LLPipeline::setRenderMOAPBeacons(		  gSavedSettings.getBOOL("moapbeacon"));
+	LLPipeline::setRenderScriptedTouchBeacons(gSavedSettings.getbool("scripttouchbeacon"));
+	LLPipeline::setRenderScriptedBeacons(     gSavedSettings.getbool("scriptsbeacon"));
+	LLPipeline::setRenderPhysicalBeacons(     gSavedSettings.getbool("physicalbeacon"));
+	LLPipeline::setRenderSoundBeacons(        gSavedSettings.getbool("soundsbeacon"));
+	LLPipeline::setRenderParticleBeacons(     gSavedSettings.getbool("particlesbeacon"));
+	LLPipeline::setRenderHighlights(          gSavedSettings.getbool("renderhighlights"));
+	LLPipeline::setRenderBeacons(             gSavedSettings.getbool("renderbeacons"));
+	LLPipeline::setRenderMOAPBeacons(		  gSavedSettings.getbool("moapbeacon"));
 	mCommitCallbackRegistrar.add("Beacons.UICheck",	boost::bind(&LLFloaterBeacons::onClickUICheck, this,_1));
 }
 
