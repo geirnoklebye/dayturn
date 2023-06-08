@@ -163,7 +163,7 @@ namespace {
 
     void log_SLM_infos(const std::string& request, U32 status, const std::string& body)
     {
-        if (gSavedSettings.getBOOL("MarketplaceListingsLogging"))
+        if (gSavedSettings.getbool("MarketplaceListingsLogging"))
         {
             LL_INFOS("SLM") << "SLM API : Responder to " << request << ". status : " << status << ", body or description : " << body << LL_ENDL;
         }
@@ -233,7 +233,7 @@ namespace LLMarketplaceImport
             // MAINT-2301 : we determined we can safely ignore that error in that context
             (httpCode == MarketplaceErrorCodes::IMPORT_JOB_TIMEOUT))
         {
-            if (gSavedSettings.getBOOL("InventoryOutboxLogging"))
+            if (gSavedSettings.getbool("InventoryOutboxLogging"))
             {
                 LL_INFOS() << " SLM POST : Ignoring time out status and treating it as success" << LL_ENDL;
             }
@@ -242,7 +242,7 @@ namespace LLMarketplaceImport
 
         if (httpCode >= MarketplaceErrorCodes::IMPORT_BAD_REQUEST)
         {
-            if (gSavedSettings.getBOOL("InventoryOutboxLogging"))
+            if (gSavedSettings.getbool("InventoryOutboxLogging"))
             {
                 LL_INFOS() << " SLM POST clearing marketplace cookie due to client or server error" << LL_ENDL;
             }
@@ -309,13 +309,13 @@ namespace LLMarketplaceImport
             (httpCode != MarketplaceErrorCodes::IMPORT_DONE_WITH_ERRORS) &&
             (httpCode != MarketplaceErrorCodes::IMPORT_NOT_FOUND))
         {
-            if (gSavedSettings.getBOOL("InventoryOutboxLogging"))
+            if (gSavedSettings.getbool("InventoryOutboxLogging"))
             {
                 LL_INFOS() << " SLM GET clearing marketplace cookie due to client or server error" << LL_ENDL;
             }
             sMarketplaceCookie.clear();
         }
-        else if (gSavedSettings.getBOOL("InventoryOutboxLogging") && (httpCode >= MarketplaceErrorCodes::IMPORT_BAD_REQUEST))
+        else if (gSavedSettings.getbool("InventoryOutboxLogging") && (httpCode >= MarketplaceErrorCodes::IMPORT_BAD_REQUEST))
         {
             LL_INFOS() << " SLM GET : Got error status = " << httpCode << ", but marketplace cookie not cleared." << LL_ENDL;
         }

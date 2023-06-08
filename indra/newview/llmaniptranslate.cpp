@@ -525,7 +525,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	relative_move -= mDragCursorStartGlobal;
 
 	// You can't move more than some distance from your original mousedown point.
-	if (gSavedSettings.getBOOL("LimitDragDistance"))
+	if (gSavedSettings.getbool("LimitDragDistance"))
 	{
 		F32 max_drag_distance = gSavedSettings.getF32("MaxDragDistance");
 
@@ -545,7 +545,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	getMousePointOnPlaneGlobal(cursor_point_snap_line, x, y, current_pos_global, mSnapOffsetAxis % axis_f);
 	off_axis_magnitude = axis_exists ? llabs((cursor_point_snap_line - current_pos_global) * LLVector3d(mSnapOffsetAxis)) : 0.f;
 
-	if (gSavedSettings.getBOOL("SnapEnabled"))
+	if (gSavedSettings.getbool("SnapEnabled"))
 	{
 		if (off_axis_magnitude > mSnapOffsetMeters)
 		{
@@ -1834,7 +1834,7 @@ void LLManipTranslate::renderTranslationHandles()
 		F32 range_from_agent = dist_vec(gAgent.getPositionAgent(), selection_center);
 		
 		// Don't draw handles if you're too far away
-		if (gSavedSettings.getBOOL("LimitSelectDistance"))
+		if (gSavedSettings.getbool("LimitSelectDistance"))
 		{
 			if (range_from_agent > gSavedSettings.getF32("MaxSelectDistance"))
 			{

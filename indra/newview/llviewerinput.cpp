@@ -164,7 +164,7 @@ static void agent_handle_doubletap_run(EKeystate s, LLAgent::EDoubleTapRunMode m
 		// will be released in agent_turn_left()/agent_turn_right()
 		agent_check_temporary_run(mode);
 	}
-	else if (gSavedSettings.getBOOL("AllowTapTapHoldRun") &&
+	else if (gSavedSettings.getbool("AllowTapTapHoldRun") &&
 		 KEYSTATE_DOWN == s &&
 		 !gAgent.getRunning())
 	{

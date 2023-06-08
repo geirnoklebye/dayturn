@@ -2197,7 +2197,7 @@ void LLMeshUploadThread::run()
 
 void dump_llsd_to_file(const LLSD& content, std::string filename)
 {
-	if (gSavedSettings.getBOOL("MeshUploadLogXML"))
+	if (gSavedSettings.getbool("MeshUploadLogXML"))
 	{
 		llofstream of(filename.c_str());
 		LLSDSerialize::toPrettyXML(content,of);

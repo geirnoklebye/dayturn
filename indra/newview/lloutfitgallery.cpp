@@ -163,7 +163,7 @@ void LLOutfitGallery::updateRowsIfNeeded()
 
 bool compareGalleryItem(LLOutfitGalleryItem* item1, LLOutfitGalleryItem* item2)
 {
-    if(gSavedSettings.getBOOL("OutfitGallerySortByName") ||
+    if (gSavedSettings.getbool("OutfitGallerySortByName") ||
             ((item1->isDefaultImage() && item2->isDefaultImage()) || (!item1->isDefaultImage() && !item2->isDefaultImage())))
     {
         std::string name1 = item1->getItemName();

@@ -1041,7 +1041,7 @@ void LLBasicCertificateStore::validate(int validation_policy,
 									   const LLSD& validation_params)
 {
 	// If --no-verify-ssl-cert was passed on the command line, stop right now.
-	if (gSavedSettings.getBOOL("NoVerifySSLCert"))
+	if (gSavedSettings.getbool("NoVerifySSLCert"))
     {
         LL_WARNS_ONCE("SECAPI") << "All Certificate validation disabled; viewer operation is insecure" << LL_ENDL;
         return;

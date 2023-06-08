@@ -298,7 +298,7 @@ void LLFloaterJoystick::refreshListOfDevices()
         }
     }
 
-    if (gSavedSettings.getBOOL("JoystickEnabled") && mHasDeviceList)
+    if (gSavedSettings.getbool("JoystickEnabled") && mHasDeviceList)
     {
         if (is_device_id_set)
         {

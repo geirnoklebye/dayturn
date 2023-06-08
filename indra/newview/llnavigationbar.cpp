@@ -635,7 +635,7 @@ void LLNavigationBar::onRegionNameResponse(
 		LL_INFOS() << "Teleporting to: " << LLSLURL(region_name,	global_pos).getSLURLString()  << LL_ENDL;
 		gAgent.teleportViaLocation(global_pos);
 	}
-	else if (gSavedSettings.getBOOL("SearchFromAddressBar"))
+	else if (gSavedSettings.getbool("SearchFromAddressBar"))
 	{
 		invokeSearch(typed_location);
 	}

@@ -104,7 +104,7 @@ bool LLToolGun::handleHover(S32 x, S32 y, MASK mask)
 		if (dx != 0 || dy != 0)
 		{
 			// ...actually moved off center
-			if (gSavedSettings.getBOOL("InvertMouse"))
+			if (gSavedSettings.getbool("InvertMouse"))
 			{
 				gAgent.pitch(mouse_sensitivity * -dy);
 			}
@@ -115,14 +115,14 @@ bool LLToolGun::handleHover(S32 x, S32 y, MASK mask)
 			LLVector3 skyward = gAgent.getReferenceUpVector();
 			gAgent.rotate(mouse_sensitivity * dx, skyward.mV[VX], skyward.mV[VY], skyward.mV[VZ]);
 
-			if (gSavedSettings.getBOOL("MouseSun"))
+			if (gSavedSettings.getbool("MouseSun"))
 			{
                 LLVector3 sunpos = LLViewerCamera::getInstance()->getAtAxis();
 				gSky.setSunDirectionCFR(sunpos);
 				gSavedSettings.setVector3("SkySunDefaultPosition", LLViewerCamera::getInstance()->getAtAxis());
 			}
 
-            if (gSavedSettings.getBOOL("MouseMoon"))
+            if (gSavedSettings.getbool("MouseMoon"))
 			{
                 LLVector3 moonpos = LLViewerCamera::getInstance()->getAtAxis();
 				gSky.setMoonDirectionCFR(moonpos);

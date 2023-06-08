@@ -423,7 +423,7 @@ void LLFloater360Capture::encodeAndSave(LLPointer<LLImageRaw> raw_image, const s
     {
         // save individual cube map images as real JPEG files
         // for debugging or curiosity) based on debug settings
-        if (gSavedSettings.getBOOL("360CaptureDebugSaveImage"))
+        if (gSavedSettings.getbool("360CaptureDebugSaveImage"))
         {
             const std::string jpeg_filename = STRINGIZE(
                                                   gDirUtilp->getLindenUserDir() <<
@@ -662,7 +662,7 @@ void LLFloater360Capture::capture360Images()
 
     // if we toggled off the avatar because the Hide check box was ticked,
     // we should toggle it back to where it was before we started the capture
-    if (gSavedSettings.getBOOL("360CaptureHideAvatars"))
+    if (gSavedSettings.getbool("360CaptureHideAvatars"))
     {
         LLPipeline::toggleRenderTypeControl(LLPipeline::RENDER_TYPE_AVATAR);
         LLPipeline::toggleRenderTypeControl(LLPipeline::RENDER_TYPE_PARTICLES);

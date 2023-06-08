@@ -55,7 +55,7 @@ LLToastScriptTextbox::LLToastScriptTextbox(const LLNotificationPtr& notification
 	}
 	mInfoText = getChild<LLTextEditor>("text_editor_box");
 	mInfoText->setMaxTextLength(LLToastPanel::MAX_TEXT_LENGTH);
-	if (gSavedSettings.getBOOL("KokuaSmallScriptDialogTextFont")) mInfoText->setFont(sFontSmall);
+	if (gSavedSettings.getbool("KokuaSmallScriptDialogTextFont")) mInfoText->setFont(sFontSmall);
 	else mInfoText->setFont(sFont);
 	mInfoText->setValue(notification->getMessage());
 

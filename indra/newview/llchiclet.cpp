@@ -534,7 +534,7 @@ void LLChicletPanel::onCurrentVoiceChannelChanged(const LLUUID& session_id)
 		LLIMChiclet* chiclet = dynamic_cast<LLIMChiclet*>(*it);
 		if(chiclet)
 		{
-			if (gSavedSettings.getBOOL("OpenIMOnVoice"))
+			if (gSavedSettings.getbool("OpenIMOnVoice"))
 			{
 				LLFloaterIMContainer::getInstance()->showConversation(session_id);
 			}

@@ -298,7 +298,7 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshotBase* floater)
 		}
 
 		// Clamp snapshot resolution to window size when showing UI or HUD in snapshot.
-		if (gSavedSettings.getBOOL("RenderUIInSnapshot") || gSavedSettings.getBOOL("RenderHUDInSnapshot"))
+		if (gSavedSettings.getbool("RenderUIInSnapshot") || gSavedSettings.getbool("RenderHUDInSnapshot"))
 		{
 			S32 width = gViewerWindow->getWindowWidthRaw();
 			S32 height = gViewerWindow->getWindowHeightRaw();
@@ -423,7 +423,7 @@ void LLFloaterSnapshotBase::ImplBase::setNeedRefresh(bool need)
 	if (!mFloater) return;
 
 	// Don't display the "Refresh to save" message if we're in auto-refresh mode.
-	if (gSavedSettings.getBOOL("AutoSnapshot"))
+	if (gSavedSettings.getbool("AutoSnapshot"))
 	{
 		need = false;
 	}

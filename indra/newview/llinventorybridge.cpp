@@ -1051,7 +1051,7 @@ void LLInvFVBridge::addMarketplaceContextMenuOptions(U32 flags,
         }
         else
         {
-            if (gSavedSettings.getBOOL("MarketplaceListingsLogging"))
+            if (gSavedSettings.getbool("MarketplaceListingsLogging"))
             {
                 items.push_back(std::string("Marketplace Get Listing"));
             }
@@ -1080,7 +1080,7 @@ void LLInvFVBridge::addMarketplaceContextMenuOptions(U32 flags,
             {
                 disabled_items.push_back(std::string("Marketplace List"));
                 disabled_items.push_back(std::string("Marketplace Unlist"));
-                if (gSavedSettings.getBOOL("MarketplaceListingsLogging"))
+                if (gSavedSettings.getbool("MarketplaceListingsLogging"))
                 {
                     disabled_items.push_back(std::string("Marketplace Get Listing"));
                 }

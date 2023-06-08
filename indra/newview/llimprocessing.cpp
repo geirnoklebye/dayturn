@@ -195,7 +195,7 @@ void inventory_offer_handler(LLOfferInfo* info)
 
     bool bAutoAccept(false);
     // Avoid the Accept/Discard dialog if the user so desires. JC
-    if (gSavedSettings.getBOOL("AutoAcceptNewInventory")
+    if (gSavedSettings.getbool("AutoAcceptNewInventory")
         && (info->mType == LLAssetType::AT_NOTECARD
         || info->mType == LLAssetType::AT_LANDMARK
         || info->mType == LLAssetType::AT_TEXTURE))

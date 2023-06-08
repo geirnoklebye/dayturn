@@ -268,7 +268,7 @@ void LLURLDispatcherImpl::regionHandleCallback(U64 region_handle, const LLSLURL&
 
 		// <FS:Ansariel> FIRE-817: Separate place details floater
 		//LLFloaterSidePanelContainer::showPanel("places", key);
-		if (gSavedSettings.getBOOL("FSUseStandalonePlaceDetailsFloater"))
+		if (gSavedSettings.getbool("FSUseStandalonePlaceDetailsFloater"))
 		{
 			LLFloaterReg::showInstance("fs_placedetails", key);
 		}

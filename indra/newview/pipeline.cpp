@@ -465,7 +465,7 @@ void LLPipeline::init()
 
 	resetFrameStats();
 
-	if (gSavedSettings.getBOOL("DisableAllRenderFeatures"))
+	if (gSavedSettings.getbool("DisableAllRenderFeatures"))
 	{
 		clearAllRenderDebugFeatures();
 	}
@@ -475,7 +475,7 @@ void LLPipeline::init()
 	}
 	clearAllRenderDebugDisplays(); // All debug displays off
 
-	if (gSavedSettings.getBOOL("DisableAllRenderTypes"))
+	if (gSavedSettings.getbool("DisableAllRenderTypes"))
 	{
 		clearAllRenderTypes();
 	}
@@ -496,10 +496,10 @@ void LLPipeline::init()
 
 	// make sure RenderPerformanceTest persists (hackity hack hack)
 	// disables non-object rendering (UI, sky, water, etc)
-	if (gSavedSettings.getBOOL("RenderPerformanceTest"))
+	if (gSavedSettings.getbool("RenderPerformanceTest"))
 	{
-		gSavedSettings.setBOOL("RenderPerformanceTest", FALSE);
-		gSavedSettings.setBOOL("RenderPerformanceTest", TRUE);
+		gSavedSettings.setbool("RenderPerformanceTest", false);
+		gSavedSettings.setbool("RenderPerformanceTest", true);
 	}
 
 	mOldRenderDebugMask = mRenderDebugMask;
@@ -925,7 +925,7 @@ bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY, U32 samples)
         allocateShadowBuffer(resX, resY);
 
         //HACK make screenbuffer allocations start failing after 30 seconds
-        if (gSavedSettings.getBOOL("SimulateFBOFailure"))
+        if (gSavedSettings.getbool("SimulateFBOFailure"))
         {
             return false;
         }
@@ -5053,7 +5053,7 @@ void LLPipeline::renderDebug()
 								
 									glPolygonOffset(offset, -offset);
 								
-									if (gSavedSettings.getBOOL("PathfindingXRayWireframe"))
+									if (gSavedSettings.getbool("PathfindingXRayWireframe"))
 									{ //draw hidden wireframe as darker and less opaque
 										gPathfindingProgram.uniform1f(sAmbiance, 1.f);
 										llPathingLibInstance->renderNavMeshShapesVBO( render_order[i] );				
@@ -5106,7 +5106,7 @@ void LLPipeline::renderDebug()
 						gPathfindingProgram.uniform1f(sTint, gSavedSettings.getF32("PathfindingXRayTint"));
 						gPathfindingProgram.uniform1f(sAlphaScale, gSavedSettings.getF32("PathfindingXRayOpacity"));
 								
-						if (gSavedSettings.getBOOL("PathfindingXRayWireframe"))
+						if (gSavedSettings.getbool("PathfindingXRayWireframe"))
 						{ //draw hidden wireframe as darker and less opaque
 							glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );	
 							gPathfindingProgram.uniform1f(sAmbiance, 1.f);

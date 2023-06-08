@@ -252,7 +252,7 @@ void LLManipScale::render()
 				F32 range_from_agent_squared = dist_vec_squared(gAgent.getPositionAgent(), manipulator_pos);
 
 				// Don't draw manip if object too far away
-				if (gSavedSettings.getBOOL("LimitSelectDistance"))
+				if (gSavedSettings.getbool("LimitSelectDistance"))
 				{
 					F32 max_select_distance = gSavedSettings.getF32("MaxSelectDistance");
 					if (range_from_agent_squared > max_select_distance * max_select_distance)

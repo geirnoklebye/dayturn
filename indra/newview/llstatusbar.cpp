@@ -206,7 +206,7 @@ bool LLStatusBar::postBuild()
 	mBtnVolume = getChild<LLButton>( "volume_btn" );
 	mBtnVolume->setClickedCallback( onClickVolume, this );
  
-    if (gSavedSettings.getBOOL("ShowMediaPopupsOnRollover"))
+    if (gSavedSettings.getbool("ShowMediaPopupsOnRollover"))
     {
         mMouseEnterVolumeConnection = mBtnVolume->setMouseEnterCallback(boost::bind(&LLStatusBar::onMouseEnterVolume, this));
     }
@@ -221,7 +221,7 @@ bool LLStatusBar::postBuild()
 	mMediaToggle->setClickedCallback( &LLStatusBar::onClickMediaToggle, this );
     // <FS: KC> FIRE-19697: Add setting to disable status bar icon menu popup on mouseover
     // mMediaToggle->setMouseEnterCallback(boost::bind(&LLStatusBar::onMouseEnterNearbyMedia, this));
-    if (gSavedSettings.getBOOL("ShowMediaPopupsOnRollover"))
+    if (gSavedSettings.getbool("ShowMediaPopupsOnRollover"))
     {
         mMouseEnterNearbyMediaConnection = mMediaToggle->setMouseEnterCallback(boost::bind(&LLStatusBar::onMouseEnterNearbyMedia, this));
     }

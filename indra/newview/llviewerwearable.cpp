@@ -523,7 +523,7 @@ void LLViewerWearable::saveNewAsset() const
 		return;
 	}
 
-    if (gSavedSettings.getBOOL("LogWearableAssetSave"))
+    if (gSavedSettings.getbool("LogWearableAssetSave"))
     {
         const std::string log_filename = asset_id_to_filename(mAssetID, LL_PATH_LOGS);
         exportFile(log_filename);

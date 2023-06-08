@@ -982,35 +982,35 @@ void LLPanelPeople::updateNearbyList()
 			{
 //CA it doesn't look pretty getting all three messages if someone pops up within chat range, so add logic to only give the
 //   closest active message
-				BOOL messaged = FALSE;
-				if (gSavedSettings.getBOOL("RadarReportChatRange"))
+				bool messaged = false;
+				if (gSavedSettings.getbool("RadarReportChatRange"))
 				{
 					if ((r <= CHAT_NORMAL_RADIUS) && (lastRadarSweep[avId].lastDistance > CHAT_NORMAL_RADIUS))
 					{
 						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "entered chat range"));
-						messaged = TRUE;
+						messaged = true;
 					}
 					else if ((r > CHAT_NORMAL_RADIUS) && (lastRadarSweep[avId].lastDistance <= CHAT_NORMAL_RADIUS))
 					{
 						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left chat range"));
-						messaged = TRUE;
+						messaged = true;
 					}
 				}
-				if (! messaged && gSavedSettings.getBOOL("RadarReportDrawRange"))
+				if (! messaged && gSavedSettings.getbool("RadarReportDrawRange"))
 				{
 					if ((r <= drawRadius) && (lastRadarSweep[avId].lastDistance > drawRadius))
 					{
 						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "entered draw distance"));
-						messaged = TRUE;
+						messaged = true;
 					}
 					else if ((r > drawRadius) && (lastRadarSweep[avId].lastDistance <= drawRadius))
 					{
 						LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left draw distance"));
-						messaged = TRUE;
+						messaged = true;
 					}			
 				}
 //CA add sim range
-				if (!messaged && gSavedSettings.getBOOL("RadarReportSimRange"))
+				if (!messaged && gSavedSettings.getbool("RadarReportSimRange"))
 				{
 					LLVector3d avPos = av->getPosition();
 					LLUUID avRegion;
@@ -1039,19 +1039,19 @@ void LLPanelPeople::updateNearbyList()
 
 			if ( 1 )
 			{
-				BOOL messaged = FALSE;
-				if (gSavedSettings.getBOOL("RadarReportChatRange") && (r <= CHAT_NORMAL_RADIUS))
+				bool messaged = false;
+				if (gSavedSettings.getbool("RadarReportChatRange") && (r <= CHAT_NORMAL_RADIUS))
 				{			
 					LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, llformat("entered chat range (%3.2f m)",r)));
-					messaged = TRUE;
+					messaged = true;
 				}
-				if (!messaged && gSavedSettings.getBOOL("RadarReportDrawRange") && (r <= drawRadius))
+				if (!messaged && gSavedSettings.getbool("RadarReportDrawRange") && (r <= drawRadius))
 				{
 					LLAvatarNameCache::get(avId, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, llformat("entered draw distance (%3.2f m)",r)));
-					messaged = TRUE;
+					messaged = true;
 				}
 //CA add sim range				
-				if (!messaged && gSavedSettings.getBOOL("RadarReportSimRange"))
+				if (!messaged && gSavedSettings.getbool("RadarReportSimRange"))
 				{
 					LLVector3d avPos = av->getPosition();
 					LLUUID avRegion;
@@ -1077,25 +1077,25 @@ void LLPanelPeople::updateNearbyList()
 		
 		if ( 1 )
 		{
-			BOOL messaged = FALSE;
+			bool messaged = false;
 //CA in the case of departures it makes more sense to prioritise these the other may around so if someone leaves
 //   the region you don't get chat and drawdistance too, or just chat as was the case before this change
 //CA add region alerts
 //CA add check that they were in the region (rather than disappearing from a neighbouring one)
-			if (gSavedSettings.getBOOL("RadarReportSimRange"))
+			if (gSavedSettings.getbool("RadarReportSimRange"))
 			{
 				if (rf.lastRegion == regionSelf)
 				{
 					LLAvatarNameCache::get(i->first, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left the region"));
-					messaged = TRUE;
+					messaged = true;
 				}
 			}
-			if (!messaged && gSavedSettings.getBOOL("RadarReportDrawRange") && (rf.lastDistance <= drawRadius))
+			if (!messaged && gSavedSettings.getbool("RadarReportDrawRange") && (rf.lastDistance <= drawRadius))
 			{
 				LLAvatarNameCache::get(i->first, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left draw distance"));
-				messaged = TRUE;
+				messaged = true;
 			}
-			if (!messaged && gSavedSettings.getBOOL("RadarReportChatRange") && (rf.lastDistance <= CHAT_NORMAL_RADIUS))
+			if (!messaged && gSavedSettings.getbool("RadarReportChatRange") && (rf.lastDistance <= CHAT_NORMAL_RADIUS))
 			{
 				LLAvatarNameCache::get(i->first, boost::bind(&LLPanelPeople::giveMessage, this, _1, _2, "left chat range"));
 			}

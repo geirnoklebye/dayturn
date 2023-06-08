@@ -592,7 +592,7 @@ bool idle_startup()
 								  invalid_message_callback,
 								  NULL);
 
-			if (gSavedSettings.getBOOL("LogMessages"))
+			if (gSavedSettings.getbool("LogMessages"))
 			{
 				LL_DEBUGS("AppInit") << "Message logging activated!" << LL_ENDL;
 				msg->startLogging();
@@ -717,7 +717,7 @@ bool idle_startup()
 		{
 			show_connect_box = TRUE;
 		}
-		else if (gSavedSettings.getBOOL("AutoLogin"))  
+		else if (gSavedSettings.getbool("AutoLogin"))  
 		{
 			// Log into last account
 			gRememberPassword = true;
@@ -845,7 +845,7 @@ bool idle_startup()
 			// MAINT-3231 Show first run dialog only for Desura viewer
 			if (gSavedSettings.getString("sourceid") == "1208_desura")
 			{
-				if (gSavedSettings.getBOOL("FirstLoginThisInstall"))
+				if (gSavedSettings.getbool("FirstLoginThisInstall"))
 				{
 					LL_INFOS("AppInit") << "FirstLoginThisInstall, calling show_first_run_dialog()" << LL_ENDL;
 					show_first_run_dialog();
@@ -2017,7 +2017,7 @@ bool idle_startup()
 		// We have a region, and just did a big inventory download.
 		// We can estimate the user's connection speed, and set their
 		// max bandwidth accordingly.  JC
-		if (gSavedSettings.getBOOL("FirstLoginThisInstall"))
+		if (gSavedSettings.getbool("FirstLoginThisInstall"))
 		{
 			// This is actually a pessimistic computation, because TCP may not have enough
 			// time to ramp up on the (small) default inventory file to truly measure max
@@ -2043,14 +2043,14 @@ bool idle_startup()
 				gViewerThrottle.setMaxBandwidth(FAST_RATE_BPS / 1024.f);
 			}
 
-			if (gSavedSettings.getBOOL("ShowHelpOnFirstLogin"))
+			if (gSavedSettings.getbool("ShowHelpOnFirstLogin"))
 			{
-				gSavedSettings.setBOOL("HelpFloaterOpen", TRUE);
+				gSavedSettings.setbool("HelpFloaterOpen", true);
 			}
 
 			// Set the show start location to true, now that the user has logged
 			// on with this install.
-			gSavedSettings.setBOOL("ShowStartLocation", TRUE);
+			gSavedSettings.setbool("ShowStartLocation", true);
 		}
 
 		display_startup();
@@ -2066,21 +2066,21 @@ bool idle_startup()
 		// <FS:CR> Compatibility with old backups
 		// Put gSavedPerAccountSettings here, put gSavedSettings in llappviewer.cpp
 		// *TODO: Should we keep these around forever or just three release cycles?
-		if (gSavedSettings.getBOOL("FSFirstRunAfterSettingsRestore"))
+		if (gSavedSettings.getbool("FSFirstRunAfterSettingsRestore"))
 		{
 			// Post-chui merge logging change
-			if (gSavedPerAccountSettings.getBOOL("LogInstantMessages"))
+			if (gSavedPerAccountSettings.getbool("LogInstantMessages"))
 				gSavedPerAccountSettings.setS32("KeepConversationLogTranscript", 2);
 			else
 				gSavedPerAccountSettings.setS32("KeepConversationLogTranscript", 0);
 			
 			//ok, we're done, set it back to false.
-			gSavedSettings.setBOOL("FSFirstRunAfterSettingsRestore", FALSE);
+			gSavedSettings.setbool("FSFirstRunAfterSettingsRestore", false);
 		}
 		display_startup();
 		// </FS:CR>
 
-		if (gSavedSettings.getBOOL("HelpFloaterOpen"))
+		if (gSavedSettings.getbool("HelpFloaterOpen"))
 		{
 			// show default topic
 			LLViewerHelp::instance().showTopic("");
@@ -2089,7 +2089,7 @@ bool idle_startup()
 		display_startup();
 
 		// We're successfully logged in.
-		gSavedSettings.setBOOL("FirstLoginThisInstall", FALSE);
+		gSavedSettings.setbool("FirstLoginThisInstall", false);
 
 		LLFloaterReg::showInitialVisibleInstances();
 
@@ -3194,7 +3194,7 @@ bool LLStartUp::startLLProxy()
 	std::string httpProxyType = gSavedSettings.getString("HttpProxyType");
 
 	// Set up SOCKS proxy (if needed)
-	if (gSavedSettings.getBOOL("Socks5ProxyEnabled"))
+	if (gSavedSettings.getbool("Socks5ProxyEnabled"))
 	{	
 		// Determine and update LLProxy with the saved authentication system
 		std::string auth_type = gSavedSettings.getString("Socks5AuthType");

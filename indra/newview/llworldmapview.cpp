@@ -504,7 +504,7 @@ void LLWorldMapView::draw()
 			gGL.end();
 		}
 		 **********************/
-		else if (gSavedSettings.getBOOL("MapShowLandForSale") && (level <= DRAW_LANDFORSALE_THRESHOLD))
+		else if (gSavedSettings.getbool("MapShowLandForSale") && (level <= DRAW_LANDFORSALE_THRESHOLD))
 		{
 			// Draw the overlay image "Land for Sale / Land for Auction"
 			LLViewerFetchedTexture* overlayimage = info->getLandForSaleImage();

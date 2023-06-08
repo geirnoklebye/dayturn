@@ -829,7 +829,7 @@ void LLLocationInputCtrl::refreshParcelIcons()
 
 	x = layout_widget(mForSaleBtn, x);
 
-	if (gSavedSettings.getBOOL("NavBarShowParcelProperties"))
+	if (gSavedSettings.getbool("NavBarShowParcelProperties"))
 	{
 		LLParcel* current_parcel;
 		LLViewerRegion* selection_region = vpm->getSelectionRegion();

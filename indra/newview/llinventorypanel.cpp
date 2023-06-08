@@ -340,7 +340,7 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 	// </FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 
 	// set the filter for the empty folder if the debug setting is on
-	if (gSavedSettings.getBOOL("DebugHideEmptySystemFolders"))
+	if (gSavedSettings.getbool("DebugHideEmptySystemFolders"))
 	{
 		getFilter().setFilterEmptySystemFolders();
 	}

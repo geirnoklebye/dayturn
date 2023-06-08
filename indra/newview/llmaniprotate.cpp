@@ -1207,7 +1207,7 @@ BOOL LLManipRotate::updateVisiblity()
 			F32 z_dist = -1.f * (mCenterToCam * cameraAtAxis);
 
 			// Don't drag manip if object too far away
-			if (gSavedSettings.getBOOL("LimitSelectDistance"))
+			if (gSavedSettings.getbool("LimitSelectDistance"))
 			{
 				F32 max_select_distance = gSavedSettings.getF32("MaxSelectDistance");
 				if (dist_vec_squared(gAgent.getPositionAgent(), center) > (max_select_distance * max_select_distance))
@@ -1615,7 +1615,7 @@ LLQuaternion LLManipRotate::dragConstrained( S32 x, S32 y )
 			return LLQuaternion::DEFAULT;
 		}
 
-		if (gSavedSettings.getBOOL("SnapEnabled") && projected_mouse.magVec() > SNAP_GUIDE_INNER_RADIUS * mRadiusMeters)
+		if (gSavedSettings.getbool("SnapEnabled") && projected_mouse.magVec() > SNAP_GUIDE_INNER_RADIUS * mRadiusMeters)
 		{
 			if (!mInSnapRegime)
 			{

@@ -3858,7 +3858,7 @@ F32 LLViewerObject::recursiveGetEstTrianglesMax() const
 S32 LLViewerObject::getAnimatedObjectMaxTris() const
 {
     S32 max_tris = 0;
-    if (gSavedSettings.getBOOL("AnimatedObjectsIgnoreLimits")) 
+    if (gSavedSettings.getbool("AnimatedObjectsIgnoreLimits")) 
     {
         max_tris = S32_MAX;
     }

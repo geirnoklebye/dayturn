@@ -5780,7 +5780,7 @@ bool script_question_cb(const LLSD& notification, const LLSD& response)
 	msg->sendReliable(LLHost(notification["payload"]["sender"].asString()));
 
 	// only log a chat message if caution prompts are enabled
-	if (gSavedSettings.getBOOL("PermissionsCautionEnabled"))
+	if (gSavedSettings.getbool("PermissionsCautionEnabled"))
 	{
 		// log a chat message, if appropriate
 		notify_cautioned_script_question(notification, response, orig, allowed);

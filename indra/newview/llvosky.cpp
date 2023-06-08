@@ -576,7 +576,7 @@ void LLVOSky::restoreGL()
 
 	updateDirections(psky);
 
-	if (gSavedSettings.getBOOL("RenderWater") && gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps)
+	if (gSavedSettings.getbool("RenderWater") && gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps)
 	{
 		initCubeMap();
 	}

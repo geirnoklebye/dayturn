@@ -209,11 +209,7 @@ void LLDrawPoolTerrain::render(S32 pass)
 	}
 
 	// Special-case for land ownership feedback
-	// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-	//if (gSavedSettings.getBOOL("ShowParcelOwners"))
-	static LLCachedControl<bool> showParcelOwners(gSavedSettings, "ShowParcelOwners",false);
-	if (showParcelOwners)
-	// </FS:Ansariel>
+	if (gSavedSettings.getbool("ShowParcelOwners"))
 	{
 		hilightParcelOwners(false);
 	}

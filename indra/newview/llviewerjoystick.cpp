@@ -1216,7 +1216,7 @@ void LLViewerJoystick::moveFlycam(bool reset)
 	LLMatrix3 rot_mat(sDelta[3], sDelta[4], sDelta[5]);
 	sFlycamRotation = LLQuaternion(rot_mat)*sFlycamRotation;
 
-	if (gSavedSettings.getBOOL("AutoLeveling"))
+	if (gSavedSettings.getbool("AutoLeveling"))
 	{
 		LLMatrix3 level(sFlycamRotation);
 
@@ -1234,7 +1234,7 @@ void LLViewerJoystick::moveFlycam(bool reset)
 		sFlycamRotation = nlerp(llmin(feather*time,1.f), sFlycamRotation, quat);
 	}
 
-	if (gSavedSettings.getBOOL("ZoomDirect"))
+	if (gSavedSettings.getbool("ZoomDirect"))
 	{
 		sFlycamZoom = sLastDelta[6]*axis_scale[6]+dead_zone[6];
 	}

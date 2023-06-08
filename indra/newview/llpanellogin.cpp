@@ -888,7 +888,7 @@ void LLPanelLogin::loadLoginPage()
 	params["lang"] = LLUI::getLanguage();
 
 	// First Login?
-	if (gSavedSettings.getBOOL("FirstLoginThisInstall"))
+	if (gSavedSettings.getbool("FirstLoginThisInstall"))
 	{
 		params["firstlogin"] = "TRUE"; // not bool: server expects string TRUE
 	}

@@ -212,7 +212,7 @@ class LLDisplayNameUpdate : public LLHTTPNode
 			LLNotificationsUtil::add("DisplayNameUpdateRemoveAlias", args, payload,
 				boost::bind(&LGGContactSets::callbackAliasReset, LGGContactSets::getInstance(), _1, _2));
 		}
-		else if (gSavedSettings.getBOOL("FSShowDisplayNameUpdateNotification"))
+		else if (gSavedSettings.getbool("FSShowDisplayNameUpdateNotification"))
 		{
 			LLNotificationsUtil::add("DisplayNameUpdate", args);
 		}

@@ -323,7 +323,7 @@ void LLToolMgr::toggleBuildMode(const LLSD& sdname)
 	}
 	else
 	{
-		if (gSavedSettings.getBOOL("EditCameraMovement"))
+		if (gSavedSettings.getbool("EditCameraMovement"))
 		{
 			// just reset the view, will pull us out of edit mode
 			handle_reset_view();

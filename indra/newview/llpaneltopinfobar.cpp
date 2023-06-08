@@ -285,7 +285,7 @@ void LLPanelTopInfoBar::updateParcelIcons()
 	if (!agent_region || !agent_parcel)
 		return;
 
-	if (gSavedSettings.getBOOL("NavBarShowParcelProperties"))
+	if (gSavedSettings.getbool("NavBarShowParcelProperties"))
 	{
 		LLParcel* current_parcel;
 		LLViewerRegion* selection_region = vpm->getSelectionRegion();

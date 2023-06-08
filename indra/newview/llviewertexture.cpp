@@ -475,7 +475,7 @@ void LLViewerTexture::initClass()
 {
 	LLImageGL::sDefaultGLTexture = LLViewerFetchedTexture::sDefaultImagep->getGLTexture();
 	
-	if(gSavedSettings.getBOOL("TextureFetchDebuggerEnabled"))
+	if (gSavedSettings.getbool("TextureFetchDebuggerEnabled"))
 	{
 		sTexelPixelRatio = gSavedSettings.getF32("TexelPixelRatio");
 	}

@@ -251,7 +251,7 @@ void LLWorld::refreshLimits()
 		mRegionMinPrimZPos = 0.0f;
 
 		// <NP: disable build constraints>
-		if (gSavedSettings.getBOOL("DisableMaxBuildConstraints")) // adjusts max and min constrains
+		if (gSavedSettings.getbool("DisableMaxBuildConstraints")) // adjusts max and min constrains
 		{
 				mRegionMaxPrimScale = F32_MAX;
 				mRegionMinPrimScale = 0.000001f;

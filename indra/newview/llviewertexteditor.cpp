@@ -112,7 +112,7 @@ public:
 		}
 //		else
 // [SL:KB] - Patch: UI-Notecards | Checked: 2010-09-05 (Catznip-2.1.2a) | Added: Catznip-2.1.2a
-		else if (gSavedSettings.getBOOL("EmbeddedLandmarkCopyToInventory"))
+		else if (gSavedSettings.getbool("EmbeddedLandmarkCopyToInventory"))
 // [/SL:KB]
 		{
 			if (item_ptr.isNull())
