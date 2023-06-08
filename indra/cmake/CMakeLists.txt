@@ -70,7 +70,7 @@ set(cmake_SOURCE_FILES
     LLXML.cmake
     Linking.cmake
     MediaPluginBase.cmake
-    MESHOPTIMIZER.cmake
+    Meshoptimizer.cmake
     NDOF.cmake
     OPENAL.cmake
     OpenGL.cmake
