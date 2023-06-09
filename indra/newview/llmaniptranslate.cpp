@@ -849,9 +849,9 @@ void LLManipTranslate::highlightManipulators(S32 x, S32 y)
 	S32 num_arrow_manips = numManips;
 
 	// planar manipulators
-	BOOL planar_manip_yz_visible = FALSE;
-	BOOL planar_manip_xz_visible = FALSE;
-	BOOL planar_manip_xy_visible = FALSE;
+	bool planar_manip_yz_visible = false;
+	bool planar_manip_xz_visible = false;
+	bool planar_manip_xy_visible = false;
 
 	mManipulatorVertices[numManips] = LLVector4(0.f, mPlaneManipOffsetMeters * (1.f - PLANE_TICK_SIZE * 0.5f), mPlaneManipOffsetMeters * (1.f - PLANE_TICK_SIZE * 0.5f), 1.f);
 	mManipulatorVertices[numManips++].scaleVec(mPlaneManipPositions);
@@ -859,7 +859,7 @@ void LLManipTranslate::highlightManipulators(S32 x, S32 y)
 	mManipulatorVertices[numManips++].scaleVec(mPlaneManipPositions);
 	if (llabs(relative_camera_dir.mV[VX]) > MIN_PLANE_MANIP_DOT_PRODUCT)
 	{
-		planar_manip_yz_visible = TRUE;
+		planar_manip_yz_visible = true;
 	}
 
 	mManipulatorVertices[numManips] = LLVector4(mPlaneManipOffsetMeters * (1.f - PLANE_TICK_SIZE * 0.5f), 0.f, mPlaneManipOffsetMeters * (1.f - PLANE_TICK_SIZE * 0.5f), 1.f);
@@ -868,7 +868,7 @@ void LLManipTranslate::highlightManipulators(S32 x, S32 y)
 	mManipulatorVertices[numManips++].scaleVec(mPlaneManipPositions);
 	if (llabs(relative_camera_dir.mV[VY]) > MIN_PLANE_MANIP_DOT_PRODUCT)
 	{
-		planar_manip_xz_visible = TRUE;
+		planar_manip_xz_visible = true;
 	}
 
 	mManipulatorVertices[numManips] = LLVector4(mPlaneManipOffsetMeters * (1.f - PLANE_TICK_SIZE * 0.5f), mPlaneManipOffsetMeters * (1.f - PLANE_TICK_SIZE * 0.5f), 0.f, 1.f);
@@ -877,7 +877,7 @@ void LLManipTranslate::highlightManipulators(S32 x, S32 y)
 	mManipulatorVertices[numManips++].scaleVec(mPlaneManipPositions);
 	if (llabs(relative_camera_dir.mV[VZ]) > MIN_PLANE_MANIP_DOT_PRODUCT)
 	{
-		planar_manip_xy_visible = TRUE;
+		planar_manip_xy_visible = true;
 	}
 
 	// Project up to 9 manipulators to screen space 2*X, 2*Y, 2*Z, 3*planes
@@ -1693,14 +1693,14 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 		glCullFace(GL_FRONT);
 		for (U32 i = 0; i < num_types; i++)
 		{
-			gPipeline.renderObjects(types[i], LLVertexBuffer::MAP_VERTEX, FALSE);
+			gPipeline.renderObjects(types[i], LLVertexBuffer::MAP_VERTEX, false);
 		}
 
 		glStencilOp(GL_DECR, GL_DECR, GL_DECR);
 		glCullFace(GL_BACK);
 		for (U32 i = 0; i < num_types; i++)
 		{
-			gPipeline.renderObjects(types[i], LLVertexBuffer::MAP_VERTEX, FALSE);
+			gPipeline.renderObjects(types[i], LLVertexBuffer::MAP_VERTEX, false);
 		}
 		
 		if (particles)
@@ -1762,7 +1762,7 @@ void LLManipTranslate::renderText()
 	}
 	else
 	{
-		const BOOL children_ok = TRUE;
+		const bool children_ok = true;
 		LLViewerObject* objectp = mObjectSelection->getFirstRootObject(children_ok);
 		if (objectp)
 		{
@@ -2171,7 +2171,7 @@ void LLManipTranslate::renderTranslationHandles()
 							(face >= 3) ? -mConeSize : mConeSize,
 							(face >= 3) ? -mArrowLengthMeters : mArrowLengthMeters,
 							mConeSize,
-							FALSE);
+							false);
 			}
 		}
 	}
@@ -2179,7 +2179,7 @@ void LLManipTranslate::renderTranslationHandles()
 }
 
 
-void LLManipTranslate::renderArrow(S32 which_arrow, S32 selected_arrow, F32 box_size, F32 arrow_size, F32 handle_size, BOOL reverse_direction)
+void LLManipTranslate::renderArrow(S32 which_arrow, S32 selected_arrow, F32 box_size, F32 arrow_size, F32 handle_size, bool reverse_direction)
 {
 	gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 	LLGLEnable gls_blend(GL_BLEND);
@@ -2284,7 +2284,7 @@ void LLManipTranslate::renderGridVert(F32 x_trans, F32 y_trans, F32 r, F32 g, F3
 // virtual
 BOOL LLManipTranslate::canAffectSelection()
 {
-	BOOL can_move = mObjectSelection->getObjectCount() != 0;
+	bool can_move = mObjectSelection->getObjectCount() != 0;
 	if (can_move)
 	{
 		struct f : public LLSelectedObjectFunctor

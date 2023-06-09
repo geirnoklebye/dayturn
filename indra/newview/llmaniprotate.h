@@ -73,7 +73,7 @@ private:
 	void			renderSnapGuides();
 	void			renderActiveRing(F32 radius, F32 width, const LLColor4& center_color, const LLColor4& side_color);
 
-	BOOL			updateVisiblity();
+	bool			updateVisiblity();
 	LLVector3		findNearestPointOnRing( S32 x, S32 y, const LLVector3& center, const LLVector3& axis );
 
 	LLQuaternion	dragUnconstrained( S32 x, S32 y );
@@ -104,10 +104,10 @@ private:
 	LLVector3			mCenterToProfilePlane;
 	F32					mCenterToProfilePlaneMag;
 
-	BOOL				mSendUpdateOnMouseUp;
+	bool				mSendUpdateOnMouseUp;
 
 	bool				mSmoothRotate;
-	BOOL				mCamEdgeOn;
+	bool				mCamEdgeOn;
 
 	LLVector4			mManipulatorVertices[6];
 	LLVector4			mManipulatorScales;

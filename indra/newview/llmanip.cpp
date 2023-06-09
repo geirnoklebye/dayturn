@@ -404,7 +404,7 @@ void LLManip::renderGuidelines(BOOL draw_x, BOOL draw_y, BOOL draw_z)
 	LLVector3 grid_scale;
 	LLSelectMgr::getInstance()->getGrid(grid_origin, grid_rot, grid_scale);
 
-	const BOOL children_ok = TRUE;
+	const bool children_ok = true;
 	LLViewerObject* object = mObjectSelection->getFirstRootObject(children_ok);
 	if (!object)
 	{
@@ -588,7 +588,7 @@ void LLManip::renderTickValue(const LLVector3& pos, F32 value, const std::string
 		}
 	}
 
-	BOOL hud_selection = mObjectSelection->getSelectType() == SELECT_TYPE_HUD;
+	bool hud_selection = mObjectSelection->getSelectType() == SELECT_TYPE_HUD;
 	gGL.matrixMode(LLRender::MM_MODELVIEW);
 	gGL.pushMatrix();
 	{

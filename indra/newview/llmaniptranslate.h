@@ -70,7 +70,7 @@ protected:
 		HANDLE_SPHERE 
 	};
 
-	void		renderArrow(S32 which_arrow, S32 selected_arrow, F32 box_size, F32 arrow_size, F32 handle_size, BOOL reverse_direction);
+	void		renderArrow(S32 which_arrow, S32 selected_arrow, F32 box_size, F32 arrow_size, F32 handle_size, bool reverse_direction);
 	void		renderTranslationHandles();
 	void		renderText();
 	void		renderSnapGuides();

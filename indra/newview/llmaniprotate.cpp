@@ -95,9 +95,9 @@ LLManipRotate::LLManipRotate( LLToolComposite* composite )
 	mCenterToCamMag(0.f),
 	mCenterToProfilePlane(),
 	mCenterToProfilePlaneMag(0.f),
-	mSendUpdateOnMouseUp( FALSE ),
+	mSendUpdateOnMouseUp(false),
 	mSmoothRotate(false),
-	mCamEdgeOn(FALSE),
+	mCamEdgeOn(false),
 	mManipulatorScales(1.f, 1.f, 1.f, 1.f)
 { }
 
@@ -440,7 +440,7 @@ BOOL LLManipRotate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 	mAgentSelfAtAxis = gAgent.getAtAxis(); // no point checking if avatar was selected, just save the value
 
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
-	setMouseCapture( true );
+	setMouseCapture(true);
 	LLSelectMgr::getInstance()->enableSilhouette(false);
 
 	mHelpTextTimer.reset();
@@ -505,7 +505,7 @@ bool LLManipRotate::handleHover(S32 x, S32 y, MASK mask)
 		if( mObjectSelection->isEmpty() )
 		{
 			// Somehow the object got deselected while we were dragging it.
-			setMouseCapture( false );
+			setMouseCapture(false);
 		}
 		else
 		{
@@ -787,7 +787,7 @@ void LLManipRotate::renderSnapGuides()
 	LLVector3 world_snap_axis;
 	LLVector3 test_axis = constraint_axis;
 
-	BOOL constrain_to_ref_object = FALSE;
+	bool constrain_to_ref_object = false;
 	if (mObjectSelection->getSelectType() == SELECT_TYPE_ATTACHMENT && isAgentAvatarValid())
 	{
 		test_axis = test_axis * ~grid_rotation;
@@ -795,7 +795,7 @@ void LLManipRotate::renderSnapGuides()
 	else if (LLSelectMgr::getInstance()->getGridMode() == GRID_MODE_REF_OBJECT)
 	{
 		test_axis = test_axis * ~grid_rotation;
-		constrain_to_ref_object = TRUE;
+		constrain_to_ref_object = true;
 	}
 
 	test_axis.abs();
@@ -884,7 +884,7 @@ void LLManipRotate::renderSnapGuides()
 
 			for (S32 i = 0; i < 64; i++)
 			{
-				BOOL render_text = TRUE;
+				bool render_text = true;
 				F32 deg = 5.625f * (F32)i;
 				LLVector3 inner_point;
 				LLVector3 outer_point;
@@ -922,7 +922,7 @@ void LLManipRotate::renderSnapGuides()
 						if (dot > 0.f)
 						{
 							outer_point = inner_point;
-							render_text = FALSE;
+							render_text = false;
 						}
 						else
 						{
@@ -1154,7 +1154,7 @@ void LLManipRotate::renderSnapGuides()
 }
 
 // Returns TRUE if center of sphere is visible.  Also sets a bunch of member variables that are used later (e.g. mCenterToCam)
-BOOL LLManipRotate::updateVisiblity()
+bool LLManipRotate::updateVisiblity()
 {
 	// Don't want to recalculate the center of the selection during a drag.
 	// Due to packet delays, sometimes half the objects in the selection have their
@@ -1167,7 +1167,7 @@ BOOL LLManipRotate::updateVisiblity()
 		mRotationCenter = gAgent.getPosGlobalFromAgent( getPivotPoint() );//LLSelectMgr::getInstance()->getSelectionCenterGlobal();
 	}
 
-	BOOL visible = FALSE;
+	bool visible = false;
 
 	//Assume that UI scale factor is equivalent for X and Y axis
 	F32 ui_scale_factor = LLUI::getScaleFactor().mV[VX];
@@ -1191,7 +1191,7 @@ BOOL LLManipRotate::updateVisiblity()
 		// so use getWorldViewHeightRaw as scale factor when converting to pixel coordinates
 		mCenterScreen.set((S32)((0.5f - center.mV[VY]) / gAgentCamera.mHUDCurZoom * gViewerWindow->getWorldViewHeightScaled()),
 							(S32)((center.mV[VZ] + 0.5f) / gAgentCamera.mHUDCurZoom * gViewerWindow->getWorldViewHeightScaled()));
-		visible = TRUE;
+		visible = true;
 	}
 	else
 	{
@@ -1212,7 +1212,7 @@ BOOL LLManipRotate::updateVisiblity()
 				F32 max_select_distance = gSavedSettings.getF32("MaxSelectDistance");
 				if (dist_vec_squared(gAgent.getPositionAgent(), center) > (max_select_distance * max_select_distance))
 				{
-					visible = FALSE;
+					visible = false;
 				}
 			}
 			
@@ -1228,16 +1228,16 @@ BOOL LLManipRotate::updateVisiblity()
 			}
 			else
 			{
-				visible = FALSE;
+				visible = false;
 			}
 		}
 	}
 
-	mCamEdgeOn = FALSE;
+	mCamEdgeOn = false;
 	F32 axis_onto_cam = mManipPart >= LL_ROT_X ? llabs( getConstraintAxis() * mCenterToCamNorm ) : 0.f;
 	if( axis_onto_cam < AXIS_ONTO_CAM_TOLERANCE )
 	{
-		mCamEdgeOn = TRUE;
+		mCamEdgeOn = true;
 	}
 
 	return visible;

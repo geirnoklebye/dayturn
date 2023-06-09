@@ -101,39 +101,39 @@ F32 get_default_max_prim_scale(bool is_flora)
 }
 
 // static
-void LLManipScale::setUniform(BOOL b)
+void LLManipScale::setUniform(bool b)
 {
-	gSavedSettings.setBOOL("ScaleUniform", b);
+	gSavedSettings.setbool("ScaleUniform", b);
 }
 
 // static
-void LLManipScale::setShowAxes(BOOL b)
+void LLManipScale::setShowAxes(bool b)
 {
-	gSavedSettings.setBOOL("ScaleShowAxes", b);
+	gSavedSettings.setbool("ScaleShowAxes", b);
 }
 
 // static
-void LLManipScale::setStretchTextures(BOOL b)
+void LLManipScale::setStretchTextures(bool b)
 {
-	gSavedSettings.setBOOL("ScaleStretchTextures", b);
+	gSavedSettings.setbool("ScaleStretchTextures", b);
 }
 
 // static
-BOOL LLManipScale::getUniform()
+bool LLManipScale::getUniform()
 {
-	return gSavedSettings.getBOOL("ScaleUniform");
+	return gSavedSettings.getbool("ScaleUniform");
 }
 
 // static
-BOOL LLManipScale::getShowAxes()
+bool LLManipScale::getShowAxes()
 {
-	return gSavedSettings.getBOOL("ScaleShowAxes");
+	return gSavedSettings.getbool("ScaleShowAxes");
 }
 
 // static
-BOOL LLManipScale::getStretchTextures()
+bool LLManipScale::getStretchTextures()
 {
-	return gSavedSettings.getBOOL("ScaleStretchTextures");
+	return gSavedSettings.getbool("ScaleStretchTextures");
 }
 
 inline void LLManipScale::conditionalHighlight( U32 part, const LLColor4* highlight, const LLColor4* normal )
@@ -183,7 +183,7 @@ LLManipScale::LLManipScale( LLToolComposite* composite )
 	mScaledBoxHandleSize( 1.f ),
 	mLastMouseX( -1 ),
 	mLastMouseY( -1 ),
-	mSendUpdateOnMouseUp( FALSE ),
+	mSendUpdateOnMouseUp(false),
 	mLastUpdateFlags( 0 ),
 	mScaleSnapUnit1(1.f),
 	mScaleSnapUnit2(1.f),
@@ -384,13 +384,13 @@ BOOL LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
 		if( (LL_FACE_MIN <= (S32)mManipPart)
 			&& ((S32)mManipPart <= LL_FACE_MAX) )
 		{
-			sendUpdates(TRUE,TRUE,FALSE);
+			sendUpdates(true,true,false);
 		}
 		else
 		if( (LL_CORNER_MIN <= (S32)mManipPart)
 			&& ((S32)mManipPart <= LL_CORNER_MAX) )
 		{
-			sendUpdates(TRUE,TRUE,TRUE);
+			sendUpdates(true,true,true);
 		}
 
 		//send texture update
@@ -866,7 +866,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	F32 scale_factor = 1.f;
 	F32 max_scale    = partToMaxScale(mManipPart, bbox);
 	F32 min_scale    = partToMinScale(mManipPart, bbox);
-	BOOL uniform     = LLManipScale::getUniform();
+	bool uniform     = LLManipScale::getUniform();
 
 	// check for snapping
 	LLVector3 mouse_on_plane1;
@@ -880,7 +880,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	LLVector3 projected_drag_pos1 = inverse_projected_vec(mScaleDir, orthogonal_component(mouse_on_plane1, mSnapGuideDir1));
 	LLVector3 projected_drag_pos2 = inverse_projected_vec(mScaleDir, orthogonal_component(mouse_on_plane2, mSnapGuideDir2));
 
-	BOOL snap_enabled = gSavedSettings.getBOOL("SnapEnabled");
+	bool snap_enabled = gSavedSettings.getbool("SnapEnabled");
 	if (snap_enabled && (mouse_on_plane1 - projected_drag_pos1) * mSnapGuideDir1 > mSnapRegimeOffset)
 	{
 		F32 drag_dist = mScaleDir * projected_drag_pos1; // Projecting the drag position allows for negative results, vs using the length which will result in a "reverse scaling" bug.
@@ -1081,7 +1081,7 @@ void LLManipScale::dragFace( S32 x, S32 y )
 	F32 max_drag_dist = partToMaxScale(mManipPart, bbox);
 	F32 min_drag_dist = partToMinScale(mManipPart, bbox);
 
-	BOOL uniform = LLManipScale::getUniform();
+	bool uniform = LLManipScale::getUniform();
 	if( uniform )
 	{
 		drag_delta *= 2.f;
@@ -1091,7 +1091,7 @@ void LLManipScale::dragFace( S32 x, S32 y )
 	F32 dist_from_scale_line = dist_vec(scale_center_to_mouse, (mouse_on_scale_line - mScaleCenter));
 	F32 dist_along_scale_line = scale_center_to_mouse * mScaleDir;
 
-	BOOL snap_enabled = gSavedSettings.getBOOL("SnapEnabled");
+	bool snap_enabled = gSavedSettings.getbool("SnapEnabled");
 
 	if (snap_enabled && dist_from_scale_line > mSnapRegimeOffset)
 	{
@@ -1167,7 +1167,7 @@ void LLManipScale::dragFace( S32 x, S32 y )
 	mDragPointGlobal = drag_point_global;
 }
 
-void LLManipScale::sendUpdates( BOOL send_position_update, BOOL send_scale_update, BOOL corner )
+void LLManipScale::sendUpdates( bool send_position_update, bool send_scale_update, bool corner )
 {
 	// Throttle updates to 10 per second.
 	static LLTimer	update_timer;
@@ -1193,11 +1193,11 @@ void LLManipScale::sendUpdates( BOOL send_position_update, BOOL send_scale_updat
 		{
 			LLSelectMgr::getInstance()->sendMultipleUpdate( update_flags );
 			update_timer.reset();
-			mSendUpdateOnMouseUp = FALSE;
+			mSendUpdateOnMouseUp = false;
 		}
 		else
 		{
-			mSendUpdateOnMouseUp = TRUE;
+			mSendUpdateOnMouseUp = true;
 		}
 		dialog_refresh_all();
 	}
