@@ -71,6 +71,68 @@ std::string format_string(std::string text, const LLStringUtil::format_map_t& ar
 	return text;
 }
 
+std::string FSCommon::applyAutoCloseOoc(std::string message)
+{
+	if (!gSavedSettings.getbool("AutoCloseOOC"))
+	{
+		return message;
+	}
+
+	// Try to find any unclosed OOC chat (i.e. an opening
+	// double parenthesis without a matching closing double
+	// parenthesis.
+	if (message.find("(( ") != std::string::npos && message.find("))") == std::string::npos)
+	{
+		// add the missing closing double parenthesis.
+		message += " ))";
+	}
+	else if (message.find("((") != std::string::npos && message.find("))") == std::string::npos)
+	{
+		if (message.at(message.length() - 1) == ')')
+		{
+			// cosmetic: add a space first to avoid a closing triple parenthesis
+			message += " ";
+		}
+		// add the missing closing double parenthesis.
+		message += "))";
+	}
+	else if (message.find("[[ ") != std::string::npos && message.find("]]") == std::string::npos)
+	{
+		// add the missing closing double parenthesis.
+		message += " ]]";
+	}
+	else if (message.find("[[") != std::string::npos && message.find("]]") == std::string::npos)
+	{
+		if (message.at(message.length() - 1) == ']')
+		{
+			// cosmetic: add a space first to avoid a closing triple parenthesis
+			message += " ";
+		}
+			// add the missing closing double parenthesis.
+		message += "]]";
+	}
+
+	return message;
+}
+
+std::string FSCommon::applyMuPose(std::string message)
+{
+	// Convert MU*s style poses into IRC emotes here.
+	if (gSavedSettings.getbool("AllowMUpose") && message.find(":") == 0 && message.length() > 3)
+	{
+		if (message.find(":'") == 0)
+		{
+			message.replace(0, 1, "/me");
+ 		}
+		else if (!isdigit(message.at(1)) && !ispunct(message.at(1)) && !isspace(message.at(1)))	// Do not prevent smileys and such.
+		{
+			message.replace(0, 1, "/me ");
+		}
+	}
+
+	return message;
+}
+
 
 LLPanelPeople* getPeoplePanel()
 {
@@ -189,10 +251,10 @@ void FSCommon::applyDefaultBuildPreferences(LLViewerObject* object)
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object_local_id);
-	gMessageSystem->addBOOLFast(_PREHASH_UsePhysics, gSavedSettings.getBOOL("FSBuildPrefs_Physical"));
-	gMessageSystem->addBOOL(_PREHASH_IsTemporary, gSavedSettings.getBOOL("FSBuildPrefs_Temporary"));
-	gMessageSystem->addBOOL(_PREHASH_IsPhantom, gSavedSettings.getBOOL("FSBuildPrefs_Phantom"));
-	gMessageSystem->addBOOL("CastsShadows", FALSE );
+	gMessageSystem->addboolFast(_PREHASH_UsePhysics, gSavedSettings.getbool("FSBuildPrefs_Physical"));
+	gMessageSystem->addbool(_PREHASH_IsTemporary, gSavedSettings.getbool("FSBuildPrefs_Temporary"));
+	gMessageSystem->addbool(_PREHASH_IsPhantom, gSavedSettings.getbool("FSBuildPrefs_Phantom"));
+	gMessageSystem->addbool("CastsShadows", false );
 	gMessageSystem->sendReliable(object->getRegion()->getHost());
 }
 

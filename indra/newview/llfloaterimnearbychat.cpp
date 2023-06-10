@@ -69,6 +69,8 @@
 #include "llautoreplace.h"
 #include "lluiusage.h"
 #include "chatbar_as_cmdline.h"
+#include "fscommon.h"
+
 S32 LLFloaterIMNearbyChat::sLastSpecialChatChannel = 0;
 
 const S32 EXPANDED_HEIGHT = 266;
@@ -633,6 +635,10 @@ void LLFloaterIMNearbyChat::sendChatWithText( EChatType type, LLWString text)
 			std::string utf8_revised_text;
 			if (0 == channel)
 			{
+                // Convert OOC and MU* style poses
+                utf8text = FSCommon::applyAutoCloseOoc(utf8text);
+                utf8text = FSCommon::applyMuPose(utf8text);
+
 				// discard returned "found" boolean
 				if(!LLGestureMgr::instance().triggerAndReviseString(utf8text, &utf8_revised_text))
 				{

@@ -42,6 +42,9 @@ LLPanelPeople* getPeoplePanel();
 
 namespace FSCommon
 {
+	std::string applyAutoCloseOoc(std::string message);
+	std::string applyMuPose(std::string message);
+
 	/**
 	* Convert a string of a specified date format into seconds since the Epoch.
 	*

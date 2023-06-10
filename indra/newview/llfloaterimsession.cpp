@@ -62,6 +62,7 @@
 #include "llnotificationmanager.h"
 #include "llautoreplace.h"
 #include "llcorehttputil.h"
+#include "fscommon.h"
 
 const F32 ME_TYPING_TIMEOUT = 4.0f;
 const F32 OTHER_TYPING_TIMEOUT = 9.0f;
@@ -259,6 +260,10 @@ void LLFloaterIMSession::sendMsgFromInputEditor()
 			{
 				// Truncate and convert to UTF8 for transport
 				std::string utf8_text = wstring_to_utf8str(text);
+
+                // Convert OOC and MU* style poses
+                utf8_text = FSCommon::applyAutoCloseOoc(utf8_text);
+                utf8_text = FSCommon::applyMuPose(utf8_text);
 
 				sendMsg(utf8_text);
 
