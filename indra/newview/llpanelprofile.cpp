@@ -1925,7 +1925,7 @@ void LLPanelProfileSecondLife::onShowTexturePicker()
             parent_floater->addDependentFloater(mFloaterTexturePickerHandle);
 
             texture_floaterp->openFloater();
-            texture_floaterp->setFocus(TRUE);
+            texture_floaterp->setFocus(true);
         }
     }
     else
@@ -2265,7 +2265,7 @@ void LLPanelProfileFirstLife::onChangePhoto()
             parent_floater->addDependentFloater(mFloaterTexturePickerHandle);
 
             texture_floaterp->openFloater();
-            texture_floaterp->setFocus(TRUE);
+            texture_floaterp->setFocus(true);
         }
     }
     else

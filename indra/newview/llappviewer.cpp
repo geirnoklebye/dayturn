@@ -2988,7 +2988,7 @@ bool LLAppViewer::initConfiguration()
 		tempSetControl("WindowWidth", "1024");
 		tempSetControl("WindowHeight", "200");
 		LLError::setEnabledLogTypesMask(0);
-		llassert_always(!gSavedSettings.getBOOL("SLURLPassToOtherInstance"));
+		llassert_always(!gSavedSettings.getbool("SLURLPassToOtherInstance"));
 	}
 
 
@@ -3711,7 +3711,7 @@ void LLAppViewer::cleanupSavedSettings()
 
 	if (gDebugView)
 	{
-		gSavedSettings.setBOOL("ShowDebugConsole", gDebugView->mDebugConsolep->getVisible());
+		gSavedSettings.setbool("ShowDebugConsole", gDebugView->mDebugConsolep->getVisible());
 	}
 
 	// save window position if not maximized
@@ -4775,7 +4775,7 @@ void LLAppViewer::saveFinalSnapshot()
 		gSavedSettings.setVector3d("CameraPosOnLogout", gAgentCamera.calcCameraPositionTargetGlobal());
 		gViewerWindow->setCursor(UI_CURSOR_WAIT);
 		gAgentCamera.changeCameraToThirdPerson(false);	// don't animate, need immediate switch
-		gSavedSettings.setBOOL("ShowParcelOwners", FALSE);
+		gSavedSettings.setbool("ShowParcelOwners", false);
 		idle();
 
 		std::string snap_filename = gDirUtilp->getLindenUserDir();

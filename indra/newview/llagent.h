@@ -128,7 +128,7 @@ public:
   bool      mRebakeNeeded;
 private:
 	bool			mInitialized;
-	BOOL			mFirstLogin;
+	bool			mFirstLogin;
 	std::shared_ptr<LLAgentListener> mListener;
 
 	//--------------------------------------------------------------------

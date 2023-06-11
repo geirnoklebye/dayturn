@@ -1074,7 +1074,7 @@ std::string LLAppViewerWin32::generateSerialNumber()
 
 	DWORD serial = 0;
 	DWORD flags = 0;
-	BOOL success = GetVolumeInformation(
+	bool success = GetVolumeInformation(
 			L"C:\\",
 			NULL,		// volume name buffer
 			0,			// volume name buffer size

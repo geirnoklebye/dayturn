@@ -1406,7 +1406,7 @@ void LLFloater::setIsChrome(bool is_chrome)
 		// remove focus if we're changing to chrome
 		setFocus(false);
 		// can't Ctrl-Tab to "chrome" floaters
-		setFocusRoot(FALSE);
+		setFocusRoot(false);
 		mButtons[BUTTON_CLOSE]->setToolTip(LLStringExplicit(getButtonTooltip(Params(), BUTTON_CLOSE, is_chrome)));
 	}
 	
