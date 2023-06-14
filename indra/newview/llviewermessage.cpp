@@ -167,8 +167,6 @@ const U8 AU_FLAGS_NONE      		= 0x00;
 const U8 AU_FLAGS_HIDETITLE      	= 0x01;
 const U8 AU_FLAGS_CLIENT_AUTOPILOT	= 0x02;
 
-// CA this is the once-per-session flag for RLV command notification
-static bool given_rlv_warning = false;
 void accept_friendship_coro(std::string url, LLSD notification)
 {
     LLCore::HttpRequest::policy_t httpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID);
@@ -2620,43 +2618,13 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		{
 			chat.mText = "";
 			
-			// CA set this up before we get into the case statement
-			static LLCachedControl<bool> kokua_give_single_rlv_message(gSavedSettings, "KokuaGiveSingleRLVMessage");
-
 			switch(chat.mChatType)
 			{
 			case CHAT_TYPE_WHISPER:
 				chat.mText = LLTrans::getString("whisper") + " ";
 				break;
-//			case CHAT_TYPE_DEBUG_MSG:
-			case CHAT_TYPE_OWNER:
-				// CA Friendly handling of probable RLV commands in non-RLV Kokua
-				// This Case is moved above DEBUG_MSG so that fallthrough doesn't occur
-				if (kokua_give_single_rlv_message)
-				{
-					if (mesg.substr(0, 1) == "@")
-					{
-						// three level if so that we get old behaviour of everything appearing in chat if the control setting is false
-						if (!given_rlv_warning)
-						{
-							given_rlv_warning = true;
-							chat.mText = "/me issued a RLV command which was ignored. No further notifications will be given";
-							mesg = "";
-						}
-						else
-						{
-							//silently junk it
-							return;
-						}
-					}
-				}
-				else
-				{
-					// reset our one-time flag so that turning the control setting on and off will cause a new one-time notification
-					given_rlv_warning = false;
-				}
-				break;
 			case CHAT_TYPE_DEBUG_MSG:
+			case CHAT_TYPE_OWNER:
 			case CHAT_TYPE_NORMAL:
 			case CHAT_TYPE_DIRECT:
 				break;
@@ -3196,10 +3164,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	if( is_teleport )
 	{
 		// <FS:Beq> FIRE-20977: Render Only Friends changes for forgetful users
-		if (!gSavedPerAccountSettings.getBOOL("FSRenderFriendsOnlyPersistsTP"))
+		if (!gSavedPerAccountSettings.getbool("FSRenderFriendsOnlyPersistsTP"))
 		{
 			// We need to turn off the RFO as we have TP'd away and have asked not to persist
-			gSavedPerAccountSettings.setBOOL("FSRenderFriendsOnly", FALSE);
+			gSavedPerAccountSettings.setbool("FSRenderFriendsOnly", false);
 		}
 		// </FS:Beq>
 		if (gAgent.getTeleportKeepsLookAt())
