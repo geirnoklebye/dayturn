@@ -3245,7 +3245,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	}
 	*/
 
-	send_agent_update(TRUE, TRUE);
+	send_agent_update(true, true);
 
 	if (gAgent.getRegion()->getBlockFly())
 	{
@@ -3324,7 +3324,7 @@ const F32 THRESHOLD_HEAD_ROT_QDOT = 0.9997f;	// ~= 2.5 degrees -- if its less th
 const F32 MAX_HEAD_ROT_QDOT = 0.99999f;			// ~= 0.5 degrees -- if its greater than this then no need to update head_rot
 												// between these values we delay the updates (but no more than one second)
 
-void send_agent_update(BOOL force_send, BOOL send_reliable)
+void send_agent_update(bool force_send, bool send_reliable)
 {
 	if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE)
 	{
@@ -6232,7 +6232,7 @@ void process_teleport_local(LLMessageSystem *msg,void**)
 	// send camera update to new region
 	gAgentCamera.updateCamera();
 
-	send_agent_update(TRUE, TRUE);
+	send_agent_update(true, true);
 
 	// Let the interested parties know we've teleported.
 	// Vadim *HACK: Agent position seems to get reset (to render position?)

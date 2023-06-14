@@ -84,7 +84,7 @@ void process_script_question(LLMessageSystem *msg, void **user_data);
 void process_chat_from_simulator(LLMessageSystem *mesgsys, void **user_data);
 
 //void process_agent_to_new_region(LLMessageSystem *mesgsys, void **user_data);
-void send_agent_update(BOOL force_send, BOOL send_reliable = FALSE);
+void send_agent_update(bool force_send, bool send_reliable = false);
 void process_object_update(LLMessageSystem *mesgsys, void **user_data);
 void process_compressed_object_update(LLMessageSystem *mesgsys, void **user_data);
 void process_cached_object_update(LLMessageSystem *mesgsys, void **user_data);
