@@ -70,71 +70,7 @@ std::string format_string(std::string text, const LLStringUtil::format_map_t& ar
 	LLStringUtil::format(text, args);
 	return text;
 }
-std::string applyAutoCloseOoc(const std::string& message)
-{
-	if (!gSavedSettings.getbool("AutoCloseOOC"))
-	{
-		return message;
-	}
 
-	std::string utf8_text(message);
-
-	// Try to find any unclosed OOC chat (i.e. an opening
-	// double parenthesis without a matching closing double
-	// parenthesis.
-	if (utf8_text.find("(( ") != -1 && utf8_text.find("))") == -1)
-	{
-		// add the missing closing double parenthesis.
-		utf8_text += " ))";
-	}
-	else if (utf8_text.find("((") != -1 && utf8_text.find("))") == -1)
-	{
-		if (utf8_text.at(utf8_text.length() - 1) == ')')
-		{
-			// cosmetic: add a space first to avoid a closing triple parenthesis
-			utf8_text += " ";
-		}
-		// add the missing closing double parenthesis.
-		utf8_text += "))";
-	}
-	else if (utf8_text.find("[[ ") != -1 && utf8_text.find("]]") == -1)
-	{
-		// add the missing closing double parenthesis.
-		utf8_text += " ]]";
-	}
-	else if (utf8_text.find("[[") != -1 && utf8_text.find("]]") == -1)
-	{
-		if (utf8_text.at(utf8_text.length() - 1) == ']')
-		{
-			// cosmetic: add a space first to avoid a closing triple parenthesis
-			utf8_text += " ";
-		}
-			// add the missing closing double parenthesis.
-		utf8_text += "]]";
-	}
-
-	return utf8_text;
-}
-
-std::string applyMuPose(const std::string& message)
-{
-	std::string utf8_text(message);
-
-	// Convert MU*s style poses into IRC emotes here.
-	if (gSavedSettings.getbool("AllowMUpose") && utf8_text.find(":") == 0 && utf8_text.length() > 3)
-	{
-		if (utf8_text.find(":'") == 0)
-		{
-			utf8_text.replace(0, 1, "/me");
- 		}
-		else if (!isdigit(utf8_text.at(1)) && !ispunct(utf8_text.at(1)) && !isspace(utf8_text.at(1)))	// Do not prevent smileys and such.
-		{
-			utf8_text.replace(0, 1, "/me ");
-		}
-	}
-
-	return utf8_text;
-}
 
 LLPanelPeople* getPeoplePanel()
 {
