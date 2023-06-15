@@ -480,7 +480,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
     {
         ch = [str_no_modifiers characterAtIndex:0];
     }
-    bool acceptsText = mHasMarkedText ? false : callKeyDown(&eventData, keycode, mModifiers);
+    bool acceptsText = mHasMarkedText ? false : callKeyDown(&eventData, keycode, mModifiers, [[theEvent characters] characterAtIndex:0]);
 
     if (acceptsText &&
         !mMarkedTextAllowed &&
@@ -523,7 +523,16 @@ attributedStringInfo getSegments(NSAttributedString *str)
     if (mModifiers & mask)
     {
         eventData.mKeyEvent = NativeKeyEventData::KEYDOWN;
-        callKeyDown(&eventData, [theEvent keyCode], 0);
+
+        wchar_t c = 0;
+        if([theEvent type] == NSEventTypeKeyDown)
+        {
+            // characters property is only valid when the event is of type KeyDown or KeyUp
+            // https://developer.apple.com/documentation/appkit/nsevent/1534183-characters?language=objc
+            c = [[theEvent characters] characterAtIndex:0];
+        }
+
+        callKeyDown(&eventData, [theEvent keyCode], 0, c);
     }
     else
     {
@@ -641,7 +650,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
         setMarkedText(text, selected, replacement, string_length, segments);
         if (string_length > 0)
         {
-            mHasMarkedText = TRUE;
+            mHasMarkedText = true;
             mMarkedTextLength = string_length;
         }
         else
