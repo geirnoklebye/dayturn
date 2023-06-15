@@ -438,14 +438,14 @@ void LLPipeline::init()
 
 	gOctreeMaxCapacity = gSavedSettings.getU32("OctreeMaxNodeCapacity");
 	gOctreeMinSize = gSavedSettings.getF32("OctreeMinimumNodeSize");
-	sDynamicLOD = gSavedSettings.getBOOL("RenderDynamicLOD");
+	sDynamicLOD = gSavedSettings.getbool("RenderDynamicLOD");
 	sRenderBump = gSavedSettings.getbool("RenderObjectBump");
-	sUseTriStrips = gSavedSettings.getBOOL("RenderUseTriStrips");
-	LLVertexBuffer::sUseStreamDraw = gSavedSettings.getBOOL("RenderUseStreamVBO");
+	sUseTriStrips = gSavedSettings.getbool("RenderUseTriStrips");
+	LLVertexBuffer::sUseStreamDraw = gSavedSettings.getbool("RenderUseStreamVBO");
 	LLVertexBuffer::sUseVAO = gSavedSettings.getbool("RenderUseVAO");
-	LLVertexBuffer::sPreferStreamDraw = gSavedSettings.getBOOL("RenderPreferStreamDraw");
-	sRenderAttachedLights = gSavedSettings.getBOOL("RenderAttachedLights");
-	sRenderAttachedParticles = gSavedSettings.getBOOL("RenderAttachedParticles");
+	LLVertexBuffer::sPreferStreamDraw = gSavedSettings.getbool("RenderPreferStreamDraw");
+	sRenderAttachedLights = gSavedSettings.getbool("RenderAttachedLights");
+	sRenderAttachedParticles = gSavedSettings.getbool("RenderAttachedParticles");
 
 	mInitialized = true;
 	
@@ -488,7 +488,7 @@ void LLPipeline::init()
 		setAllRenderTypes(); // By default, all rendering types start enabled
 		// Don't turn on ground when this is set
 		// Mac Books with intel 950s need this
-		if(!gSavedSettings.getBOOL("RenderGround"))
+		if(!gSavedSettings.getbool("RenderGround"))
 		{
 			toggleRenderType(RENDER_TYPE_GROUND);
 		}
@@ -1031,7 +1031,7 @@ bool LLPipeline::allocateShadowBuffer(U32 resX, U32 resY)
 //static
 void LLPipeline::updateRenderTransparentWater()
 {
-    sRenderTransparentWater = gSavedSettings.getBOOL("RenderTransparentWater");
+    sRenderTransparentWater = gSavedSettings.getbool("RenderTransparentWater");
 }
 
 //static
@@ -1054,17 +1054,17 @@ void LLPipeline::updateRenderDeferred()
 // static
 void LLPipeline::refreshCachedSettings()
 {
-	LLPipeline::sAutoMaskAlphaDeferred = gSavedSettings.getBOOL("RenderAutoMaskAlphaDeferred");
-	LLPipeline::sAutoMaskAlphaNonDeferred = gSavedSettings.getBOOL("RenderAutoMaskAlphaNonDeferred");
-	LLPipeline::sUseFarClip = gSavedSettings.getBOOL("RenderUseFarClip");
+	LLPipeline::sAutoMaskAlphaDeferred = gSavedSettings.getbool("RenderAutoMaskAlphaDeferred");
+	LLPipeline::sAutoMaskAlphaNonDeferred = gSavedSettings.getbool("RenderAutoMaskAlphaNonDeferred");
+	LLPipeline::sUseFarClip = gSavedSettings.getbool("RenderUseFarClip");
 	LLVOAvatar::sMaxNonImpostors = gSavedSettings.getU32("RenderAvatarMaxNonImpostors");
 	LLVOAvatar::updateImpostorRendering(LLVOAvatar::sMaxNonImpostors);
-	LLPipeline::sDelayVBUpdate = gSavedSettings.getBOOL("RenderDelayVBUpdate");
+	LLPipeline::sDelayVBUpdate = gSavedSettings.getbool("RenderDelayVBUpdate");
 
 	LLPipeline::sUseOcclusion = 
 			(!gUseWireframe
 			&& LLFeatureManager::getInstance()->isFeatureAvailable("UseOcclusion") 
-			&& gSavedSettings.getBOOL("UseOcclusion") 
+			&& gSavedSettings.getbool("UseOcclusion") 
 			&& gGLManager.mHasOcclusionQuery) ? 2 : 0;
 	
 	WindLightUseAtmosShaders = gSavedSettings.getbool("WindLightUseAtmosShaders");
@@ -1126,7 +1126,7 @@ void LLPipeline::refreshCachedSettings()
 	RenderEdgeNormCutoff = gSavedSettings.getF32("RenderEdgeNormCutoff");
 	RenderShadowGaussian = gSavedSettings.getVector3("RenderShadowGaussian");
 	RenderShadowBlurDistFactor = gSavedSettings.getF32("RenderShadowBlurDistFactor");
-	RenderDeferredAtmospheric = gSavedSettings.getBOOL("RenderDeferredAtmospheric");
+	RenderDeferredAtmospheric = gSavedSettings.getbool("RenderDeferredAtmospheric");
 	RenderReflectionDetail = gSavedSettings.getS32("RenderReflectionDetail");
 	RenderHighlightFadeTime = gSavedSettings.getF32("RenderHighlightFadeTime");
 	RenderShadowClipPlanes = gSavedSettings.getVector3("RenderShadowClipPlanes");
@@ -7305,15 +7305,15 @@ void LLPipeline::doResetVertexBuffers(bool forced)
 	updateRenderBump();
 	updateRenderDeferred();
 
-	sUseTriStrips = gSavedSettings.getBOOL("RenderUseTriStrips");
-	LLVertexBuffer::sUseStreamDraw = gSavedSettings.getBOOL("RenderUseStreamVBO");
+	sUseTriStrips = gSavedSettings.getbool("RenderUseTriStrips");
+	LLVertexBuffer::sUseStreamDraw = gSavedSettings.getbool("RenderUseStreamVBO");
 	LLVertexBuffer::sUseVAO = gSavedSettings.getbool("RenderUseVAO");
-	LLVertexBuffer::sPreferStreamDraw = gSavedSettings.getBOOL("RenderPreferStreamDraw");
-	LLVertexBuffer::sEnableVBOs = gSavedSettings.getBOOL("RenderVBOEnable");
-	LLVertexBuffer::sDisableVBOMapping = LLVertexBuffer::sEnableVBOs && gSavedSettings.getBOOL("RenderVBOMappingDisable") ;
-	sBakeSunlight = gSavedSettings.getBOOL("RenderBakeSunlight");
-	sNoAlpha = gSavedSettings.getBOOL("RenderNoAlpha");
-	LLPipeline::sTextureBindTest = gSavedSettings.getBOOL("RenderDebugTextureBind");
+	LLVertexBuffer::sPreferStreamDraw = gSavedSettings.getbool("RenderPreferStreamDraw");
+	LLVertexBuffer::sEnableVBOs = gSavedSettings.getbool("RenderVBOEnable");
+	LLVertexBuffer::sDisableVBOMapping = LLVertexBuffer::sEnableVBOs && gSavedSettings.getbool("RenderVBOMappingDisable") ;
+	sBakeSunlight = gSavedSettings.getbool("RenderBakeSunlight");
+	sNoAlpha = gSavedSettings.getbool("RenderNoAlpha");
+	LLPipeline::sTextureBindTest = gSavedSettings.getbool("RenderDebugTextureBind");
 
 	LLVertexBuffer::initClass(LLVertexBuffer::sEnableVBOs, LLVertexBuffer::sDisableVBOMapping);
     gGL.initVertexBuffer();
