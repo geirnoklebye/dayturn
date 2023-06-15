@@ -3425,7 +3425,7 @@ void LLPipeline::stateSort(LLSpatialGroup* group, LLCamera& camera)
 	}
 }
 
-void LLPipeline::stateSort(LLSpatialBridge* bridge, LLCamera& camera, BOOL fov_changed)
+void LLPipeline::stateSort(LLSpatialBridge* bridge, LLCamera& camera, bool fov_changed)
 {
     if (bridge->getSpatialGroup()->changeLOD() || fov_changed)
 	{
