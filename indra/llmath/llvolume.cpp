@@ -2045,6 +2045,7 @@ LLVolume::LLVolume(const LLVolumeParams &params, const F32 detail, const bool ge
 	mSculptLevel = -2;
 	mSurfaceArea = 1.f; //only calculated for sculpts, defaults to 1 for all other prims
 	mIsMeshAssetLoaded = false;
+    mIsMeshAssetUnavaliable = false;
 	mLODScaleBias.setVec(1,1,1);
 	mHullPoints = nullptr;
 	mHullIndices = nullptr;
@@ -2757,6 +2758,24 @@ bool LLVolume::isMeshAssetLoaded()
 void LLVolume::setMeshAssetLoaded(bool loaded)
 {
 	mIsMeshAssetLoaded = loaded;
+    if (loaded)
+    {
+        mIsMeshAssetUnavaliable = false;
+    }
+}
+
+void LLVolume::setMeshAssetUnavaliable(bool unavaliable)
+{
+    // Don't set it if at least one lod loaded
+    if (!mIsMeshAssetLoaded)
+    {
+        mIsMeshAssetUnavaliable = unavaliable;
+    }
+}
+
+bool LLVolume::isMeshAssetUnavaliable()
+{
+    return mIsMeshAssetUnavaliable;
 }
 
 void LLVolume::copyFacesTo(std::vector<LLVolumeFace> &faces) const 

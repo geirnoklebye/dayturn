@@ -1111,6 +1111,8 @@ private:
 public:
 	virtual void setMeshAssetLoaded(bool loaded);
 	virtual bool isMeshAssetLoaded();
+    virtual void setMeshAssetUnavaliable(bool unavaliable);
+    virtual bool isMeshAssetUnavaliable();
 
  protected:
 	bool mUnique;
@@ -1118,6 +1120,7 @@ public:
 	S32 mSculptLevel;
 	F32 mSurfaceArea; //unscaled surface area
 	bool mIsMeshAssetLoaded;
+    bool mIsMeshAssetUnavaliable;
 	
 	const LLVolumeParams mParams;
 	LLPath *mPathp;
