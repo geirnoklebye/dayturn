@@ -27,10 +27,6 @@ ca_*.sh
 /indra/.distcc
 /indra/build-vc[0-9]*
 /indra/CMakeFiles
-/indra/lib/mono/1.0/*.dll
-/indra/lib/mono/indra/*.dll
-/indra/lib/mono/indra/*.exe
-/indra/lib/mono/indra/*.pdb
 /indra/lib/python/eventlet/
 /indra/llwindow/glh/glh_linear.h
 /indra/newview/app_settings/dictionaries
