@@ -84,6 +84,18 @@ public:
     /*virtual*/ bool postBuild();
     /*virtual*/ void onOpen(const LLSD& info);
     /*virtual*/ void draw();	
+    /*virtual*/ bool handleKeyHere(KEY key, MASK mask);
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+
+    /*virtual*/ void onFocusLost();
+    /*virtual*/ void onFocusReceived();
+
+    static void onRemoveOutfit(const LLUUID& outfit_cat_id);
+    static void onOutfitsRemovalConfirmation(const LLSD& notification, const LLSD& response, const LLUUID& outfit_cat_id);
+    void scrollToShowItem(const LLUUID& item_id);
     
     void onSelectPhoto(LLUUID selected_outfit_id);
     void onTakeSnapshot(LLUUID selected_outfit_id);
@@ -148,6 +160,7 @@ private:
     void updateGalleryWidth();
 
     LLOutfitGalleryItem* buildGalleryItem(std::string name, LLUUID outfit_id);
+    LLOutfitGalleryItem* getSelectedItem();
 
     void onTextureSelectionChanged(LLInventoryItem* itemp);
 
@@ -196,6 +209,7 @@ private:
     typedef std::map<LLOutfitGalleryItem*, int>         item_num_map_t;
     typedef item_num_map_t::value_type                  item_numb_map_value_t;
     item_num_map_t                                      mItemIndexMap;
+    std::map<int, LLOutfitGalleryItem*>                 mIndexToItemMap;
 
 
     LLInventoryCategoriesObserver* 	mTexturesObserver;
@@ -209,6 +223,7 @@ public:
     LLOutfitGalleryContextMenu(LLOutfitListBase* outfit_list)
     : LLOutfitContextMenu(outfit_list),
     mOutfitList(outfit_list){}
+
 protected:
     /* virtual */ LLContextMenu* createMenu();
     bool onEnable(LLSD::String param);
@@ -218,8 +233,6 @@ protected:
     void onRemovePhoto(const LLUUID& outfit_cat_id);
     void onTakeSnapshot(const LLUUID& outfit_cat_id);
     void onCreate(const LLSD& data);
-    void onRemoveOutfit(const LLUUID& outfit_cat_id);
-    void onOutfitsRemovalConfirmation(const LLSD& notification, const LLSD& response, const LLUUID& outfit_cat_id);
 private:
     LLOutfitListBase*	mOutfitList;
 };
@@ -257,6 +270,13 @@ public:
     /*virtual*/ bool handleMouseDown(S32 x, S32 y, MASK mask);
     /*virtual*/ bool handleRightMouseDown(S32 x, S32 y, MASK mask);
     /*virtual*/ bool handleDoubleClick(S32 x, S32 y, MASK mask);
+    /*virtual*/ bool handleKeyHere(KEY key, MASK mask);
+    /*virtual*/ void onFocusLost();
+    /*virtual*/ void onFocusReceived();
+
+    bool openOutfitsContent();
+
+    void setGallery(LLOutfitGallery* gallery) { mGallery = gallery; }
 
     void setDefaultImage();
     bool setImageAssetId(LLUUID asset_id);
@@ -264,7 +284,8 @@ public:
     void setOutfitName(std::string name);
     void setOutfitWorn(bool value);
     void setSelected(bool value);
-    void setUUID(LLUUID outfit_id) {mUUID = outfit_id;}
+    void setUUID(const LLUUID &outfit_id) {mUUID = outfit_id;}
+    LLUUID getUUID() const { return mUUID; }
     
     std::string getItemName() {return mOutfitName;}
     bool isDefaultImage() {return mDefaultImage;}
@@ -273,6 +294,7 @@ public:
     void setHidden(bool hidden) {mHidden = hidden;}
     
 private:
+    LLOutfitGallery* mGallery;
     LLPointer<LLViewerFetchedTexture> mTexturep;
     LLUUID mUUID;
     LLUUID mImageAssetId;

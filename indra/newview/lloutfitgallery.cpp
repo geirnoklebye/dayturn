@@ -147,6 +147,264 @@ void LLOutfitGallery::draw()
     }
 }
 
+bool LLOutfitGallery::handleKeyHere(KEY key, MASK mask)
+{
+    bool handled = false;
+    switch (key)
+    {
+        case KEY_RETURN:
+            // Open selected items if enter key hit on the inventory panel
+            if (mask == MASK_NONE && mSelectedOutfitUUID.notNull())
+            {
+                // Or should it wearSelectedOutfit?
+                getSelectedItem()->openOutfitsContent();
+            }
+            handled = true;
+            break;
+        case KEY_DELETE:
+#if LL_DARWIN
+        case KEY_BACKSPACE:
+#endif
+            // Delete selected items if delete or backspace key hit on the inventory panel
+            // Note: on Mac laptop keyboards, backspace and delete are one and the same
+            if (mSelectedOutfitUUID.notNull())
+            {
+                onRemoveOutfit(mSelectedOutfitUUID);
+            }
+            handled = true;
+            break;
+
+        case KEY_F2:
+            LLAppearanceMgr::instance().renameOutfit(mSelectedOutfitUUID);
+            handled = true;
+            break;
+
+        case KEY_PAGE_UP:
+            if (mScrollPanel)
+            {
+                mScrollPanel->pageUp(30);
+            }
+            handled = true;
+            break;
+
+        case KEY_PAGE_DOWN:
+            if (mScrollPanel)
+            {
+                mScrollPanel->pageDown(30);
+            }
+            handled = true;
+            break;
+
+        case KEY_HOME:
+            if (mScrollPanel)
+            {
+                mScrollPanel->goToTop();
+            }
+            handled = true;
+            break;
+
+        case KEY_END:
+            if (mScrollPanel)
+            {
+                mScrollPanel->goToBottom();
+            }
+            handled = true;
+            break;
+
+        case KEY_LEFT:
+            moveLeft();
+            handled = true;
+            break;
+
+        case KEY_RIGHT:
+            moveRight();
+            handled = true;
+            break;
+
+        case KEY_UP:
+            moveUp();
+            handled = true;
+            break;
+
+        case KEY_DOWN:
+            moveDown();
+            handled = true;
+            break;
+
+        default:
+            break;
+    }
+
+    if (handled)
+    {
+        mOutfitGalleryMenu->hide();
+    }
+
+    return handled;
+}
+
+void LLOutfitGallery::moveUp()
+{
+    if (mSelectedOutfitUUID.notNull() && mItemsAddedCount > 1)
+    {
+        LLOutfitGalleryItem* item = getSelectedItem();
+        if (item)
+        {
+            S32 n = mItemIndexMap[item];
+            n -= mItemsInRow;
+            if (n >= 0)
+            {
+                item = mIndexToItemMap[n];
+                LLUUID item_id = item->getUUID();
+                ChangeOutfitSelection(nullptr, item_id);
+                item->setFocus(true);
+
+                scrollToShowItem(mSelectedOutfitUUID);
+            }
+        }
+    }
+}
+
+void LLOutfitGallery::moveDown()
+{
+    if (mSelectedOutfitUUID.notNull() && mItemsAddedCount > 1)
+    {
+        LLOutfitGalleryItem* item = getSelectedItem();
+        if (item)
+        {
+            S32 n = mItemIndexMap[item];
+            n += mItemsInRow;
+            if (n < mItemsAddedCount)
+            {
+                item = mIndexToItemMap[n];
+                LLUUID item_id = item->getUUID();
+                ChangeOutfitSelection(nullptr, item_id);
+                item->setFocus(true);
+
+                scrollToShowItem(mSelectedOutfitUUID);
+            }
+        }
+    }
+}
+
+void LLOutfitGallery::moveLeft()
+{
+    if (mSelectedOutfitUUID.notNull() && mItemsAddedCount > 1)
+    {
+        LLOutfitGalleryItem* item = getSelectedItem();
+        if (item)
+        {
+            // Might be better to get item from panel
+            S32 n = mItemIndexMap[item];
+            n--;
+            if (n < 0)
+            {
+                n = mItemsAddedCount - 1;
+            }
+            item = mIndexToItemMap[n];
+            LLUUID item_id = item->getUUID();
+            ChangeOutfitSelection(nullptr, item_id);
+            item->setFocus(true);
+
+            scrollToShowItem(mSelectedOutfitUUID);
+        }
+    }
+}
+
+void LLOutfitGallery::moveRight()
+{
+    if (mSelectedOutfitUUID.notNull() && mItemsAddedCount > 1)
+    {
+        LLOutfitGalleryItem* item = getSelectedItem();
+        if (item)
+        {
+            S32 n = mItemIndexMap[item];
+            n++;
+            if (n == mItemsAddedCount)
+            {
+                n = 0;
+            }
+            item = mIndexToItemMap[n];
+            LLUUID item_id = item->getUUID();
+            ChangeOutfitSelection(nullptr, item_id);
+            item->setFocus(true);
+
+            scrollToShowItem(mSelectedOutfitUUID);
+        }
+    }
+}
+
+void LLOutfitGallery::onFocusLost()
+{
+    LLOutfitListBase::onFocusLost();
+
+    if (mSelectedOutfitUUID.notNull())
+    {
+        LLOutfitGalleryItem* item = getSelectedItem();
+        if (item)
+        {
+            item->setSelected(false);
+        }
+    }
+}
+
+void LLOutfitGallery::onFocusReceived()
+{
+    LLOutfitListBase::onFocusReceived();
+
+    if (mSelectedOutfitUUID.notNull())
+    {
+        LLOutfitGalleryItem* item = getSelectedItem();
+        if (item)
+        {
+            item->setSelected(true);
+        }
+    }
+}
+
+void LLOutfitGallery::onRemoveOutfit(const LLUUID& outfit_cat_id)
+{
+    LLNotificationsUtil::add("DeleteOutfits", LLSD(), LLSD(), boost::bind(onOutfitsRemovalConfirmation, _1, _2, outfit_cat_id));
+}
+
+void LLOutfitGallery::onOutfitsRemovalConfirmation(const LLSD& notification, const LLSD& response, const LLUUID& outfit_cat_id)
+{
+    S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
+    if (option != 0) return; // canceled
+
+    if (outfit_cat_id.notNull())
+    {
+        gInventory.removeCategory(outfit_cat_id);
+    }
+}
+
+void LLOutfitGallery::scrollToShowItem(const LLUUID& item_id)
+{
+    LLOutfitGalleryItem* item = mOutfitMap[item_id];
+    if (item)
+    {
+        const LLRect visible_content_rect = mScrollPanel->getVisibleContentRect();
+
+        LLRect item_rect;
+        item->localRectToOtherView(item->getLocalRect(), &item_rect, mScrollPanel);
+        LLRect overlap_rect(item_rect);
+        overlap_rect.intersectWith(visible_content_rect);
+
+        //Scroll when the selected item is outside the visible area
+        if (overlap_rect.getHeight() + 5 < item->getRect().getHeight())
+        {
+            LLRect content_rect = mScrollPanel->getContentWindowRect();
+            LLRect constraint_rect;
+            constraint_rect.setOriginAndSize(0, 0, content_rect.getWidth(), content_rect.getHeight());
+
+            LLRect item_doc_rect;
+            item->localRectToOtherView(item->getLocalRect(), &item_doc_rect, mGalleryPanel);
+
+            mScrollPanel->scrollToShowRect(item_doc_rect, constraint_rect);
+        }
+    }
+}
+
 void LLOutfitGallery::updateRowsIfNeeded()
 {
     if(((getRect().getWidth() - mRowPanelWidth) > mItemWidth) && mRowCount > 1)
@@ -274,8 +532,9 @@ void LLOutfitGallery::addToGallery(LLOutfitGalleryItem* item)
         mHiddenItems.push_back(item);
         return;
     }
+    mItemIndexMap[item] = mItemsAddedCount;
+    mIndexToItemMap[mItemsAddedCount] = item;
     mItemsAddedCount++;
-    mItemIndexMap[item] = mItemsAddedCount - 1;
     int n = mItemsAddedCount;
     int row_count = (n % mItemsInRow) == 0 ? n / mItemsInRow : n / mItemsInRow + 1;
     int n_prev = n - 1;
@@ -311,6 +570,7 @@ void LLOutfitGallery::removeFromGalleryLast(LLOutfitGalleryItem* item)
     int row_count = (n % mItemsInRow) == 0 ? n / mItemsInRow : n / mItemsInRow + 1;
     int row_count_prev = (n_prev % mItemsInRow) == 0 ? n_prev / mItemsInRow : n_prev / mItemsInRow + 1;
     mItemsAddedCount--;
+    mIndexToItemMap.erase(mItemsAddedCount);
 
     bool remove_row = row_count != row_count_prev;
     removeFromLastRow(mItems[mItemsAddedCount]);
@@ -336,6 +596,7 @@ void LLOutfitGallery::removeFromGalleryMiddle(LLOutfitGalleryItem* item)
     }
     int n = mItemIndexMap[item];
     mItemIndexMap.erase(item);
+    mIndexToItemMap.erase(n);
     std::vector<LLOutfitGalleryItem*> saved;
     for (int i = mItemsAddedCount - 1; i > n; i--)
     {
@@ -369,7 +630,13 @@ LLOutfitGalleryItem* LLOutfitGallery::buildGalleryItem(std::string name, LLUUID 
     gitem->setFollowsTop();
     gitem->setOutfitName(name);
     gitem->setUUID(outfit_id);
+    gitem->setGallery(this);
     return gitem;
+}
+
+LLOutfitGalleryItem* LLOutfitGallery::getSelectedItem()
+{
+    return mOutfitMap[mSelectedOutfitUUID];
 }
 
 void LLOutfitGallery::buildGalleryPanel(int row_count)
@@ -608,6 +875,7 @@ void LLOutfitGallery::onChangeOutfitSelection(LLWearableItemsList* list, const L
     {
         mOutfitMap[category_id]->setSelected(true);
     }
+    // mSelectedOutfitUUID will be set in LLOutfitListBase::ChangeOutfitSelection
 }
 
 void LLOutfitGallery::wearSelectedOutfit()
@@ -659,7 +927,8 @@ static LLDefaultChildRegistry::Register<LLOutfitGalleryItem> r("outfit_gallery_i
 
 LLOutfitGalleryItem::LLOutfitGalleryItem(const Params& p)
     : LLPanel(p),
-    mTexturep(NULL),
+    mGallery(nullptr),
+    mTexturep(nullptr),
     mSelected(false),
     mWorn(false),
     mDefaultImage(true),
@@ -761,8 +1030,63 @@ bool LLOutfitGalleryItem::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 bool LLOutfitGalleryItem::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
+    return openOutfitsContent() || LLPanel::handleDoubleClick(x, y, mask);
+}
+
+bool LLOutfitGalleryItem::handleKeyHere(KEY key, MASK mask)
+{
+    if (!mGallery)
+    {
+        return false;
+    }
+
+    bool handled = false;
+    switch (key)
+    {
+        case KEY_LEFT:
+            mGallery->moveLeft();
+            handled = true;
+            break;
+
+        case KEY_RIGHT:
+            mGallery->moveRight();
+            handled = true;
+            break;
+
+        case KEY_UP:
+            mGallery->moveUp();
+            handled = true;
+            break;
+
+        case KEY_DOWN:
+            mGallery->moveDown();
+            handled = true;
+            break;
+
+        default:
+            break;
+    }
+    return handled;
+}
+
+void LLOutfitGalleryItem::onFocusLost()
+{
+    setSelected(false);
+
+    LLPanel::onFocusLost();
+}
+
+void LLOutfitGalleryItem::onFocusReceived()
+{
+    setSelected(true);
+
+    LLPanel::onFocusReceived();
+}
+
+bool LLOutfitGalleryItem::openOutfitsContent()
+{
     LLTabContainer* appearence_tabs = LLPanelOutfitsInventory::findInstance()->getChild<LLTabContainer>("appearance_tabs");
-    if (appearence_tabs && (mUUID != LLUUID()))
+    if (appearence_tabs && mUUID.notNull())
     {
         appearence_tabs->selectTabByName("outfitslist_tab");
         LLPanel* panel = appearence_tabs->getCurrentPanel();
@@ -782,8 +1106,7 @@ bool LLOutfitGalleryItem::handleDoubleClick(S32 x, S32 y, MASK mask)
             }
         }
     }
-
-    return LLPanel::handleDoubleClick(x, y, mask);
+    return false;
 }
 
 bool LLOutfitGalleryItem::setImageAssetId(LLUUID image_asset_id)
@@ -829,7 +1152,7 @@ LLContextMenu* LLOutfitGalleryContextMenu::createMenu()
                   boost::bind(&LLAppearanceMgr::takeOffOutfit, &LLAppearanceMgr::instance(), selected_id));
     registrar.add("Outfit.Edit", boost::bind(editOutfit));
     registrar.add("Outfit.Rename", boost::bind(renameOutfit, selected_id));
-    registrar.add("Outfit.Delete", boost::bind(&LLOutfitGalleryContextMenu::onRemoveOutfit, this, selected_id));
+    registrar.add("Outfit.Delete", boost::bind(LLOutfitGallery::onRemoveOutfit, selected_id));
     registrar.add("Outfit.Create", boost::bind(&LLOutfitGalleryContextMenu::onCreate, this, _2));
     registrar.add("Outfit.UploadPhoto", boost::bind(&LLOutfitGalleryContextMenu::onUploadPhoto, this, selected_id));
     registrar.add("Outfit.SelectPhoto", boost::bind(&LLOutfitGalleryContextMenu::onSelectPhoto, this, selected_id));
@@ -878,21 +1201,6 @@ void LLOutfitGalleryContextMenu::onTakeSnapshot(const LLUUID& outfit_cat_id)
     }
 }
 
-void LLOutfitGalleryContextMenu::onRemoveOutfit(const LLUUID& outfit_cat_id)
-{
-    LLNotificationsUtil::add("DeleteOutfits", LLSD(), LLSD(), boost::bind(&LLOutfitGalleryContextMenu::onOutfitsRemovalConfirmation, this, _1, _2, outfit_cat_id));
-}
-
-void LLOutfitGalleryContextMenu::onOutfitsRemovalConfirmation(const LLSD& notification, const LLSD& response, const LLUUID& outfit_cat_id)
-{
-    S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
-    if (option != 0) return; // canceled
-    
-    if (outfit_cat_id.notNull())
-    {
-        gInventory.removeCategory(outfit_cat_id);
-    }
-}
 
 void LLOutfitGalleryContextMenu::onCreate(const LLSD& data)
 {
