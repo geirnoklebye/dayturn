@@ -663,7 +663,7 @@ void LLPanelPlaces::onTabSelected()
     childSetVisible("add_btn_panel", supports_create);
 
     // favorites and inventory can remove items, history can clear history
-    childSetVisible("trash_btn_panel", TRUE);
+    childSetVisible("trash_btn_panel", true);
 
     if (supports_create)
     {
@@ -1214,7 +1214,7 @@ void LLPanelPlaces::createTabs()
         childSetVisible("add_btn_panel", supports_create);
 
         // favorites and inventory can remove items, history can clear history
-        childSetVisible("trash_btn_panel", TRUE);
+        childSetVisible("trash_btn_panel", true);
 
         if (supports_create)
         {

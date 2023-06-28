@@ -343,7 +343,7 @@ void LLFloaterIMPanel::draw()
 	// show speakers window when voice first connects
 	if (mShowSpeakersOnConnect && voice_channel->isActive())
 	{
-		childSetVisible("active_speakers_panel", TRUE);
+		childSetVisible("active_speakers_panel", true);
 		mShowSpeakersOnConnect = FALSE;
 	}
 	childSetValue("toggle_active_speakers_btn", childIsVisible("active_speakers_panel"));
