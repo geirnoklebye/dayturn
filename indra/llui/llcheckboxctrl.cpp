@@ -214,7 +214,7 @@ void LLCheckBoxCtrl::reshape(S32 width, S32 height, bool called_from_parent)
     
     LLRect label_rect = mLabel->getRect();
     S32 new_width = rect.getWidth() - label_rect.mLeft;
-    mLabel->reshape(new_width, label_rect.getHeight(), TRUE);
+    mLabel->reshape(new_width, label_rect.getHeight(), true);
 
 	S32 label_top = label_rect.mTop;
 	mLabel->reshapeToFitText(true);
