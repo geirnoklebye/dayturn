@@ -77,7 +77,7 @@ public:
 	virtual void			localPointToScreen(S32 local_x, S32 local_y, S32* screen_x, S32* screen_y) const
 								{ mCur->localPointToScreen(local_x, local_y, screen_x, screen_y); }
 
-	BOOL					isSelecting();
+	bool					isSelecting();
 	LLTool*					getCurrentTool()								{ return mCur; }
 
 protected:
@@ -88,8 +88,8 @@ protected:
 protected:
 	LLTool*					mCur;		// The tool to which we're delegating.
 	LLTool*					mDefault;
-	BOOL					mSelected;
-	BOOL					mMouseDown;
+	bool					mSelected;
+	bool					mMouseDown;
 	LLManip*				mManip;
 	LLToolSelectRect*		mSelectRect;
 
@@ -117,10 +117,10 @@ public:
 
 	static void pickCallback(const LLPickInfo& pick_info);
 
-	BOOL isToolCameraActive() const { return mIsToolCameraActive; }
+	bool isToolCameraActive() const { return mIsToolCameraActive; }
 
 private:
-	BOOL mIsToolCameraActive;
+	bool mIsToolCameraActive;
 };
 
 //-----------------------------------------------------------------------
@@ -206,7 +206,7 @@ public:
 	static void pickCallback(const LLPickInfo& pick_info);
 protected:
 	LLToolPlacer*		mPlacer;
-	BOOL				mObjectPlacedOnMouseDown;
+	bool				mObjectPlacedOnMouseDown;
 };
 
 

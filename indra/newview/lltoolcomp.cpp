@@ -83,8 +83,8 @@ LLToolComposite::LLToolComposite(const std::string& name)
 	: LLTool(name),
 	  mCur(sNullTool), 
 	  mDefault(sNullTool), 
-	  mSelected(FALSE),
-	  mMouseDown(FALSE), mManip(NULL), mSelectRect(NULL)
+	  mSelected(false),
+	  mMouseDown(false), mManip(NULL), mSelectRect(NULL)
 {
 }
 
@@ -105,7 +105,7 @@ void LLToolComposite::onMouseCaptureLost()
 	setCurrentTool( mDefault );
 }
 
-BOOL LLToolComposite::isSelecting()
+bool LLToolComposite::isSelecting()
 { 
 	return mCur == mSelectRect; 
 }
@@ -118,14 +118,14 @@ void LLToolComposite::handleSelect()
 	}
 	mCur = mDefault; 
 	mCur->handleSelect(); 
-	mSelected = TRUE; 
+	mSelected = true; 
 }
 
 void LLToolComposite::handleDeselect()
 {
 	mCur->handleDeselect();
 	mCur = mDefault;
-	mSelected = FALSE;
+	mSelected = false;
 }
 
 //----------------------------------------------------------------------------
@@ -134,7 +134,7 @@ void LLToolComposite::handleDeselect()
 
 LLToolCompInspect::LLToolCompInspect()
 : LLToolComposite(std::string("Inspect")),
-  mIsToolCameraActive(FALSE)
+  mIsToolCameraActive(false)
 {
 	mSelectRect		= new LLToolSelectRect(this);
 	mDefault = mSelectRect;
@@ -157,7 +157,7 @@ BOOL LLToolCompInspect::handleMouseDown(S32 x, S32 y, MASK mask)
 	}
 	else
 	{
-		mMouseDown = TRUE;
+		mMouseDown = true;
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
 		handled = TRUE;	
 	}
@@ -190,7 +190,7 @@ void LLToolCompInspect::pickCallback(const LLPickInfo& pick_info)
 	}
 
 	tool_inspectp->setCurrentTool( tool_inspectp->mSelectRect );
-	tool_inspectp->mIsToolCameraActive = FALSE;
+	tool_inspectp->mIsToolCameraActive = false;
 	tool_inspectp->mSelectRect->handlePick( pick_info );
 }
 
@@ -206,7 +206,7 @@ bool LLToolCompInspect::handleKey(KEY key, MASK mask)
 	if(KEY_ALT == key)
 	{
 		setCurrentTool(LLToolCamera::getInstance());
-		mIsToolCameraActive = TRUE;
+		mIsToolCameraActive = true;
 		handled = true;
 	}
 	else
@@ -220,7 +220,7 @@ bool LLToolCompInspect::handleKey(KEY key, MASK mask)
 void LLToolCompInspect::onMouseCaptureLost()
 {
 	LLToolComposite::onMouseCaptureLost();
-	mIsToolCameraActive = FALSE;
+	mIsToolCameraActive = false;
 }
 
 void LLToolCompInspect::keyUp(KEY key, MASK mask)
@@ -228,7 +228,7 @@ void LLToolCompInspect::keyUp(KEY key, MASK mask)
 	if (KEY_ALT == key && mCur == LLToolCamera::getInstance())
 	{
 		setCurrentTool(mDefault);
-		mIsToolCameraActive = FALSE;
+		mIsToolCameraActive = false;
 	}
 }
 
@@ -267,7 +267,7 @@ bool LLToolCompTranslate::handleHover(S32 x, S32 y, MASK mask)
 
 BOOL LLToolCompTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	mMouseDown = TRUE;
+	mMouseDown = true;
 	gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ true, LLFloaterReg::instanceVisible("build"));
 	return TRUE;
 }
@@ -316,7 +316,7 @@ void LLToolCompTranslate::pickCallback(const LLPickInfo& pick_info)
 
 BOOL LLToolCompTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	mMouseDown = FALSE;
+	mMouseDown = false;
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
@@ -393,7 +393,7 @@ bool LLToolCompScale::handleHover(S32 x, S32 y, MASK mask)
 
 BOOL LLToolCompScale::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	mMouseDown = TRUE;
+	mMouseDown = true;
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
 	return TRUE;
 }
@@ -437,7 +437,7 @@ void LLToolCompScale::pickCallback(const LLPickInfo& pick_info)
 
 BOOL LLToolCompScale::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	mMouseDown = FALSE;
+	mMouseDown = false;
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
@@ -492,7 +492,7 @@ LLToolCompCreate::LLToolCompCreate()
 
 	mCur = mPlacer;
 	mDefault = mPlacer;
-	mObjectPlacedOnMouseDown = FALSE;
+	mObjectPlacedOnMouseDown = false;
 }
 
 
@@ -506,7 +506,7 @@ LLToolCompCreate::~LLToolCompCreate()
 BOOL LLToolCompCreate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = FALSE;
-	mMouseDown = TRUE;
+	mMouseDown = true;
 
 	if ( (mask == MASK_SHIFT) || (mask == MASK_CONTROL) )
 	{
@@ -519,7 +519,7 @@ BOOL LLToolCompCreate::handleMouseDown(S32 x, S32 y, MASK mask)
 		handled = mPlacer->placeObject( x, y, mask );
 	}
 	
-	mObjectPlacedOnMouseDown = TRUE;
+	mObjectPlacedOnMouseDown = true;
 
 	return handled;
 }
@@ -550,8 +550,8 @@ BOOL LLToolCompCreate::handleMouseUp(S32 x, S32 y, MASK mask)
 		handled = mPlacer->placeObject( x, y, mask );
 	}
 
-	mObjectPlacedOnMouseDown = FALSE;
-	mMouseDown = FALSE;
+	mObjectPlacedOnMouseDown = false;
+	mMouseDown = false;
 
 	if (!handled)
 	{
@@ -593,7 +593,7 @@ bool LLToolCompRotate::handleHover(S32 x, S32 y, MASK mask)
 
 BOOL LLToolCompRotate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	mMouseDown = TRUE;
+	mMouseDown = true;
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
 	return TRUE;
 }
@@ -636,7 +636,7 @@ void LLToolCompRotate::pickCallback(const LLPickInfo& pick_info)
 
 BOOL LLToolCompRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	mMouseDown = FALSE;
+	mMouseDown = false;
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
