@@ -4010,6 +4010,11 @@ public:
 
 			if (vobj)
 			{
+				if (vobj->getClickAction() == CLICK_ACTION_IGNORE && !LLFloater::isVisible(gFloaterTools))
+				{
+					return false;
+				}
+
 				LLVector4a intersection;
 				bool skip_check = false;
 				if (vobj->isAvatar())
