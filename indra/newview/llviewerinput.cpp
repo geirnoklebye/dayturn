@@ -1646,9 +1646,9 @@ bool LLViewerInput::handleMouse(LLWindow *window_impl, LLCoordGL pos, MASK mask,
 
         // If the first LMB click is handled by the menu, skip the following double click
         static bool skip_double_click = false;
-        if (clicktype == CLICK_LEFT && down && !is_toolmgr_action)
+        if (clicktype == CLICK_LEFT && down)
         {
-            skip_double_click = handled;
+            skip_double_click = is_toolmgr_action ? false : handled;
         }
 
         if (double_click_sp && down)
