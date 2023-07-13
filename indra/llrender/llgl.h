@@ -248,6 +248,7 @@ void clear_glerror();
 */
 
 #include "boost/function.hpp"
+#include <unordered_map>
 
 class LLGLState
 {
@@ -261,7 +262,7 @@ public:
 	static void checkTextureChannels(const std::string& msg = "");
 	
 protected:
-	static boost::unordered_map<LLGLenum, LLGLboolean> sStateMap;
+	static std::unordered_map<LLGLenum, LLGLboolean> sStateMap;
 	
 public:
 	enum { CURRENT_STATE = -2 };

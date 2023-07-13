@@ -27,7 +27,7 @@
 #ifndef LL_LLFONTFREETYPE_H
 #define LL_LLFONTFREETYPE_H
 
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 #include "llpointer.h"
 #include "llstl.h"
 
@@ -176,7 +176,7 @@ private:
 	bool mIsFallback;
 	font_vector_t mFallbackFonts; // A list of fallback fonts to look for glyphs in (for Unicode chars)
 
-	typedef boost::unordered_map<llwchar, LLFontGlyphInfo*> char_glyph_info_map_t;
+	typedef std::unordered_map<llwchar, LLFontGlyphInfo*> char_glyph_info_map_t;
 	mutable char_glyph_info_map_t mCharGlyphInfoMap; // Information about glyph location in bitmap
 
 	mutable LLFontBitmapCache* mFontBitmapCachep;
