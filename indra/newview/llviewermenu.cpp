@@ -169,7 +169,7 @@ using namespace LLAvatarAppearanceDefines;
 
 typedef LLPointer<LLViewerObject> LLViewerObjectPtr;
 
-static boost::unordered_map<std::string, LLStringExplicit> sDefaultItemLabels;
+static std::unordered_map<std::string, LLStringExplicit> sDefaultItemLabels;
 
 bool enable_land_build(void*);
 bool enable_object_build(void*);
@@ -2953,7 +2953,7 @@ void handle_object_show_original()
 
 static void init_default_item_label(const std::string& item_name)
 {
-	boost::unordered_map<std::string, LLStringExplicit>::iterator it = sDefaultItemLabels.find(item_name);
+	std::unordered_map<std::string, LLStringExplicit>::iterator it = sDefaultItemLabels.find(item_name);
 	if (it == sDefaultItemLabels.end())
 	{
 		// *NOTE: This will not work for items of type LLMenuItemCheckGL because they return boolean value
@@ -2969,7 +2969,7 @@ static void init_default_item_label(const std::string& item_name)
 static LLStringExplicit get_default_item_label(const std::string& item_name)
 {
 	LLStringExplicit res("");
-	boost::unordered_map<std::string, LLStringExplicit>::iterator it = sDefaultItemLabels.find(item_name);
+	std::unordered_map<std::string, LLStringExplicit>::iterator it = sDefaultItemLabels.find(item_name);
 	if (it != sDefaultItemLabels.end())
 	{
 		res = it->second;
