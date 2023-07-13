@@ -341,7 +341,7 @@ public:
 
 	bool fetchMeshHeader(const LLVolumeParams& mesh_params, bool can_retry = true);
 	bool fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, bool can_retry = true);
-	EMeshProcessingResult headerReceived(const LLVolumeParams& mesh_params, U8* data, S32 data_size);
+	EMeshProcessingResult headerReceived(const LLVolumeParams& mesh_params, U8* data, std::streamsize data_size);
 	EMeshProcessingResult lodReceived(const LLVolumeParams& mesh_params, S32 lod, U8* data, S32 data_size);
 	bool skinInfoReceived(const LLUUID& mesh_id, U8* data, S32 data_size);
 	bool decompositionReceived(const LLUUID& mesh_id, U8* data, S32 data_size);

@@ -1857,7 +1857,7 @@ bool LLMeshRepoThread::fetchMeshLOD(const LLVolumeParams& mesh_params, S32 lod, 
 	return retval;
 }
 
-EMeshProcessingResult LLMeshRepoThread::headerReceived(const LLVolumeParams& mesh_params, U8* data, S32 data_size)
+EMeshProcessingResult LLMeshRepoThread::headerReceived(const LLVolumeParams& mesh_params, U8* data, std::streamsize data_size)
 {
 	const LLUUID mesh_id = mesh_params.getSculptID();
 	LLSD header;
@@ -4374,7 +4374,7 @@ void LLMeshUploadThread::decomposeMeshMatrix(LLMatrix4& transformation,
 											 LLVector3& result_scale)
 {
 	// check for reflection
-	BOOL reflected = (transformation.determinant() < 0);
+	bool reflected = (transformation.determinant() < 0);
 
 	// compute position
 	LLVector3 position = LLVector3(0, 0, 0) * transformation;
