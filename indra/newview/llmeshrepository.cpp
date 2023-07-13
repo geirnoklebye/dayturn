@@ -4214,16 +4214,13 @@ LLUUID LLMeshRepository::getCreatorFromHeader(const LLUUID& mesh_id)
 LLUUID LLMeshRepoThread::getCreatorFromHeader(const LLUUID& mesh_id)
 {
 	LLMutexLock lock(mHeaderMutex);
-	if (mMeshHeaderSize[mesh_id] > 0)
+	mesh_header_map::iterator iter = mMeshHeader.find(mesh_id);
+	if (iter != mMeshHeader.end() && iter->second.first > 0)
 	{
-		mesh_header_map::iterator iter = mMeshHeader.find(mesh_id);
-		if (iter != mMeshHeader.end())
+		LLSD& mesh = iter->second.second;
+		if (mesh.has("creator") && mesh["creator"].isUUID())
 		{
-			LLSD& mesh = iter->second;
-			if (mesh.has("creator") && mesh["creator"].isUUID())
-			{
-				return mesh["creator"].asUUID();
-			}
+			return mesh["creator"].asUUID();
 		}
 	}
 
