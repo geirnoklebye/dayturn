@@ -4164,6 +4164,7 @@ void LLMeshRepository::notifyMeshUnavailable(const LLVolumeParams& mesh_params, 
         if (sys_volume)
         {
             sys_volume->setMeshAssetUnavaliable(true);
+            LLPrimitive::getVolumeManager()->unrefVolume(sys_volume);
         }
 
 		for (LLVOVolume* vobj : obj_iter->second)
