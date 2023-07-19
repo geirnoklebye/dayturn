@@ -6556,9 +6556,9 @@ void LLViewerObject::updateFlags(bool physics_changed)
 	gMessageSystem->sendReliable( regionp->getHost() );
 }
 
-BOOL LLViewerObject::setFlags(U32 flags, BOOL state)
+bool LLViewerObject::setFlags(U32 flags, bool state)
 {
-	BOOL setit = setFlagsWithoutUpdate(flags, state);
+	bool setit = setFlagsWithoutUpdate(flags, state);
 
 	// BUG: Sometimes viewer physics and simulator physics get
 	// out of sync.  To fix this, always send update to simulator.
@@ -6569,15 +6569,15 @@ BOOL LLViewerObject::setFlags(U32 flags, BOOL state)
 	return setit;
 }
 
-BOOL LLViewerObject::setFlagsWithoutUpdate(U32 flags, BOOL state)
+bool LLViewerObject::setFlagsWithoutUpdate(U32 flags, bool state)
 {
-	BOOL setit = FALSE;
+	bool setit = false;
 	if (state)
 	{
 		if ((mFlags & flags) != flags)
 		{
 			mFlags |= flags;
-			setit = TRUE;
+			setit = true;
 		}
 	}
 	else
@@ -6585,7 +6585,7 @@ BOOL LLViewerObject::setFlagsWithoutUpdate(U32 flags, BOOL state)
 		if ((mFlags & flags) != 0)
 		{
 			mFlags &= ~flags;
-			setit = TRUE;
+			setit = true;
 		}
 	}
 	return setit;

@@ -4182,15 +4182,15 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 				LLViewerObject* object = gObjectList.findObject(object_id);
 				if (object)
 				{
-					object->setFlagsWithoutUpdate(FLAGS_ANIM_SOURCE, TRUE);
+					object->setFlagsWithoutUpdate(FLAGS_ANIM_SOURCE, true);
 
-					BOOL anim_found = FALSE;
+					bool anim_found = false;
 					LLVOAvatar::AnimSourceIterator anim_it = avatarp->mAnimationSources.find(object_id);
 					for (;anim_it != avatarp->mAnimationSources.end(); ++anim_it)
 					{
 						if (anim_it->second == animation_id)
 						{
-							anim_found = TRUE;
+							anim_found = true;
 							break;
 						}
 					}
@@ -4412,7 +4412,7 @@ void process_set_follow_cam_properties(LLMessageSystem *mesgsys, void **user_dat
 	LLViewerObject* objectp = gObjectList.findObject(source_id);
 	if (objectp)
 	{
-		objectp->setFlagsWithoutUpdate(FLAGS_CAMERA_SOURCE, TRUE);
+		objectp->setFlagsWithoutUpdate(FLAGS_CAMERA_SOURCE, true);
 	}
 
 	S32 num_objects = mesgsys->getNumberOfBlocks("CameraProperty");

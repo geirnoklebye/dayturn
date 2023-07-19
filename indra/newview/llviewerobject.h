@@ -564,8 +564,8 @@ public:
 
 	void updateFlags(bool physics_changed = false);
 	void loadFlags(U32 flags); //load flags from cache or from message
-	BOOL setFlags(U32 flag, BOOL state);
-	BOOL setFlagsWithoutUpdate(U32 flag, BOOL state);
+	bool setFlags(U32 flag, bool state);
+	bool setFlagsWithoutUpdate(U32 flag, bool state);
 	void setPhysicsShapeType(U8 type);
 	void setPhysicsGravity(F32 gravity);
 	void setPhysicsFriction(F32 friction);

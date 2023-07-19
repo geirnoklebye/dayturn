@@ -984,7 +984,7 @@ void LLPanelEditWearable::onTexturePickerCommit(const LLUICtrl* ctrl)
 							U32 index;
 							if (gAgentWearables.getWearableIndex(getWearable(), index))
 							{
-								gAgentAvatarp->setLocalTexture(entry->mTextureIndex, image, FALSE, index);
+								gAgentAvatarp->setLocalTexture(entry->mTextureIndex, image, false, index);
 								LLVisualParamHint::requestHintUpdates();
 								gAgentAvatarp->wearableUpdated(type);
 							}
@@ -1613,7 +1613,7 @@ void LLPanelEditWearable::onInvisibilityCommit(LLCheckBoxCtrl* checkbox_ctrl, LL
                 mPreviousAlphaTexture[te] = lto->getID();
                 
                 LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTexture( IMG_INVISIBLE );
-				gAgentAvatarp->setLocalTexture(te, image, FALSE, index);
+				gAgentAvatarp->setLocalTexture(te, image, false, index);
 				gAgentAvatarp->wearableUpdated(getWearable()->getType());
         }
         else
@@ -1629,7 +1629,7 @@ void LLPanelEditWearable::onInvisibilityCommit(LLCheckBoxCtrl* checkbox_ctrl, LL
                 LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTexture(prev_id);
                 if (!image) return;
 
-                gAgentAvatarp->setLocalTexture(te, image, FALSE, index);
+                gAgentAvatarp->setLocalTexture(te, image, false, index);
                 gAgentAvatarp->wearableUpdated(getWearable()->getType());
         }
 

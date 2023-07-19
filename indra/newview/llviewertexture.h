@@ -686,7 +686,7 @@ public:
 	static LLTexturePipelineTester* sTesterp ;
 
 	//returns NULL if tex is not a LLViewerFetchedTexture nor derived from LLViewerFetchedTexture.
-	static LLViewerFetchedTexture*    staticCastToFetchedTexture(LLTexture* tex, BOOL report_error = FALSE) ;
+	static LLViewerFetchedTexture*    staticCastToFetchedTexture(LLTexture* tex, bool report_error = false) ;
 
 	//
 	//"find-texture" just check if the texture exists, if yes, return it, otherwise return null.

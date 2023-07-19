@@ -5543,7 +5543,7 @@ std::string LLVOAvatar::bakedTextureOriginInfo()
 	{
 		ETextureIndex texture_index = mBakedTextureDatas[i].mTextureIndex;
 		LLViewerFetchedTexture *imagep =
-			LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index,0), TRUE);
+			LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index,0), true);
 		if (!imagep ||
 			imagep->getID() == IMG_DEFAULT ||
 			imagep->getID() == IMG_DEFAULT_AVATAR)
@@ -5601,7 +5601,7 @@ void LLVOAvatar::collectLocalTextureUUIDs(std::set<LLUUID>& ids) const
 		LLViewerFetchedTexture *imagep = NULL;
 		for (U32 wearable_index = 0; wearable_index < num_wearables; wearable_index++)
 		{
-			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index, wearable_index), TRUE);
+			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index, wearable_index), true);
 			if (imagep)
 			{
 				const LLAvatarAppearanceDictionary::TextureEntry *texture_dict = LLAvatarAppearance::getDictionary()->getTexture((ETextureIndex)texture_index);
@@ -5624,7 +5624,7 @@ void LLVOAvatar::collectBakedTextureUUIDs(std::set<LLUUID>& ids) const
 		LLViewerFetchedTexture *imagep = NULL;
 		if (isIndexBakedTexture((ETextureIndex) texture_index))
 		{
-			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index,0), TRUE);
+			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index,0), true);
 			if (imagep)
 			{
 				ids.insert(imagep->getID());
@@ -5758,7 +5758,7 @@ void LLVOAvatar::updateTextures()
 		LLViewerFetchedTexture *imagep = NULL;
 		for (U32 wearable_index = 0; wearable_index < num_wearables; wearable_index++)
 		{
-			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index, wearable_index), TRUE);
+			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index, wearable_index), true);
 			if (imagep)
 			{
 				const LLAvatarAppearanceDictionary::TextureEntry *texture_dict = LLAvatarAppearance::getDictionary()->getTexture((ETextureIndex)texture_index);
@@ -5772,7 +5772,7 @@ void LLVOAvatar::updateTextures()
 		if (isIndexBakedTexture((ETextureIndex) texture_index) && render_avatar)
 		{
 			const S32 boost_level = getAvatarBakedBoostLevel();
-			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index,0), TRUE);
+			imagep = LLViewerTextureManager::staticCastToFetchedTexture(getImage(texture_index,0), true);
 			addBakedTextureStats( imagep, mPixelArea, texel_area_ratio, boost_level );			
 		}
 	}
@@ -5785,7 +5785,7 @@ void LLVOAvatar::updateTextures()
 
 
 void LLVOAvatar::addLocalTextureStats( ETextureIndex idx, LLViewerFetchedTexture* imagep,
-									   F32 texel_area_ratio, BOOL render_avatar, BOOL covered_by_baked)
+									   F32 texel_area_ratio, bool render_avatar, bool covered_by_baked)
 {
 	// No local texture stats for non-self avatars
 	return;
@@ -8809,7 +8809,7 @@ void LLVOAvatar::updateMeshTextures()
 			// use new layer
 			LLViewerFetchedTexture* baked_img =
 				LLViewerTextureManager::staticCastToFetchedTexture(
-					getImage( mBakedTextureDatas[i].mTextureIndex, 0 ), TRUE) ;
+					getImage( mBakedTextureDatas[i].mTextureIndex, 0 ), true) ;
 			if( baked_img->getID() == mBakedTextureDatas[i].mLastTextureID )
 			{
 				// Even though the file may not be finished loading,
@@ -8952,14 +8952,14 @@ void LLVOAvatar::updateMeshTextures()
 //-----------------------------------------------------------------------------
 // setLocalTexture()
 //-----------------------------------------------------------------------------
-void LLVOAvatar::setLocalTexture( ETextureIndex type, LLViewerTexture* in_tex, BOOL baked_version_ready, U32 index )
+void LLVOAvatar::setLocalTexture( ETextureIndex type, LLViewerTexture* in_tex, bool baked_version_ready, U32 index )
 {
 	// invalid for anyone but self
 	llassert(0);
 }
 
 //virtual 
-void LLVOAvatar::setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, BOOL baked_version_exists, U32 index)
+void LLVOAvatar::setBakedReady(LLAvatarAppearanceDefines::ETextureIndex type, bool baked_version_exists, U32 index)
 {
 	// invalid for anyone but self
 	llassert(0);
@@ -9214,7 +9214,7 @@ void LLVOAvatar::onFirstTEMessageReceived()
 			// (That is, don't do a transition from unbaked to baked.)
 			if (layer_baked)
 			{
-				LLViewerFetchedTexture* image = LLViewerTextureManager::staticCastToFetchedTexture(getImage( mBakedTextureDatas[i].mTextureIndex, 0 ), TRUE) ;
+				LLViewerFetchedTexture* image = LLViewerTextureManager::staticCastToFetchedTexture(getImage( mBakedTextureDatas[i].mTextureIndex, 0 ), true) ;
 				mBakedTextureDatas[i].mLastTextureID = image->getID();
 				// If we have more than one texture for the other baked layers, we'll want to call this for them too.
 				if ( (image->getID() != IMG_INVISIBLE) && ((i == BAKED_HEAD) || (i == BAKED_UPPER) || (i == BAKED_LOWER)) )
@@ -9754,7 +9754,7 @@ LLViewerTexture* LLVOAvatar::getBakedTexture(const U8 te)
 
 	if (!isEditingAppearance() && is_layer_baked)
 	{
-		LLViewerFetchedTexture* baked_img = LLViewerTextureManager::staticCastToFetchedTexture(getImage(mBakedTextureDatas[te].mTextureIndex, 0), TRUE);
+		LLViewerFetchedTexture* baked_img = LLViewerTextureManager::staticCastToFetchedTexture(getImage(mBakedTextureDatas[te].mTextureIndex, 0), true);
 		return baked_img;
 	}
 	else if (layerset && isEditingAppearance())
@@ -10029,7 +10029,7 @@ void LLVOAvatar::useBakedTexture( const LLUUID& id )
 				 local_tex_iter != baked_dict->mLocalTextures.end();
 				 ++local_tex_iter)
 			{
-				if (isSelf()) setBakedReady(*local_tex_iter, TRUE);
+				if (isSelf()) setBakedReady(*local_tex_iter, true);
 			}
 
 			// ! BACKWARDS COMPATIBILITY !

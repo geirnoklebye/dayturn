@@ -3672,8 +3672,8 @@ bool LLVOVolume::setIsFlexible(bool is_flexible)
 			U8 profile_and_hole = volume_params.getProfileParams().getCurveType();
 			volume_params.setType(profile_and_hole, LL_PCODE_PATH_FLEXIBLE);
 			res = true;
-			setFlags(FLAGS_USE_PHYSICS, FALSE);
-			setFlags(FLAGS_PHANTOM, TRUE);
+			setFlags(FLAGS_USE_PHYSICS, false);
+			setFlags(FLAGS_PHANTOM, true);
 			setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, true, true);
 			if (mDrawable)
 			{
@@ -3689,7 +3689,7 @@ bool LLVOVolume::setIsFlexible(bool is_flexible)
 			U8 profile_and_hole = volume_params.getProfileParams().getCurveType();
 			volume_params.setType(profile_and_hole, LL_PCODE_PATH_LINE);
 			res = true;
-			setFlags(FLAGS_PHANTOM, FALSE);
+			setFlags(FLAGS_PHANTOM, false);
 			setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, false, true);
 		}
 	}
