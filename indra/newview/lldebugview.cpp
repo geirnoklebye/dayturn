@@ -71,15 +71,9 @@ void LLDebugView::init()
 {
 	LLRect r;
 	LLRect rect = getLocalRect();
-	S32 debugWidth = gSavedSettings.getS32("KokuaDebugConsoleWidth");
-	if (debugWidth < 15 || debugWidth > 95)
-	{
-		debugWidth = 33;
-		gSavedSettings.setS32("KokuaDebugConsoleWidth", debugWidth);
-	}
 
 	// Rectangle to draw debug data in (full height, 3/4 width)
-	r.set(10, rect.getHeight() - 100, (S32) (gViewerWindow->getWindowRectScaled().getWidth() * debugWidth / 100), 100);
+	r.set(10, rect.getHeight() - 100, ((rect.getWidth()*3)/4), 100);
 	LLConsole::Params cp;
 	cp.name("debug console");
 	cp.max_lines(20);
@@ -88,7 +82,7 @@ void LLDebugView::init()
 	cp.follows.flags(FOLLOWS_BOTTOM | FOLLOWS_LEFT);
 	cp.visible(false);
 	mDebugConsolep = LLUICtrlFactory::create<LLConsole>(cp);
-	mDebugConsolep->enableColor(gSavedSettings.getBOOL("KokuaDebugConsoleColor"));
+	mDebugConsolep->enableColor(gSavedSettings.getbool("DayturnDebugConsoleColor"));
 	addChild(mDebugConsolep);
 
 	r.set(150 - 25, rect.getHeight() - 50, rect.getWidth()/2 - 25, rect.getHeight() - 450);

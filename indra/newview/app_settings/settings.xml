@@ -79,7 +79,7 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
-    <key>KokuaDebugConsoleColor</key>
+    <key>DayturnDebugConsoleColor</key>
     <map>
       <key>Comment</key>
       <string>Enables colored output in debug console (takes effect at next startup)</string>
@@ -89,17 +89,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>1</integer>
-    </map>
-    <key>KokuaDebugConsoleWidth</key>
-    <map>
-      <key>Comment</key>
-      <string>Initial width of debug console as % of visible screen (takes effect at next startup)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>33</integer>
     </map>
     <!-- KokuaPlay* is reserved for future additional UI sound controls -->
     <key>KokuaPlayUISndTeleportOut</key>

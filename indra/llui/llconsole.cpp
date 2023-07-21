@@ -391,11 +391,11 @@ void LLConsole::update()
 			{
 				if (line.find(logDebug) != std::string::npos)
 				{
-					lineColor = LLColor4::grey1;
+					lineColor = LLColor4::cyan;
 				}
 				else if (line.find(logInfo) != std::string::npos)
 				{
-					lineColor = LLColor4::cyan;
+					lineColor = LLColor4::grey1;
 				}
 				else if (line.find(logWarning) != std::string::npos)
 				{
