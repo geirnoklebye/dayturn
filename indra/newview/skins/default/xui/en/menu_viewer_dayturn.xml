@@ -2028,6 +2028,22 @@
                  function="Floater.Toggle"
                  parameter="stats" />
             </menu_item_check>
+            <menu_item_call
+             label="Scene Load Statistics"
+             name="Scene Load Statistics"
+             shortcut="control|shift|2">
+                <on_click
+                 function="Floater.Toggle"
+                 parameter="scene_load_stats" />
+            </menu_item_call>
+            <menu_item_call
+             label="Script Statistics"
+             name="Script Statistics"
+             shortcut="control|shift|8">
+                <on_click
+                 function="Floater.Toggle"
+                 parameter="script_stats" />
+            </menu_item_call>
       <menu_item_check
         label="Show Draw Information for Avatars"
         name="Avatar Draw Info">
