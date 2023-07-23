@@ -682,7 +682,7 @@ void handleStaticEyesChanged()
     }
 
     LLUUID anim_id(gSavedSettings.getString("FSStaticEyesUUID"));
-    if (gSavedPerAccountSettings.getBOOL("FSStaticEyes"))
+    if (gSavedPerAccountSettings.getbool("FSStaticEyes"))
     {
         gAgentAvatarp->startMotion(anim_id);
         gAgent.sendAnimationRequest(anim_id, ANIM_REQUEST_START);
