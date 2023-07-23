@@ -245,6 +245,7 @@ namespace Details
             errorCount = 0;
 
             if (!result.isMap() ||
+                !result.has("events") ||
                 !result["events"].isArray() ||
                 !result.has("id"))
             {

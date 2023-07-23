@@ -654,7 +654,6 @@ bool idle_startup()
 			}
 #endif
 
-
 #ifdef LL_OPENAL
 #if !LL_WINDOWS
 			if (NULL == getenv("LL_BAD_OPENAL_DRIVER"))
@@ -676,9 +675,6 @@ bool idle_startup()
 				bool init = gAudiop->init(window_handle, LLAppViewer::instance()->getSecondLifeTitle());
 				if(init)
 				{
-					// <FS:Ansariel> Output device selection
-					//gAudiop->setDevice(LLUUID(gSavedSettings.getString("FSOutputDeviceUUID")));
-
 					gAudiop->setMuted(true);
 				}
 				else
