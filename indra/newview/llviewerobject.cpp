@@ -291,7 +291,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mInvRequestXFerId(0),
 	mInventoryDirty(false),
 	mRegionp(regionp),
-	mDead(FALSE),
+	mDead(false),
 	mOrphaned(false),
 	mUserSelected(false),
 	mOnActiveList(false),
@@ -435,7 +435,7 @@ void LLViewerObject::markDead()
         }
 
 		// Mark itself as dead
-		mDead = TRUE;
+		mDead = true;
 		if(mRegionp)
 		{
 			mRegionp->removeFromCreatedList(getLocalID()); 

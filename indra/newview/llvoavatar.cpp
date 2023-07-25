@@ -328,13 +328,13 @@ public:
 	}
 
 	// called when a motion is activated
-	// must return TRUE to indicate success, or else
+	// must return true to indicate success, or else
 	// it will be deactivated
 	virtual bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
+	// must return true while it is active, and
+	// must return false when the motion is completed.
 	virtual bool onUpdate(F32 time, U8* joint_mask)
 	{
 		F32 nx[2];
@@ -448,13 +448,13 @@ public:
 	}
 
 	// called when a motion is activated
-	// must return TRUE to indicate success, or else
+	// must return true to indicate success, or else
 	// it will be deactivated
 	virtual bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
+	// must return true while it is active, and
+	// must return false when the motion is completed.
 	virtual bool onUpdate(F32 time, U8* joint_mask)
 	{
 		mBreatheRate = 1.f;
@@ -549,13 +549,13 @@ public:
 	}
 
 	// called when a motion is activated
-	// must return TRUE to indicate success, or else
+	// must return true to indicate success, or else
 	// it will be deactivated
 	virtual bool onActivate() { return true; }
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
+	// must return true while it is active, and
+	// must return false when the motion is completed.
 	virtual bool onUpdate(F32 time, U8* joint_mask)
 	{
 		mPelvisState->setPosition(LLVector3::zero);
@@ -894,7 +894,7 @@ LLVOAvatar::~LLVOAvatar()
 	std::for_each(mAttachmentPoints.begin(), mAttachmentPoints.end(), DeletePairedPointer());
 	mAttachmentPoints.clear();
 
-	mDead = TRUE;
+	mDead = true;
 	
 	mAnimationSources.clear();
 	LLLoadedCallbackEntry::cleanUpCallbackList(&mCallbackTextureList) ;
@@ -1167,7 +1167,7 @@ void LLVOAvatar::resetImpostors()
 	{
 		LLVOAvatar* avatar = (LLVOAvatar*) *iter;
 		avatar->mImpostor.release();
-		avatar->mNeedsImpostorUpdate = TRUE;
+		avatar->mNeedsImpostorUpdate = true;
 		avatar->mLastImpostorUpdateReason = 1;
 	}
 }
@@ -6281,7 +6281,7 @@ bool LLVOAvatar::startMotion(const LLUUID& id, F32 time_offset)
 	LLUUID remap_id;
 	if (isSelf())
 	{
-		remap_id = AOEngine::getInstance()->override(id, TRUE);
+		remap_id = AOEngine::getInstance()->override(id, true);
 		if (remap_id.isNull())
 		{
 			remap_id = remapMotionID(id);
@@ -6327,7 +6327,7 @@ bool LLVOAvatar::stopMotion(const LLUUID& id, bool stop_immediate)
 	LLUUID remap_id;
 	if (isSelf())
 	{
-		remap_id = AOEngine::getInstance()->override(id, FALSE);
+		remap_id = AOEngine::getInstance()->override(id, false);
 		if (remap_id.isNull())
 		{
 			remap_id = remapMotionID(id);
@@ -7974,7 +7974,7 @@ void LLVOAvatar::getOffObject()
 	if (sit_object)
 	{
 		stopMotionFromSource(sit_object->getID());
-		LLFollowCamMgr::getInstance()->setCameraActive(sit_object->getID(), FALSE);
+		LLFollowCamMgr::getInstance()->setCameraActive(sit_object->getID(), false);
 
 		LLViewerObject::const_child_list_t& child_list = sit_object->getChildren();
 		for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
@@ -7983,7 +7983,7 @@ void LLVOAvatar::getOffObject()
 			LLViewerObject* child_objectp = *iter;
 
 			stopMotionFromSource(child_objectp->getID());
-			LLFollowCamMgr::getInstance()->setCameraActive(child_objectp->getID(), FALSE);
+			LLFollowCamMgr::getInstance()->setCameraActive(child_objectp->getID(), false);
 		}
 	}
 
@@ -8659,35 +8659,35 @@ void LLVOAvatar::updateMeshVisibility()
 		LLAvatarJoint* joint = mMeshLOD[i];
 		if (i == MESH_ID_HAIR)
 		{
-			joint->setVisible(!bake_flag[BAKED_HAIR], TRUE);
+			joint->setVisible(!bake_flag[BAKED_HAIR], true);
 		}
 		else if (i == MESH_ID_HEAD)
 		{
-			joint->setVisible(!bake_flag[BAKED_HEAD], TRUE);
+			joint->setVisible(!bake_flag[BAKED_HEAD], true);
 		}
 		else if (i == MESH_ID_SKIRT)
 		{
-			joint->setVisible(!bake_flag[BAKED_SKIRT], TRUE);
+			joint->setVisible(!bake_flag[BAKED_SKIRT], true);
 		}
 		else if (i == MESH_ID_UPPER_BODY)
 		{
-			joint->setVisible(!bake_flag[BAKED_UPPER], TRUE);
+			joint->setVisible(!bake_flag[BAKED_UPPER], true);
 		}
 		else if (i == MESH_ID_LOWER_BODY)
 		{
-			joint->setVisible(!bake_flag[BAKED_LOWER], TRUE);
+			joint->setVisible(!bake_flag[BAKED_LOWER], true);
 		}
 		else if (i == MESH_ID_EYEBALL_LEFT)
 		{
-			joint->setVisible(!bake_flag[BAKED_EYES], TRUE);
+			joint->setVisible(!bake_flag[BAKED_EYES], true);
 		}
 		else if (i == MESH_ID_EYEBALL_RIGHT)
 		{
-			joint->setVisible(!bake_flag[BAKED_EYES], TRUE);
+			joint->setVisible(!bake_flag[BAKED_EYES], true);
 		}
 		else if (i == MESH_ID_EYELASH)
 		{
-			joint->setVisible(!bake_flag[BAKED_HEAD], TRUE);
+			joint->setVisible(!bake_flag[BAKED_HEAD], true);
 		}
 	}
 }
@@ -9606,7 +9606,7 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 		{
 			LL_DEBUGS("Avatar") << avString() << " baked_index " << (S32) baked_index << " using mLastTextureID " << mBakedTextureDatas[baked_index].mLastTextureID << LL_ENDL;
 			setTEImage(mBakedTextureDatas[baked_index].mTextureIndex, 
-				LLViewerTextureManager::getFetchedTexture(mBakedTextureDatas[baked_index].mLastTextureID, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
+				LLViewerTextureManager::getFetchedTexture(mBakedTextureDatas[baked_index].mLastTextureID, FTT_DEFAULT, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
 		}
 		else
 		{
@@ -10382,7 +10382,7 @@ S32 LLVOAvatar::getUnbakedPixelAreaRank()
 
 struct CompareScreenAreaGreater
 {
-	BOOL operator()(const LLCharacter* const& lhs, const LLCharacter* const& rhs)
+	bool operator()(const LLCharacter* const& lhs, const LLCharacter* const& rhs)
 	{
 		return lhs->getPixelArea() > rhs->getPixelArea();
 	}
@@ -11269,7 +11269,7 @@ void LLVOAvatar::setOverallAppearanceJellyDoll()
 			  ++anim_it)
 		{
 			{
-				stopMotion(anim_it->first, TRUE);
+				stopMotion(anim_it->first, true);
 			}
 		}
 	}
@@ -11348,7 +11348,7 @@ void LLVOAvatar::updateOverallAppearanceAnimations()
 				if (!is_playing)
 				{
 					// Anim was not requested for this av by sim, but may be playing locally
-					stopMotion(*it, TRUE);
+					stopMotion(*it, true);
 				}
 			}
 			mJellyAnims.clear();

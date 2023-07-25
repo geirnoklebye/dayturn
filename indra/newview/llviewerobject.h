@@ -835,7 +835,7 @@ protected:
 	bool					mInventoryDirty;
 
 	LLViewerRegion	*mRegionp;					// Region that this object belongs to.
-	BOOL			mDead;
+	bool			mDead;
 	bool			mOrphaned;					// This is an orphaned child
 	bool			mUserSelected;				// Cached user select information
 	bool			mOnActiveList;
