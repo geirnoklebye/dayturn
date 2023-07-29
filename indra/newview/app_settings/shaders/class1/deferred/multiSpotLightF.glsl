@@ -222,6 +222,7 @@ void main()
 	
 	
 	vec4 spec = texture2DRect(specularRect, frag.xy);
+	
 	if (spec.a > 0.0)
 	{
 		dlit *= min(da*6.0, 1.0) * dist_atten;

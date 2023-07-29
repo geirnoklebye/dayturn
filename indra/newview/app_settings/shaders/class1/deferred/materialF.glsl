@@ -264,6 +264,8 @@ void main()
 
     norm.xyz = normalize(tnorm.xyz);
 
+    vec2 abnormal = encode_normal(norm.xyz);
+
     vec4 final_color = diffcol;
 
 #if (DIFFUSE_ALPHA_MODE != DIFFUSE_ALPHA_MODE_EMISSIVE)
@@ -412,10 +414,8 @@ void main()
 
     vec3 light = vec3(0, 0, 0);
     
-//MK
-  // This line seems to break the shine on alpha-blended surfaces in the case the spec map is not fully white, which in turns would break content.
-////    final_specular.rgb = srgb_to_linear(final_specular.rgb); // SL-14035
-//mk
+    final_specular.rgb = srgb_to_linear(final_specular.rgb); // SL-14035
+
 #define LIGHT_LOOP(i) light.rgb += calcPointLightOrSpotLight(light_diffuse[i].rgb, npos, diffuse.rgb, final_specular, pos.xyz, norm.xyz, light_position[i], light_direction[i].xyz, light_attenuation[i].x, light_attenuation[i].y, light_attenuation[i].z, glare, light_attenuation[i].w );
 
     LIGHT_LOOP(1)
