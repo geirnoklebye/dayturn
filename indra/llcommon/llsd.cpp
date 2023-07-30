@@ -136,7 +136,7 @@ public:
 	virtual void erase(const String&)			{ }
 	virtual const LLSD& ref(const String&) const{ return undef(); }
 	
-	virtual int size() const					{ return 0; }
+	virtual size_t size() const					{ return 0; }
 	virtual LLSD get(Integer) const				{ return LLSD(); }
 	virtual void erase(Integer)					{ }
 	virtual const LLSD& ref(Integer) const		{ return undef(); }
@@ -272,7 +272,7 @@ namespace
 		virtual LLSD::UUID		asUUID() const	{ return LLUUID(mValue); }
 		virtual LLSD::Date		asDate() const	{ return LLDate(mValue); }
 		virtual LLSD::URI		asURI() const	{ return LLURI(mValue); }
-		virtual int				size() const	{ return mValue.size(); }
+		virtual size_t 			size() const	{ return mValue.size(); }
 		virtual const LLSD::String&	asStringRef() const { return mValue; }
 	};
 	
@@ -387,7 +387,7 @@ namespace
 		              LLSD& ref(const LLSD::String&);
 		virtual const LLSD& ref(const LLSD::String&) const;
 
-		virtual int size() const { return mData.size(); }
+		virtual size_t size() const { return mData.size(); }
 
 		LLSD::map_iterator beginMap() { return mData.begin(); }
 		LLSD::map_iterator endMap() { return mData.end(); }
@@ -512,7 +512,7 @@ namespace
 		using LLSD::Impl::get; // Unhiding get(LLSD::String)
 		using LLSD::Impl::erase; // Unhiding erase(LLSD::String)
 		using LLSD::Impl::ref; // Unhiding ref(LLSD::String)
-		virtual int size() const; 
+		virtual size_t size() const;
 		virtual LLSD get(LLSD::Integer) const;
 		        void set(LLSD::Integer, const LLSD&);
 		        void insert(LLSD::Integer, const LLSD&);
@@ -545,7 +545,7 @@ namespace
 		}
 	}
 	
-	int ImplArray::size() const		{ return mData.size(); }
+	size_t ImplArray::size() const		{ return mData.size(); }
 	
 	LLSD ImplArray::get(LLSD::Integer i) const
 	{
@@ -903,7 +903,7 @@ LLSD LLSD::emptyArray()
 	return v;
 }
 
-int LLSD::size() const					{ return safe(impl).size(); }
+size_t LLSD::size() const					{ return safe(impl).size(); }
  
 LLSD LLSD::get(Integer i) const			{ return safe(impl).get(i); } 
 void LLSD::set(Integer i, const LLSD& v){ makeArray(impl).set(i, v); }

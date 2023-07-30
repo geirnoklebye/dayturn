@@ -318,7 +318,7 @@ public:
 
 	/** @name Iterators */
 	//@{
-		int size() const;
+	size_t size() const;
 
 		typedef std::map<String, LLSD>::iterator		map_iterator;
 		typedef std::map<String, LLSD>::const_iterator	map_const_iterator;
