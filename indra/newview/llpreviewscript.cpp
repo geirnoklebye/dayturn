@@ -88,6 +88,9 @@
 #include "llexperiencecache.h"
 #include "llfloaterexperienceprofile.h"
 #include "llviewerassetupload.h"
+#include "lltoggleablemenu.h"
+#include "llmenubutton.h"
+#include "llinventoryfunctions.h"
 
 //kokua
 #include "llcompilequeue.h"
@@ -367,10 +370,6 @@ LLScriptEdCore::LLScriptEdCore(
 	mLive(live),
 	mContainer(container),
 	mCurrentEditor(NULL),
-	// <FS:Ansariel> FIRE-20818: User-selectable font and size for script editor
-	mFontNameChangedCallbackConnection(),
-	mFontSizeChangedCallbackConnection(),
-	// </FS:Ansariel>
 	mHasScriptData(false),
 	mScriptRemoved(false),
 	mSaveDialogShown(false)
@@ -400,16 +399,6 @@ LLScriptEdCore::~LLScriptEdCore()
 	{
 		mSyntaxIDConnection.disconnect();
 	}
-	// <FS:Ansariel> FIRE-20818: User-selectable font and size for script editor
-	if (mFontNameChangedCallbackConnection.connected())
-	{
-		mFontNameChangedCallbackConnection.disconnect();
-	}
-	if (mFontSizeChangedCallbackConnection.connected())
-	{
-		mFontSizeChangedCallbackConnection.disconnect();
-	}
-	// </FS:Ansariel>
 }
 
 void LLLiveLSLEditor::experienceChanged()
@@ -472,11 +461,6 @@ bool LLScriptEdCore::postBuild()
 	mEditor = getChild<LLScriptEditor>("Script Editor");
 
 	mCurrentEditor = mEditor;
-	// <FS:Ansariel> FIRE-20818: User-selectable font and size for script editor
-	mFontNameChangedCallbackConnection = gSavedSettings.getControl("FSScriptingFontName")->getSignal()->connect(boost::bind(&LLScriptEdCore::onFontChanged, this));
-	mFontSizeChangedCallbackConnection = gSavedSettings.getControl("FSScriptingFontSize")->getSignal()->connect(boost::bind(&LLScriptEdCore::onFontChanged, this));
-	onFontChanged();
-	// </FS:Ansariel>
 	childSetCommitCallback("lsl errors", &LLScriptEdCore::onErrorList, this);
 	childSetAction("Save_btn", boost::bind(&LLScriptEdCore::doSave,this,false));
 	childSetAction("Edit_btn", boost::bind(&LLScriptEdCore::openInExternalEditor, this));
@@ -488,6 +472,13 @@ bool LLScriptEdCore::postBuild()
 	// Intialise keyword highlighting for the current simulator's version of LSL
 	LLSyntaxIdLSL::getInstance()->initialize();
 	processKeywords();
+
+    mCommitCallbackRegistrar.add("FontSize.Set", boost::bind(&LLScriptEdCore::onChangeFontSize, this, _2));
+    mEnableCallbackRegistrar.add("FontSize.Check", boost::bind(&LLScriptEdCore::isFontSizeChecked, this, _2));
+
+    LLToggleableMenu *context_menu = LLUICtrlFactory::getInstance()->createFromFile<LLToggleableMenu>(
+        "menu_lsl_font_size.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+    getChild<LLMenuButton>("font_btn")->setMenu(context_menu, LLMenuButton::MP_BOTTOM_LEFT, true);
 
 	return true;
 }
@@ -1320,25 +1311,21 @@ LLUUID LLScriptEdCore::getAssociatedExperience()const
 	return mAssociatedExperience;
 }
 
-// <FS:Ansariel> FIRE-20818: User-selectable font and size for script editor
-void LLScriptEdCore::onFontChanged()
+void LLScriptEdCore::onChangeFontSize(const LLSD &userdata)
 {
-	LLFontGL* font = LLFontGL::getFont(LLFontDescriptor(gSavedSettings.getString("FSScriptingFontName"), gSavedSettings.getString("FSScriptingFontSize"), LLFontGL::NORMAL));
-	if (font)
-	{
-		mEditor->setFont(font);
-		mEditor->needsReflow();
-		//if (mPostEditor)
-		//{
-		//	mPostEditor->setFont(font);
-		//	mPostEditor->needsReflow();
-		//}
-	}
+    const std::string font_name = userdata.asString();
+    gSavedSettings.setString("LSLFontSizeName", font_name);
 }
-// </FS:Ansariel>
 
-void LLLiveLSLEditor::setExperienceIds( const LLSD& experience_ids )
+bool LLScriptEdCore::isFontSizeChecked(const LLSD &userdata)
 {
+    const std::string current_size_name = LLScriptEditor::getScriptFontSize();
+    const std::string size_name = userdata.asString();
+
+    return (size_name == current_size_name);
+}
+
+    void LLLiveLSLEditor::setExperienceIds( const LLSD& experience_ids ){
 	mExperienceIds=experience_ids;
 	updateExperiencePanel();
 }
@@ -1525,16 +1512,20 @@ bool LLScriptEdContainer::onExternalChange(const std::string& filename)
 	return true;
 }
 
-// <FS:Ansariel> FIRE-16740: Color syntax highlighting changes don't immediately appear in script window
-void LLScriptEdContainer::updateStyle()
+bool LLScriptEdContainer::handleKeyHere(KEY key, MASK mask) 
 {
-	if (mScriptEd && mScriptEd->mEditor)
-	{
-		mScriptEd->mEditor->initKeywords();
-		mScriptEd->mEditor->loadKeywords();
-	}
+    if (('A' == key) && (MASK_CONTROL == (mask & MASK_MODIFIERS)))
+    {
+        mScriptEd->selectAll();
+        return true;
+    }
+
+    if (!LLPreview::handleKeyHere(key, mask)) 
+    {
+        return mScriptEd->handleKeyHere(key, mask);
+    }
+    return true;
 }
-// </FS:Ansariel>
 
 /// ---------------------------------------------------------------------------
 /// LLPreviewLSL
@@ -1588,6 +1579,10 @@ bool LLPreviewLSL::postBuild()
 	if (item)
 	{
 		getChild<LLUICtrl>("desc")->setValue(item->getDescription());
+
+        std::string item_path = get_category_path(item->getParentUUID());
+        getChild<LLUICtrl>("path_txt")->setValue(item_path);
+        getChild<LLUICtrl>("path_txt")->setToolTip(item_path);
 	}
 	childSetCommitCallback("desc", LLPreview::onText, this);
 	getChild<LLLineEditor>("desc")->setPrevalidate(&LLTextValidate::validateASCIIPrintableNoPipe);
