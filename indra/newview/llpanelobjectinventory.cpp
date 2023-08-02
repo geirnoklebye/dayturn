@@ -1015,10 +1015,15 @@ void LLTaskLSLBridge::openItem()
 		LLSD floater_key;
 		floater_key["taskid"] = mPanel->getTaskUUID();
 		floater_key["itemid"] = mUUID;
+
 		LLLiveLSLEditor* preview = LLFloaterReg::showTypedInstance<LLLiveLSLEditor>("preview_scriptedit", floater_key, TAKE_FOCUS_YES);
 		if (preview)
 		{
-			preview->setObjectID(mPanel->getTaskUUID());
+            LLSelectNode *node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode(NULL, true);
+            if (node && node->mValid)
+            {
+                preview->setObjectName(node->mName);
+            }			preview->setObjectID(mPanel->getTaskUUID());
 		}
 	}
 	else

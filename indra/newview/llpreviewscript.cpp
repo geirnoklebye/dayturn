@@ -333,6 +333,38 @@ void LLFloaterScriptSearch::onSearchBoxCommit()
 // </FS>
 
 /// ---------------------------------------------------------------------------
+
+class LLScriptMovedObserver : public LLInventoryObserver
+{
+  public:
+    LLScriptMovedObserver(LLPreviewLSL *floater) : mPreview(floater) { gInventory.addObserver(this); }
+    virtual ~LLScriptMovedObserver() { gInventory.removeObserver(this); }
+    virtual void changed(U32 mask);
+
+  private:
+    LLPreviewLSL *mPreview;
+};
+
+void LLScriptMovedObserver::changed(U32 mask)
+{
+    const std::set<LLUUID> &mChangedItemIDs = gInventory.getChangedIDs();
+    std::set<LLUUID>::const_iterator it;
+
+    const LLUUID &item_id = mPreview->getScriptID();
+
+    for (it = mChangedItemIDs.begin(); it != mChangedItemIDs.end(); it++)
+    {
+        if (*it == item_id)
+        {
+            if ((mask & (LLInventoryObserver::STRUCTURE)) != 0)
+            {
+                mPreview->setDirty();
+            }
+        }
+    }
+}
+
+/// ---------------------------------------------------------------------------
 /// LLScriptEdCore
 /// ---------------------------------------------------------------------------
 
@@ -1568,6 +1600,14 @@ LLPreviewLSL::LLPreviewLSL(const LLSD& key )
 	mPendingUploads(0)
 {
 	mFactoryMap["script panel"] = LLCallbackMap(LLPreviewLSL::createScriptEdPanel, this);
+
+    mItemObserver = new LLScriptMovedObserver(this);
+}
+
+LLPreviewLSL::~LLPreviewLSL() 
+{ 
+    delete mItemObserver;
+    mItemObserver = NULL;
 }
 
 // virtual
@@ -1598,6 +1638,12 @@ void LLPreviewLSL::draw()
 		setTitle(LLTrans::getString("ScriptWasDeleted"));
 		mScriptEd->setItemRemoved(true);
 	}
+    if (mDirty) 
+    {
+        std::string item_path = get_category_path(item->getParentUUID());
+        getChild<LLUICtrl>("path_txt")->setValue(item_path);
+        getChild<LLUICtrl>("path_txt")->setToolTip(item_path);
+    }
 
 	LLPreview::draw();
 }
@@ -2016,7 +2062,8 @@ LLLiveLSLEditor::LLLiveLSLEditor(const LLSD& key) :
 	mPendingUploads(0),
 	mIsModifiable(false),
 	mIsNew(false),
-	mIsSaving(false)
+	mIsSaving(false),
+	mObjectName("")
 {
 	mFactoryMap["script ed panel"] = LLCallbackMap(LLLiveLSLEditor::createScriptEdPanel, this);
 }
@@ -2153,6 +2200,7 @@ void LLLiveLSLEditor::loadAsset()
 			}
 
 			refreshFromItem();
+            getChild<LLUICtrl>("obj_name")->setValue(mObjectName);
 			// This is commented out, because we don't completely
 			// handle script exports yet.
 			/*
