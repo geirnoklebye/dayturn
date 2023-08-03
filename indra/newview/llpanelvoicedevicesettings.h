@@ -55,6 +55,7 @@ protected:
 	void onCommitOutputDevice();
 	void onOutputDevicesClicked();
 	void onInputDevicesClicked();
+    void onCommitRetry();
 
 	F32 mMicVolume;
 	std::string mInputDevice;
@@ -62,6 +63,7 @@ protected:
 	class LLComboBox		*mCtrlInputDevices;
 	class LLComboBox		*mCtrlOutputDevices;
 	bool mDevicesUpdated;
+    class LLButton          *mRetryBtn;
 	bool mUseTuningMode;
 	std::map<std::string, std::string> mLocalizedDeviceNames;
 };

@@ -70,11 +70,14 @@ bool LLPanelVoiceDeviceSettings::postBuild()
 
 	mCtrlInputDevices = getChild<LLComboBox>("voice_input_device");
 	mCtrlOutputDevices = getChild<LLComboBox>("voice_output_device");
+    mRetryBtn = getChild<LLButton>("retry_btn");
 
 	mCtrlInputDevices->setCommitCallback(
 		boost::bind(&LLPanelVoiceDeviceSettings::onCommitInputDevice, this));
 	mCtrlOutputDevices->setCommitCallback(
 		boost::bind(&LLPanelVoiceDeviceSettings::onCommitOutputDevice, this));
+    mRetryBtn->setCommitCallback(
+        boost::bind(&LLPanelVoiceDeviceSettings::onCommitRetry, this));
 
 	mLocalizedDeviceNames[DEFAULT_DEVICE]				= getString("default_text");
 	mLocalizedDeviceNames["No Device"]					= getString("name_no_device");
@@ -98,7 +101,7 @@ void LLPanelVoiceDeviceSettings::onVisibilityChange ( bool new_visibility )
 		cleanup();
 		// when closing this window, turn of visiblity control so that 
 		// next time preferences is opened we don't suspend voice
-		gSavedSettings.setBOOL("ShowDeviceSettings", FALSE);
+		gSavedSettings.setbool("ShowDeviceSettings", false);
 	}
 }
 void LLPanelVoiceDeviceSettings::draw()
@@ -107,11 +110,25 @@ void LLPanelVoiceDeviceSettings::draw()
 
 	// let user know that volume indicator is not yet available
 	bool is_in_tuning_mode = LLVoiceClient::getInstance()->inTuningMode();
-	getChildView("wait_text")->setVisible( !is_in_tuning_mode && mUseTuningMode);
+    bool voice_enabled = LLVoiceClient::getInstance()->voiceEnabled();
+    if (voice_enabled)
+    {
+        getChildView("wait_text")->setVisible( !is_in_tuning_mode && mUseTuningMode);
+        getChildView("muted_text")->setVisible(false);
+        mRetryBtn->setVisible(false);
+    }
+    else
+    {
+        getChildView("wait_text")->setVisible(false);
+        getChildView("muted_text")->setVisible(true);
+
+        static LLCachedControl<bool> voice_enabled(gSavedSettings, "EnableVoiceChat");
+        mRetryBtn->setVisible(!voice_enabled || LLVoiceClient::isMutedVoiceInstance());
+    }
 
 	LLPanel::draw();
 
-	if (is_in_tuning_mode)
+	if (is_in_tuning_mode && voice_enabled)
 	{
 		const S32 num_bars = 5;
 		F32 voice_power = LLVoiceClient::getInstance()->tuningGetEnergy() / LLVoiceClient::OVERDRIVEN_POWER_LEVEL;
@@ -337,4 +354,10 @@ void LLPanelVoiceDeviceSettings::onOutputDevicesClicked()
 void LLPanelVoiceDeviceSettings::onInputDevicesClicked()
 {
 	LLVoiceClient::getInstance()->refreshDeviceLists(false);  // fill in the pop up menus again if needed.
+}
+
+void LLPanelVoiceDeviceSettings::onCommitRetry()
+{
+    gSavedSettings.setbool("EnableVoiceChat", true);
+    LLVoiceClient::unmuteVoiceInstance();
 }
