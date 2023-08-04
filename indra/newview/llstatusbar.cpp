@@ -233,7 +233,7 @@ bool LLStatusBar::postBuild()
 	gSavedSettings.getControl("MuteAudio")->getSignal()->connect(boost::bind(&LLStatusBar::onVolumeChanged, this, _2));
     gSavedSettings.getControl("EnableVoiceChat")->getSignal()->connect(boost::bind(&LLStatusBar::onVoiceChanged, this, _2));
 
-    if (gSavedSettings.getbool("EnableVoiceChat") && !LLVoiceClient::isMutedVoiceInstance())
+    if (gSavedSettings.getbool("EnableVoiceChat"))
     {
         mBtnVolume->setImageUnselected(LLUI::getUIImage("Audio_Off"));
     }
@@ -824,7 +824,7 @@ void LLStatusBar::onPopupRolloverChanged(const LLSD& newvalue)
 
 void LLStatusBar::onVoiceChanged(const LLSD& newvalue)
 {
-    if (newvalue.asBoolean() && !LLVoiceClient::isMutedVoiceInstance())
+    if (newvalue.asBoolean())
     {
         mBtnVolume->setImageUnselected(LLUI::getUIImage("Audio_Off"));
     }
