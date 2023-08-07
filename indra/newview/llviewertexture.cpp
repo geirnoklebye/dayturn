@@ -2447,7 +2447,8 @@ bool LLViewerFetchedTexture::updateFetch()
 		}
 	}
 	
-	llassert_always(mRawImage.notNull() || (!mNeedsCreateTexture && !mIsRawImageValid));
+	llassert_always(mRawImage.notNull() || !mIsRawImageValid);
+	llassert_always(mRawImage.notNull() || !mNeedsCreateTexture);
 	
 	return mIsFetching;
 }
