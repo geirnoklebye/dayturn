@@ -644,7 +644,7 @@ bool get_is_item_removable(const LLInventoryModel* model, const LLUUID& id)
 
 	// ## Zi: Animation Overrider
 	if(model->isObjectDescendentOf(id,AOEngine::instance().getAOFolder())
-		&& gSavedPerAccountSettings.getBOOL("ProtectAOFolders"))
+		&& gSavedPerAccountSettings.getbool("ProtectAOFolders"))
     {
 		return false;
 	}
@@ -734,7 +734,7 @@ bool get_is_category_removable(const LLInventoryModel* model, const LLUUID& id)
 
 	// ## Zi: Animation Overrider
 	if((id==AOEngine::instance().getAOFolder() || model->isObjectDescendentOf(id,AOEngine::instance().getAOFolder()))
-		&& gSavedPerAccountSettings.getBOOL("ProtectAOFolders"))
+		&& gSavedPerAccountSettings.getbool("ProtectAOFolders"))
 	{
 		return false;
 	}
@@ -776,7 +776,7 @@ bool get_is_category_renameable(const LLInventoryModel* model, const LLUUID& id)
 	}
 	// ## Zi: Animation Overrider
 	if((id==AOEngine::instance().getAOFolder() || model->isObjectDescendentOf(id,AOEngine::instance().getAOFolder()))
-		&& gSavedPerAccountSettings.getBOOL("ProtectAOFolders"))
+		&& gSavedPerAccountSettings.getbool("ProtectAOFolders"))
 	{
 		return false;
 	}
@@ -831,7 +831,7 @@ void show_item_original(const LLUUID& item_uuid)
         const LLUUID inbox_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX);
       	LLUUID linked_item_id = gInventory.getLinkedItemID(item_uuid);
       	bool in_inbox = (gInventory.isObjectDescendentOf(linked_item_id, gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX)));
-      	bool show_inbox = gSavedSettings.getBOOL("FSShowInboxFolder"); // <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
+      	bool show_inbox = gSavedSettings.getbool("FSShowInboxFolder"); // <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 
       	if (in_inbox && !show_inbox)
       	{
@@ -2408,7 +2408,7 @@ void LLInventoryAction::callback_doToSelected(const LLSD& notification, const LL
     S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
     if (option == 0) // YES
     {
-        doToSelected(model, root, action, FALSE);
+        doToSelected(model, root, action, false);
     }
 }
 
@@ -2417,11 +2417,11 @@ void LLInventoryAction::callback_copySelected(const LLSD& notification, const LL
     S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
     if (option == 0) // YES, Move no copy item(s)
     {
-        doToSelected(model, root, "copy_or_move_to_marketplace_listings", FALSE);
+        doToSelected(model, root, "copy_or_move_to_marketplace_listings", false);
     }
     else if (option == 1) // NO, Don't move no copy item(s) (leave them behind)
     {
-        doToSelected(model, root, "copy_to_marketplace_listings", FALSE);
+        doToSelected(model, root, "copy_to_marketplace_listings", false);
     }
 }
 
