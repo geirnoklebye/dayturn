@@ -2,7 +2,7 @@
  * @file llfloatersettingsdebug.cpp
  * @brief floater for debugging internal viewer settings
  *
- * $LicenseInfo:firstyear=2001&license=viewerlgpl$
+ * $LicenseInfo:firstyear=2022&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2022, Linden Research, Inc.
  * 
@@ -206,7 +206,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
         getChildView("setting_name_txt")->setVisible(true);
         getChild<LLTextBox>("setting_name_txt")->setText(controlp->getName());
         getChild<LLTextBox>("setting_name_txt")->setToolTip(controlp->getName());
-        mComment->setVisible(true);		
+        mComment->setVisible(true);
 
         std::string old_text = mComment->getText();
         std::string new_text = controlp->getComment();
@@ -473,7 +473,6 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 	}
 
 }
-
 
 void LLFloaterSettingsDebug::updateList(bool skip_selection)
 {
