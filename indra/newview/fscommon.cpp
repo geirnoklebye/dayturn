@@ -158,7 +158,6 @@ void FSCommon::applyDefaultBuildPreferences(LLViewerObject* object)
 	}
 	
 	U32 object_local_id = object->getLocalID();
-#ifdef OPENSIM
 	if (!gIsInSecondLife || !LLFloaterPermsDefault::getCapSent())
 	{
 		gMessageSystem->newMessageFast(_PREHASH_ObjectPermissions);
@@ -184,7 +183,6 @@ void FSCommon::applyDefaultBuildPreferences(LLViewerObject* object)
 		gMessageSystem->addU32Fast(_PREHASH_Mask, PERM_TRANSFER);
 		gMessageSystem->sendReliable(object->getRegion()->getHost());
 	}
-#endif
 
 	gMessageSystem->newMessage(_PREHASH_ObjectFlagUpdate);
 	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
