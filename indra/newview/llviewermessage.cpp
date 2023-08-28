@@ -2533,7 +2533,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		return;
 	}
 
-	BOOL is_audible = (CHAT_AUDIBLE_FULLY == chat.mAudible);
+	bool is_audible = (CHAT_AUDIBLE_FULLY == chat.mAudible);
 	chatter = gObjectList.findObject(from_id);
 	if (chatter)
 	{
@@ -5613,7 +5613,7 @@ void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 	LL_DEBUGS("Benefits") << "Received economy data, not currently used" << LL_ENDL;
 }
 
-void notify_cautioned_script_question(const LLSD& notification, const LLSD& response, S32 orig_questions, BOOL granted)
+void notify_cautioned_script_question(const LLSD& notification, const LLSD& response, S32 orig_questions, bool granted)
 {
 	// only continue if at least some permissions were requested
 	if (orig_questions)
@@ -5632,7 +5632,7 @@ void notify_cautioned_script_question(const LLSD& notification, const LLSD& resp
 
 		// try to lookup viewerobject that corresponds to the object that
 		// requested permissions (here, taskid->requesting object id)
-		BOOL foundpos = FALSE;
+		bool foundpos = false;
 		LLViewerObject* viewobj = gObjectList.findObject(notification["payload"]["task_id"].asUUID());
 		if (viewobj)
 		{
@@ -5648,7 +5648,7 @@ void notify_cautioned_script_question(const LLSD& notification, const LLSD& resp
 				std::string formatpos = llformat("%.1f, %.1f,%.1f", objpos[VX], objpos[VY], objpos[VZ]);
 				notice.setArg("[REGIONPOS]", formatpos);
 
-				foundpos = TRUE;
+				foundpos = true;
 			}
 		}
 
@@ -5661,7 +5661,7 @@ void notify_cautioned_script_question(const LLSD& notification, const LLSD& resp
 
 		// check each permission that was requested, and list each 
 		// permission that has been flagged as a caution permission
-		BOOL caution = FALSE;
+		bool caution = false;
 		S32 count = 0;
 		std::string perms;
 		BOOST_FOREACH(script_perm_t script_perm, SCRIPT_PERMISSIONS)
@@ -5670,7 +5670,7 @@ void notify_cautioned_script_question(const LLSD& notification, const LLSD& resp
 				&& script_perm.caution)
 			{
 				count++;
-				caution = TRUE;
+				caution = true;
 
 				// add a comma before the permission description if it is not the first permission
 				// added to the list or the last permission to check
@@ -5731,13 +5731,13 @@ bool script_question_cb(const LLSD& notification, const LLSD& response)
 	}
 
 	// check whether permissions were granted or denied
-	BOOL allowed = TRUE;
+	bool allowed = true;
 	// the "yes/accept" button is the first button in the template, making it button 0
 	// if any other button was clicked, the permissions were denied
 	if (option != 0)
 	{
 		new_questions = 0;
-		allowed = FALSE;
+		allowed = false;
 	}	
 	else if(experience.notNull())
 	{
@@ -6084,7 +6084,7 @@ void container_inventory_arrived(LLViewerObject* object,
 	}
 
 	// we've got the inventory, now delete this object if this was a take
-	BOOL delete_object = (BOOL)(intptr_t)data;
+	long delete_object = (intptr_t)data;
 	LLViewerRegion *region = gAgent.getRegion();
 	if (delete_object && region)
 	{
