@@ -849,12 +849,10 @@ S32 FSPanelClassifiedEdit::getClassifiedFee()
 {
 	S32 fee = MINIMUM_PRICE_FOR_LISTING;
 /* 
-#ifdef OPENSIM
-	if (LLGridManager::getInstance()->isInOpenSim())
+	if (!gIsInSecondLife)
 	{
 		fee = LLGridManager::getInstance()->getClassifiedFee();
 	}
-#endif // OPENSIM
  */
 	return fee;
 }
