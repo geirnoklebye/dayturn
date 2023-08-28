@@ -111,7 +111,14 @@ void LLUrlAction::teleportToLocation(std::string url)
 	{
 		if (! match.getLocation().empty())
 		{
-			executeSLURL("secondlife:///app/teleport/" + match.getLocation());
+			if (gIsInSecondLife)
+			{
+				executeSLURL("secondlife:///app/teleport/" + match.getLocation());
+			}
+			else
+			{
+				executeSLURL("hop:///app/teleport/" + match.getLocation());
+			}
 		}
 	}	
 }
@@ -123,7 +130,14 @@ void LLUrlAction::showLocationOnMap(std::string url)
 	{
 		if (! match.getLocation().empty())
 		{
-			executeSLURL("secondlife:///app/worldmap/" + match.getLocation());
+			if (gIsInSecondLife)
+			{
+				executeSLURL("secondlife:///app/worldmap/" + match.getLocation());
+			}
+			else
+			{
+				executeSLURL("hop:///app/worldmap/" + match.getLocation());
+			}
 		}
 	}	
 }
