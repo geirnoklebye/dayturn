@@ -30,6 +30,8 @@
 #include "llviewercontrol.h"
 #include "llviewernetwork.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 exoGroupMuteList::exoGroupMuteList()
 : mMuted()
 {
@@ -42,13 +44,14 @@ bool exoGroupMuteList::isMuted(const LLUUID& group) const
 
 bool exoGroupMuteList::isLoaded() const
 {
-#ifdef OPENSIM
-	if (LLGridManager::instance().isInOpenSim())
+	if (!gIsInSecondLife)
 	{
 		return true;
 	}
-#endif
-	return LLMuteList::instance().isLoaded();
+	else
+	{
+		return LLMuteList::instance().isLoaded();
+	}
 }
 
 void exoGroupMuteList::add(const LLUUID& group)
