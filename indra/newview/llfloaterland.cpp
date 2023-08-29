@@ -334,6 +334,15 @@ bool LLFloaterLand::postBuild()
 		tab->selectTab(sLastTab);
 	}
 
+// <FS:Ansariel> FIRE-17280: Requesting Experience access allow and block list interferes with OpenSim landflags
+
+	if (!gIsInSecondLife)
+	{
+		mTabLand->removeTabPanel(mTabLand->getPanelByName("land_experiences_panel"));
+	}
+
+// <FS:Ansariel>
+
 	return true;
 }
 
