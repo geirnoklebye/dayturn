@@ -65,7 +65,7 @@ namespace FSCommon
 	*
 	* @return Number of seconds since 01/01/1970 UTC.
 	*/
-	S32 secondsSinceEpochFromString(const std::string& format, const std::string& str);
+    long long int secondsSinceEpochFromString(const std::string& format, const std::string& str);
 	
 	// apply default build preferences to the object
 	void applyDefaultBuildPreferences(LLViewerObject* object);
