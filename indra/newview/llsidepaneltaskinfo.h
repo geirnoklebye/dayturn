@@ -121,6 +121,10 @@ protected:
 private:
 	LLPointer<LLViewerObject>	mObject;
 	LLObjectSelectionHandle		mObjectSelection;
+
+    // mVisibleDebugPermissions doesn't nessesarily matche state
+    // of viewes and is primarily for floater resize
+    bool                        mVisibleDebugPermissions;
 	static LLSidepanelTaskInfo* sActivePanel;
 	
 private:
@@ -148,12 +152,12 @@ private:
 	LLView*		mDALabelClickAction;
 	LLComboBox*	mDAComboClickAction;
 	LLTextBase* mDAPathfindingAttributes;
-	LLView*		mDAB;
-	LLView*		mDAO;
-	LLView*		mDAG;
-	LLView*		mDAE;
-	LLView*		mDAN;
-	LLView*		mDAF;
+    LLUICtrl*   mDAB;
+    LLUICtrl*   mDAO;
+    LLUICtrl*   mDAG;
+    LLUICtrl*   mDAE;
+    LLUICtrl*   mDAN;
+    LLUICtrl*   mDAF;
 };
 
 
