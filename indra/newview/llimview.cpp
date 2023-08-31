@@ -540,7 +540,7 @@ void translateSuccess(const LLUUID& session_id, const std::string& from, const L
         && ((detected_language.empty()) || (expectLang != detected_language))
         && (LLStringUtil::compareInsensitive(translation, originalMsg) != 0))
     {   // Note - if this format changes, also fix code in addMessagesFromServerHistory()
-		message_txt += stringize(XL8_START_TAG, LLTranslate::removeNoTranslateTags(translation), XL8_END_TAG);
+        message_txt += XL8_START_TAG + LLTranslate::removeNoTranslateTags(translation) + XL8_END_TAG;
     }
 
     // Extract info packed in time_n_flags
@@ -1548,9 +1548,9 @@ void LLIMModel::sendNoUnreadMessages(const LLUUID& session_id)
 	mNoUnreadMsgsSignal(arg);
 }
 
-bool LLIMModel::addToHistory(const LLUUID& session_id,
 // <FS:Ansariel> Added is_announcement parameter
 //bool LLIMModel::addToHistory(const LLUUID& session_id, const std::string& from, const LLUUID& from_id, const std::string& utf8_text, bool is_region_msg)) {
+bool LLIMModel::addToHistory(const LLUUID& session_id,
 							 const std::string& from,
 							 const LLUUID& from_id,
 							 const std::string& utf8_text,
@@ -1583,7 +1583,7 @@ bool LLIMModel::logToFile(const std::string& file_name, const std::string& from,
 		if (from_id == AUDIO_STREAM_FROM) {
 			from_name = LLTrans::getString("Audio Stream");
 		}
-		else if (!from_id.isNull() && 
+		else if (!from_id.isNull() &&
 			LLAvatarNameCache::get(from_id, &av_name) &&
 			!av_name.isDisplayNameDefault())
 		{
@@ -1609,8 +1609,8 @@ void LLIMModel::proccessOnlineOfflineNotification(
 }
 
 // <FS:Ansariel> Added is_announcement parameter
-//bool LLIMModel::addMessage(const LLUUID& session_id, const std::string& from, const LLUUID& from_id, 
-//						   const std::string& utf8_text, bool log2file, bool is_region_msg) { 
+//void LLIMModel::addMessage(const LLUUID& session_id, const std::string& from, const LLUUID& from_id, 
+//						   const std::string& utf8_text, bool log2file /* = true */, bool is_region_msg /* = false */) {
 void LLIMModel::addMessage(const LLUUID& session_id, const std::string& from, const LLUUID& from_id, 
 						   const std::string& utf8_text, bool log2file /* = true */, bool is_announcement /* = false */, bool keyword_alert_performed /* = false */, bool is_region_msg, U32 time_stamp /* =0 */) { 
 
@@ -1625,37 +1625,37 @@ void LLIMModel::addMessage(const LLUUID& session_id, const std::string& from, co
     }
     else
     {
-        processAddingMessage(session_id, from, from_id, utf8_text, log2file, is_region_msg, time_stamp);
+        processAddingMessage(session_id, from, from_id, utf8_text, log2file, is_announcement, keyword_alert_performed, is_region_msg, time_stamp);
     }
 }
 
 void LLIMModel::processAddingMessage(const LLUUID& session_id, const std::string& from, const LLUUID& from_id,
     const std::string& utf8_text, bool log2file /* = true */, bool is_announcement /* = false */, bool keyword_alert_performed /* = false */, bool is_region_msg /* = false */, U32 time_stamp)
 {
-    LLIMSession* session = addMessageSilently(session_id, from, from_id, utf8_text, log2file, is_region_msg, time_stamp);
-    if (!session)
-        return;
+	LLIMSession* session = addMessageSilently(session_id, from, from_id, utf8_text, log2file, is_announcement, time_stamp);
+    if (!session) return;
 
     //good place to add some1 to recent list
     //other places may be called from message history.
-    if( !from_id.isNull() &&
+	if (!(from_id.isNull() || from_id == AUDIO_STREAM_FROM) &&
         ( session->isP2PSessionType() || session->isAdHocSessionType() ) )
         LLRecentPeople::instance().add(from_id);
 
-	// notify listeners
-	LLSD arg;
-	arg["session_id"] = session_id;
-	arg["num_unread"] = session->mNumUnread;
-	arg["participant_unread"] = session->mParticipantUnreadMessageCount;
-	arg["message"] = utf8_text;
-	arg["from"] = from;
-	arg["from_id"] = from_id;
+    // notify listeners
+    LLSD arg;
+    arg["session_id"] = session_id;
+    arg["num_unread"] = session->mNumUnread;
+    arg["participant_unread"] = session->mParticipantUnreadMessageCount;
+    arg["message"] = utf8_text;
+    arg["from"] = from;
+    arg["from_id"] = from_id;
     arg["time"] = LLLogChat::timestamp2LogString(time_stamp, true);
-	arg["session_type"] = session->mSessionType;
-	arg["is_announcement"] = is_announcement; // <FS:Ansariel> Indicator if it's an announcement
-	arg["keyword_alert_performed"] = keyword_alert_performed; // <FS:Ansariel> Pass info if keyword alert has been performed
+    arg["session_type"] = session->mSessionType;
+    arg["is_announcement"] = is_announcement; // <FS:Ansariel> Indicator if it's an announcement
+    arg["keyword_alert_performed"] = keyword_alert_performed; // <FS:Ansariel> Pass info if keyword alert has been performed
     arg["is_region_msg"] = is_region_msg;
-	mNewMsgSignal(arg);
+
+    mNewMsgSignal(arg);
 }
 
 // <FS:Ansariel> Added is_announcement parameter
@@ -1788,7 +1788,7 @@ const std::string& LLIMModel::getHistoryFileName(const LLUUID& session_id) const
 
 
 // TODO get rid of other participant ID
-void LLIMModel::sendTypingState(LLUUID session_id, LLUUID other_participant_id, bool typing) 
+void LLIMModel::sendTypingState(LLUUID session_id, LLUUID other_participant_id, bool typing)
 {
 	std::string name;
 	LLAgentUI::buildFullname(name);
@@ -2388,9 +2388,9 @@ bool LLCallDialog::postBuild()
 {
 	if (!LLDockableFloater::postBuild() || !gToolBarView)
 		return false;
-	
+
 	dockToToolbarButton("speak");
-	
+
 	return true;
 }
 
@@ -3127,7 +3127,7 @@ void LLIMMgr::addMessage(
 		name_is_setted = true;
 	}
 	bool skip_message = false;
-	bool from_linden = LLMuteList::getInstance()->isLinden(from);
+	bool from_linden = LLMuteList::isLinden(from);
     if (gSavedPerAccountSettings.getbool("VoiceCallsFriendsOnly") && !from_linden)
 	{
 		// Evaluate if we need to skip this message when that setting is true (default is false)
@@ -3263,6 +3263,7 @@ void LLIMMgr::addMessage(
 	{
 		// <FS:Ansariel> Added is_announcement parameter
 		//LLIMModel::instance().addMessage(new_session_id, from, other_participant_id, msg, true, is_region_msg);
+		LLIMModel::instance().addMessage(new_session_id, from, other_participant_id, msg, true, is_announcement, keyword_alert_performed, is_region_msg, timestamp);
 	}
 
 	// Open conversation floater if offline messages are present
@@ -4183,7 +4184,9 @@ public:
 			}
 			std::string buffer = saved + message;
 
-			if(from_id == gAgentID)
+// <FS:CR> FIRE-9762 - Don't bail here on OpenSim, we'll need to echo local posts
+			if (gIsInSecondLife && from_id == gAgentID)
+// </FS:CR>
 			{
 				return;
 			}
@@ -4198,8 +4201,17 @@ public:
 				message_params["parent_estate_id"].asInteger(),
 				message_params["region_id"].asUUID(),
 				ll_vector3_from_sd(message_params["position"]),
-                false,      // is_region_message
+				false, // is_announced
+				false, // keyword_alert_performed
+                false, // is_region_message
                 timestamp);
+                
+// <FS:CR> FIRE-9762 - OK, return here if we must!
+			if (!gIsInSecondLife && from_id == gAgentID)
+			{
+				return;
+			}
+// </FS:CR>
 
 			if (LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat))
 			{
