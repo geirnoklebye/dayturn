@@ -2613,6 +2613,12 @@ void LLInventoryModel::buildParentChildMap()
 		LLViewerInventoryCategory* cat = cats.at(i);
 		catsp = getUnlockedCatArray(cat->getParentUUID());
 		if(catsp &&
+		   (!gIsInSecondLife || (cat->getParentUUID().notNull() || 
+			cat->getPreferredType() == LLFolderType::FT_ROOT_INVENTORY ))) // We are in OpenSim
+		{
+			catsp->push_back(cat);
+		}
+		else if(catsp &&
 		   // Only the two root folders should be children of null.
 		   // Others should go to lost & found.
 		   (cat->getParentUUID().notNull() || 
