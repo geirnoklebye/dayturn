@@ -3796,6 +3796,32 @@ bool process_login_success_response()
 		gSavedSettings.setString("CurrentMapServerURL", map_server_url); 
 		LL_INFOS("LLStartup") << "map-server-url : no map-server-url answer, we use the default setting for the map : " << map_server_url << LL_ENDL;
 	}
+
+    if (!gIsInSecondLife) // OPENSIM
+    {	
+        // <FS:CR> FIRE-10567 - Set classified fee, if it's available.
+        if (response.has("classified_fee"))
+        {
+            S32 classified_fee = response["classified_fee"];
+            LL_INFOS("LLStartup") << "Classified fee from server " << classified_fee << LL_ENDL;
+            LLGridManager::getInstance()->setClassifiedFee(classified_fee);
+        }
+        else
+        {
+            LLGridManager::getInstance()->setClassifiedFee(0);	// Free is a sensible default
+        }
+        // <FS:CR> Set a parcel listing fee, if it's available
+        if (response.has("directory_fee"))
+        {
+            S32 directory_fee = response["directory_fee"];
+            LL_INFOS("LLStartup") << "Directory fee from server " << directory_fee << LL_ENDL;
+            LLGridManager::getInstance()->setDirectoryFee(directory_fee);
+        }
+        else
+        {
+            LLGridManager::getInstance()->setDirectoryFee(0);
+        }
+	}
 	
 	// Default male and female avatars allowing the user to choose their avatar on first login.
 	// These may be passed up by SLE to allow choice of enterprise avatars instead of the standard
