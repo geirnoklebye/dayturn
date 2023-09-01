@@ -725,7 +725,7 @@ LLPointer<LLControlVariable> setting_get_control(LLControlGroup& group, const st
     if (cntrl_ptr.isNull())
     {
         LL_ERRS() << "Unable to set up setting listener for " << setting
-            << ". Please reinstall viewer from  Please reinstall viewer from https://www.dayturn.com/viewer/index.php?resources/ and contact Dayturn support if issue persists after reinstall."
+            << ". Please reinstall viewer from https://www.dayturn.com/viewer/index.php?resources/ and contact Dayturn support if issue persists after reinstall."
             << LL_ENDL;
     }
     return cntrl_ptr;
