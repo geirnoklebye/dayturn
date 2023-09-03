@@ -1554,9 +1554,9 @@ bool LLIMModel::addToHistory(const LLUUID& session_id,
 							 const std::string& from,
 							 const LLUUID& from_id,
 							 const std::string& utf8_text,
-							 bool is_announcement /* = false */,
 							 bool is_region_msg,
-							 U32 timestamp) 
+							 U32 timestamp,
+							 bool is_announcement) 
 {
 	LLIMSession* session = findIMSession(session_id);
 
@@ -1681,7 +1681,7 @@ LLIMModel::LLIMSession* LLIMModel::addMessageSilently(const LLUUID& session_id, 
 		from_name = LLTrans::getString("Audio Stream");
 	}
 
-	addToHistory(session_id, from_name, from_id, utf8_text, is_announcement || is_region_msg, timestamp);
+	addToHistory(session_id, from_name, from_id, utf8_text, is_region_msg, timestamp, is_announcement);
 	if (log2file && !is_announcement)
 	{
 		logToFile(getHistoryFileName(session_id), from_name, from_id, utf8_text);
