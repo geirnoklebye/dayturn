@@ -94,7 +94,8 @@ public:
             return true; // don't block, will fail later
         }
 
-        if (nav_type == NAV_TYPE_CLICKED)
+        if (nav_type == NAV_TYPE_CLICKED
+            || nav_type == NAV_TYPE_EXTERNAL)
         {
             return true;
         }
@@ -891,7 +892,7 @@ void LLPanelProfileClassified::updateInfoRect()
         S32 delta_height = new_height - visible_rect.getHeight() + 5;
 
         LLRect rect = mInfoScroll->getRect();
-        mInfoScroll->reshape(rect.getWidth(), rect.getHeight() + delta_height, FALSE);
+        mInfoScroll->reshape(rect.getWidth(), rect.getHeight() + delta_height, false);
     }
 }
 
