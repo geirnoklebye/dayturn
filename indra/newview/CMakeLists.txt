@@ -139,7 +139,6 @@ set(viewer_SOURCE_FILES
     fsfloaterexport.cpp
     fsfloaterimport.cpp
     fsfloaterposestand.cpp
-    fsfloaterprofile.cpp
     fsfloatersearch.cpp
     fskeywords.cpp
     fspanelclassified.cpp
@@ -515,7 +514,6 @@ set(viewer_SOURCE_FILES
     llpanelmaininventory.cpp
     llpanelmarketplaceinbox.cpp
     llpanelmarketplaceinboxinventory.cpp
-    llpanelme.cpp
     llpanelmediasettingsgeneral.cpp
     llpanelmediasettingspermissions.cpp
     llpanelmediasettingssecurity.cpp
@@ -529,8 +527,6 @@ set(viewer_SOURCE_FILES
     llpanelpeople.cpp
     llpanelpeoplemenus.cpp
     llpanelpermissions.cpp
-    llpanelpick.cpp
-    llpanelpicks.h
     llpanelplaceinfo.cpp
     llpanelplaceprofile.cpp
     llpanelplaces.cpp
@@ -818,7 +814,6 @@ set(viewer_HEADER_FILES
     fsfloaterexport.h    
     fsfloaterimport.h
     fsfloaterposestand.h
-    fsfloaterprofile.h
     fsfloatersearch.h
     fskeywords.h
     fspanelclassified.h
@@ -1189,7 +1184,6 @@ set(viewer_HEADER_FILES
     llpanelmaininventory.h
     llpanelmarketplaceinbox.h
     llpanelmarketplaceinboxinventory.h
-    llpanelme.h
     llpanelmediasettingsgeneral.h
     llpanelmediasettingspermissions.h
     llpanelmediasettingssecurity.h
@@ -1203,8 +1197,6 @@ set(viewer_HEADER_FILES
     llpanelpeople.h
     llpanelpeoplemenus.h
     llpanelpermissions.h
-    llpanelpick.h
-    llpanelpicks.h
     llpanelplaceinfo.h
     llpanelplaceprofile.h
     llpanelplaces.h
