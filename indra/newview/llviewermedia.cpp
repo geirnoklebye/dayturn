@@ -75,6 +75,7 @@
 #include "llcorehttputil.h"
 
 #include "llfloaterwebcontent.h"	// for handling window close requests and geometry change requests in media browser windows.
+#include "llpanelprofile.h" // for getProfileURL(). FIXME: move the method to LLAvatarActions
 
 #include <boost/bind.hpp>	// for SkinFolder listener
 #include <boost/signals2.hpp>

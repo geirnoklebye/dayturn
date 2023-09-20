@@ -55,13 +55,16 @@ enum EAvatarProcessorType
 	APT_GROUPS,
 	APT_PICKS,
 	APT_PICK_INFO,
+//<FS:KC legacy profiles>
+	APT_INTERESTS_INFO,
+//</FS:KC legacy profiles>
 	APT_TEXTURES,
-    APT_INTERESTS_INFO,
 	APT_CLASSIFIEDS,
 	APT_CLASSIFIED_INFO
 };
 
-struct LLInterestsData
+//<FS:KC legacy profiles>
+struct FSInterestsData
 {
     LLUUID      agent_id;
     LLUUID      avatar_id; //target id
@@ -71,6 +74,7 @@ struct LLInterestsData
     std::string skills_text;
     std::string languages_text;
 };
+//</FS:KC legacy profiles>
 
 struct LLAvatarData
 {
@@ -134,7 +138,7 @@ struct LLAvatarGroups
 {
 	LLUUID agent_id;
 	LLUUID avatar_id; //target id
-	BOOL list_in_profile;
+	bool list_in_profile;
 
 	struct LLGroupData;
 	typedef std::list<LLGroupData> group_list_t;
@@ -144,7 +148,7 @@ struct LLAvatarGroups
 	struct LLGroupData
 	{
 		U64 group_powers;
-		BOOL accept_notices;
+		bool accept_notices;
 		std::string group_title;
 		LLUUID group_id;
 		std::string group_name;
@@ -235,7 +239,9 @@ public:
 
 	void sendClassifiedDelete(const LLUUID& classified_id);
 
-    void sendInterestsInfoUpdate(const LLInterestsData* interests_data);
+//<FS:KC legacy profiles>
+	void sendInterestsInfoUpdate(const FSInterestsData* interests_data);
+//</FS:KC legacy profiles>
 
 	// Returns translated, human readable string for account type, such
 	// as "Resident" or "Linden Employee".  Used for profiles, inspectors.
@@ -247,8 +253,6 @@ public:
 	static std::string paymentInfo(const LLAvatarData* avatar_data);
 
 	static bool hasPaymentInfoOnFile(const LLAvatarData* avatar_data);
-
-    static void requestAvatarPropertiesCoro(std::string cap_url, LLUUID agent_id);
 
 	static void processAvatarPropertiesReply(LLMessageSystem* msg, void**);
 
@@ -268,10 +272,7 @@ public:
 
 protected:
 
-	void sendRequest(const LLUUID& avatar_id, EAvatarProcessorType type, const std::string &method);
-    void sendGenericRequest(const LLUUID& avatar_id, EAvatarProcessorType type, const std::string &method);
-    void sendAvatarPropertiesRequestMessage(const LLUUID& avatar_id);
-    void initAgentProfileCapRequest(const LLUUID& avatar_id, const std::string& cap_url);
+	void sendGenericRequest(const LLUUID& avatar_id, EAvatarProcessorType type, const std::string method);
 
 	void notifyObservers(const LLUUID& id,void* data, EAvatarProcessorType type);
 

@@ -49,7 +49,6 @@
 #include "llfloaterreg.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterpay.h"
-#include "llfloaterprofile.h"
 #include "llfloatersidepanelcontainer.h"
 #include "llfloaterwebcontent.h"
 #include "llfloaterworldmap.h"
@@ -79,7 +78,8 @@
 #include "llcallingcard.h"
 #include "llslurl.h"			// IDEVO
 #include "llsidepanelinventory.h"
-#include "llavatarname.h"
+//<FS:KC legacy profiles>
+#include "fsfloaterprofile.h"
 #include "llagentui.h"
 #include "lluiusage.h"
 
@@ -91,19 +91,6 @@ extern LLVOAvatar *find_avatar_from_object(const LLUUID &object_id);
 const U32 KICK_FLAGS_DEFAULT	= 0x0;
 const U32 KICK_FLAGS_FREEZE		= 1 << 0;
 const U32 KICK_FLAGS_UNFREEZE	= 1 << 1;
-
-
-std::string getProfileURL(const std::string& agent_name, bool feed_only)
-{
-    std::string url = "[WEB_PROFILE_URL][AGENT_NAME][FEED_ONLY]";
-	LLSD subs;
-	subs["WEB_PROFILE_URL"] = LLGridManager::getInstance()->getWebProfileURL();
-	subs["AGENT_NAME"] = agent_name;
-    subs["FEED_ONLY"] = feed_only ? "/?feed_only=true" : "";
-	url = LLWeb::expandURLSubstitutions(url, subs);
-	LLStringUtil::toLower(url);
-	return url;
-}
 
 
 // static
@@ -343,144 +330,70 @@ void LLAvatarActions::startConference(const uuid_vec_t& ids, const LLUUID& float
 	make_ui_sound("UISndStartIM");
 }
 
-// static
-void LLAvatarActions::showProfile(const LLUUID& avatar_id)
+static const char* get_profile_floater_name(const LLUUID& avatar_id)
 {
-	if (avatar_id.notNull())
+	// Use different floater XML for our profile to be able to save its rect.
+	return avatar_id == gAgentID ? "my_profile" : "profile";
+}
+
+static void on_avatar_name_show_profile(const LLUUID& agent_id, const LLAvatarName& av_name)
+{
+	std::string url = getProfileURL(av_name.getAccountName());
+
+	// PROFILES: open in webkit window
+	LLFloaterWebContent::Params p;
+	p.url(url).id(agent_id.asString());
+	LLFloaterReg::showInstance(get_profile_floater_name(agent_id), p);
+}
+
+// static
+void LLAvatarActions::showProfile(const LLUUID& id)
+{
+	if (id.notNull())
 	{
-		LLFloaterReg::showInstance("profile", LLSD().with("id", avatar_id));
+		showProfileLegacy(id);
+//</FS:KC legacy profiles>s
 	}
-}
-
-// static
-void LLAvatarActions::showPicks(const LLUUID& avatar_id)
-{
-	if (avatar_id.notNull())
-	{
-        LLFloaterProfile* profilefloater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", avatar_id)));
-        if (profilefloater)
-        {
-            profilefloater->showPick();
-        }
-	}
-}
-
-// static
-void LLAvatarActions::showPick(const LLUUID& avatar_id, const LLUUID& pick_id)
-{
-	if (avatar_id.notNull())
-	{
-        LLFloaterProfile* profilefloater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", avatar_id)));
-        if (profilefloater)
-        {
-            profilefloater->showPick(pick_id);
-        }
-	}
-}
-
-// static
-void LLAvatarActions::createPick()
-{
-    LLFloaterProfile* profilefloater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", gAgent.getID())));
-    LLViewerRegion* region = gAgent.getRegion();
-    if (profilefloater && region)
-    {
-        LLPickData data;
-        data.pos_global = gAgent.getPositionGlobal();
-        data.sim_name = region->getName();
-
-        LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-        if (parcel)
-        {
-            data.name = parcel->getName();
-            data.desc = parcel->getDesc();
-            data.snapshot_id = parcel->getSnapshotID();
-            data.parcel_id = parcel->getID();
-        }
-        else
-        {
-            data.name = region->getName();
-        }
-
-        profilefloater->createPick(data);
-    }
-}
-
-// static
-bool LLAvatarActions::isPickTabSelected(const LLUUID& avatar_id)
-{
-    if (avatar_id.notNull())
-    {
-        LLFloaterProfile* profilefloater = LLFloaterReg::findTypedInstance<LLFloaterProfile>("profile", LLSD().with("id", avatar_id));
-        if (profilefloater)
-        {
-            return profilefloater->isPickTabSelected();
-        }
-    }
-    return false;
-}
-
-// static
-void LLAvatarActions::showClassifieds(const LLUUID& avatar_id)
-{
-	if (avatar_id.notNull())
-	{
-        LLFloaterProfile* profilefloater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", avatar_id)));
-        if (profilefloater)
-        {
-            profilefloater->showClassified();
-        }
-	}
-}
-
-// static
-void LLAvatarActions::showClassified(const LLUUID& avatar_id, const LLUUID& classified_id, bool edit)
-{
-	if (avatar_id.notNull())
-	{
-        LLFloaterProfile* profilefloater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", avatar_id)));
-        if (profilefloater)
-        {
-            profilefloater->showClassified(classified_id, edit);
-        }
-	}
-}
-
-// static
-void LLAvatarActions::createClassified()
-{
-    LLFloaterProfile* profilefloater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", gAgent.getID())));
-    if (profilefloater)
-    {
-        profilefloater->createClassified();
-    }
 }
 
 //static 
-bool LLAvatarActions::profileVisible(const LLUUID& avatar_id)
+bool LLAvatarActions::profileVisible(const LLUUID& id)
 {
 	LLSD sd;
-	sd["id"] = avatar_id;
-	LLFloater* floater = getProfileFloater(avatar_id);
-	return floater && floater->isShown();
+	sd["id"] = id;
+	LLFloater* browser = getProfileFloater(id);
+	return browser && browser->isShown();
 }
 
 //static
-LLFloater* LLAvatarActions::getProfileFloater(const LLUUID& avatar_id)
+LLFloater* LLAvatarActions::getProfileFloater(const LLUUID& id)
 {
-    LLFloaterProfile* floater = LLFloaterReg::findTypedInstance<LLFloaterProfile>("profile", LLSD().with("id", avatar_id));
-    return floater;
+	FSFloaterProfile *browser = dynamic_cast<FSFloaterProfile*>
+		(LLFloaterReg::findInstance("floater_profile", LLSD().with("id", id)));
+	return browser;
+//</FS:KC legacy profiles>
+ }
+
+//<FS:KC legacy profiles>
+// static
+void LLAvatarActions::showProfileLegacy(const LLUUID& id)
+{
+	if (id.notNull())
+	{
+        LLFloaterReg::showInstance("floater_profile", LLSD().with("id", id));
+	}
 }
+//</FS:KC legacy profiles>
 
 //static 
-void LLAvatarActions::hideProfile(const LLUUID& avatar_id)
+void LLAvatarActions::hideProfile(const LLUUID& id)
 {
 	LLSD sd;
-	sd["id"] = avatar_id;
-	LLFloater* floater = getProfileFloater(avatar_id);
-	if (floater)
+	sd["id"] = id;
+	LLFloater* browser = getProfileFloater(id);
+	if (browser)
 	{
-		floater->closeFloater();
+		browser->closeFloater();
 	}
 }
 
@@ -815,7 +728,7 @@ namespace action_give_inventory
 	 */
 	static LLInventoryPanel* get_active_inventory_panel()
 	{
-		LLInventoryPanel* active_panel = LLInventoryPanel::getActiveInventoryPanel(false);
+		LLInventoryPanel* active_panel = LLInventoryPanel::getActiveInventoryPanel(FALSE);
 		LLFloater* floater_appearance = LLFloaterReg::findInstance("appearance");
 		if (!active_panel || (floater_appearance && floater_appearance->hasFocus()))
 		{

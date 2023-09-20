@@ -1,10 +1,10 @@
 /** 
  * @file llpanelclassified.h
- * @brief LLPanelClassifiedInfo class definition
+ * @brief LLPanelClassified class definition
  *
- * $LicenseInfo:firstyear=2021&license=viewerlgpl$
+ * $LicenseInfo:firstyear=2005&license=viewerlgpl$
  * Second Life Viewer Source Code
- * Copyright (C) 2021, Linden Research, Inc.
+ * Copyright (C) 2010, Linden Research, Inc.
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,16 +35,39 @@
 #include "llfloater.h"
 #include "llpanel.h"
 #include "llrect.h"
+#include "lluuid.h"
+#include "v3dmath.h"
+#include "llcoros.h"
+#include "lleventcoro.h"
 
 class LLScrollContainer;
 class LLTextureCtrl;
+class LLUICtrl;
+
+class LLPublishClassifiedFloater : public LLFloater
+{
+public:
+	LLPublishClassifiedFloater(const LLSD& key);
+	virtual ~LLPublishClassifiedFloater();
+
+	/*virtual*/ bool postBuild();
+
+	void setPrice(S32 price);
+	S32 getPrice();
+
+	void setPublishClickedCallback(const commit_signal_t::slot_type& cb);
+	void setCancelClickedCallback(const commit_signal_t::slot_type& cb);
+
+private:
+};
 
 class LLPanelClassifiedInfo : public LLPanel, public LLAvatarPropertiesObserver
 {
 	LOG_CLASS(LLPanelClassifiedInfo);
 public:
 
-	LLPanelClassifiedInfo();
+	static LLPanelClassifiedInfo* create();
+
 	virtual ~LLPanelClassifiedInfo();
 
 	/*virtual*/ void onOpen(const LLSD& key);
@@ -112,11 +135,17 @@ public:
 			const LLVector3d& global_pos,
 			const std::string& sim_name);
 
+	void setExitCallback(const commit_callback_t& cb);
+
+	void setEditClassifiedCallback(const commit_callback_t& cb);
+
 	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	/*virtual*/ void draw();
 
 protected:
+
+	LLPanelClassifiedInfo();
 
 	virtual void resetData();
 
@@ -136,6 +165,7 @@ protected:
 
 	void onMapClick();
 	void onTeleportClick();
+	void onExit();
 
 	bool mSnapshotStreched;
 	LLRect mSnapshotRect;
@@ -173,6 +203,102 @@ private: // </FS:ND>
 
 	typedef std::list<LLPanelClassifiedInfo*> panel_list_t;
 	static panel_list_t sAllPanels;
+};
+
+class LLPanelClassifiedEdit : public LLPanelClassifiedInfo
+{
+	LOG_CLASS(LLPanelClassifiedEdit);
+public:
+
+	static LLPanelClassifiedEdit* create();
+
+	virtual ~LLPanelClassifiedEdit();
+
+	/*virtual*/ bool postBuild();
+
+	void fillIn(const LLSD& key);
+
+	/*virtual*/ void onOpen(const LLSD& key);
+
+	/*virtual*/ void processProperties(void* data, EAvatarProcessorType type);
+
+	/*virtual*/ bool isDirty() const;
+
+	/*virtual*/ void resetDirty();
+
+	void setSaveCallback(const commit_signal_t::slot_type& cb);
+
+	void setCancelCallback(const commit_signal_t::slot_type& cb);
+
+	/*virtual*/ void resetControls();
+
+	bool isNew() { return mIsNew; }
+
+	bool isNewWithErrors() { return mIsNewWithErrors; }
+
+	bool canClose();
+
+	void draw();
+
+	void stretchSnapshot();
+
+	U32 getCategory();
+
+	void setCategory(U32 category);
+
+	U32 getContentType();
+
+	void setContentType(U32 content_type);
+
+	bool getAutoRenew();
+
+	S32 getPriceForListing();
+
+protected:
+
+	LLPanelClassifiedEdit();
+
+	void sendUpdate();
+
+	void enableVerbs(bool enable);
+
+	void enableEditing(bool enable);
+
+	void showEditing(bool show);
+
+	std::string makeClassifiedName();
+
+	void setPriceForListing(S32 price);
+
+	U8 getFlags();
+
+	std::string getLocationNotice();
+
+	bool isValidName();
+
+	void notifyInvalidName();
+
+	void onSetLocationClick();
+	void onChange();
+	void onSaveClick();
+
+	void doSave();
+
+	void onPublishFloaterPublishClicked();
+
+	void onTexturePickerMouseEnter(LLUICtrl* ctrl);
+	void onTexturePickerMouseLeave(LLUICtrl* ctrl);
+
+	void onTextureSelected();
+
+private:
+	bool mIsNew;
+	bool mIsNewWithErrors;
+	bool mCanClose;
+
+	LLPublishClassifiedFloater* mPublishFloater;
+
+	commit_signal_t mSaveButtonClickedSignal;
 };
 
 #endif // LL_LLPANELCLASSIFIED_H

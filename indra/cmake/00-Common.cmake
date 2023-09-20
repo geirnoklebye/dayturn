@@ -54,7 +54,7 @@ if (DARWIN)
   add_definitions(-DLL_DARWIN=1)
   set(CMAKE_CXX_LINK_FLAGS "-Wl,-headerpad_max_install_names,-search_paths_first,-rpath,@loader_path/../Frameworks")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
-  set(DARWIN_extra_cstar_flags "-Wbool-conversion -Wno-unused-local-typedef -Wno-deprecated-declarations -Wobjc-signed-char-bool-implicit-int-conversion")
+  set(DARWIN_extra_cstar_flags "-Wbool-conversion -Wno-unused-local-typedef -Wno-deprecated-declarations -Wobjc-signed-char-bool-implicit-int-conversion -Woverloaded-virtual")
   # Ensure that CMAKE_CXX_FLAGS has the correct -g debug information format --
   # see Variables.cmake.
   string(REPLACE "-gdwarf-2" "-g${CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT}"

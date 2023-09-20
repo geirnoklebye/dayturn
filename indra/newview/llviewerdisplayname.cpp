@@ -31,8 +31,6 @@
 // viewer includes
 #include "lggcontactsets.h"
 #include "llagent.h"
-#include "llfloaterprofile.h"
-#include "llfloaterreg.h"
 #include "llviewercontrol.h"
 #include "llviewerregion.h"
 #include "llvoavatar.h"
@@ -87,7 +85,7 @@ void LLViewerDisplayName::set(const std::string& display_name, const set_name_sl
 	LLSD change_array = LLSD::emptyArray();
 	change_array.append(av_name.getDisplayName());
 	change_array.append(display_name);
-	
+
 	LL_INFOS() << "Set name POST to " << cap_url << LL_ENDL;
 
 	// Record our caller for when the server sends back a reply
@@ -220,12 +218,6 @@ class LLDisplayNameUpdate : public LLHTTPNode
 		{
 			LLViewerDisplayName::sNameChangedSignal();
 		}
-
-        LLFloaterProfile* profile_floater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::findInstance("profile", LLSD().with("id", agent_id)));
-        if (profile_floater)
-        {
-            profile_floater->refreshName();
-        }
 	}
 };
 

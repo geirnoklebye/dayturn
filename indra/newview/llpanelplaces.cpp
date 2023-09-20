@@ -239,6 +239,7 @@ LLPanelPlaces::LLPanelPlaces()
 		mFilterEditor(NULL),
 		mPlaceProfile(NULL),
 		mLandmarkInfo(NULL),
+		mPickPanel(NULL),
 		mItem(NULL),
 		mPlaceMenu(NULL),
 		mLandmarkMenu(NULL),
@@ -952,11 +953,28 @@ void LLPanelPlaces::onOverflowMenuItemClicked(const LLSD& param)
 	}
 	else if (item == "pick")
 	{
+		if (mPickPanel == NULL)
+		{
+			mPickPanel = LLPanelPickEdit::create();
+			addChild(mPickPanel);
+
+			mPickPanel->setExitCallback(boost::bind(&LLPanelPlaces::togglePickPanel, this, FALSE));
+			mPickPanel->setCancelCallback(boost::bind(&LLPanelPlaces::togglePickPanel, this, FALSE));
+			mPickPanel->setSaveCallback(boost::bind(&LLPanelPlaces::togglePickPanel, this, FALSE));
+		}
+
+		togglePickPanel(TRUE);
+		mPickPanel->onOpen(LLSD());
+
 		LLPanelPlaceInfo* panel = getCurrentInfoPanel();
 		if (panel)
 		{
-			panel->createPick(mPosGlobal);
+			panel->createPick(mPosGlobal, mPickPanel);
 		}
+
+		LLRect rect = getRect();
+		mPickPanel->reshape(rect.getWidth(), rect.getHeight());
+		mPickPanel->setRect(rect);
 	}
 	else if (item == "add_to_favbar")
 	{
@@ -1031,6 +1049,17 @@ bool LLPanelPlaces::handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_t
         return mActivePanel->handleDragAndDropToTrash(drop, cargo_type, cargo_data, accept);
     }
     return false;
+}
+
+void LLPanelPlaces::togglePickPanel(BOOL visible)
+{
+	if (mPickPanel)
+	{
+		mPickPanel->setVisible(visible);
+		mPlaceProfile->setVisible(!visible);
+		updateVerbs();
+	}
+
 }
 
 void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
@@ -1281,11 +1310,15 @@ void LLPanelPlaces::updateVerbs()
 
 	bool is_agent_place_info_visible = mPlaceInfoType == AGENT_INFO_TYPE;
 	bool is_create_landmark_visible = mPlaceInfoType == CREATE_LANDMARK_INFO_TYPE;
-
+	bool is_pick_panel_visible = false;
+	if(mPickPanel)
+	{
+		is_pick_panel_visible = mPickPanel->isInVisibleChain();
+	}
 	bool have_3d_pos = ! mPosGlobal.isExactlyZero();
 
-	mTeleportBtn->setVisible(!is_create_landmark_visible && !isLandmarkEditModeOn);
-	mShowOnMapBtn->setVisible(!is_create_landmark_visible && !isLandmarkEditModeOn);
+	mTeleportBtn->setVisible(!is_create_landmark_visible && !isLandmarkEditModeOn && !is_pick_panel_visible);
+	mShowOnMapBtn->setVisible(!is_create_landmark_visible && !isLandmarkEditModeOn && !is_pick_panel_visible);
 	mSaveBtn->setVisible(isLandmarkEditModeOn);
 	mCancelBtn->setVisible(isLandmarkEditModeOn);
 	mCloseBtn->setVisible(is_create_landmark_visible && !isLandmarkEditModeOn);

@@ -38,6 +38,7 @@ class LLLandmark;
 class LLPanelLandmarkInfo;
 class LLPanelPlaceProfile;
 
+class LLPanelPickEdit;
 class LLPanelPlaceInfo;
 class LLPanelPlacesTab;
 class LLParcelSelection;
@@ -101,6 +102,7 @@ private:
     void onRemoveButtonClicked();
     bool handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_type, void* cargo_data, EAcceptance* accept);
 
+	void togglePickPanel(BOOL visible);
 	void togglePlaceInfoPanel(BOOL visible);
 
 	/*virtual*/ void onVisibilityChange(bool new_visibility);
@@ -117,6 +119,7 @@ private:
 	LLPanelPlaceProfile*		mPlaceProfile;
 	LLPanelLandmarkInfo*		mLandmarkInfo;
 
+	LLPanelPickEdit*			mPickPanel;
 	LLToggleableMenu*			mPlaceMenu;
 	LLToggleableMenu*			mLandmarkMenu;
 

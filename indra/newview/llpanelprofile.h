@@ -62,348 +62,71 @@ class LLPanelProfileClassifieds;
 class LLPanelProfilePicks;
 class LLViewerFetchedTexture;
 
+std::string getProfileURL(const std::string& agent_name);
 
 /**
-* Panel for displaying Avatar's second life related info.
+* Base class for Profile View and My Profile.
 */
-class LLPanelProfileSecondLife
-	: public LLPanelProfileTab
-	, public LLFriendObserver
-	, public LLVoiceClientStatusObserver
+class LLPanelProfile : public LLPanel
 {
+	LOG_CLASS(LLPanelProfile);
+
 public:
-	LLPanelProfileSecondLife();
-	/*virtual*/ ~LLPanelProfileSecondLife();
+	/*virtual*/ bool postBuild();
+	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
+	/*virtual*/ void onOpen(const LLSD& key);
 
-	void onOpen(const LLSD& key) override;
+	virtual void openPanel(LLPanel* panel, const LLSD& params);
 
-	/**
-	 * LLFriendObserver trigger
-	 */
-	void changed(U32 mask) override;
+	virtual void closePanel(LLPanel* panel);
 
-	// Implements LLVoiceClientStatusObserver::onChange() to enable the call
-	// button when voice is available
-	void onChange(EStatusType status, const std::string &channelURI, bool proximal) override;
-
-	void setAvatarId(const LLUUID& avatar_id) override;
-
-	bool postBuild() override;
-
-	void resetData() override;
-
-	/**
-	 * Sends update data request to server.
-	 */
-	void updateData() override;
-    void refreshName();
-
-	void onAvatarNameCache(const LLUUID& agent_id, const LLAvatarName& av_name);
-
-    void setProfileImageUploading(bool loading);
-    void setProfileImageUploaded(const LLUUID &image_asset_id);
-
-    bool hasUnsavedChanges() override;
-    void commitUnsavedChanges() override;
-
-    friend void request_avatar_properties_coro(std::string cap_url, LLUUID agent_id);
+	S32 notifyParent(const LLSD& info);
 
 protected:
-	/**
-	 * Process profile related data received from server.
-	 */
-	void processProfileProperties(const LLAvatarData* avatar_data);
 
-	/**
-	 * Processes group related data received from server.
-	 */
-	void processGroupProperties(const LLAvatarGroups* avatar_groups);
+	LLPanelProfile();
 
-	/**
-	 * Fills common for Avatar profile and My Profile fields.
-	 */
-	void fillCommonData(const LLAvatarData* avatar_data);
+	virtual void onTabSelected(const LLSD& param);
 
-	/**
-	 * Fills partner data.
-	 */
-	void fillPartnerData(const LLAvatarData* avatar_data);
+	const LLUUID& getAvatarId() { return mAvatarId; }
 
-	/**
-	 * Fills account status.
-	 */
-	void fillAccountStatus(const LLAvatarData* avatar_data);
+	void setAvatarId(const LLUUID& avatar_id) { mAvatarId = avatar_id; }
 
-    /**
-     * Sets permissions specific icon
-     */
-    void fillRightsData();
+	typedef std::map<std::string, LLPanelProfileTab*> profile_tabs_t;
 
-    /**
-     * Fills user name, display name, age.
-     */
-    void fillAgeData(const LLDate &born_on);
-
-    void onImageLoaded(bool success, LLViewerFetchedTexture *imagep);
-    static void onImageLoaded(bool success,
-                              LLViewerFetchedTexture *src_vi,
-                              LLImageRaw* src,
-                              LLImageRaw* aux_src,
-                              S32 discard_level,
-                              bool final,
-                              void* userdata);
-
-	/**
-	 * Displays avatar's online status if possible.
-	 *
-	 * Requirements from EXT-3880:
-	 * For friends:
-	 * - Online when online and privacy settings allow to show
-	 * - Offline when offline and privacy settings allow to show
-	 * - Else: nothing
-	 * For other avatars:
-	 *	- Online when online and was not set in Preferences/"Only Friends & Groups can see when I am online"
-	 *	- Else: Offline
-	 */
-	void updateOnlineStatus();
-	void processOnlineStatus(bool is_friend, bool show_online, bool online);
+	profile_tabs_t& getTabContainer() { return mTabContainer; }
 
 private:
-    void setLoaded() override;
-    void onCommitMenu(const LLSD& userdata);
-    bool onEnableMenu(const LLSD& userdata);
-    bool onCheckMenu(const LLSD& userdata);
-	void onAvatarNameCacheSetName(const LLUUID& id, const LLAvatarName& av_name);
 
-    void setDescriptionText(const std::string &text);
-    void onSetDescriptionDirty();
-    void onShowInSearchCallback();
-    void onSaveDescriptionChanges();
-    void onDiscardDescriptionChanges();
-    void onShowAgentPermissionsDialog();
-    void onShowAgentProfileTexture();
-    void onShowTexturePicker();
-    void onCommitProfileImage(const LLUUID& id);
+	//-- ChildStack begins ----------------------------------------------------
+	class ChildStack
+	{
+		LOG_CLASS(LLPanelProfile::ChildStack);
+	public:
+		ChildStack();
+		~ChildStack();
+		void setParent(LLPanel* parent);
 
-private:
-	typedef std::map<std::string, LLUUID> group_map_t;
-	group_map_t				mGroups;
-	void					openGroupProfile();
+		bool push();
+		bool pop();
+		void preParentReshape();
+		void postParentReshape();
 
-	LLGroupList*		mGroupList;
-    LLComboBox*			mShowInSearchCombo;
-    LLIconCtrl*			mSecondLifePic;
-	LLPanel*			mSecondLifePicLayout;
-    LLTextEditor*		mDescriptionEdit;
-    LLMenuButton*		mAgentActionMenuButton;
-    LLButton*			mSaveDescriptionChanges;
-    LLButton*			mDiscardDescriptionChanges;
-    LLIconCtrl*			mCanSeeOnlineIcon;
-    LLIconCtrl*			mCantSeeOnlineIcon;
-    LLIconCtrl*			mCanSeeOnMapIcon;
-    LLIconCtrl*			mCantSeeOnMapIcon;
-    LLIconCtrl*			mCanEditObjectsIcon;
-    LLIconCtrl*			mCantEditObjectsIcon;
+	private:
+		void dump();
 
-    LLHandle<LLFloater>	mFloaterPermissionsHandle;
-    LLHandle<LLFloater>	mFloaterProfileTextureHandle;
-    LLHandle<LLFloater>	mFloaterTexturePickerHandle;
+		typedef LLView::child_list_t view_list_t;
+		typedef std::list<view_list_t> stack_t;
 
-    bool				mHasUnsavedDescriptionChanges;
-	bool				mVoiceStatus;
-    bool				mWaitingForImageUpload;
-    bool				mAllowPublish;
-    std::string			mDescriptionText;
-    LLUUID				mImageId;
+		stack_t		mStack;
+		stack_t		mSavedStack;
+		LLPanel*	mParent;
+	};
+	//-- ChildStack ends ------------------------------------------------------
 
-	boost::signals2::connection	mAvatarNameCacheConnection;
-};
-
-
-/**
-* Panel for displaying Avatar's web profile and home page.
-*/
-class LLPanelProfileWeb
-	: public LLPanelProfileTab
-	, public LLViewerMediaObserver
-{
-public:
-	LLPanelProfileWeb();
-	/*virtual*/ ~LLPanelProfileWeb();
-
-	void onOpen(const LLSD& key) override;
-
-	bool postBuild() override;
-
-	void resetData() override;
-
-	/**
-	 * Loads web profile.
-	 */
-	void updateData() override;
-
-	void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event) override;
-
-	void onAvatarNameCache(const LLUUID& agent_id, const LLAvatarName& av_name);
-
-    friend void request_avatar_properties_coro(std::string cap_url, LLUUID agent_id);
-
-protected:
-	void onCommitLoad(LLUICtrl* ctrl);
-
-private:
-	std::string			mURLHome;
-	std::string			mURLWebProfile;
-	LLMediaCtrl*		mWebBrowser;
-
-	LLFrameTimer		mPerformanceTimer;
-	bool				mFirstNavigate;
-
-	boost::signals2::connection	mAvatarNameCacheConnection;
-};
-
-/**
-* Panel for displaying Avatar's first life related info.
-*/
-class LLPanelProfileFirstLife
-	: public LLPanelProfileTab
-{
-public:
-	LLPanelProfileFirstLife();
-	/*virtual*/ ~LLPanelProfileFirstLife();
-
-	void onOpen(const LLSD& key) override;
-
-	bool postBuild() override;
-
-    void processProperties(const LLAvatarData* avatar_data);
-
-	void resetData() override;
-
-    void setProfileImageUploading(bool loading);
-    void setProfileImageUploaded(const LLUUID &image_asset_id);
-
-    bool hasUnsavedChanges() override { return mHasUnsavedChanges; }
-    void commitUnsavedChanges() override;
-
-    friend void request_avatar_properties_coro(std::string cap_url, LLUUID agent_id);
-
-protected:
-	void setLoaded() override;
-
-    void onUploadPhoto();
-    void onChangePhoto();
-    void onRemovePhoto();
-    void onCommitPhoto(const LLUUID& id);
-    void setDescriptionText(const std::string &text);
-    void onSetDescriptionDirty();
-    void onSaveDescriptionChanges();
-    void onDiscardDescriptionChanges();
-
-	LLTextEditor*	mDescriptionEdit;
-    LLIconCtrl*		mPicture;
-    LLButton* mUploadPhoto;
-    LLButton* mChangePhoto;
-    LLButton* mRemovePhoto;
-    LLButton* mSaveChanges;
-    LLButton* mDiscardChanges;
-
-    LLHandle<LLFloater>	mFloaterTexturePickerHandle;
-
-    std::string		mCurrentDescription;
-    LLUUID			mImageId;
-    bool			mHasUnsavedChanges;
-};
-
-/**
- * Panel for displaying Avatar's notes and modifying friend's rights.
- */
-class LLPanelProfileNotes
-	: public LLPanelProfileTab
-{
-public:
-	LLPanelProfileNotes();
-	/*virtual*/ ~LLPanelProfileNotes();
-
-	void setAvatarId(const LLUUID& avatar_id) override;
-
-	void onOpen(const LLSD& key) override;
-
-	bool postBuild() override;
-
-    void processProperties(LLAvatarNotes* avatar_notes);
-
-	void resetData() override;
-
-	void updateData() override;
-
-    bool hasUnsavedChanges() override { return mHasUnsavedChanges; }
-    void commitUnsavedChanges() override;
-
-protected:
-    void setNotesText(const std::string &text);
-    void onSetNotesDirty();
-    void onSaveNotesChanges();
-    void onDiscardNotesChanges();
-
-	LLTextEditor*       mNotesEditor;
-    LLButton* mSaveChanges;
-    LLButton* mDiscardChanges;
-
-    std::string		mCurrentNotes;
-    bool			mHasUnsavedChanges;
-};
-
-
-/**
-* Container panel for the profile tabs
-*/
-class LLPanelProfile
-    : public LLPanelProfileTab
-{
-public:
-    LLPanelProfile();
-    /*virtual*/ ~LLPanelProfile();
-
-    bool postBuild() override;
-
-    void updateData() override;
-    void refreshName();
-
-    void onOpen(const LLSD& key) override;
-
-    void createPick(const LLPickData &data);
-    void showPick(const LLUUID& pick_id = LLUUID::null);
-    bool isPickTabSelected();
-    bool isNotesTabSelected();
-    bool hasUnsavedChanges() override;
-    bool hasUnpublishedClassifieds();
-    void commitUnsavedChanges() override;
-
-    void showClassified(const LLUUID& classified_id = LLUUID::null, bool edit = false);
-    void createClassified();
-
-    LLAvatarData getAvatarData() { return mAvatarData; };
-
-    friend void request_avatar_properties_coro(std::string cap_url, LLUUID agent_id);
-
-private:
-    void onTabChange();
-
-    LLPanelProfileSecondLife*   mPanelSecondlife;
-    LLPanelProfileWeb*          mPanelWeb;
-    LLPanelProfilePicks*        mPanelPicks;
-    LLPanelProfileClassifieds*  mPanelClassifieds;
-    LLPanelProfileFirstLife*    mPanelFirstlife;
-    LLPanelProfileNotes*        mPanelNotes;
-    LLTabContainer*             mTabContainer;
-
-    // Todo: due to server taking minutes to update this needs a more long term storage
-    // to reuse recently saved values if user opens floater again
-    // Storage implementation depends onto how a cap will be implemented, if cap will be
-    // enought to fully update LLAvatarPropertiesProcessor, then this storage can be
-    // implemented there.
-    LLAvatarData mAvatarData;
+	profile_tabs_t mTabContainer;
+	ChildStack		mChildStack;
+	LLUUID mAvatarId;
 };
 
 #endif //LL_LLPANELPROFILE_H

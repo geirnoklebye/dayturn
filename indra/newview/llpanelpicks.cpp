@@ -42,10 +42,15 @@
 #include "lltoggleablemenu.h"
 #include "lltrans.h"
 #include "llviewergenericmessage.h"	// send_generic_message
+#include "llmenugl.h"
 #include "llviewermenu.h"
+#include "llregistry.h"
 
 #include "llaccordionctrl.h"
 #include "llaccordionctrltab.h"
+#include "llavatarpropertiesprocessor.h"
+#include "llfloatersidepanelcontainer.h"
+#include "llpanelavatar.h"
 #include "llpanelprofile.h"
 #include "llpanelpick.h"
 #include "llpanelclassified.h"
@@ -67,8 +72,9 @@ static const std::string CLASSIFIED_NAME("classified_name");
 static LLPanelInjector<LLPanelPicks> t_panel_picks("panel_picks");
 
 
-class LLPickHandler : public LLCommandHandler,
-					  public LLAvatarPropertiesObserver
+class LLPickHandler :
+        public LLCommandHandler,
+        public LLAvatarPropertiesObserver
 {
 public:
 
@@ -77,7 +83,7 @@ public:
 	// requires trusted browser to trigger
 	LLPickHandler() : LLCommandHandler("pick", UNTRUSTED_THROTTLE) { }
 
-	bool handle(const LLSD& params, const LLSD& query_map,
+	bool handle(const LLSD& params, const LLSD& query_map, const std::string& grid,
 		LLMediaCtrl* web)
 	{
 		if (LLStartUp::getStartupState() < STATE_STARTED)
@@ -182,7 +188,6 @@ public:
 		LLAvatarPropertiesProcessor::getInstance()->removeObserver(LLUUID(), this);
 	}
 };
-
 LLPickHandler gPickHandler;
 
 class LLClassifiedHandler :
@@ -197,7 +202,7 @@ public:
 
 	std::string mRequestVerb;
 	
-	bool handle(const LLSD& params, const LLSD& query_map, LLMediaCtrl* web)
+	bool handle(const LLSD& params, const LLSD& query_map, const std::string& grid, LLMediaCtrl* web)
 	{
 		if (LLStartUp::getStartupState() < STATE_STARTED)
 		{

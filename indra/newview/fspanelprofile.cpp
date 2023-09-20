@@ -992,11 +992,6 @@ void FSPanelProfileWeb::onCommitWebProfile(LLUICtrl* ctrl)
 			mPerformanceTimer.start();
 			mWebBrowser->navigateTo( mURLWebProfile, HTTP_CONTENT_TEXT_HTML );
 		}
-		else if (valstr == "popout")
-		{
-			// open the web profile floater
-			LLAvatarActions::showProfileWeb(getAvatarId());
-		}
 		else if (valstr == "external")
 		{
 			// open in external browser

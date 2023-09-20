@@ -29,7 +29,6 @@
 #include "fspanelprofileclassifieds.h"
 
 #include "llagent.h"
-#include "llagentpicksinfo.h"
 //#include "llavatarconstants.h"
 #include "llflatlistview.h"
 #include "llfloaterreg.h"
@@ -40,15 +39,9 @@
 #include "llviewergenericmessage.h"	// send_generic_message
 #include "llmenugl.h"
 #include "llviewermenu.h"
-#include "llviewergenericmessage.h"
-#include "llregistry.h"
 
-#include "llaccordionctrl.h"
 #include "llaccordionctrltab.h"
-#include "llavatarpropertiesprocessor.h"
 #include "fsdispatchclassifiedclickthrough.h"
-#include "fspanelprofile.h"
-#include "fspanelclassified.h"
 
 static const std::string XML_BTN_NEW = "new_btn";
 static const std::string XML_BTN_DELETE = "trash_btn";

@@ -27,15 +27,10 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpanelplaceinfo.h"
-#include "llfloaterprofile.h"
-#include "llfloaterreg.h"
 
 #include "llavatarname.h"
-#include "llsdutil.h"
 
 #include "llsdutil_math.h"
-
-#include "llregionhandle.h"
 
 #include "lliconctrl.h"
 #include "lltextbox.h"
@@ -44,10 +39,8 @@
 
 #include "llagent.h"
 #include "llexpandabletextbox.h"
-#include "llslurl.h"
+#include "llpanelpick.h"
 #include "lltexturectrl.h"
-#include "llviewerregion.h"
-#include "llhttpconstants.h"
 
 LLPanelPlaceInfo::LLPanelPlaceInfo()
 :	LLPanel(),
@@ -288,7 +281,7 @@ void LLPanelPlaceInfo::reshape(S32 width, S32 height, bool called_from_parent)
 	}
 }
 
-void LLPanelPlaceInfo::createPick(const LLVector3d& pos_global)
+void LLPanelPlaceInfo::createPick(const LLVector3d& pos_global, LLPanelPickEdit* pick_panel)
 {
 	LLPickData data;
 	data.pos_global = pos_global;
@@ -297,12 +290,7 @@ void LLPanelPlaceInfo::createPick(const LLVector3d& pos_global)
 	data.desc = mDescEditor->getText();
 	data.snapshot_id = mSnapshotCtrl->getImageAssetID();
 	data.parcel_id = mParcelID;
-
-    LLFloaterProfile* profile_floater = dynamic_cast<LLFloaterProfile*>(LLFloaterReg::showInstance("profile", LLSD().with("id", gAgentID)));
-    if (profile_floater)
-    {
-        profile_floater->createPick(data);
-    }
+	pick_panel->setPickData(&data);
 }
 
 // static

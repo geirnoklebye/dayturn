@@ -1,25 +1,25 @@
-/**
+/** 
  * @file llpanelavatar.cpp
  * @brief LLPanelAvatar and related class implementations
  *
  * $LicenseInfo:firstyear=2004&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- *
+ * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- *
+ * 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
+ * 
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -28,127 +28,165 @@
 #include "llpanelavatar.h"
 
 #include "llagent.h"
-#include "llloadingindicator.h"
+#include "llavataractions.h"
+#include "llcombobox.h"
+#include "lldateutil.h"			// ageFromDate()
+#include "llimview.h"
+#include "llnotificationsutil.h"
+#include "lltexteditor.h"
+#include "lltexturectrl.h"
 #include "lltooldraganddrop.h"
+#include "llavatariconctrl.h"
+#include "llfloaterreg.h"
+#include "llviewermenu.h" // is_agent_mappable
+#include "lltrans.h"
 
-//////////////////////////////////////////////////////////////////////////
-// LLProfileDropTarget
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Class LLDropTarget
+//
+// This handy class is a simple way to drop something on another
+// view. It handles drop events, always setting itself to the size of
+// its parent.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-LLProfileDropTarget::LLProfileDropTarget(const LLProfileDropTarget::Params& p)
-:   LLView(p),
-    mAgentID(p.agent_id)
+class LLDropTarget : public LLView
+{
+public:
+	struct Params : public LLInitParam::Block<Params, LLView::Params>
+	{
+		Optional<LLUUID> agent_id;
+		Params()
+		:	agent_id("agent_id")
+		{
+			changeDefault(mouse_opaque, false);
+			changeDefault(follows.flags, FOLLOWS_ALL);
+		}
+	};
+
+	LLDropTarget(const Params&);
+	~LLDropTarget();
+
+	void doDrop(EDragAndDropType cargo_type, void* cargo_data);
+
+	//
+	// LLView functionality
+	virtual bool handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
+								   EDragAndDropType cargo_type,
+								   void* cargo_data,
+								   EAcceptance* accept,
+								   std::string& tooltip_msg);
+	void setAgentID(const LLUUID &agent_id)		{ mAgentID = agent_id; }
+protected:
+	LLUUID mAgentID;
+};
+
+LLDropTarget::LLDropTarget(const LLDropTarget::Params& p) 
+:	LLView(p),
+	mAgentID(p.agent_id)
 {}
 
-void LLProfileDropTarget::doDrop(EDragAndDropType cargo_type, void* cargo_data)
+LLDropTarget::~LLDropTarget()
+{}
+
+void LLDropTarget::doDrop(EDragAndDropType cargo_type, void* cargo_data)
 {
-    LL_INFOS() << "LLProfileDropTarget::doDrop()" << LL_ENDL;
+	LL_INFOS() << "LLDropTarget::doDrop()" << LL_ENDL;
 }
 
-bool LLProfileDropTarget::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
-                                     EDragAndDropType cargo_type,
-                                     void* cargo_data,
-                                     EAcceptance* accept,
-                                     std::string& tooltip_msg)
+bool LLDropTarget::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
+									 EDragAndDropType cargo_type,
+									 void* cargo_data,
+									 EAcceptance* accept,
+									 std::string& tooltip_msg)
 {
-    if (getParent())
-    {
-        LLToolDragAndDrop::handleGiveDragAndDrop(mAgentID, LLUUID::null, drop,
-                                                 cargo_type, cargo_data, accept);
+	if(getParent())
+	{
+		LLToolDragAndDrop::handleGiveDragAndDrop(mAgentID, LLUUID::null, drop,
+												 cargo_type, cargo_data, accept);
 
-        return true;
-    }
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
-static LLDefaultChildRegistry::Register<LLProfileDropTarget> r("profile_drop_target");
+static LLDefaultChildRegistry::Register<LLDropTarget> r("drop_target");
 
 //////////////////////////////////////////////////////////////////////////
-// LLPanelProfileTab
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 LLPanelProfileTab::LLPanelProfileTab()
 : LLPanel()
 , mAvatarId(LLUUID::null)
-, mLoadingState(PROFILE_INIT)
-, mSelfProfile(false)
 {
 }
 
 LLPanelProfileTab::~LLPanelProfileTab()
 {
+	if(getAvatarId().notNull())
+	{
+		LLAvatarPropertiesProcessor::getInstance()->removeObserver(getAvatarId(),this);
+	}
 }
 
-void LLPanelProfileTab::setAvatarId(const LLUUID& avatar_id)
+void LLPanelProfileTab::setAvatarId(const LLUUID& id)
 {
-    if (avatar_id.notNull())
-    {
-        mAvatarId = avatar_id;
-        mSelfProfile = (getAvatarId() == gAgentID);
-    }
+	if(id.notNull())
+	{
+		if(getAvatarId().notNull())
+		{
+			LLAvatarPropertiesProcessor::getInstance()->removeObserver(mAvatarId,this);
+		}
+		mAvatarId = id;
+		LLAvatarPropertiesProcessor::getInstance()->addObserver(getAvatarId(),this);
+	}
 }
 
 void LLPanelProfileTab::onOpen(const LLSD& key)
 {
-    // Update data even if we are viewing same avatar profile as some data might been changed.
-    setAvatarId(key.asUUID());
+	// Don't reset panel if we are opening it for same avatar.
+	if(getAvatarId() != key.asUUID())
+	{
+		resetControls();
+		resetData();
 
-    setApplyProgress(true);
+		scrollToTop();
+	}
+
+	// Update data even if we are viewing same avatar profile as some data might been changed.
+	setAvatarId(key.asUUID());
+	updateData();
+	updateButtons();
 }
 
-void LLPanelProfileTab::setLoaded()
+void LLPanelProfileTab::scrollToTop()
 {
-    setApplyProgress(false);
-
-    mLoadingState = PROFILE_LOADED;
+	LLScrollContainer* scrollContainer = findChild<LLScrollContainer>("profile_scroll");
+	if (scrollContainer)
+		scrollContainer->goToTop();
 }
 
-void LLPanelProfileTab::setApplyProgress(bool started)
+void LLPanelProfileTab::onMapButtonClick()
 {
-    LLLoadingIndicator* indicator = findChild<LLLoadingIndicator>("progress_indicator");
-
-    if (indicator)
-    {
-        indicator->setVisible(started);
-
-        if (started)
-        {
-            indicator->start();
-        }
-        else
-        {
-            indicator->stop();
-        }
-    }
-
-    LLPanel* panel = findChild<LLPanel>("indicator_stack");
-    if (panel)
-    {
-        panel->setVisible(started);
-    }
+	LLAvatarActions::showOnMap(getAvatarId());
 }
 
-LLPanelProfilePropertiesProcessorTab::LLPanelProfilePropertiesProcessorTab()
-    : LLPanelProfileTab()
+void LLPanelProfileTab::updateButtons()
 {
-}
+	bool is_buddy_online = LLAvatarTracker::instance().isBuddyOnline(getAvatarId());
+	
+	if(LLAvatarActions::isFriend(getAvatarId()))
+	{
+		getChildView("teleport")->setEnabled(is_buddy_online);
+	}
+	else
+	{
+		getChildView("teleport")->setEnabled(true);
+	}
 
-LLPanelProfilePropertiesProcessorTab::~LLPanelProfilePropertiesProcessorTab()
-{
-    if (getAvatarId().notNull())
-    {
-        LLAvatarPropertiesProcessor::getInstance()->removeObserver(getAvatarId(), this);
-    }
-}
-
-void LLPanelProfilePropertiesProcessorTab::setAvatarId(const LLUUID & avatar_id)
-{
-    if (avatar_id.notNull())
-    {
-        if (getAvatarId().notNull())
-        {
-            LLAvatarPropertiesProcessor::getInstance()->removeObserver(getAvatarId(), this);
-        }
-        LLPanelProfileTab::setAvatarId(avatar_id);
-        LLAvatarPropertiesProcessor::getInstance()->addObserver(getAvatarId(), this);
-    }
+	bool enable_map_btn = (is_buddy_online &&
+			       is_agent_mappable(getAvatarId()))
+		|| gAgent.isGodlike();
+	getChildView("show_on_map_btn")->setEnabled(enable_map_btn);
 }

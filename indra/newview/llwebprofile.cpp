@@ -36,7 +36,7 @@
 #include "llstring.h"
 
 // newview
-#include "llavataractions.h" // for getProfileURL()
+#include "llpanelprofile.h" // for getProfileURL(). FIXME: move the method to LLAvatarActions
 #include "llviewermedia.h" // FIXME: don't use LLViewerMedia internals
 
 #include "llcorehttputil.h"
