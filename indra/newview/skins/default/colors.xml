@@ -1008,7 +1008,7 @@
         reference="TextBgFocusColor" />
     <color
         name="GroupHiddenInProfile"
-        reference="Gray" />
+        reference="orange4" />
     
 
   <!-- Generic color names (legacy) -->
@@ -1099,9 +1099,6 @@
   <color
       name="SearchableControlHighlightColor"
       reference="orange4" />
-  <color
-    name="GroupHiddenInProfile"
-    reference="orange4" />
   <color
     name="AddPaymentPanel"
     value="0.27 0.27 0.27 1" />

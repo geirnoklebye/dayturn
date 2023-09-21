@@ -29,9 +29,11 @@
 #include "llgrouplist.h"
 
 // libs
+#include "llbutton.h"
 #include "llgroupiconctrl.h"
 #include "lltextutil.h"
 #include "lltrans.h"
+#include "v4color.h"
 
 // newview
 #include "llagent.h"
