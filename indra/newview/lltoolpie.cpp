@@ -1167,6 +1167,9 @@ bool LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 				args["DISTANCE"] = llformat("%.02f", distance);
 				final_name.append("\n" + LLTrans::getString("TooltipDistance", args));
 			}
+			
+            const F32 INSPECTOR_TOOLTIP_DELAY = 0.35f;
+
 			LLInspector::Params p;
 			p.fillFrom(LLUICtrlFactory::instance().getDefaultParams<LLInspector>());
 			p.message(final_name);
@@ -1180,7 +1183,7 @@ bool LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 			p.click_callback(boost::bind(showAvatarInspector, hover_object->getID()));
 			p.visible_time_near(6.f);
 			p.visible_time_far(3.f);
-			p.delay_time(gSavedSettings.getF32("AvatarInspectorTooltipDelay"));
+			p.delay_time(INSPECTOR_TOOLTIP_DELAY);
 			p.wrap(false);
 			
 			LLToolTipMgr::instance().show(p);

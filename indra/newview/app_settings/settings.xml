@@ -1352,28 +1352,6 @@
       <key>Value</key>
       <string>http://lecs-viewer-web-components.s3.amazonaws.com/v3.0/[GRID_LOWERCASE]/avatars.html</string>
     </map>
-    <key>AvatarRotateThresholdSlow</key>
-    <map>
-      <key>Comment</key>
-      <string>Angle between avatar facing and camera facing at which avatar turns to face same direction as camera, when moving slowly (degrees)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <integer>60</integer>
-    </map>
-    <key>AvatarRotateThresholdFast</key>
-    <map>
-      <key>Comment</key>
-      <string>Angle between avatar facing and camera facing at which avatar turns to face same direction as camera, when moving fast (degrees)</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <integer>2</integer>
-    </map>
     <key>AvatarBakedTextureUploadTimeout</key>
     <map>
       <key>Comment</key>
@@ -3047,39 +3025,6 @@
     <string>F32</string>
     <key>Value</key>
     <real>1.00</real>
-  </map>
-  <key>AnimatedObjectsMaxLegalOffset</key>
-  <map>
-    <key>Comment</key>
-    <string>Max visual offset between object position and rendered position</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>F32</string>
-    <key>Value</key>
-    <real>3.0</real>
-  </map>
-  <key>AnimatedObjectsMaxLegalSize</key>
-  <map>
-    <key>Comment</key>
-    <string>Max bounding box size for animated object's rendered position</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>F32</string>
-    <key>Value</key>
-    <real>64.0</real>
-  </map>
-  <key>AvatarBoundingBoxComplexity</key>
-  <map>
-    <key>Comment</key>
-    <string>How many aspects to consider for avatar bounding box</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>S32</string>
-    <key>Value</key>
-    <integer>3</integer>
   </map>
   <key>DebugAvatarAppearanceMessage</key>
   <map>
@@ -14878,50 +14823,6 @@
       <key>Value</key>
       <string>5748decc-f629-461c-9a36-a35a221fe21f</string>
     </map>
-    <key>StartUpChannelUUID</key>
-    <map>
-      <key>Comment</key>
-      <string />
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>B56AF90D-6684-48E4-B1E4-722D3DEB2CB6</string>
-    </map>
-    <key>NearByChatChannelUUID</key>
-    <map>
-      <key>Comment</key>
-      <string />
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>E1158BD6-661C-4981-9DAD-4DCBFF062502</string>
-    </map>
-    <key>NotificationChannelUUID</key>
-    <map>
-      <key>Comment</key>
-      <string />
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>AEED3193-8709-4693-8558-7452CCA97AE5</string>
-    </map>
-    <key>AlertChannelUUID</key>
-    <map>
-      <key>Comment</key>
-      <string />
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string>F3E07BC8-A973-476D-8C7F-F3B7293975D1</string>
-    </map>
     <key>UIImgWhiteUUID</key>
     <map>
       <key>Comment</key>
@@ -17290,17 +17191,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>AvatarInspectorTooltipDelay</key>
-    <map>
-      <key>Comment</key>
-      <string>Seconds before displaying avatar inspector tooltip</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>F32</string>
-      <key>Value</key>
-      <real>0.35</real>
     </map>
     <key>ObjectInspectorTooltipDelay</key>
     <map>

@@ -1411,8 +1411,8 @@ void LLVOAvatar::updateSpatialExtents(LLVector4a& newMin, LLVector4a &newMax)
 
 void LLVOAvatar::calculateSpatialExtents(LLVector4a& newMin, LLVector4a& newMax)
 {
-    static LLCachedControl<S32> box_detail_cache(gSavedSettings, "AvatarBoundingBoxComplexity");
-    S32 box_detail = box_detail_cache;
+    const S32 BOX_DETAIL_DEFAULT = 3;
+    S32 box_detail = BOX_DETAIL_DEFAULT;
     if (getOverallAppearance() != AOA_NORMAL)
     {
         if (isControlAvatar())
@@ -4429,10 +4429,10 @@ void LLVOAvatar::updateOrientation(LLAgent& agent, F32 speed, F32 delta_time)
 
 			LLVector3 pelvisDir( mRoot->getWorldMatrix().getFwdRow4().mV );
 
-			static LLCachedControl<F32> s_pelvis_rot_threshold_slow(gSavedSettings, "AvatarRotateThresholdSlow", 60.0);
-			static LLCachedControl<F32> s_pelvis_rot_threshold_fast(gSavedSettings, "AvatarRotateThresholdFast", 2.0);
+			const F32 AVATAR_PELVIS_ROTATE_THRESHOLD_SLOW = 60.0f;
+			const F32 AVATAR_PELVIS_ROTATE_THRESHOLD_FAST = 2.0f;
 
-			F32 pelvis_rot_threshold = clamp_rescale(speed, 0.1f, 1.0f, s_pelvis_rot_threshold_slow, s_pelvis_rot_threshold_fast);
+			F32 pelvis_rot_threshold = clamp_rescale(speed, 0.1f, 1.0f, AVATAR_PELVIS_ROTATE_THRESHOLD_SLOW, AVATAR_PELVIS_ROTATE_THRESHOLD_FAST);
 						
 			if (self_in_mouselook)
 			{
