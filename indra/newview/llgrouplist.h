@@ -75,7 +75,9 @@ public:
 private:
 	void setDirty(bool val = true)		{ mDirty = val; }
 	void refresh();
-	void addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos = ADD_BOTTOM, bool visible_in_profile = true);
+	// <FS:Ansariel> Mark groups hidden in profile
+	//void addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos = ADD_BOTTOM);
+	void addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos = ADD_BOTTOM, bool hiddenInProfile = false);
 	bool handleEvent(LLPointer<LLOldEvents::LLEvent> event, const LLSD& userdata); // called on agent group list changes
 
 	bool onContextMenuItemClick(const LLSD& userdata);
@@ -101,7 +103,7 @@ class LLGroupListItem : public LLPanel
 	, public LLGroupMgrObserver
 {
 public:
-    LLGroupListItem(bool for_agent, bool show_icons);
+	LLGroupListItem(bool for_agent);
 	~LLGroupListItem();
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void setValue(const LLSD& value);
@@ -118,25 +120,21 @@ public:
 
 	virtual void changed(LLGroupChange gc);
 
-    void setVisibleInProfile(bool visible);
+	// <FS:Ansariel> Mark groups hidden in profile
+	void markHiddenInProfile();
 private:
-	void setBold(bool bold);
+	void setActive(bool active);
 	void onInfoBtnClick();
 	void onProfileBtnClick();
-    void onVisibilityBtnClick(bool new_visibility);
 
 	LLTextBox*	mGroupNameBox;
 	LLUUID		mGroupID;
 	LLGroupIconCtrl* mGroupIcon;
-    LLButton*	mInfoBtn;
-    LLButton*	mProfileBtn;
-    LLButton*	mVisibilityHideBtn;
-    LLButton*	mVisibilityShowBtn;
+	LLButton*	mInfoBtn;
 
 	std::string	mGroupName;
-    bool        mForAgent;
 	LLStyle::Params mGroupNameStyle;
 
-	S32	mIconWidth;
+	static S32	sIconWidth; // icon width + padding
 };
 #endif // LL_LLGROUPLIST_H

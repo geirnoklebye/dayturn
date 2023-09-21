@@ -29,10 +29,7 @@
 #include "llgrouplist.h"
 
 // libs
-#include "llbutton.h"
 #include "llgroupiconctrl.h"
-#include "llmenugl.h"
-#include "lltextbox.h"
 #include "lltextutil.h"
 #include "lltrans.h"
 
@@ -45,6 +42,7 @@
 #include "llvoiceclient.h"
 
 static LLDefaultChildRegistry::Register<LLGroupList> r("group_list");
+S32 LLGroupListItem::sIconWidth = 0;
 
 class LLGroupComparator : public LLFlatListView::ItemComparator
 {
@@ -64,35 +62,8 @@ public:
 	}
 };
 
-class LLSharedGroupComparator : public LLFlatListView::ItemComparator
-{
-public:
-    LLSharedGroupComparator() {};
-
-    /*virtual*/ bool compare(const LLPanel* item1, const LLPanel* item2) const
-    {
-        const LLGroupListItem* group_item1 = static_cast<const LLGroupListItem*>(item1);
-        std::string name1 = group_item1->getGroupName();
-        bool item1_shared = gAgent.isInGroup(group_item1->getGroupID(), true);
-
-        const LLGroupListItem* group_item2 = static_cast<const LLGroupListItem*>(item2);
-        std::string name2 = group_item2->getGroupName();
-        bool item2_shared = gAgent.isInGroup(group_item2->getGroupID(), true);
-
-        if (item2_shared != item1_shared)
-        {
-            return item1_shared;
-        }
-
-        LLStringUtil::toUpper(name1);
-        LLStringUtil::toUpper(name2);
-
-        return name1 < name2;
-    }
-};
-
-static LLGroupComparator GROUP_COMPARATOR;
-static LLSharedGroupComparator SHARED_GROUP_COMPARATOR;
+//static const LLGroupComparator GROUP_COMPARATOR;
+static LLGroupComparator GROUP_COMPARATOR; // <ND/> const makes GCC >= 4.6 very angry about not user defined default ctor.
 
 LLGroupList::Params::Params()
 : for_agent("for_agent", true)
@@ -109,16 +80,8 @@ LLGroupList::LLGroupList(const Params& p)
 	setCommitOnSelectionChange(true);
 
 	// Set default sort order.
-    if (mForAgent)
-    {
-        setComparator(&GROUP_COMPARATOR);
-    }
-    else
-    {
-        // shared groups first
-        setComparator(&SHARED_GROUP_COMPARATOR);
-    }
-
+	setComparator(&GROUP_COMPARATOR);
+    
     if (mForAgent)
 	{
         enableForAgent(true);
@@ -167,15 +130,14 @@ BOOL LLGroupList::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = LLUICtrl::handleRightMouseDown(x, y, mask);
 
-    if (mForAgent)
-    {
-        LLToggleableMenu* context_menu = mContextMenuHandle.get();
-        if (context_menu && size() > 0)
-        {
-            context_menu->buildDrawLabels();
-            context_menu->updateParent(LLMenuGL::sMenuContainer);
-            LLMenuGL::showPopup(this, context_menu, x, y);
-        }
+	LLToggleableMenu* context_menu = mContextMenuHandle.get();
+	{
+		if (context_menu && size() > 0)
+		{
+			context_menu->buildDrawLabels();
+			context_menu->updateParent(LLMenuGL::sMenuContainer);
+			LLMenuGL::showPopup(this, context_menu, x, y);
+		}
 	}
 
 	return handled;
@@ -188,7 +150,7 @@ bool LLGroupList::handleDoubleClick(S32 x, S32 y, MASK mask)
 	// Handle double click only for the selected item in the list, skip clicks on empty space.
 	if (handled)
 	{
-		if (mDoubleClickSignal && getItemsRect().pointInRect(x, y))
+		if (mDoubleClickSignal)
 		{
 			(*mDoubleClickSignal)(this, x, y, mask);
 		}
@@ -220,23 +182,25 @@ static bool findInsensitive(std::string haystack, const std::string& needle_uppe
 
 void LLGroupList::refresh()
 {
-    if (mForAgent)
-    {
-        const LLUUID& 		highlight_id	= gAgent.getGroupID();
-        S32					count			= gAgent.mGroups.size();
-        LLUUID				id;
-        bool				have_filter		= !mNameFilter.empty();
+	if (mForAgent)
+	{
+		const LLUUID& 		highlight_id	= gAgent.getGroupID();
+		S32					count			= gAgent.mGroups.size();
+		LLUUID				id;
+		bool				have_filter		= !mNameFilter.empty();
 
         clear();
 
-        for(S32 i = 0; i < count; ++i)
-        {
-            id = gAgent.mGroups.at(i).mID;
-            const LLGroupData& group_data = gAgent.mGroups.at(i);
-            if (have_filter && !findInsensitive(group_data.mName, mNameFilter))
-                continue;
-            addNewItem(id, group_data.mName, group_data.mInsigniaID, ADD_BOTTOM, group_data.mListInProfile);
-        }
+		for(S32 i = 0; i < count; ++i)
+		{
+			id = gAgent.mGroups.at(i).mID;
+			const LLGroupData& group_data = gAgent.mGroups.at(i);
+			if (have_filter && !findInsensitive(group_data.mName, mNameFilter))
+				continue;
+			// <FS:Ansariel> Mark groups hidden in profile
+			//addNewItem(id, group_data.mName, group_data.mInsigniaID, ADD_BOTTOM);
+			addNewItem(id, group_data.mName, group_data.mInsigniaID, ADD_BOTTOM, !group_data.mListInProfile);
+		}
 
         // Sort the list.
         sort();
@@ -293,9 +257,11 @@ void LLGroupList::setGroups(const std::map< std::string,LLUUID> group_list)
 // PRIVATE Section
 //////////////////////////////////////////////////////////////////////////
 
-void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos, bool visible_in_profile)
+// <FS:Ansariel> Mark groups hidden in profile
+//void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos)
+void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LLUUID& icon_id, EAddPosition pos, bool hiddenInProfile)
 {
-	LLGroupListItem* item = new LLGroupListItem(mForAgent, mShowIcons);
+	LLGroupListItem* item = new LLGroupListItem(mForAgent && mShowIcons);
 
 	item->setGroupID(id);
 	item->setName(name, mNameFilter);
@@ -304,10 +270,14 @@ void LLGroupList::addNewItem(const LLUUID& id, const std::string& name, const LL
 	item->getChildView("info_btn")->setVisible( false);
 	item->getChildView("profile_btn")->setVisible( false);
 	item->setGroupIconVisible(mShowIcons);
-    if (!mShowIcons)
-    {
-        item->setVisibleInProfile(visible_in_profile);
-    }
+
+	// <FS:Ansariel> Mark groups hidden in profile
+	if (hiddenInProfile)
+	{
+		item->markHiddenInProfile();
+	}
+	// </FS:Ansariel> Mark groups hidden in profile
+
 	addItem(item, id, pos);
 
 //	setCommentVisible(false);
@@ -322,29 +292,6 @@ bool LLGroupList::handleEvent(LLPointer<LLOldEvents::LLEvent> event, const LLSD&
 		setDirty();
 		return true;
 	}
-
-    if (event->desc() == "value_changed")
-    {
-        LLSD data = event->getValue();
-        if (data.has("group_id") && data.has("visible"))
-        {
-            LLUUID group_id = data["group_id"].asUUID();
-            bool visible = data["visible"].asBoolean();
-
-            std::vector<LLPanel*> items;
-            getItems(items);
-            for (std::vector<LLPanel*>::iterator it = items.begin(); it != items.end(); ++it)
-            {
-                LLGroupListItem* item = dynamic_cast<LLGroupListItem*>(*it);
-                if (item && item->getGroupID() == group_id)
-                {
-                    item->setVisibleInProfile(visible);
-                    break;
-                }
-            }
-        }
-        return true;
-    }
 
 	return false;
 }
@@ -426,25 +373,24 @@ bool LLGroupList::onContextMenuItemEnable(const LLSD& userdata)
 /*          LLGroupListItem implementation                              */
 /************************************************************************/
 
-LLGroupListItem::LLGroupListItem(bool for_agent, bool show_icons)
+LLGroupListItem::LLGroupListItem(bool for_agent)
 :	LLPanel(),
 mGroupIcon(NULL),
 mGroupNameBox(NULL),
 mInfoBtn(NULL),
-mProfileBtn(NULL),
-mVisibilityHideBtn(NULL),
-mVisibilityShowBtn(NULL),
-mGroupID(LLUUID::null),
-mForAgent(for_agent)
+mGroupID(LLUUID::null)
 {
-    if (show_icons)
-    {
-        buildFromFile( "panel_group_list_item.xml");
-    }
-    else
-    {
-        buildFromFile( "panel_group_list_item_short.xml");
-    }
+	if (for_agent)
+		buildFromFile( "panel_group_list_item.xml");
+	else
+		buildFromFile( "panel_group_list_item_short.xml");
+
+	// Remember group icon width including its padding from the name text box,
+	// so that we can hide and show the icon again later.
+	if (!sIconWidth)
+	{
+		sIconWidth = mGroupNameBox->getRect().mLeft - mGroupIcon->getRect().mLeft;
+	}
 }
 
 LLGroupListItem::~LLGroupListItem()
@@ -461,25 +407,7 @@ bool  LLGroupListItem::postBuild()
 	mInfoBtn = getChild<LLButton>("info_btn");
 	mInfoBtn->setClickedCallback(boost::bind(&LLGroupListItem::onInfoBtnClick, this));
 
-    mProfileBtn = getChild<LLButton>("profile_btn");
-    mProfileBtn->setClickedCallback([this](LLUICtrl *, const LLSD &) { onProfileBtnClick(); });
-
-    mVisibilityHideBtn = findChild<LLButton>("visibility_hide_btn");
-    if (mVisibilityHideBtn)
-    {
-        mVisibilityHideBtn->setClickedCallback([this](LLUICtrl *, const LLSD &) { onVisibilityBtnClick(false); });
-    }
-    mVisibilityShowBtn = findChild<LLButton>("visibility_show_btn");
-    if (mVisibilityShowBtn)
-    {
-        mVisibilityShowBtn->setClickedCallback([this](LLUICtrl *, const LLSD &) { onVisibilityBtnClick(true); });
-    }
-
-    // Remember group icon width including its padding from the name text box,
-    // so that we can hide and show the icon again later.
-    // Also note that panel_group_list_item and panel_group_list_item_short
-    // have icons of different sizes so we need to figure it per file.
-    mIconWidth = mGroupNameBox->getRect().mLeft - mGroupIcon->getRect().mLeft;
+	childSetAction("profile_btn", boost::bind(&LLGroupListItem::onProfileBtnClick, this));
 
 	return true;
 }
@@ -498,16 +426,7 @@ void LLGroupListItem::onMouseEnter(S32 x, S32 y, MASK mask)
 	if (mGroupID.notNull()) // don't show the info button for the "none" group
 	{
 		mInfoBtn->setVisible(true);
-        mProfileBtn->setVisible(true);
-        if (mForAgent && mVisibilityHideBtn)
-        {
-            LLGroupData agent_gdatap;
-            if (gAgent.getGroupData(mGroupID, agent_gdatap))
-            {
-                mVisibilityHideBtn->setVisible(agent_gdatap.mListInProfile);
-                mVisibilityShowBtn->setVisible(!agent_gdatap.mListInProfile);
-            }
-        }
+		getChildView("profile_btn")->setVisible( true);
 	}
 
 	LLPanel::onMouseEnter(x, y, mask);
@@ -517,12 +436,7 @@ void LLGroupListItem::onMouseLeave(S32 x, S32 y, MASK mask)
 {
 	getChildView("hovered_icon")->setVisible( false);
 	mInfoBtn->setVisible(false);
-    mProfileBtn->setVisible(false);
-    if (mVisibilityHideBtn)
-    {
-        mVisibilityHideBtn->setVisible(false);
-        mVisibilityShowBtn->setVisible(false);
-    }
+	getChildView("profile_btn")->setVisible( false);
 
 	LLPanel::onMouseLeave(x, y, mask);
 }
@@ -540,17 +454,7 @@ void LLGroupListItem::setGroupID(const LLUUID& group_id)
 	
 	mID = group_id;
 	mGroupID = group_id;
-
-    if (mForAgent)
-    {
-        // Active group should be bold.
-        setBold(group_id == gAgent.getGroupID());
-    }
-    else
-    {
-        // Groups shared with the agent should be bold
-        setBold(gAgent.isInGroup(group_id, true));
-    }
+	setActive(group_id == gAgent.getGroupID());
 
 	LLGroupMgr::getInstance()->addObserver(this);
 }
@@ -571,28 +475,31 @@ void LLGroupListItem::setGroupIconVisible(bool visible)
 
 	// Move the group name horizontally by icon size + its distance from the group name.
 	LLRect name_rect = mGroupNameBox->getRect();
-	name_rect.mLeft += visible ? mIconWidth : -mIconWidth;
+	name_rect.mLeft += visible ? sIconWidth : -sIconWidth;
 	mGroupNameBox->setRect(name_rect);
 }
 
-void LLGroupListItem::setVisibleInProfile(bool visible)
+// <FS:Ansariel> Mark groups hidden in profile
+void LLGroupListItem::markHiddenInProfile()
 {
-    mGroupNameBox->setColor(LLUIColorTable::instance().getColor((visible ? "GroupVisibleInProfile" : "GroupHiddenInProfile"), LLColor4::orange4).get());
+	mGroupNameBox->setColor(LLUIColorTable::instance().getColor("GroupHiddenInProfile", LLColor4::orange4).get());
 }
+// </FS:Ansariel> Mark groups hidden in profile
 
 //////////////////////////////////////////////////////////////////////////
 // Private Section
 //////////////////////////////////////////////////////////////////////////
-void LLGroupListItem::setBold(bool bold)
+void LLGroupListItem::setActive(bool active)
 {
 	// *BUG: setName() overrides the style params.
 
+	// Active group should be bold.
 	LLFontDescriptor new_desc(mGroupNameBox->getFont()->getFontDesc());
 
 	// *NOTE dzaporozhan
 	// On Windows LLFontGL::NORMAL will not remove LLFontGL::BOLD if font 
 	// is predefined as bold (SansSerifSmallBold, for example)
-	new_desc.setStyle(bold ? LLFontGL::BOLD : LLFontGL::NORMAL);
+	new_desc.setStyle(active ? LLFontGL::BOLD : LLFontGL::NORMAL);
 	LLFontGL* new_font = LLFontGL::getFont(new_desc);
 	mGroupNameStyle.font = new_font;
 
@@ -612,25 +519,11 @@ void LLGroupListItem::onProfileBtnClick()
 	LLGroupActions::show(mGroupID);
 }
 
-void LLGroupListItem::onVisibilityBtnClick(bool new_visibility)
-{
-    LLGroupData agent_gdatap;
-    if (gAgent.getGroupData(mGroupID, agent_gdatap))
-    {
-        gAgent.setUserGroupFlags(mGroupID, agent_gdatap.mAcceptNotices, new_visibility);
-        setVisibleInProfile(new_visibility);
-        mVisibilityHideBtn->setVisible(new_visibility);
-        mVisibilityShowBtn->setVisible(!new_visibility);
-    }
-}
-
 void LLGroupListItem::changed(LLGroupChange gc)
 {
 	LLGroupMgrGroupData* group_data = LLGroupMgr::getInstance()->getGroupData(mID);
-	if ((gc == GC_ALL || gc == GC_PROPERTIES) && group_data)
-    {
-        setGroupIconID(group_data->mInsigniaID);
-    }
+	if(group_data)
+		setGroupIconID(group_data->mInsigniaID);
 }
 
 //EOF
