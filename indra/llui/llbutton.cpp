@@ -62,6 +62,7 @@ template class LLButton* LLView::getChild<class LLButton>(
 S32	LLBUTTON_H_PAD	= 0;
 S32 BTN_HEIGHT_SMALL= 0;
 S32 BTN_HEIGHT		= 0;
+S32 BTN_DROP_SHADOW = 2;
 
 LLButton::Params::Params()
 :	label_selected("label_selected"),				// requires is_toggle true

@@ -481,8 +481,6 @@ void LLComboBox::onFocusLost()
 
 void LLComboBox::setButtonVisible(bool visible)
 {
-	static LLUICachedControl<S32> drop_shadow_button ("DropShadowButton", 0);
-
 	mButton->setVisible(visible);
 	if (mTextEntry)
 	{
@@ -490,7 +488,7 @@ void LLComboBox::setButtonVisible(bool visible)
 		if (visible)
 		{
 			S32 arrow_width = mArrowImage ? mArrowImage->getWidth() : 0;
-			text_entry_rect.mRight -= llmax(8,arrow_width) + 2 * drop_shadow_button;
+			text_entry_rect.mRight -= llmax(8,arrow_width) + 2 * BTN_DROP_SHADOW;
 		}
 		//mTextEntry->setRect(text_entry_rect);
 		mTextEntry->reshape(text_entry_rect.getWidth(), text_entry_rect.getHeight(), true);
@@ -529,19 +527,18 @@ void LLComboBox::setEnabledByValue(const LLSD& value, bool enabled)
 
 void LLComboBox::createLineEditor(const LLComboBox::Params& p)
 {
-	static LLUICachedControl<S32> drop_shadow_button ("DropShadowButton", 0);
 	LLRect rect = getLocalRect();
 	if (mAllowTextEntry)
 	{
 		S32 arrow_width = mArrowImage ? mArrowImage->getWidth() : 0;
-		S32 shadow_size = drop_shadow_button;
+		S32 shadow_size = BTN_DROP_SHADOW;
 		mButton->setRect(LLRect( getRect().getWidth() - llmax(8,arrow_width) - 2 * shadow_size,
 								rect.mTop, rect.mRight, rect.mBottom));
 		mButton->setTabStop(false);
 		mButton->setHAlign(LLFontGL::HCENTER);
 
 		LLRect text_entry_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
-		text_entry_rect.mRight -= llmax(8,arrow_width) + 2 * drop_shadow_button;
+		text_entry_rect.mRight -= llmax(8,arrow_width) + 2 * BTN_DROP_SHADOW;
 		// clear label on button
 		std::string cur_label = mButton->getLabelSelected();
 		LLLineEditor::Params params = p.combo_editor;
@@ -1080,13 +1077,11 @@ void LLComboBox::onSetHighlight() const
 
 void LLComboBox::imageLoaded()
 {
-    static LLUICachedControl<S32> drop_shadow_button("DropShadowButton", 0);
-
     if (mAllowTextEntry)
     {
         LLRect rect = getLocalRect();
         S32 arrow_width = mArrowImage ? mArrowImage->getWidth() : 0;
-        S32 shadow_size = drop_shadow_button;
+        S32 shadow_size = BTN_DROP_SHADOW;
         mButton->setRect(LLRect(getRect().getWidth() - llmax(8, arrow_width) - 2 * shadow_size,
             rect.mTop, rect.mRight, rect.mBottom));
         if (mButton->getVisible())
@@ -1095,7 +1090,7 @@ void LLComboBox::imageLoaded()
             if (mTextEntry)
             {
                 LLRect text_entry_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
-                text_entry_rect.mRight -= llmax(8, arrow_width) + 2 * drop_shadow_button;
+                text_entry_rect.mRight -= llmax(8, arrow_width) + 2 * BTN_DROP_SHADOW;
                 mTextEntry->reshape(text_entry_rect.getWidth(), text_entry_rect.getHeight(), true);
             }
         }
