@@ -57,7 +57,7 @@ public:
 	// requires trusted browser to trigger
 	LLProfileHandler() : LLCommandHandler("profile", UNTRUSTED_THROTTLE) { }
 
-	bool handle(const LLSD& params, const LLSD& query_map,
+	bool handle(const LLSD& params, const LLSD& query_map, const std::string& grid,
 		LLMediaCtrl* web)
 	{
 		if (params.size() < 1) return false;
