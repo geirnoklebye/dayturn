@@ -1784,18 +1784,21 @@ void LLPipeline::unlinkDrawable(LLDrawable *drawable)
 //static
 void LLPipeline::removeMutedAVsLights(LLVOAvatar *muted_avatar)
 {
-    for (light_set_t::iterator iter = gPipeline.mNearbyLights.begin();
-		iter != gPipeline.mNearbyLights.end();)
+    light_set_t::iterator iter = gPipeline.mNearbyLights.begin();
+    while (iter != gPipeline.mNearbyLights.end())
     {
-        const LLViewerObject *vobj = iter->drawable->getVObj();
-        if (vobj && vobj->getAvatar() && vobj->isAttachment() && vobj->getAvatar() == muted_avatar)
+        const LLViewerObject* vobj = iter->drawable->getVObj();
+        if (vobj
+            && vobj->getAvatar()
+            && vobj->isAttachment()
+            && vobj->getAvatar() == muted_avatar)
         {
             gPipeline.mLights.erase(iter->drawable);
             iter = gPipeline.mNearbyLights.erase(iter);
         }
         else
         {
-            ++iter;
+            iter++;
         }
     }
 }
@@ -1816,8 +1819,6 @@ U32 LLPipeline::addObject(LLViewerObject *vobj)
 
 void LLPipeline::createObjects(F32 max_dtime)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
 	LLTimer update_timer;
 
 	while (!mCreateQ.empty() && update_timer.getElapsedTimeF32() < max_dtime)
@@ -1840,7 +1841,6 @@ void LLPipeline::createObjects(F32 max_dtime)
 
 void LLPipeline::createObject(LLViewerObject* vobj)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	LLDrawable* drawablep = vobj->mDrawable;
 
 	if (!drawablep)
@@ -1878,7 +1878,6 @@ void LLPipeline::createObject(LLViewerObject* vobj)
 
 void LLPipeline::resetFrameStats()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	assertInitialized();
 
 	sCompiles        = 0;
