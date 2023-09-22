@@ -4080,30 +4080,6 @@
         <key>Backup</key>
             <integer>0</integer>
         </map>
-    <key>FilterItemsMaxTimePerFrameVisible</key>
-    <map>
-        <key>Comment</key>
-        <string>Max time devoted to items filtering per frame for visible inventory listings (in milliseconds)</string>
-        <key>Persist</key>
-        <integer>1</integer>
-        <key>Type</key>
-        <string>S32</string>
-        <key>Value</key>
-        <integer>10</integer>
-        <key>Backup</key>
-        <integer>0</integer>
-    </map>
-    <key>FilterItemsMaxTimePerFrameUnvisible</key>
-    <map>
-        <key>Comment</key>
-        <string>Max time devoted to items filtering per frame for non visible inventory listings (in milliseconds)</string>
-        <key>Persist</key>
-        <integer>1</integer>
-        <key>Type</key>
-        <string>S32</string>
-        <key>Value</key>
-        <integer>1</integer>
-    </map>
     <key>MainWorkTime</key>
     <map>
         <key>Comment</key>
@@ -4908,28 +4884,6 @@
       <key>Value</key>
       <integer>32</integer>
     </map>
-    <key>GroupNotifyBoxHeight</key>
-    <map>
-      <key>Comment</key>
-      <string>Height of group notice messages</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>260</integer>
-    </map>
-    <key>GroupNotifyBoxWidth</key>
-    <map>
-      <key>Comment</key>
-      <string>Width of group notice messages</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>305</integer>
-    </map>
     <key>HelpURLFormat</key>
     <map>
       <key>Comment</key>
@@ -5027,19 +4981,6 @@
       <string>String</string>
       <key>Value</key>
       <string />
-    </map>
-    <key>HtmlHelpLastPage</key>
-    <map>
-      <key>Comment</key>
-      <string>Last URL visited via help system</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>String</string>
-      <key>Value</key>
-      <string />
-      <key>Backup</key>
-      <integer>0</integer>
     </map>
     <key>HttpPipelining</key>
     <map>
@@ -5625,17 +5566,6 @@
         <string>F32</string>
       <key>Value</key>
         <real>2.0</real>
-    </map>
-    <key>LCDDestination</key>
-    <map>
-      <key>Comment</key>
-      <string>Which LCD to use</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>0</integer>
     </map>
     <key>LeapCommand</key>
     <map>
@@ -7604,28 +7534,6 @@
       <string>Boolean</string>
       <key>Value</key>
       <integer>0</integer>
-    </map>
-    <key>NotifyBoxHeight</key>
-    <map>
-      <key>Comment</key>
-      <string>Height of notification messages</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>200</integer>
-    </map>
-    <key>NotifyBoxWidth</key>
-    <map>
-      <key>Comment</key>
-      <string>Width of notification messages</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>305</integer>
     </map>
     <key>NotificationConferenceIMOptions</key>
     <map>
@@ -16693,17 +16601,6 @@
     <map>
       <key>Comment</key>
       <string>Enable viewing of place profile from web link</string>
-      <key>Persist</key>
-      <integer>1</integer>
-      <key>Type</key>
-      <string>Boolean</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
-    <key>EnablePicks</key>
-    <map>
-      <key>Comment</key>
-      <string>Enable editing of picks from web link</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
