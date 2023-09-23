@@ -354,60 +354,6 @@ Intenta iniciar sesión de nuevo en unos instantes.
 	<string name="TestingDisconnect">
 		Probando la desconexión del visor
 	</string>
-	<string name="SocialFacebookConnecting">
-		Conectando con Facebook...
-	</string>
-	<string name="SocialFacebookPosting">
-		Publicando...
-	</string>
-	<string name="SocialFacebookDisconnecting">
-		Desconectando de Facebook...
-	</string>
-	<string name="SocialFacebookErrorConnecting">
-		Problema al conectar con Facebook
-	</string>
-	<string name="SocialFacebookErrorPosting">
-		Problema al publicar en Facebook
-	</string>
-	<string name="SocialFacebookErrorDisconnecting">
-		Problema al desconectar de Facebook
-	</string>
-	<string name="SocialFlickrConnecting">
-		Conectándose a Flickr...
-	</string>
-	<string name="SocialFlickrPosting">
-		Publicando...
-	</string>
-	<string name="SocialFlickrDisconnecting">
-		Desconectándose de Flickr...
-	</string>
-	<string name="SocialFlickrErrorConnecting">
-		Problema con la conexión a Flickr
-	</string>
-	<string name="SocialFlickrErrorPosting">
-		Problema al publicar en Flickr
-	</string>
-	<string name="SocialFlickrErrorDisconnecting">
-		Problema con la desconexión de Flickr
-	</string>
-	<string name="SocialTwitterConnecting">
-		Conectándose a Twitter...
-	</string>
-	<string name="SocialTwitterPosting">
-		Publicando...
-	</string>
-	<string name="SocialTwitterDisconnecting">
-		Desconectándose de Twitter...
-	</string>
-	<string name="SocialTwitterErrorConnecting">
-		Problema con la conexión a Twitter
-	</string>
-	<string name="SocialTwitterErrorPosting">
-		Problema al publicar en Twitter
-	</string>
-	<string name="SocialTwitterErrorDisconnecting">
-		Problema con la desconexión de Twitter
-	</string>
 	<string name="BlackAndWhite">
 		Blanco y negro
 	</string>
@@ -4495,15 +4441,6 @@ Si sigues recibiendo este mensaje, contacta con [SUPPORT_SITE].
 	</string>
 	<string name="share_alert">
 		Arrastra los ítems desde el invenbtario hasta aquí
-	</string>
-	<string name="facebook_post_success">
-		Has publicado en Facebook.
-	</string>
-	<string name="flickr_post_success">
-		Has publicado en Flickr.
-	</string>
-	<string name="twitter_post_success">
-		Has publicado en Twitter.
 	</string>
 	<string name="no_session_message">
 		(La sesión de MI no existe)

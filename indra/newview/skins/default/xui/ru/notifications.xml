@@ -2682,15 +2682,6 @@
 	<notification name="SystemMessage">
 		[MESSAGE]
 	</notification>
-	<notification name="FacebookConnect">
-		[MESSAGE]
-	</notification>
-	<notification name="FlickrConnect">
-		[MESSAGE]
-	</notification>
-	<notification name="TwitterConnect">
-		[MESSAGE]
-	</notification>
 	<notification name="PaymentReceived">
 		[MESSAGE]
 	</notification>

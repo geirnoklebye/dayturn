@@ -357,60 +357,6 @@ Lütfen bir dakika içerisinde tekrar oturum açmayı deneyin.
 	<string name="TestingDisconnect">
 		Görüntüleyici bağlantısının kesilmesi test ediliyor
 	</string>
-	<string name="SocialFacebookConnecting">
-		Facebook ile bağlantı kuruluyor...
-	</string>
-	<string name="SocialFacebookPosting">
-		Yayınlanıyor...
-	</string>
-	<string name="SocialFacebookDisconnecting">
-		Facebook bağlantısı kesiliyor...
-	</string>
-	<string name="SocialFacebookErrorConnecting">
-		Facebook ile bağlantı kurulurken sorun oluştu
-	</string>
-	<string name="SocialFacebookErrorPosting">
-		Facebook&apos;ta yayınlarken sorun oluştu
-	</string>
-	<string name="SocialFacebookErrorDisconnecting">
-		Facebook bağlantısı kesilirken sorun oluştu
-	</string>
-	<string name="SocialFlickrConnecting">
-		Flickr bağlantısı kuruluyor...
-	</string>
-	<string name="SocialFlickrPosting">
-		Yayınlanıyor...
-	</string>
-	<string name="SocialFlickrDisconnecting">
-		Flickr bağlantısı kesiliyor...
-	</string>
-	<string name="SocialFlickrErrorConnecting">
-		Flickr bağlantısı kurulurken sorun çıktı
-	</string>
-	<string name="SocialFlickrErrorPosting">
-		Flickr&apos;da yayınlarken sorun çıktı
-	</string>
-	<string name="SocialFlickrErrorDisconnecting">
-		Flickr bağlantısı kesilirken sorun çıktı
-	</string>
-	<string name="SocialTwitterConnecting">
-		Twitter bağlantısı kuruluyor...
-	</string>
-	<string name="SocialTwitterPosting">
-		Yayınlanıyor...
-	</string>
-	<string name="SocialTwitterDisconnecting">
-		Twitter bağlantısı kesiliyor...
-	</string>
-	<string name="SocialTwitterErrorConnecting">
-		Twitter bağlantısı kurulurken sorun çıktı
-	</string>
-	<string name="SocialTwitterErrorPosting">
-		Twitter&apos;da yayınlarken sorun çıktı
-	</string>
-	<string name="SocialTwitterErrorDisconnecting">
-		Twitter bağlantısı kesilirken sorun çıktı
-	</string>
 	<string name="BlackAndWhite">
 		Siyah Beyaz
 	</string>
@@ -4576,15 +4522,6 @@ Bu iletiyi almaya devam ederseniz, lütfen [SUPPORT_SITE] bölümüne başvurun.
 	</string>
 	<string name="share_alert">
 		Envanterinizden buraya öğeler sürükleyin
-	</string>
-	<string name="facebook_post_success">
-		Facebook&apos;ta yayınladınız.
-	</string>
-	<string name="flickr_post_success">
-		Flickr&apos;da yayınladınız.
-	</string>
-	<string name="twitter_post_success">
-		Twitter&apos;da yayınladınız.
 	</string>
 	<string name="no_session_message">
 		(Aİ Oturumu Mevcut Değil)

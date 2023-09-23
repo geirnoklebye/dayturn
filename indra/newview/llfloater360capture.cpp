@@ -146,7 +146,7 @@ void LLFloater360Capture::onOpen(const LLSD& key)
     enableResizeCtrls(true, true, true);
 
     // initial heading that consumers of the equirectangular image
-    // (such as Facebook or Flickr) use to position initial view -
+    // (such as Flickr) use to position initial view -
     // we set during capture - stored as degrees (0..359)
     mInitialHeadingDeg = 0.0;
 

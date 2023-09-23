@@ -319,60 +319,6 @@ Aguarde um minuto antes que tentar logar-se novamente.
 	<string name="TestingDisconnect">
 		Teste de desconexão
 	</string>
-	<string name="SocialFacebookConnecting">
-		Conectando ao Facebook...
-	</string>
-	<string name="SocialFacebookPosting">
-		Publicando...
-	</string>
-	<string name="SocialFacebookDisconnecting">
-		Desconectando do Facebook...
-	</string>
-	<string name="SocialFacebookErrorConnecting">
-		Problema ao conectar ao Facebook
-	</string>
-	<string name="SocialFacebookErrorPosting">
-		Problema ao publicar no Facebook
-	</string>
-	<string name="SocialFacebookErrorDisconnecting">
-		Problema ao desconectar do Facebook
-	</string>
-	<string name="SocialFlickrConnecting">
-		Conectando ao Flickr...
-	</string>
-	<string name="SocialFlickrPosting">
-		Publicando...
-	</string>
-	<string name="SocialFlickrDisconnecting">
-		Desconectando do Flickr...
-	</string>
-	<string name="SocialFlickrErrorConnecting">
-		Problema ao conectar ao Flickr
-	</string>
-	<string name="SocialFlickrErrorPosting">
-		Problema ao publicar no Flickr
-	</string>
-	<string name="SocialFlickrErrorDisconnecting">
-		Problema ao desconectar do Flickr
-	</string>
-	<string name="SocialTwitterConnecting">
-		Conectando ao Twitter...
-	</string>
-	<string name="SocialTwitterPosting">
-		Publicando...
-	</string>
-	<string name="SocialTwitterDisconnecting">
-		Desconectando do Twitter...
-	</string>
-	<string name="SocialTwitterErrorConnecting">
-		Problema ao conectar ao Twitter
-	</string>
-	<string name="SocialTwitterErrorPosting">
-		Problema ao publicar no Twitter
-	</string>
-	<string name="SocialTwitterErrorDisconnecting">
-		Problema ao desconectar do Twitter
-	</string>
 	<string name="BlackAndWhite">
 		Preto e branco
 	</string>
@@ -4459,15 +4405,6 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
 	</string>
 	<string name="inventory_folder_offered-im">
 		Pasta do inventário &apos;[ITEM_NAME]&apos; oferecida
-	</string>
-	<string name="facebook_post_success">
-		Você publicou no Facebook.
-	</string>
-	<string name="flickr_post_success">
-		Você publicou no Flickr.
-	</string>
-	<string name="twitter_post_success">
-		Você publicou no Twitter.
 	</string>
 	<string name="no_session_message">
 		(Sessão de MI inexistente)

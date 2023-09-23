@@ -356,60 +356,6 @@ support@secondlife.com にお問い合わせください。
 	<string name="TestingDisconnect">
 		ビューワの接続を切るテスト中
 	</string>
-	<string name="SocialFacebookConnecting">
-		Facebook に接続中...
-	</string>
-	<string name="SocialFacebookPosting">
-		投稿中...
-	</string>
-	<string name="SocialFacebookDisconnecting">
-		Facebook から切断中...
-	</string>
-	<string name="SocialFacebookErrorConnecting">
-		Facebook への接続時のエラー
-	</string>
-	<string name="SocialFacebookErrorPosting">
-		Facebook への投稿時のエラー
-	</string>
-	<string name="SocialFacebookErrorDisconnecting">
-		Facebook からの切断時のエラー
-	</string>
-	<string name="SocialFlickrConnecting">
-		Flickr に接続中...
-	</string>
-	<string name="SocialFlickrPosting">
-		投稿中...
-	</string>
-	<string name="SocialFlickrDisconnecting">
-		Flickr から切断中...
-	</string>
-	<string name="SocialFlickrErrorConnecting">
-		Flickr への接続時のエラー
-	</string>
-	<string name="SocialFlickrErrorPosting">
-		Flickr への投稿時のエラー
-	</string>
-	<string name="SocialFlickrErrorDisconnecting">
-		Flickr からの切断時のエラー
-	</string>
-	<string name="SocialTwitterConnecting">
-		Twitter に接続中...
-	</string>
-	<string name="SocialTwitterPosting">
-		投稿中...
-	</string>
-	<string name="SocialTwitterDisconnecting">
-		Twitter から切断中...
-	</string>
-	<string name="SocialTwitterErrorConnecting">
-		Twitter への接続時のエラー
-	</string>
-	<string name="SocialTwitterErrorPosting">
-		Twitter への投稿時のエラー
-	</string>
-	<string name="SocialTwitterErrorDisconnecting">
-		Twitter からの切断時のエラー
-	</string>
 	<string name="BlackAndWhite">
 		白黒
 	</string>
@@ -4577,15 +4523,6 @@ www.secondlife.com から最新バージョンをダウンロードしてくだ�
 	</string>
 	<string name="share_alert">
 		インベントリからここにアイテムをドラッグします
-	</string>
-	<string name="facebook_post_success">
-		Facebook に投稿しました。
-	</string>
-	<string name="flickr_post_success">
-		Flickr に投稿しました。
-	</string>
-	<string name="twitter_post_success">
-		Twitter に投稿しました。
 	</string>
 	<string name="no_session_message">
 		（IM セッションが存在しません）

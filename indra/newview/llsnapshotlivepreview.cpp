@@ -539,7 +539,7 @@ void LLSnapshotLivePreview::generateThumbnailImage(bool force_update)
     
     if (mThumbnailSubsampled)
     {
-        // The thumbnail is be a subsampled version of the preview (used in SL Share previews, i.e. Flickr, Twitter)
+        // The thumbnail is be a subsampled version of the preview (used in SL Share previews, i.e. Flickr)
 		raw->resize( mPreviewImage->getWidth(),
                      mPreviewImage->getHeight(),
                      mPreviewImage->getComponents());
@@ -606,7 +606,7 @@ LLViewerTexture* LLSnapshotLivePreview::getBigThumbnailImage()
     
 	if (raw)
 	{
-        // The big thumbnail is a new filtered version of the preview (used in SL Share previews, i.e. Flickr, Twitter)
+        // The big thumbnail is a new filtered version of the preview (used in SL Share previews, i.e. Flickr)
         mBigThumbnailWidth = mPreviewImage->getWidth();
         mBigThumbnailHeight = mPreviewImage->getHeight();
         raw->resize( mBigThumbnailWidth,

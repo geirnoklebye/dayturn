@@ -31,7 +31,6 @@
     <command name="legacy_search"/>
     <command name="area_search" />
     <command name="web_browser"/>
-    <command name="flickr"/>
   </left_toolbar>
   <right_toolbar
     button_display_mode="icons_only">

@@ -357,60 +357,6 @@ support@secondlife.com.
 	<string name="TestingDisconnect">
 		Тестирование отключения клиента
 	</string>
-	<string name="SocialFacebookConnecting">
-		Подключение к Facebook...
-	</string>
-	<string name="SocialFacebookPosting">
-		Публикация...
-	</string>
-	<string name="SocialFacebookDisconnecting">
-		Отключение от Facebook...
-	</string>
-	<string name="SocialFacebookErrorConnecting">
-		Проблема с подключением к Facebook
-	</string>
-	<string name="SocialFacebookErrorPosting">
-		Проблемы при публикации в Facebook
-	</string>
-	<string name="SocialFacebookErrorDisconnecting">
-		Проблема с отключением от Facebook
-	</string>
-	<string name="SocialFlickrConnecting">
-		Подключение к Flickr...
-	</string>
-	<string name="SocialFlickrPosting">
-		Публикация...
-	</string>
-	<string name="SocialFlickrDisconnecting">
-		Отключение от Flickr...
-	</string>
-	<string name="SocialFlickrErrorConnecting">
-		Неполадка при подключении к Flickr
-	</string>
-	<string name="SocialFlickrErrorPosting">
-		Неполадка при публикации в Flickr
-	</string>
-	<string name="SocialFlickrErrorDisconnecting">
-		Неполадка при отключении от Flickr
-	</string>
-	<string name="SocialTwitterConnecting">
-		Подключение к Twitter...
-	</string>
-	<string name="SocialTwitterPosting">
-		Публикация...
-	</string>
-	<string name="SocialTwitterDisconnecting">
-		Отключение от Twitter...
-	</string>
-	<string name="SocialTwitterErrorConnecting">
-		Неполадка при подключении к Twitter
-	</string>
-	<string name="SocialTwitterErrorPosting">
-		Неполадка при публикации в Twitter
-	</string>
-	<string name="SocialTwitterErrorDisconnecting">
-		Неполадка при отключении от Twitter
-	</string>
 	<string name="BlackAndWhite">
 		Черно-белый
 	</string>
@@ -4573,15 +4519,6 @@ support@secondlife.com.
 	</string>
 	<string name="share_alert">
 		Перетаскивайте вещи из инвентаря сюда
-	</string>
-	<string name="facebook_post_success">
-		Вы опубликовали сообщение в Facebook.
-	</string>
-	<string name="flickr_post_success">
-		Вы опубликовали сообщение в Flickr.
-	</string>
-	<string name="twitter_post_success">
-		Вы опубликовали сообщение в Twitter.
 	</string>
 	<string name="no_session_message">
 		(Сеанс IM не существует)
