@@ -42,7 +42,6 @@
 #include "llloadingindicator.h"
 #include "llmenubutton.h"
 #include "lltabcontainer.h"
-#include "lltextbox.h"
 #include "lltexteditor.h"
 #include "lltexturectrl.h"
 #include "lltoggleablemenu.h"
@@ -243,7 +242,6 @@ bool enable_god()
 FSPanelProfileSecondLife::FSPanelProfileSecondLife()
  : FSPanelProfileTab()
  , mStatusText(NULL)
-// , mRlvBehaviorCallbackConnection()
 {
 }
 
@@ -258,11 +256,6 @@ FSPanelProfileSecondLife::~FSPanelProfileSecondLife()
 	{
 		LLVoiceClient::getInstance()->removeObserver((LLVoiceClientStatusObserver*)this);
 	}
-
-//	if (mRlvBehaviorCallbackConnection.connected())
-//	{
-//		mRlvBehaviorCallbackConnection.disconnect();
-//	}
 }
 
 bool FSPanelProfileSecondLife::postBuild()
@@ -348,7 +341,6 @@ bool FSPanelProfileSecondLife::postBuild()
 
     LLVoiceClient::getInstance()->addObserver((LLVoiceClientStatusObserver*)this);
 
-//	mRlvBehaviorCallbackConnection = gRlvHandler.setBehaviourCallback(boost::bind(&FSPanelProfileSecondLife::updateRlvRestrictions, this, _1));
 
     return true;
 }
@@ -411,7 +403,7 @@ void FSPanelProfileSecondLife::onOpen(const LLSD& key)
 	
 	if (!own_profile)
 	{
-		mVoiceStatus = LLAvatarActions::canCall() && (LLAvatarActions::isFriend(avatar_id) ? LLAvatarTracker::instance().isBuddyOnline(avatar_id) : TRUE);
+		mVoiceStatus = LLAvatarActions::canCall() && (LLAvatarActions::isFriend(avatar_id) ? LLAvatarTracker::instance().isBuddyOnline(avatar_id) : true);
 		drop_target->setAgentID(avatar_id);
 		updateOnlineStatus();
 	}
@@ -693,7 +685,7 @@ void FSPanelProfileSecondLife::onChange(EStatusType status, const std::string &c
         return;
     }
 
-	mVoiceStatus = LLAvatarActions::canCall() && (LLAvatarActions::isFriend(getAvatarId()) ? LLAvatarTracker::instance().isBuddyOnline(getAvatarId()) : TRUE);
+	mVoiceStatus = LLAvatarActions::canCall() && (LLAvatarActions::isFriend(getAvatarId()) ? LLAvatarTracker::instance().isBuddyOnline(getAvatarId()) : true);
 }
 
 void FSPanelProfileSecondLife::setAvatarId(const LLUUID& id)

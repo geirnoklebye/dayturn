@@ -69,6 +69,7 @@ public:
 		return true;
 	}
 };
+LLProfileHandler gProfileHandler;
 
 class LLAgentHandler : public LLCommandHandler
 {
