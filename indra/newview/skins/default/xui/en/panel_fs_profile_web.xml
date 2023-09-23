@@ -49,26 +49,6 @@
      name="progress_indicator"
      visible="false" />
 
-    <flyout_button
-     top_delta="5"
-     right="-10"
-     height="18"
-     width="80"
-     layout="topleft"
-     follows="right|top"
-     name="web_profile"
-     label="Profile"
-     enabled="false" >
-        <flyout_button.item
-         label="Popout"
-         value="popout"
-         name="builtin_item" />
-        <flyout_button.item
-         label="Open external browser"
-         value="external"
-         name="open_item" />
-    </flyout_button>
-
     <web_browser
      top="48"
      bottom="-18"
