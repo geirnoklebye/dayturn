@@ -1473,7 +1473,7 @@ void open_inventory_offer(const uuid_vec_t& objects, const std::string& from_nam
 			{
 				LL_DEBUGS("Messaging") << "Highlighting inventory item: " << item->getUUID()  << LL_ENDL;
 				// If we opened this ourselves, focus it
-				const BOOL take_focus = from_name.empty() ? TAKE_FOCUS_YES : TAKE_FOCUS_NO;
+				const bool take_focus = from_name.empty() ? TAKE_FOCUS_YES : TAKE_FOCUS_NO;
 				switch(asset_type)
 				{
 					case LLAssetType::AT_NOTECARD:
@@ -1548,8 +1548,8 @@ void open_inventory_offer(const uuid_vec_t& objects, const std::string& from_nam
 
 		////////////////////////////////////////////////////////////////////////////////
 		// Highlight item
-		const BOOL auto_open = 
-			gSavedSettings.getBOOL("ShowInInventory") && // don't open if showininventory is false
+		const bool auto_open = 
+			gSavedSettings.getbool("ShowInInventory") && // don't open if showininventory is false
 			!from_name.empty(); // don't open if it's not from anyone.
 		LLInventoryPanel::openInventoryPanelAndSetSelection(auto_open, obj_id);
 	}
@@ -2543,7 +2543,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		// Make swirly things only for talking objects. (not script debug messages, though)
 		if (chat.mSourceType == CHAT_SOURCE_OBJECT 
 			&& chat.mChatType != CHAT_TYPE_DEBUG_MSG
-			&& gSavedSettings.getBOOL("EffectScriptChatParticles") )
+			&& gSavedSettings.getbool("EffectScriptChatParticles") )
 		{
 			LLPointer<LLViewerPartSourceChat> psc = new LLViewerPartSourceChat(chatter->getPositionAgent());
 			psc->setSourceObject(chatter);
@@ -3943,12 +3943,12 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 	// Inventory can cause confusion.
 	if (object_id == owner_id
         && owner_id != gAgentID
-        && !gSavedSettings.getBOOL("EnableGestureSounds"))
+        && !gSavedSettings.getbool("EnableGestureSounds"))
 	{
 		return;
 	}
 
-	if (LLMaterialTable::basic.isCollisionSound(sound_id) && !gSavedSettings.getBOOL("EnableCollisionSounds"))
+	if (LLMaterialTable::basic.isCollisionSound(sound_id) && !gSavedSettings.getbool("EnableCollisionSounds"))
 	{
 		return;
 	}
@@ -4655,7 +4655,7 @@ void process_money_balance_reply( LLMessageSystem* msg, void** )
 	}
 
 	if (desc.empty()
-		|| !gSavedSettings.getBOOL("NotifyMoneyChange"))
+		|| !gSavedSettings.getbool("NotifyMoneyChange"))
 	{
 		// ...nothing to display
 		return;
@@ -4849,7 +4849,7 @@ static void process_money_balance_reply_extended(LLMessageSystem* msg)
 	std::string gift_suffix = (transaction_type == TRANS_GIFT ? "_gift" : "");
 	if (you_paid_someone)
 	{
-		if(!gSavedSettings.getBOOL("NotifyMoneySpend"))
+		if(!gSavedSettings.getbool("NotifyMoneySpend"))
 		{
 			return;
 		}
@@ -4891,7 +4891,7 @@ static void process_money_balance_reply_extended(LLMessageSystem* msg)
 	else
 	{
 		// ...someone paid you
-		if(!gSavedSettings.getBOOL("NotifyMoneyReceived"))
+		if(!gSavedSettings.getbool("NotifyMoneyReceived"))
 		{
 			return;
 		}
@@ -5971,7 +5971,7 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 			// check whether cautions are even enabled or not
 			const char* notification = "ScriptQuestion";
 
-			if(caution && gSavedSettings.getBOOL("PermissionsCautionEnabled"))
+			if(caution && gSavedSettings.getbool("PermissionsCautionEnabled"))
 			{
 				args["FOOTERTEXT"] = (count > 1) ? LLTrans::getString("AdditionalPermissionsRequestHeader") + "\n\n" + script_question : "";
 				notification = "ScriptQuestionCaution";
