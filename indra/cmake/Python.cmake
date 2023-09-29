@@ -36,20 +36,18 @@ if (WINDOWS)
     ${regpaths}
     ${pymaybe}
     )
-# don't do this, it'll probably find the wrong one first
-#    include(FindPythonInterp)
+    include(FindPythonInterp)
 else()
-  find_program(PYTHON_EXECUTABLE python3)
+  find_program(python python3)
 
-  if (PYTHON_EXECUTABLE)
+  if (python)
     set(PYTHONINTERP_FOUND ON)
-  endif (PYTHON_EXECUTABLE)
+  endif (python)
 endif (WINDOWS)
 
-if (NOT PYTHON_EXECUTABLE)
+if (NOT python)
   message(FATAL_ERROR "No Python interpreter found")
-#else (NOT PYTHON_EXECUTABLE)
-#	message(STATUS "Python = ${PYTHON_EXECUTABLE}")
-endif (NOT PYTHON_EXECUTABLE)
+endif (NOT python)
 
+set(PYTHON_EXECUTABLE "${python}" CACHE FILEPATH "Python interpreter for builds")
 mark_as_advanced(PYTHON_EXECUTABLE)
