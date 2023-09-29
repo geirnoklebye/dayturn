@@ -43,7 +43,7 @@ else()
   if (python)
     set(PYTHONINTERP_FOUND ON)
   endif (python)
-endif (DEFINED ENV{PYTHON})
+endif (WINDOWS)
 
 if (NOT python)
   message(FATAL_ERROR "No Python interpreter found")
