@@ -65,7 +65,7 @@ if (DARWIN)
   # Until we decide to set -std=c++14 in viewer-build-variables/variables, set
   # it locally here: we want to at least prevent inadvertently reintroducing
   # viewer code that would fail with C++14.        
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DARWIN_extra_cstar_flags} -std=gnu++14")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DARWIN_extra_cstar_flags} -std=gnu++17")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${DARWIN_extra_cstar_flags}")
   # NOTE: it's critical that the optimization flag is put in front.
   # NOTE: it's critical to have both CXX_FLAGS and C_FLAGS covered.

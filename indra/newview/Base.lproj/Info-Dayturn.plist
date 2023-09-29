@@ -29,7 +29,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Access to the microphone is needed to connect to voice chat.</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.14.0</string>
+	<string>10.15.0</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 	<key>LSRequiresCarbon</key>
