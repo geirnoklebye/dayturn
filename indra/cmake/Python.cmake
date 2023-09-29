@@ -36,7 +36,8 @@ if (WINDOWS)
     ${regpaths}
     ${pymaybe}
     )
-    include(FindPythonInterp)
+# don't do this, it'll probably find the wrong one first
+#    include(FindPythonInterp)
 else()
   find_program(python python3)
 
