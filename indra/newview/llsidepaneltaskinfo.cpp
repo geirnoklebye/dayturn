@@ -844,9 +844,9 @@ void LLSidepanelTaskInfo::refresh()
 	}
 	
 	// Check search status of objects
-	const BOOL all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
+	const bool all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 	bool include_in_search;
-	const BOOL all_include_in_search = LLSelectMgr::getInstance()->selectionGetIncludeInSearch(&include_in_search);
+	const bool all_include_in_search = LLSelectMgr::getInstance()->selectionGetIncludeInSearch(&include_in_search);
 	getChildView("search_check")->setEnabled(has_change_sale_ability && all_volume);
 	getChild<LLUICtrl>("search_check")->setValue(include_in_search);
 	getChild<LLUICtrl>("search_check")->setTentative(!all_include_in_search);
@@ -888,7 +888,7 @@ void LLSidepanelTaskInfo::refresh()
 			};
 		for (size_t t=0; t<LL_ARRAY_SIZE(no_item_names); ++t)
 		{
-			getChildView(no_item_names[t])->setEnabled(	FALSE);
+			getChildView(no_item_names[t])->setEnabled(false);
 		}
 	}
 	updateVerbs();
