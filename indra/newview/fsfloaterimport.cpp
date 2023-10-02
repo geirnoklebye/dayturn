@@ -241,7 +241,7 @@ void FSFloaterImport::loadFile()
 	if(filestream.is_open())
 	{
 		filestream.seekg(0, std::ios::end);
-		S32 file_size = (S32)filestream.tellg();
+		uint32_t file_size = static_cast<uint32_t>(filestream.tellg());
 		filestream.seekg(0, std::ios::beg);
 		if (LLUZipHelper::unzip_llsd(mManifest, filestream, file_size) == LLUZipHelper::ZR_OK)
 		{
@@ -379,7 +379,7 @@ void FSFloaterImport::processPrim(LLSD& prim)
 		case LLAssetType::AT_BODYPART:
 		{
 			std::string asset(buffer.begin(), buffer.end());
-			S32 position = asset.rfind("textures");
+			unsigned long position = asset.rfind("textures");
 			boost::regex pattern("[[:xdigit:]]{8}(-[[:xdigit:]]{4}){3}-[[:xdigit:]]{12}");
 			boost::sregex_iterator m1(asset.begin() + position, asset.end(), pattern);
 			boost::sregex_iterator m2;
