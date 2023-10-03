@@ -692,7 +692,7 @@ LLSD LLModel::writeModel(
 
 	if (as_slm)
 	{ //save material list names
-		for (U32 i = 0; i < high->mMaterialList.size(); ++i)
+		for (size_t i = 0; i < high->mMaterialList.size(); ++i)
 		{
 			mdl["material_list"][i] = high->mMaterialList[i];
 		}
@@ -1133,7 +1133,7 @@ bool LLModel::loadModel(std::istream& is)
 	if (header.has("material_list"))
 	{ //load material list names
 		mMaterialList.clear();
-		for (U32 i = 0; i < header["material_list"].size(); ++i)
+		for (size_t i = 0; i < header["material_list"].size(); ++i)
 		{
 			mMaterialList.push_back(header["material_list"][i].asString());
 		}
@@ -1419,7 +1419,7 @@ void LLMeshSkinInfo::fromLLSD(LLSD& skin)
 {
 	if (skin.has("joint_names"))
 	{
-		for (U32 i = 0; i < skin["joint_names"].size(); ++i)
+		for (size_t i = 0; i < skin["joint_names"].size(); ++i)
 		{
 			mJointNames.push_back(skin["joint_names"][i]);
             mJointNums.push_back(-1);
@@ -1428,12 +1428,12 @@ void LLMeshSkinInfo::fromLLSD(LLSD& skin)
 
 	if (skin.has("inverse_bind_matrix"))
 	{
-		for (U32 i = 0; i < skin["inverse_bind_matrix"].size(); ++i)
+		for (size_t i = 0; i < skin["inverse_bind_matrix"].size(); ++i)
 		{
 			LLMatrix4 mat;
-			for (U32 j = 0; j < 4; j++)
+			for (size_t j = 0; j < 4; j++)
 			{
-				for (U32 k = 0; k < 4; k++)
+				for (size_t k = 0; k < 4; k++)
 				{
 					mat.mMatrix[j][k] = skin["inverse_bind_matrix"][i][j*4+k].asReal();
 				}
@@ -1454,9 +1454,9 @@ void LLMeshSkinInfo::fromLLSD(LLSD& skin)
 	if (skin.has("bind_shape_matrix"))
 	{
         LLMatrix4 mat;
-		for (U32 j = 0; j < 4; j++)
+		for (size_t j = 0; j < 4; j++)
 		{
-			for (U32 k = 0; k < 4; k++)
+			for (size_t k = 0; k < 4; k++)
 			{
 				mat.mMatrix[j][k] = skin["bind_shape_matrix"][j*4+k].asReal();
 			}
@@ -1466,10 +1466,10 @@ void LLMeshSkinInfo::fromLLSD(LLSD& skin)
 
 	if (skin.has("alt_inverse_bind_matrix"))
 	{
-		for (U32 i = 0; i < skin["alt_inverse_bind_matrix"].size(); ++i)
+		for (size_t i = 0; i < skin["alt_inverse_bind_matrix"].size(); ++i)
 		{
 			LLMatrix4 mat;
-			for (U32 j = 0; j < 4; j++)
+			for (size_t j = 0; j < 4; j++)
 			{
 				for (U32 k = 0; k < 4; k++)
 				{
@@ -1502,22 +1502,22 @@ LLSD LLMeshSkinInfo::asLLSD(bool include_joints, bool lock_scale_if_joint_positi
 {
 	LLSD ret;
 
-	for (U32 i = 0; i < mJointNames.size(); ++i)
+	for (size_t i = 0; i < mJointNames.size(); ++i)
 	{
 		ret["joint_names"][i] = mJointNames[i];
 
-		for (U32 j = 0; j < 4; j++)
+		for (size_t j = 0; j < 4; j++)
 		{
-			for (U32 k = 0; k < 4; k++)
+			for (size_t k = 0; k < 4; k++)
 			{
 				ret["inverse_bind_matrix"][i][j*4+k] = mInvBindMatrix[i].mMatrix[j][k]; 
 			}
 		}
 	}
 
-	for (U32 i = 0; i < 4; i++)
+	for (size_t i = 0; i < 4; i++)
 	{
-		for (U32 j = 0; j < 4; j++)
+		for (size_t j = 0; j < 4; j++)
 		{
 			ret["bind_shape_matrix"][i*4+j] = mBindShapeMatrix.mMatrix[i][j];
 		}
@@ -1525,11 +1525,11 @@ LLSD LLMeshSkinInfo::asLLSD(bool include_joints, bool lock_scale_if_joint_positi
 		
 	if ( include_joints && mAlternateBindMatrix.size() > 0 )
 	{
-		for (U32 i = 0; i < mJointNames.size(); ++i)
+		for (size_t i = 0; i < mJointNames.size(); ++i)
 		{
-			for (U32 j = 0; j < 4; j++)
+			for (size_t j = 0; j < 4; j++)
 			{
-				for (U32 k = 0; k < 4; k++)
+				for (size_t k = 0; k < 4; k++)
 				{
 					ret["alt_inverse_bind_matrix"][i][j*4+k] = mAlternateBindMatrix[i].mMatrix[j][k]; 
 				}
@@ -2038,7 +2038,7 @@ LLModelInstance::LLModelInstance(LLSD& data)
 	mLabel = data["label"].asString();
 	mTransform.setValue(data["transform"]);
 
-	for (U32 i = 0; i < data["material"].size(); ++i)
+	for (size_t i = 0; i < data["material"].size(); ++i)
 	{
 		LLImportMaterial mat(data["material"][i]);
 		mMaterial[mat.mBinding] = mat;
@@ -2054,7 +2054,7 @@ LLSD LLModelInstance::asLLSD()
 	ret["label"] = mLabel;
 	ret["transform"] = mTransform.getValue();
 
-	U32 i = 0;
+	size_t i = 0;
 	for (std::map<std::string, LLImportMaterial>::iterator iter = mMaterial.begin(); iter != mMaterial.end(); ++iter)
 	{
 		ret["material"][i++] = iter->second.asLLSD();

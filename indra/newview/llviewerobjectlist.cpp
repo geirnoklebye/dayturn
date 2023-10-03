@@ -1271,7 +1271,7 @@ void LLViewerObjectList::fetchPhisicsFlagsCoro(std::string url)
     LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
 
     LLSD idList;
-    U32 objectIndex = 0;
+    size_t objectIndex = 0;
 
     for (uuid_set_t::iterator it = mStalePhysicsFlags.begin(); it != mStalePhysicsFlags.end();)
     {

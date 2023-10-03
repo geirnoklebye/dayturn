@@ -137,9 +137,9 @@ public:
 	virtual const LLSD& ref(const String&) const{ return undef(); }
 	
 	virtual size_t size() const					{ return 0; }
-	virtual LLSD get(Integer) const				{ return LLSD(); }
-	virtual void erase(Integer)					{ }
-	virtual const LLSD& ref(Integer) const		{ return undef(); }
+	virtual LLSD get(size_t) const				{ return LLSD(); }
+	virtual void erase(size_t)					{ }
+	virtual const LLSD& ref(size_t) const		{ return undef(); }
 
 	virtual LLSD::map_const_iterator beginMap() const { return endMap(); }
 	virtual LLSD::map_const_iterator endMap() const { static const std::map<String, LLSD> empty; return empty.end(); }
@@ -377,9 +377,9 @@ namespace
 
 		virtual bool has(const LLSD::String&) const; 
 
-		using LLSD::Impl::get; // Unhiding get(LLSD::Integer)
-		using LLSD::Impl::erase; // Unhiding erase(LLSD::Integer)
-		using LLSD::Impl::ref; // Unhiding ref(LLSD::Integer)
+		using LLSD::Impl::get; // Unhiding get(size_t)
+		using LLSD::Impl::erase; // Unhiding erase(size_t)
+		using LLSD::Impl::ref; // Unhiding ref(size_t)
 		virtual LLSD get(const LLSD::String&) const; 
 		virtual LLSD getKeys() const; 
 		        void insert(const LLSD::String& k, const LLSD& v);
@@ -513,13 +513,13 @@ namespace
 		using LLSD::Impl::erase; // Unhiding erase(LLSD::String)
 		using LLSD::Impl::ref; // Unhiding ref(LLSD::String)
 		virtual size_t size() const;
-		virtual LLSD get(LLSD::Integer) const;
-		        void set(LLSD::Integer, const LLSD&);
-		        void insert(LLSD::Integer, const LLSD&);
+		virtual LLSD get(size_t) const;
+		        void set(size_t, const LLSD&);
+		        void insert(size_t, const LLSD&);
 		        LLSD& append(const LLSD&);
-		virtual void erase(LLSD::Integer);
-		              LLSD& ref(LLSD::Integer);
-		virtual const LLSD& ref(LLSD::Integer) const; 
+		virtual void erase(size_t);
+		              LLSD& ref(size_t);
+		virtual const LLSD& ref(size_t) const;  
 
 		LLSD::array_iterator beginArray() { return mData.begin(); }
 		LLSD::array_iterator endArray() { return mData.end(); }
@@ -544,85 +544,77 @@ namespace
 			return *this;
 		}
 	}
-	
+
 	size_t ImplArray::size() const		{ return mData.size(); }
-	
-	LLSD ImplArray::get(LLSD::Integer i) const
+
+	LLSD ImplArray::get(size_t i) const
 	{
-		if (i < 0) { return LLSD(); }
 		DataVector::size_type index = i;
-		
+
 		return (index < mData.size()) ? mData[index] : LLSD();
 	}
-	
-	void ImplArray::set(LLSD::Integer i, const LLSD& v)
+
+	void ImplArray::set(size_t i, const LLSD& v)
 	{
-		if (i < 0) { return; }
 		DataVector::size_type index = i;
-		
+
 		if (index >= mData.size())
 		{
 			mData.resize(index + 1);
 		}
-		
+
 		mData[index] = v;
 	}
-	
-	void ImplArray::insert(LLSD::Integer i, const LLSD& v)
+
+	void ImplArray::insert(size_t i, const LLSD& v)
 	{
-		if (i < 0) 
-		{
-			return;
-		}
 		DataVector::size_type index = i;
-		
+
 		if (index >= mData.size())	// tbd - sanity check limit for index ?
 		{
 			mData.resize(index + 1);
 		}
-		
+
 		mData.insert(mData.begin() + index, v);
 	}
-	
+
 	LLSD& ImplArray::append(const LLSD& v)
 	{
 		mData.push_back(v);
 		return mData.back();
 	}
-	
-	void ImplArray::erase(LLSD::Integer i)
+
+	void ImplArray::erase(size_t i)
 	{
-		if (i < 0) { return; }
 		DataVector::size_type index = i;
-		
+
 		if (index < mData.size())
 		{
 			mData.erase(mData.begin() + index);
 		}
 	}
-	
-	LLSD& ImplArray::ref(LLSD::Integer i)
+
+	LLSD& ImplArray::ref(size_t i)
 	{
-		DataVector::size_type index = i >= 0 ? i : 0;
-		
+		DataVector::size_type index = i;
+
 		if (index >= mData.size())
 		{
 			mData.resize(i + 1);
 		}
-		
+
 		return mData[index];
 	}
 
-	const LLSD& ImplArray::ref(LLSD::Integer i) const
+	const LLSD& ImplArray::ref(size_t i) const
 	{
-		if (i < 0) { return undef(); }
 		DataVector::size_type index = i;
-		
+
 		if (index >= mData.size())
 		{
 			return undef();
 		}
-		
+
 		return mData[index];
 	}
 
@@ -917,11 +909,11 @@ LLSD& LLSD::with(Integer i, const LLSD& v)
 LLSD& LLSD::append(const LLSD& v)		{ return makeArray(impl).append(v); }
 void LLSD::erase(Integer i)				{ makeArray(impl).erase(i); }
 
-LLSD& LLSD::operator[](Integer i)
+LLSD& LLSD::operator[](size_t i)
 { 
     return makeArray(impl).ref(i); 
 }
-const LLSD& LLSD::operator[](Integer i) const
+const LLSD& LLSD::operator[](size_t i) const
 { 
     return safe(impl).ref(i);
 }

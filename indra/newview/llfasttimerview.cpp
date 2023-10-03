@@ -534,7 +534,7 @@ void LLFastTimerView::exportCharts(const std::string& base, const std::string& t
 		std::vector<LLSD::Real> base_times;
 		std::vector<LLSD::Integer> base_calls;
 
-		for (U32 i = 0; i < cur_data.size(); ++i)
+		for (size_t i = 0; i < cur_data.size(); ++i)
 		{
 			LLSD::Real time = cur_data[i][label]["Time"].asReal();
 			LLSD::Integer calls = cur_data[i][label]["Calls"].asInteger();
@@ -550,7 +550,7 @@ void LLFastTimerView::exportCharts(const std::string& base, const std::string& t
 			cur_calls.push_back(calls);
 		}
 
-		for (U32 i = 0; i < base_data.size(); ++i)
+		for (size_t i = 0; i < base_data.size(); ++i)
 		{
 			LLSD::Real time = base_data[i][label]["Time"].asReal();
 			LLSD::Integer calls = base_data[i][label]["Calls"].asInteger();
@@ -619,7 +619,7 @@ void LLFastTimerView::exportCharts(const std::string& base, const std::string& t
 		gGL.setSceneBlendType(LLRender::BT_ADD);
 
 		gGL.color3fv(base_col.mV);
-		for (U32 i = 0; i < base_times.size(); ++i)
+		for (size_t i = 0; i < base_times.size(); ++i)
 		{
 			gGL.begin(LLRender::TRIANGLE_STRIP);
 			gGL.vertex3fv(last_p.mV);
@@ -638,7 +638,7 @@ void LLFastTimerView::exportCharts(const std::string& base, const std::string& t
 			LLGLEnable blend(GL_BLEND);
 						
 			gGL.color3fv(cur_col.mV);
-			for (U32 i = 0; i < cur_times.size(); ++i)
+			for (size_t i = 0; i < cur_times.size(); ++i)
 			{
 				gGL.begin(LLRender::TRIANGLE_STRIP);
 				gGL.vertex3f(last_p.mV[0], 0.f, 0.f);
@@ -662,7 +662,7 @@ void LLFastTimerView::exportCharts(const std::string& base, const std::string& t
 		last_p.clear();
 
 		gGL.color3fv(base_col.mV);
-		for (U32 i = 0; i < base_calls.size(); ++i)
+		for (size_t i = 0; i < base_calls.size(); ++i)
 		{
 			gGL.begin(LLRender::TRIANGLE_STRIP);
 			gGL.vertex3fv(last_p.mV);
@@ -680,7 +680,7 @@ void LLFastTimerView::exportCharts(const std::string& base, const std::string& t
 			gGL.color3fv(cur_col.mV);
 			last_p.clear();
 
-			for (U32 i = 0; i < cur_calls.size(); ++i)
+			for (size_t i = 0; i < cur_calls.size(); ++i)
 			{
 				gGL.begin(LLRender::TRIANGLE_STRIP);
 				gGL.vertex3f(last_p.mV[0], 0.f, 0.f);

@@ -631,7 +631,7 @@ void LLModelPreview::saveUploadData(const std::string& filename,
     S32 mesh_id = 0;
 
     //build list of unique models and initialize local id
-    for (U32 i = 0; i < mUploadData.size(); ++i)
+    for (size_t i = 0; i < mUploadData.size(); ++i)
     {
         LLModelInstance& instance = mUploadData[i];
 
@@ -656,7 +656,7 @@ void LLModelPreview::saveUploadData(const std::string& filename,
                 save_skinweights,
                 save_joint_positions,
                 lock_scale_if_joint_position,
-                FALSE, TRUE, instance.mModel->mSubmodelID);
+                false, true, instance.mModel->mSubmodelID);
 
             data["mesh"][instance.mModel->mLocalID] = str.str();
         }
