@@ -205,7 +205,7 @@ protected:
 	/**
 	 * @brief The maximum number of bytes left to be parsed.
 	 */
-	mutable std::streamsize mMaxBytesLeft;
+	mutable std::streamsize mMaxBytesLeft{};
 	
 	/**
 	 * @brief Use line-based reading to get text

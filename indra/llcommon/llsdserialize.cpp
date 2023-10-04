@@ -228,14 +228,14 @@ union LLEndianSwapper
 };
 F64 ll_htond(F64 hostdouble)
 {
-	LLEndianSwapper tmp;
+	LLEndianSwapper tmp{};
 	tmp.d = hostdouble;
 	tmp.i = ll_htonll(tmp.i);
 	return tmp.d;
 }
 F64 ll_ntohd(F64 netdouble)
 {
-	LLEndianSwapper tmp;
+	LLEndianSwapper tmp{};
 	tmp.d = netdouble;
 	tmp.i = ll_ntohll(tmp.i);
 	return tmp.d;
@@ -1221,7 +1221,7 @@ bool LLSDBinaryParser::parseString(
 	// *FIX: This is memory inefficient.
 	U32 value_nbo = 0;
 	read(istr, (char*)&value_nbo, sizeof(U32));		 /*Flawfinder: ignore*/
-	S32 size = (S32)ntohl(value_nbo);
+	unsigned long size = ntohl(value_nbo);
 	if(mCheckLimits && (size > mMaxBytesLeft)) return false;
 	if(size < 0) return false;
 	std::vector<char> buf;
@@ -1432,7 +1432,7 @@ S32 LLSDNotationFormatter::format_impl(const LLSD& data, std::ostream& ostr,
 				ostr << std::uppercase;
 				auto oldfill(ostr.fill('0'));
 				auto oldwidth(ostr.width());
-				for (int i = 0; i < buffer.size(); i++)
+				for (size_t i = 0; i < buffer.size(); i++)
 				{
 					// have to restate setw() before every conversion
 					ostr << std::setw(2) << (int) buffer[i];
@@ -1650,7 +1650,7 @@ std::streamsize deserialize_string_delim(
 		}
 
 		char next_char = (char)next_byte; // Now that we know it's not EOF
-		
+
 		if(found_escape)
 		{
 			// next character(s) is a special sequence.
@@ -2190,7 +2190,7 @@ LLUZipHelper::EZipRresult LLUZipHelper::unzip_llsd(LLSD& data, const U8* in, uin
 	U8* result = NULL;
 	std::streamsize cur_size = 0;
 	z_stream strm;
-		
+
 	constexpr U32 CHUNK = 1024 * 512;
 
 	static thread_local std::unique_ptr<U8[]> out;
