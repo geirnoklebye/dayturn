@@ -1284,6 +1284,7 @@ class DarwinManifest(ViewerManifest):
                     libvlc_path = app_in_dmg + "/Contents/Resources/llplugin/media_plugin_libvlc.dylib"
                     cef_path = app_in_dmg + "/Contents/Resources/llplugin/media_plugin_cef.dylib"
                     slplugin_path = app_in_dmg + "/Contents/Resources/SLPlugin.app/Contents/MacOS/SLPlugin"
+                    framework_path = app_in_dmg + "/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/"
                     #greenlet_path = app_in_dmg + "/Contents/Resources/updater/greenlet/_greenlet.so"
                     while (not signed) and (sign_attempts > 0):
                         try:
@@ -1305,8 +1306,12 @@ class DarwinManifest(ViewerManifest):
                             self.run_command(['codesign', '--force', '--timestamp','--keychain', viewer_keychain, '--sign', identity, libvlc_path])
                             # sign dylibs in cef_path with my signature
                             self.run_command(['codesign', '--force', '--timestamp', '--keychain', viewer_keychain, '--sign', identity, cef_path])
-                            # sign dylibs in greenlet_path with my signature
-                            # self.run_command(['codesign', '--force', '--timestamp', '--keychain', viewer_keychain, '--sign', identity, greenlet_path])
+                            # sign dylibs in framework_path with my signature
+                            self.run_command(['codesign', '--verbose', '--deep', '--force', '--entitlements', home_path + "/Developer/dayturn-core/slplugin.entitlements", '--options', 'runtime', '--keychain', viewer_keychain, '--sign', identity, framework_path + "libEGL.dylib"])
+                            self.run_command(['codesign', '--verbose', '--deep', '--force', '--entitlements', home_path + "/Developer/dayturn-core/slplugin.entitlements", '--options', 'runtime', '--keychain', viewer_keychain, '--sign', identity, framework_path + "libGLESv2.dylib"])
+                            self.run_command(['codesign', '--verbose', '--deep', '--force', '--entitlements', home_path + "/Developer/dayturn-core/slplugin.entitlements", '--options', 'runtime', '--keychain', viewer_keychain, '--sign', identity, framework_path + "libswiftshader_libEGL.dylib"])
+                            self.run_command(['codesign', '--verbose', '--deep', '--force', '--entitlements', home_path + "/Developer/dayturn-core/slplugin.entitlements", '--options', 'runtime', '--keychain', viewer_keychain, '--sign', identity, framework_path + "libswiftshader_libGLESv2.dylib"])
+                            self.run_command(['codesign', '--verbose', '--deep', '--force', '--entitlements', home_path + "/Developer/dayturn-core/slplugin.entitlements", '--options', 'runtime', '--keychain', viewer_keychain, '--sign', identity, framework_path + "libvk_swiftshader.dylib"])
                             # sign slplugin with my signature
                             self.run_command(['codesign', '--verbose', '--deep', '--force', '--entitlements', home_path + "/Developer/dayturn-core/slplugin.entitlements", '--options', 'runtime', '--keychain', viewer_keychain, '--sign', identity, slplugin_path])
                             # finally sign the app bundle with my signature
