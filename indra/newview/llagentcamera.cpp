@@ -2026,14 +2026,6 @@ LLVector3d LLAgentCamera::calcCameraPositionTargetGlobal(bool *hit_limit)
 		isConstrained = true;
 	}
 
-	// Don't let camera go abovesky
-	F32 maxZ = LLWorld::getInstance()->getRegionMaxHeight() * 0.25 - F_ALMOST_ZERO;
-	if (camera_position_global.mdV[VZ] > maxZ)
-	{
-		camera_position_global.mdV[VZ] = maxZ;
-		isConstrained = true;
-	}
-
 	if (hit_limit)
 	{
 		*hit_limit = isConstrained;
