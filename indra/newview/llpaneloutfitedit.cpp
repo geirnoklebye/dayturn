@@ -729,7 +729,7 @@ void LLPanelOutfitEdit::onSearchEdit(const std::string& string)
 	if (mSearchString == "")
 	{
 		mInventoryItemsPanel->setFilterSubString(LLStringUtil::null);
-		mWearableItemsList->setFilterSubString(LLStringUtil::null);
+		mWearableItemsList->setFilterSubString(LLStringUtil::null, true);
 		// re-open folders that were initially open
 		mSavedFolderState->setApply(true);
 		mInventoryItemsPanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
@@ -755,8 +755,7 @@ void LLPanelOutfitEdit::onSearchEdit(const std::string& string)
 	
 	// set new filter string
 	mInventoryItemsPanel->setFilterSubString(mSearchString);
-	mWearableItemsList->setFilterSubString(mSearchString);
-
+	mWearableItemsList->setFilterSubString(mSearchString, true);
 }
 
 void LLPanelOutfitEdit::onPlusBtnClicked(void)

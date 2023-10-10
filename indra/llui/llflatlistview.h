@@ -305,6 +305,7 @@ public:
 	virtual S32	notify(const LLSD& info) ;
 
 	virtual ~LLFlatListView();
+
 protected:
 
 	/** Pairs LLpanel representing a single item LLPanel and LLSD associated with it */
@@ -380,7 +381,9 @@ protected:
 
 	LLRect getLastSelectedItemRect();
 
-	void   ensureSelectedVisible();
+	void ensureSelectedVisible();
+
+	const pairs_list_t& getItemPairs() { return mItemPairs; }
 
 private:
 
@@ -487,14 +490,14 @@ public:
 	/**
 	 * Sets up new filter string and filters the list.
 	 */
-	void setFilterSubString(const std::string& filter_str);
+	void setFilterSubString(const std::string& filter_str, bool notify_parent);
 	std::string getFilterSubString() { return mFilterSubString; }
 	
 	/**
 	 * Filters the list, rearranges and notifies parent about shape changes.
 	 * Derived classes may want to overload rearrangeItems() to exclude repeated separators after filtration.
 	 */
-	void filterItems();
+	void filterItems(bool re_sort, bool notify_parent);
 
 	/**
 	 * Returns true if last call of filterItems() found at least one matching item
@@ -518,7 +521,7 @@ protected:
 	* @param item - item we are changing
 	* @param item - action - parameters to determin visibility from
 	*/
-	void updateItemVisibility(LLPanel* item, const LLSD &action);
+	bool updateItemVisibility(LLPanel* item, const LLSD &action);
 
 private:
 	std::string mNoFilteredItemsMsg;

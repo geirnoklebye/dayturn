@@ -91,7 +91,7 @@ public:
     void wearSelectedOutfit();
 
 
-    /*virtual*/ void setFilterSubString(const std::string& string);
+    /*virtual*/ void onFilterSubStringChanged(const std::string& new_string, const std::string& old_string);
 
     /*virtual*/ void getCurrentCategories(uuid_vec_t& vcur);
     /*virtual*/ void updateAddedCategory(LLUUID cat_id);
@@ -123,8 +123,6 @@ protected:
     /*virtual*/ void onCollapseAllFolders() {}
     /*virtual*/ void onExpandAllFolders() {}
     /*virtual*/ LLOutfitListGearMenuBase* createGearMenu();
-
-    void applyFilter(LLOutfitGalleryItem* item, const std::string& filter_substring);
 
 private:
     void loadPhotos();

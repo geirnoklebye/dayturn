@@ -178,8 +178,7 @@ bool compareGalleryItem(LLOutfitGalleryItem* item1, LLOutfitGalleryItem* item2)
 }
 
 void LLOutfitGallery::reArrangeRows(S32 row_diff)
-{
- 
+{ 
     std::vector<LLOutfitGalleryItem*> buf_items = mItems;
     for (std::vector<LLOutfitGalleryItem*>::const_reverse_iterator it = buf_items.rbegin(); it != buf_items.rend(); ++it)
     {
@@ -191,16 +190,24 @@ void LLOutfitGallery::reArrangeRows(S32 row_diff)
     }
     mHiddenItems.clear();
     
-    mItemsInRow+= row_diff;
+    mItemsInRow += row_diff;
     updateGalleryWidth();
     std::sort(buf_items.begin(), buf_items.end(), compareGalleryItem);
-    
+
+    std::string cur_filter = getFilterSubString();
+    LLStringUtil::toUpper(cur_filter);
+
     for (std::vector<LLOutfitGalleryItem*>::const_iterator it = buf_items.begin(); it != buf_items.end(); ++it)
     {
-    	(*it)->setHidden(false);
-    	applyFilter(*it,sFilterSubString);
+        std::string outfit_name = (*it)->getItemName();
+        LLStringUtil::toUpper(outfit_name);
+
+        bool hidden = (std::string::npos == outfit_name.find(cur_filter));
+        (*it)->setHidden(hidden);
+
     	addToGallery(*it);
     }
+
     updateMessageVisibility();
 }
 
@@ -467,9 +474,9 @@ LLOutfitGallery::~LLOutfitGallery()
     }
 }
 
-void LLOutfitGallery::setFilterSubString(const std::string& string)
+// virtual
+void LLOutfitGallery::onFilterSubStringChanged(const std::string& new_string, const std::string& old_string)
 {
-    sFilterSubString = string;
     reArrangeRows();
 }
 
@@ -483,20 +490,6 @@ void LLOutfitGallery::onHighlightBaseOutfit(LLUUID base_id, LLUUID prev_id)
     {
         mOutfitMap[prev_id]->setOutfitWorn(false);
     }
-}
-
-void LLOutfitGallery::applyFilter(LLOutfitGalleryItem* item, const std::string& filter_substring)
-{
-    if (!item) return;
-
-    std::string outfit_name = item->getItemName();
-    LLStringUtil::toUpper(outfit_name);
-
-    std::string cur_filter = filter_substring;
-    LLStringUtil::toUpper(cur_filter);
-
-    bool hidden = (std::string::npos == outfit_name.find(cur_filter));
-    item->setHidden(hidden);
 }
 
 void LLOutfitGallery::onSetSelectedOutfitByUUID(const LLUUID& outfit_uuid)
@@ -645,11 +638,11 @@ bool LLOutfitGallery::hasDefaultImage(const LLUUID& outfit_cat_id)
 
 void LLOutfitGallery::updateMessageVisibility()
 {
-    if(mItems.empty())
+    if (mItems.empty())
     {
         mMessageTextBox->setVisible(true);
         mScrollPanel->setVisible(false);
-        std::string message = sFilterSubString.empty()? getString("no_outfits_msg") : getString("no_matched_outfits_msg");
+        std::string message = getString(getFilterSubString().empty() ? "no_outfits_msg" : "no_matched_outfits_msg");
         mMessageTextBox->setValue(message);
     }
     else
