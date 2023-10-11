@@ -121,6 +121,8 @@ public:
 		 */
 		Optional<S32>						tab_icon_ctrl_pad;
 
+        Optional<bool> use_tab_offset;
+
 		Params();
 	};
 
@@ -320,6 +322,8 @@ private:
 	LLUIColor						mTabsFlashingColor;
 	S32								mTabIconCtrlPad;
 	bool							mUseTabEllipses;
+
+    bool mUseTabOffset;
 };
 
 #endif  // LL_TABCONTAINER_H
