@@ -1513,22 +1513,22 @@ bool LLTabContainer::selectTab(S32 which)
 	{
 		return false;
 	}
-	
+
 	LLSD cbdata;
 	if (selected_tuple->mTabPanel)
 		cbdata = selected_tuple->mTabPanel->getName();
 
-	bool res = false;
+	bool result = false;
 	if( !mValidateSignal || (*mValidateSignal)( this, cbdata ) )
 	{
-		res = setTab(which);
-		if (res && mCommitSignal)
+		result = setTab(which);
+		if (result && mCommitSignal)
 		{
 			(*mCommitSignal)(this, cbdata);
 		}
 	}
-	
-	return res;
+
+	return result;
 }
 
 // private

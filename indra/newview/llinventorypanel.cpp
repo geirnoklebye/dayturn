@@ -1811,7 +1811,8 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(bool auto_open)
 }
 
 //static
-void LLInventoryPanel::openInventoryPanelAndSetSelection(bool auto_open, const LLUUID& obj_id, bool main_panel, bool take_keyboard_focus, bool reset_filter)
+void LLInventoryPanel::openInventoryPanelAndSetSelection(bool auto_open, const LLUUID& obj_id,
+	bool main_panel, bool take_keyboard_focus, bool reset_filter)
 {
 	LLSidepanelInventory* sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
 	sidepanel_inventory->showInventoryPanel();
