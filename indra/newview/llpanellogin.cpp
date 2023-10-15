@@ -73,8 +73,8 @@
 #include "llsdserialize.h"
 
 LLPanelLogin *LLPanelLogin::sInstance = NULL;
-BOOL LLPanelLogin::sCapslockDidNotification = FALSE;
-BOOL LLPanelLogin::sCredentialSet = FALSE;
+bool LLPanelLogin::sCapslockDidNotification = false;
+bool LLPanelLogin::sCredentialSet = false;
 
 // Helper functions
 
@@ -192,7 +192,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	setBackgroundVisible(false);
 	setBackgroundOpaque(true);
 
-	mPasswordModified = FALSE;
+	mPasswordModified = false;
 
 	sInstance = this;
 
@@ -321,7 +321,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// STEAM-14: When user presses Enter with this field in focus, initiate login
 	username_combo->setCommitCallback(boost::bind(&LLPanelLogin::onUserListCommit, this));
 	username_combo->setReturnCallback(boost::bind(&LLPanelLogin::onClickConnect, this));
-	username_combo->setKeystrokeOnEsc(TRUE);
+	username_combo->setKeystrokeOnEsc(true);
 
 
     LLCheckBoxCtrl* remember_name = getChild<LLCheckBoxCtrl>("remember_name");
@@ -475,8 +475,8 @@ void LLPanelLogin::giveFocus()
 		std::string username = sInstance->getChild<LLUICtrl>("username_combo")->getValue().asString();
 		std::string pass = sInstance->getChild<LLUICtrl>("password_edit")->getValue().asString();
 
-		BOOL have_username = !username.empty();
-		BOOL have_pass = !pass.empty();
+		bool have_username = !username.empty();
+		bool have_pass = !pass.empty();
 
 		LLLineEditor* edit = NULL;
 		LLComboBox* combo = NULL;
@@ -579,7 +579,7 @@ void LLPanelLogin::setFields(LLPointer<LLCredential> credential)
 		LL_WARNS() << "Attempted fillFields with no login view shown" << LL_ENDL;
 		return;
 	}
-	sCredentialSet = TRUE;
+	sCredentialSet = true;
 	LL_INFOS("Credentials") << "Setting login fields to " << *credential << LL_ENDL;
 
 	LLSD identifier = credential.notNull() ? credential->getIdentifier() : LLSD();
@@ -715,7 +715,7 @@ void LLPanelLogin::getFields(LLPointer<LLCredential>& credential,
 
 
 // static
-BOOL LLPanelLogin::areCredentialFieldsDirty()
+bool LLPanelLogin::areCredentialFieldsDirty()
 {
 	if (!sInstance)
 	{
@@ -743,7 +743,7 @@ void LLPanelLogin::updateLocationSelectorsVisibility()
 {
 	if (sInstance) 
 	{
-		BOOL show_server = gSavedSettings.getBOOL("ForceShowGrid");
+		bool show_server = gSavedSettings.getbool("ForceShowGrid");
 		LLComboBox* server_combo = sInstance->getChild<LLComboBox>("server_combo");
 		if ( server_combo ) 
 		{
@@ -978,7 +978,7 @@ void LLPanelLogin::onClickConnect(bool commit_fields)
 		}
 		else
 		{
-			sCredentialSet = FALSE;
+			sCredentialSet = false;
 			LLPointer<LLCredential> cred;
 			bool remember_1, remember_2;
 			getFields(cred, remember_1, remember_2);
@@ -1117,11 +1117,11 @@ void LLPanelLogin::onRememberPasswordCheck(void*)
 void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
 {
 	LLPanelLogin *self = (LLPanelLogin *)user_data;
-	self->mPasswordModified = TRUE;
-	if (gKeyboard->getKeyDown(KEY_CAPSLOCK) && sCapslockDidNotification == FALSE)
+	self->mPasswordModified = true;
+	if (gKeyboard->getKeyDown(KEY_CAPSLOCK) && sCapslockDidNotification == false)
 	{
 		// *TODO: use another way to notify user about enabled caps lock, see EXT-6858
-		sCapslockDidNotification = TRUE;
+		sCapslockDidNotification = true;
 	}
 
 	LLLineEditor* password_edit(self->getChild<LLLineEditor>("password_edit"));
