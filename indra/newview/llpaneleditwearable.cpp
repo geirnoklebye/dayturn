@@ -823,7 +823,7 @@ bool LLPanelEditWearable::postBuild()
         mHeightValue    = "[HEIGHT] [METRIC1]";
         mReplacementMetricUrl   = "[URL_METRIC2]";
 
-        std::string color = mPanelShape->getString("heigth_label_color");
+        std::string color = mPanelShape->getString("height_label_color");
         mAvatarHeightLabelColor = LLUIColorTable::instance().getColor(color, LLColor4::green);
         color = mPanelShape->getString("heigth_value_label_color");
         mAvatarHeightValueLabelColor = LLUIColorTable::instance().getColor(color, LLColor4::green);
