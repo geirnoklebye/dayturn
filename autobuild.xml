@@ -1404,20 +1404,6 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>d9c86f79a6bb56a670e2801c33fd2dd1</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/p64_3p-openal/rev/314223/arch/CYGWIN/installer/openal-1.12.854-1.1.0.314223-windows-314223.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>windows</string>
-          </map>
-          <key>windows64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
               <string>e0fdd9394a8cd8c6360b922f6f237e57</string>
               <key>hash_algorithm</key>
               <string>md5</string>
@@ -1425,7 +1411,7 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
               <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/p64_3p-openal/rev/314223/arch/CYGWIN/installer/openal-1.12.854-1.1.0.314223-windows64-314223.tar.bz2</string>
             </map>
             <key>name</key>
-            <string>windows64</string>
+            <string>windows</string>
           </map>
         </map>
         <key>version</key>
