@@ -825,7 +825,7 @@ bool LLPanelEditWearable::postBuild()
 
         std::string color = mPanelShape->getString("height_label_color");
         mAvatarHeightLabelColor = LLUIColorTable::instance().getColor(color, LLColor4::green);
-        color = mPanelShape->getString("heigth_value_label_color");
+        color = mPanelShape->getString("height_value_label_color");
         mAvatarHeightValueLabelColor = LLUIColorTable::instance().getColor(color, LLColor4::green);
         gSavedSettings.getControl("HeightUnits")->getSignal()->connect(boost::bind(&LLPanelEditWearable::changeHeightUnits, this, _2));
         updateMetricLayout(gSavedSettings.getbool("HeightUnits"));
