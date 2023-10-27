@@ -1388,13 +1388,13 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
       <key>openal</key>
       <map>
         <key>copyright</key>
-        <string>Creative Labs</string>
+        <string>Copyright (C) 1999-2007 by authors.</string>
         <key>description</key>
-        <string>OpenAL is a cross-platform 3D audio API appropriate for use with gaming applications and many other types of audio applications.</string>
+        <string>OpenAL Soft is a software implementation of the OpenAL 3D audio API.</string>
         <key>license</key>
-        <string>lgpl</string>
+        <string>LGPL2</string>
         <key>license_file</key>
-        <string>LICENSES/openal.txt</string>
+        <string>LICENSES/openal-soft.txt</string>
         <key>name</key>
         <string>openal</string>
         <key>platforms</key>
@@ -1404,18 +1404,18 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>e0fdd9394a8cd8c6360b922f6f237e57</string>
+              <string>bcd6ff8d0c614c6ef1fff21ee94d0853</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/p64_3p-openal/rev/314223/arch/CYGWIN/installer/openal-1.12.854-1.1.0.314223-windows64-314223.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/openal-1.23.1-windows64-18e315c.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.12.854-1.1.0.314223</string>
+        <string>1.23.1</string>
       </map>
       <key>openjpeg</key>
       <map>
