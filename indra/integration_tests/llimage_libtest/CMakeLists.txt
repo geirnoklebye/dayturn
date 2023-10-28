@@ -68,8 +68,6 @@ target_link_libraries(llimage_libtest
     ${LLFILESYSTEM_LIBRARIES}
     ${LLMATH_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
-    ${LLKDU_LIBRARIES}
-    ${KDU_LIBRARY}
     ${LLIMAGEJ2COJ_LIBRARIES}
     ${OS_LIBRARIES}
     )

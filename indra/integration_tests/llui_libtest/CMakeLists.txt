@@ -80,8 +80,6 @@ target_link_libraries(llui_libtest
     llmessage
     ${LLRENDER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
-    ${LLKDU_LIBRARIES}
-    ${KDU_LIBRARY}
     ${LLIMAGEJ2COJ_LIBRARIES}
     ${OS_LIBRARIES}
     ${HUNSPELL_LIBRARY}
