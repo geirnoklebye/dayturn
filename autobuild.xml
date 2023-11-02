@@ -2101,7 +2101,7 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
         <key>windows</key>
         <map>
           <key>build_directory</key>
-          <string>build-vc${AUTOBUILD_VSVER|160}-dayturn-norlv</string>
+          <string>build-vc${AUTOBUILD_VSVER|170}-dayturn-norlv</string>
           <key>configurations</key>
           <map>
             <key>RelWithDebInfo</key>
@@ -2195,7 +2195,7 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
                 <key>options</key>
                 <array>
                   <string>-G</string>
-                  <string>"Visual Studio 16"</string>
+                  <string>"Visual Studio 17 2022"</string>
                   <string>-DINSTALL_PROPRIETARY=FALSE</string>
                 </array>
               </map>
@@ -2227,7 +2227,7 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
                 <key>options</key>
                 <array>
                   <string>-G</string>
-                  <string>Visual Studio 16 2019</string>
+                  <string>Visual Studio 17 2022</string>
                   <string>-DINSTALL_PROPRIETARY=FALSE</string>
                   <string>-DUSE_KDU=FALSE</string>
                 </array>

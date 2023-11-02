@@ -136,18 +136,20 @@ if(WINDOWS)
     # send to maintain the flexibility to change easily.
     # Note: we also capture the MSVC_VER (mirrors AUTOBUILD_VSVER) and display it in the log
     # to confirm to the user what is happening but do not (currently) use it for anything
-    if (MSVC_VERSION GREATER_EQUAL 1910 AND MSVC_VERSION LESS 1920) # Visual Studio 2017
+    if (MSVC80)
+        set(MSVC_VER 80)
+    elseif (MSVC_VERSION GREATER_EQUAL 1910 AND MSVC_VERSION LESS 1920) # Visual Studio 2017
         set(MSVC_VER 150)
         set(MSVC_VER_RUNTIME 140)
     elseif (MSVC_VERSION GREATER_EQUAL 1920 AND MSVC_VERSION LESS 1930) # Visual Studio 2019
         set(MSVC_VER 160)
         set(MSVC_VER_RUNTIME 140)
-    elseif (MSVC_VERSION GREATER_EQUAL 1930 AND MSVC_VERSION LESS 1939) # Visual Studio 2022
+    elseif (MSVC_VERSION GREATER_EQUAL 1930 AND MSVC_VERSION LESS 1940:) # Visual Studio 2022
         set(MSVC_VER 170)
         set(MSVC_VER_RUNTIME 140)
-    else (MSVC_VERSION GREATER_EQUAL 1910 AND MSVC_VERSION LESS 1920) 
+    else (MSVC80) 
         MESSAGE(WARNING "New MSVC_VERSION ${MSVC_VERSION} of MSVC: adapt Copy3rdPartyLibs.cmake")
-    endif (MSVC_VERSION GREATER_EQUAL 1910 AND MSVC_VERSION LESS 1920) 
+    endif (MSVC80) 
     
     MESSAGE(STATUS "Building projects/solution for MSVC version ${MSVC_VER} and using version ${MSVC_VER_RUNTIME} as the basis for copying runtime DLLs")
 
