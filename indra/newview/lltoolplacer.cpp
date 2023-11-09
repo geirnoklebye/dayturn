@@ -542,7 +542,7 @@ bool LLToolPlacer::placeObject(S32 x, S32 y, MASK mask)
 	}
 
 	// ...and go back to the default tool
-	if (added && !gSavedSettings.getBOOL("CreateToolKeepSelected"))
+	if (added && !gSavedSettings.getbool("CreateToolKeepSelected"))
 	{
 		LLToolMgr::getInstance()->getCurrentToolset()->selectTool( LLToolCompTranslate::getInstance() );
 	}

@@ -1264,7 +1264,7 @@ void LLTranslate::logFailure(S32 count)
 LLSD LLTranslate::asLLSD() const
 {
 	LLSD res;
-	bool on = gSavedSettings.getBOOL("TranslateChat");
+	bool on = gSavedSettings.getbool("TranslateChat");
 	res["on"] = on;
 	res["chars_seen"] = (S32) mCharsSeen;
 	if (on)

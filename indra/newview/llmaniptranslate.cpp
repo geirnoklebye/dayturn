@@ -1073,7 +1073,7 @@ void LLManipTranslate::render()
 
 void LLManipTranslate::renderSnapGuides()
 {
-	if (!gSavedSettings.getBOOL("SnapEnabled"))
+	if (!gSavedSettings.getbool("SnapEnabled"))
 	{
 		return;
 	}

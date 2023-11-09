@@ -114,9 +114,9 @@ BOOL LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
 	mMouseDownX = x;
 	mMouseDownY = y;
 	LLTimer pick_timer;
-	BOOL pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
-	LLPickInfo transparent_pick = gViewerWindow->pickImmediate(x, y, TRUE /*includes transparent*/, pick_rigged);
-	LLPickInfo visible_pick = gViewerWindow->pickImmediate(x, y, FALSE, pick_rigged);
+	bool pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+	LLPickInfo transparent_pick = gViewerWindow->pickImmediate(x, y, true /*includes transparent*/, pick_rigged);
+	LLPickInfo visible_pick = gViewerWindow->pickImmediate(x, y, false, pick_rigged);
 	LLViewerObject *transp_object = transparent_pick.getObject();
 	LLViewerObject *visible_object = visible_pick.getObject();
 
@@ -755,8 +755,8 @@ void LLToolPie::selectionPropertiesReceived()
 
 bool LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 {
-    BOOL pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
-	mHoverPick = gViewerWindow->pickImmediate(x, y, FALSE, pick_rigged);
+    bool pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+	mHoverPick = gViewerWindow->pickImmediate(x, y, false, pick_rigged);
 	LLViewerObject *parent = NULL;
 	LLViewerObject *object = mHoverPick.getObject();
 	LLSelectMgr::getInstance()->setHoverObject(object, mHoverPick.mObjectFace);

@@ -518,7 +518,7 @@ void FSFloaterImport::onClickBtnImport()
 	if (((mTexturesTotal + mSoundsTotal + mAnimsTotal + mAssetsTotal) != 0) && getChild<LLCheckBoxCtrl>("upload_asset")->get())
 	{
 		// do not pop up preview floaters when creating new inventory items.
-		gSavedSettings.setBOOL("ShowNewInventory", false);
+		gSavedSettings.setbool("ShowNewInventory", false);
 		
 		if (!getChild<LLCheckBoxCtrl>("temp_asset")->get())
 		{

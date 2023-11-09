@@ -516,7 +516,7 @@ bool LLConversationLogListNameComparator::doCompare(const LLConversationLogListI
 	LLStringUtil::toUpper(name1);
 	LLStringUtil::toUpper(name2);
 
-	bool friends_first = gSavedSettings.getBOOL("SortFriendsFirst");
+	bool friends_first = gSavedSettings.getbool("SortFriendsFirst");
 	if (friends_first && (LLAvatarActions::isFriend(id1) ^ LLAvatarActions::isFriend(id2)))
 	{
 		return LLAvatarActions::isFriend(id1);
@@ -532,7 +532,7 @@ bool LLConversationLogListDateComparator::doCompare(const LLConversationLogListI
 	const LLUUID& id1 = conversation1->getConversation()->getParticipantID();
 	const LLUUID& id2 = conversation2->getConversation()->getParticipantID();
 
-	bool friends_first = gSavedSettings.getBOOL("SortFriendsFirst");
+	bool friends_first = gSavedSettings.getbool("SortFriendsFirst");
 	if (friends_first && (LLAvatarActions::isFriend(id1) ^ LLAvatarActions::isFriend(id2)))
 	{
 		return LLAvatarActions::isFriend(id1);

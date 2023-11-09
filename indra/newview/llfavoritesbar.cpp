@@ -1725,7 +1725,7 @@ void LLFavoritesOrderStorage::load()
 					mStorageFavorites = fav_llsd[gAgentUsername];
 
 					S32 index = 0;
-					bool needs_validation = gSavedPerAccountSettings.getBOOL("ShowFavoritesOnLogin");
+					bool needs_validation = gSavedPerAccountSettings.getbool("ShowFavoritesOnLogin");
 					for (LLSD::array_iterator iter = mStorageFavorites.beginArray();
 						iter != mStorageFavorites.endArray(); ++iter)
 					{

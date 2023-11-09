@@ -276,7 +276,7 @@ void LLAppCoreHttp::init()
 	if (gSavedSettings.controlExists(http_pipelining))
 	{
 		// Default to true (in ctor) if absent.
-		mPipelined = gSavedSettings.getBOOL(http_pipelining);
+		mPipelined = gSavedSettings.getbool(http_pipelining);
 		LL_INFOS("Init") << "HTTP Pipelining " << (mPipelined ? "enabled" : "disabled") << "!" << LL_ENDL;
 	}
 
@@ -309,7 +309,7 @@ void setting_changed()
 
 void ssl_verification_changed()
 {
-    LLCore::HttpOptions::setDefaultSSLVerifyPeer(!gSavedSettings.getBOOL("NoVerifySSLCert"));
+    LLCore::HttpOptions::setDefaultSSLVerifyPeer(!gSavedSettings.getbool("NoVerifySSLCert"));
 }
 
 namespace

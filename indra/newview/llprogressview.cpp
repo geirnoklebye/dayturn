@@ -144,8 +144,8 @@ void LLProgressView::revealIntroPanel()
 	// if user hasn't yet seen intro video
 	std::string intro_url = gSavedSettings.getString("PostFirstLoginIntroURL");
 	if ( intro_url.length() > 0 && 
-			gSavedSettings.getBOOL("BrowserJavascriptEnabled") &&
-			gSavedSettings.getBOOL("PostFirstLoginIntroViewed" ) == FALSE )
+			gSavedSettings.getbool("BrowserJavascriptEnabled") &&
+			gSavedSettings.getbool("PostFirstLoginIntroViewed" ) == false )
 	{
 		// hide the progress bar
 		getChild<LLView>("stack1")->setVisible(false);
@@ -156,7 +156,7 @@ void LLProgressView::revealIntroPanel()
 
 
 		// flag as having seen the new user post login intro
-		gSavedSettings.setBOOL("PostFirstLoginIntroViewed", TRUE );
+		gSavedSettings.setbool("PostFirstLoginIntroViewed", true );
 
 		mMediaCtrl->setFocus(true);
 	}

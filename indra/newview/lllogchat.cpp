@@ -255,7 +255,7 @@ std::string LLLogChat::makeLogFileName(std::string filename)
 	bool outboundConf = ll_regex_match(filename, matches, OUTBOUND_CONFERENCE);
 	if (!(inboundConf || outboundConf))
 	{
-		if( gSavedPerAccountSettings.getBOOL("LogFileNamewithDate") )
+		if( gSavedPerAccountSettings.getbool("LogFileNamewithDate") )
 		{
 			time_t now;
 			time(&now);
@@ -373,8 +373,8 @@ void LLLogChat::saveHistory(const std::string& filename,
 
 	LLSD item;
 
-	if (gSavedPerAccountSettings.getBOOL("LogTimestamp"))
-		 item["time"] = LLLogChat::timestamp2LogString(0, gSavedPerAccountSettings.getBOOL("LogTimestampDate"));
+	if (gSavedPerAccountSettings.getbool("LogTimestamp"))
+		 item["time"] = LLLogChat::timestamp2LogString(0, gSavedPerAccountSettings.getbool("LogTimestampDate"));
 
 	item["from_id"]	= from_id;
 	item["message"]	= line;

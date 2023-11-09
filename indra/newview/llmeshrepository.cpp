@@ -838,10 +838,10 @@ LLMeshRepoThread::LLMeshRepoThread()
 	mHttpRequest = new LLCore::HttpRequest;
 	mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
 	mHttpOptions->setTransferTimeout(SMALL_MESH_XFER_TIMEOUT);
-	mHttpOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
+	mHttpOptions->setUseRetryAfter(gSavedSettings.getbool("MeshUseHttpRetryAfter"));
 	mHttpLargeOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
 	mHttpLargeOptions->setTransferTimeout(LARGE_MESH_XFER_TIMEOUT);
-	mHttpLargeOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
+	mHttpLargeOptions->setUseRetryAfter(gSavedSettings.getbool("MeshUseHttpRetryAfter"));
 	mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
 	mHttpHeaders->append(HTTP_OUT_HEADER_ACCEPT, HTTP_CONTENT_VND_LL_MESH);
 	mHttpPolicyClass = app_core_http.getPolicy(LLAppCoreHttp::AP_MESH2);
@@ -2123,7 +2123,7 @@ LLMeshUploadThread::LLMeshUploadThread(LLMeshUploadThread::instance_list& data, 
 	mHttpRequest = new LLCore::HttpRequest;
 	mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
 	mHttpOptions->setTransferTimeout(mMeshUploadTimeOut);
-	mHttpOptions->setUseRetryAfter(gSavedSettings.getBOOL("MeshUseHttpRetryAfter"));
+	mHttpOptions->setUseRetryAfter(gSavedSettings.getbool("MeshUseHttpRetryAfter"));
 	mHttpOptions->setRetries(UPLOAD_RETRY_LIMIT);
 	mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
 	mHttpHeaders->append(HTTP_OUT_HEADER_CONTENT_TYPE, HTTP_CONTENT_LLSD_XML);

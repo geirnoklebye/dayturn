@@ -761,7 +761,7 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
         joint_alias_map,
         LLSkinningUtil::getMaxJointCount(),
         gSavedSettings.getU32("ImporterModelLimit"),
-        gSavedSettings.getBOOL("ImporterPreprocessDAE"));
+        gSavedSettings.getbool("ImporterPreprocessDAE"));
 
     if (force_disable_slm)
     {
@@ -777,7 +777,7 @@ void LLModelPreview::loadModel(std::string filename, S32 lod, bool force_disable
 
         //only try to load from slm if viewer is configured to do so and this is the 
         //initial model load (not an LoD or physics shape)
-        mModelLoader->mTrySLM = gSavedSettings.getBOOL("MeshImportUseSLM") && mUploadData.empty();
+        mModelLoader->mTrySLM = gSavedSettings.getbool("MeshImportUseSLM") && mUploadData.empty();
     }
     mModelLoader->start();
 

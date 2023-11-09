@@ -105,7 +105,7 @@ class LLMeshEnabled : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		return gSavedSettings.getBOOL("MeshEnabled");
+		return gSavedSettings.getbool("MeshEnabled");
 	}
 };
 
@@ -704,10 +704,10 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 		S32 width = gViewerWindow->getWindowWidthRaw();
 		S32 height = gViewerWindow->getWindowHeightRaw();
 
-		bool render_ui = gSavedSettings.getBOOL("RenderUIInSnapshot");
-		bool render_hud = gSavedSettings.getBOOL("RenderHUDInSnapshot");
+		bool render_ui = gSavedSettings.getbool("RenderUIInSnapshot");
+		bool render_hud = gSavedSettings.getbool("RenderHUDInSnapshot");
 
-		BOOL high_res = gSavedSettings.getBOOL("HighResSnapshot");
+		bool high_res = gSavedSettings.getbool("HighResSnapshot");
 		if (high_res)
 		{
 			width *= 2;
@@ -720,11 +720,11 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 		if (gViewerWindow->rawSnapshot(raw,
 									   width,
 									   height,
-									   TRUE,
-									   FALSE,
+									   true,
+									   false,
 									   render_ui,
 									   render_hud,
-									   FALSE,
+									   false,
 									   LLSnapshotModel::SNAPSHOT_TYPE_COLOR,
 									   high_res ? S32_MAX : MAX_SNAPSHOT_IMAGE_SIZE)) //per side
 		{

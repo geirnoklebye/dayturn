@@ -105,9 +105,9 @@ LLFloaterIMContainer::~LLFloaterIMContainer()
 		mMicroChangedSignal.disconnect();
 	}
 
-	gSavedPerAccountSettings.setBOOL("ConversationsListPaneCollapsed", mConversationsPane->isCollapsed());
-	gSavedPerAccountSettings.setBOOL("ConversationsMessagePaneCollapsed", mMessagesPane->isCollapsed());
-	gSavedPerAccountSettings.setBOOL("ConversationsParticipantListCollapsed", !isParticipantListExpanded());
+	gSavedPerAccountSettings.setbool("ConversationsListPaneCollapsed", mConversationsPane->isCollapsed());
+	gSavedPerAccountSettings.setbool("ConversationsMessagePaneCollapsed", mMessagesPane->isCollapsed());
+	gSavedPerAccountSettings.setbool("ConversationsParticipantListCollapsed", !isParticipantListExpanded());
 
 	if (LLIMMgr::instanceExists())
 	{
@@ -257,8 +257,8 @@ bool LLFloaterIMContainer::postBuild()
 
 	childSetAction("add_btn", boost::bind(&LLFloaterIMContainer::onAddButtonClicked, this));
 
-	collapseMessagesPane(gSavedPerAccountSettings.getBOOL("ConversationsMessagePaneCollapsed"));
-	collapseConversationsPane(gSavedPerAccountSettings.getBOOL("ConversationsListPaneCollapsed"), false);
+	collapseMessagesPane(gSavedPerAccountSettings.getbool("ConversationsMessagePaneCollapsed"));
+	collapseConversationsPane(gSavedPerAccountSettings.getbool("ConversationsListPaneCollapsed"), false);
 	LLAvatarNameCache::getInstance()->addUseDisplayNamesCallback(boost::bind(&LLFloaterIMSessionTab::processChatHistoryStyleUpdate, false));
 	mMicroChangedSignal = LLVoiceClient::getInstance()->MicroChangedCallback(boost::bind(&LLFloaterIMContainer::updateSpeakBtnState, this));
 
@@ -267,14 +267,14 @@ bool LLFloaterIMContainer::postBuild()
 		S32 conversations_panel_width = gSavedPerAccountSettings.getS32("ConversationsListPaneWidth");
 		LLRect conversations_panel_rect = mConversationsPane->getRect();
 		conversations_panel_rect.mRight = conversations_panel_rect.mLeft + conversations_panel_width;
-        mConversationsPane->handleReshape(conversations_panel_rect, TRUE);
+        mConversationsPane->handleReshape(conversations_panel_rect, true);
 	}
 
 	// Init the sort order now that the root had been created
 	setSortOrder(LLConversationSort(gSavedSettings.getU32("ConversationSortOrder")));
 	
 	//We should expand nearby chat participants list for the new user
-	if(gAgent.isFirstLogin() || !gSavedPerAccountSettings.getBOOL("ConversationsParticipantListCollapsed"))
+	if(gAgent.isFirstLogin() || !gSavedPerAccountSettings.getbool("ConversationsParticipantListCollapsed"))
 	{
 		expandConversation();
 	}
@@ -409,7 +409,7 @@ void LLFloaterIMContainer::onSpeakButtonReleased()
 void LLFloaterIMContainer::onExpandCollapseButtonClicked()
 {
 	if (mConversationsPane->isCollapsed() && mMessagesPane->isCollapsed()
-			&& gSavedPerAccountSettings.getBOOL("ConversationsExpandMessagePaneFirst"))
+			&& gSavedPerAccountSettings.getbool("ConversationsExpandMessagePaneFirst"))
 	{
 		// Expand the messages pane from ultra minimized state
 		// if it was collapsed last in order.
@@ -835,7 +835,7 @@ void LLFloaterIMContainer::setVisibleAndFrontmost(bool take_focus, const LLSD& k
 	}
 	if (mInitialized && mIsFirstLaunch)
 	{
-		collapseMessagesPane(gSavedPerAccountSettings.getBOOL("ConversationsMessagePaneCollapsed"));
+		collapseMessagesPane(gSavedPerAccountSettings.getbool("ConversationsMessagePaneCollapsed"));
 		mIsFirstLaunch = false;
     }
 }

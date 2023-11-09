@@ -490,8 +490,8 @@ void LLViewerShaderMgr::setShaders()
     bool canRenderDeferred       = LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred");
     bool hasWindLightShaders     = LLFeatureManager::getInstance()->isFeatureAvailable("WindLightUseAtmosShaders");
     S32 shadow_detail            = gSavedSettings.getS32("RenderShadowDetail");
-    bool doingWindLight          = hasWindLightShaders && gSavedSettings.getBOOL("WindLightUseAtmosShaders");
-    bool useRenderDeferred       = doingWindLight && canRenderDeferred && gSavedSettings.getBOOL("RenderDeferred");
+    bool doingWindLight          = hasWindLightShaders && gSavedSettings.getbool("WindLightUseAtmosShaders");
+    bool useRenderDeferred       = doingWindLight && canRenderDeferred && gSavedSettings.getbool("RenderDeferred");
 
     S32 light_class = 3;
     S32 interface_class = 2;

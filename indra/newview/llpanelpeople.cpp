@@ -1683,16 +1683,16 @@ void LLPanelPeople::onFriendsViewSortMenuItemClicked(const LLSD& userdata)
 	}
 	else if (chosen_item == "view_permissions")
 	{
-		bool show_permissions = !gSavedSettings.getBOOL("FriendsListShowPermissions");
-		gSavedSettings.setBOOL("FriendsListShowPermissions", show_permissions);
+		bool show_permissions = !gSavedSettings.getbool("FriendsListShowPermissions");
+		gSavedSettings.setbool("FriendsListShowPermissions", show_permissions);
 
 		mAllFriendList->showPermissions(show_permissions);
 		mOnlineFriendList->showPermissions(show_permissions);
 	}
 	else if (chosen_item == "view_usernames")
 	{
-		bool hide_usernames = !gSavedSettings.getBOOL("FriendsListHideUsernames");
-		gSavedSettings.setBOOL("FriendsListHideUsernames", hide_usernames);
+		bool hide_usernames = !gSavedSettings.getbool("FriendsListHideUsernames");
+		gSavedSettings.setbool("FriendsListHideUsernames", hide_usernames);
 
 		mAllFriendList->setShowCompleteName(!hide_usernames);
 		mAllFriendList->handleDisplayNamesOptionChanged();
@@ -1787,10 +1787,11 @@ void LLPanelPeople::onRecentViewSortMenuItemClicked(const LLSD& userdata)
 	{
 		mRecentList->toggleIcons();
 	}
-	else if (chosen_item == "view_login_names") {
-		gSavedSettings.setBOOL(
+	else if (chosen_item == "view_login_names")
+	{
+		gSavedSettings.setbool(
 			"useCompleteNameInLists",
-			!gSavedSettings.getBOOL("useCompleteNameInLists")
+			!gSavedSettings.getbool("useCompleteNameInLists")
 		);
 
 		mRecentList->handleDisplayNamesOptionChanged();
@@ -1809,7 +1810,7 @@ bool LLPanelPeople::onFriendsViewSortMenuItemCheck(const LLSD& userdata)
 		return sort_order == E_SORT_BY_STATUS;
 	}
 	else if (item == "view_login_names") {
-		return gSavedSettings.getBOOL("UseCompleteNameInLists");
+		return gSavedSettings.getbool("UseCompleteNameInLists");
 	}
 
 	return false;
@@ -1835,9 +1836,9 @@ bool LLPanelPeople::onRecentViewSortMenuItemCheck(const LLSD& userdata)
 
 void LLPanelPeople::onViewLoginNamesMenuItemToggle()
 {
-	gSavedSettings.setBOOL(
+	gSavedSettings.setbool(
 		"UseCompleteNameInLists",
-		!gSavedSettings.getBOOL("UseCompleteNameInLists")
+		!gSavedSettings.getbool("UseCompleteNameInLists")
 	);
 
 	mNearbyList->handleDisplayNamesOptionChanged();

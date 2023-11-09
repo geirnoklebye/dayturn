@@ -465,7 +465,7 @@ void LLLandmarksPanel::initLandmarksPanel(LLPlacesInventoryPanel* inventory_list
 	inventory_list->setSelectCallback(boost::bind(&LLLandmarksPanel::updateVerbs, this));
 
 	inventory_list->setShowFolderState(LLInventoryFilter::SHOW_NON_EMPTY_FOLDERS);
-	bool sorting_order = gSavedSettings.getBOOL("LandmarksSortedByDate");
+	bool sorting_order = gSavedSettings.getbool("LandmarksSortedByDate");
 	updateSortOrder(inventory_list, sorting_order);
 
 	LLPlacesFolderView* root_folder = dynamic_cast<LLPlacesFolderView*>(inventory_list->getRootFolder());
@@ -640,9 +640,9 @@ void LLLandmarksPanel::onFoldingAction(const LLSD& userdata)
 	}
 	else if ("sort_by_date" == command_name)
 	{
-		bool sorting_order = gSavedSettings.getBOOL("LandmarksSortedByDate");
+		bool sorting_order = gSavedSettings.getbool("LandmarksSortedByDate");
 		sorting_order=!sorting_order;
-		gSavedSettings.setBOOL("LandmarksSortedByDate",sorting_order);
+		gSavedSettings.setbool("LandmarksSortedByDate",sorting_order);
 		updateSortOrder(mLandmarksInventoryPanel, sorting_order);
 	}
 	else
@@ -660,7 +660,7 @@ bool LLLandmarksPanel::isActionChecked(const LLSD& userdata) const
 
 	if ( "sort_by_date" == command_name)
 	{
-		bool sorting_order = gSavedSettings.getBOOL("LandmarksSortedByDate");
+		bool sorting_order = gSavedSettings.getbool("LandmarksSortedByDate");
 		return  sorting_order;
 	}
 

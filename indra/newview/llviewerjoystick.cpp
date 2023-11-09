@@ -1156,7 +1156,7 @@ void LLViewerJoystick::moveFlycam(bool reset)
 
 	F32 cur_delta[7];
 	F32 feather = gSavedSettings.getF32("FlycamFeathering");
-	bool absolute = gSavedSettings.getBOOL("Cursor3D");
+	bool absolute = gSavedSettings.getbool("Cursor3D");
 	bool is_zero = true;
 
 	for (U32 i = 0; i < 7; i++)
@@ -1289,7 +1289,7 @@ bool LLViewerJoystick::toggleFlycam()
 
 void LLViewerJoystick::scanJoystick()
 {
-	if (mDriverState != JDS_INITIALIZED || !gSavedSettings.getBOOL("JoystickEnabled"))
+	if (mDriverState != JDS_INITIALIZED || !gSavedSettings.getbool("JoystickEnabled"))
 	{
 		return;
 	}
