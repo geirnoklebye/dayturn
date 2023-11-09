@@ -316,7 +316,7 @@ void LLPanelPrimMediaControls::updateShape()
 	// There is no such thing as "has_focus" being different from normal controls set
 	// anymore (as of user feedback from bri 10/09).  So we cheat here and force 'has_focus'
 	// to 'true' (or, actually, we use a setting)
-	bool has_focus = (gSavedSettings.getBOOL("PrimMediaControlsUseHoverControlSet")) ? media_impl->hasFocus() : true;
+	bool has_focus = (gSavedSettings.getbool("PrimMediaControlsUseHoverControlSet")) ? media_impl->hasFocus() : true;
 	setVisible(enabled);
 
 	if (objectp)

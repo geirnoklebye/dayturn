@@ -167,7 +167,7 @@ void LLHUDEffectSpiral::triggerLocal()
 {
 	mKillTime = mTimer.getElapsedTimeF32() + mDuration;
 
-	BOOL show_beam = gSavedSettings.getBOOL("ShowSelectionBeam");
+	bool show_beam = gSavedSettings.getbool("ShowSelectionBeam");
 
 	LLColor4 color;
 	color.setVec(mColor);
@@ -267,7 +267,7 @@ void LLHUDEffectSpiral::render()
 	if ((!mSourceObject.isNull() && mSourceObject->isDead()) ||
 	    (!mTargetObject.isNull() && mTargetObject->isDead()) ||
 	    mKillTime < time ||
-		(!mPartSourcep.isNull() && !gSavedSettings.getBOOL("ShowSelectionBeam")) )
+		(!mPartSourcep.isNull() && !gSavedSettings.getbool("ShowSelectionBeam")) )
 	{
 		markDead();
 		return;

@@ -151,7 +151,7 @@ void LLFloaterSpellCheckerSettings::onSpellCheckSettingsChange()
 
 void LLFloaterSpellCheckerSettings::refreshDictionaries(bool from_settings)
 {
-	bool enabled = gSavedSettings.getBOOL("SpellCheck");
+	bool enabled = gSavedSettings.getbool("SpellCheck");
 	getChild<LLUICtrl>("spellcheck_moveleft_btn")->setEnabled(enabled);
 	getChild<LLUICtrl>("spellcheck_moveright_btn")->setEnabled(enabled);
 

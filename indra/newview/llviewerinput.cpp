@@ -126,13 +126,13 @@ bool agent_push_down( EKeystate s )
 	//gAgent.moveUp(-1);
 	else if (KEYSTATE_DOWN == s && !gAgent.getFlying() && !gAgentAvatarp->isSitting() && gSavedPerAccountSettings.getBOOL("FSCrouchToggle"))
 	{
-		if (gSavedPerAccountSettings.getBOOL("FSCrouchToggleStatus"))
+		if (gSavedPerAccountSettings.getbool("FSCrouchToggleStatus"))
 		{
-			gSavedPerAccountSettings.setBOOL("FSCrouchToggleStatus", FALSE);
+			gSavedPerAccountSettings.setbool("FSCrouchToggleStatus", false);
 		}
 		else
 		{
-			gSavedPerAccountSettings.setBOOL("FSCrouchToggleStatus", TRUE);
+			gSavedPerAccountSettings.setbool("FSCrouchToggleStatus", true);
 	gAgent.moveUp(-1);
 		}
 	}
@@ -230,7 +230,7 @@ bool agent_push_backward( EKeystate s )
 	{
 		camera_move_backward(s);
 	}
-	else if (!gAgent.backwardGrabbed() && gAgentAvatarp->isSitting() && gSavedSettings.getBOOL("LeaveMouselook"))
+	else if (!gAgent.backwardGrabbed() && gAgentAvatarp->isSitting() && gSavedSettings.getbool("LeaveMouselook"))
 	{
 		gAgentCamera.changeCameraToThirdPerson();
 	}

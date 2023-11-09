@@ -85,7 +85,7 @@ void LLFloaterAutoReplaceSettings::onClose(bool app_quitting)
 bool LLFloaterAutoReplaceSettings::postBuild(void)
 {
 	// get copies of the current settings that we will operate on
-	mEnabled  = gSavedSettings.getBOOL("AutoReplace");
+	mEnabled  = gSavedSettings.getbool("AutoReplace");
 	LL_DEBUGS("AutoReplace") << ( mEnabled ? "enabled" : "disabled") << LL_ENDL;
 
 	mSettings = LLAutoReplace::getInstance()->getSettings();
@@ -607,7 +607,7 @@ void LLFloaterAutoReplaceSettings::onSaveChanges()
 	// put our local copy of the settings into the active copy
 	LLAutoReplace::getInstance()->setSettings( mSettings );
 	// save our local copy of the global feature enable/disable value
-	gSavedSettings.setBOOL("AutoReplace", mEnabled);
+	gSavedSettings.setbool("AutoReplace", mEnabled);
 	cleanUp();
 	closeFloater(false /* not quitting */);
 }

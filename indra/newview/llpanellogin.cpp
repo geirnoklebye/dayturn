@@ -183,7 +183,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mCallback(callback),
 	mCallbackData(cb_data),
 	mListener(new LLPanelLoginListener(this)),
-	mFirstLoginThisInstall(gSavedSettings.getBOOL("FirstLoginThisInstall")),
+	mFirstLoginThisInstall(gSavedSettings.getbool("FirstLoginThisInstall")),
 	mUsernameLength(0),
 	mPasswordLength(0),
 	mLocationLength(0),
@@ -1335,7 +1335,7 @@ void LLPanelLogin::onLocationSLURL()
 // static
 bool LLPanelLogin::getShowFavorites()
 {
-	return gSavedPerAccountSettings.getBOOL("ShowFavoritesOnLogin");
+	return gSavedPerAccountSettings.getbool("ShowFavoritesOnLogin");
 }
 
 // static

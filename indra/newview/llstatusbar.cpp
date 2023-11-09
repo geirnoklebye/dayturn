@@ -381,7 +381,7 @@ void LLStatusBar::refresh()
 
 	// Disable media toggle if there's no media, parcel media, and no parcel audio
 	// (or if media is disabled)
-	bool button_enabled = (gSavedSettings.getBOOL("AudioStreamingMedia")) && 	// ## Zi: Media/Stream separation
+	bool button_enabled = (gSavedSettings.getbool("AudioStreamingMedia")) && 	// ## Zi: Media/Stream separation
 						  (media_inst->hasInWorldMedia() || media_inst->hasParcelMedia()	// || media_inst->hasParcelAudio()	// ## Zi: Media/Stream separation
 						  );
 	mMediaToggle->setEnabled(button_enabled);
@@ -391,7 +391,7 @@ void LLStatusBar::refresh()
 	mMediaToggle->setValue(!any_media_playing);
 
 	// ## Zi: Media/Stream separation
-	button_enabled = (gSavedSettings.getBOOL("AudioStreamingMusic") && media_inst->hasParcelAudio());
+	button_enabled = (gSavedSettings.getbool("AudioStreamingMusic") && media_inst->hasParcelAudio());
 
 	mStreamToggle->setEnabled(button_enabled);
 	mStreamToggle->setValue(!media_inst->isParcelAudioPlaying());

@@ -2402,7 +2402,7 @@ class LLAdvancedCheckMaxBuildConstraints : public view_listener_t
 {
 	bool handleEvent( const LLSD& userdata)
 	{
-		bool new_value = gSavedSettings.getBOOL("DisableMaxBuildConstraints");
+		bool new_value = gSavedSettings.getbool("DisableMaxBuildConstraints");
 		std::string control_name = userdata["conrtol"].asString();
 //		gMenuHolder->findControl(control_name)->setValue(new_value);
 		LLControlVariable* control = gMenuHolder->findControl(control_name);

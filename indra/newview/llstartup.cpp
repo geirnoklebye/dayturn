@@ -640,7 +640,7 @@ bool idle_startup()
 		// or audio cues in connection UI.
 		//-------------------------------------------------
 
-		if (FALSE == gSavedSettings.getBOOL("NoAudio"))
+		if (false == gSavedSettings.getbool("NoAudio"))
 		{
 			delete gAudiop;
 			gAudiop = NULL;
@@ -713,29 +713,29 @@ bool idle_startup()
 		// Previous initializeLoginInfo may have generated user credentials.  Re-check them.
 		if (gUserCredential.isNull())
 		{
-			show_connect_box = TRUE;
+			show_connect_box = true;
 		}
 		else if (gSavedSettings.getbool("AutoLogin"))  
 		{
 			// Log into last account
 			gRememberPassword = true;
 			gRememberUser = true;
-			gSavedSettings.setBOOL("RememberPassword", TRUE);
-			gSavedSettings.setBOOL("RememberUser", TRUE);
+			gSavedSettings.setbool("RememberPassword", true);
+			gSavedSettings.setbool("RememberUser", true);
 			show_connect_box = false;    			
 		}
 		else if (gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
 		{
 			// Console provided login&password
-			gRememberPassword = gSavedSettings.getBOOL("RememberPassword");
-			gRememberUser = gSavedSettings.getBOOL("RememberUser");
+			gRememberPassword = gSavedSettings.getbool("RememberPassword");
+			gRememberUser = gSavedSettings.getbool("RememberUser");
 			show_connect_box = false;
 		}
 		else 
 		{
-			gRememberPassword = gSavedSettings.getBOOL("RememberPassword");
-			gRememberUser = gSavedSettings.getBOOL("RememberUser");
-			show_connect_box = TRUE;
+			gRememberPassword = gSavedSettings.getbool("RememberPassword");
+			gRememberUser = gSavedSettings.getbool("RememberUser");
+			show_connect_box = true;
 		}
 
 		//setup map of datetime strings to codes and slt & local time offset from utc

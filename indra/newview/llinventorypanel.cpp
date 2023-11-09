@@ -1854,7 +1854,7 @@ void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const L
 	sidepanel_inventory->showInventoryPanel();
 
 	bool in_inbox = (gInventory.isObjectDescendentOf(obj_id, gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX)));
-	bool show_inbox = gSavedSettings.getBOOL("FSShowInboxFolder"); // <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
+	bool show_inbox = gSavedSettings.getbool("FSShowInboxFolder"); // <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 
 	if (!in_inbox && (main_panel || !sidepanel_inventory->getMainInventoryPanel()->isRecentItemsPanelSelected()))
 	{

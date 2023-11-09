@@ -1636,8 +1636,8 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 	// If the zoom level is not too far out already, test hits
 	if (level <= DRAW_SIMINFO_THRESHOLD)
 	{
-		bool show_mature = gAgent.canAccessMature() && gSavedSettings.getBOOL("ShowMatureEvents");
-		bool show_adult = gAgent.canAccessAdult() && gSavedSettings.getBOOL("ShowAdultEvents");
+		bool show_mature = gAgent.canAccessMature() && gSavedSettings.getbool("ShowMatureEvents");
+		bool show_adult = gAgent.canAccessAdult() && gSavedSettings.getbool("ShowAdultEvents");
 
 		// Test hits if trackable data are displayed, otherwise, we don't even bother
 		if (gSavedSettings.getbool("MapShowEvents") || show_mature || show_adult || gSavedSettings.getbool("MapShowLandForSale"))

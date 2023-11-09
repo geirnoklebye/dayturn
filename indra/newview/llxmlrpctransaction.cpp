@@ -368,7 +368,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 		httpOpts->setDNSCacheTimeout(httpParams["DNSCacheTimeout"].asInteger());
 	}
 
-	bool vefifySSLCert = !gSavedSettings.getBOOL("NoVerifySSLCert");
+	bool vefifySSLCert = !gSavedSettings.getbool("NoVerifySSLCert");
 	mCertStore = gSavedSettings.getString("CertStore");
 
 	httpOpts->setSSLVerifyPeer( vefifySSLCert );
