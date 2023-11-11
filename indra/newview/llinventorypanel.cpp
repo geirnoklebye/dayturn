@@ -1732,7 +1732,7 @@ bool LLInventoryPanel::attachObject(const LLSD& userdata)
 	return true;
 }
 
-BOOL LLInventoryPanel::getSinceLogoff()
+bool LLInventoryPanel::getSinceLogoff()
 {
 	return getFilter().isSinceLogoff();
 }
@@ -1777,7 +1777,7 @@ void LLInventoryPanel::dumpSelectionInformation(void* user_data)
 	iv->mFolderRoot.get()->dumpSelectionInformation();
 }
 
-BOOL is_inventorysp_active()
+bool is_inventorysp_active()
 {
 	LLSidepanelInventory *sidepanel_inventory =	LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
 	if (!sidepanel_inventory || !sidepanel_inventory->isInVisibleChain()) return FALSE;
@@ -1848,7 +1848,7 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(bool auto_open)
 }
 
 //static
-void LLInventoryPanel::openInventoryPanelAndSetSelection(BOOL auto_open, const LLUUID& obj_id, BOOL main_panel, BOOL take_keyboard_focus, BOOL reset_filter)
+void LLInventoryPanel::openInventoryPanelAndSetSelection(bool auto_open, const LLUUID& obj_id, bool main_panel, bool take_keyboard_focus, bool reset_filter)
 {
 	LLSidepanelInventory* sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
 	sidepanel_inventory->showInventoryPanel();
@@ -1903,7 +1903,7 @@ void LLInventoryPanel::addHideFolderType(LLFolderType::EType folder_type)
 	getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << folder_type));
 }
 
-BOOL LLInventoryPanel::getIsHiddenFolderType(LLFolderType::EType folder_type) const
+bool LLInventoryPanel::getIsHiddenFolderType(LLFolderType::EType folder_type) const
 {
 	return !(getFilter().getFilterCategoryTypes() & (1ULL << folder_type));
 }

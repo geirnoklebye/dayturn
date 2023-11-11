@@ -61,7 +61,7 @@ public:
 	LLInventoryPanel* getInboxPanel() const { return mInventoryPanelInbox.get(); }
 
 	LLPanelMainInventory* getMainInventoryPanel() const { return mPanelMainInventory; }
-	BOOL isMainInventoryPanelActive() const;
+	bool isMainInventoryPanelActive() const;
 
 	void clearSelections(bool clearMain, bool clearInbox);
     std::set<LLFolderViewItem*> getInboxSelectionList();

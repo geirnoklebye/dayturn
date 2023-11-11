@@ -198,7 +198,7 @@ public:
 	void setSinceLogoff(BOOL sl);
 	void setHoursAgo(U32 hours);
 	void setDateSearchDirection(U32 direction);
-	BOOL getSinceLogoff();
+	bool getSinceLogoff();
 	void setFilterLinks(U64 filter_links);
 	void setSearchType(LLInventoryFilter::ESearchType type);
 	LLInventoryFilter::ESearchType getSearchType();
@@ -244,11 +244,11 @@ public:
 	// "Auto_open" determines if we open an inventory panel if none are open.
 	static LLInventoryPanel *getActiveInventoryPanel(bool auto_open = true);
 
-	static void openInventoryPanelAndSetSelection(BOOL auto_open,
+	static void openInventoryPanelAndSetSelection(bool auto_open,
 													const LLUUID& obj_id,
-													BOOL main_panel = FALSE,
-													BOOL take_keyboard_focus = TAKE_FOCUS_YES,
-													BOOL reset_filter = FALSE);
+													bool main_panel = false,
+													bool take_keyboard_focus = TAKE_FOCUS_YES,
+													bool reset_filter = FALSE);
 
 	void addItemID(const LLUUID& id, LLFolderViewItem* itemp);
 	void removeItemID(const LLUUID& id);
@@ -357,7 +357,7 @@ protected:
     virtual bool				typedViewsFilter(const LLUUID& id, LLInventoryObject const* objectp) { return true; }
 
 	virtual void				itemChanged(const LLUUID& item_id, U32 mask, const LLInventoryObject* model_item);
-	BOOL				getIsHiddenFolderType(LLFolderType::EType folder_type) const;
+	bool				getIsHiddenFolderType(LLFolderType::EType folder_type) const;
 	
     virtual LLFolderView * createFolderRoot(LLUUID root_id );
 	virtual LLFolderViewFolder*	createFolderViewFolder(LLInvFVBridge * bridge, bool allow_drop);

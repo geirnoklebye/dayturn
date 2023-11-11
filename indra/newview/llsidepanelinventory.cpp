@@ -764,7 +764,7 @@ void LLSidepanelInventory::selectAllItemsPanel()
 
 }
 
-BOOL LLSidepanelInventory::isMainInventoryPanelActive() const
+bool LLSidepanelInventory::isMainInventoryPanelActive() const
 {
 	return mInventoryPanel->getVisible();
 }
