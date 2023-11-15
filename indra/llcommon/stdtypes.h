@@ -153,18 +153,15 @@ typedef U8 LLPCode;
  * type.
  */
 // narrow_holder is a struct that accepts the passed value as its original
-// type and provides templated conversion functions to other types. Once we're
-// building with compilers that support Class Template Argument Deduction, we
-// can rename this class template 'narrow' and eliminate the narrow() factory
-// function below.
+// type and provides templated conversion functions to other types.
 template <typename FROM>
-class narrow_holder
+class narrow
 {
 private:
     FROM mValue;
 
 public:
-    narrow_holder(FROM value): mValue(value) {}
+    narrow(FROM value): mValue(value) {}
 
     /*---------------------- Narrowing unsigned to signed ----------------------*/
     template <typename TO,
@@ -203,14 +200,5 @@ public:
         return static_cast<TO>(mValue);
     }
 };
-
-/// narrow() factory function returns a narrow_holder<FROM>(), which can be
-/// implicitly converted to the target type.
-template <typename FROM>
-inline
-narrow_holder<FROM> narrow(FROM value)
-{
-    return { value };
-}
 
 #endif
