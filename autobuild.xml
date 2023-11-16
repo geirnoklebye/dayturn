@@ -1191,9 +1191,9 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>30bc37db57bbd87c4b5f62634964242a</string>
+              <string>a0d4f931d2b7aedc8ae326e4e2ba8f11</string>
               <key>url</key>
-              <string>https://automated-builds-secondlife-com.s3.amazonaws.com/ct2/84218/784918/meshoptimizer-0.16.561408-darwin64-561408.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/meshoptimizer-160-darwin64-2ac0a00.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -1212,7 +1212,7 @@
           </map>
         </map>
         <key>version</key>
-        <string>0.16.561408</string>
+        <string>160</string>
       </map>
       <key>minizip-ng</key>
       <map>
