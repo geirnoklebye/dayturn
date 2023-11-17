@@ -1450,11 +1450,11 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>7333cb29253153c962e4479da3f0d74e</string>
+              <string>fde0422b638a9f40674d47b4c3cda52e</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/openjpeg-1.5.220421346-windows-220421346.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/openjpeg-2.5.0.ea12248-windows64-ea12248.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
