@@ -91,6 +91,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CMAKE_XCODE_ATTRIBUTE_RUN_CLANG_STATIC_ANALYZER NO)
   set(CMAKE_XCODE_ATTRIBUTE_DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING YES)
   set(CMAKE_XCODE_ATTRIBUTE_GCC_WARN_64_TO_32_BIT_CONVERSION NO)
+  set(CMAKE_XCODE_ATTRIBUTE_DEAD_CODE_STRIPPING YES)
 
   # we must hard code this to off for now.  xcode's built in signing does not
   # handle embedded app bundles such as CEF and others. Any signing for local
