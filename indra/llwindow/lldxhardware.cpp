@@ -494,7 +494,7 @@ LLVersion::LLVersion()
 	}
 }
 
-BOOL LLVersion::set(const std::string &version_string)
+bool LLVersion::set(const std::string &version_string)
 {
 	S32 i;
 	for (i = 0; i < 4; i++)
@@ -683,11 +683,11 @@ LLDXDevice *LLDXHardware::findDevice(const std::string &vendor, const std::strin
 
 // <FS:Ansariel> FIRE-15891: Add option to disable WMI check in case of problems
 //BOOL LLDXHardware::getInfo(BOOL vram_only)
-BOOL LLDXHardware::getInfo(BOOL vram_only, bool disable_wmi)
+bool LLDXHardware::getInfo(bool vram_only, bool disable_wmi)
 // </FS:Ansariel>
 {
 	LLTimer hw_timer;
-	BOOL ok = FALSE;
+	bool ok = false;
     HRESULT       hr;
 
     CoInitializeEx(NULL, COINIT_MULTITHREADED);
@@ -818,7 +818,7 @@ BOOL LLDXHardware::getInfo(BOOL vram_only, bool disable_wmi)
 
 		if (vram_only)
 		{
-			ok = TRUE;
+			ok = true;
 			goto LCleanup;
 		}
 
@@ -957,7 +957,7 @@ BOOL LLDXHardware::getInfo(BOOL vram_only, bool disable_wmi)
     }
 
     // dumpDevices();
-    ok = TRUE;
+    ok = true;
 	
 LCleanup:
 	if (!ok)

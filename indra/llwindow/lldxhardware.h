@@ -37,7 +37,7 @@ class LLVersion
 {
 public:
 	LLVersion();
-	BOOL set(const std::string &version_string);
+	bool set(const std::string &version_string);
 	S32 getField(const S32 field_num);
 protected:
 	std::string mVersionString;
@@ -88,7 +88,7 @@ public:
 	// vram_only TRUE does a "light" probe.
 	// <FS:Ansariel> FIRE-15891: Add option to disable WMI check in case of problems
 	//BOOL getInfo(BOOL vram_only);
-	BOOL getInfo(BOOL vram_only, bool disable_wmi);
+	bool getInfo(bool vram_only, bool disable_wmi);
 	// </FS:Ansariel>
 
     // WMI can return multiple GPU drivers
