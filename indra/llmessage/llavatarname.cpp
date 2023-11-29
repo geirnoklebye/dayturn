@@ -121,6 +121,7 @@ void LLAvatarName::fromLLSD(const LLSD& sd)
 	if (mDisplayName.empty())
 	{
 		mDisplayName = mUsername;
+		mIsDisplayNameDefault = true;
 	}
 }
 
