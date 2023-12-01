@@ -117,28 +117,28 @@ LLViewerParcelOverlay::~LLViewerParcelOverlay()
 //---------------------------------------------------------------------------
 // ACCESSORS
 //---------------------------------------------------------------------------
-BOOL LLViewerParcelOverlay::isOwned(const LLVector3& pos) const
+bool LLViewerParcelOverlay::isOwned(const LLVector3& pos) const
 {
 	S32 row =    S32(pos.mV[VY] / PARCEL_GRID_STEP_METERS);
 	S32 column = S32(pos.mV[VX] / PARCEL_GRID_STEP_METERS);
 	return (PARCEL_PUBLIC != ownership(row, column));
 }
 
-BOOL LLViewerParcelOverlay::isOwnedSelf(const LLVector3& pos) const
+bool LLViewerParcelOverlay::isOwnedSelf(const LLVector3& pos) const
 {
 	S32 row =    S32(pos.mV[VY] / PARCEL_GRID_STEP_METERS);
 	S32 column = S32(pos.mV[VX] / PARCEL_GRID_STEP_METERS);
 	return (PARCEL_SELF == ownership(row, column));
 }
 
-BOOL LLViewerParcelOverlay::isOwnedGroup(const LLVector3& pos) const
+bool LLViewerParcelOverlay::isOwnedGroup(const LLVector3& pos) const
 {
 	S32 row =    S32(pos.mV[VY] / PARCEL_GRID_STEP_METERS);
 	S32 column = S32(pos.mV[VX] / PARCEL_GRID_STEP_METERS);
 	return (PARCEL_GROUP == ownership(row, column));
 }
 
-BOOL LLViewerParcelOverlay::isOwnedOther(const LLVector3& pos) const
+bool LLViewerParcelOverlay::isOwnedOther(const LLVector3& pos) const
 {
 	S32 row =    S32(pos.mV[VY] / PARCEL_GRID_STEP_METERS);
 	S32 column = S32(pos.mV[VX] / PARCEL_GRID_STEP_METERS);
@@ -465,7 +465,7 @@ void LLViewerParcelOverlay::updatePropertyLines()
 	new_coord_array.reserve(256);
 
 	U8 overlay = 0;
-	BOOL add_edge = FALSE;
+	bool add_edge = false;
 	const F32 GRID_STEP = PARCEL_GRID_STEP_METERS;
 	const S32 GRIDS_PER_EDGE = mParcelGridsPerEdge;
 
@@ -519,7 +519,7 @@ void LLViewerParcelOverlay::updatePropertyLines()
 			}
 			else
 			{
-				add_edge = TRUE;
+				add_edge = true;
 			}
 
 			if (add_edge)
@@ -590,7 +590,7 @@ void LLViewerParcelOverlay::updatePropertyLines()
 			}
 			else
 			{
-				add_edge = TRUE;
+				add_edge = true;
 			}
 
 			if (add_edge)
