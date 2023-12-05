@@ -171,9 +171,9 @@ const U32 ESTATE_ACCESS_MANAGER_REMOVE				= 1U << 9;
 const U32 ESTATE_ACCESS_NO_REPLY						= 1U << 10;
 const U32 ESTATE_ACCESS_FAILED_BAN_ESTATE_MANAGER	= 1U << 11;
 
-const S32 ESTATE_MAX_MANAGERS = 20;
+const S32 ESTATE_MAX_MANAGERS = 15;     // Opensim limit, SL is 20
 const S32 ESTATE_MAX_ACCESS_IDS = 500;	// max for access
-const S32 ESTATE_MAX_BANNED_IDS = 750;	// max for banned
+const S32 ESTATE_MAX_BANNED_IDS = 500;	// max Opensim limit for banned, SL limit is 750
 const S32 ESTATE_MAX_GROUP_IDS = (S32) ESTATE_ACCESS_MAX_ENTRIES_PER_PACKET;
 
 // 'Sim Wide Delete' flags
