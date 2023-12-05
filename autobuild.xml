@@ -1069,18 +1069,18 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>54d12bff83bd317e8f56c8d679249730</string>
+              <string>9aa2973f6308227c61755d2279ea9d3a</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/llca-202310110702.0-common-a1f103f.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/llca-202312051404.0-common-0f5d9c3.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
           </map>
         </map>
         <key>version</key>
-        <string>202310110702.0</string>
+        <string>202312051404.0</string>
       </map>
       <key>llphysicsextensions_stub</key>
       <map>
