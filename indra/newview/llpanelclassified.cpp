@@ -1032,7 +1032,7 @@ void LLPanelClassifiedEdit::onSaveClick()
 	}
 	if(isNew() || isNewWithErrors())
 	{
-		if(gStatusBar->getBalance() < getPriceForListing())
+		if(gStatusBar->getBalance() < MINIMUM_PRICE_FOR_LISTING)
 		{
 		LLNotificationsUtil::add("ClassifiedInsufficientFunds");
 			return;
