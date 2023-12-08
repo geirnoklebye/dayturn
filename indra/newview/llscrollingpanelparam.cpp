@@ -30,7 +30,6 @@
 #include "llviewerjointmesh.h"
 #include "llviewervisualparam.h"
 #include "llwearable.h"
-#include "llviewervisualparam.h"
 #include "lltoolmorph.h"
 #include "lltrans.h"
 #include "llbutton.h"
@@ -97,8 +96,8 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLPanel::Params& panel_param
 }
 
 LLScrollingPanelParam::~LLScrollingPanelParam()
-{
-}
+= default;
+
 void LLScrollingPanelParam::updatePanel(bool allow_modify)
 {
 	if (!mWearable)
@@ -191,21 +190,21 @@ void LLScrollingPanelParam::onSliderMouseDown(LLUICtrl* ctrl, void* userdata)
 // static
 void LLScrollingPanelParam::onSliderMouseUp(LLUICtrl* ctrl, void* userdata)
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 	LLVisualParamHint::requestHintUpdates( self->mHintMin, self->mHintMax );
 }
 
 // static
 void LLScrollingPanelParam::onHintMinMouseDown( void* userdata )
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 	self->onHintMouseDown( self->mHintMin );
 }
 
 // static
 void LLScrollingPanelParam::onHintMaxMouseDown( void* userdata )
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 	self->onHintMouseDown( self->mHintMax );
 }
 
@@ -226,14 +225,14 @@ void LLScrollingPanelParam::onHintMouseDown( LLVisualParamHint* hint )
 // static
 void LLScrollingPanelParam::onHintMinHeldDown( void* userdata )
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 	self->onHintHeldDown( self->mHintMin );
 }
 
 // static
 void LLScrollingPanelParam::onHintMaxHeldDown( void* userdata )
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 	self->onHintHeldDown( self->mHintMax );
 }
 	
@@ -275,7 +274,7 @@ void LLScrollingPanelParam::onHintHeldDown( LLVisualParamHint* hint )
 // static
 void LLScrollingPanelParam::onHintMinMouseUp( void* userdata )
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 
 	F32 elapsed_time = self->mMouseDownTimer.getElapsedTimeF32();
 
@@ -303,7 +302,7 @@ void LLScrollingPanelParam::onHintMinMouseUp( void* userdata )
 
 void LLScrollingPanelParam::onHintMaxMouseUp( void* userdata )
 {
-	LLScrollingPanelParam* self = (LLScrollingPanelParam*) userdata;
+	auto* self = (LLScrollingPanelParam*) userdata;
 
 	F32 elapsed_time = self->mMouseDownTimer.getElapsedTimeF32();
 

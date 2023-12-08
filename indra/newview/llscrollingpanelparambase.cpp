@@ -30,7 +30,6 @@
 #include "llviewerjointmesh.h"
 #include "llviewervisualparam.h"
 #include "llwearable.h"
-#include "llviewervisualparam.h"
 #include "lltoolmorph.h"
 #include "lltrans.h"
 #include "llbutton.h"
@@ -66,8 +65,7 @@ LLScrollingPanelParamBase::LLScrollingPanelParamBase( const LLPanel::Params& pan
 }
 
 LLScrollingPanelParamBase::~LLScrollingPanelParamBase()
-{
-}
+= default;
 
 void LLScrollingPanelParamBase::updatePanel(bool allow_modify)
 {
@@ -88,8 +86,8 @@ void LLScrollingPanelParamBase::updatePanel(bool allow_modify)
 // static
 void LLScrollingPanelParamBase::onSliderMoved(LLUICtrl* ctrl, void* userdata)
 {
-	LLSliderCtrl* slider = (LLSliderCtrl*) ctrl;
-	LLScrollingPanelParamBase* self = (LLScrollingPanelParamBase*) userdata;
+	auto* slider = (LLSliderCtrl*) ctrl;
+	auto* self = (LLScrollingPanelParamBase*) userdata;
 	LLViewerVisualParam* param = self->mParam;
 	
 	F32 current_weight = self->mWearable->getVisualParamWeight( param->getID() );
