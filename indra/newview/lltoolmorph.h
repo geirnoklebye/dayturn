@@ -72,9 +72,9 @@ public:
 	
 	LLViewerVisualParam*	getVisualParam() { return mVisualParam; }
 	F32						getVisualParamWeight() { return mVisualParamWeight; }
-	BOOL					getVisible() { return mIsVisible; }
+	bool					getVisible() { return mIsVisible; }
 
-	void					setAllowsUpdates( BOOL b ) { mAllowsUpdates = b; }
+	void					setAllowsUpdates( bool b ) { mAllowsUpdates = b; }
 
 	const LLRect&			getRect()	{ return mRect; }
 
@@ -88,7 +88,7 @@ protected:
 	LLViewerVisualParam*	mVisualParam;		// visual param applied by this hint
 	LLWearable*				mWearablePtr;		// wearable we're editing
 	F32						mVisualParamWeight;		// weight for this visual parameter
-	BOOL					mAllowsUpdates;		// updates are blocked unless this is true
+	bool					mAllowsUpdates;		// updates are blocked unless this is true
 	S32						mDelayFrames;		// updates are blocked for this many frames
 	LLRect					mRect;
 	F32						mLastParamWeight;

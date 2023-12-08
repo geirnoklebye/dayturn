@@ -1528,7 +1528,7 @@ void LLPanelEditWearable::buildParamList(LLScrollingPanelList *panel_list, value
                         }
                         else
                         {
-                                panel_param = new LLScrollingPanelParam( p, NULL, (*it).second, TRUE, this->getWearable(), jointp);
+                                panel_param = new LLScrollingPanelParam( p, NULL, (*it).second, true, this->getWearable(), jointp);
                         }
                         panel_list->addPanel( panel_param );
                 }

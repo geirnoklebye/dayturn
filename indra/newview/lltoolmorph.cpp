@@ -85,7 +85,7 @@ LLVisualParamHint::LLVisualParamHint(
 	mVisualParam( param ),
 	mWearablePtr( wearable ),
 	mVisualParamWeight( param_weight ),
-	mAllowsUpdates( TRUE ),
+	mAllowsUpdates(true),
 	mDelayFrames( 0 ),
 	mRect( pos_x, pos_y + height, pos_x + width, pos_y ),
 	mLastParamWeight(0.f),
@@ -128,13 +128,13 @@ void LLVisualParamHint::requestHintUpdates( LLVisualParamHint* exception1, LLVis
 		{
 			if( instance->mAllowsUpdates )
 			{
-				instance->mNeedsUpdate = TRUE;
+				instance->mNeedsUpdate = true;
 				instance->mDelayFrames = delay_frames;
 				delay_frames++;
 			}
 			else
 			{
-				instance->mNeedsUpdate = TRUE;
+				instance->mNeedsUpdate = true;
 				instance->mDelayFrames = 0;
 			}
 		}

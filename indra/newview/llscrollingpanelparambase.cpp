@@ -40,7 +40,7 @@
 #include "llvoavatarself.h"
 
 LLScrollingPanelParamBase::LLScrollingPanelParamBase( const LLPanel::Params& panel_params,
-						      LLViewerJointMesh* mesh, LLViewerVisualParam* param, BOOL allow_modify, LLWearable* wearable, LLJoint* jointp, BOOL use_hints)
+						      LLViewerJointMesh* mesh, LLViewerVisualParam* param, bool allow_modify, LLWearable* wearable, LLJoint* jointp, bool use_hints)
 	: LLScrollingPanel( panel_params ),
 	  mParam(param),
 	  mSlider(nullptr),

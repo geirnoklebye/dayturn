@@ -43,7 +43,7 @@ class LLScrollingPanelParamBase : public LLScrollingPanel
 {
 public:
 	LLScrollingPanelParamBase( const LLPanel::Params& panel_params,
-				   LLViewerJointMesh* mesh, LLViewerVisualParam* param, BOOL allow_modify, LLWearable* wearable, LLJoint* jointp, BOOL use_hints = FALSE );
+				   LLViewerJointMesh* mesh, LLViewerVisualParam* param, bool allow_modify, LLWearable* wearable, LLJoint* jointp, bool use_hints = false );
 	virtual ~LLScrollingPanelParamBase();
 
 	virtual void		updatePanel(bool allow_modify);
@@ -58,7 +58,7 @@ public:
 	LLSliderCtrl* mSlider;
 
 protected:
-	BOOL mAllowModify;
+	bool mAllowModify;
 	LLWearable *mWearable;
 }; 
 
