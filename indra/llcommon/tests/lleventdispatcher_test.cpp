@@ -463,7 +463,7 @@ namespace tut
             // Partial defaults arrays.
             foreach(LLSD::String a, ab)
             {
-                LLSD::Integer partition(std::min(partial_offset, dft_array_full[a].size()));
+                LLSD::Integer partition(llmin(partial_offset, dft_array_full[a].size()));
                 dft_array_partial[a] =
                     llsd_copy_array(dft_array_full[a].beginArray() + partition,
                                     dft_array_full[a].endArray());
