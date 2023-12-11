@@ -5627,6 +5627,11 @@ static inline void add_face(T*** list, U32* count, T* face)
 
 void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 {
+    if (group->isDead())
+    {
+        return;
+    }
+
 	if (group->changeLOD())
 	{
 		group->mLastUpdateDistance = group->mDistance;
@@ -5714,7 +5719,7 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 
 			LLVOVolume* vobj = drawablep->getVOVolume();
             
-			if (!vobj)
+			if (!vobj || vobj->isDead())
 			{
 				continue;
 			}
