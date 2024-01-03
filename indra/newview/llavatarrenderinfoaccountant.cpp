@@ -340,6 +340,7 @@ void LLAvatarRenderInfoAccountant::sendRenderInfoToRegion(LLViewerRegion * regio
         }
         catch (std::bad_alloc&)
         {
+            LLError::LLUserWarningMsg::showOutOfMemory();
             LL_ERRS() << "LLCoros::launch() allocation failure" << LL_ENDL;
         }
 	}
@@ -371,6 +372,7 @@ void LLAvatarRenderInfoAccountant::getRenderInfoFromRegion(LLViewerRegion * regi
         }
         catch (std::bad_alloc&)
         {
+            LLError::LLUserWarningMsg::showOutOfMemory();
             LL_ERRS() << "LLCoros::launch() allocation failure" << LL_ENDL;
         }
 	}
