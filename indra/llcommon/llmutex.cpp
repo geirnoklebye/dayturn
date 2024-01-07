@@ -38,8 +38,7 @@ LLMutex::LLMutex() :
 
 
 LLMutex::~LLMutex()
-{
-}
+= default;
 
 
 void LLMutex::lock()
@@ -55,9 +54,9 @@ void LLMutex::lock()
 #if MUTEX_DEBUG
 	// Have to have the lock before we can access the debug info
 	auto id = LLThread::currentID();
-	if (mIsLocked[id] != FALSE)
+	if (mIsLocked[id])
 		LL_ERRS() << "Already locked in Thread: " << id << LL_ENDL;
-	mIsLocked[id] = TRUE;
+	mIsLocked[id] = true;
 #endif
 
 	mLockingThread = LLThread::currentID();
@@ -74,9 +73,9 @@ void LLMutex::unlock()
 #if MUTEX_DEBUG
 	// Access the debug info while we have the lock
 	auto id = LLThread::currentID();
-	if (mIsLocked[id] != TRUE)
+	if (!mIsLocked[id])
 		LL_ERRS() << "Not locked in Thread: " << id << LL_ENDL;	
-	mIsLocked[id] = FALSE;
+	mIsLocked[id] = false;
 #endif
 
 	mLockingThread = LLThread::id_t();
@@ -122,9 +121,9 @@ bool LLMutex::trylock()
 #if MUTEX_DEBUG
 	// Have to have the lock before we can access the debug info
 	auto id = LLThread::currentID();
-	if (mIsLocked[id] != FALSE)
+	if (mIsLocked[id])
 		LL_ERRS() << "Already locked in Thread: " << id << LL_ENDL;
-	mIsLocked[id] = TRUE;
+	mIsLocked[id] = true;
 #endif
 
 	mLockingThread = LLThread::currentID();
@@ -140,8 +139,7 @@ LLCondition::LLCondition() :
 
 
 LLCondition::~LLCondition()
-{
-}
+= default;
 
 
 void LLCondition::wait()

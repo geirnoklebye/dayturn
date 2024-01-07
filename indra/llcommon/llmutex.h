@@ -58,12 +58,12 @@ public:
 	LLThread::id_t lockingThread() const; //get ID of locking thread
 
 protected:
-	std::mutex			mMutex;
+	std::mutex			mMutex{};
 	mutable U32			mCount;
-	mutable LLThread::id_t	mLockingThread;
+	mutable LLThread::id_t	mLockingThread{};
 	
 #if MUTEX_DEBUG
-	std::map<LLThread::id_t, BOOL> mIsLocked;
+	std::map<LLThread::id_t, bool> mIsLocked{};
 #endif
 };
 
@@ -85,7 +85,7 @@ protected:
 class LLMutexLock
 {
 public:
-	LLMutexLock(LLMutex* mutex)
+	explicit LLMutexLock(LLMutex* mutex)
 	{
 		mMutex = mutex;
 		
@@ -114,11 +114,11 @@ private:
 class LLMutexTrylock
 {
 public:
-	LLMutexTrylock(LLMutex* mutex);
+	explicit LLMutexTrylock(LLMutex* mutex);
 	LLMutexTrylock(LLMutex* mutex, U32 aTries, U32 delay_ms = 10);
 	~LLMutexTrylock();
 
-	bool isLocked() const
+	[[nodiscard]] bool isLocked() const
 	{
 		return mLocked;
 	}
@@ -144,7 +144,7 @@ public:
     * @param mutex An allocated mutex. If you pass in NULL,
     * this wrapper will not lock.
     */
-    LLScopedLock(std::mutex* mutex);
+    explicit LLScopedLock(std::mutex* mutex);
 
     /**
     * @brief Destructor which unlocks the mutex if still locked.
@@ -154,7 +154,7 @@ public:
     /**
     * @brief Check lock.
     */
-    bool isLocked() const { return mLocked; }
+    [[nodiscard]] bool isLocked() const { return mLocked; }
 
     /**
     * @brief This method unlocks the mutex.
