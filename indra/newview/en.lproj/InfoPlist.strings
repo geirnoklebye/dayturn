@@ -3,5 +3,5 @@
 CFBundleName = "Dayturn";
 
 CFBundleShortVersionString = "Dayturn version %%VERSION%%";
-CFBundleGetInfoString = "Dayturn version %%VERSION%%, Copyright 2023 Geir Nøklebye, Dayturn.";
+CFBundleGetInfoString = "Dayturn version %%VERSION%%, Copyright 2024 Geir Nøklebye, Dayturn.";
 

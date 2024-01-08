@@ -156,7 +156,7 @@ BEGIN
             VALUE "FileDescription", "Dayturn Viewer"
             VALUE "FileVersion", "${VIEWER_VERSION_MAJOR}.${VIEWER_VERSION_MINOR}.${VIEWER_VERSION_PATCH}.${VIEWER_VERSION_REVISION}"
             VALUE "InternalName", "Dayturn Viewer"
-            VALUE "LegalCopyright", "Copyright (c) 2023, Geir Nøklebye"
+            VALUE "LegalCopyright", "Copyright (c) 2024, Geir Nøklebye"
             VALUE "OriginalFilename", "DayturnViewer.exe"
             VALUE "ProductName", "Dayturn"
             VALUE "ProductVersion", "3.00.00"
