@@ -30,7 +30,6 @@
 #pragma warning (push)
 #pragma warning (disable : 4702) // boost::lexical_cast generates this warning
 #endif
-#include <boost/lexical_cast.hpp>
 #if LL_WINDOWS
 #pragma warning (pop)
 #endif
@@ -211,7 +210,7 @@ namespace tut
 
     void whitelist_test(int num, bool enable, const char *whitelist, const char *candidate_url, bool expected_pass)
     {
-        std::string message = "Whitelist test " + boost::lexical_cast<std::string>(num);
+        std::string message = "Whitelist test " + std::to_string(num);
         LLMediaEntry entry;
         entry.setWhiteListEnable(enable);
         set_whitelist(entry, whitelist);

@@ -38,7 +38,6 @@
 #include "llexception.h"
 #include "stringize.h"
 #include "../test/catch_and_store_what_in.h"
-#include <boost/bind.hpp>
 #include <boost/noncopyable.hpp>
 #include <list>
 #include <string>

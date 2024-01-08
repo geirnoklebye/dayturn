@@ -346,7 +346,7 @@ LLCoprocedurePool::LLCoprocedurePool(const std::string &poolName, size_t size):
 
         std::string pooledCoro = LLCoros::instance().launch(
             "LLCoprocedurePool("+mPoolName+")::coprocedureInvokerCoro",
-            boost::bind(&LLCoprocedurePool::coprocedureInvokerCoro, this,
+            std::bind(&LLCoprocedurePool::coprocedureInvokerCoro, this,
                         mPendingCoprocs, httpAdapter));
 
         mCoroMapping.insert(CoroAdapterMap_t::value_type(pooledCoro, httpAdapter));
