@@ -32,7 +32,6 @@
 #include "llnotificationsutil.h"
 #include "lltrans.h"
 
-#include <boost/foreach.hpp>
 
 const S32Days CONVERSATION_LIFETIME = (S32Days)30; // lifetime of LLConversation is 30 days by spec
 
@@ -312,7 +311,7 @@ LLConversation* LLConversationLog::findConversation(const LLIMModel::LLIMSession
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void LLConversationLog::removeConversation(const LLConversation& conversation)
@@ -341,7 +340,7 @@ const LLConversation* LLConversationLog::getConversation(const LLUUID& session_i
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void LLConversationLog::addObserver(LLConversationLogObserver* observer)
@@ -391,7 +390,7 @@ void LLConversationLog::deleteBackupLogs()
 	std::vector<std::string> backup_logs;
 	getListOfBackupLogs(backup_logs);
 
-	BOOST_FOREACH(const std::string& fullpath, backup_logs)
+	for (const std::string& fullpath : backup_logs)
 	{
 		LLFile::remove(fullpath);
 	}

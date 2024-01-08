@@ -49,7 +49,6 @@
 #include "llsdutil.h"
 #include <boost/bind.hpp>
 #include <boost/circular_buffer.hpp>
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/range.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -583,7 +582,7 @@ public:
 	// Store every integer type as LLSD::Integer.
 	template <class T>
 	void add(const LLSD::String& name, const T& value,
-			 typename boost::enable_if<boost::is_integral<T> >::type* = 0)
+			 typename boost::enable_if<boost::is_integral<T> >::type* = nullptr)
 	{
 		mStats[name] = LLSD::Integer(value);
 	}
@@ -591,7 +590,7 @@ public:
 	// Store every floating-point type as LLSD::Real.
 	template <class T>
 	void add(const LLSD::String& name, const T& value,
-			 typename boost::enable_if<boost::is_float<T> >::type* = 0)
+			 typename boost::enable_if<boost::is_float<T> >::type* = nullptr)
 	{
 		mStats[name] = LLSD::Real(value);
 	}
@@ -700,9 +699,9 @@ void LLMemoryInfo::stream(std::ostream& s) const
 
 	// Max key length
 	size_t key_width(0);
-	BOOST_FOREACH(const MapEntry& pair, inMap(mStatsMap))
+	for (const auto& [key, value] : inMap(mStatsMap))
 	{
-		size_t len(pair.first.length());
+		size_t len(key.length());
 		if (len > key_width)
 		{
 			key_width = len;
@@ -710,10 +709,9 @@ void LLMemoryInfo::stream(std::ostream& s) const
 	}
 
 	// Now stream stats
-	BOOST_FOREACH(const MapEntry& pair, inMap(mStatsMap))
+	for (const auto& [key, value] : inMap(mStatsMap))
 	{
-		s << pfx << std::setw(int(key_width+1)) << (pair.first + ':') << ' ';
-		LLSD value(pair.second);
+		s << pfx << std::setw(int(key_width+1)) << (key + ':') << ' ';
 		if (value.isInteger())
 			s << std::setw(12) << value.asInteger();
 		else if (value.isReal())
@@ -1059,9 +1057,9 @@ bool gunzip_file(const std::string& srcfile, const std::string& dstfile)
 	std::string tmpfile;
 	const S32 UNCOMPRESS_BUFFER_SIZE = 32768;
 	bool retval = false;
-	gzFile src = NULL;
+	gzFile src = nullptr;
 	U8 buffer[UNCOMPRESS_BUFFER_SIZE];
-	LLFILE *dst = NULL;
+	LLFILE *dst = nullptr;
 	S32 bytes = 0;
 	tmpfile = dstfile + ".t";
 #ifdef LL_WINDOWS
@@ -1084,12 +1082,12 @@ bool gunzip_file(const std::string& srcfile, const std::string& dstfile)
 		}
 	} while(gzeof(src) == 0);
 	fclose(dst); 
-	dst = NULL;	
+	dst = nullptr;
 	if (LLFile::rename(tmpfile, dstfile) == -1) goto err;		/* Flawfinder: ignore */
 	retval = true;
 err:
-	if (src != NULL) gzclose(src);
-	if (dst != NULL) fclose(dst);
+	if (src != nullptr) gzclose(src);
+	if (dst != nullptr) fclose(dst);
 	return retval;
 }
 
@@ -1099,8 +1097,8 @@ bool gzip_file(const std::string& srcfile, const std::string& dstfile)
 	std::string tmpfile;
 	bool retval = false;
 	U8 buffer[COMPRESS_BUFFER_SIZE];
-	gzFile dst = NULL;
-	LLFILE *src = NULL;
+	gzFile dst = nullptr;
+	LLFILE *src = nullptr;
 	S32 bytes = 0;
 	tmpfile = dstfile + ".t";
 
@@ -1119,7 +1117,7 @@ bool gzip_file(const std::string& srcfile, const std::string& dstfile)
 	{
 		if (gzwrite(dst, buffer, bytes) <= 0)
 		{
-			LL_WARNS() << "gzwrite failed: " << gzerror(dst, NULL) << LL_ENDL;
+			LL_WARNS() << "gzwrite failed: " << gzerror(dst, nullptr) << LL_ENDL;
 			goto err;
 		}
 	}
@@ -1131,7 +1129,7 @@ bool gzip_file(const std::string& srcfile, const std::string& dstfile)
 	}
 
 	gzclose(dst);
-	dst = NULL;
+	dst = nullptr;
 #if LL_WINDOWS
 	// Rename in windows needs the dstfile to not exist.
 	LLFile::remove(dstfile);
@@ -1139,8 +1137,8 @@ bool gzip_file(const std::string& srcfile, const std::string& dstfile)
 	if (LLFile::rename(tmpfile, dstfile) == -1) goto err;		/* Flawfinder: ignore */
 	retval = true;
  err:
-	if (src != NULL) fclose(src);
-	if (dst != NULL) gzclose(dst);
+	if (src != nullptr) fclose(src);
+	if (dst != nullptr) gzclose(dst);
 	return retval;
 }
 

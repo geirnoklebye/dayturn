@@ -27,7 +27,6 @@
 
 #include "linden_common.h"
 
-#include <boost/foreach.hpp>
 #include "lltoolbar.h"
 
 #include "llcommandmanager.h"
@@ -128,8 +127,8 @@ LLToolBar::LLToolBar(const LLToolBar::Params& p)
 	mWrap(p.wrap),
 	mNeedsLayout(false),
 	mModified(false),
-	mButtonPanel(NULL),
-	mCenteringStack(NULL),
+	mButtonPanel(nullptr),
+	mCenteringStack(nullptr),
 	mPadLeft(p.pad_left),
 	mPadRight(p.pad_right),
 	mPadTop(p.pad_top),
@@ -137,19 +136,19 @@ LLToolBar::LLToolBar(const LLToolBar::Params& p)
 	mPadBetween(p.pad_between),
 	mMinGirth(p.min_girth),
 	mPopupMenuHandle(),
-	mRightMouseTargetButton(NULL),
+	mRightMouseTargetButton(nullptr),
 	mStartDragItemCallback(NULL),
 	mHandleDragItemCallback(NULL),
 	mHandleDropCallback(NULL),
-	mButtonAddSignal(NULL),
-	mButtonEnterSignal(NULL),
-	mButtonLeaveSignal(NULL),
-	mButtonRemoveSignal(NULL),
+	mButtonAddSignal(nullptr),
+	mButtonEnterSignal(nullptr),
+	mButtonLeaveSignal(nullptr),
+	mButtonRemoveSignal(nullptr),
 	mDragAndDropTarget(false),
-	mCaretIcon(NULL),
+	mCaretIcon(nullptr),
 	// <FS:Zi> add layout style and alignment initialisation
 	//mCenterPanel(NULL)
-	mCenterPanel(NULL),
+	mCenterPanel(nullptr),
 	mLayoutStyle(p.layout_style),
 	mAlignment(p.alignment),
 	mMaxRows(p.max_rows)
@@ -205,7 +204,7 @@ void LLToolBar::createContextMenu()
 		// </FS:Zi>
 
 		// Create the context menu
-		llassert(LLMenuGL::sMenuContainer != NULL);
+		llassert(LLMenuGL::sMenuContainer != nullptr);
 		// <FS:Zi> Load the context menu, using the previously defined XML file name
 		// LLContextMenu* menu = LLUICtrlFactory::instance().createFromFile<LLContextMenu>("menu_toolbars.xml", LLMenuGL::sMenuContainer, LLMenuHolderGL::child_registry_t::instance());
 		LLContextMenu* menu = LLUICtrlFactory::instance().createFromFile<LLContextMenu>(menu_xml_name, LLMenuGL::sMenuContainer, LLMenuHolderGL::child_registry_t::instance());
@@ -282,7 +281,7 @@ void LLToolBar::initFromParams(const LLToolBar::Params& p)
 	mCenteringStack->addChild(mEndCenteringPanel);
 	// </FS:Zi>
 
-	BOOST_FOREACH(LLCommandId id, p.commands)
+	for (const LLCommandId& id : p.commands)
 	{
 		addCommand(id);
 	}
@@ -395,7 +394,7 @@ bool LLToolBar::hasCommand(const LLCommandId& commandId) const
 
 bool LLToolBar::enableCommand(const LLCommandId& commandId, bool enabled)
 {
-	LLButton * command_button = NULL;
+	LLButton * command_button = nullptr;
 	
 	if (commandId != LLCommandId::null)
 	{
@@ -407,7 +406,7 @@ bool LLToolBar::enableCommand(const LLCommandId& commandId, bool enabled)
 		}
 	}
 
-	return (command_button != NULL);
+	return (command_button != nullptr);
 }
 
 bool LLToolBar::stopCommandInProgress(const LLCommandId& commandId)
@@ -423,7 +422,7 @@ bool LLToolBar::stopCommandInProgress(const LLCommandId& commandId)
 	// to turn off the microphone for both behaviors without risking duplicate state.
 	//
 
-	LLToolBarButton * command_button = NULL;
+	LLToolBarButton * command_button = nullptr;
 
 	if (commandId != LLCommandId::null)
 	{
@@ -449,12 +448,12 @@ bool LLToolBar::stopCommandInProgress(const LLCommandId& commandId)
 		}
 	}
 
-	return (command_button != NULL);
+	return (command_button != nullptr);
 }
 
 bool LLToolBar::flashCommand(const LLCommandId& commandId, bool flash, bool force_flashing/* = false */)
 {
-	LLButton * command_button = NULL;
+	LLButton * command_button = nullptr;
 
 	if (commandId != LLCommandId::null)
 	{
@@ -466,7 +465,7 @@ bool LLToolBar::flashCommand(const LLCommandId& commandId, bool flash, bool forc
 		}
 	}
 
-	return (command_button != NULL);
+	return (command_button != nullptr);
 }
 
 bool LLToolBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
@@ -479,8 +478,8 @@ bool LLToolBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	{
 		// Determine which button the mouse was over during the click in case the context menu action
 		// is intended to affect the button.
-		mRightMouseTargetButton = NULL;
-		BOOST_FOREACH(LLToolBarButton* button, mButtons)
+		mRightMouseTargetButton = nullptr;
+		for (LLToolBarButton* button : mButtons)
 		{
 			LLRect button_rect;
 			button->localRectToOtherView(button->getLocalRect(), &button_rect, this);
@@ -561,7 +560,7 @@ void LLToolBar::onRemoveSelectedCommand()
 	{
 		removeCommand(mRightMouseTargetButton->getCommandId());
 
-		mRightMouseTargetButton = NULL;
+		mRightMouseTargetButton = nullptr;
 	}
 }
 
@@ -580,7 +579,7 @@ void LLToolBar::setButtonType(LLToolBarEnums::ButtonType button_type)
 void LLToolBar::resizeButtonsInRow(std::vector<LLToolBarButton*>& buttons_in_row, S32 max_row_girth)
 {
 	// make buttons in current row all same girth
-	BOOST_FOREACH(LLToolBarButton* button, buttons_in_row)
+	for (LLToolBarButton* button : buttons_in_row)
 	{
 		if (getOrientation(mSideType) == LLLayoutStack::HORIZONTAL)
 		{
@@ -781,7 +780,7 @@ void LLToolBar::updateLayoutAsNeeded()
 	}
 	else if(mLayoutStyle==LAYOUT_STYLE_EQUALIZE)
 	{
-		BOOST_FOREACH(LLToolBarButton* button, mButtons)
+		for (LLToolBarButton* button : mButtons)
 		{
 			S32 width=button->getInitialWidth();
 			if(width>equalized_width)
@@ -799,7 +798,7 @@ void LLToolBar::updateLayoutAsNeeded()
 	}
 	// </FS:Zi>
 
-	BOOST_FOREACH(LLToolBarButton* button, mButtons)
+	for (LLToolBarButton* button : mButtons)
 	{
 		// <FS:Zi> Add equalized and fill layout options
 		// button->reshape(button->mWidthRange.getMin(), button->mDesiredHeight);
@@ -1039,7 +1038,7 @@ void LLToolBar::createButtons()
 {
 	std::set<LLUUID> set_flashing;
 
-	BOOST_FOREACH(LLToolBarButton* button, mButtons)
+	for (LLToolBarButton* button : mButtons)
 	{
         if (button->getFlashTimer() && button->getFlashTimer()->isFlashingInProgress())
         {
@@ -1057,7 +1056,7 @@ void LLToolBar::createButtons()
 	mButtonMap.clear();
 	mRightMouseTargetButton = NULL;
 	
-	BOOST_FOREACH(LLCommandId& command_id, mButtonCommands)
+	for (const LLCommandId& command_id : mButtonCommands)
 	{
 		LLToolBarButton* button = createButton(command_id);
 		mButtons.push_back(button);

@@ -88,8 +88,6 @@
 #include "llvoavatarself.h"
 #include "llwearablelist.h"
 
-#include <boost/foreach.hpp>
-
 #include "aoengine.h"			// ## Zi: Animation Overrider
 
 bool LLInventoryState::sWearNewClothing = false;

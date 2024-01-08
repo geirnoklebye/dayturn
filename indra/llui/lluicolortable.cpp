@@ -32,7 +32,6 @@
 #include "llui.h"
 #include "lluicolortable.h"
 #include "lluictrlfactory.h"
-#include <boost/foreach.hpp>
 
 LLUIColorTable::ColorParams::ColorParams()
 :	value("value"),
@@ -208,7 +207,7 @@ bool LLUIColorTable::loadFromSettings()
 
 	// pass constraint=LLDir::ALL_SKINS because we want colors.xml from every
 	// skin dir
-	BOOST_FOREACH(std::string colors_path,
+	for (const std::string& colors_path :
 				  gDirUtilp->findSkinnedFilenames(LLDir::SKINBASE, "colors.xml", LLDir::ALL_SKINS))
 	{
 		result |= loadFromFilename(colors_path, mLoadedColors);
@@ -249,7 +248,7 @@ void LLUIColorTable::saveUserSettings() const
 		const std::string& filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "colors.xml");
 		LLFILE *fp = LLFile::fopen(filename, "w");
 
-		if(fp != NULL)
+		if(fp != nullptr)
 		{
 			LLXMLNode::writeHeaderToFile(fp);
 			output_node->writeToFile(fp);
