@@ -281,7 +281,7 @@ void LLToolBar::initFromParams(const LLToolBar::Params& p)
 	mCenteringStack->addChild(mEndCenteringPanel);
 	// </FS:Zi>
 
-	for (const LLCommandId& id : p.commands)
+	for (const auto& id : p.commands)
 	{
 		addCommand(id);
 	}
