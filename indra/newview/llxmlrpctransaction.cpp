@@ -49,8 +49,6 @@
 #include "llappviewer.h"
 #include "lltrans.h"
 
-#include "boost/move/unique_ptr.hpp"
-
 namespace boost
 {
 	using ::boost::movelib::unique_ptr; // move unique_ptr into the boost namespace.

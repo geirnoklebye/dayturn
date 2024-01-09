@@ -27,8 +27,6 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include <boost/lexical_cast.hpp>
-
 #include "llfeaturemanager.h"
 #include "llviewershadermgr.h"
 #include "llviewercontrol.h"
@@ -916,7 +914,7 @@ std::string LLViewerShaderMgr::loadBasicShaders()
 
 	std::unordered_map<std::string, std::string> attribs;
 	attribs["MAX_JOINTS_PER_MESH_OBJECT"] = 
-		boost::lexical_cast<std::string>(LLSkinningUtil::getMaxJointCount());
+		std::to_string(LLSkinningUtil::getMaxJointCount());
 
     bool ambient_kill = gSavedSettings.getbool("AmbientDisable");
 	bool sunlight_kill = gSavedSettings.getbool("SunlightDisable");
