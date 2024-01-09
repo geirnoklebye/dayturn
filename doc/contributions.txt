@@ -63,6 +63,8 @@ Aimee Trescothick
 	VWR-14711
 	VWR-14712
 	VWR-15454
+AiraYumi
+	SL-20781 (github PR #613) partly
 Alejandro Rosenthal
 	VWR-1184
 Aleric Inglewood
