@@ -55,8 +55,7 @@ LLTextureEntry* LLPrimTextureList::newTextureEntry()
 }
 
 LLPrimTextureList::LLPrimTextureList()
-{
-}
+= default;
 
 // virtual 
 LLPrimTextureList::~LLPrimTextureList()
@@ -129,7 +128,7 @@ S32 LLPrimTextureList::copyTexture(const U8 index, const LLTextureEntry& te)
 {
 	if (S32(index) >= mEntryList.size())
 	{
-		S32 current_size = mEntryList.size();
+		unsigned long current_size = mEntryList.size();
 		LL_WARNS() << "ignore copy of index = " << S32(index) << " into texture entry list of size = " << current_size << LL_ENDL;
 		return TEM_CHANGE_NONE;
 	}
