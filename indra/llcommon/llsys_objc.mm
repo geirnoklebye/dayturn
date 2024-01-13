@@ -28,7 +28,7 @@
  */
 
 #ifndef LL_DARWIN
-#  error "This file should only be included when building on OS X!"
+#  error "This file should only be included when building on macOS!"
 #else
 
 #import "llsys_objc.h"

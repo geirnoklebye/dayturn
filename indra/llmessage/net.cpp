@@ -77,7 +77,7 @@ const char* LOOPBACK_ADDRESS_STRING = "127.0.0.1";
 const char* BROADCAST_ADDRESS_STRING = "255.255.255.255";
 
 #if LL_DARWIN
-	// Mac OS X returns an error when trying to set these to 400000.  Smaller values succeed.
+	// macOS returns an error when trying to set these to 400000.  Smaller values succeed.
 	// System (default) values can be found by sysctl kern.ipc.maxsockbuf which is the combined value
 	// of the send and receive buffer. Numbers below is 256kB per buffer for a total of 
 	// 262144 * 2 * 8 = 4194304 bit. Default on most newer systems is 6291456, so the setting is conservative. 

@@ -73,7 +73,7 @@ std::unique_ptr<std::vector<std::string>> doLoadDialog(const std::vector<std::st
     else 
     {
         // I suggest it's better to open the last path and let this default to home dir as necessary
-        // for consistency with other OS X apps
+        // for consistency with other macOS apps
         //
         //[panel setDirectoryURL: fileURLWithPath(NSHomeDirectory()) ];
         result = [panel runModal];

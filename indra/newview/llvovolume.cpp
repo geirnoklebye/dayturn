@@ -6308,7 +6308,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 
 #if LL_DARWIN
 	// HACK from Leslie:
-	// Disable VBO usage for alpha on Mac OS X because it kills the framerate
+	// Disable VBO usage for alpha on macOS because it kills the framerate
 	// due to implicit calls to glTexSubImage that are beyond our control.
 	// (this works because the only calls here that sort by distance are alpha)
 	if (distance_sort)
