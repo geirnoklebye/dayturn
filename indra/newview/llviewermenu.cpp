@@ -316,6 +316,7 @@ void force_error_llerror_msg(void*);
 void force_error_bad_memory_access(void *);
 void force_error_infinite_loop(void *);
 void force_error_software_exception(void *);
+void force_error_os_exception(void*);
 void force_error_driver_crash(void *);
 void force_error_coroutine_crash(void *);
 void force_error_thread_crash(void *);
@@ -2512,6 +2513,15 @@ class LLAdvancedForceErrorSoftwareException : public view_listener_t
 	}
 };
 
+class LLAdvancedForceOSException: public view_listener_t
+{
+    bool handleEvent(const LLSD& userdata)
+    {
+        force_error_software_exception(NULL);
+        return true;
+    }
+};
+
 class LLAdvancedForceErrorSoftwareExceptionCoro : public view_listener_t
 {
     bool handleEvent(const LLSD& userdata)
@@ -3373,6 +3383,15 @@ bool visible_object_select_in_pathfinding_linksets()
 bool enable_object_select_in_pathfinding_characters()
 {
 	return LLPathfindingManager::getInstance()->isPathfindingEnabledForCurrentRegion() &&  LLSelectMgr::getInstance()->selectGetViewableCharacters();
+}
+
+bool enable_os_exception()
+{
+#if LL_DARWIN
+    return true;
+#else
+    return false;
+#endif
 }
 
 class LLSelfRemoveAllAttachments : public view_listener_t
@@ -9072,6 +9091,11 @@ void force_error_software_exception(void *)
     LLAppViewer::instance()->forceErrorSoftwareException();
 }
 
+void force_error_os_exception(void*)
+{
+    LLAppViewer::instance()->forceErrorOSSpecificException();
+}
+
 void force_error_driver_crash(void *)
 {
     LLAppViewer::instance()->forceErrorDriverCrash();
@@ -10390,6 +10414,7 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLAdvancedForceErrorBadMemoryAccessCoro(), "Advanced.ForceErrorBadMemoryAccessCoro");
 	view_listener_t::addMenu(new LLAdvancedForceErrorInfiniteLoop(), "Advanced.ForceErrorInfiniteLoop");
 	view_listener_t::addMenu(new LLAdvancedForceErrorSoftwareException(), "Advanced.ForceErrorSoftwareException");
+    view_listener_t::addMenu(new LLAdvancedForceOSException(), "Advanced.ForceErrorOSException");
 	view_listener_t::addMenu(new LLAdvancedForceErrorSoftwareExceptionCoro(), "Advanced.ForceErrorSoftwareExceptionCoro");
 	view_listener_t::addMenu(new LLAdvancedForceErrorDriverCrash(), "Advanced.ForceErrorDriverCrash");
     view_listener_t::addMenu(new LLAdvancedForceErrorCoroutineCrash(), "Advanced.ForceErrorCoroutineCrash");
@@ -10595,6 +10620,7 @@ void initialize_menus()
 	enable.add("VisibleSelectInPathfindingLinksets", boost::bind(&visible_object_select_in_pathfinding_linksets));
 	commit.add("Pathfinding.Characters.Select", boost::bind(&LLFloaterPathfindingCharacters::openCharactersWithSelectedObjects));
 	enable.add("EnableSelectInPathfindingCharacters", boost::bind(&enable_object_select_in_pathfinding_characters));
+    enable.add("Advanced.EnableErrorOSException", boost::bind(&enable_os_exception));
 
 	view_listener_t::addMenu(new LLFloaterVisible(), "FloaterVisible");
 //NP	view_listener_t::addMenu(new LLShowSidetrayPanel(), "ShowSidetrayPanel");
