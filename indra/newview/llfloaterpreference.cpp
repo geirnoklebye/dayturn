@@ -3980,7 +3980,7 @@ void LLFloaterPreference::restoreIgnoredNotifications()
 {
     for (std::map<std::string, bool>::iterator it = mIgnorableNotifs.begin(); it != mIgnorableNotifs.end(); ++it)
     {
-        LLUI::getInstance()->mSettingGroups["ignores"]->setBOOL(it->first, it->second);
+        LLUI::getInstance()->mSettingGroups["ignores"]->setbool(it->first, it->second);
     }
 }
 
