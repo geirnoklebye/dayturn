@@ -872,7 +872,7 @@ LLRender::~LLRender()
 	shutdown();
 }
 
-void LLRender::init(bool needs_vertex_buffer)
+bool LLRender::init(bool needs_vertex_buffer)
 {
 #if LL_WINDOWS
     if (gGLManager.mHasDebugOutput && gDebugGL)
@@ -891,6 +891,13 @@ void LLRender::init(bool needs_vertex_buffer)
 
     glCullFace(GL_BACK);
 
+#if LL_WINDOWS
+    if (glGenVertexArrays == nullptr)
+    {
+        return false;
+    }
+#endif
+
 	if (sGLCoreProfile && !LLVertexBuffer::sUseVAO)
 	{ //bind a dummy vertex array object so we're core profile compliant
 #if defined GL_ARB_vertex_array_object || defined GL_APPLE_vertex_array_object
@@ -904,6 +911,7 @@ void LLRender::init(bool needs_vertex_buffer)
     {
         initVertexBuffer();
     }
+    return true;
 }
 
 void LLRender::initVertexBuffer()
