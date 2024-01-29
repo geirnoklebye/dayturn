@@ -195,6 +195,8 @@ LLComboBox::~LLComboBox()
 	mTopLostSignalConnection.disconnect();
     mImageLoadedConnection.disconnect();
     delete mMouseDownSignal;
+
+    LLUI::getInstance()->removePopup(this);
 }
 
 

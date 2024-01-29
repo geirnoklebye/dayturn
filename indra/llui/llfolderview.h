@@ -330,6 +330,8 @@ protected:
 
 	LLUICtrl::CommitCallbackRegistry::ScopedRegistrar* mCallbackRegistrar;
 	LLUICtrl::EnableCallbackRegistry::ScopedRegistrar* mEnableRegistrar;
+
+    boost::signals2::connection mRenamerTopLostSignalConnection;
 	
 public:
 	static F32 sAutoOpenTime;

@@ -160,14 +160,14 @@ LLFolderView::Params::Params()
 // Default constructor
 LLFolderView::LLFolderView(const Params& p)
 :	LLFolderViewFolder(p),
-	mScrollContainer(NULL),
+	mScrollContainer(nullptr),
 	mPopupMenuHandle(),
 	mMenuFileName(p.options_menu),
 	mAllowMultiSelect(p.allow_multiselect),
 	mAllowDrag(p.allow_drag),
 	mShowEmptyMessage(p.show_empty_message),
 	mShowFolderHierarchy(false),
-	mRenameItem(NULL),
+	mRenameItem(nullptr),
 	mNeedsScroll(false),
 	mUseLabelSuffix(p.use_label_suffix),
 	mSuppressFolderMenu(p.suppress_folder_menu),
@@ -184,8 +184,8 @@ LLFolderView::LLFolderView(const Params& p)
 	mCallbackRegistrar(NULL),
 	mEnableRegistrar(NULL),
 	mUseEllipses(p.use_ellipses),
-	mDraggingOverItem(NULL),
-	mStatusTextBox(NULL),
+	mDraggingOverItem(nullptr),
+	mStatusTextBox(nullptr),
 	mShowItemLinkOverlays(p.show_item_link_overlays),
 	mViewModel(p.view_model),
     mGroupedItemModel(p.grouped_item_model)
@@ -200,7 +200,7 @@ LLFolderView::LLFolderView(const Params& p)
 	setRect( rect );
 	reshape(rect.getWidth(), rect.getHeight());
 	mAutoOpenItems.setDepth(AUTO_OPEN_STACK_DEPTH);
-	mAutoOpenCandidate = NULL;
+	mAutoOpenCandidate = nullptr;
 	mAutoOpenTimer.stop();
 	mKeyboardSelection = false;
 	mIndentation = 	getParentFolder() ? getParentFolder()->getIndentation() + mLocalIndentation : 0;  
@@ -253,17 +253,23 @@ LLFolderView::LLFolderView(const Params& p)
 // Destroys the object
 LLFolderView::~LLFolderView( void )
 {
-	closeRenamer();
+    mRenamerTopLostSignalConnection.disconnect();
+    if (mRenamer)
+    {
+        // instead of using closeRenamer remove it directly,
+        // since it might already be hidden
+        LLUI::getInstance()->removePopup(mRenamer);
+    }
 
 	// The release focus call can potentially call the
 	// scrollcontainer, which can potentially be called with a partly
 	// destroyed scollcontainer. Just null it out here, and no worries
 	// about calling into the invalid scroll container.
 	// Same with the renamer.
-	mScrollContainer = NULL;
-	mRenameItem = NULL;
-	mRenamer = NULL;
-	mStatusTextBox = NULL;
+	mScrollContainer = nullptr;
+	mRenameItem = nullptr;
+	mRenamer = nullptr;
+	mStatusTextBox = nullptr;
 
 	if (mPopupMenuHandle.get()) mPopupMenuHandle.get()->die();
 	mPopupMenuHandle.markDead();
@@ -274,7 +280,7 @@ LLFolderView::~LLFolderView( void )
 	mFolders.clear();
 
 	//mViewModel->setFolderView(NULL);
-	mViewModel = NULL;
+	mViewModel = nullptr;
 }
 
 bool LLFolderView::canFocusChildren() const
@@ -406,7 +412,7 @@ LLFolderViewItem* LLFolderView::getCurSelectedItem( void )
 		llassert(itemp->getIsCurSelection());
 		return itemp;
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLFolderView::selected_items_t& LLFolderView::getSelectedItems( void )
@@ -506,7 +512,7 @@ void LLFolderView::sanitizeSelection()
 
 		// ensure that each ancestor is open and potentially passes filtering
 		bool visible = false;
-		if(item->getViewModelItem() != NULL)
+		if(item->getViewModelItem() != nullptr)
 		{
 			visible = item->getViewModelItem()->potentiallyVisible(); // initialize from filter state for this item
 		}
@@ -560,7 +566,7 @@ void LLFolderView::sanitizeSelection()
 	if (mSelectedItems.empty())
 	{
 		// ...select first available parent of original selection
-		LLFolderViewItem* new_selection = NULL;
+		LLFolderViewItem* new_selection = nullptr;
 		if (original_selected_item)
 		{
 			for(LLFolderViewFolder* parent_folder = original_selected_item->getParentFolder();
@@ -586,7 +592,7 @@ void LLFolderView::sanitizeSelection()
 		}
 		else
 		{
-			new_selection = NULL;
+			new_selection = nullptr;
 		}
 
 		if (new_selection)
@@ -635,7 +641,7 @@ bool LLFolderView::startDrag()
 void LLFolderView::commitRename( const LLSD& data )
 {
 	finishRenamingItem();
-	arrange( NULL, NULL );
+	arrange( nullptr, NULL );
 
 }
 
@@ -736,7 +742,7 @@ void LLFolderView::removeSelectedItems()
 	if(getVisible() && getEnabled())
 	{
 		// just in case we're removing the renaming item.
-		mRenameItem = NULL;
+		mRenameItem = nullptr;
 
 		// create a temporary structure which we will use to remove
 		// items, since the removal will futz with internal data
@@ -744,7 +750,7 @@ void LLFolderView::removeSelectedItems()
 		std::vector<LLFolderViewItem*> items;
 		S32 count = mSelectedItems.size();
 		if(count <= 0) return;
-		LLFolderViewItem* item = NULL;
+		LLFolderViewItem* item = nullptr;
 		selected_items_t::iterator item_it;
 		for (item_it = mSelectedItems.begin(); item_it != mSelectedItems.end(); ++item_it)
 		{
@@ -846,7 +852,7 @@ void LLFolderView::closeAutoOpenedFolders()
 	{
 		mAutoOpenCandidate->setAutoOpenCountdown(0.f);
 	}
-	mAutoOpenCandidate = NULL;
+	mAutoOpenCandidate = nullptr;
 	mAutoOpenTimer.stop();
 }
 
@@ -906,7 +912,7 @@ void LLFolderView::copy()
 	S32 count = mSelectedItems.size();
 	if(getVisible() && getEnabled() && (count > 0))
 	{
-		LLFolderViewModelItem* listener = NULL;
+		LLFolderViewModelItem* listener = nullptr;
 		selected_items_t::iterator item_it;
 		for (item_it = mSelectedItems.begin(); item_it != mSelectedItems.end(); ++item_it)
 		{
@@ -1012,7 +1018,7 @@ void LLFolderView::paste()
 		{
 			LLFolderViewItem* item = *selected_it;
 			LLFolderViewFolder* folder = dynamic_cast<LLFolderViewFolder*>(item);
-			if (folder == NULL)
+			if (folder == nullptr)
 			{
 				folder = item->getParentFolder();
 			}
@@ -1039,7 +1045,7 @@ void LLFolderView::startRenamingSelectedItem( void )
 	scrollToShowSelection();
 
 	S32 count = mSelectedItems.size();
-	LLFolderViewItem* item = NULL;
+	LLFolderViewItem* item = nullptr;
 	if(count > 0)
 	{
 		item = mSelectedItems.front();
@@ -1057,7 +1063,10 @@ void LLFolderView::startRenamingSelectedItem( void )
 		mRenamer->setVisible( true );
 		// set focus will fail unless item is visible
 		mRenamer->setFocus(true);
-		mRenamer->setTopLostCallback(boost::bind(&LLFolderView::onRenamerLost, this));
+        if (!mRenamerTopLostSignalConnection.connected())
+        {
+            mRenamerTopLostSignalConnection = mRenamer->setTopLostCallback(boost::bind(&LLFolderView::onRenamerLost, this));
+        }
 		LLUI::getInstance()->addPopup(mRenamer);
 	}
 }
@@ -1438,7 +1447,7 @@ bool LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		{
 			mEnableRegistrar->pushScope();
 		}
-		llassert(LLMenuGL::sMenuContainer != NULL);
+		llassert(LLMenuGL::sMenuContainer != nullptr);
 		menu = LLUICtrlFactory::getInstance()->createFromFile<LLMenuGL>(mMenuFileName, LLMenuGL::sMenuContainer, LLMenuHolderGL::child_registry_t::instance());
 		if (!menu)
 		{
@@ -1488,7 +1497,7 @@ bool LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		{
 			menu->setVisible(false);
 		}
-		setSelection(NULL, false, true);
+		setSelection(nullptr, false, true);
 	}
 	return handled;
 }
@@ -1497,7 +1506,7 @@ bool LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
 bool LLFolderView::addNoOptions(LLMenuGL* menu) const
 {
 	const std::string nooptions_str = "--no options--";
-	LLView *nooptions_item = NULL;
+	LLView *nooptions_item = nullptr;
 	
 	const LLView::child_list_t *list = menu->getChildList();
 	for (LLView::child_list_t::const_iterator itor = list->begin(); 
@@ -1552,13 +1561,17 @@ bool LLFolderView::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 
 void LLFolderView::deleteAllChildren()
 {
-	closeRenamer();
+    mRenamerTopLostSignalConnection.disconnect();
+    if (mRenamer)
+    {
+        LLUI::getInstance()->removePopup(mRenamer);
+    }
 	if (mPopupMenuHandle.get()) mPopupMenuHandle.get()->die();
 	mPopupMenuHandle.markDead();
-	mScrollContainer = NULL;
-	mRenameItem = NULL;
-	mRenamer = NULL;
-	mStatusTextBox = NULL;
+	mScrollContainer = nullptr;
+	mRenameItem = nullptr;
+	mRenamer = nullptr;
+	mStatusTextBox = nullptr;
 	
 	clearSelection();
 	LLView::deleteAllChildren();
@@ -1650,7 +1663,7 @@ void LLFolderView::update()
 	// If this is associated with the user's inventory, don't do anything
 	// until that inventory is loaded up.    
     // If there's no model, the view is in suspended state (being deleted) and shouldn't be updated
-    if (getFolderViewModel() == NULL)
+    if (getFolderViewModel() == nullptr)
     {
         return;
     }
@@ -1909,7 +1922,7 @@ bool LLFolderView::isFolderSelected()
 	for (item_iter = mSelectedItems.begin(); item_iter != mSelectedItems.end(); ++item_iter)
 	{
 		LLFolderViewFolder* folder = dynamic_cast<LLFolderViewFolder*>(*item_iter);
-		if (folder != NULL)
+		if (folder != nullptr)
 		{
 			return true;
 		}
@@ -1925,7 +1938,7 @@ bool LLFolderView::selectFirstItem()
 		LLFolderViewFolder* folder = (*iter );
 		if (folder->getVisible())
 		{
-			LLFolderViewItem* itemp = folder->getNextFromChild(0,true);
+			LLFolderViewItem* itemp = folder->getNextFromChild(nullptr,true);
 			if(itemp)
 				setSelection(itemp,false,true);
 			return true;	
@@ -1962,7 +1975,7 @@ bool LLFolderView::selectLastItem()
 		LLFolderViewFolder* folder = (*iter);
 		if (folder->getVisible())
 		{
-			LLFolderViewItem* itemp = folder->getPreviousFromChild(0,true);
+			LLFolderViewItem* itemp = folder->getPreviousFromChild(nullptr,true);
 			if(itemp)
 				setSelection(itemp,false,true);
 			return true;	
@@ -2014,7 +2027,7 @@ void LLFolderView::onRenamerLost()
 	if( mRenameItem )
 	{
 		setSelection( mRenameItem, true );
-		mRenameItem = NULL;
+		mRenameItem = nullptr;
 	}
 }
 
