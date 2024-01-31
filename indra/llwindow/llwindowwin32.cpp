@@ -1572,9 +1572,7 @@ const	S32   max_format  = (S32)num_formats - 1;
 	}
 	else
 	{
-        LLError::LLUserWarningMsg::show(mCallbacks->translateString("MBVideoDrvErr"));
-        // mWindowHandle is 0, going to crash either way
-        LL_ERRS("Window") << "No wgl_ARB_pixel_format extension!" << LL_ENDL;
+		LL_WARNS("Window") << "No wgl_ARB_pixel_format extension, using default ChoosePixelFormat!" << LL_ENDL;
 	}
 
 	// Verify what pixel format we actually received.
@@ -1829,16 +1827,12 @@ void LLWindowWin32::destroySharedContext(void* contextPtr)
 
 void LLWindowWin32::toggleVSync(bool enable_vsync)
 {
-    if (wglSwapIntervalEXT == nullptr)
-    {
-        LL_INFOS("Window") << "VSync: wglSwapIntervalEXT not initialized" << LL_ENDL;
-    }
-    else if (!enable_vsync)
+    if (!enable_vsync && wglSwapIntervalEXT)
     {
         LL_INFOS("Window") << "Disabling vertical sync" << LL_ENDL;
         wglSwapIntervalEXT(0);
     }
-    else
+    else if (wglSwapIntervalEXT)
     {
         LL_INFOS("Window") << "Enabling vertical sync" << LL_ENDL;
         wglSwapIntervalEXT(1);
