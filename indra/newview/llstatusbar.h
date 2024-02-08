@@ -98,11 +98,6 @@ public:
 	S32 getSquareMetersLeft() const;
 
 	LLPanelNearByMedia* getNearbyMediaPanel() { return mPanelNearByMedia; }
-    bool getAudioStreamEnabled() const;
-   	// <FS:Zi> External toggles for media and streams
-	void toggleMedia(bool enable);
-	void toggleStream(bool enable);
-	// </FS:Zi>
     
 private:
 	
@@ -116,7 +111,6 @@ private:
 	void onMouseEnterNearbyMedia();
 	void onClickStatistics();
 
-	static void onClickStreamToggle(void* data);		// ## Zi: Media/Stream separation
 	static void onClickMediaToggle(void* data);
 	static void onClickBalance(void* data);
 	// <FS:Ansariel> FIRE-19697: Add setting to disable graphics preset menu popup on mouse over
@@ -148,7 +142,6 @@ private:
 	LLIconCtrl	*mIconPresetsGraphic;
 	LLButton	*mBtnVolume;
 	LLTextBox	*mBoxBalance;
-	LLButton	*mStreamToggle;		// ## Zi: Media/Stream separation
 	LLButton	*mMediaToggle;
 	LLButton	*mBandwidthButton;
 	LLView		*mScriptOut;
@@ -160,7 +153,6 @@ private:
 	S32				mHealth;
 	S32				mSquareMetersCredit;
 	S32				mSquareMetersCommitted;
-	bool			mAudioStreamEnabled;
 	LLFrameTimer*	mBalanceTimer;
 	LLFrameTimer*	mHealthTimer;
 	LLPanelPresetsCameraPulldown* mPanelPresetsCameraPulldown;

@@ -168,23 +168,10 @@
             follows="top|left"
             layout="topleft"
             height="19"
-            width="63"
+            width="47"
             auto_resize="false"
             user_resize="false"
             visible="true">
-            <button
-                name="stream_toggle_btn"
-                tool_tip="Start/Stop Parcel Audio Stream"
-                follows="top|left"
-                width="16"
-                height="16"
-                top="2"
-                left="4"
-                image_selected="Music_Off"
-                image_unselected="Pause_Off"
-                image_pressed="Pause_Press"
-                image_pressed_selected="Music_Press"
-                is_toggle="true" />
             <button
                 name="media_toggle_btn"
                 tool_tip="Start/stop all media\n(Music, video, web pages)"
@@ -192,12 +179,12 @@
                 width="16"
                 height="16"
                 top="2"
-                left="26"
+                left="10"
                 image_selected="Play_Off"
                 image_unselected="Pause_Off"
                 image_pressed="Pause_Press"
                 image_pressed_selected="Play_Press"
-                is_toggle="true" />                
+                is_toggle="true" />
             <button
                 name="volume_btn"
                 tool_tip="Audio volume levels\n(Click to mute/unmute)"

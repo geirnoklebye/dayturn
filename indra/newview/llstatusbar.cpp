@@ -31,7 +31,6 @@
 // viewer includes
 #include "llagent.h"
 #include "llagentcamera.h"
-#include "llaudioengine.h"
 #include "llbutton.h"
 #include "llcommandhandler.h"
 #include "llfirstuse.h"
@@ -65,7 +64,6 @@
 #include "llresmgr.h"
 #include "llworld.h"
 #include "llstatgraph.h"
-#include "llvieweraudio.h"
 #include "llviewermedia.h"
 #include "llviewermenu.h"	// for gMenuBarView
 #include "llviewerparcelmgr.h"
@@ -125,7 +123,6 @@ LLStatusBar::LLStatusBar(const LLRect& rect)
 	mHealth(100),
 	mSquareMetersCredit(0),
 	mSquareMetersCommitted(0),
-	mAudioStreamEnabled(false),	// ## Zi: Media/Stream separation
 	mMediaToggle(nullptr),
 	mMouseEnterVolumeConnection(),
 	mMouseEnterNearbyMediaConnection(),    
@@ -178,7 +175,7 @@ void LLStatusBar::draw()
 
 bool LLStatusBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	show_navbar_context_menu(this,x,y);
+	show_navbar_context_menu(this, x, y);
 	return true;
 }
 
@@ -186,7 +183,7 @@ bool LLStatusBar::postBuild()
 {
 	gMenuBarView->setRightMouseDownCallback(boost::bind(&show_navbar_context_menu, _1, _2, _3));
 
-	mTextTime = getChild<LLTextBox>("TimeText" );
+	mTextTime = getChild<LLTextBox>("TimeText");
 	mPurchasePanel = getChild<LLLayoutPanel>("purchase_panel");
 	
 	getChild<LLUICtrl>("buyL")->setCommitCallback(
@@ -210,10 +207,6 @@ bool LLStatusBar::postBuild()
     }
     // </FS: KC> FIRE-19697: Add setting to disable status bar icon menu popup on mouseover
 
-	// <FS:Zi> Media/Stream separation
-	mStreamToggle = getChild<LLButton>("stream_toggle_btn");
-	mStreamToggle->setClickedCallback(&LLStatusBar::onClickStreamToggle, this);
-	// </FS:Zi> Media/Stream separation
 
 	mMediaToggle = getChild<LLButton>("media_toggle_btn");
 	mMediaToggle->setClickedCallback( &LLStatusBar::onClickMediaToggle, this );
@@ -348,7 +341,7 @@ void LLStatusBar::refresh()
 	mFPSPanel->setVisible(fps_stats_visible);
 
 	// update clock every 10 seconds
-	if(mClockUpdateTimer.getElapsedTimeF32() > 10.f)
+	if (mClockUpdateTimer.getElapsedTimeF32() > 10.f)
 	{
 		mClockUpdateTimer.reset();
 
@@ -359,14 +352,14 @@ void LLStatusBar::refresh()
 
 		std::string timeStr = getString("time");
 		LLSD substitution;
-		substitution["datetime"] = (S32) utc_time;
-		LLStringUtil::format (timeStr, substitution);
+		substitution["datetime"] = (S32)utc_time;
+		LLStringUtil::format(timeStr, substitution);
 		mTextTime->setText(timeStr);
 
 		// set the tooltip to have the date
 		std::string dtStr = getString("timeTooltip");
-		LLStringUtil::format (dtStr, substitution);
-		mTextTime->setToolTip (dtStr);
+		LLStringUtil::format(dtStr, substitution);
+		mTextTime->setToolTip(dtStr);
 	}
 
 	LLRect r;
@@ -386,21 +379,14 @@ void LLStatusBar::refresh()
 
 	// Disable media toggle if there's no media, parcel media, and no parcel audio
 	// (or if media is disabled)
-	bool button_enabled = (gSavedSettings.getbool("AudioStreamingMedia")) && 	// ## Zi: Media/Stream separation
-						  (media_inst->hasInWorldMedia() || media_inst->hasParcelMedia()	// || media_inst->hasParcelAudio()	// ## Zi: Media/Stream separation
-						  );
+	bool button_enabled = (gSavedSettings.getbool("AudioStreamingMusic") || gSavedSettings.getbool("AudioStreamingMedia")) &&
+						  (media_inst->hasInWorldMedia() || media_inst->hasParcelMedia() || media_inst->hasParcelAudio());
 	mMediaToggle->setEnabled(button_enabled);
 	// Note the "sense" of the toggle is opposite whether media is playing or not
 	bool any_media_playing = (media_inst->isAnyMediaPlaying() || 
-							  media_inst->isParcelMediaPlaying());
+							  media_inst->isParcelMediaPlaying() ||
+							  media_inst->isParcelAudioPlaying());
 	mMediaToggle->setValue(!any_media_playing);
-
-	// ## Zi: Media/Stream separation
-	button_enabled = (gSavedSettings.getbool("AudioStreamingMusic") && media_inst->hasParcelAudio());
-
-	mStreamToggle->setEnabled(button_enabled);
-	mStreamToggle->setValue(!media_inst->isParcelAudioPlaying());
-	// ## Zi: Media/Stream separation
 }
 
 void LLStatusBar::setVisibleForMouselook(bool visible)
@@ -408,14 +394,13 @@ void LLStatusBar::setVisibleForMouselook(bool visible)
 	static LLCachedControl<bool> net_stats_visible(gSavedSettings, "ShowNetStats", true);
 	static LLCachedControl<bool> fps_stats_visible(gSavedSettings, "ShowFPSStats", true);
 	static LLCachedControl<bool> show_draw_distance(gSavedSettings, "ShowDDSlider", true);
-	static LLCachedControl<bool> show_media_popups(gSavedSettings, "ShowMediaPopupsOnRollover", true);
+
 	mInMouselookMode = !visible;
 
 	mTextTime->setVisible(visible);
 	mBoxBalance->setVisible(visible);
 	mPurchasePanel->setVisible(visible);
 	mBtnVolume->setVisible(visible);
-	mStreamToggle->setVisible(visible);		// ## Zi: Media/Stream separation
 	mMediaToggle->setVisible(visible);
 	mDrawDistancePanel->setVisible(visible && show_draw_distance);
 	mStatisticsPanel->setVisible(visible && net_stats_visible);
@@ -466,10 +451,10 @@ void LLStatusBar::setBalance(S32 balance)
 			make_ui_sound("UISndMoneyChangeUp");
 	}
 
-	if( balance != mBalance )
+	if ( balance != mBalance )
 	{
 		mBalanceTimer->reset();
-		mBalanceTimer->setTimerExpirySec( ICON_TIMER_EXPIRY );
+		mBalanceTimer->setTimerExpirySec(ICON_TIMER_EXPIRY);
 		mBalance = balance;
 	}
 }
@@ -484,7 +469,7 @@ void LLStatusBar::sendMoneyBalanceRequest()
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	msg->nextBlockFast(_PREHASH_MoneyData);
-	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null );
+	msg->addUUIDFast(_PREHASH_TransactionID, LLUUID::null);
 
     if (gDisconnected)
     {
@@ -505,7 +490,7 @@ void LLStatusBar::sendMoneyBalanceRequest()
 void LLStatusBar::setHealth(S32 health)
 {
 	//LL_INFOS() << "Setting health to: " << buffer << LL_ENDL;
-	if( mHealth > health )
+	if (mHealth > health)
 	{
 		if (mHealth > (health + gSavedSettings.getF32("UISndHealthReductionThreshold")))
 		{
@@ -523,7 +508,7 @@ void LLStatusBar::setHealth(S32 health)
 		}
 
 		mHealthTimer->reset();
-		mHealthTimer->setTimerExpirySec( ICON_TIMER_EXPIRY );
+		mHealthTimer->setTimerExpirySec(ICON_TIMER_EXPIRY);
 	}
 
 	mHealth = health;
@@ -694,7 +679,7 @@ static void onClickVolume(void* data)
 }
 
 //static 
-void LLStatusBar::onClickBalance(void* )
+void LLStatusBar::onClickBalance(void*)
 {
 	// Force a balance request message:
 	LLStatusBar::sendMoneyBalanceRequest();
@@ -709,77 +694,10 @@ void LLStatusBar::onClickMediaToggle(void* data)
 	bool pause = status_bar->mMediaToggle->getValue();
 	LLViewerMedia::getInstance()->setAllMediaPaused(pause);
 }
-void LLStatusBar::toggleMedia(bool enable)
-{
-// </FS:Zi>
-	LLViewerMedia::getInstance()->setAllMediaEnabled(enable);
-}
-void LLStatusBar::toggleStream(bool enable)
-{
-	if (!gAudiop)
-	{
-		return;
-	}
-
-	if(enable)
-	{
-		if (LLAudioEngine::AUDIO_PAUSED == gAudiop->isInternetStreamPlaying())
-		{
-			// 'false' means unpause
-			LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getInstance()->getParcelAudioURL());
-		}
-		else
-		{
-			LLViewerAudio::getInstance()->startInternetStreamWithAutoFade(LLViewerMedia::getInstance()->getParcelAudioURL());
-		}
-	}
-	else
-	{
-		LLViewerAudio::getInstance()->stopInternetStreamWithAutoFade();
-	}
-
-	mAudioStreamEnabled = enable;
-}
-
-// ## Zi: Media/Stream separation
-// static
-void LLStatusBar::onClickStreamToggle(void* data)
-{
-	if (!gAudiop)
-		return;
-
-	LLStatusBar *status_bar = (LLStatusBar*)data;
-	bool enable = ! status_bar->mStreamToggle->getValue();
-
-	if(enable)
-	{
-		if (LLAudioEngine::AUDIO_PAUSED == gAudiop->isInternetStreamPlaying())
-		{
-			// 'false' means unpause
-			gAudiop->pauseInternetStream(false);
-		}
-		else
-		{
-			gAudiop->startInternetStream(LLViewerMedia::getInstance()->getParcelAudioURL());
-		}
-	}
-	else
-	{
-		gAudiop->stopInternetStream();
-	}
-
-	status_bar->mAudioStreamEnabled = enable;
-}
-
-bool LLStatusBar::getAudioStreamEnabled() const
-{
-	return mAudioStreamEnabled;
-}
-// ## Zi: Media/Stream separation
 
 bool can_afford_transaction(S32 cost)
 {
-	return((cost <= 0)||((gStatusBar) && (gStatusBar->getBalance() >=cost)));
+	return((cost <= 0) || ((gStatusBar) && (gStatusBar->getBalance() >= cost)));
 }
 
 void LLStatusBar::onVolumeChanged(const LLSD& newvalue)

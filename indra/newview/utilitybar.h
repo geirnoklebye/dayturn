@@ -44,11 +44,6 @@ class UtilityBar
 		void setVolumeControlsButtonExpanded(bool expanded);
 
 	protected:
-		void onParcelStreamClicked();
-		void onParcelMediaClicked();
-
-		LLButton* mParcelStreamPlayButton;
-		LLButton* mParcelMediaPlayButton;
 		LLButton* mTalkButton;
 		LLButton* mAOInterfaceButton;
 		LLButton* mVolumeControlsInterfaceButton;
