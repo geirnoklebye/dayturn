@@ -115,7 +115,7 @@ public:
 	//------------------------------------------------------------------------
 public:
 	LLLFSThread(bool threaded = true);
-	~LLLFSThread();	
+	~LLLFSThread();
 
 	// Return a Request handle
 	handle_t read(const std::string& filename,	/* Flawfinder: ignore */ 
