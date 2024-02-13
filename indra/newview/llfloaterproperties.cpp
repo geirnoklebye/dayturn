@@ -482,7 +482,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	///////////////
 
 	const LLSaleInfo& sale_info = item->getSaleInfo();
-	BOOL is_for_sale = sale_info.isForSale();
+	bool is_for_sale = sale_info.isForSale();
 	LLComboBox* combo_sale_type = getChild<LLComboBox>("ComboBoxSaleType");
 	LLUICtrl* edit_cost = getChild<LLUICtrl>("Edit Cost");
 

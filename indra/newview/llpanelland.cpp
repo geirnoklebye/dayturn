@@ -65,7 +65,7 @@ bool	LLPanelLandInfo::postBuild()
 	childSetAction("button about land", boost::bind(onClickAbout));
 
 	mCheckShowOwners = getChild<LLCheckBoxCtrl>("checkbox show owners");
-	getChild<LLUICtrl>("checkbox show owners")->setValue(gSavedSettings.getBOOL("ShowParcelOwners"));
+	getChild<LLUICtrl>("checkbox show owners")->setValue(gSavedSettings.getbool("ShowParcelOwners"));
 
 	return true;
 }
@@ -138,9 +138,9 @@ void LLPanelLandInfo::refresh()
 		const LLUUID& auth_buyer_id = parcel->getAuthorizedBuyerID();
 
 		bool is_public = parcel->isPublic();
-		BOOL is_for_sale = parcel->getForSale()
+		bool is_for_sale = parcel->getForSale()
 			&& ((parcel->getSalePrice() > 0) || (auth_buyer_id.notNull()));
-		BOOL can_buy = (is_for_sale
+		bool can_buy = (is_for_sale
 						&& (owner_id != gAgent.getID())
 						&& ((gAgent.getID() == auth_buyer_id)
 							|| (auth_buyer_id.isNull())));
@@ -157,10 +157,10 @@ void LLPanelLandInfo::refresh()
 		bool owner_release = LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_RELEASE);
 		bool owner_divide =  LLViewerParcelMgr::isParcelOwnedByAgent(parcel, GP_LAND_DIVIDE_JOIN);
 
-		BOOL manager_releaseable = ( gAgent.canManageEstate()
+		bool manager_releaseable = ( gAgent.canManageEstate()
 								  && (parcel->getOwnerID() == regionp->getOwner()) );
 		
-		BOOL manager_divideable = ( gAgent.canManageEstate()
+		bool manager_divideable = ( gAgent.canManageEstate()
 								&& ((parcel->getOwnerID() == regionp->getOwner()) || owner_divide) );
 
 		getChildView("button abandon land")->setEnabled(owner_release || manager_releaseable || gAgent.isGodlike());
