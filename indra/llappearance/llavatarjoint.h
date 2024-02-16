@@ -32,6 +32,7 @@
 //-----------------------------------------------------------------------------
 #include "lljoint.h"
 #include "lljointpickname.h"
+#include <string>
 
 class LLFace;
 class LLAvatarJointMesh;

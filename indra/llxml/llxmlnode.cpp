@@ -680,7 +680,7 @@ bool LLXMLNode::parseFile(const std::string& filename, LLXMLNodePtr& node, LLXML
 // CA pass down the filename too for more useful error messages
 // static
 bool LLXMLNode::parseBuffer(
-	U8* buffer,
+	const U8* buffer,
 	U32 length,
 	LLXMLNodePtr& node, 
 	const std::string& filename,

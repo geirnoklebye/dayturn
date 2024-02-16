@@ -2656,6 +2656,21 @@ bool LLAppViewer::initConfiguration()
 	std::string settings_file_list = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "settings_files.xml");
 	LLXMLNodePtr root;
 	bool success  = LLXMLNode::parseFile(settings_file_list, root, NULL);
+
+#ifdef _WIN64
+    if (!success)
+    {
+        HRSRC rsrc = FindResourceW(GetModuleHandle(NULL), L"IDR_SETTINGS_FILES", L"XML");
+        if (rsrc)
+        {
+            size_t size = SizeofResource(NULL, rsrc);
+            HGLOBAL handle = LoadResource(GetModuleHandle(NULL), rsrc);
+            const U8* text = (const U8*)LockResource(handle);
+            success = LLXMLNode::parseBuffer(text, size, root, NULL);
+        }
+    }
+#endif
+
 	if (!success)
 	{
         LL_WARNS() << "Cannot load default configuration file " << settings_file_list << LL_ENDL;

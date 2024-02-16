@@ -135,7 +135,7 @@ public:
 		LLXMLNodePtr& node, 
 		LLXMLNode* defaults_tree);
 	static bool parseBuffer(
-		U8* buffer,
+		const U8* buffer,
 		U32 length,
 		LLXMLNodePtr& node, 
 		//CA: pass down the filename too for a more informative error message

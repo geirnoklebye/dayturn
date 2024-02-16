@@ -184,3 +184,4 @@ END
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 
+IDR_SETTINGS_FILES	XML	"../app_settings/settings_files.xml"
