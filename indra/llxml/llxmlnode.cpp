@@ -670,20 +670,16 @@ bool LLXMLNode::parseFile(const std::string& filename, LLXMLNodePtr& node, LLXML
 	buffer[nread] = 0;
 	fclose(fp);
 
-	// CA pass down the filename too
-	bool rv = parseBuffer(buffer, nread, node, filename, defaults_tree);
-	//bool rv = parseBuffer(buffer, nread, node, defaults_tree);
+	bool rv = parseBuffer(buffer, nread, node, defaults_tree);
 	delete [] buffer;
 	return rv;
 }
 
-// CA pass down the filename too for more useful error messages
 // static
 bool LLXMLNode::parseBuffer(
 	const U8* buffer,
 	U32 length,
 	LLXMLNodePtr& node, 
-	const std::string& filename,
 	LLXMLNode* defaults)
 {
 	// Init
@@ -705,7 +701,6 @@ bool LLXMLNode::parseBuffer(
 		LL_WARNS() << "Error parsing xml error code: "
 				<< XML_ErrorString(XML_GetErrorCode(my_parser))
 				<< " on line " << XML_GetCurrentLineNumber(my_parser)
-				<< "in file " << filename
 				<< LL_ENDL;
 	}
 
