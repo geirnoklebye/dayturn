@@ -2378,6 +2378,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             // allow system keys, such as ALT-F4 to be processed by Windows
             eat_keystroke = FALSE;
             // intentional fall-through here
+            [[fallthrough]];
         }
         case WM_KEYDOWN:
         {
@@ -2398,6 +2399,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
         case WM_SYSKEYUP:
             eat_keystroke = FALSE;
             // intentional fall-through here
+            [[fallthrough]];
         case WM_KEYUP:
         {
             window_imp->post([=]()
@@ -2872,8 +2874,6 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                     });
             };
             return 0;
-
-            break;
         }
         case WM_SETTINGCHANGE:
         {
@@ -2955,6 +2955,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                 }
             }
         }
+        break;
 
         //list of messages we get often that we don't care to log about
         case WM_NCHITTEST:
