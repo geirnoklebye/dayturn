@@ -527,22 +527,6 @@ bool LLAgentWearables::isWearableCopyable(LLWearableType::EType type, U32 index)
 	return false;
 }
 
-/*
-  U32 LLAgentWearables::getWearablePermMask(LLWearableType::EType type)
-  {
-  LLUUID item_id = getWearableItemID(type);
-  if (!item_id.isNull())
-  {
-  LLInventoryItem* item = gInventory.getItem(item_id);
-  if (item)
-  {
-  return item->getPermissions().getMaskOwner();
-  }
-  }
-  return PERM_NONE;
-  }
-*/
-
 LLInventoryItem* LLAgentWearables::getWearableInventoryItem(LLWearableType::EType type, U32 index)
 {
 	LLUUID item_id = getWearableItemID(type,index);
@@ -675,7 +659,7 @@ const LLUUID LLAgentWearables::getWearableAssetID(LLWearableType::EType type, U3
 
 bool LLAgentWearables::isWearingItem(const LLUUID& item_id) const
 {
-	return getWearableFromItemID(item_id) != NULL;
+	return getWearableFromItemID(item_id) != nullptr;
 }
 
 void LLAgentWearables::addLocalTextureObject(const LLWearableType::EType wearable_type, const LLAvatarAppearanceDefines::ETextureIndex texture_type, U32 wearable_index)
@@ -770,21 +754,21 @@ void LLAgentWearables::createStandardWearables()
 
 	if (!isAgentAvatarValid()) return;
 
-	const BOOL create[LLWearableType::WT_COUNT] = 
+	constexpr bool create[LLWearableType::WT_COUNT] = 
 		{
-			TRUE,  //LLWearableType::WT_SHAPE
-			TRUE,  //LLWearableType::WT_SKIN
-			TRUE,  //LLWearableType::WT_HAIR
-			TRUE,  //LLWearableType::WT_EYES
-			TRUE,  //LLWearableType::WT_SHIRT
-			TRUE,  //LLWearableType::WT_PANTS
-			TRUE,  //LLWearableType::WT_SHOES
-			TRUE,  //LLWearableType::WT_SOCKS
-			FALSE, //LLWearableType::WT_JACKET
-			FALSE, //LLWearableType::WT_GLOVES
-			TRUE,  //LLWearableType::WT_UNDERSHIRT
-			TRUE,  //LLWearableType::WT_UNDERPANTS
-			FALSE  //LLWearableType::WT_SKIRT
+			true,  //LLWearableType::WT_SHAPE
+			true,  //LLWearableType::WT_SKIN
+			true,  //LLWearableType::WT_HAIR
+			true,  //LLWearableType::WT_EYES
+			true,  //LLWearableType::WT_SHIRT
+			true,  //LLWearableType::WT_PANTS
+			true,  //LLWearableType::WT_SHOES
+			true,  //LLWearableType::WT_SOCKS
+			false, //LLWearableType::WT_JACKET
+			false, //LLWearableType::WT_GLOVES
+			true,  //LLWearableType::WT_UNDERSHIRT
+			true,  //LLWearableType::WT_UNDERPANTS
+			false  //LLWearableType::WT_SKIRT
 		};
 
 	LLPointer<LLInventoryCallback> cb = new OnWearableItemCreatedCB;
@@ -1090,7 +1074,7 @@ void LLAgentWearables::setWearableOutfit(const LLInventoryItem::item_array_t& it
 				pushWearable(type,new_wearable);
 			}
 
-			const bool removed = false;
+			constexpr bool removed = false;
 			wearableUpdated(new_wearable, removed);
 		}
 	}
