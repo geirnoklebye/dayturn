@@ -78,19 +78,19 @@ LLControlVariable* LLControlGroup::declareString(const std::string& name,
                                    const std::string& initial_val,
                                    const std::string& comment,
                                    LLControlVariable::ePersist persist) {return NULL;}
-void LLControlGroup::setString(const std::string& name, const std::string& val){}
-std::string LLControlGroup::getString(const std::string& name)
+void LLControlGroup::setString(std::string_view name, const std::string& val){}
+std::string LLControlGroup::getString(std::string_view name)
 {
 
-	if (name == "FirstName")
+	if (strcmp(name,"FirstName") == 0)
 		return gFirstName;
-	else if (name == "LastName")
+	else if (strcmp(name,"LastName") == 0)
 		return gLastName;
 	return "";
 }
 
 // Stub for --no-verify-ssl-cert
-BOOL LLControlGroup::getBOOL(const std::string& name) { return FALSE; }
+bool LLControlGroup::getbool(const std::string& name) { return false; }
 
 LLSD LLCredential::getLoginParams()
 {

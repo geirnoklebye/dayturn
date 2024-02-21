@@ -198,12 +198,14 @@ LLControlGroup gSavedSettings("Global");
 LLControlGroup::LLControlGroup(const std::string& name) :
 	LLInstanceTracker<LLControlGroup, std::string>(name){}
 LLControlGroup::~LLControlGroup() {}
-void LLControlGroup::setBOOL(const std::string& name, BOOL val) {}
-BOOL LLControlGroup::getBOOL(const std::string& name) { return FALSE; }
-F32 LLControlGroup::getF32(const std::string& name) { return 0.0f; }
+void LLControlGroup::setBOOL(std::string_view name, BOOL val) {}
+void LLControlGroup::setbool(std::string_view name, bool val) {}
+BOOL LLControlGroup::getBOOL(std::string_view name) { return FALSE; }
+bool LLControlGroup::getbool(std::string_view name) { return false; }
+F32 LLControlGroup::getF32(std::string_view name) { return 0.0f; }
 U32 LLControlGroup::saveToFile(const std::string& filename, bool nondefault_only) { return 1; }
-void LLControlGroup::setString(const std::string& name, const std::string& val) {}
-std::string LLControlGroup::getString(const std::string& name) { return "test_string"; }
+void LLControlGroup::setString(std::string_view name, const std::string& val) {}
+std::string LLControlGroup::getString(std::string_view name) { return "test_string"; }
 LLControlVariable* LLControlGroup::declareBOOL(const std::string& name, BOOL initial_val, const std::string& comment, LLControlVariable::ePersist persist) { return NULL; }
 LLControlVariable* LLControlGroup::declareString(const std::string& name, const std::string &initial_val, const std::string& comment, LLControlVariable::ePersist persist) { return NULL; }
 
