@@ -117,16 +117,16 @@ public:
 	
 	LLManip( const std::string& name, LLToolComposite* composite );
 
-	virtual BOOL		handleMouseDownOnPart(S32 x, S32 y, MASK mask) = 0;
+	virtual bool		handleMouseDownOnPart(S32 x, S32 y, MASK mask) = 0;
 	void				renderGuidelines(BOOL draw_x = TRUE, BOOL draw_y = TRUE, BOOL draw_z = TRUE);
 	static void			renderXYZ(const LLVector3 &vec);
 
-    /*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
+    /*virtual*/ bool	handleMouseUp(S32 x, S32 y, MASK mask);
     /*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask);
 	virtual void		highlightManipulators(S32 x, S32 y) = 0;
 	virtual void		handleSelect();
 	virtual void		handleDeselect();
-	virtual BOOL		canAffectSelection() = 0;
+	virtual bool		canAffectSelection() = 0;
 
 	EManipPart			getHighlightedPart() { return mHighlightedPart; }
 	

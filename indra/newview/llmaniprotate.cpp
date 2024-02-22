@@ -363,9 +363,9 @@ void LLManipRotate::render()
 	renderXYZ(euler_angles);
 }
 
-BOOL LLManipRotate::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLManipRotate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	LLViewerObject* first_object = mObjectSelection->getFirstMoveableObject(true);
 	if( first_object )
@@ -380,12 +380,12 @@ BOOL LLManipRotate::handleMouseDown(S32 x, S32 y, MASK mask)
 }
 
 // Assumes that one of the parts of the manipulator was hit.
-BOOL LLManipRotate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
+bool LLManipRotate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 {
-	BOOL can_rotate = canAffectSelection();
+	bool can_rotate = canAffectSelection();
 	if (!can_rotate)
 	{
-		return FALSE;
+		return false;
 	}
 
 	highlightManipulators(x, y);
@@ -445,7 +445,7 @@ BOOL LLManipRotate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 
 	mHelpTextTimer.reset();
 	sNumTimesHelpTextShown++;
-	return TRUE;
+	return true;
 }
 
 
@@ -460,7 +460,7 @@ LLVector3 LLManipRotate::findNearestPointOnRing( S32 x, S32 y, const LLVector3& 
 	return center + proj_onto_ring * mRadiusMeters;
 }
 
-BOOL LLManipRotate::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLManipRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// first, perform normal processing in case this was a quick-click
 	handleHover(x, y, mask);
@@ -1929,9 +1929,9 @@ S32 LLManipRotate::getObjectAxisClosestToMouse(LLVector3& object_axis)
 }
 
 //virtual
-BOOL LLManipRotate::canAffectSelection()
+bool LLManipRotate::canAffectSelection()
 {
-	BOOL can_rotate = mObjectSelection->getObjectCount() != 0;
+	bool can_rotate = mObjectSelection->getObjectCount() != 0;
 	if (can_rotate)
 	{
 		struct f : public LLSelectedObjectFunctor

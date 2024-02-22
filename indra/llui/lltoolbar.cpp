@@ -469,11 +469,11 @@ bool LLToolBar::flashCommand(const LLCommandId& commandId, bool flash, bool forc
 	return (command_button != NULL);
 }
 
-BOOL LLToolBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLRect button_panel_rect;
 	mButtonPanel->localRectToOtherView(mButtonPanel->getLocalRect(), &button_panel_rect, this);
-	BOOL handle_it_here = !mReadOnly && button_panel_rect.pointInRect(x, y);
+	bool handle_it_here = !mReadOnly && button_panel_rect.pointInRect(x, y);
 
 	if (handle_it_here)
 	{
@@ -1315,7 +1315,7 @@ LLToolBarButton::~LLToolBarButton()
 	delete mIsStartingSignal;
 }
 
-BOOL LLToolBarButton::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolBarButton::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mMouseDownX = x;
 	mMouseDownY = y;

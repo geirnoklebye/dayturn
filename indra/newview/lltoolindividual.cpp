@@ -66,10 +66,10 @@ LLToolIndividual::~LLToolIndividual()
 {
 }
 
-BOOL LLToolIndividual::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolIndividual::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
-	return TRUE;
+	return true;
 }
 
 void LLToolIndividual::pickCallback(const LLPickInfo& pick_info)

@@ -53,14 +53,14 @@ bool LLWindowCallbacks::handleUnicodeChar(llwchar uni_char, MASK mask)
 }
 
 
-BOOL LLWindowCallbacks::handleMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
 void LLWindowCallbacks::handleMouseLeave(LLWindow *window)
@@ -78,24 +78,24 @@ void LLWindowCallbacks::handleQuit(LLWindow *window)
 {
 }
 
-BOOL LLWindowCallbacks::handleRightMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleRightMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleRightMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleRightMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleMiddleMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleMiddleMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
-BOOL LLWindowCallbacks::handleMiddleMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask)
+bool LLWindowCallbacks::handleMiddleMouseUp(LLWindow *window, const LLCoordGL pos, MASK mask)
 {
-	return FALSE;
+	return false;
 }
 
 bool LLWindowCallbacks::handleOtherMouseDown(LLWindow *window, const LLCoordGL pos, MASK mask, S32 button)

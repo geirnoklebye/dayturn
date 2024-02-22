@@ -456,7 +456,7 @@ bool LLVirtualTrackball::handleHover(S32 x, S32 y, MASK mask)
     return true;
 }
 
-BOOL LLVirtualTrackball::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLVirtualTrackball::handleMouseUp(S32 x, S32 y, MASK mask)
 {
     if (hasMouseCapture())
     {
@@ -468,7 +468,7 @@ BOOL LLVirtualTrackball::handleMouseUp(S32 x, S32 y, MASK mask)
     return LLView::handleMouseUp(x, y, mask);
 }
 
-BOOL LLVirtualTrackball::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLVirtualTrackball::handleMouseDown(S32 x, S32 y, MASK mask)
 {
     if (pointInTouchCircle(x, y))
     {
@@ -481,7 +481,7 @@ BOOL LLVirtualTrackball::handleMouseDown(S32 x, S32 y, MASK mask)
     return LLView::handleMouseDown(x, y, mask);
 }
 
-BOOL LLVirtualTrackball::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLVirtualTrackball::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
     if (pointInTouchCircle(x, y))
     {

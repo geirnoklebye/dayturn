@@ -185,14 +185,14 @@ public:
 	/*virtual*/ bool handleTranslatedKeyUp(KEY key,  MASK mask);
 	/*virtual*/ void handleScanKey(KEY key, bool key_down, bool key_up, bool key_level);
 	/*virtual*/ bool handleUnicodeChar(llwchar uni_char, MASK mask);	// NOT going to handle extended 
-	/*virtual*/ BOOL handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
-	/*virtual*/ BOOL handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ bool handleCloseRequest(LLWindow *window);
 	/*virtual*/ void handleQuit(LLWindow *window);
-	/*virtual*/ BOOL handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
-	/*virtual*/ BOOL handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
-	/*virtual*/ BOOL handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
-	/*virtual*/ BOOL handleMiddleMouseUp(LLWindow *window, LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ bool handleMiddleMouseUp(LLWindow *window, LLCoordGL pos, MASK mask);
 	/*virtual*/ bool handleOtherMouseDown(LLWindow *window, LLCoordGL pos, MASK mask, S32 button);
 	/*virtual*/ bool handleOtherMouseUp(LLWindow *window, LLCoordGL pos, MASK mask, S32 button);
 	bool handleOtherMouse(LLWindow *window, LLCoordGL pos, MASK mask, S32 button, bool down);

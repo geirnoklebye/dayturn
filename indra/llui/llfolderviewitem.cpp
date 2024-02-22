@@ -544,21 +544,21 @@ const std::string& LLFolderViewItem::getName( void ) const
 }
 
 // LLView functionality
-BOOL LLFolderViewItem::handleRightMouseDown( S32 x, S32 y, MASK mask )
+bool LLFolderViewItem::handleRightMouseDown( S32 x, S32 y, MASK mask )
 {
 	if(!mIsSelected)
 	{
 		getRoot()->setSelection(this, false);
 	}
 	make_ui_sound("UISndClick");
-	return TRUE;
+	return true;
 }
 
-BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	if (LLView::childrenHandleMouseDown(x, y, mask))
 	{
-		return TRUE;
+		return true;
 	}
 	
 	// No handler needed for focus lost since this class has no
@@ -590,7 +590,7 @@ BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 
 	mDragStartX = x;
 	mDragStartY = y;
-	return TRUE;
+	return true;
 }
 
 bool LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
@@ -642,11 +642,11 @@ bool LLFolderViewItem::handleDoubleClick( S32 x, S32 y, MASK mask )
 	return true;
 }
 
-BOOL LLFolderViewItem::handleMouseUp( S32 x, S32 y, MASK mask )
+bool LLFolderViewItem::handleMouseUp( S32 x, S32 y, MASK mask )
 {
 	if (LLView::childrenHandleMouseUp(x, y, mask))
 	{
-		return TRUE;
+		return true;
 	}
 	
 	// if mouse hasn't moved since mouse down...
@@ -677,7 +677,7 @@ BOOL LLFolderViewItem::handleMouseUp( S32 x, S32 y, MASK mask )
 		}
 		gFocusMgr.setMouseCapture( NULL );
 	}
-	return TRUE;
+	return true;
 }
 
 void LLFolderViewItem::onMouseLeave(S32 x, S32 y, MASK mask)
@@ -1950,9 +1950,9 @@ bool LLFolderViewFolder::handleDragAndDropToThisFolder(MASK mask,
 }
 
 
-BOOL LLFolderViewFolder::handleRightMouseDown( S32 x, S32 y, MASK mask )
+bool LLFolderViewFolder::handleRightMouseDown( S32 x, S32 y, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( isOpen() )
 	{
@@ -1981,9 +1981,9 @@ bool LLFolderViewFolder::handleHover(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( isOpen() )
 	{
 		handled = childrenHandleMouseDown(x,y,mask) != NULL;

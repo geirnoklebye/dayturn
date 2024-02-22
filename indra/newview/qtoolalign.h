@@ -23,7 +23,7 @@ public:
 
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
-	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual bool    handleHover(S32 x, S32 y, MASK mask);
 	virtual void	render();
 

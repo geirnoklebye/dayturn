@@ -1079,14 +1079,14 @@ bool LLView::hasMouseCapture()
 	return gFocusMgr.getMouseCapture() == this; 
 }
 
-BOOL LLView::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLView::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	LLView* r = childrenHandleMouseUp( x, y, mask );
 
 	return (r!=NULL);
 }
 
-BOOL LLView::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLView* r= childrenHandleMouseDown(x, y, mask );
 
@@ -1108,22 +1108,22 @@ bool LLView::handleScrollHWheel(S32 x, S32 y, S32 clicks)
 	return childrenHandleScrollHWheel( x, y, clicks ) != NULL;
 }
 
-BOOL LLView::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLView::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	return childrenHandleRightMouseDown( x, y, mask ) != NULL;
 }
 
-BOOL LLView::handleRightMouseUp(S32 x, S32 y, MASK mask)
+bool LLView::handleRightMouseUp(S32 x, S32 y, MASK mask)
 {
 	return childrenHandleRightMouseUp( x, y, mask ) != NULL;
 }
  
-BOOL LLView::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
+bool LLView::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
 	return childrenHandleMiddleMouseDown( x, y, mask ) != NULL;
 }
 
-BOOL LLView::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
+bool LLView::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
 {
 	return childrenHandleMiddleMouseUp( x, y, mask ) != NULL;
 }

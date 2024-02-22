@@ -65,7 +65,7 @@ public:
 	
 	/*virtual*/ void draw();
 
-	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleRightMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool postBuild();
 
 	// MANIPULATORS
@@ -92,7 +92,7 @@ public:
 	S32			getBalance() const;
 	S32			getHealth() const;
 
-	BOOL isUserTiered() const;
+	bool isUserTiered() const;
 	S32 getSquareMetersCredit() const;
 	S32 getSquareMetersCommitted() const;
 	S32 getSquareMetersLeft() const;

@@ -62,9 +62,9 @@ LLToolSelectLand::~LLToolSelectLand()
 }
 
 
-BOOL LLToolSelectLand::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolSelectLand::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL hit_land = gViewerWindow->mousePointOnLandGlobal(x, y, &mDragStartGlobal);
+	bool hit_land = gViewerWindow->mousePointOnLandGlobal(x, y, &mDragStartGlobal);
 	if (hit_land)
 	{
 		setMouseCapture( true );
@@ -108,7 +108,7 @@ bool LLToolSelectLand::handleDoubleClick(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if(	hasMouseCapture() )
 	{
@@ -135,9 +135,9 @@ BOOL LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
 		mMouseOutsideSlop = false;
 		mDragEndValid = false;
 		
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 

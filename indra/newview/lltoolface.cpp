@@ -71,10 +71,10 @@ bool LLToolFace::handleDoubleClick(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolFace::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolFace::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
-	return TRUE;
+	return true;
 }
 
 void LLToolFace::pickCallback(const LLPickInfo& pick_info)

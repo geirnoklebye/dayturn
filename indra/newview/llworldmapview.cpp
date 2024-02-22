@@ -1745,7 +1745,7 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 }
 
 
-BOOL LLWorldMapView::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLWorldMapView::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	gFocusMgr.setMouseCapture( this );
 
@@ -1754,10 +1754,10 @@ BOOL LLWorldMapView::handleMouseDown( S32 x, S32 y, MASK mask )
 	mMouseDownX = x;
 	mMouseDownY = y;
 	sHandledLastClick = true;
-	return TRUE;
+	return true;
 }
 
-BOOL LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
+bool LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 {
 	if (hasMouseCapture())
 	{
@@ -1787,9 +1787,9 @@ BOOL LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 		}
 		gViewerWindow->showCursor();
 		gFocusMgr.setMouseCapture( NULL );
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 void LLWorldMapView::updateVisibleBlocks()

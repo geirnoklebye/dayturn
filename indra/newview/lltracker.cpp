@@ -341,9 +341,9 @@ void LLTracker::trackLocation(const LLVector3d& pos_global, const std::string& f
 
 
 // static 
-BOOL LLTracker::handleMouseDown(S32 x, S32 y)
+bool LLTracker::handleMouseDown(S32 x, S32 y)
 {
-	BOOL eat_mouse_click = FALSE;
+	bool eat_mouse_click = false;
 	// fortunately, we can always compute the tracking arrow center
 	S32 dist_sqrd = (x - instance()->mHUDArrowCenterX) * (x - instance()->mHUDArrowCenterX) + 
 					(y - instance()->mHUDArrowCenterY) * (y - instance()->mHUDArrowCenterY);
@@ -361,7 +361,7 @@ BOOL LLTracker::handleMouseDown(S32 x, S32 y)
 		if (getTrackingStatus())
 		{
 			instance()->stopTrackingAll();
-			eat_mouse_click = TRUE;
+			eat_mouse_click = true;
 		}
 	}
 	return eat_mouse_click;

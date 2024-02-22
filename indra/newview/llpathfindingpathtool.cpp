@@ -63,9 +63,9 @@ LLPathfindingPathTool::~LLPathfindingPathTool()
 {
 }
 
-BOOL LLPathfindingPathTool::handleMouseDown(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleMouseDown(S32 pX, S32 pY, MASK pMask)
 {
-	BOOL returnVal = FALSE;
+	bool returnVal = false;
 
 	if (!mIsLeftMouseButtonHeld && !mIsMiddleMouseButtonHeld && !mIsRightMouseButtonHeld)
 	{
@@ -77,14 +77,14 @@ BOOL LLPathfindingPathTool::handleMouseDown(S32 pX, S32 pY, MASK pMask)
 			computeFinalPoints(pX, pY, pMask);
 			mIsLeftMouseButtonHeld = true;
 			setMouseCapture(true);
-			returnVal = TRUE;
+			returnVal = true;
 		}
 		else if (!isCameraModKeys(pMask))
 		{
 			gViewerWindow->setCursor(UI_CURSOR_TOOLNO);
 			mIsLeftMouseButtonHeld = true;
 			setMouseCapture(true);
-			returnVal = TRUE;
+			returnVal = true;
 		}
 	}
 	mIsLeftMouseButtonHeld = true;
@@ -92,31 +92,31 @@ BOOL LLPathfindingPathTool::handleMouseDown(S32 pX, S32 pY, MASK pMask)
 	return returnVal;
 }
 
-BOOL LLPathfindingPathTool::handleMouseUp(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleMouseUp(S32 pX, S32 pY, MASK pMask)
 {
-	BOOL returnVal = FALSE;
+	bool returnVal = false;
 
 	if (mIsLeftMouseButtonHeld && !mIsMiddleMouseButtonHeld && !mIsRightMouseButtonHeld)
 	{
 		computeFinalPoints(pX, pY, pMask);
 		setMouseCapture(false);
-		returnVal = TRUE;
+		returnVal = true;
 	}
 	mIsLeftMouseButtonHeld = false;
 
 	return returnVal;
 }
 
-BOOL LLPathfindingPathTool::handleMiddleMouseDown(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleMiddleMouseDown(S32 pX, S32 pY, MASK pMask)
 {
 	setMouseCapture(true);
 	mIsMiddleMouseButtonHeld = true;
 	gViewerWindow->setCursor(UI_CURSOR_TOOLNO);
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPathfindingPathTool::handleMiddleMouseUp(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleMiddleMouseUp(S32 pX, S32 pY, MASK pMask)
 {
 	if (!mIsLeftMouseButtonHeld && mIsMiddleMouseButtonHeld && !mIsRightMouseButtonHeld)
 	{
@@ -124,19 +124,19 @@ BOOL LLPathfindingPathTool::handleMiddleMouseUp(S32 pX, S32 pY, MASK pMask)
 	}
 	mIsMiddleMouseButtonHeld = false;
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPathfindingPathTool::handleRightMouseDown(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleRightMouseDown(S32 pX, S32 pY, MASK pMask)
 {
 	setMouseCapture(true);
 	mIsRightMouseButtonHeld = true;
 	gViewerWindow->setCursor(UI_CURSOR_TOOLNO);
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLPathfindingPathTool::handleRightMouseUp(S32 pX, S32 pY, MASK pMask)
+bool LLPathfindingPathTool::handleRightMouseUp(S32 pX, S32 pY, MASK pMask)
 {
 	if (!mIsLeftMouseButtonHeld && !mIsMiddleMouseButtonHeld && mIsRightMouseButtonHeld)
 	{
@@ -144,7 +144,7 @@ BOOL LLPathfindingPathTool::handleRightMouseUp(S32 pX, S32 pY, MASK pMask)
 	}
 	mIsRightMouseButtonHeld = false;
 
-	return TRUE;
+	return true;
 }
 
 bool LLPathfindingPathTool::handleDoubleClick(S32 pX, S32 pY, MASK pMask)

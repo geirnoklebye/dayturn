@@ -68,7 +68,7 @@ void LLToolGun::handleDeselect()
 	mIsSelected = false;
 }
 
-BOOL LLToolGun::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolGun::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	gGrabTransientTool = this;
 	LLToolMgr::getInstance()->getCurrentToolset()->selectTool( LLToolGrab::getInstance() );

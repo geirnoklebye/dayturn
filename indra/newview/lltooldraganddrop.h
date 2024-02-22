@@ -48,7 +48,7 @@ public:
 	typedef boost::signals2::signal<void ()> enddrag_signal_t;
 
 	// overridden from LLTool
-	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual bool	handleHover(S32 x, S32 y, MASK mask);
 	virtual bool	handleKey(KEY key, MASK mask);
 	virtual bool	handleToolTip(S32 x, S32 y, MASK mask);

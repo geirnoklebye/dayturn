@@ -69,7 +69,7 @@ public:
     void addItem(LLFolderViewItem* item);
 	void draw();
 	
-	BOOL handleMouseDown(S32 x, S32 y, MASK mask);
+	bool handleMouseDown(S32 x, S32 y, MASK mask);
 	bool handleDoubleClick(S32 x, S32 y, MASK mask);
 	void selectItem();
 

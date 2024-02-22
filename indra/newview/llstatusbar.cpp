@@ -176,10 +176,10 @@ void LLStatusBar::draw()
 	LLPanel::draw();
 }
 
-BOOL LLStatusBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLStatusBar::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	show_navbar_context_menu(this,x,y);
-	return TRUE;
+	return true;
 }
 
 bool LLStatusBar::postBuild()
@@ -549,7 +549,7 @@ void LLStatusBar::setLandCommitted(S32 committed)
 	mSquareMetersCommitted = committed;
 }
 
-BOOL LLStatusBar::isUserTiered() const
+bool LLStatusBar::isUserTiered() const
 {
 	return (mSquareMetersCredit > 0);
 }

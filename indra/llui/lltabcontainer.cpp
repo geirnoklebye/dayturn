@@ -540,10 +540,10 @@ void LLTabContainer::draw()
 
 
 // virtual
-BOOL LLTabContainer::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLTabContainer::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	static LLUICachedControl<S32> tabcntrv_pad ("UITabCntrvPad", 0);
-	BOOL handled = FALSE;
+	bool handled = false;
 	bool has_scroll_arrows = !mHideScrollArrows && (getMaxScrollPos() > 0) && !getTabsHidden();
 
 	if (has_scroll_arrows)
@@ -657,9 +657,9 @@ bool LLTabContainer::handleHover( S32 x, S32 y, MASK mask )
 }
 
 // virtual
-BOOL LLTabContainer::handleMouseUp( S32 x, S32 y, MASK mask )
+bool LLTabContainer::handleMouseUp( S32 x, S32 y, MASK mask )
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	bool has_scroll_arrows = !mHideScrollArrows && (getMaxScrollPos() > 0)  && !getTabsHidden();
 
 	S32 local_x = x - getRect().mLeft;

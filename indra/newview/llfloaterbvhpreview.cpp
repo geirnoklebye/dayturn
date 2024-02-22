@@ -471,7 +471,7 @@ void LLFloaterBvhPreview::resetMotion()
 //-----------------------------------------------------------------------------
 // handleMouseDown()
 //-----------------------------------------------------------------------------
-BOOL LLFloaterBvhPreview::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLFloaterBvhPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (mPreviewRect.pointInRect(x, y))
 	{
@@ -480,7 +480,7 @@ BOOL LLFloaterBvhPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 		gViewerWindow->hideCursor();
 		mLastMouseX = x;
 		mLastMouseY = y;
-		return TRUE;
+		return true;
 	}
 
 	return LLFloater::handleMouseDown(x, y, mask);
@@ -489,7 +489,7 @@ BOOL LLFloaterBvhPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 //-----------------------------------------------------------------------------
 // handleMouseUp()
 //-----------------------------------------------------------------------------
-BOOL LLFloaterBvhPreview::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLFloaterBvhPreview::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	gFocusMgr.setMouseCapture(NULL);
 	gViewerWindow->showCursor();

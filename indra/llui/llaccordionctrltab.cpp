@@ -485,7 +485,7 @@ void LLAccordionCtrlTab::onUpdateScrollToChild(const LLUICtrl *cntrl)
     LLUICtrl::onUpdateScrollToChild(cntrl);
 }
 
-BOOL LLAccordionCtrlTab::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLAccordionCtrlTab::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if(mCollapsible && mHeaderVisible && mCanOpenClose)
 	{
@@ -496,13 +496,13 @@ BOOL LLAccordionCtrlTab::handleMouseDown(S32 x, S32 y, MASK mask)
 
 			//reset stored state
 			mWasStateStored = false;
-			return TRUE;
+			return true;
 		}
 	}
 	return LLUICtrl::handleMouseDown(x,y,mask);
 }
 
-BOOL LLAccordionCtrlTab::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLAccordionCtrlTab::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	return LLUICtrl::handleMouseUp(x,y,mask);
 }

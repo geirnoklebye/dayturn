@@ -96,7 +96,7 @@ public:
 	// Draw in-world 3D tracking stuff
 	static void	render3D();
 
-	static BOOL handleMouseDown(S32 x, S32 y);
+	static bool handleMouseDown(S32 x, S32 y);
 
 	static LLTracker* sTrackerp;
 	static bool sCheesyBeacon;

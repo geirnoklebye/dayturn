@@ -93,8 +93,8 @@ public:
 	}
 	/*virtual*/ bool	canEdit() const { return false; }
 	// eat handleMouseDown event so we get the mouseup event
-	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask) { return TRUE; }
-	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask) { mEditor.onCommit(); return TRUE; }
+	/*virtual*/ bool	handleMouseDown(S32 x, S32 y, MASK mask) { return TRUE; }
+	/*virtual*/ bool	handleMouseUp(S32 x, S32 y, MASK mask) { mEditor.onCommit(); return true; }
 	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask)
 	{
 		LLUI::getInstance()->getWindow()->setCursor(UI_CURSOR_HAND);

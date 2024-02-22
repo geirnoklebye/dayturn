@@ -1333,7 +1333,7 @@ bool LLFolderView::handleUnicodeCharHere(llwchar uni_char)
 }
 
 
-BOOL LLFolderView::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLFolderView::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	mKeyboardSelection = false;
 	mSearchString.clear();
@@ -1418,13 +1418,13 @@ bool LLFolderView::handleDoubleClick( S32 x, S32 y, MASK mask )
 	return LLView::handleDoubleClick( x, y, mask );
 }
 
-BOOL LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
+bool LLFolderView::handleRightMouseDown( S32 x, S32 y, MASK mask )
 {
 	// all user operations move keyboard focus to inventory
 	// this way, we know when to stop auto-updating a search
 	mParentPanel.get()->setFocus(true);
 
-	BOOL handled = childrenHandleRightMouseDown(x, y, mask) != NULL;
+	bool handled = childrenHandleRightMouseDown(x, y, mask) != NULL;
 	S32 count = mSelectedItems.size();
 
 	LLMenuGL* menu = static_cast<LLMenuGL*>(mPopupMenuHandle.get());

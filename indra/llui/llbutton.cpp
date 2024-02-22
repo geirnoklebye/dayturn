@@ -464,7 +464,7 @@ bool LLButton::handleKeyHere(KEY key, MASK mask )
 }
 
 
-BOOL LLButton::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLButton::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (!childrenHandleMouseDown(x, y, mask))
 	{
@@ -504,11 +504,11 @@ BOOL LLButton::handleMouseDown(S32 x, S32 y, MASK mask)
 			make_ui_sound("UISndClick");
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 
-BOOL LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// We only handle the click if the click both started and ended within us
 	if( hasMouseCapture() )
@@ -553,10 +553,10 @@ BOOL LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
 		childrenHandleMouseUp(x, y, mask);
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL	LLButton::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool	LLButton::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (mHandleRightMouse && !childrenHandleRightMouseDown(x, y, mask))
 	{
@@ -578,10 +578,10 @@ BOOL	LLButton::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		// if they are not mouse opaque.
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL	LLButton::handleRightMouseUp(S32 x, S32 y, MASK mask)
+bool	LLButton::handleRightMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (mHandleRightMouse)
 	{
@@ -607,7 +607,7 @@ BOOL	LLButton::handleRightMouseUp(S32 x, S32 y, MASK mask)
 		// but this might change the mouse handling of existing buttons in a bad way.
 		// if they are not mouse opaque.
 	}
-	return TRUE;
+	return true;
 }
 
 void LLButton::onMouseLeave(S32 x, S32 y, MASK mask)

@@ -87,7 +87,7 @@ public:
 	virtual void	scanKeyboard() = 0;															// scans keyboard, calls functions as necessary
 	// Mac must differentiate between Command = Control for keyboard events
 	// and Command != Control for mouse events.
-	virtual MASK	currentMask(BOOL for_mouse_event) = 0;
+	virtual MASK	currentMask(bool for_mouse_event) = 0;
 	virtual KEY		currentKey() { return mCurTranslatedKey; }
 
 	EKeyboardInsertMode getInsertMode()	{ return mInsertMode; }

@@ -576,9 +576,9 @@ void LLAvatarList::addNewItem(const LLUUID& id, const std::string& name, bool is
 }
 
 // virtual
-BOOL LLAvatarList::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLAvatarList::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLUICtrl::handleRightMouseDown(x, y, mask);
+	bool handled = LLUICtrl::handleRightMouseDown(x, y, mask);
 	if ( mContextMenu)
 	{
 		uuid_vec_t selected_uuids;
@@ -588,7 +588,7 @@ BOOL LLAvatarList::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLAvatarList::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLAvatarList::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	gFocusMgr.setMouseCapture(this);
 
@@ -600,7 +600,7 @@ BOOL LLAvatarList::handleMouseDown(S32 x, S32 y, MASK mask)
 	return LLFlatListViewEx::handleMouseDown(x, y, mask);
 }
 
-BOOL LLAvatarList::handleMouseUp( S32 x, S32 y, MASK mask )
+bool LLAvatarList::handleMouseUp( S32 x, S32 y, MASK mask )
 {
 	if(hasMouseCapture())
 	{

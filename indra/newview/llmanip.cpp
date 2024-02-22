@@ -238,13 +238,13 @@ bool LLManip::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLManip::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLManip::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 	if( hasMouseCapture() )
 	{
-		handled = TRUE;
-		setMouseCapture( false );
+		handled = true;
+		setMouseCapture(false);
 	}
 	return handled;
 }

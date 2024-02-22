@@ -134,7 +134,7 @@ bool LLToolGrabBase::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return false;
 }
 
-BOOL LLToolGrabBase::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolGrabBase::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks)
 	{
@@ -163,7 +163,7 @@ BOOL LLToolGrabBase::handleMouseDown(S32 x, S32 y, MASK mask)
         // Todo: LLToolGrabBase probably shouldn't consume the event if there is nothing
         // to grab in Mouselook, it intercepts handling in scanMouse
     }
-	return TRUE;
+	return true;
 }
 
 void LLToolGrabBase::pickCallback(const LLPickInfo& pick_info)
@@ -171,7 +171,7 @@ void LLToolGrabBase::pickCallback(const LLPickInfo& pick_info)
 	LLToolGrab::getInstance()->mGrabPick = pick_info;
 	LLViewerObject	*objectp = pick_info.getObject();
 
-	BOOL extend_select = (pick_info.mKeyMask & MASK_SHIFT);
+	bool extend_select = (pick_info.mKeyMask & MASK_SHIFT);
 
 	if (!extend_select && !LLSelectMgr::getInstance()->getSelection()->isEmpty())
 	{
@@ -964,7 +964,7 @@ void LLToolGrabBase::handleHoverFailed(S32 x, S32 y, MASK mask)
 
 
 
-BOOL LLToolGrabBase::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolGrabBase::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	LLTool::handleMouseUp(x, y, mask);
 
@@ -1001,7 +1001,7 @@ BOOL LLToolGrabBase::handleMouseUp(S32 x, S32 y, MASK mask)
 
 	//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
 
-	return TRUE;
+	return true;
 } 
 
 void LLToolGrabBase::stopEditing()

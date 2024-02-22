@@ -38,7 +38,7 @@ public:
 	/*virtual*/ bool	handleKeyUp(const U16 key, MASK mask);
 	/*virtual*/ bool	handleKeyDown(const U16 key, MASK mask);
 	/*virtual*/ void	resetMaskKeys();
-	/*virtual*/ MASK	currentMask(BOOL for_mouse_event);
+	/*virtual*/ MASK	currentMask(bool for_mouse_event);
 	/*virtual*/ void	scanKeyboard();
 #ifdef LL_DARWIN
 	/*virtual*/ void	handleModifier(MASK mask);

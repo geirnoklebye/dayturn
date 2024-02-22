@@ -269,7 +269,7 @@ void LLDragHandleLeft::reshape(S32 width, S32 height, bool called_from_parent)
 // UI event handling
 //-------------------------------------------------------------
 
-BOOL LLDragHandle::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLDragHandle::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	// No handler needed for focus lost since this clas has no state that depends on it.
@@ -280,11 +280,11 @@ BOOL LLDragHandle::handleMouseDown(S32 x, S32 y, MASK mask)
 	mLastMouseScreenY = mDragLastScreenY;
 
 	// Note: don't pass on to children
-	return TRUE;
+	return true;
 }
 
 
-BOOL LLDragHandle::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLDragHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if( hasMouseCapture() )
 	{
@@ -293,7 +293,7 @@ BOOL LLDragHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 	}
 
 	// Note: don't pass on to children
-	return TRUE;
+	return true;
 }
 
 

@@ -863,13 +863,13 @@ bool LLPanelPrimMediaControls::handleScrollHWheel(S32 x, S32 y, S32 clicks)
     return res;
 }
 
-BOOL LLPanelPrimMediaControls::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLPanelPrimMediaControls::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mInactivityTimer.start();
 	return LLPanel::handleMouseDown(x, y, mask);
 }
 
-BOOL LLPanelPrimMediaControls::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLPanelPrimMediaControls::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mInactivityTimer.start();
 	return LLPanel::handleMouseUp(x, y, mask);

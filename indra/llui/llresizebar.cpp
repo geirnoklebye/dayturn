@@ -148,9 +148,9 @@ bool LLResizeBar::postBuild()
 	return LLPanel::postBuild();
 }
 
-BOOL LLResizeBar::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLResizeBar::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	if (!canResize()) return FALSE;
+	if (!canResize()) return false;
 
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	// No handler needed for focus lost since this clas has no state that depends on it.
@@ -160,23 +160,23 @@ BOOL LLResizeBar::handleMouseDown(S32 x, S32 y, MASK mask)
 	mLastMouseScreenX = mDragLastScreenX;
 	mLastMouseScreenY = mDragLastScreenY;
 
-	return TRUE;
+	return true;
 }
 
 
-BOOL LLResizeBar::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLResizeBar::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	if( hasMouseCapture() )
 	{
 		// Release the mouse
 		gFocusMgr.setMouseCapture( NULL );
-		handled = TRUE;
+		handled = true;
 	}
 	else
 	{
-		handled = TRUE;
+		handled = true;
 	}
 	return handled;
 }

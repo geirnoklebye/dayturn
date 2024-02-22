@@ -61,11 +61,11 @@ LLToolSelect::LLToolSelect( LLToolComposite* composite )
  }
 
 // True if you selected an object.
-BOOL LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// do immediate pick query
-    BOOL pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
-	mPick = gViewerWindow->pickImmediate(x, y, TRUE, pick_rigged);
+    bool pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+	mPick = gViewerWindow->pickImmediate(x, y, true, pick_rigged);
 
 	// Pass mousedown to agent
 	LLTool::handleMouseDown(x, y, mask);
@@ -248,9 +248,9 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 	return LLSelectMgr::getInstance()->getSelection();
 }
 
-BOOL LLToolSelect::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolSelect::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	mIgnoreGroup = gSavedSettings.getBOOL("EditLinkedParts");
+	mIgnoreGroup = gSavedSettings.getbool("EditLinkedParts");
 
 	handleObjectSelection(mPick, mIgnoreGroup, false);
 

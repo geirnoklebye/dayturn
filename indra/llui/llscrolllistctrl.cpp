@@ -2170,9 +2170,9 @@ bool LLScrollListCtrl::selectItemAt(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = childrenHandleMouseDown(x, y, mask) != NULL;
+	bool handled = childrenHandleMouseDown(x, y, mask) != NULL;
 
 	if( !handled )
 	{
@@ -2185,10 +2185,10 @@ BOOL LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 		handleClick(x, y, mask);
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLScrollListCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLScrollListCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 {	
 	if (hasMouseCapture())
 	{
@@ -2214,7 +2214,7 @@ BOOL LLScrollListCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 }
 
 // virtual
-BOOL LLScrollListCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLScrollListCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLScrollListItem *item = hitItem(x, y);
 	if (item)
@@ -2266,12 +2266,12 @@ BOOL LLScrollListCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 				menu->show(x, y);
 				LLMenuGL::showPopup(this, menu, x, y);
-				return TRUE;
+				return true;
 			}
 		}
 		return LLUICtrl::handleRightMouseDown(x, y, mask);
 	}
-	return FALSE;
+	return false;
 }
 
 void LLScrollListCtrl::showProfile(std::string id, bool is_group)

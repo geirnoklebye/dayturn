@@ -57,23 +57,23 @@ LLToolPipette::~LLToolPipette()
 { }
 
 
-BOOL LLToolPipette::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolPipette::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mSuccess = true;
 	mTooltipMsg.clear();
 	setMouseCapture(true);
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
-	return TRUE;
+	return true;
 }
 
-BOOL LLToolPipette::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolPipette::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mSuccess = true;
 	LLSelectMgr::getInstance()->unhighlightAll();
 	// *NOTE: This assumes the pipette tool is a transient tool.
 	LLToolMgr::getInstance()->clearTransientTool();
 	setMouseCapture(false);
-	return TRUE;
+	return true;
 }
 
 bool LLToolPipette::handleHover(S32 x, S32 y, MASK mask)

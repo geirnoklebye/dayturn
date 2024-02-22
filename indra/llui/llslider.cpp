@@ -195,9 +195,9 @@ bool LLSlider::handleHover(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLSlider::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLSlider::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( hasMouseCapture() )
 	{
@@ -206,18 +206,18 @@ BOOL LLSlider::handleMouseUp(S32 x, S32 y, MASK mask)
 		if (mMouseUpSignal)
 			(*mMouseUpSignal)( this, getValueF32() );
 
-		handled = TRUE;
+		handled = true;
 		make_ui_sound("UISndClickRelease");
 	}
 	else
 	{
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;
 }
 
-BOOL LLSlider::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLSlider::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// only do sticky-focus on non-chrome widgets
 	if (!getIsChrome())
@@ -252,7 +252,7 @@ BOOL LLSlider::handleMouseDown(S32 x, S32 y, MASK mask)
 	}
 	make_ui_sound("UISndClick");
 
-	return TRUE;
+	return true;
 }
 
 bool LLSlider::handleKeyHere(KEY key, MASK mask)

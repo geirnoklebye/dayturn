@@ -715,9 +715,9 @@ void LLTextEditor::selectByCursorPosition(S32 prev_cursor_pos, S32 next_cursor_p
 	endSelection();
 }
 
-BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = FALSE;
 
 	// set focus first, in case click callbacks want to change it
 	// RN: do we really need to have a tab stop?
@@ -736,7 +736,7 @@ BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 			deselect();
 		}
 
-		BOOL start_select = TRUE;
+		bool start_select = true;
 		if( start_select )
 		{
 			// If we're not scrolling (handled by child), then we're selecting
@@ -764,7 +764,7 @@ BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 			}
 		}
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	// Delay cursor flashing
@@ -777,7 +777,7 @@ BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (hasTabStop())
 	{
@@ -810,12 +810,12 @@ BOOL LLTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		showContextMenu(x, y);
 	}
 
-	return TRUE;
+	return true;
 }
 
 
 
-BOOL LLTextEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
+bool LLTextEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (hasTabStop())
 	{
@@ -831,7 +831,7 @@ BOOL LLTextEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 			pastePrimary();
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 
@@ -879,9 +879,9 @@ bool LLTextEditor::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// if I'm not currently selecting text
 	if (!(mIsSelecting && hasMouseCapture()))
@@ -907,7 +907,7 @@ BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 		// take selection to 'primary' clipboard
 		updatePrimary();
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	// Delay cursor flashing
@@ -917,7 +917,7 @@ BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 	{
 		gFocusMgr.setMouseCapture( NULL );
 		
-		handled = TRUE;
+		handled = true;
 	}
 
 	return handled;

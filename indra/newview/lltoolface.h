@@ -39,7 +39,7 @@ class LLToolFace
 	virtual ~LLToolFace();
 public:
 
-	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual bool	handleDoubleClick(S32 x, S32 y, MASK mask);
 	virtual void	handleSelect();
 	virtual void	handleDeselect();

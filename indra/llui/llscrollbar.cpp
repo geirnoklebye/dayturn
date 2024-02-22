@@ -237,10 +237,10 @@ void LLScrollbar::updateThumbRect()
 	}
 }
 
-BOOL LLScrollbar::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLScrollbar::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Check children first
-	BOOL handled_by_child = LLView::childrenHandleMouseDown(x, y, mask) != NULL;
+	bool handled_by_child = LLView::childrenHandleMouseDown(x, y, mask) != NULL;
 	if( !handled_by_child )
 	{
 		if( mThumbRect.pointInRect(x,y) )
@@ -278,7 +278,7 @@ BOOL LLScrollbar::handleMouseDown(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -439,13 +439,13 @@ bool LLScrollbar::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 	return false;
 }
 
-BOOL LLScrollbar::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLScrollbar::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	if( hasMouseCapture() )
 	{
 		gFocusMgr.setMouseCapture( NULL );
-		handled = TRUE;
+		handled = true;
 	}
 	else
 	{

@@ -41,7 +41,7 @@ QToolAlign::~QToolAlign()
 }
 
 
-BOOL QToolAlign::handleMouseDown(S32 x, S32 y, MASK mask)
+bool QToolAlign::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (mHighlightedAxis != -1)
 	{
@@ -52,7 +52,7 @@ BOOL QToolAlign::handleMouseDown(S32 x, S32 y, MASK mask)
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
 	}
 		
-	return TRUE;
+	return true;
 }
 
 

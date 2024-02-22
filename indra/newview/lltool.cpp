@@ -76,7 +76,7 @@ bool LLTool::handleAnyMouseClick(S32 x, S32 y, MASK mask, EMouseClickType clickt
 	return result;
 }
 
-BOOL LLTool::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLTool::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks)
 	{
@@ -85,10 +85,10 @@ BOOL LLTool::handleMouseDown(S32 x, S32 y, MASK mask)
 	// by default, didn't handle it
 	// AGENT_CONTROL_LBUTTON_DOWN is handled by scanMouse() and scanKey()
 	// LL_INFOS() << "LLTool::handleMouseDown" << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
-BOOL LLTool::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLTool::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (gDebugClicks) 
 	{
@@ -97,7 +97,7 @@ BOOL LLTool::handleMouseUp(S32 x, S32 y, MASK mask)
 	// by default, didn't handle it
 	// AGENT_CONTROL_LBUTTON_UP is handled by scanMouse() and scanKey()
 	// LL_INFOS() << "LLTool::handleMouseUp" << LL_ENDL;
-	return TRUE;
+	return true;
 }
 
 bool LLTool::handleHover(S32 x, S32 y, MASK mask)
@@ -128,32 +128,32 @@ bool LLTool::handleDoubleClick(S32 x,S32 y,MASK mask)
 	return false;
 }
 
-BOOL LLTool::handleRightMouseDown(S32 x,S32 y,MASK mask)
+bool LLTool::handleRightMouseDown(S32 x,S32 y,MASK mask)
 {
 	// by default, didn't handle it
 	// LL_INFOS() << "LLTool::handleRightMouseDown" << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
-BOOL LLTool::handleRightMouseUp(S32 x, S32 y, MASK mask)
+bool LLTool::handleRightMouseUp(S32 x, S32 y, MASK mask)
 {
 	// by default, didn't handle it
 	// LL_INFOS() << "LLTool::handleRightMouseDown" << LL_ENDL;
-	return FALSE;
+	return false;
 }
  
-BOOL LLTool::handleMiddleMouseDown(S32 x,S32 y,MASK mask)
+bool LLTool::handleMiddleMouseDown(S32 x,S32 y,MASK mask)
 {
 	// by default, didn't handle it
 	// LL_INFOS() << "LLTool::handleMiddleMouseDown" << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
-BOOL LLTool::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
+bool LLTool::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// by default, didn't handle it
 	// LL_INFOS() << "LLTool::handleMiddleMouseUp" << LL_ENDL;
-	return FALSE;
+	return false;
 }
 
 bool LLTool::handleToolTip(S32 x, S32 y, MASK mask)

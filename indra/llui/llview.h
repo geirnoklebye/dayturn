@@ -427,15 +427,15 @@ public:
 	// LLMouseHandler functions
 	//  Default behavior is to pass events to children
 	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleMiddleMouseUp(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleMouseUp(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleMiddleMouseUp(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleMiddleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleDoubleClick(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleScrollWheel(S32 x, S32 y, S32 clicks);
 	/*virtual*/ bool	handleScrollHWheel(S32 x, S32 y, S32 clicks);
-	/*virtual*/ BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL	handleRightMouseUp(S32 x, S32 y, MASK mask);	
+	/*virtual*/ bool	handleRightMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool	handleRightMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool	handleToolTip(S32 x, S32 y, MASK mask);
 
 	/*virtual*/ const std::string& getName() const;

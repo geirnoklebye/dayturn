@@ -320,9 +320,9 @@ void LLManipScale::render()
 	}
 }
 
-BOOL LLManipScale::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLManipScale::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	if(mHighlightedPart != LL_NO_PART)
 	{
@@ -333,12 +333,12 @@ BOOL LLManipScale::handleMouseDown(S32 x, S32 y, MASK mask)
 }
 
 // Assumes that one of the arrows on an object was hit.
-BOOL LLManipScale::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
+bool LLManipScale::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 {
-	BOOL can_scale = canAffectSelection();
+	bool can_scale = canAffectSelection();
 	if (!can_scale)
 	{
-		return FALSE;
+		return false;
 	}
 
 	highlightManipulators(x, y);
@@ -370,11 +370,11 @@ BOOL LLManipScale::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 
 	mHelpTextTimer.reset();
 	sNumTimesHelpTextShown++;
-	return TRUE;
+	return true;
 }
 
 
-BOOL LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// first, perform normal processing in case this was a quick-click
 	handleHover(x, y, mask);
@@ -2077,11 +2077,11 @@ LLVector3 LLManipScale::nearestAxis( const LLVector3& v ) const
 }
 
 // virtual
-BOOL LLManipScale::canAffectSelection()
+bool LLManipScale::canAffectSelection()
 {
 	// An selection is scalable if you are allowed to both edit and move
 	// everything in it, and it does not have any sitting agents
-	BOOL can_scale = mObjectSelection->getObjectCount() != 0;
+	bool can_scale = mObjectSelection->getObjectCount() != 0;
 	if (can_scale)
 	{
 		struct f : public LLSelectedObjectFunctor

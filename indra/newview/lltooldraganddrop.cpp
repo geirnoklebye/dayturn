@@ -462,7 +462,7 @@ void LLToolDragAndDrop::onMouseCaptureLost()
 	mCustomMsg.clear();
 }
 
-BOOL LLToolDragAndDrop::handleMouseUp( S32 x, S32 y, MASK mask )
+bool LLToolDragAndDrop::handleMouseUp( S32 x, S32 y, MASK mask )
 {
 	if (hasMouseCapture())
 	{
@@ -470,7 +470,7 @@ BOOL LLToolDragAndDrop::handleMouseUp( S32 x, S32 y, MASK mask )
 		dragOrDrop( x, y, mask, true, &acceptance );
 		endDrag();
 	}
-	return TRUE;
+	return true;
 }
 
 ECursorType LLToolDragAndDrop::acceptanceToCursor( EAcceptance acceptance )

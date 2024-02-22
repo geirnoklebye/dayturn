@@ -155,16 +155,16 @@ void LLStatGraph::setClickedCallback(callback_t cb)
 	mClickedCallback = boost::bind(cb);
 }
 
-BOOL LLStatGraph::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLStatGraph::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLView::handleMouseDown(x, y, mask);
+	bool handled = LLView::handleMouseDown(x, y, mask);
 
 	if (getSoundFlags() & MOUSE_DOWN) {
 		make_ui_sound("UISndClick");
 	}
 
 	if (!handled && mClickedCallback) {
-		handled = TRUE;
+		handled = true;
 	}
 
 	if (handled) {
@@ -178,9 +178,9 @@ BOOL LLStatGraph::handleMouseDown(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-BOOL LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLView::handleMouseUp(x, y, mask);
+	bool handled = LLView::handleMouseUp(x, y, mask);
 
 	if (getSoundFlags() & MOUSE_UP) {
 		make_ui_sound("UISndClickRelease");
@@ -202,7 +202,7 @@ BOOL LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
 		//
 		if (mClickedCallback && !handled) {
 			mClickedCallback();
-			handled = TRUE;
+			handled = true;
 		}
 	}
 

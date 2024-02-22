@@ -1227,7 +1227,7 @@ bool LLViewerWindow::handleAnyMouseClick(LLWindow *window, LLCoordGL pos, MASK m
 	return default_rtn;
 }
 
-BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
     mAllowMouseDragging = false;
     if (!mMouseDownTimer.getStarted())
@@ -1255,7 +1255,7 @@ bool LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 	return handleMouseDown(window, pos, mask);
 }
 
-BOOL LLViewerWindow::handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
     if (mMouseDownTimer.getStarted())
     {
@@ -1264,25 +1264,25 @@ BOOL LLViewerWindow::handleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
     bool down = false;
     return gViewerInput.handleMouse(window, pos, mask, CLICK_LEFT, down);
 }
-BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	bool down = true;
 	return gViewerInput.handleMouse(window, pos, mask, CLICK_RIGHT, down);
 }
 
-BOOL LLViewerWindow::handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	bool down = false;
  	return gViewerInput.handleMouse(window, pos, mask, CLICK_RIGHT, down);
 }
 
-BOOL LLViewerWindow::handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	bool down = true;
  	gViewerInput.handleMouse(window, pos, mask, CLICK_MIDDLE, down);
   
   	// Always handled as far as the OS is concerned.
-	return TRUE;
+	return true;
 }
 
 LLWindowCallbacks::DragNDropResult LLViewerWindow::handleDragNDrop( LLWindow *window, LLCoordGL pos, MASK mask, LLWindowCallbacks::DragNDropAction action, std::string data)
@@ -1431,13 +1431,13 @@ LLWindowCallbacks::DragNDropResult LLViewerWindow::handleDragNDrop( LLWindow *wi
 	return result;
 }
 
-BOOL LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
+bool LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
 	bool down = false;
  	gViewerInput.handleMouse(window, pos, mask, CLICK_MIDDLE, down);
   
   	// Always handled as far as the OS is concerned.
-	return TRUE;
+	return true;
 }
 
 bool LLViewerWindow::handleOtherMouse(LLWindow *window, LLCoordGL pos, MASK mask, S32 button, bool down)

@@ -294,9 +294,9 @@ void LLManipTranslate::handleSelect()
 	LLManip::handleSelect();
 }
 
-BOOL LLManipTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLManipTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// didn't click in any UI object, so must have clicked in the world
 	if( (mHighlightedPart == LL_X_ARROW ||
@@ -313,12 +313,12 @@ BOOL LLManipTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 }
 
 // Assumes that one of the arrows on an object was hit.
-BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
+bool LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 {
-	BOOL can_move = canAffectSelection();
+	bool can_move = canAffectSelection();
 	if (!can_move)
 	{
-		return FALSE;
+		return false;
 	}
 
 	highlightManipulators(x, y);
@@ -331,7 +331,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 		(hit_part != LL_XZ_PLANE) &&
 		(hit_part != LL_XY_PLANE) )
 	{
-		return TRUE;
+		return true;
 	}
 
 	mHelpTextTimer.reset();
@@ -357,7 +357,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 	{
 		// didn't find the object in our selection...oh well
 		LL_WARNS() << "Trying to translate an unselected object" << LL_ENDL;
-		return TRUE;
+		return true;
 	}
 
 	LLViewerObject *selected_object = selectNode->getObject();
@@ -366,7 +366,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 		// somehow we lost the object!
 		LL_WARNS() << "Translate manip lost the object, no selected object" << LL_ENDL;
 		gViewerWindow->setCursor(UI_CURSOR_TOOLTRANSLATE);
-		return TRUE;
+		return true;
 	}
 
 	// Compute unit vectors for arrow hit and a plane through that vector
@@ -404,7 +404,7 @@ BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	setMouseCapture( true );
 
-	return TRUE;
+	return true;
 }
 
 bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
@@ -1025,7 +1025,7 @@ F32 LLManipTranslate::getMinGridScale()
 }
 
 
-BOOL LLManipTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLManipTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// first, perform normal processing in case this was a quick-click
 	handleHover(x, y, mask);
@@ -2282,7 +2282,7 @@ void LLManipTranslate::renderGridVert(F32 x_trans, F32 y_trans, F32 r, F32 g, F3
 }
 
 // virtual
-BOOL LLManipTranslate::canAffectSelection()
+bool LLManipTranslate::canAffectSelection()
 {
 	bool can_move = mObjectSelection->getObjectCount() != 0;
 	if (can_move)

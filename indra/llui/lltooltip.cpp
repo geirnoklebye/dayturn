@@ -90,7 +90,7 @@ bool LLToolTipView::handleHover(S32 x, S32 y, MASK mask)
 	return LLView::handleHover(x, y, mask);
 }
 
-BOOL LLToolTipView::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolTipView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLToolTipMgr::instance().blockToolTips();
 
@@ -99,19 +99,19 @@ BOOL LLToolTipView::handleMouseDown(S32 x, S32 y, MASK mask)
 		// If we are handling the mouse event menu holder 
 		// won't get a chance to close menus so do this here 
 		LLMenuGL::sMenuContainer->hideMenus();
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
-BOOL LLToolTipView::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolTipView::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLToolTipMgr::instance().blockToolTips();
 	return LLView::handleMiddleMouseDown(x, y, mask);
 }
 
-BOOL LLToolTipView::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolTipView::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLToolTipMgr::instance().blockToolTips();
 	return LLView::handleRightMouseDown(x, y, mask);

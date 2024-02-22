@@ -158,17 +158,17 @@ void LLColorSwatchCtrl::setLabel(const std::string& label)
 	mCaption->setText(label);
 }
 
-BOOL LLColorSwatchCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLColorSwatchCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	// No handler is needed for capture lost since this object has no state that depends on it.
 	gFocusMgr.setMouseCapture( this );
 
-	return TRUE;
+	return true;
 }
 
 
-BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// We only handle the click if the click both started and ended within us
 	if( hasMouseCapture() )
@@ -190,7 +190,7 @@ BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 // assumes GL state is set for 2D

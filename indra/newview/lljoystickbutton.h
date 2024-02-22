@@ -63,8 +63,8 @@ public:
 	};
 	LLJoystick(const Params&);
 
-	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual bool	handleHover(S32 x, S32 y, MASK mask);
 
 	virtual void	onMouseUp() {}
@@ -100,7 +100,7 @@ protected:
 	S32					mVertSlopFar;				// where the slop regions end
 	S32					mHorizSlopNear;				// where the slop regions end
 	S32					mHorizSlopFar;				// where the slop regions end
-	BOOL				mHeldDown;
+	bool				mHeldDown;
 	LLFrameTimer		mHeldDownTimer;
 };
 
@@ -147,8 +147,8 @@ public:
 
 	virtual void	setToggleState( bool left, bool top, bool right, bool bottom );
 
-	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
-	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual bool	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual bool	handleHover(S32 x, S32 y, MASK mask);
 	virtual void	onHeldDown();
 	virtual void	resetJoystickCamera();
@@ -201,8 +201,8 @@ public:
 
     virtual void	setToggleState(BOOL left, BOOL top, BOOL right, BOOL bottom);
 
-    virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
-    virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
+    virtual bool	handleMouseDown(S32 x, S32 y, MASK mask);
+    virtual bool	handleMouseUp(S32 x, S32 y, MASK mask);
     virtual void	onHeldDown();
     virtual void	draw();
 

@@ -56,17 +56,17 @@ void LLPanelPulldown::onTopLost()
 }
 
 /*virtual*/
-BOOL LLPanelPulldown::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLPanelPulldown::handleMouseDown(S32 x, S32 y, MASK mask)
 {
     LLPanel::handleMouseDown(x, y, mask);
-    return TRUE;
+    return true;
 }
 
 /*virtual*/
-BOOL LLPanelPulldown::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLPanelPulldown::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
     LLPanel::handleRightMouseDown(x, y, mask);
-    return TRUE;
+    return true;
 }
 
 /*virtual*/

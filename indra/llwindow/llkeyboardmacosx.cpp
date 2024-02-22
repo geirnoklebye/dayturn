@@ -259,7 +259,7 @@ bool LLKeyboardMacOSX::handleKeyUp(const U16 key, const U32 mask)
 	return handled;
 }
 
-MASK LLKeyboardMacOSX::currentMask(BOOL for_mouse_event)
+MASK LLKeyboardMacOSX::currentMask(bool for_mouse_event)
 {
 	MASK result = MASK_NONE;
 	U32 mask = getModifiers();

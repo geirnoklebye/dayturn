@@ -91,8 +91,8 @@ public:
 	// LLView overrides
 	/*virtual*/ void onVisibilityChange(bool new_visibility);
 	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL handleRightMouseUp(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleRightMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleRightMouseUp(S32 x, S32 y, MASK mask);
 
 	// LLUICtrl overrides
 	/*virtual*/ void setValue(const LLSD& value);
@@ -163,8 +163,8 @@ public:
 
 	// LLView Functionality
 	virtual bool handleKeyHere( KEY key, MASK mask );
-	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
-	virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask );
+	virtual bool handleMouseDown( S32 x, S32 y, MASK mask );
+	virtual bool handleMouseUp( S32 x, S32 y, MASK mask );
 	virtual bool handleScrollWheel( S32 x, S32 y, S32 clicks );
 
 	virtual void	onMouseEnter(S32 x, S32 y, MASK mask);
@@ -239,8 +239,8 @@ public:
 	LLMenuItemSeparatorGL(const LLMenuItemSeparatorGL::Params& p = LLMenuItemSeparatorGL::Params());
 
 	/*virtual*/ void draw( void );
-	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
-	/*virtual*/ BOOL handleMouseUp(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleMouseUp(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool handleHover(S32 x, S32 y, MASK mask);
 
 	/*virtual*/ U32 getNominalHeight( void ) const;
@@ -636,7 +636,7 @@ protected:
 public:
 	virtual ~LLMenuItemBranchGL();
 	
-	virtual BOOL handleMouseUp(S32 x, S32 y, MASK mask);
+	virtual bool handleMouseUp(S32 x, S32 y, MASK mask);
 
 	virtual bool hasAccelerator(const KEY &key, const MASK &mask) const;
 	virtual bool handleAcceleratorKey(KEY key, MASK mask);
@@ -715,8 +715,8 @@ public:
 	virtual void	hide				();
 
 	virtual bool	handleHover			( S32 x, S32 y, MASK mask );
-	virtual BOOL	handleRightMouseDown( S32 x, S32 y, MASK mask );
-	virtual BOOL	handleRightMouseUp	( S32 x, S32 y, MASK mask );
+	virtual bool	handleRightMouseDown( S32 x, S32 y, MASK mask );
+	virtual bool	handleRightMouseUp	( S32 x, S32 y, MASK mask );
 
 	virtual bool	addChild			(LLView* view, S32 tab_group = 0);
 
@@ -781,7 +781,7 @@ public:
 	/*virtual*/ bool handleAcceleratorKey(KEY key, MASK mask);
 	/*virtual*/ bool handleKeyHere(KEY key, MASK mask);
 	/*virtual*/ bool handleJumpKey(KEY key);
-	/*virtual*/ BOOL handleMouseDown(S32 x, S32 y, MASK mask);
+	/*virtual*/ bool handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ bool handleDoubleClick(S32 x, S32 y, MASK mask);
 
 	/*virtual*/ void draw();
@@ -830,11 +830,11 @@ public:
 
 	// LLView functionality
 	virtual void draw();
-	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
-	virtual BOOL handleRightMouseDown( S32 x, S32 y, MASK mask );
+	virtual bool handleMouseDown( S32 x, S32 y, MASK mask );
+	virtual bool handleRightMouseDown( S32 x, S32 y, MASK mask );
 
 	// Close context menus on right mouse up not handled by menus.
-	/*virtual*/ BOOL handleRightMouseUp( S32 x, S32 y, MASK mask );
+	/*virtual*/ bool handleRightMouseUp( S32 x, S32 y, MASK mask );
 
 	virtual bool handleKey(KEY key, MASK mask, bool called_from_parent);
 	virtual const LLRect getMenuRect() const { return getLocalRect(); }

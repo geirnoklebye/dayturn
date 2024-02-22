@@ -193,7 +193,7 @@ void LLAccordionCtrl::reshape(S32 width, S32 height, bool called_from_parent)
 }
 
 //---------------------------------------------------------------------------------
-BOOL LLAccordionCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLAccordionCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	return LLPanel::handleRightMouseDown(x, y, mask);
 }

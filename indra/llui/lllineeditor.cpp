@@ -719,12 +719,12 @@ bool LLLineEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLLineEditor::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLLineEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Check first whether the "clear search" button wants to deal with this.
 	if(childrenHandleMouseDown(x, y, mask) != NULL) 
 	{
-		return TRUE;
+		return true;
 	}
 	
 	if (!mSelectAllonFocusReceived
@@ -807,10 +807,10 @@ BOOL LLLineEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 	if (mMouseDownSignal)
 		(*mMouseDownSignal)(this,x,y,mask);
 
-	return TRUE;
+	return true;
 }
 
-BOOL LLLineEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
+bool LLLineEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
         // LL_INFOS() << "MiddleMouseDown" << LL_ENDL;
 	setFocus(true);
@@ -819,17 +819,17 @@ BOOL LLLineEditor::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 		setCursorAtLocalPos(x);
 		pastePrimary();
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL LLLineEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLLineEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	setFocus(true);
     if (!LLUICtrl::handleRightMouseDown(x, y, mask) && getShowContextMenu())
 	{
 		showContextMenu(x, y);
 	}
-	return TRUE;
+	return true;
 }
 
 bool LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
@@ -897,20 +897,20 @@ bool LLLineEditor::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLLineEditor::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLLineEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	if( hasMouseCapture() )
 	{
 		gFocusMgr.setMouseCapture( NULL );
-		handled = TRUE;
+		handled = true;
 	}
 
 	// Check first whether the "clear search" button wants to deal with this.
 	if(!handled && childrenHandleMouseUp(x, y, mask) != NULL) 
 	{
-		return TRUE;
+		return true;
 	}
 
 	if( mIsSelecting )
@@ -918,7 +918,7 @@ BOOL LLLineEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 		setCursorAtLocalPos( x );
 		mSelectionEnd = getCursor();
 
-		handled = TRUE;
+		handled = true;
 	}
 
 	if( handled )

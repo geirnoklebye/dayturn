@@ -239,14 +239,14 @@ public:
 	
 	void setLandmarkID(const LLUUID& id){ mLandmarkInfoGetter.setLandmarkID(id); }
 
-	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask)
+	virtual bool handleMouseDown(S32 x, S32 y, MASK mask)
 	{
 		if (mMouseDownSignal)
 			(*mMouseDownSignal)(this, x, y, mask);
 		return LLMenuItemCallGL::handleMouseDown(x, y, mask);
 	}
 
-	virtual BOOL handleMouseUp(S32 x, S32 y, MASK mask)
+	virtual bool handleMouseUp(S32 x, S32 y, MASK mask)
 	{
 		if (mMouseUpSignal)
 			(*mMouseUpSignal)(this, x, y, mask);
@@ -1238,9 +1238,9 @@ void LLFavoritesBarCtrl::onButtonRightClick( LLUUID item_id,LLView* fav_button,S
 	LLMenuGL::showPopup(fav_button, menu, x, y);
 }
 
-BOOL LLFavoritesBarCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLFavoritesBarCtrl::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = childrenHandleRightMouseDown( x, y, mask) != NULL;
+	bool handled = childrenHandleRightMouseDown( x, y, mask) != NULL;
 	if(!handled && !gMenuHolder->hasVisibleMenu())
 	{
 		show_navbar_context_menu(this,x,y);

@@ -1432,7 +1432,7 @@ bool LLSnapshotFloaterView::handleKey(KEY key, MASK mask, bool called_from_paren
 }
 
 // virtual
-BOOL LLSnapshotFloaterView::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLSnapshotFloaterView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// use default handler when not in freeze-frame mode
 	if(!gSavedSettings.getbool("FreezeTime"))
@@ -1444,11 +1444,11 @@ BOOL LLSnapshotFloaterView::handleMouseDown(S32 x, S32 y, MASK mask)
 	{
 		LLToolMgr::getInstance()->getCurrentTool()->handleMouseDown( x, y, mask );
 	}
-	return TRUE;
+	return true;
 }
 
 // virtual
-BOOL LLSnapshotFloaterView::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLSnapshotFloaterView::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// use default handler when not in freeze-frame mode
 	if(!gSavedSettings.getbool("FreezeTime"))
@@ -1460,7 +1460,7 @@ BOOL LLSnapshotFloaterView::handleMouseUp(S32 x, S32 y, MASK mask)
 	{
 		LLToolMgr::getInstance()->getCurrentTool()->handleMouseUp( x, y, mask );
 	}
-	return TRUE;
+	return true;
 }
 
 // virtual

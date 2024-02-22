@@ -48,12 +48,12 @@ public:
 	} EShowToolTip;
 
 	virtual bool	handleAnyMouseClick(S32 x, S32 y, MASK mask, EMouseClickType clicktype, bool down);
-	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask) = 0;
-	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask) = 0;
-	virtual BOOL	handleMiddleMouseDown(S32 x, S32 y, MASK mask) = 0;
-	virtual BOOL	handleMiddleMouseUp(S32 x, S32 y, MASK mask) = 0;
-	virtual BOOL	handleRightMouseDown(S32 x, S32 y, MASK mask) = 0;
-	virtual BOOL	handleRightMouseUp(S32 x, S32 y, MASK mask) = 0;
+	virtual bool	handleMouseDown(S32 x, S32 y, MASK mask) = 0;
+	virtual bool	handleMouseUp(S32 x, S32 y, MASK mask) = 0;
+	virtual bool	handleMiddleMouseDown(S32 x, S32 y, MASK mask) = 0;
+	virtual bool	handleMiddleMouseUp(S32 x, S32 y, MASK mask) = 0;
+	virtual bool	handleRightMouseDown(S32 x, S32 y, MASK mask) = 0;
+	virtual bool	handleRightMouseUp(S32 x, S32 y, MASK mask) = 0;
 	virtual bool	handleDoubleClick(S32 x, S32 y, MASK mask) = 0;
 
 	virtual bool	handleHover(S32 x, S32 y, MASK mask) = 0;

@@ -301,7 +301,7 @@ bool LLXYVector::handleHover(S32 x, S32 y, MASK mask)
     return true;
 }
 
-BOOL LLXYVector::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLXYVector::handleMouseUp(S32 x, S32 y, MASK mask)
 {
     if (hasMouseCapture())
     {
@@ -311,7 +311,7 @@ BOOL LLXYVector::handleMouseUp(S32 x, S32 y, MASK mask)
 
     if (mTouchArea->getRect().pointInRect(x, y))
     {
-        return TRUE;
+        return true;
     }
     else
     {
@@ -319,7 +319,7 @@ BOOL LLXYVector::handleMouseUp(S32 x, S32 y, MASK mask)
     }
 }
 
-BOOL LLXYVector::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLXYVector::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 
     if (mTouchArea->getRect().pointInRect(x, y))
@@ -327,7 +327,7 @@ BOOL LLXYVector::handleMouseDown(S32 x, S32 y, MASK mask)
         gFocusMgr.setMouseCapture(this);
         make_ui_sound("UISndClick");
 
-        return TRUE;
+        return true;
     }
     else
     {

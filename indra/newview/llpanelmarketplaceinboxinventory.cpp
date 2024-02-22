@@ -158,7 +158,7 @@ void LLInboxFolderViewFolder::draw()
 
 }
 
-BOOL LLInboxFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLInboxFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	deFreshify();
 	return LLFolderViewFolder::handleMouseDown(x, y, mask);

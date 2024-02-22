@@ -263,9 +263,9 @@ bool LLMediaCtrl::handleToolTip(S32 x, S32 y, MASK mask)
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleMouseUp(x, y, mask)) return TRUE;
+	if (LLPanel::handleMouseUp(x, y, mask)) return true;
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
@@ -275,14 +275,14 @@ BOOL LLMediaCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 	
 	gFocusMgr.setMouseCapture( NULL );
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleMouseDown(x, y, mask)) return TRUE;
+	if (LLPanel::handleMouseDown(x, y, mask)) return true;
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
@@ -295,14 +295,14 @@ BOOL LLMediaCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 		setFocus(true);
 	}
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleMiddleMouseUp( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleMiddleMouseUp( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleMiddleMouseUp(x, y, mask)) return TRUE;
+	if (LLPanel::handleMiddleMouseUp(x, y, mask)) return true;
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
@@ -312,14 +312,14 @@ BOOL LLMediaCtrl::handleMiddleMouseUp( S32 x, S32 y, MASK mask )
 	
 	gFocusMgr.setMouseCapture( NULL );
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleMiddleMouseDown( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleMiddleMouseDown( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleMiddleMouseDown(x, y, mask)) return TRUE;
+	if (LLPanel::handleMiddleMouseDown(x, y, mask)) return true;
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
@@ -332,14 +332,14 @@ BOOL LLMediaCtrl::handleMiddleMouseDown( S32 x, S32 y, MASK mask )
 		setFocus(true);
 	}
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleRightMouseUp( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleRightMouseUp( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleRightMouseUp(x, y, mask)) return TRUE;
+	if (LLPanel::handleRightMouseUp(x, y, mask)) return true;
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
@@ -357,14 +357,14 @@ BOOL LLMediaCtrl::handleRightMouseUp( S32 x, S32 y, MASK mask )
 	
 	gFocusMgr.setMouseCapture( NULL );
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLMediaCtrl::handleRightMouseDown( S32 x, S32 y, MASK mask )
+bool LLMediaCtrl::handleRightMouseDown( S32 x, S32 y, MASK mask )
 {
-	if (LLPanel::handleRightMouseDown(x, y, mask)) return TRUE;
+	if (LLPanel::handleRightMouseDown(x, y, mask)) return true;
 
 	S32 media_x = x, media_y = y;
 	convertInputCoords(media_x, media_y);
@@ -408,7 +408,7 @@ BOOL LLMediaCtrl::handleRightMouseDown( S32 x, S32 y, MASK mask )
 		LLMenuGL::showPopup(this, menu, x, y);
 	}
 
-	return TRUE;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

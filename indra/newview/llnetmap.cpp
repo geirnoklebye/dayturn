@@ -1088,9 +1088,9 @@ bool LLNetMap::createImage(LLPointer<LLImageRaw>& rawimagep) const
 	return false;
 }
 
-BOOL LLNetMap::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLNetMap::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	if (!(mask & MASK_SHIFT)) return FALSE;
+	if (!(mask & MASK_SHIFT)) return false;
 
 	// Start panning
 	gFocusMgr.setMouseCapture(this);
@@ -1098,10 +1098,10 @@ BOOL LLNetMap::handleMouseDown(S32 x, S32 y, MASK mask)
 	mStartPan = mCurPan;
 	mMouseDown.mX = x;
 	mMouseDown.mY = y;
-	return TRUE;
+	return true;
 }
 
-BOOL LLNetMap::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLNetMap::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if(abs(mMouseDown.mX-x)<3 && abs(mMouseDown.mY-y)<3)
 		handleClick(x,y,mask);
@@ -1129,9 +1129,9 @@ BOOL LLNetMap::handleMouseUp(S32 x, S32 y, MASK mask)
 		}
 		gViewerWindow->showCursor();
 		gFocusMgr.setMouseCapture(NULL);
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 void LLNetMap::handleShowProfile(const LLSD& sdParam) const
@@ -1152,7 +1152,7 @@ void LLNetMap::handleShowProfile(const LLSD& sdParam) const
 		LLFloaterSidePanelContainer::showPanel("places", sdParams);
 	}
 }
-BOOL LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	auto menu = static_cast<LLMenuGL*>(mPopupMenuHandle.get());
 	if (menu)
@@ -1162,7 +1162,7 @@ BOOL LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		menu->setItemEnabled("Stop Tracking", LLTracker::isTracking(0));
 		LLMenuGL::showPopup(this, menu, x, y);
 	}
-	return TRUE;
+	return true;
 }
 
 bool LLNetMap::handleClick(S32 x, S32 y, MASK mask)

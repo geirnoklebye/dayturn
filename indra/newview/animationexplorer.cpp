@@ -474,7 +474,7 @@ void AnimationExplorer::requestNameCallback(LLMessageSystem* msg)
 }
 
 // Copied from llfloaterbvhpreview.cpp
-BOOL AnimationExplorer::handleMouseDown(S32 x, S32 y, MASK mask)
+bool AnimationExplorer::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (mPreviewCtrl && mPreviewCtrl->getRect().pointInRect(x, y))
 	{
@@ -483,14 +483,14 @@ BOOL AnimationExplorer::handleMouseDown(S32 x, S32 y, MASK mask)
 		gViewerWindow->hideCursor();
 		mLastMouseX = x;
 		mLastMouseY = y;
-		return TRUE;
+		return true;
 	}
 
 	return LLFloater::handleMouseDown(x, y, mask);
 }
 
 // Copied from llfloaterbvhpreview.cpp
-BOOL AnimationExplorer::handleMouseUp(S32 x, S32 y, MASK mask)
+bool AnimationExplorer::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	gFocusMgr.setMouseCapture(FALSE);
 	gViewerWindow->showCursor();

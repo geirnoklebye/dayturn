@@ -117,7 +117,7 @@ public:
 	/*virtual*/ void reshape(S32 width, S32 height, bool called_from_parent = true);
 
 	// Toast handlers
-	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
+	virtual bool handleMouseDown(S32 x, S32 y, MASK mask);
 
 	//Fading
 

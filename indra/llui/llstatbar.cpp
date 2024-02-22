@@ -230,9 +230,9 @@ bool LLStatBar::handleHover(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLView::handleMouseDown(x, y, mask);
+	bool handled = LLView::handleMouseDown(x, y, mask);
 	if (!handled)
 	{
 		if (mDisplayBar)
@@ -258,7 +258,7 @@ BOOL LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
 		LLView* parent = getParent();
 		parent->reshape(parent->getRect().getWidth(), parent->getRect().getHeight(), false);
 	}
-	return TRUE;
+	return true;
 }
 
 template<typename T>

@@ -89,9 +89,9 @@ LLToolComposite::LLToolComposite(const std::string& name)
 }
 
 // Returns to the default tool
-BOOL LLToolComposite::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolComposite::handleMouseUp(S32 x, S32 y, MASK mask)
 { 
-	BOOL handled = mCur->handleMouseUp( x, y, mask );
+	bool handled = mCur->handleMouseUp( x, y, mask );
 	if( handled )
 	{
 		setCurrentTool( mDefault );
@@ -147,9 +147,9 @@ LLToolCompInspect::~LLToolCompInspect()
 	mSelectRect = NULL;
 }
 
-BOOL LLToolCompInspect::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompInspect::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if (mCur == LLToolCamera::getInstance())
 	{
@@ -159,15 +159,15 @@ BOOL LLToolCompInspect::handleMouseDown(S32 x, S32 y, MASK mask)
 	{
 		mMouseDown = true;
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
-		handled = TRUE;	
+		handled = true;
 	}
 
 	return handled;
 }
 
-BOOL LLToolCompInspect::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolCompInspect::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = LLToolComposite::handleMouseUp(x, y, mask);
+	bool handled = LLToolComposite::handleMouseUp(x, y, mask);
 	mIsToolCameraActive = getCurrentTool() == LLToolCamera::getInstance();
 	return handled;
 }
@@ -265,11 +265,11 @@ bool LLToolCompTranslate::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolCompTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = true;
 	gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ true, LLFloaterReg::instanceVisible("build"));
-	return TRUE;
+	return true;
 }
 
 void LLToolCompTranslate::pickCallback(const LLPickInfo& pick_info)
@@ -291,7 +291,7 @@ void LLToolCompTranslate::pickCallback(const LLPickInfo& pick_info)
 			LLEditMenuHandler::gEditMenuHandler = LLSelectMgr::getInstance();
 		}
 
-		BOOL can_move = LLToolCompTranslate::getInstance()->mManip->canAffectSelection();
+		bool can_move = LLToolCompTranslate::getInstance()->mManip->canAffectSelection();
 
 		if(	LLManip::LL_NO_PART != LLToolCompTranslate::getInstance()->mManip->getHighlightedPart() && can_move)
 		{
@@ -314,7 +314,7 @@ void LLToolCompTranslate::pickCallback(const LLPickInfo& pick_info)
 	}
 }
 
-BOOL LLToolCompTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolCompTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = false;
 	return LLToolComposite::handleMouseUp(x, y, mask);
@@ -391,11 +391,11 @@ bool LLToolCompScale::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolCompScale::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompScale::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = true;
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
-	return TRUE;
+	return true;
 }
 
 void LLToolCompScale::pickCallback(const LLPickInfo& pick_info)
@@ -435,7 +435,7 @@ void LLToolCompScale::pickCallback(const LLPickInfo& pick_info)
 	}
 }
 
-BOOL LLToolCompScale::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolCompScale::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = false;
 	return LLToolComposite::handleMouseUp(x, y, mask);
@@ -503,15 +503,15 @@ LLToolCompCreate::~LLToolCompCreate()
 }
 
 
-BOOL LLToolCompCreate::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompCreate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 	mMouseDown = true;
 
 	if ( (mask == MASK_SHIFT) || (mask == MASK_CONTROL) )
 	{
 		gViewerWindow->pickAsync(x, y, mask, pickCallback);
-		handled = TRUE;
+		handled = true;
 	}
 	else
 	{
@@ -540,9 +540,9 @@ bool LLToolCompCreate::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return handleMouseDown(x, y, mask);
 }
 
-BOOL LLToolCompCreate::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolCompCreate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if ( mMouseDown && !mObjectPlacedOnMouseDown && !(mask == MASK_SHIFT) && !(mask == MASK_CONTROL) )
 	{
@@ -591,11 +591,11 @@ bool LLToolCompRotate::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolCompRotate::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompRotate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = true;
 	gViewerWindow->pickAsync(x, y, mask, pickCallback);
-	return TRUE;
+	return true;
 }
 
 void LLToolCompRotate::pickCallback(const LLPickInfo& pick_info)
@@ -634,7 +634,7 @@ void LLToolCompRotate::pickCallback(const LLPickInfo& pick_info)
 	}
 }
 
-BOOL LLToolCompRotate::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolCompRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = false;
 	return LLToolComposite::handleMouseUp(x, y, mask);
@@ -739,17 +739,17 @@ bool LLToolCompGun::handleHover(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	return TRUE; 
+	return true;
 }
 
 
-BOOL LLToolCompGun::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompGun::handleMouseDown(S32 x, S32 y, MASK mask)
 { 
 	// if the left button is grabbed, don't put up the pie menu
 	if (gAgent.leftButtonGrabbed() && gViewerInput.isLMouseHandlingDefault(MODE_FIRST_PERSON))
 	{
 		gAgent.setControlFlags(AGENT_CONTROL_ML_LBUTTON_DOWN);
-		return FALSE;
+		return false;
 	}
 
 	// On mousedown, start grabbing
@@ -777,7 +777,7 @@ bool LLToolCompGun::handleDoubleClick(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLToolCompGun::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolCompGun::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	/* JC - suppress context menu 8/29/2002
 
@@ -793,19 +793,19 @@ BOOL LLToolCompGun::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	// Returning true will suppress the context menu
 	// <FS:Ansariel> Enable context/pie menu in mouselook
 	//return TRUE;
-	return (!gSavedSettings.getBOOL("FSEnableRightclickMenuInMouselook"));
+	return (!gSavedSettings.getbool("FSEnableRightclickMenuInMouselook"));
 	// </FS:Ansariel>
 }
 
 
-BOOL LLToolCompGun::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolCompGun::handleMouseUp(S32 x, S32 y, MASK mask)
 {
     if (gViewerInput.isLMouseHandlingDefault(MODE_FIRST_PERSON))
     {
         gAgent.setControlFlags(AGENT_CONTROL_ML_LBUTTON_UP);
     }
 	setCurrentTool( (LLTool*) mGun );
-	return TRUE;
+	return true;
 }
 
 void LLToolCompGun::onMouseCaptureLost()

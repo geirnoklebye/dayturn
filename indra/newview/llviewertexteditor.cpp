@@ -283,7 +283,7 @@ public:
 	}
 
 // [SL:KB] - Patch: UI-Notecards | Checked: 2010-09-12 (Catznip-2.1.2d) | Added: Catznip-2.1.2d
-	/*virtual*/ BOOL			handleRightMouseDown(S32 x, S32 y, MASK mask)
+	/*virtual*/ bool			handleRightMouseDown(S32 x, S32 y, MASK mask)
 	{
 		if (!mContextMenu)
 		{
@@ -762,9 +762,9 @@ void LLViewerTextEditor::onVisibilityChange( bool new_visibility )
 	LLUICtrl::onVisibilityChange(new_visibility);
 }
 
-BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	BOOL	handled = FALSE;
+	bool	handled = false;
 
 	// Let scrollbar have first dibs
 	handled = LLView::childrenHandleMouseDown(x, y, mask) != NULL;
@@ -798,7 +798,7 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 					setFocus(true);
 				}
 
-				handled = TRUE;
+				handled = true;
 			}
 			else
 			{
@@ -845,9 +845,9 @@ bool LLViewerTextEditor::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	BOOL handled = FALSE;
+	bool handled = false;
 
 	if( hasMouseCapture() )
 	{

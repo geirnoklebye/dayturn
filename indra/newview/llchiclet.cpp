@@ -148,7 +148,7 @@ void LLSysWellChiclet::updateWidget(bool is_window_empty)
 	}
 }
 // virtual
-BOOL LLSysWellChiclet::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLSysWellChiclet::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLContextMenu* menu_avatar = mContextMenuHandle.get();
 	if(!menu_avatar)
@@ -161,7 +161,7 @@ BOOL LLSysWellChiclet::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		menu_avatar->show(x, y);
 		LLMenuGL::showPopup(this, menu_avatar, x, y);
 	}
-	return TRUE;
+	return true;
 }
 
 /************************************************************************/
@@ -284,11 +284,11 @@ boost::signals2::connection LLChiclet::setLeftButtonClickCallback(
 	return setCommitCallback(cb);
 }
 
-BOOL LLChiclet::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLChiclet::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	onCommit();
 	childrenHandleMouseDown(x,y,mask);
-	return TRUE;
+	return true;
 }
 
 boost::signals2::connection LLChiclet::setChicletSizeChangedCallback(
@@ -387,7 +387,7 @@ void LLIMChiclet::setToggleState(bool toggle)
 	mChicletButton->setToggleState(toggle);
 }
 
-BOOL LLIMChiclet::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLIMChiclet::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	auto menu = static_cast<LLMenuGL*>(mPopupMenuHandle.get());
 	if(!menu)
@@ -403,7 +403,7 @@ BOOL LLIMChiclet::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		LLMenuGL::showPopup(this, menu, x, y);
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLIMChiclet::hidePopupMenu()

@@ -135,7 +135,7 @@ bool LLFastTimerView::postBuild()
 	return true;
 }
 
-BOOL LLFastTimerView::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLFastTimerView::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (mHoverTimer )
 	{
@@ -148,14 +148,14 @@ BOOL LLFastTimerView::handleRightMouseDown(S32 x, S32 y, MASK mask)
 		{
 			mHoverTimer->getParent()->getTreeNode().mCollapsed = true;
 		}
-		return TRUE;
+		return true;
 	}
 	else if (mBarRect.pointInRect(x, y))
 	{
 		S32 bar_idx = MAX_VISIBLE_HISTORY - ((y - mBarRect.mBottom) * (MAX_VISIBLE_HISTORY + 2) / mBarRect.getHeight());
 		bar_idx = llclamp(bar_idx, 0, MAX_VISIBLE_HISTORY);
 		mStatsIndex = mScrollIndex + bar_idx;
-		return TRUE;
+		return true;
 	}
 	return LLFloater::handleRightMouseDown(x, y, mask);
 }
@@ -183,7 +183,7 @@ bool LLFastTimerView::handleDoubleClick(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLFastTimerView::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLFastTimerView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (x < mScrollBar->getRect().mLeft)
 	{
@@ -201,13 +201,13 @@ BOOL LLFastTimerView::handleMouseDown(S32 x, S32 y, MASK mask)
 	else if (mGraphRect.pointInRect(x, y))
 	{
 		gFocusMgr.setMouseCapture(this);
-		return TRUE;
+		return true;
 	}
 
 	return LLFloater::handleMouseDown(x, y, mask);
 }
 
-BOOL LLFastTimerView::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLFastTimerView::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (hasMouseCapture())
 	{

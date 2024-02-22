@@ -103,7 +103,7 @@ bool LLToolPie::handleAnyMouseClick(S32 x, S32 y, MASK mask, EMouseClickType cli
 	return result;
 }
 
-BOOL LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
 {
     if (mDoubleClickTimer.getStarted())
     {
@@ -180,21 +180,21 @@ BOOL LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
 	return handleLeftClickPick();
 }
 
-BOOL LLToolPie::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleMiddleMouseDown(S32 x, S32 y, MASK mask)
 {
-	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, TRUE);
+	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, true);
 
 	return handleMediaClick(pick, 2);
 }
 
-BOOL LLToolPie::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleMiddleMouseUp(S32 x, S32 y, MASK mask)
 {
 	return LLViewerMediaFocus::getInstance()->handleMiddleMouse(x, y, mask, false);
 }
 
 // Spawn context menus on right mouse down so you can drag over and select
 // an item.
-BOOL LLToolPie::handleRightMouseDown(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	// don't pick transparent so users can't "pay" transparent objects
 	mPick = gViewerWindow->pickImmediate(x, y,
@@ -206,15 +206,15 @@ BOOL LLToolPie::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	// claim not handled so UI focus stays same
 	// <FS:Ansariel> Enable context/pie menu in mouselook
 	//if(gAgentCamera.getCameraMode() != CAMERA_MODE_MOUSELOOK)
-	if(gAgentCamera.getCameraMode() != CAMERA_MODE_MOUSELOOK || gSavedSettings.getBOOL("FSEnableRightclickMenuInMouselook"))
+	if(gAgentCamera.getCameraMode() != CAMERA_MODE_MOUSELOOK || gSavedSettings.getbool("FSEnableRightclickMenuInMouselook"))
 	// </FS:Ansariel>
 	{
 		handleRightClickPick();
 	}
-	return FALSE;
+	return false;
 }
 
-BOOL LLToolPie::handleRightMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleRightMouseUp(S32 x, S32 y, MASK mask)
 {
 	LLToolMgr::getInstance()->clearTransientTool();
 	return LLTool::handleRightMouseUp(x, y, mask);
@@ -854,7 +854,7 @@ bool LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 	return true;
 }
 
-BOOL LLToolPie::handleMouseUp(S32 x, S32 y, MASK mask)
+bool LLToolPie::handleMouseUp(S32 x, S32 y, MASK mask)
 {
     if (!mDoubleClickTimer.getStarted())
     {
