@@ -42,7 +42,7 @@ public:
 	/*virtual*/ bool	handleKeyUp(const U16 key, MASK mask);
 	/*virtual*/ bool	handleKeyDown(const U16 key, MASK mask);
 	/*virtual*/ void	resetMaskKeys();
-	/*virtual*/ MASK	currentMask(BOOL for_mouse_event);
+	/*virtual*/ MASK	currentMask(bool for_mouse_event);
 	/*virtual*/ void	scanKeyboard();
 	BOOL				translateExtendedKey(const U16 os_key, const MASK mask, KEY *translated_key);
 	U16					inverseTranslateExtendedKey(const KEY translated_key);

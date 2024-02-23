@@ -231,7 +231,7 @@ bool LLKeyboardWin32::handleKeyUp(const U16 key, MASK mask)
 }
 
 
-MASK LLKeyboardWin32::currentMask(BOOL)
+MASK LLKeyboardWin32::currentMask(bool)
 {
 	MASK mask = MASK_NONE;
 
