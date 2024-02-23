@@ -236,13 +236,13 @@ bool		LLWinImm::getOpenStatus(HIMC himc)
 }
 
 // static 
-bool		LLWinImm::setOpenStatus(HIMC himc, BOOL status)
+bool		LLWinImm::setOpenStatus(HIMC himc, bool status)
 { 
 	return ImmSetOpenStatus(himc, status);
 }
 
 // static 
-BOOL		LLWinImm::getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence)	
+bool		LLWinImm::getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence)	
 { 
 	return ImmGetConversionStatus(himc, conversion, sentence);
 }
@@ -3192,9 +3192,9 @@ void LLWindowWin32::setMouseClipping( bool b )
 	}
 }
 
-BOOL LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
+bool LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
 {
-    BOOL success = FALSE;
+    bool success = false;
 
     RECT client_rect;
     if (mWindowHandle && GetClientRect(mWindowHandle, &client_rect))
@@ -3215,7 +3215,7 @@ BOOL LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
             bottom_right.x,
             bottom_right.y);
 
-        success = TRUE;
+        success = true;
     }
 
     return success;
