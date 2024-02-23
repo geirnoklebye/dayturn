@@ -34,7 +34,7 @@ class LLPreeditor
 public:
 
 	typedef std::vector<S32> segment_lengths_t;
-	typedef std::vector<BOOL> standouts_t;
+	typedef std::vector<S32> standouts_t;
 	
 	// We don't delete against LLPreeditor, but compilers complain without this...
 	
@@ -93,7 +93,7 @@ public:
 	// Handle a UTF-32 char on this preeditor, i.e., add the character
 	// to the contents.
 	// This is a back door of the method of same name of LLWindowCallback.
-	// called_from_parent should be set to FALSE if calling through LLPreeditor.
+	// called_from_parent should be set to false if calling through LLPreeditor.
 
 	virtual bool handleUnicodeCharHere(llwchar uni_char) = 0;
 };

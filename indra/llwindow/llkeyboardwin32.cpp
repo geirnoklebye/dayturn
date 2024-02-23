@@ -272,7 +272,7 @@ void LLKeyboardWin32::scanKeyboard()
 	}
 }
 
-BOOL LLKeyboardWin32::translateExtendedKey(const U16 os_key, const MASK mask, KEY *translated_key)
+bool LLKeyboardWin32::translateExtendedKey(const U16 os_key, const MASK mask, KEY *translated_key)
 {
 	return translateKey(os_key, translated_key);
 }

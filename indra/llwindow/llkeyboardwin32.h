@@ -44,7 +44,7 @@ public:
 	/*virtual*/ void	resetMaskKeys();
 	/*virtual*/ MASK	currentMask(bool for_mouse_event);
 	/*virtual*/ void	scanKeyboard();
-	BOOL				translateExtendedKey(const U16 os_key, const MASK mask, KEY *translated_key);
+	bool				translateExtendedKey(const U16 os_key, const MASK mask, KEY *translated_key);
 	U16					inverseTranslateExtendedKey(const KEY translated_key);
 
 protected:

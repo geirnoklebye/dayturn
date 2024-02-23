@@ -170,14 +170,14 @@ protected:
 	U32		fillReconvertString(const LLWString &text, S32 focus, S32 focus_length, RECONVERTSTRING *reconvert_string);
 	void	handleStartCompositionMessage();
 	void	handleCompositionMessage(U32 indexes);
-	BOOL	handleImeRequests(WPARAM request, LPARAM param, LRESULT *result);
+	bool	handleImeRequests(WPARAM request, LPARAM param, LRESULT *result);
 
 protected:
 	//
 	// Platform specific methods
 	//
 
-	BOOL	getClientRectInScreenSpace(RECT* rectp);
+	bool	getClientRectInScreenSpace(RECT* rectp);
 	void 	updateJoystick( );
 
 	static LRESULT CALLBACK mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_param, LPARAM l_param);
@@ -209,7 +209,7 @@ protected:
 
     MASK        mMouseMask;
 
-	static BOOL sIsClassRegistered; // has the window class been registered?
+	static bool sIsClassRegistered; // has the window class been registered?
 
 	F32			mCurrentGamma;
 	U32			mFSAASamples;
@@ -218,13 +218,13 @@ protected:
 	bool		mCustomGammaSet;
 
 	LPWSTR		mIconResource;
-	BOOL		mInputProcessingPaused;
+	bool		mInputProcessingPaused;
 
 	// The following variables are for Language Text Input control.
 	// They are all static, since one context is shared by all LLWindowWin32
 	// instances.
 	static bool		sLanguageTextInputAllowed;
-	static BOOL		sWinIMEOpened;
+	static bool		sWinIMEOpened;
 	static HKL		sWinInputLocale;
 	static DWORD	sWinIMEConversionMode;
 	static DWORD	sWinIMESentenceMode;
@@ -243,7 +243,7 @@ protected:
 	U32				mRawWParam;
 	U32				mRawLParam;
 
-	BOOL			mMouseVanish;
+	bool			mMouseVanish;
 
     // Cached values of GetWindowRect and GetClientRect to be used by app thread
     void updateWindowRect();

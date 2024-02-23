@@ -173,10 +173,10 @@ GLuint SafeChoosePixelFormat(HDC &hdc, const PIXELFORMATDESCRIPTOR *ppfd)
 }
 
 //static
-BOOL LLWindowWin32::sIsClassRegistered = FALSE;
+bool LLWindowWin32::sIsClassRegistered = false;
 
 bool	LLWindowWin32::sLanguageTextInputAllowed = true;
-BOOL	LLWindowWin32::sWinIMEOpened = FALSE;
+bool	LLWindowWin32::sWinIMEOpened = false;
 HKL		LLWindowWin32::sWinInputLocale = 0;
 DWORD	LLWindowWin32::sWinIMEConversionMode = IME_CMODE_NATIVE;
 DWORD	LLWindowWin32::sWinIMESentenceMode = IME_SMODE_AUTOMATIC;
@@ -195,24 +195,24 @@ public:
 
 public:
 	// Wrappers for IMM API.
-	static BOOL		isIME(HKL hkl);															
+	static bool		isIME(HKL hkl);															
 	static HIMC		getContext(HWND hwnd);													
-	static BOOL		releaseContext(HWND hwnd, HIMC himc);
-	static BOOL		getOpenStatus(HIMC himc);												
-	static BOOL		setOpenStatus(HIMC himc, BOOL status);									
-	static BOOL		getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence);	
-	static BOOL		setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence);		
-	static BOOL		getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);					
-	static BOOL		setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);					
+	static bool		releaseContext(HWND hwnd, HIMC himc);
+	static bool		getOpenStatus(HIMC himc);												
+	static bool		setOpenStatus(HIMC himc, bool status);									
+	static bool		getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence);	
+	static bool		setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence);		
+	static bool		getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);					
+	static bool		setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);					
 	static LONG		getCompositionString(HIMC himc, DWORD index, LPVOID data, DWORD length);
-	static BOOL		setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength);
-	static BOOL		setCompositionFont(HIMC himc, LPLOGFONTW logfont);
-	static BOOL		setCandidateWindow(HIMC himc, LPCANDIDATEFORM candidate_form);
-	static BOOL		notifyIME(HIMC himc, DWORD action, DWORD index, DWORD value);
+	static bool		setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength);
+	static bool		setCompositionFont(HIMC himc, LPLOGFONTW logfont);
+	static bool		setCandidateWindow(HIMC himc, LPCANDIDATEFORM candidate_form);
+	static bool		notifyIME(HIMC himc, DWORD action, DWORD index, DWORD value);
 };
 
 // static 
-BOOL	LLWinImm::isIME(HKL hkl)
+bool	LLWinImm::isIME(HKL hkl)
 { 
 	return ImmIsIME(hkl);
 }
@@ -224,19 +224,19 @@ HIMC		LLWinImm::getContext(HWND hwnd)
 }
 
 //static 
-BOOL		LLWinImm::releaseContext(HWND hwnd, HIMC himc)
+bool		LLWinImm::releaseContext(HWND hwnd, HIMC himc)
 { 
 	return ImmReleaseContext(hwnd, himc);
 }
 
 // static 
-BOOL		LLWinImm::getOpenStatus(HIMC himc)
+bool		LLWinImm::getOpenStatus(HIMC himc)
 { 
 	return ImmGetOpenStatus(himc);
 }
 
 // static 
-BOOL		LLWinImm::setOpenStatus(HIMC himc, BOOL status)
+bool		LLWinImm::setOpenStatus(HIMC himc, BOOL status)
 { 
 	return ImmSetOpenStatus(himc, status);
 }
@@ -248,19 +248,19 @@ BOOL		LLWinImm::getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sente
 }
 
 // static 
-BOOL		LLWinImm::setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence)		
+bool		LLWinImm::setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence)		
 { 
 	return ImmSetConversionStatus(himc, conversion, sentence);
 }
 
 // static 
-BOOL		LLWinImm::getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)					
+bool		LLWinImm::getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)					
 { 
 	return ImmGetCompositionWindow(himc, form);
 }
 
 // static 
-BOOL		LLWinImm::setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)					
+bool		LLWinImm::setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)					
 { 
 	return ImmSetCompositionWindow(himc, form);
 }
@@ -274,25 +274,25 @@ LONG		LLWinImm::getCompositionString(HIMC himc, DWORD index, LPVOID data, DWORD 
 
 
 // static 
-BOOL		LLWinImm::setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength)					
+bool		LLWinImm::setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength)					
 { 
 	return ImmSetCompositionString(himc, index, pComp, compLength, pRead, readLength);
 }
 
 // static 
-BOOL		LLWinImm::setCompositionFont(HIMC himc, LPLOGFONTW pFont)					
+bool		LLWinImm::setCompositionFont(HIMC himc, LPLOGFONTW pFont)					
 { 
 	return ImmSetCompositionFont(himc, pFont);
 }
 
 // static 
-BOOL		LLWinImm::setCandidateWindow(HIMC himc, LPCANDIDATEFORM form)					
+bool		LLWinImm::setCandidateWindow(HIMC himc, LPCANDIDATEFORM form)					
 { 
 	return ImmSetCandidateWindow(himc, form);
 }
 
 // static 
-BOOL		LLWinImm::notifyIME(HIMC himc, DWORD action, DWORD index, DWORD value)					
+bool		LLWinImm::notifyIME(HIMC himc, DWORD action, DWORD index, DWORD value)					
 { 
 	return ImmNotifyIME(himc, action, index, value);
 }
@@ -591,7 +591,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 	//-----------------------------------------------------------------------
 	if (mFullscreen)
 	{
-		BOOL success = FALSE;
+		bool success = false;
 		DWORD closest_refresh = 0;
 
 		for (S32 mode_num = 0;; mode_num++)
@@ -605,7 +605,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 				dev_mode.dmPelsHeight == height &&
 				dev_mode.dmBitsPerPel == BITS_PER_PIXEL)
 			{
-				success = TRUE;
+				success = true;
 				if ((dev_mode.dmDisplayFrequency - current_refresh)
 					< (closest_refresh - current_refresh))
 				{
@@ -621,7 +621,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 
 			if (!EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode))
 			{
-				success = FALSE;
+				success = false;
 			}
 			else
 			{
@@ -630,12 +630,12 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 					LL_WARNS("Window") << "Current BBP is OK falling back to that" << LL_ENDL;
 					window_rect.right=width=dev_mode.dmPelsWidth;
 					window_rect.bottom=height=dev_mode.dmPelsHeight;
-					success = TRUE;
+					success = true;
 				}
 				else
 				{
 					LL_WARNS("Window") << "Current BBP is BAD" << LL_ENDL;
-					success = FALSE;
+					success = false;
 				}
 			}
 		}
@@ -1045,11 +1045,11 @@ bool LLWindowWin32::switchContext(bool fullscreen, const LLCoordScreen& size, bo
     RECT	window_rect = { 0, 0, 0, 0 };
     S32 width = size.mX;
     S32 height = size.mY;
-    BOOL auto_show = FALSE;
+    bool auto_show = false;
 
     if (mhRC)
     {
-        auto_show = TRUE;
+        auto_show = true;
         resetDisplayResolution();
     }
 
@@ -1156,7 +1156,7 @@ bool LLWindowWin32::switchContext(bool fullscreen, const LLCoordScreen& size, bo
             mFullscreenRefresh = -1;
 
             LL_INFOS("Window") << "Unable to run fullscreen at " << width << "x" << height << LL_ENDL;
-            return FALSE;
+            return false;
         }
     }
     else
@@ -4188,11 +4188,11 @@ LLWindowCallbacks::DragNDropResult LLWindowWin32::completeDragNDropRequest( cons
 }
 
 // Handle WM_IME_REQUEST message.
-// If it handled the message, returns TRUE.  Otherwise, FALSE.
+// If it handled the message, returns true.  Otherwise, false.
 // When it handled the message, the value to be returned from
 // the Window Procedure is set to *result.
 
-BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *result)
+bool LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *result)
 {
 	if ( mPreeditor )
 	{
@@ -4210,7 +4210,7 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				form->dwIndex = dwIndex;
 
 				*result = 1;
-				return TRUE;
+				return true;
 			}
 			case IMR_QUERYCHARPOSITION:
 			{
@@ -4230,20 +4230,20 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				if (!mPreeditor->getPreeditLocation(position, &caret_coord, &preedit_bounds, &text_control))
 				{
 					LL_WARNS("Window") << "*** IMR_QUERYCHARPOSITON called but getPreeditLocation failed." << LL_ENDL;
-					return FALSE;
+					return false;
 				}
 
 				fillCharPosition(caret_coord, preedit_bounds, text_control, char_position);
 
 				*result = 1;
-				return TRUE;
+				return true;
 			}
 			case IMR_COMPOSITIONFONT:
 			{
 				fillCompositionLogfont((LOGFONT *)param);
 
 				*result = 1;
-				return TRUE;
+				return true;
 			}
 			case IMR_RECONVERTSTRING:
 			{
@@ -4264,7 +4264,7 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 						// Let the IME to decide the reconversion range, and
 						// adjust the reconvert_string structure accordingly.
 						HIMC himc = LLWinImm::getContext(mWindowHandle);
-						const BOOL adjusted = LLWinImm::setCompositionString(himc,
+						const bool adjusted = LLWinImm::setCompositionString(himc,
 									SCS_QUERYRECONVERTSTRING, reconvert_string, size, NULL, 0);
 						LLWinImm::releaseContext(mWindowHandle, himc);
 						if (adjusted)
@@ -4281,12 +4281,12 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				}
 
 				*result = size;
-				return TRUE;
+				return true;
 			}
 			case IMR_CONFIRMRECONVERTSTRING:
 			{
-				*result = FALSE;
-				return TRUE;
+				*result = 0;
+				return true;
 			}
 			case IMR_DOCUMENTFEED:
 			{
@@ -4308,14 +4308,14 @@ BOOL LLWindowWin32::handleImeRequests(WPARAM request, LPARAM param, LRESULT *res
 				
 				RECONVERTSTRING *reconvert_string = (RECONVERTSTRING *)param;
 				*result = fillReconvertString(context, preedit, 0, reconvert_string);
-				return TRUE;
+				return true;
 			}
 			default:
-				return FALSE;
+				return false;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 //static

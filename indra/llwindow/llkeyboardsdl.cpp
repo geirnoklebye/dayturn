@@ -265,7 +265,7 @@ bool LLKeyboardSDL::handleKeyUp(const U16 key, const U32 mask)
 	return handled;
 }
 
-MASK LLKeyboardSDL::currentMask(BOOL for_mouse_event)
+MASK LLKeyboardSDL::currentMask(bool for_mouse_event)
 {
 	MASK result = MASK_NONE;
 	SDLMod mask = SDL_GetModState();
@@ -310,7 +310,7 @@ void LLKeyboardSDL::scanKeyboard()
 }
 
  
-BOOL LLKeyboardSDL::translateNumpadKey( const U16 os_key, KEY *translated_key)
+bool LLKeyboardSDL::translateNumpadKey( const U16 os_key, KEY *translated_key)
 {
 	return translateKey(os_key, translated_key);	
 }

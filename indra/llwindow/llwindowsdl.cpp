@@ -96,10 +96,10 @@ void maybe_unlock_display(void)
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 bool LLWindowSDL::ll_try_gtk_init(void)
 {
-	static BOOL done_gtk_diag = FALSE;
-	static BOOL gtk_is_good = FALSE;
-	static BOOL done_setlocale = FALSE;
-	static BOOL tried_gtk_init = FALSE;
+	static bool done_gtk_diag = false;
+	static bool gtk_is_good = false;
+	static bool done_setlocale = false;
+	static bool tried_gtk_init = false;
 
 	if (!done_setlocale)
 	{
@@ -107,12 +107,12 @@ bool LLWindowSDL::ll_try_gtk_init(void)
 		maybe_lock_display();
 		gtk_disable_setlocale();
 		maybe_unlock_display();
-		done_setlocale = TRUE;
+		done_setlocale = true;
 	}
 	
 	if (!tried_gtk_init)
 	{
-		tried_gtk_init = TRUE;
+		tried_gtk_init = true;
 		if (!g_thread_supported ()) g_thread_init (NULL);
 		maybe_lock_display();
 		gtk_is_good = gtk_init_check(NULL, NULL);
@@ -142,12 +142,12 @@ bool LLWindowSDL::ll_try_gtk_init(void)
 		{
 			LL_WARNS() << "- GTK COMPATIBILITY WARNING: " <<
 				gtk_warning << LL_ENDL;
-			gtk_is_good = FALSE;
+			gtk_is_good = false;
 		} else {
 			LL_INFOS() << "- GTK version is good." << LL_ENDL;
 		}
 
-		done_gtk_diag = TRUE;
+		done_gtk_diag = true;
 	}
 
 	return gtk_is_good;
@@ -401,7 +401,7 @@ static int x11_detect_VRAM_kb()
 }
 #endif // LL_X11
 
-bool LLWindowSDL::createContext(int x, int y, int width, int height, int bits, bool fullscreen, BOOL disable_vsync)
+bool LLWindowSDL::createContext(int x, int y, int width, int height, int bits, bool fullscreen, bool disable_vsync)
 {
 	//bool			glneedsinit = false;
 
@@ -1908,10 +1908,10 @@ static SDL_Cursor *makeSDLCursorFromBMP(const char *filename, int hotx, int hoty
 					U8 srcred = pixelp[0];
 					U8 srcgreen = pixelp[1];
 					U8 srcblue = pixelp[2];
-					BOOL mask_bit = (srcred != 200)
+					bool mask_bit = (srcred != 200)
 						|| (srcgreen != 200)
 						|| (srcblue != 200);
-					BOOL data_bit = mask_bit && (srcgreen <= 80);//not 0x80
+					bool data_bit = mask_bit && (srcgreen <= 80);//not 0x80
 					unsigned char bit_offset = (cursurface->w/8) * i
 						+ j/8;
 					cursor_data[bit_offset]	|= (data_bit) << (7 - (j&7));
