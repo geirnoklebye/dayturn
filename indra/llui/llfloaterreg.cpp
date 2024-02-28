@@ -414,7 +414,7 @@ std::string LLFloaterReg::getBaseControlName(const std::string& name)
 std::string LLFloaterReg::declareVisibilityControl(const std::string& name)
 {
 	std::string controlname = getVisibilityControlName(name);
-	LLFloater::getControlGroup()->declareBOOL(controlname, FALSE,
+	LLFloater::getControlGroup()->declarebool(controlname, false,
 												 llformat("Window Visibility for %s", name.c_str()),
 												 LLControlVariable::PERSIST_NONDFT);
 	return controlname;
@@ -424,7 +424,7 @@ std::string LLFloaterReg::declareVisibilityControl(const std::string& name)
 std::string LLFloaterReg::declareDockStateControl(const std::string& name)
 {
 	std::string controlname = getDockStateControlName(name);
-	LLFloater::getControlGroup()->declareBOOL(controlname, TRUE,
+	LLFloater::getControlGroup()->declarebool(controlname, true,
 												 llformat("Window Docking state for %s", name.c_str()),
 												 LLControlVariable::PERSIST_NONDFT);
 	return controlname;

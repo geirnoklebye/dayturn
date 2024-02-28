@@ -233,7 +233,7 @@ void LLVirtualTrackball::draw()
     }
 
     // hide the direction labels when disabled
-    BOOL enabled = isInEnabledChain();
+    bool enabled = isInEnabledChain();
     mLabelN->setVisible(enabled);
     mLabelE->setVisible(enabled);
     mLabelS->setVisible(enabled);

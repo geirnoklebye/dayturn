@@ -40,8 +40,8 @@ class LLToolBarButton;
 class LLIconCtrl;
 
 typedef boost::function<void (S32 x, S32 y, LLToolBarButton* button)> tool_startdrag_callback_t;
-typedef boost::function<BOOL (S32 x, S32 y, const LLUUID& uuid, LLAssetType::EType type)> tool_handledrag_callback_t;
-typedef boost::function<BOOL (void* data, S32 x, S32 y, LLToolBar* toolbar)> tool_handledrop_callback_t;
+typedef boost::function<bool (S32 x, S32 y, const LLUUID& uuid, LLAssetType::EType type)> tool_handledrag_callback_t;
+typedef boost::function<bool (void* data, S32 x, S32 y, LLToolBar* toolbar)> tool_handledrop_callback_t;
 
 class LLToolBarButton : public LLButton
 {
@@ -393,11 +393,11 @@ private:
 // <FS:Zi> Layout and alignment helper functions and member variables
 
 	// context menu callbacks
-	BOOL							isAlignment(const LLSD& userdata);
+	bool							isAlignment(const LLSD& userdata);
 	void							onAlignmentChanged(const LLSD& userdata);
 
 	// context menu callbacks
-	BOOL							isLayoutStyle(const LLSD& userdata);
+	bool							isLayoutStyle(const LLSD& userdata);
 	void							onLayoutStyleChanged(const LLSD& userdata);
 
 public:

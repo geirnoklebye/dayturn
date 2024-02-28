@@ -86,7 +86,7 @@ public:
 	/*virtual*/ F32	getValueF32() const { return mSlider->getValueF32(); }
 	void			setValue(F32 v, bool from_event = false);
 
-	/*virtual*/ void	setValue(const LLSD& value)	{ setValue((F32)value.asReal(), TRUE); }
+	/*virtual*/ void	setValue(const LLSD& value)	{ setValue((F32)value.asReal(), true); }
 	/*virtual*/ LLSD	getValue() const			{ return LLSD(getValueF32()); }
 	/*virtual*/ bool	setLabelArg( const std::string& key, const LLStringExplicit& text );
 

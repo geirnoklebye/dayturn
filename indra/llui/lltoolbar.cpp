@@ -462,7 +462,7 @@ bool LLToolBar::flashCommand(const LLCommandId& commandId, bool flash, bool forc
 		if (it != mButtonMap.end())
 		{
 			command_button = it->second;
-			command_button->setFlashing((BOOL)(flash),(BOOL)(force_flashing));
+			command_button->setFlashing(flash, force_flashing);
 		}
 	}
 
@@ -1479,9 +1479,9 @@ void LLToolBar::setAlignment(LLToolBarEnums::Alignment alignment)
 }
 
 // <FS:Zi> Context menu callback function to display checkmarks on alignment options
-BOOL LLToolBar::isAlignment(const LLSD& userdata)
+bool LLToolBar::isAlignment(const LLSD& userdata)
 {
-	BOOL retval=FALSE;
+	bool retval=false;
 
 	const std::string alignment=userdata.asString();
 
@@ -1534,9 +1534,9 @@ void LLToolBar::setLayoutStyle(LLToolBarEnums::LayoutStyle layout_style)
 }
 
 // <FS:Zi> Context menu callback function to display checkmarks on layout style options
-BOOL LLToolBar::isLayoutStyle(const LLSD& userdata)
+bool LLToolBar::isLayoutStyle(const LLSD& userdata)
 {
-	BOOL retval=FALSE;
+	bool retval=false;
 
 	const std::string layout_style=userdata.asString();
 

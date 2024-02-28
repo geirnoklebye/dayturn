@@ -191,7 +191,7 @@ void LLScrollingPanelList::updatePanelVisiblilty()
 			local_rect.getWidth(), local_rect.getHeight(),
 			&screen_rect.mRight, &screen_rect.mTop );
 
-		BOOL intersects = 
+		bool intersects = 
 			( (screen_rect.mRight > parent_screen_rect.mLeft) && (screen_rect.mLeft < parent_screen_rect.mRight) ) && 
 			( (screen_rect.mTop > parent_screen_rect.mBottom) && (screen_rect.mBottom < parent_screen_rect.mTop) );
 

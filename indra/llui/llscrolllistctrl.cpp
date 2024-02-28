@@ -2949,7 +2949,7 @@ struct SameSortColumn
 	SameSortColumn(S32 column) : mColumn(column) {}
 	S32 mColumn;
 
-	bool operator()(std::pair<S32, BOOL> sort_column) { return sort_column.first == mColumn; }
+	bool operator()(std::pair<S32, bool> sort_column) { return sort_column.first == mColumn; }
 };
 
 bool LLScrollListCtrl::setSort(S32 column_idx, bool ascending)

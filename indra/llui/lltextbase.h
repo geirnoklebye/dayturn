@@ -125,7 +125,7 @@ class LLNormalTextSegment : public LLTextSegment
 {
 public:
 	LLNormalTextSegment( LLStyleConstSP style, S32 start, S32 end, LLTextBase& editor );
-	LLNormalTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, BOOL is_visible = TRUE);
+	LLNormalTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, bool is_visible = true);
 	virtual ~LLNormalTextSegment();
 
 	/*virtual*/ bool				getDimensionsF32(S32 first_char, S32 num_chars, F32& width, S32& height) const;

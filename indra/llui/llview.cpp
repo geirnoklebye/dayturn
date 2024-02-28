@@ -1355,7 +1355,7 @@ void LLView::drawDebugRect()
 	LLUI::popMatrix();
 }
 
-void LLView::drawChild(LLView* childp, S32 x_offset, S32 y_offset, BOOL force_draw)
+void LLView::drawChild(LLView* childp, S32 x_offset, S32 y_offset, bool force_draw)
 {
 	if (childp && childp->getParent() == this)
 	{

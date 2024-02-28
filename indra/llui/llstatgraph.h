@@ -117,7 +117,7 @@ public:
 private:
 	LLTrace::StatType<LLTrace::CountAccumulator>*	mNewStatFloatp;
 
-	BOOL mPerSec;
+	bool mPerSec;
 
 	F32 mValue;
 

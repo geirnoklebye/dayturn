@@ -59,7 +59,7 @@ public:
         Optional<LLUIColor>                 ghost_color;
         Optional<LLUIColor>                 area_color;
         Optional<LLUIColor>                 grid_color;
-        Optional<BOOL>                      logarithmic;
+        Optional<bool>                      logarithmic;
 
         Params();
     };
@@ -113,7 +113,7 @@ private:
     LLUIColor mAreaColor;
     LLUIColor mGridColor;
 
-    BOOL mLogarithmic;
+    bool mLogarithmic;
     F32 mLogScaleX;
     F32 mLogScaleY;
 };

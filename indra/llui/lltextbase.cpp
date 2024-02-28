@@ -2534,7 +2534,7 @@ void LLTextBase::appendAndHighlightTextImpl(const std::string &new_text, S32 hig
 	bool was_selecting = mIsSelecting;
 	S32 cursor_pos = mCursorPos;
 	S32 old_length = getLength();
-	BOOL cursor_was_at_end = (mCursorPos == old_length);
+	bool cursor_was_at_end = (mCursorPos == old_length);
 
 	deselect();
 
@@ -3468,7 +3468,7 @@ LLNormalTextSegment::LLNormalTextSegment( LLStyleConstSP style, S32 start, S32 e
 	}
 }
 
-LLNormalTextSegment::LLNormalTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, BOOL is_visible) 
+LLNormalTextSegment::LLNormalTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, bool is_visible) 
 :	LLTextSegment(start, end),
 	mToken(NULL),
 	mEditor(editor)

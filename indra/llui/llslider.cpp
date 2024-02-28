@@ -92,7 +92,7 @@ LLSlider::~LLSlider()
 	delete mMouseUpSignal;
 }
 
-void LLSlider::setValue(F32 value, BOOL from_event)
+void LLSlider::setValue(F32 value, bool from_event)
 {
 	value = llclamp( value, mMinValue, mMaxValue );
 

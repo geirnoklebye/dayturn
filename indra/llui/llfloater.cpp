@@ -563,7 +563,7 @@ void LLFloater::storeVisibilityControl()
 {
 	if( !sQuitting && mVisibilityControl.size() > 1 )
 	{
-		getControlGroup()->setBOOL( mVisibilityControl, getVisible() );
+		getControlGroup()->setbool( mVisibilityControl, getVisible() );
 	}
 }
 
@@ -571,7 +571,7 @@ void LLFloater::storeDockStateControl()
 {
 	if( !sQuitting && mDocStateControl.size() > 1 )
 	{
-		getControlGroup()->setBOOL( mDocStateControl, isDocked() );
+		getControlGroup()->setbool( mDocStateControl, isDocked() );
 	}
 }
 
@@ -980,7 +980,7 @@ bool LLFloater::applyDockState()
 
 	if (mDocStateControl.size() > 1)
 	{
-		docked = getControlGroup()->getBOOL(mDocStateControl);
+		docked = getControlGroup()->getbool(mDocStateControl);
 		setDocked(docked);
 	}
 

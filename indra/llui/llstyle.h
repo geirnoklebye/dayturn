@@ -71,13 +71,13 @@ public:
 
 	const std::string& getLinkHREF() const { return mLink; }
 	void setLinkHREF(const std::string& href);
-	BOOL isLink() const;
+	bool isLink() const;
 
 	LLPointer<LLUIImage> getImage() const;
 	void setImage(const LLUUID& src);
 	void setImage(const std::string& name);
 
-	BOOL isImage() const { return mImagep.notNull(); }
+	bool isImage() const { return mImagep.notNull(); }
 
 	bool operator==(const LLStyle &rhs) const
 	{

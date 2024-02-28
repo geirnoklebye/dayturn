@@ -314,11 +314,11 @@ public:
 	bool			getLastVisible()	const	{ return mLastVisible; }
 
 	U32			getFollows() const				{ return mReshapeFlags; }
-	BOOL		followsLeft() const				{ return mReshapeFlags & FOLLOWS_LEFT; }
-	BOOL		followsRight() const			{ return mReshapeFlags & FOLLOWS_RIGHT; }
-	BOOL		followsTop() const				{ return mReshapeFlags & FOLLOWS_TOP; }
-	BOOL		followsBottom() const			{ return mReshapeFlags & FOLLOWS_BOTTOM; }
-	BOOL		followsAll() const				{ return mReshapeFlags & FOLLOWS_ALL; }
+	bool		followsLeft() const				{ return mReshapeFlags & FOLLOWS_LEFT; }
+	bool		followsRight() const			{ return mReshapeFlags & FOLLOWS_RIGHT; }
+	bool		followsTop() const				{ return mReshapeFlags & FOLLOWS_TOP; }
+	bool		followsBottom() const			{ return mReshapeFlags & FOLLOWS_BOTTOM; }
+	bool		followsAll() const				{ return mReshapeFlags & FOLLOWS_ALL; }
 
 	const LLRect&	getRect() const				{ return mRect; }
 	const LLRect&	getBoundingRect() const		{ return mBoundingRect; }
@@ -541,7 +541,7 @@ public:
 
 protected:
 	void			drawDebugRect();
-	void			drawChild(LLView* childp, S32 x_offset = 0, S32 y_offset = 0, BOOL force_draw = FALSE);
+	void			drawChild(LLView* childp, S32 x_offset = 0, S32 y_offset = 0, bool force_draw = false);
 	void			drawChildren();
 	bool			visibleAndContains(S32 local_x, S32 local_Y);
 	bool			visibleEnabledAndContains(S32 local_x, S32 local_y);

@@ -73,7 +73,7 @@ void LLStyle::setLinkHREF(const std::string& href)
 	mLink = href;
 }
 
-BOOL LLStyle::isLink() const
+bool LLStyle::isLink() const
 {
 	return mIsLink;
 }
