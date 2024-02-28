@@ -1780,7 +1780,7 @@ void LLInventoryPanel::dumpSelectionInformation(void* user_data)
 bool is_inventorysp_active()
 {
 	LLSidepanelInventory *sidepanel_inventory =	LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-	if (!sidepanel_inventory || !sidepanel_inventory->isInVisibleChain()) return FALSE;
+	if (!sidepanel_inventory || !sidepanel_inventory->isInVisibleChain()) return false;
 	return sidepanel_inventory->isMainInventoryPanelActive();
 }
 
@@ -1795,7 +1795,7 @@ LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(bool auto_open)
 	if (!floater_inventory)
 	{
 		LL_WARNS() << "Could not find My Inventory floater" << LL_ENDL;
-		return FALSE;
+		return nullptr;
 	}
 
 	LLSidepanelInventory *inventory_panel =	LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
@@ -1917,7 +1917,7 @@ void LLInventoryPanel::removeItemID(const LLUUID& id)
 {
 	LLInventoryModel::cat_array_t categories;
 	LLInventoryModel::item_array_t items;
-	gInventory.collectDescendents(id, categories, items, TRUE);
+	gInventory.collectDescendents(id, categories, items, true);
 
 	mItemMap.erase(id);
 

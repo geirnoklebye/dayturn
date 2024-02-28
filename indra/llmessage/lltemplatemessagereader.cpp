@@ -286,35 +286,17 @@ void LLTemplateMessageReader::getU8(const char *block, const char *var,
 void LLTemplateMessageReader::getBOOL(const char *block, const char *var, 
 										  BOOL &b, S32 blocknum )
 {
-#if (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__ ) >= 40800
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wuninitialized"
-    #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
-#endif
-//	U8 value = 0; init to 0 may be a better way to overcome -Werror=maybe-uninitialized 
 	U8 value;
 	getData(block, var, &value, sizeof(U8), blocknum);
-	b = (BOOL) value;
-#if (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__ ) >= 40800
-  #pragma GCC diagnostic pop 
-#endif 
+	b = (BOOL) value; 
 }
 
 void LLTemplateMessageReader::getbool(const char *block, const char *var, 
 										  bool &b, S32 blocknum )
 {
-#if (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__ ) >= 40800
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wuninitialized"
-    #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
-#endif
-//	U8 value = 0; init to 0 may be a better way to overcome -Werror=maybe-uninitialized 
 	U8 value;
 	getData(block, var, &value, sizeof(U8), blocknum);
 	b = (bool) value;
-#if (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__ ) >= 40800
-  #pragma GCC diagnostic pop 
-#endif 
 }
 
 
