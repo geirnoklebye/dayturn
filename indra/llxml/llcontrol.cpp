@@ -610,11 +610,6 @@ LLControlVariable* LLControlGroup::declareF32(const std::string& name, const F32
 	return declareControl(name, TYPE_F32, initial_val, comment, SANITY_TYPE_NONE, LLSD(), std::string(""), persist);
 }
 
-LLControlVariable* LLControlGroup::declareBOOL(const std::string& name, const BOOL initial_val, const std::string& comment, LLControlVariable::ePersist persist)
-{
-	return declareControl(name, TYPE_BOOLEAN, initial_val, comment, SANITY_TYPE_NONE, LLSD(), std::string(""), persist);
-}
-
 LLControlVariable* LLControlGroup::declarebool(const std::string& name, const bool initial_val, const std::string& comment, LLControlVariable::ePersist persist)
 {
 	return declareControl(name, TYPE_BOOLEAN, initial_val, comment, SANITY_TYPE_NONE, LLSD(), std::string(""), persist);

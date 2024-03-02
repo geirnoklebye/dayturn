@@ -206,7 +206,7 @@ F32 LLControlGroup::getF32(std::string_view name) { return 0.0f; }
 U32 LLControlGroup::saveToFile(const std::string& filename, bool nondefault_only) { return 1; }
 void LLControlGroup::setString(std::string_view name, const std::string& val) {}
 std::string LLControlGroup::getString(std::string_view name) { return "test_string"; }
-LLControlVariable* LLControlGroup::declareBOOL(const std::string& name, BOOL initial_val, const std::string& comment, LLControlVariable::ePersist persist) { return NULL; }
+LLControlVariable* LLControlGroup::declarebool(const std::string& name, bool initial_val, const std::string& comment, LLControlVariable::ePersist persist) { return NULL; }
 LLControlVariable* LLControlGroup::declareString(const std::string& name, const std::string &initial_val, const std::string& comment, LLControlVariable::ePersist persist) { return NULL; }
 
 #include "lluicolortable.h"
@@ -347,13 +347,13 @@ namespace tut
 			gTOSReplyPump = 0; // clear the callback.
 
 
-			gSavedSettings.declareBOOL("NoInventoryLibrary", FALSE, "", LLControlVariable::PERSIST_NO);
-			gSavedSettings.declareBOOL("ConnectAsGod", FALSE, "", LLControlVariable::PERSIST_NO);
-			gSavedSettings.declareBOOL("UseDebugMenus", FALSE, "", LLControlVariable::PERSIST_NO);
+			gSavedSettings.declarebool("NoInventoryLibrary", false, "", LLControlVariable::PERSIST_NO);
+			gSavedSettings.declarebool("ConnectAsGod", false, "", LLControlVariable::PERSIST_NO);
+			gSavedSettings.declarebool("UseDebugMenus", false, "", LLControlVariable::PERSIST_NO);
 			gSavedSettings.declareString("ClientSettingsFile", "test_settings.xml", "", LLControlVariable::PERSIST_NO);
 			gSavedSettings.declareString("NextLoginLocation", "", "", LLControlVariable::PERSIST_NO);
-			gSavedSettings.declareBOOL("LoginLastLocation", FALSE, "", LLControlVariable::PERSIST_NO);
-            gSavedSettings.declareBOOL("CmdLineSkipUpdater", TRUE, "", LLControlVariable::PERSIST_NO);
+			gSavedSettings.declarebool("LoginLastLocation", false, "", LLControlVariable::PERSIST_NO);
+            gSavedSettings.declarebool("CmdLineSkipUpdater", true, "", LLControlVariable::PERSIST_NO);
 
 			LLSD authenticator = LLSD::emptyMap();
 			LLSD identifier = LLSD::emptyMap();
