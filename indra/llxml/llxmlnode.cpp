@@ -49,7 +49,7 @@ bool LLXMLNode::sStripWhitespaceValues = false;
 
 LLXMLNode::LLXMLNode() : 
 	mID(""),
-	mParser(NULL),
+	mParser(nullptr),
 	mIsAttribute(false),
 	mVersionMajor(0), 
 	mVersionMinor(0), 
@@ -58,12 +58,12 @@ LLXMLNode::LLXMLNode() :
 	mType(TYPE_CONTAINER),
 	mEncoding(ENCODING_DEFAULT),
 	mLineNumber(-1),
-	mParent(NULL),
+	mParent(nullptr),
 	mChildren(NULL),
 	mAttributes(),
 	mPrev(NULL),
 	mNext(NULL),
-	mName(NULL), 
+	mName(nullptr),
 	mValue(""), 
 	mDefault(NULL)
 {
@@ -71,7 +71,7 @@ LLXMLNode::LLXMLNode() :
 
 LLXMLNode::LLXMLNode(const char* name, bool is_attribute) : 
 	mID(""),
-	mParser(NULL),
+	mParser(nullptr),
 	mIsAttribute(is_attribute),
 	mVersionMajor(0), 
 	mVersionMinor(0), 
@@ -80,7 +80,7 @@ LLXMLNode::LLXMLNode(const char* name, bool is_attribute) :
 	mType(TYPE_CONTAINER), 
 	mEncoding(ENCODING_DEFAULT),
 	mLineNumber(-1),
-	mParent(NULL),
+	mParent(nullptr),
 	mChildren(NULL),
 	mAttributes(),
 	mPrev(NULL),
@@ -93,7 +93,7 @@ LLXMLNode::LLXMLNode(const char* name, bool is_attribute) :
 
 LLXMLNode::LLXMLNode(LLStringTableEntry* name, bool is_attribute) : 
 	mID(""),
-	mParser(NULL),
+	mParser(nullptr),
 	mIsAttribute(is_attribute),
 	mVersionMajor(0), 
 	mVersionMinor(0), 
@@ -102,7 +102,7 @@ LLXMLNode::LLXMLNode(LLStringTableEntry* name, bool is_attribute) :
 	mType(TYPE_CONTAINER), 
 	mEncoding(ENCODING_DEFAULT),
 	mLineNumber(-1),
-	mParent(NULL),
+	mParent(nullptr),
 	mChildren(NULL),
 	mAttributes(),
 	mPrev(NULL),
@@ -124,8 +124,8 @@ LLXMLNode::LLXMLNode(const LLXMLNode& rhs) :
 	mType(rhs.mType),
 	mEncoding(rhs.mEncoding),
 	mLineNumber(0),
-	mParser(NULL),
-	mParent(NULL),
+	mParser(nullptr),
+	mParent(nullptr),
 	mChildren(NULL),
 	mAttributes(),
 	mPrev(NULL),
@@ -189,13 +189,13 @@ LLXMLNode::~LLXMLNode()
 		attr->mNext = NULL;
 		attr->mPrev = NULL;
 	}
-	llassert(mParent == NULL);
+	llassert(mParent == nullptr);
 	mDefault = NULL;
 }
 
 bool LLXMLNode::isNull()
 {	
-	return (mName == NULL);
+	return (mName == nullptr);
 }
 
 // protected
@@ -210,7 +210,7 @@ bool LLXMLNode::removeChild(LLXMLNode *target_child)
 		LLXMLAttribList::iterator children_itr = mAttributes.find(target_child->mName);
 		if (children_itr != mAttributes.end())
 		{
-			target_child->mParent = NULL;
+			target_child->mParent = nullptr;
 			mAttributes.erase(children_itr);
 			return true;
 		}
@@ -238,7 +238,7 @@ bool LLXMLNode::removeChild(LLXMLNode *target_child)
 
 				target_child->mPrev = NULL;
 				target_child->mNext = NULL;
-				target_child->mParent = NULL;
+				target_child->mParent = nullptr;
 				mChildren->map.erase(children_itr);
 				if (mChildren->map.empty())
 				{
@@ -347,9 +347,9 @@ void LLXMLNode::setParent(LLXMLNodePtr& new_parent)
 
 void LLXMLNode::updateDefault()
 {
-	if (mParent != NULL && !mParent->mDefault.isNull())
+	if (mParent != nullptr && !mParent->mDefault.isNull())
 	{
-		mDefault = NULL;
+		mDefault = nullptr;
 
 		// Find default value in parent's default tree
 		if (!mParent->mDefault.isNull())
@@ -375,16 +375,16 @@ void XMLCALL StartXMLNode(void *userData,
                           const XML_Char **atts)
 {
 	// Create a new node
-	LLXMLNode *new_node_ptr = new LLXMLNode(name, false);
+	auto *new_node_ptr = new LLXMLNode(name, false);
 
 	LLXMLNodePtr new_node = new_node_ptr;
 	new_node->mID.clear();
 	LLXMLNodePtr ptr_new_node = new_node;
 
 	// Set the parent-child relationship with the current active node
-	LLXMLNode* parent = (LLXMLNode *)userData;
+	auto* parent = (LLXMLNode *)userData;
 
-	if (NULL == parent)
+	if (nullptr == parent)
 	{
 		LL_WARNS() << "parent (userData) is NULL; aborting function" << LL_ENDL;
 		return;
@@ -399,7 +399,7 @@ void XMLCALL StartXMLNode(void *userData,
 
 	// Parse attributes
 	U32 pos = 0;
-	while (atts[pos] != NULL)
+	while (atts[pos] != nullptr)
 	{
 		std::string attr_name = atts[pos];
 		std::string attr_value = atts[pos+1];
@@ -656,7 +656,7 @@ bool LLXMLNode::parseFile(const std::string& filename, LLXMLNodePtr& node, LLXML
 	// Read file
 	LL_DEBUGS("XMLNode") << "parsing XML file: " << filename << LL_ENDL;
 	LLFILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
-	if (fp == NULL)
+	if (fp == nullptr)
 	{
 		node = NULL ;
 		return false;
@@ -683,7 +683,7 @@ bool LLXMLNode::parseBuffer(
 	LLXMLNode* defaults)
 {
 	// Init
-	XML_Parser my_parser = XML_ParserCreate(NULL);
+	XML_Parser my_parser = XML_ParserCreate(nullptr);
 	XML_SetElementHandler(my_parser, StartXMLNode, EndXMLNode);
 	XML_SetCharacterDataHandler(my_parser, XMLData);
 
@@ -731,7 +731,7 @@ bool LLXMLNode::parseStream(
 	LLXMLNode* defaults)
 {
 	// Init
-	XML_Parser my_parser = XML_ParserCreate(NULL);
+	XML_Parser my_parser = XML_ParserCreate(nullptr);
 	XML_SetElementHandler(my_parser, StartXMLNode, EndXMLNode);
 	XML_SetCharacterDataHandler(my_parser, XMLData);
 
@@ -1411,7 +1411,7 @@ bool LLXMLNode::getAttributeString(const char* name, std::string& value )
 
 LLXMLNodePtr LLXMLNode::getRoot()
 {
-	if (mParent == NULL)
+	if (mParent == nullptr)
 	{
 		return this;
 	}
@@ -1442,7 +1442,7 @@ const char *LLXMLNode::parseInteger(const char *str, U64 *dest, bool *is_negativ
 
 	str = skipWhitespace(str);
 
-	if (str[0] == 0) return NULL;
+	if (str[0] == 0) return nullptr;
 
 	if (encoding == ENCODING_DECIMAL || encoding == ENCODING_DEFAULT)
 	{
@@ -1497,7 +1497,7 @@ const char *LLXMLNode::parseInteger(const char *str, U64 *dest, bool *is_negativ
 			}
 			else
 			{
-				return NULL;
+				return nullptr;
 			}
 			++str;
 		}
@@ -1505,7 +1505,7 @@ const char *LLXMLNode::parseInteger(const char *str, U64 *dest, bool *is_negativ
 		*dest = ret;
 		return str;
 	}
-	return NULL;
+	return nullptr;
 }
 
 // 25 elements - decimal expansions of 1/(2^n), multiplied by 10 each iteration
@@ -1536,7 +1536,7 @@ const char *LLXMLNode::parseFloat(const char *str, F64 *dest, U32 precision, Enc
 {
 	str = skipWhitespace(str);
 
-	if (str[0] == 0) return NULL;
+	if (str[0] == 0) return nullptr;
 
 	if (encoding == ENCODING_DECIMAL || encoding == ENCODING_DEFAULT)
 	{
@@ -1655,7 +1655,7 @@ const char *LLXMLNode::parseFloat(const char *str, F64 *dest, U32 precision, Enc
 			U64 exp;
 			bool is_negative;
 			str = parseInteger(str, &exp, &is_negative, 64, ENCODING_DECIMAL);
-			if (str == NULL)
+			if (str == nullptr)
 			{
 				exp = 1;
 			}
@@ -1666,7 +1666,7 @@ const char *LLXMLNode::parseFloat(const char *str, F64 *dest, U32 precision, Enc
 		if (str == base_str)
 		{
 			// no digits parsed
-			return NULL;
+			return nullptr;
 		}
 		else
 		{
@@ -1693,11 +1693,11 @@ const char *LLXMLNode::parseFloat(const char *str, F64 *dest, U32 precision, Enc
 			*dest = *(F64 *)&bytes_dest;
 			break;
 		default:
-			return NULL;
+			return nullptr;
 		}
 		return str;
 	}
-	return NULL;
+	return nullptr;
 }
 
 U32 LLXMLNode::getBoolValue(U32 expected_length, BOOL *array)
@@ -1772,7 +1772,7 @@ U32 LLXMLNode::getByteValue(U32 expected_length, U8 *array, Encoding encoding)
 		U64 value;
 		bool is_negative;
 		value_string = parseInteger(value_string, &value, &is_negative, 8, encoding);
-		if (value_string == NULL)
+		if (value_string == nullptr)
 		{
 			break;
 		}
@@ -1824,7 +1824,7 @@ U32 LLXMLNode::getIntValue(U32 expected_length, S32 *array, Encoding encoding)
 		U64 value;
 		bool is_negative;
 		value_string = parseInteger(value_string, &value, &is_negative, 32, encoding);
-		if (value_string == NULL)
+		if (value_string == nullptr)
 		{
 			break;
 		}
@@ -1878,7 +1878,7 @@ U32 LLXMLNode::getUnsignedValue(U32 expected_length, U32 *array, Encoding encodi
 		U64 value;
 		bool is_negative;
 		value_string = parseInteger(value_string, &value, &is_negative, 32, encoding);
-		if (value_string == NULL)
+		if (value_string == nullptr)
 		{
 			break;
 		}
@@ -1932,7 +1932,7 @@ U32 LLXMLNode::getLongValue(U32 expected_length, U64 *array, Encoding encoding)
 		U64 value;
 		bool is_negative;
 		value_string = parseInteger(value_string, &value, &is_negative, 64, encoding);
-		if (value_string == NULL)
+		if (value_string == nullptr)
 		{
 			break;
 		}
@@ -1984,7 +1984,7 @@ U32 LLXMLNode::getFloatValue(U32 expected_length, F32 *array, Encoding encoding)
 	{
 		F64 value;
 		value_string = parseFloat(value_string, &value, 32, encoding);
-		if (value_string == NULL)
+		if (value_string == nullptr)
 		{
 			break;
 		}
@@ -2029,7 +2029,7 @@ U32 LLXMLNode::getDoubleValue(U32 expected_length, F64 *array, Encoding encoding
 	{
 		F64 value;
 		value_string = parseFloat(value_string, &value, 64, encoding);
-		if (value_string == NULL)
+		if (value_string == nullptr)
 		{
 			break;
 		}
@@ -2633,7 +2633,7 @@ bool LLXMLNode::deleteChildren(const std::string& name)
 			}
 		}
 	}
-	return removed_count > 0 ? true : false;
+	return removed_count > 0;
 }
 
 bool LLXMLNode::deleteChildren(LLStringTableEntry* name)
@@ -2655,7 +2655,7 @@ bool LLXMLNode::deleteChildren(LLStringTableEntry* name)
 			}
 		}
 	}
-	return removed_count > 0 ? true : false;
+	return removed_count > 0;
 }
 
 void LLXMLNode::setAttributes(LLXMLNode::ValueType type, U32 precision, LLXMLNode::Encoding encoding, U32 length)
