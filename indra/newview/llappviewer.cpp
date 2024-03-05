@@ -191,7 +191,6 @@
 
 #include "llworld.h"
 #include "llhudeffecttrail.h"
-#include "llvectorperfoptions.h"
 #include "llslurl.h"
 #include "llurlregistry.h"
 #include "llwatchdog.h"
