@@ -305,22 +305,22 @@ void LLFloater::initFloater(const Params& p)
 	// Close button.
 	if (mCanClose)
 	{
-		mButtonsEnabled[BUTTON_CLOSE] = TRUE;
+		mButtonsEnabled[BUTTON_CLOSE] = true;
 	}
 
 	// Help button: '?' 
 	//SL-14050 Disable all Help question marks
-	mButtonsEnabled[BUTTON_HELP] = FALSE;
+	mButtonsEnabled[BUTTON_HELP] = false;
 	
 	// Minimize button only for top draggers
 	if ( !mDragOnLeft && mCanMinimize )
 	{
-		mButtonsEnabled[BUTTON_MINIMIZE] = TRUE;
+		mButtonsEnabled[BUTTON_MINIMIZE] = true;
 	}
 
 	if(mCanDock)
 	{
-		mButtonsEnabled[BUTTON_DOCK] = TRUE;
+		mButtonsEnabled[BUTTON_DOCK] = true;
 	}
 
 	buildButtons(p);
@@ -1256,8 +1256,8 @@ void LLFloater::setMinimized(bool minimize)
 
 		if (mButtonsEnabled[BUTTON_MINIMIZE])
 		{
-			mButtonsEnabled[BUTTON_MINIMIZE] = FALSE;
-			mButtonsEnabled[BUTTON_RESTORE] = TRUE;
+			mButtonsEnabled[BUTTON_MINIMIZE] = false;
+			mButtonsEnabled[BUTTON_RESTORE] = true;
 		}
 
 		setBorderVisible(true);
@@ -1312,8 +1312,8 @@ void LLFloater::setMinimized(bool minimize)
 		setOrigin( mExpandedRect.mLeft, mExpandedRect.mBottom );
 		if (mButtonsEnabled[BUTTON_RESTORE])
 		{
-			mButtonsEnabled[BUTTON_MINIMIZE] = TRUE;
-			mButtonsEnabled[BUTTON_RESTORE] = FALSE;
+			mButtonsEnabled[BUTTON_MINIMIZE] = true;
+			mButtonsEnabled[BUTTON_RESTORE] = false;
 		}
 
 		// show dependent floater
@@ -1459,13 +1459,13 @@ void LLFloater::setHost(LLMultiFloater* host)
 		// add tear off button
 		if (mCanTearOff)
 		{
-			mButtonsEnabled[BUTTON_TEAR_OFF] = TRUE;
+			mButtonsEnabled[BUTTON_TEAR_OFF] = true;
 		}
 	}
 	else if (!mHostHandle.isDead() && !host)
 	{
 		mButtonScale = 1.f;
-		//mButtonsEnabled[BUTTON_TEAR_OFF] = FALSE;
+		//mButtonsEnabled[BUTTON_TEAR_OFF] = false;
 	}
 	if (host)
 	{
@@ -1702,7 +1702,7 @@ void LLFloater::setCanDock(bool b)
 		}
 		else
 		{
-			mButtonsEnabled[BUTTON_DOCK] = FALSE;
+			mButtonsEnabled[BUTTON_DOCK] = false;
 		}
 	}
 	updateTitleButtons();
@@ -1905,7 +1905,7 @@ void LLFloater::draw()
 				const LLFontGL* font = LLFontGL::getFontSansSerif();
 				LLRect r = getRect();
 				gl_rect_2d_offset_local(0, r.getHeight(), r.getWidth(), r.getHeight() - font->getLineHeight() - 1, 
-					titlebar_focus_color % alpha, 0, TRUE);
+					titlebar_focus_color % alpha, 0, true);
 			}
 		}
 	}
@@ -1933,7 +1933,7 @@ void LLFloater::draw()
 		{
 			drawChild(mButtons[i]);
 		}
-		drawChild(mDragHandle, 0, 0, TRUE);
+		drawChild(mDragHandle, 0, 0, true);
 	}
 	else
 	{
@@ -3040,7 +3040,7 @@ void LLFloaterView::syncFloaterTabOrder()
 			LLFloater* floaterp = dynamic_cast<LLFloater*>(*child_it);
 			if (gFocusMgr.childHasKeyboardFocus(floaterp))
 			{
-				bringToFront(floaterp, FALSE);
+				bringToFront(floaterp, false);
 				break;
 			}
 		}
