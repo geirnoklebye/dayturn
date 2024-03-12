@@ -124,7 +124,7 @@
          top_pad="2"
          max_length_bytes="63"
          name="classified_name"
-         prevalidate_callback="ascii"
+         prevalidator="ascii"
          text_color="black"
          width="273" />
         <text

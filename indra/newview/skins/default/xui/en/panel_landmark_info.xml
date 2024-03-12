@@ -308,7 +308,7 @@
                  left="0"
                  max_length_bytes="63"
                  name="title_editor"
-                 prevalidate_callback="ascii"
+                 prevalidator="ascii"
                  text_readonly_color="white"
                  top_delta="1"
                  width="290"/>

@@ -230,16 +230,17 @@ private:
 ///////////////////////////////////////////////////////////////////
 LLTextEditor::Params::Params()
 :	default_text("default_text"),
-	prevalidate_callback("prevalidate_callback"),
+	prevalidator("prevalidator"),
 	embedded_items("embedded_items", false),
 	ignore_tab("ignore_tab", true),
 	auto_indent("auto_indent", true),
 	default_color("default_color"),
-    commit_on_focus_lost("commit_on_focus_lost", false),
+	commit_on_focus_lost("commit_on_focus_lost", false),
 	show_context_menu("show_context_menu"),
 	enable_tooltip_paste("enable_tooltip_paste")
 {
-	addSynonym(prevalidate_callback, "text_type");
+	addSynonym(prevalidator, "prevalidate_callback");
+	addSynonym(prevalidator, "text_type");
 }
 
 LLTextEditor::LLTextEditor(const LLTextEditor::Params& p) :
@@ -250,12 +251,13 @@ LLTextEditor::LLTextEditor(const LLTextEditor::Params& p) :
 	mLastCmd( nullptr ),
 	mDefaultColor( p.default_color() ),
 	mAutoIndent(p.auto_indent),
+	mParseOnTheFly(false),
 	mCommitOnFocusLost( p.commit_on_focus_lost),
 	mAllowEmbeddedItems( p.embedded_items ),
 	mMouseDownX(0),
 	mMouseDownY(0),
 	mTabsToNextField(p.ignore_tab),
-	mPrevalidateFunc(p.prevalidate_callback()),
+	mPrevalidator(p.prevalidator()),
 	mShowContextMenu(p.show_context_menu),
 	mEnableTooltipPaste(p.enable_tooltip_paste),
 	mPassDelete(false),
@@ -315,11 +317,13 @@ LLTextEditor::~LLTextEditor()
 void LLTextEditor::setText(const LLStringExplicit &utf8str, const LLStyle::Params& input_params)
 {
 	// validate incoming text if necessary
-	if (mPrevalidateFunc)
+	if (mPrevalidator)
 	{
-		LLWString test_text = utf8str_to_wstring(utf8str);
-		if (!mPrevalidateFunc(test_text))
+		if (!mPrevalidator.validate(utf8str))
 		{
+			LLUI::getInstance()->reportBadKeystroke();
+			mPrevalidator.showLastErrorUsingTimeout();
+
 			// not valid text, nothing to do
 			return;
 		}
@@ -995,10 +999,12 @@ S32 LLTextEditor::execute( TextCmd* cmd )
 		mUndoStack.push_front(cmd);
 		mLastCmd = cmd;
 
-		bool need_to_rollback = mPrevalidateFunc 
-								&& !mPrevalidateFunc(getViewModel()->getDisplay());
+		bool need_to_rollback = mPrevalidator && !mPrevalidator.validate(getViewModel()->getDisplay());
 		if (need_to_rollback)
 		{
+			LLUI::getInstance()->reportBadKeystroke();
+			mPrevalidator.showLastErrorUsingTimeout();
+
 			// get rid of this last command and clean up undo stack
 			undo();
 
@@ -1129,16 +1135,15 @@ void LLTextEditor::removeChar()
 // Add a single character to the text
 S32 LLTextEditor::addChar(S32 pos, llwchar wc)
 {
-	if ( (wstring_utf8_length( getWText() ) + wchar_utf8_length( wc ))  > mMaxTextByteLength)
+	if ((wstring_utf8_length(getWText()) + wchar_utf8_length(wc)) > mMaxTextByteLength)
 	{
-		make_ui_sound("UISndBadKeystroke");
+		LLUI::getInstance()->reportBadKeystroke();
 		return 0;
 	}
 
 	if (mLastCmd && mLastCmd->canExtend(pos))
 	{
-		S32 delta = 0;
-		if (mPrevalidateFunc)
+		if (mPrevalidator)
 		{
 			// get a copy of current text contents
 			LLWString test_string(getViewModel()->getDisplay());
@@ -1146,28 +1151,31 @@ S32 LLTextEditor::addChar(S32 pos, llwchar wc)
 			// modify text contents as if this addChar succeeded
 			llassert(pos <= (S32)test_string.size());
 			test_string.insert(pos, 1, wc);
-			if (!mPrevalidateFunc( test_string))
+			if (!mPrevalidator.validate(test_string))
 			{
+				LLUI::getInstance()->reportBadKeystroke();
+				mPrevalidator.showLastErrorUsingTimeout();
 				return 0;
 			}
 		}
+
+		S32 delta = 0;
 		mLastCmd->extendAndExecute(this, pos, wc, &delta);
 
 		return delta;
 	}
-	else
-	{
-		return execute(new TextCmdAddChar(pos, false, wc, LLTextSegmentPtr()));
-	}
+
+	return execute(new TextCmdAddChar(pos, FALSE, wc, LLTextSegmentPtr()));
 }
 
 void LLTextEditor::addChar(llwchar wc)
 {
-	if( !getEnabled() )
+	if (!getEnabled())
 	{
 		return;
 	}
-	if( hasSelection() )
+
+	if (hasSelection())
 	{
 		deleteSelection(true);
 	}
@@ -1480,7 +1488,13 @@ void LLTextEditor::pastePrimary()
 // paste from primary (itsprimary==true) or clipboard (itsprimary==false)
 void LLTextEditor::pasteHelper(bool is_primary)
 {
-	mParseOnTheFly = false;
+    struct BoolReset
+    {
+        BoolReset(bool& value) : mValuePtr(&value) { *mValuePtr = false; }
+        ~BoolReset() { *mValuePtr = true; }
+        bool* mValuePtr;
+    } reset(mParseOnTheFly);
+
 	bool can_paste_it;
 	if (is_primary)
 	{
@@ -1529,7 +1543,6 @@ void LLTextEditor::pasteHelper(bool is_primary)
 	deselect();
 
 	onKeyStroke();
-	mParseOnTheFly = true;
 }
 
 

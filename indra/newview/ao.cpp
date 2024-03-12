@@ -418,7 +418,6 @@ void FloaterAO::onRenameSet()
 	if (!name.empty())
 	{
 		if (
-			LLTextValidate::validateASCIIPrintableNoPipe(new_set_name.getWString()) &&	// only allow ASCII
 			name.find_first_of(":|") == std::string::npos)								// don't allow : or |
 		{
 			if (AOEngine::instance().renameSet(mSelectedSet, name))
@@ -536,7 +535,6 @@ bool FloaterAO::newSetCallback(const LLSD& notification, const LLSD& response)
 		return false;
 	}
 	else if (
-		!LLTextValidate::validateASCIIPrintableNoPipe(new_set_name.getWString()) ||		// only allow ASCII
 		newSetName.find_first_of(":|") != std::string::npos)							// don't allow : or |
 	{
 		LLSD args;
