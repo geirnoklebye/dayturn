@@ -2372,22 +2372,7 @@ void renderPhysicsShape(LLDrawable* drawable, LLVOVolume* volume)
 		physics_type == LLViewerObject::PHYSICS_SHAPE_CONVEX_HULL); 
 
 	LLPhysicsShapeBuilderUtil::PhysicsShapeSpecification physics_spec;
-
-	//<FS:Beq> FIRE-23053 Physics shape display fixes
-	// 	LLPhysicsShapeBuilderUtil::determinePhysicsShape(physics_params, volume->getScale(), physics_spec);
-	LLUUID mesh_id;
-	LLModel::Decomposition* decomp = nullptr;
-	bool hasConvexDecomp = false;
-
-	// If we are a mesh and the mesh has a hul decomp (is analysed) then set hasDecomp to true
-	if (volume->isMesh()){
-		mesh_id = volume_params.getSculptID();
-		decomp = gMeshRepo.getDecomposition(mesh_id);
-		if (decomp && !decomp->mHull.empty()){ hasConvexDecomp = TRUE; }
-	}
-
-	LLPhysicsShapeBuilderUtil::determinePhysicsShape(physics_params, volume->getScale(), hasConvexDecomp, physics_spec);
-	//</FS:Beq>
+	LLPhysicsShapeBuilderUtil::determinePhysicsShape(physics_params, volume->getScale(), physics_spec);
 
 	U32 type = physics_spec.getType();
 
@@ -2402,10 +2387,8 @@ void renderPhysicsShape(LLDrawable* drawable, LLVOVolume* volume)
 
 	if (type == LLPhysicsShapeBuilderUtil::PhysicsShapeSpecification::USER_MESH)
 	{
-		//<FS:Beq> FIRE-23053 Physics shape display fixes
-		//LLUUID mesh_id = volume->getVolume()->getParams().getSculptID();
-		//LLModel::Decomposition* decomp = gMeshRepo.getDecomposition(mesh_id);
-		//</FS:Beq>
+        LLUUID mesh_id = volume->getVolume()->getParams().getSculptID();
+        LLModel::Decomposition* decomp = gMeshRepo.getDecomposition(mesh_id);
 
 		if (decomp)
 		{ //render a physics based mesh

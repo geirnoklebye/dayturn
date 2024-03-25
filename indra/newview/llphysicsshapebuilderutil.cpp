@@ -1,25 +1,25 @@
-/** 
+/**
  * @file llphysicsshapebuilder.cpp
  * @brief Generic system to convert LL(Physics)VolumeParams to physics shapes
  *
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -28,15 +28,35 @@
 
 #include "llphysicsshapebuilderutil.h"
 
+#include "llmeshrepository.h"
+
+bool LLPhysicsVolumeParams::hasDecomposition() const
+ {
+    if (!isMeshSculpt())
+    {
+        return false;
+    }
+
+    LLUUID mesh_id = getSculptID();
+    if (mesh_id.isNull())
+    {
+        return false;
+    }
+
+    LLModel::Decomposition* decomp = gMeshRepo.getDecomposition(mesh_id);
+
+    return decomp != NULL;
+}
+
 /* static */
-void LLPhysicsShapeBuilderUtil::determinePhysicsShape( const LLPhysicsVolumeParams& volume_params, const LLVector3& scale, bool hasDecomp, PhysicsShapeSpecification& specOut )
+void LLPhysicsShapeBuilderUtil::determinePhysicsShape( const LLPhysicsVolumeParams& volume_params, const LLVector3& scale, PhysicsShapeSpecification& specOut)
 {
 	const LLProfileParams& profile_params = volume_params.getProfileParams();
 	const LLPathParams& path_params = volume_params.getPathParams();
 
 	specOut.mScale = scale;
 
-	const F32 avgScale = ( scale[VX] + scale[VY] + scale[VZ] )/3.0f;	
+	const F32 avgScale = ( scale[VX] + scale[VY] + scale[VZ] )/3.0f;
 
 	// count the scale elements that are small
 	S32 min_size_counts = 0;
@@ -200,19 +220,32 @@ void LLPhysicsShapeBuilderUtil::determinePhysicsShape( const LLPhysicsVolumePara
 	{
 		specOut.mType = PhysicsShapeSpecification::PRIM_CONVEX;
 	}
-    else if (volume_params.isMeshSculpt() &&
-             // Check overall dimensions, not individual triangles.
-             (scale.mV[0] < SHAPE_BUILDER_USER_MESH_CONVEXIFICATION_SIZE ||
-              scale.mV[1] < SHAPE_BUILDER_USER_MESH_CONVEXIFICATION_SIZE ||
-              scale.mV[2] < SHAPE_BUILDER_USER_MESH_CONVEXIFICATION_SIZE
-              ) )
+    else if (volume_params.isMeshSculpt())
     {
-        // Server distinguishes between user-specified or default convex mesh, vs server's thin-triangle override, but we don't.
-        specOut.mType = PhysicsShapeSpecification::PRIM_CONVEX;
+        // Check overall dimensions, not individual triangles.
+        if (scale.mV[0] < SHAPE_BUILDER_USER_MESH_CONVEXIFICATION_SIZE
+            || scale.mV[1] < SHAPE_BUILDER_USER_MESH_CONVEXIFICATION_SIZE
+            || scale.mV[2] < SHAPE_BUILDER_USER_MESH_CONVEXIFICATION_SIZE
+            )
+        {
+            if (volume_params.hasDecomposition())
+            {
+                specOut.mType = PhysicsShapeSpecification::USER_MESH;
+            }
+            else
+            {
+                // Server distinguishes between user-specified or default convex mesh, vs server's thin-triangle override, but we don't.
+                specOut.mType = PhysicsShapeSpecification::PRIM_CONVEX;
+            }
+        }
+        else
+        {
+            specOut.mType = PhysicsShapeSpecification::USER_MESH;
+        }
     }
-	else if ( volume_params.isSculpt() ) // Is a sculpt of any kind (mesh or legacy)
+	else if ( volume_params.isSculpt() )
 	{
-		specOut.mType = volume_params.isMeshSculpt() ? PhysicsShapeSpecification::USER_MESH : PhysicsShapeSpecification::SCULPT;
+        specOut.mType = PhysicsShapeSpecification::SCULPT;
 	}
 	else // Resort to mesh 
 	{
