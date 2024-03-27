@@ -1,11 +1,7 @@
 # -*- cmake -*-
 include(00-Common)
 include(LLTestCommand)
-
-# <FS:ND> Google Mock/Test is not used
-#include(GoogleMock)
 include(bugsplat)
-
 include(Tut)
 
 #*****************************************************************************
@@ -24,7 +20,6 @@ MACRO(LL_ADD_PROJECT_UNIT_TESTS project sources)
   #
   # WARNING: do NOT modify this code without working with poppy -
   # there is another branch that will conflict heavily with any changes here.
-INCLUDE(GoogleMock)
 
   IF(LL_TEST_VERBOSE)
     MESSAGE("LL_ADD_PROJECT_UNIT_TESTS UNITTEST_PROJECT_${project} sources: ${sources}")
@@ -53,13 +48,11 @@ INCLUDE(GoogleMock)
     ${LLMATH_INCLUDE_DIRS}
     ${LLCOMMON_INCLUDE_DIRS}
     ${LIBS_OPEN_DIR}/test
-    ${GOOGLEMOCK_INCLUDE_DIRS}
     )
   SET(alltest_LIBRARIES
     ${BOOST_FIBER_LIBRARY}
     ${BOOST_CONTEXT_LIBRARY}
     ${BOOST_SYSTEM_LIBRARY}
-    ${GOOGLEMOCK_LIBRARIES}
     ${PTHREAD_LIBRARY}
     ${WINDOWS_LIBRARIES}
     )
@@ -214,7 +207,6 @@ FUNCTION(LL_ADD_INTEGRATION_TEST
     ${BOOST_FIBER_LIBRARY}
     ${BOOST_CONTEXT_LIBRARY}
     ${BOOST_SYSTEM_LIBRARY}
-    ${GOOGLEMOCK_LIBRARIES}
     ${PTHREAD_LIBRARY}
     )
 

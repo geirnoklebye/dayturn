@@ -41,7 +41,6 @@ set(cmake_SOURCE_FILES
     GetPrerequisites_2_8.cmake
     Glui.cmake
     Glut.cmake
-    GoogleMock.cmake
     Hunspell.cmake
     JPEG.cmake
     JsonCpp.cmake
@@ -128,7 +127,6 @@ set(cmake_SOURCE_FILES
     FreeType.cmake
     GLEXT.cmake
     GLH.cmake
-    GoogleMock.cmake
     Hunspell.cmake
     JPEG.cmake
     JsonCpp.cmake

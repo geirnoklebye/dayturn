@@ -661,52 +661,6 @@
         <key>version</key>
         <string>2.36.297273</string>
       </map>
-      <key>googlemock</key>
-      <map>
-        <key>copyright</key>
-        <string>Copyright 2008, Google Inc.</string>
-        <key>description</key>
-        <string>a library for writing and using C++ mock classes</string>
-        <key>license</key>
-        <string>BSD</string>
-        <key>license_file</key>
-        <string>LICENSES/gmock.txt</string>
-        <key>name</key>
-        <string>googlemock</string>
-        <key>platforms</key>
-        <map>
-          <key>darwin</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>11d0794582e91a57f6524ad345f2399d</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://automated-builds-secondlife-com.s3.amazonaws.com/ct2/87791/805924/googlemock-1.7.0.563853-darwin64-563853.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>darwin</string>
-          </map>
-          <key>windows</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>27638c692f0ec6121e54bf75f2d45e49</string>
-              <key>hash_algorithm</key>
-              <string>md5</string>
-              <key>url</key>
-              <string>https://automated-builds-secondlife-com.s3.amazonaws.com/ct2/87792/805936/googlemock-1.7.0.563853-windows64-563853.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>windows</string>
-          </map>
-        </map>
-        <key>version</key>
-        <string>1.7.0.563853</string>
-      </map>
       <key>idna</key>
       <map>
         <key>copyright</key>
