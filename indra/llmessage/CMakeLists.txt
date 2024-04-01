@@ -257,7 +257,6 @@ if (LL_TESTS)
     ${JSONCPP_LIBRARIES}
     ${BOOST_FIBER_LIBRARY}
     ${BOOST_CONTEXT_LIBRARY}
-    ${GOOGLEMOCK_LIBRARIES}
     )
 
   #LL_ADD_INTEGRATION_TEST(llavatarnamecache "" "${test_libs}")
