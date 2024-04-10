@@ -31,8 +31,8 @@
 #include "llmutex.h"
 #include "apr_dso.h"
 
-apr_pool_t *gAPRPoolp = NULL; // Global APR memory pool
-LLVolatileAPRPool *LLAPRFile::sAPRFilePoolp = NULL ; //global volatile APR memory pool.
+apr_pool_t *gAPRPoolp = nullptr; // Global APR memory pool
+LLVolatileAPRPool *LLAPRFile::sAPRFilePoolp = nullptr ; //global volatile APR memory pool.
 
 const S32 FULL_VOLATILE_APR_POOL = 1024 ; //number of references to LLVolatileAPRPool
 
@@ -45,7 +45,7 @@ void ll_init_apr()
 	
 	if (!gAPRPoolp)
 	{
-		apr_pool_create(&gAPRPoolp, NULL);
+		apr_pool_create(&gAPRPoolp, nullptr);
 	}
 
 	if(!LLAPRFile::sAPRFilePoolp)
@@ -71,12 +71,12 @@ void ll_cleanup_apr()
 	if (gAPRPoolp)
 	{
 		apr_pool_destroy(gAPRPoolp);
-		gAPRPoolp = NULL;
+		gAPRPoolp = nullptr;
 	}
 	if (LLAPRFile::sAPRFilePoolp)
 	{
 		delete LLAPRFile::sAPRFilePoolp ;
-		LLAPRFile::sAPRFilePoolp = NULL ;
+		LLAPRFile::sAPRFilePoolp = nullptr ;
 	}
 	apr_terminate();
 }
@@ -89,7 +89,7 @@ LLAPRPool::LLAPRPool(apr_pool_t *parent, apr_size_t size, bool releasePoolFlag)
 	: mParent(parent),
 	mReleasePoolFlag(releasePoolFlag),
 	mMaxSize(size),
-	mPool(NULL)
+	mPool(nullptr)
 {	
 	createAPRPool() ;
 }
@@ -129,7 +129,7 @@ void LLAPRPool::releaseAPRPool()
 	if(!mParent || mReleasePoolFlag)
 	{
 		apr_pool_destroy(mPool) ;
-		mPool = NULL ;
+		mPool = nullptr ;
 	}
 }
 
@@ -243,7 +243,7 @@ void _ll_apr_assert_status(apr_status_t status, const char* file, int line)
 class LLAPRFilePoolScope
 {
 public:
-    LLAPRFilePoolScope() : pPool(NULL), mInitialized(false) {}
+    LLAPRFilePoolScope() : pPool(nullptr), mInitialized(false) {}
     LLAPRFilePoolScope(LLVolatileAPRPool* poolp) : mInitialized(false)
     { 
         setFilePool(poolp);
@@ -252,7 +252,7 @@ public:
     {
         reset();
     }
-    apr_pool_t* getVolatileAPRPool(LLVolatileAPRPool* poolp = NULL)
+    apr_pool_t* getVolatileAPRPool(LLVolatileAPRPool* poolp = nullptr)
     {
         if (!pPool)
         {
@@ -276,7 +276,7 @@ public:
     }
 
 private:
-    void setFilePool(LLVolatileAPRPool* poolp = NULL)
+    void setFilePool(LLVolatileAPRPool* poolp = nullptr)
     {
         if (poolp)
         {
@@ -297,14 +297,14 @@ private:
 // LLAPRFile functions
 //
 LLAPRFile::LLAPRFile()
-	: mFile(NULL),
-	  mCurrentFilePoolp(NULL)
+	: mFile(nullptr),
+	  mCurrentFilePoolp(nullptr)
 {
 }
 
 LLAPRFile::LLAPRFile(const std::string& filename, apr_int32_t flags, LLVolatileAPRPool* pool)
-	: mFile(NULL),
-	  mCurrentFilePoolp(NULL)
+	: mFile(nullptr),
+	  mCurrentFilePoolp(nullptr)
 {
 	open(filename, flags, pool);
 }
@@ -320,13 +320,13 @@ apr_status_t LLAPRFile::close()
 	if(mFile)
 	{
 		ret = apr_file_close(mFile);
-		mFile = NULL ;
+		mFile = nullptr ;
 	}
 
 	if(mCurrentFilePoolp)
 	{
 		mCurrentFilePoolp->clearVolatileAPRPool() ;
-		mCurrentFilePoolp = NULL ;
+		mCurrentFilePoolp = nullptr ;
 	}
 
 	return ret ;
@@ -346,7 +346,7 @@ apr_status_t LLAPRFile::open(const std::string& filename, apr_int32_t flags, LLV
 
 	if (s != APR_SUCCESS || !mFile)
 	{
-		mFile = NULL ;
+		mFile = nullptr ;
 		
 		if (sizep)
 		{
@@ -389,7 +389,7 @@ apr_status_t LLAPRFile::open(const std::string& filename, apr_int32_t flags, boo
 	s = apr_file_open(&mFile, filename.c_str(), flags, APR_OS_DEFAULT, gAPRPoolp);
 	if (s != APR_SUCCESS || !mFile)
 	{
-		mFile = NULL ;
+		mFile = nullptr ;
 		close() ;
 		return s;
 	}
@@ -459,7 +459,7 @@ apr_status_t LLAPRFile::close(apr_file_t* file_handle)
 	if(file_handle)
 	{
 		ret = apr_file_close(file_handle);
-		file_handle = NULL ;
+		file_handle = nullptr ;
 	}
 
 	return ret ;
@@ -477,9 +477,9 @@ apr_file_t* LLAPRFile::open(const std::string& filename, apr_pool_t* apr_pool, a
 	{
 		ll_apr_warn_status(s);
 		LL_WARNS("APR") << " Attempting to open filename: " << filename << LL_ENDL;
-		file_handle = NULL ;
+		file_handle = nullptr ;
 		close(file_handle) ;
-		return NULL;
+		return nullptr;
 	}
 
 	return file_handle ;
@@ -732,9 +732,7 @@ bool LLAPRFile::removeDir(const std::string& dirname, LLVolatileAPRPool* pool)
 	return true;
 }
 // </FS:ND>
-namespace nd 
-{
-    namespace aprhelper  {
+namespace nd::aprhelper  {
         std::string ndConvertFilename(std::string const &aFilename)
         {
 #ifdef LL_WINDOWS
@@ -754,7 +752,6 @@ namespace nd
 #endif
         }
     }
-}
     //
 //
 //end of static components of LLAPRFile

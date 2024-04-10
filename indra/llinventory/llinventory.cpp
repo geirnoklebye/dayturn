@@ -90,8 +90,7 @@ LLInventoryObject::LLInventoryObject()
 }
 
 LLInventoryObject::~LLInventoryObject()
-{
-}
+= default;
 
 void LLInventoryObject::copyObject(const LLInventoryObject* other)
 {
@@ -327,8 +326,7 @@ LLInventoryItem::LLInventoryItem(const LLInventoryItem* other) :
 }
 
 LLInventoryItem::~LLInventoryItem()
-{
-}
+= default;
 
 // virtual
 void LLInventoryItem::copyItem(const LLInventoryItem* other)
@@ -1030,7 +1028,7 @@ void LLInventoryItem::unpackBinaryBucket(U8* bin_bucket, S32 bin_bucket_size)
 	// Early exit on an empty binary bucket.
 	if (bin_bucket_size <= 1) return;
 
-	if (NULL == bin_bucket)
+	if (nullptr == bin_bucket)
 	{
 		LL_ERRS() << "unpackBinaryBucket failed.  bin_bucket is NULL." << LL_ENDL;
 		return;
@@ -1126,8 +1124,7 @@ LLInventoryCategory::LLInventoryCategory(const LLInventoryCategory* other) :
 }
 
 LLInventoryCategory::~LLInventoryCategory()
-{
-}
+= default;
 
 // virtual
 void LLInventoryCategory::copyCategory(const LLInventoryCategory* other)

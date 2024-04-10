@@ -197,7 +197,7 @@ namespace LLInitParam
 			return mValue;
 		}
 
-		bool isValid() const { return true; }
+		[[nodiscard]] bool isValid() const { return true; }
 
 	protected:
 		T mValue;
@@ -273,7 +273,7 @@ namespace LLInitParam
 
 		static std::vector<std::string>* getPossibleValues()
 		{
-			return NULL;
+			return nullptr;
 		}
 
 		void assignNamedValue(const Inaccessable& name)
@@ -289,7 +289,7 @@ namespace LLInitParam
 			return param_value_t::getValue();
 		}
 
-		static value_name_map_t* getValueNames() {return NULL;}
+		static value_name_map_t* getValueNames() {return nullptr;}
 	};
 
 	// helper class to implement name value lookups
@@ -316,12 +316,12 @@ namespace LLInitParam
 			mValueName = value_name; 
 		}
 
-		std::string getValueName() const
+		[[nodiscard]] std::string getValueName() const
 		{ 
 			return mValueName; 
 		}
 
-		std::string calcValueName(const value_t& value) const
+		[[nodiscard]] std::string calcValueName(const value_t& value) const
 		{
 			value_name_map_t* map = getValueNames();
 			for (typename value_name_map_t::value_type& map_pair : *map)
@@ -491,7 +491,7 @@ namespace LLInitParam
 
 		virtual ~Parser();
 
-		template <typename T> bool readValue(T& param, typename boost::disable_if<boost::is_enum<T> >::type* dummy = 0)
+		template <typename T> bool readValue(T& param, typename boost::disable_if<boost::is_enum<T> >::type* dummy = nullptr)
 		{
 			parser_read_func_map_t::iterator found_it = mParserReadFuncs->find(&typeid(T));
 			if (found_it != mParserReadFuncs->end())
@@ -502,7 +502,7 @@ namespace LLInitParam
 			return false;
 		}
 
-		template <typename T> bool readValue(T& param, typename boost::enable_if<boost::is_enum<T> >::type* dummy = 0)
+		template <typename T> bool readValue(T& param, typename boost::enable_if<boost::is_enum<T> >::type* dummy = nullptr)
 		{
 			parser_read_func_map_t::iterator found_it = mParserReadFuncs->find(&typeid(T));
 			if (found_it != mParserReadFuncs->end())
@@ -553,7 +553,7 @@ namespace LLInitParam
 
 	protected:
 		template <typename T>
-		void registerParserFuncs(parser_read_func_t read_func, parser_write_func_t write_func = NULL)
+		void registerParserFuncs(parser_read_func_t read_func, parser_write_func_t write_func = nullptr)
 		{
 			mParserReadFuncs->insert(std::make_pair(&typeid(T), read_func));
 			mParserWriteFuncs->insert(std::make_pair(&typeid(T), write_func));
@@ -862,7 +862,7 @@ namespace LLInitParam
 
 		Param* getParamFromHandle(const param_handle_t param_handle)
 		{
-			if (param_handle == 0) return NULL;
+			if (param_handle == 0) return nullptr;
 
 			U8* baseblock_address = reinterpret_cast<U8*>(this);
 			return reinterpret_cast<Param*>(baseblock_address + param_handle);
@@ -889,7 +889,7 @@ namespace LLInitParam
 		}
 
 		bool deserializeBlock(Parser& p, Parser::name_stack_range_t& name_stack_range, bool new_name);
-		bool serializeBlock(Parser& p, Parser::name_stack_t& name_stack, const predicate_rule_t rule, const BaseBlock* diff_block = NULL) const;
+		bool serializeBlock(Parser& p, Parser::name_stack_t& name_stack, const predicate_rule_t rule, const BaseBlock* diff_block = nullptr) const;
 		bool inspectBlock(Parser& p, Parser::name_stack_t name_stack = Parser::name_stack_t(), S32 min_count = 0, S32 max_count = S32_MAX) const;
 
 		virtual const BlockDescriptor& mostDerivedBlockDescriptor() const { return getBlockDescriptor(); }
@@ -1021,9 +1021,9 @@ namespace LLInitParam
 			}
 		} 
 
-		bool isProvided() const { return Param::anyProvided(); }
+		[[nodiscard]] bool isProvided() const { return Param::anyProvided(); }
 
-		bool isValid() const { return true; }
+		[[nodiscard]] bool isValid() const { return true; }
 
 		static bool deserializeParam(Param& param, Parser& parser, Parser::name_stack_range_t& name_stack_range, bool new_name)
 		{ 
@@ -1380,9 +1380,9 @@ namespace LLInitParam
 			}
 		} 
 
-		bool isProvided() const { return Param::anyProvided() && isValid(); }
+		[[nodiscard]] bool isProvided() const { return Param::anyProvided() && isValid(); }
 
-		bool isValid() const 
+		[[nodiscard]] bool isValid() const
 		{ 
 			size_t num_elements = numValidElements();
 			return mMinCount < num_elements && num_elements < mMaxCount;
@@ -1529,12 +1529,12 @@ namespace LLInitParam
 		typedef typename container_t::const_iterator const_iterator;
 		iterator begin() { return mValues.begin(); }
 		iterator end() { return mValues.end(); }
-		const_iterator begin() const { return mValues.begin(); }
-		const_iterator end() const { return mValues.end(); }
-		bool empty() const { return mValues.empty(); }
-		size_t size() const { return mValues.size(); }
+		[[nodiscard]] const_iterator begin() const { return mValues.begin(); }
+		[[nodiscard]] const_iterator end() const { return mValues.end(); }
+		[[nodiscard]] bool empty() const { return mValues.empty(); }
+		[[nodiscard]] size_t size() const { return mValues.size(); }
 
-		size_t numValidElements() const
+		[[nodiscard]] size_t numValidElements() const
 		{
 			return mValues.size();
 		}
@@ -1611,9 +1611,9 @@ namespace LLInitParam
 			}
 		} 
 
-		bool isProvided() const { return Param::anyProvided() && isValid(); }
+		[[nodiscard]] bool isProvided() const { return Param::anyProvided() && isValid(); }
 
-		bool isValid() const 
+		[[nodiscard]] bool isValid() const
 		{ 
 			size_t num_elements = numValidElements();
 			return mMinCount < num_elements && num_elements < mMaxCount;
@@ -1895,7 +1895,7 @@ namespace LLInitParam
 			base_block_t::paramChanged(changed_param, user_provided);
 		}
 
-		virtual const BlockDescriptor& mostDerivedBlockDescriptor() const { return getBlockDescriptor(); }
+		[[nodiscard]] virtual const BlockDescriptor& mostDerivedBlockDescriptor() const { return getBlockDescriptor(); }
 		virtual BlockDescriptor& mostDerivedBlockDescriptor() { return getBlockDescriptor(); }
 
 	protected:
@@ -1969,7 +1969,7 @@ namespace LLInitParam
 				return mOriginalValue;
 			} 
 
-			bool isChosen() const
+			[[nodiscard]] bool isChosen() const
 			{
 				return static_cast<enclosing_block_t&>(Param::enclosingBlock()).getCurrentChoice() == this;
 			}
@@ -1988,7 +1988,7 @@ namespace LLInitParam
 	private:
 		param_handle_t	mCurChoice;
 
-		const Param* getCurrentChoice() const
+		[[nodiscard]] const Param* getCurrentChoice() const
 		{
 			return base_block_t::getParamFromHandle(mCurChoice);
 		}
@@ -2018,7 +2018,7 @@ namespace LLInitParam
 			return static_cast<DERIVED_BLOCK*>(this)->mergeBlock(getBlockDescriptor(), other, false);
 		}
 
-		virtual const BlockDescriptor& mostDerivedBlockDescriptor() const { return getBlockDescriptor(); }
+		[[nodiscard]] virtual const BlockDescriptor& mostDerivedBlockDescriptor() const { return getBlockDescriptor(); }
 		virtual BlockDescriptor& mostDerivedBlockDescriptor() { return getBlockDescriptor(); }
 
 	protected:
@@ -2330,12 +2330,12 @@ namespace LLInitParam
 			return mValue.mergeBlock(block_data, source.getValue(), overwrite);
 		}
 
-		bool validateBlock(bool emit_errors = true) const
+		[[nodiscard]] bool validateBlock(bool emit_errors = true) const
 		{
 			return mValue.validateBlock(emit_errors);
 		}
 
-		bool isValid() const
+		[[nodiscard]] bool isValid() const
 		{
 			return validateBlock(false);
 		}
@@ -2442,12 +2442,12 @@ namespace LLInitParam
 			return mValue.mergeBlock(block_data, source.getValue(), overwrite);
 		}
 
-		bool validateBlock(bool emit_errors = true) const
+		[[nodiscard]] bool validateBlock(bool emit_errors = true) const
 		{
 			return mValue.validateBlock(emit_errors);
 		}
 
-		bool isValid() const
+		[[nodiscard]] bool isValid() const
 		{
 			return validateBlock(false);
 		}
@@ -2545,12 +2545,12 @@ namespace LLInitParam
 			return source.mValue.empty() || mValue.get().mergeBlock(block_data, source.getValue(), overwrite);
 		}
 
-		bool validateBlock(bool emit_errors = true) const
+		[[nodiscard]] bool validateBlock(bool emit_errors = true) const
 		{
 			return mValue.empty() || mValue.get().validateBlock(emit_errors);
 		}
 
-		bool isValid() const
+		[[nodiscard]] bool isValid() const
 		{
 			return validateBlock(false);
 		}
@@ -2600,7 +2600,7 @@ namespace LLInitParam
 			return mValue.get().getValue();
 		}
 
-		bool isValid() const
+		[[nodiscard]] bool isValid() const
 		{
 			return true;
 		}
@@ -2631,7 +2631,7 @@ namespace LLInitParam
 
 		// block param interface
 		LL_COMMON_API bool deserializeBlock(Parser& p, Parser::name_stack_range_t& name_stack_range, bool new_name);
-		LL_COMMON_API bool serializeBlock(Parser& p, Parser::name_stack_t& name_stack, const predicate_rule_t predicate_rule, const BaseBlock* diff_block = NULL) const;
+		LL_COMMON_API bool serializeBlock(Parser& p, Parser::name_stack_t& name_stack, const predicate_rule_t predicate_rule, const BaseBlock* diff_block = nullptr) const;
 		bool inspectBlock(Parser& p, Parser::name_stack_t name_stack = Parser::name_stack_t(), S32 min_count = 0, S32 max_count = S32_MAX) const
 		{
 			//TODO: implement LLSD params as schema type Any
@@ -2688,7 +2688,7 @@ namespace LLInitParam
 			return typed_param.BaseBlock::deserializeBlock(parser, name_stack_range, new_name);
 		}
 
-		bool serializeBlock(Parser& parser, Parser::name_stack_t& name_stack, const predicate_rule_t predicate_rule, const BaseBlock* diff_block = NULL) const
+		bool serializeBlock(Parser& parser, Parser::name_stack_t& name_stack, const predicate_rule_t predicate_rule, const BaseBlock* diff_block = nullptr) const
 		{
 			const derived_t& typed_param = static_cast<const derived_t&>(*this);
 			const derived_t* diff_param = static_cast<const derived_t*>(diff_block);
