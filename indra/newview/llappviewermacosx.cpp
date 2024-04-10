@@ -67,7 +67,7 @@ class LLMediaCtrl;		// for LLURLDispatcher
 
 namespace 
 {
-	LLAppViewerMacOSX* gViewerAppPtr = NULL;
+	LLAppViewerMacOSX* gViewerAppPtr = nullptr;
     std::string gHandleSLURL;
 }
 
@@ -112,7 +112,7 @@ void handleQuit()
 bool pumpMainLoop()
 {
 	bool ret = LLApp::isQuitting();
-	if (!ret && gViewerAppPtr != NULL)
+	if (!ret && gViewerAppPtr != nullptr)
 	{
 		ret = gViewerAppPtr->frame();
 	} else {
@@ -131,7 +131,7 @@ void cleanupViewer()
 	}
 	
 	delete gViewerAppPtr;
-	gViewerAppPtr = NULL;
+	gViewerAppPtr = nullptr;
 }
 
 void clearDumpLogsDir()
@@ -390,7 +390,7 @@ void dispatchUrl(std::string url)
         url.replace(0, prefix.length(), "secondlife:///app/");
     }
     
-    LLMediaCtrl* web = NULL;
+    LLMediaCtrl* web = nullptr;
     const bool trusted_browser = false;
     LLURLDispatcher::dispatch(url, "", web, trusted_browser);
 }

@@ -50,7 +50,7 @@ namespace tut
 {
 	struct heap_buffer_data
 	{
-		heap_buffer_data() : mBuffer(NULL) {}
+		heap_buffer_data() : mBuffer(nullptr) {}
 		~heap_buffer_data() { if(mBuffer) delete mBuffer; }
 		LLHeapBuffer* mBuffer;
 	};
@@ -829,7 +829,7 @@ namespace tut
 	public:
 		PumpAndChainTestData()
 		{
-			apr_pool_create(&mPool, NULL);
+			apr_pool_create(&mPool, nullptr);
 			mPump = new LLPumpIO(mPool);
 		}
 		
@@ -909,7 +909,7 @@ namespace tut
 		pipe_and_pump_fitness()
 		{
 			LLFrameTimer::updateFrameTime();
-			apr_pool_create(&mPool, NULL);
+			apr_pool_create(&mPool, nullptr);
 			mPump = new LLPumpIO(mPool);
 			mSocket = LLSocket::create(
 				mPool,

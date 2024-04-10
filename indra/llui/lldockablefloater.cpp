@@ -96,17 +96,17 @@ void LLDockableFloater::toggleInstance(const LLSD& sdname)
 	LLDockableFloater* instance =
 			dynamic_cast<LLDockableFloater*> (LLFloaterReg::findInstance(name));
 	// if floater closed or docked
-	if (instance == NULL || (instance && instance->isDocked()))
+	if (instance == nullptr || (instance && instance->isDocked()))
 	{
 		LLFloaterReg::toggleInstance(name, key);
 		// restore button toggle state
-		if (instance != NULL)
+		if (instance != nullptr)
 		{
 			instance->storeVisibilityControl();
 		}
 	}
 	// if floater undocked
-	else if (instance != NULL)
+	else if (instance != nullptr)
 	{
 		instance->setMinimized(false);
 		if (instance->getVisible())
@@ -175,8 +175,8 @@ void LLDockableFloater::setMinimized(bool minimize)
 
 LLView * LLDockableFloater::getDockWidget()
 {
-	LLView * res = NULL;
-	if (getDockControl() != NULL) {
+	LLView * res = nullptr;
+	if (getDockControl() != nullptr) {
 		res = getDockControl()->getDock();
 	}
 

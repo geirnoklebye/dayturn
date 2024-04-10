@@ -130,19 +130,19 @@ HttpOpRequest::HttpOpRequest()
 	: HttpOperation(),
 	  mProcFlags(0U),
 	  mReqMethod(HOR_GET),
-	  mReqBody(NULL),
+	  mReqBody(nullptr),
 	  mReqOffset(0),
 	  mReqLength(0),
 	  mReqHeaders(),
 	  mReqOptions(),
 	  mCurlActive(false),
-	  mCurlHandle(NULL),
-	  mCurlService(NULL),
-	  mCurlHeaders(NULL),
+	  mCurlHandle(nullptr),
+	  mCurlService(nullptr),
+	  mCurlHeaders(nullptr),
 	  mCurlBodyPos(0),
-	  mCurlTemp(NULL),
+	  mCurlTemp(nullptr),
 	  mCurlTempLen(0),
-	  mReplyBody(NULL),
+	  mReplyBody(nullptr),
 	  mReplyOffset(0),
 	  mReplyLength(0),
 	  mReplyFullLength(0),
@@ -166,7 +166,7 @@ HttpOpRequest::~HttpOpRequest()
 	if (mReqBody)
 	{
 		mReqBody->release();
-		mReqBody = NULL;
+		mReqBody = nullptr;
 	}
 	
 	if (mCurlHandle)
@@ -174,25 +174,25 @@ HttpOpRequest::~HttpOpRequest()
 		// Uncertain of thread context so free using
 		// safest method.
 		curl_easy_cleanup(mCurlHandle);
-		mCurlHandle = NULL;
+		mCurlHandle = nullptr;
 	}
 
-	mCurlService = NULL;
+	mCurlService = nullptr;
 
 	if (mCurlHeaders)
 	{
 		curl_slist_free_all(mCurlHeaders);
-		mCurlHeaders = NULL;
+		mCurlHeaders = nullptr;
 	}
 
 	delete [] mCurlTemp;
-	mCurlTemp = NULL;
+	mCurlTemp = nullptr;
 	mCurlTempLen = 0;
 	
 	if (mReplyBody)
 	{
 		mReplyBody->release();
-		mReplyBody = NULL;
+		mReplyBody = nullptr;
 	}
 
 }
@@ -236,12 +236,12 @@ void HttpOpRequest::stageFromActive(HttpService * service)
 		// threads.
 
 		curl_slist_free_all(mCurlHeaders);
-		mCurlHeaders = NULL;
+		mCurlHeaders = nullptr;
 	}
 
 	// Also not needed on the other side
 	delete [] mCurlTemp;
-	mCurlTemp = NULL;
+	mCurlTemp = nullptr;
 	mCurlTempLen = 0;
 	
 	addAsReply();
@@ -467,19 +467,19 @@ HttpStatus HttpOpRequest::prepareRequest(HttpService * service)
 {
 	// Scrub transport and result data for retried op case
 	mCurlActive = false;
-	mCurlHandle = NULL;
-	mCurlService = NULL;
+	mCurlHandle = nullptr;
+	mCurlService = nullptr;
 	if (mCurlHeaders)
 	{
 		curl_slist_free_all(mCurlHeaders);
-		mCurlHeaders = NULL;
+		mCurlHeaders = nullptr;
 	}
 	mCurlBodyPos = 0;
 
 	if (mReplyBody)
 	{
 		mReplyBody->release();
-		mReplyBody = NULL;
+		mReplyBody = nullptr;
 	}
 	mReplyOffset = 0;
 	mReplyLength = 0;
@@ -609,7 +609,7 @@ HttpStatus HttpOpRequest::prepareRequest(HttpService * service)
 			{
 				data_size = mReqBody->size();
 			}
-			check_curl_easy_setopt(mCurlHandle, CURLOPT_POSTFIELDS, static_cast<void *>(NULL));
+			check_curl_easy_setopt(mCurlHandle, CURLOPT_POSTFIELDS, static_cast<void *>(nullptr));
 			check_curl_easy_setopt(mCurlHandle, CURLOPT_POSTFIELDSIZE, data_size);
 			mCurlHeaders = curl_slist_append(mCurlHeaders, "Expect:");
 		}
@@ -1012,13 +1012,13 @@ CURLcode HttpOpRequest::curlSslCtxCallback(CURL *curl, void *sslctx, void *userd
         if (op->mReqOptions && op->mReqOptions->getSSLVerifyPeer())
         {
             // verification for ssl certs
-            SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
+            SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, nullptr);
         }
         else
         {
             // disable any default verification for server certs
             // Ex: setting urls (assume non-SL) for parcel media in LLFloaterURLEntry
-            SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
+            SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, nullptr);
         }
 		// set the verification callback.
 		SSL_CTX_set_cert_verify_callback(ctx, sslCertVerifyCallback, userdata);
@@ -1168,14 +1168,14 @@ int parse_content_range_header(char * buffer,
 {
 	static const char * const hdr_whitespace(" \t");
 
-	char * tok_state(NULL), * tok(NULL);
+	char * tok_state(nullptr), * tok(nullptr);
 	bool match(true);
 			
 	if (! (tok = os_strtok_r(buffer, hdr_whitespace, &tok_state)))
 		match = false;
 	else
 		match = (0 == os_strcasecmp("bytes", tok));
-	if (match && ! (tok = os_strtok_r(NULL, hdr_whitespace, &tok_state)))
+	if (match && ! (tok = os_strtok_r(nullptr, hdr_whitespace, &tok_state)))
 		match = false;
 	if (match)
 	{

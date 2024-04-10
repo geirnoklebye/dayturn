@@ -73,7 +73,7 @@ const U32 VERTEX_MASK_BUMP = LLVertexBuffer::MAP_VERTEX |LLVertexBuffer::MAP_TEX
 U32 LLDrawPoolBump::sVertexMask = VERTEX_MASK_SHINY;
 
 
-static LLGLSLShader* shader = NULL;
+static LLGLSLShader* shader = nullptr;
 static S32 cube_channel = -1;
 static S32 diffuse_channel = -1;
 static S32 bump_channel = -1;
@@ -576,7 +576,7 @@ bool LLDrawPoolBump::bindBumpMap(U8 bump_code, LLViewerTexture* texture, F32 vsi
 		return false;
 	}
 
-	LLViewerTexture* bump = NULL;
+	LLViewerTexture* bump = nullptr;
 
 	switch( bump_code )
 	{
@@ -878,10 +878,10 @@ LLViewerTexture* LLBumpImageList::getBrightnessDarknessImage(LLViewerFetchedText
 {
 	llassert( (bump_code == BE_BRIGHTNESS) || (bump_code == BE_DARKNESS) );
 
-	LLViewerTexture* bump = NULL;
+	LLViewerTexture* bump = nullptr;
 	
-	bump_image_map_t* entries_list = NULL;
-	void (*callback_func)( bool success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, bool final, void* userdata ) = NULL;
+	bump_image_map_t* entries_list = nullptr;
+	void (*callback_func)( bool success, LLViewerFetchedTexture *src_vi, LLImageRaw* src, LLImageRaw* aux_src, S32 discard_level, bool final, void* userdata ) = nullptr;
 
 	switch( bump_code )
 	{
@@ -895,7 +895,7 @@ LLViewerTexture* LLBumpImageList::getBrightnessDarknessImage(LLViewerFetchedText
 		break;
 	default:
 		llassert(0);
-		return NULL;
+		return nullptr;
 	}
 
 	bump_image_map_t::iterator iter = entries_list->find(src_image->getID());
@@ -916,7 +916,7 @@ LLViewerTexture* LLBumpImageList::getBrightnessDarknessImage(LLViewerFetchedText
 			//(LLPipeline::sRenderDeferred && bump->getComponents() != 4))
 		{
 			src_image->setBoostLevel(LLGLTexture::BOOST_BUMP) ;
-			src_image->setLoadedCallback( callback_func, 0, true, false, new LLUUID(src_image->getID()), NULL );
+			src_image->setLoadedCallback( callback_func, 0, true, false, new LLUUID(src_image->getID()), nullptr );
 			src_image->forceToSaveRawImage(0) ;
 		}
 	}

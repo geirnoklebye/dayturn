@@ -137,9 +137,9 @@ LLUUID*	LLAvatarIconIDCache::get		(const LLUUID& avatar_id)
 {
 	std::map<LLUUID,LLAvatarIconIDCacheItem>::iterator it = mCache.find(avatar_id);
 	if(it==mCache.end())
-		return 0;
+		return nullptr;
 	if(it->second.expired())
-		return 0;
+		return nullptr;
 	return &it->second.icon_id;
 }
 

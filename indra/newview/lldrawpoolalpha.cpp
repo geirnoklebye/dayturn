@@ -63,7 +63,7 @@ static const F32 MINIMUM_ALPHA = 0.004f; // ~ 1/255
 static const F32 MINIMUM_IMPOSTOR_ALPHA = 0.1f;
 
 LLDrawPoolAlpha::LLDrawPoolAlpha(U32 type) :
-		LLRenderPass(type), target_shader(NULL),
+		LLRenderPass(type), target_shader(nullptr),
 		mColorSFactor(LLRender::BF_UNDEF), mColorDFactor(LLRender::BF_UNDEF),
 		mAlphaSFactor(LLRender::BF_UNDEF), mAlphaDFactor(LLRender::BF_UNDEF)
 {
@@ -608,7 +608,7 @@ void LLDrawPoolAlpha::renderAlpha(U32 mask, bool depth_only, bool rigged)
 
 				LLRenderPass::applyModelMatrix(params);
 
-				LLMaterial* mat = NULL;
+				LLMaterial* mat = nullptr;
 
 				if (deferred_render)
 				{

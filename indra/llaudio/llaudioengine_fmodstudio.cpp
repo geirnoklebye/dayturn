@@ -46,15 +46,15 @@
 
 FMOD_RESULT F_CALLBACK windCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer, float *outbuffer, unsigned int length, int inchannels, int *outchannels);
 
-FMOD::ChannelGroup *LLAudioEngine_FMODSTUDIO::mChannelGroups[LLAudioEngine::AUDIO_TYPE_COUNT] = {0};
+FMOD::ChannelGroup *LLAudioEngine_FMODSTUDIO::mChannelGroups[LLAudioEngine::AUDIO_TYPE_COUNT] = {nullptr};
 
 LLAudioEngine_FMODSTUDIO::LLAudioEngine_FMODSTUDIO(bool enable_profiler)
 :   mInited(false),
-    mWindGen(NULL),
-    mWindDSP(NULL),
-    mSystem(NULL),
+    mWindGen(nullptr),
+    mWindDSP(nullptr),
+    mSystem(nullptr),
     mEnableProfiler(enable_profiler),
-    mWindDSPDesc(NULL)
+    mWindDSPDesc(nullptr)
 {
 }
 
@@ -120,7 +120,7 @@ bool LLAudioEngine_FMODSTUDIO::init(void* userdata, const std::string &app_title
     // initialize the FMOD engine
     // number of channel in this case looks to be identiacal to number of max simultaneously
     // playing objects and we can set practically any number
-    result = mSystem->init(LL_MAX_AUDIO_CHANNELS + 2, fmod_flags, 0);
+    result = mSystem->init(LL_MAX_AUDIO_CHANNELS + 2, fmod_flags, nullptr);
     if (Check_FMOD_Error(result, "Error initializing FMOD Studio with default settins, retrying with other format"))
     {
         result = mSystem->setSoftwareFormat(44100, FMOD_SPEAKERMODE_STEREO, 0/*- ignore*/);
@@ -128,7 +128,7 @@ bool LLAudioEngine_FMODSTUDIO::init(void* userdata, const std::string &app_title
         {
             return false;
         }
-        result = mSystem->init(LL_MAX_AUDIO_CHANNELS + 2, fmod_flags, 0);
+        result = mSystem->init(LL_MAX_AUDIO_CHANNELS + 2, fmod_flags, nullptr);
     }
     if (Check_FMOD_Error(result, "Error initializing FMOD Studio"))
     {
@@ -151,7 +151,7 @@ bool LLAudioEngine_FMODSTUDIO::init(void* userdata, const std::string &app_title
     LL_INFOS("AppInit") << "LLAudioEngine_FMODSTUDIO::init(): r_bufferlength=" << r_bufferlength << " bytes" << LL_ENDL;
     LL_INFOS("AppInit") << "LLAudioEngine_FMODSTUDIO::init(): r_numbuffers=" << r_numbuffers << LL_ENDL;
 
-    mSystem->getDriverInfo(0, r_name, 511, NULL, &r_samplerate, NULL, &r_channels);
+    mSystem->getDriverInfo(0, r_name, 511, nullptr, &r_samplerate, nullptr, &r_channels);
     r_name[511] = '\0';
     LL_INFOS("AppInit") << "LLAudioEngine_FMODSTUDIO::init(): r_name=\"" << r_name << "\"" << LL_ENDL;
 
@@ -208,7 +208,7 @@ void LLAudioEngine_FMODSTUDIO::shutdown()
     LL_INFOS("FMOD") << "LLAudioEngine_FMODSTUDIO::shutdown() done closing FMOD Studio" << LL_ENDL;
 
     delete mListenerp;
-    mListenerp = NULL;
+    mListenerp = nullptr;
 }
 
 
@@ -281,21 +281,21 @@ void LLAudioEngine_FMODSTUDIO::cleanupWind()
 {
     if (mWindDSP)
     {
-        FMOD::ChannelGroup* master_group = NULL;
+        FMOD::ChannelGroup* master_group = nullptr;
         if (!Check_FMOD_Error(mSystem->getMasterChannelGroup(&master_group), "FMOD::System::getMasterChannelGroup")
             && master_group)
         {
             master_group->removeDSP(mWindDSP);
         }
         mWindDSP->release();
-        mWindDSP = NULL;
+        mWindDSP = nullptr;
     }
 
     delete mWindDSPDesc;
-    mWindDSPDesc = NULL;
+    mWindDSPDesc = nullptr;
 
     delete mWindGen;
-    mWindGen = NULL;
+    mWindGen = nullptr;
 }
 
 
@@ -341,7 +341,7 @@ void LLAudioEngine_FMODSTUDIO::setInternalGain(F32 gain)
 
     gain = llclamp(gain, 0.0f, 1.0f);
 
-    FMOD::ChannelGroup* master_group = NULL;
+    FMOD::ChannelGroup* master_group = nullptr;
     if (!Check_FMOD_Error(mSystem->getMasterChannelGroup(&master_group), "FMOD::System::getMasterChannelGroup")
         && master_group)
     {
@@ -361,7 +361,7 @@ void LLAudioEngine_FMODSTUDIO::setInternalGain(F32 gain)
 // LLAudioChannelFMODSTUDIO implementation
 //
 
-LLAudioChannelFMODSTUDIO::LLAudioChannelFMODSTUDIO(FMOD::System *system) : LLAudioChannel(), mSystemp(system), mChannelp(NULL), mLastSamplePos(0)
+LLAudioChannelFMODSTUDIO::LLAudioChannelFMODSTUDIO(FMOD::System *system) : LLAudioChannel(), mSystemp(system), mChannelp(nullptr), mLastSamplePos(0)
 {
 }
 
@@ -402,7 +402,7 @@ bool LLAudioChannelFMODSTUDIO::updateBuffer()
         // setup.
         if (!mChannelp)
         {
-            FMOD_RESULT result = getSystem()->playSound(soundp, NULL /*free channel?*/, true, &mChannelp);
+            FMOD_RESULT result = getSystem()->playSound(soundp, nullptr /*free channel?*/, true, &mChannelp);
             Check_FMOD_Error(result, "FMOD::System::playSound");
         }
 
@@ -501,8 +501,8 @@ void LLAudioChannelFMODSTUDIO::cleanup()
     //Cleaning up channel mChannelID
     Check_FMOD_Error(mChannelp->stop(), "FMOD::Channel::stop");
 
-    mCurrentBufferp = NULL;
-    mChannelp = NULL;
+    mCurrentBufferp = nullptr;
+    mChannelp = nullptr;
 }
 
 
@@ -565,7 +565,7 @@ bool LLAudioChannelFMODSTUDIO::isPlaying()
 //
 
 
-LLAudioBufferFMODSTUDIO::LLAudioBufferFMODSTUDIO(FMOD::System *system) : mSystemp(system), mSoundp(NULL)
+LLAudioBufferFMODSTUDIO::LLAudioBufferFMODSTUDIO(FMOD::System *system) : mSystemp(system), mSoundp(nullptr)
 {
 }
 
@@ -575,7 +575,7 @@ LLAudioBufferFMODSTUDIO::~LLAudioBufferFMODSTUDIO()
     if (mSoundp)
     {
         mSoundp->release();
-        mSoundp = NULL;
+        mSoundp = nullptr;
     }
 }
 
@@ -600,7 +600,7 @@ bool LLAudioBufferFMODSTUDIO::loadWAV(const std::string& filename)
     {
         // If there's already something loaded in this buffer, clean it up.
         mSoundp->release();
-        mSoundp = NULL;
+        mSoundp = nullptr;
     }
 
     FMOD_MODE base_mode = FMOD_LOOP_NORMAL;
@@ -668,7 +668,7 @@ FMOD_RESULT F_CALLBACK windCallback(FMOD_DSP_STATE *dsp_state, float *inbuffer, 
     // outbuffer = the buffer passed from the previous DSP unit.
     // length = length in samples at this mix time.
 
-    LLWindGen<LLAudioEngine_FMODSTUDIO::MIXBUFFERFORMAT> *windgen = NULL;
+    LLWindGen<LLAudioEngine_FMODSTUDIO::MIXBUFFERFORMAT> *windgen = nullptr;
     FMOD::DSP *thisdsp = (FMOD::DSP *)dsp_state->instance;
 
     thisdsp->getUserData((void **)&windgen);

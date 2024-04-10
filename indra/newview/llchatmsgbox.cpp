@@ -38,7 +38,7 @@ class ChatSeparator : public LLTextSegment
 public:
 	ChatSeparator(S32 start, S32 end)
 	:	LLTextSegment(start, end),
-		mEditor(NULL)
+		mEditor(nullptr)
 	{}
 
 	/*virtual*/ void linkToDocument(class LLTextBase* editor)
@@ -48,7 +48,7 @@ public:
 
 	/*virtual*/ void unlinkFromDocument(class LLTextBase* editor)
 	{
-		mEditor = NULL;
+		mEditor = nullptr;
 	}
 
 	/*virtual*/ S32 getWidth(S32 first_char, S32 num_chars) const

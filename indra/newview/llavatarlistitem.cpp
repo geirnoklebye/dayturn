@@ -68,16 +68,16 @@ LLAvatarListItem::Params::Params()
 LLAvatarListItem::LLAvatarListItem(bool not_from_ui_factory/* = true*/)
 :	LLPanel(),
 	LLFriendObserver(),
-	mAvatarIcon(NULL),
-	mAvatarName(NULL),
-	mLastInteractionTime(NULL),
-	mIconPermissionOnline(NULL),
-	mIconPermissionMap(NULL),
-	mIconPermissionEditMine(NULL),
-	mIconPermissionEditTheirs(NULL),
-	mSpeakingIndicator(NULL),
-	mInfoBtn(NULL),
-	mProfileBtn(NULL),
+	mAvatarIcon(nullptr),
+	mAvatarName(nullptr),
+	mLastInteractionTime(nullptr),
+	mIconPermissionOnline(nullptr),
+	mIconPermissionMap(nullptr),
+	mIconPermissionEditMine(nullptr),
+	mIconPermissionEditTheirs(nullptr),
+	mSpeakingIndicator(nullptr),
+	mInfoBtn(nullptr),
+	mProfileBtn(nullptr),
 	mOnlineStatus(E_UNKNOWN),
 	mShowInfoBtn(true),
 	mShowProfileBtn(true),
@@ -97,7 +97,7 @@ LLAvatarListItem::LLAvatarListItem(bool not_from_ui_factory/* = true*/)
 	mShowFirstSeen(false),
 	mShowStatusFlags(false),
 	mShowPaymentStatus(false),
-	mPaymentStatus(NULL),
+	mPaymentStatus(nullptr),
 	mAvatarAge(0),
  	//colouring based on contact sets
 	mUseContactColors(false),
@@ -851,7 +851,7 @@ bool LLAvatarListItem::showPermissions(bool visible)
 		mIconPermissionEditTheirs->setVisible(false);
 	}
 
-	return NULL != relation;
+	return nullptr != relation;
 }
 
 LLView* LLAvatarListItem::getItemChildView(EAvatarListItemChildIndex child_view_index)

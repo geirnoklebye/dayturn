@@ -47,7 +47,7 @@ LLChannelManager::LLChannelManager()
 {
 	LLAppViewer::instance()->setOnLoginCompletedCallback(boost::bind(&LLChannelManager::onLoginCompleted, this));
 	mChannelList.clear();
-	mStartUpChannel = NULL;
+	mStartUpChannel = nullptr;
 
 	if(!gViewerWindow)
 	{
@@ -165,7 +165,7 @@ void LLChannelManager::onStartUpToastClose()
 		mStartUpChannel->setVisible(false);
 		mStartUpChannel->closeStartUpToast();
 		removeChannelByID(STARTUP_CHANNEL_UUID);
-		mStartUpChannel = NULL;
+		mStartUpChannel = nullptr;
 	}
 
 	// set StartUp Toast Flag to allow all other channels to show incoming toasts
@@ -177,7 +177,7 @@ void LLChannelManager::onStartUpToastClose()
 LLScreenChannelBase*	LLChannelManager::addChannel(LLScreenChannelBase* channel)
 {
 	if(!channel)
-		return 0;
+		return nullptr;
 
 	ChannelElem new_elem;
 	new_elem.id = channel->getChannelID();
@@ -216,7 +216,7 @@ LLScreenChannelBase* LLChannelManager::findChannelByID(const LLUUID& id)
 		return (*it).channel.get();
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 //--------------------------------------------------------------------------
@@ -247,7 +247,7 @@ void LLChannelManager::killToastsFromChannel(const LLUUID& channel_id, const LLS
 	LLScreenChannel
 			* screen_channel =
 					dynamic_cast<LLScreenChannel*> (findChannelByID(channel_id));
-	if (screen_channel != NULL)
+	if (screen_channel != nullptr)
 	{
 		screen_channel->killMatchedToasts(matcher);
 	}
@@ -260,7 +260,7 @@ LLNotificationsUI::LLScreenChannel* LLChannelManager::getNotificationScreenChann
 	(LLNotificationsUI::LLChannelManager::getInstance()->
 										findChannelByID(NOTIFICATION_CHANNEL_UUID));
 
-	if (channel == NULL)
+	if (channel == nullptr)
 	{
 		LL_WARNS() << "Can't find screen channel by Notification Channel UUID" << LL_ENDL;
 		llassert(!"Can't find screen channel by Notification Channel UUID");

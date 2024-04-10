@@ -136,7 +136,7 @@ LLCurrencyUIManager::Impl::Impl(LLPanel& dialog)
 	mUserEnteredCurrencyBuy(false),
 	mSupportsInternationalBilling(false),
 	mBought(false),
-	mTransactionType(TransactionNone), mTransaction(0),
+	mTransactionType(TransactionNone), mTransaction(nullptr),
 	mCurrencyChanged(false)
 {
 	clearEstimate();
@@ -343,7 +343,7 @@ bool LLCurrencyUIManager::Impl::checkTransaction()
 		return false;
 	}
 
-	if (mTransaction->status(NULL) != LLXMLRPCTransaction::StatusComplete)
+	if (mTransaction->status(nullptr) != LLXMLRPCTransaction::StatusComplete)
 	{
 		setError(mTransaction->statusMessage(), mTransaction->statusURI());
 	}
@@ -357,7 +357,7 @@ bool LLCurrencyUIManager::Impl::checkTransaction()
 	}
 	
 	delete mTransaction;
-	mTransaction = NULL;
+	mTransaction = nullptr;
 	mTransactionType = TransactionNone;
 	
 	return true;

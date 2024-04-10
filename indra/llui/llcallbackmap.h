@@ -48,8 +48,8 @@ public:
 		return (void*)panel;
 	}
 	
-	LLCallbackMap() : mCallback(NULL), mData(NULL) { }
-	LLCallbackMap(callback_t callback, void* data = NULL) : mCallback(callback), mData(data) { }
+	LLCallbackMap() : mCallback(NULL), mData(nullptr) { }
+	LLCallbackMap(callback_t callback, void* data = nullptr) : mCallback(callback), mData(data) { }
 
 	callback_t	mCallback;
 	void*		mData;

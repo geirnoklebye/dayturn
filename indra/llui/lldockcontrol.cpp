@@ -38,7 +38,7 @@ LLDockControl::LLDockControl(LLView* dockWidget, LLFloater* dockableFloater,
 {
 	mDockAt = dockAt;
 
-	if (dockWidget != NULL)
+	if (dockWidget != nullptr)
 	{
 		mDockWidgetHandle = dockWidget->getHandle();
 	}
@@ -61,12 +61,12 @@ LLDockControl::LLDockControl(LLView* dockWidget, LLFloater* dockableFloater,
 		mGetAllowedRectCallback = get_allowed_rect_callback;
 	}
 
-	if (dockWidget != NULL) 
+	if (dockWidget != nullptr)
 	{
 		repositionDockable();
 	}
 
-	if (getDock() != NULL)
+	if (getDock() != nullptr)
 	{
 		mDockWidgetVisible = isDockVisible();
 	}
@@ -82,7 +82,7 @@ LLDockControl::~LLDockControl()
 
 void LLDockControl::setDock(LLView* dockWidget)
 {
-	if (dockWidget != NULL)
+	if (dockWidget != nullptr)
 	{
 		mDockWidgetHandle = dockWidget->getHandle();
 		repositionDockable();
@@ -124,7 +124,7 @@ void LLDockControl::repositionDockable()
 			off();
 			LLDockableFloater* dockable_floater =
 					dynamic_cast<LLDockableFloater*> (mDockableFloater);
-			if(dockable_floater != NULL)
+			if(dockable_floater != nullptr)
 			{
 				dockable_floater->onDockHidden();
 			}
@@ -137,7 +137,7 @@ void LLDockControl::repositionDockable()
 			}
 			LLDockableFloater* dockable_floater =
 					dynamic_cast<LLDockableFloater*> (mDockableFloater);
-			if(dockable_floater != NULL)
+			if(dockable_floater != nullptr)
 			{
 				dockable_floater->onDockShown();
 			}
@@ -155,7 +155,7 @@ bool LLDockControl::isDockVisible()
 {
 	bool res = true;
 
-	if (getDock() != NULL)
+	if (getDock() != nullptr)
 	{
 		//we should check all hierarchy
 		res = getDock()->isInVisibleChain();
@@ -201,7 +201,7 @@ void LLDockControl::moveDockable()
 	bool use_tongue = false;
 	LLDockableFloater* dockable_floater =
 			dynamic_cast<LLDockableFloater*> (mDockableFloater);
-	if (dockable_floater != NULL)
+	if (dockable_floater != nullptr)
 	{
 		use_tongue = dockable_floater->getUseTongue();
 	}
@@ -370,7 +370,7 @@ void LLDockControl::drawToungue()
 	bool use_tongue = false;
 	LLDockableFloater* dockable_floater =
 			dynamic_cast<LLDockableFloater*> (mDockableFloater);
-	if (dockable_floater != NULL)
+	if (dockable_floater != nullptr)
 	{
 		use_tongue = dockable_floater->getUseTongue();
 	}

@@ -103,7 +103,7 @@ static void on_avatar_name_cache_notify(const LLUUID& agent_id,
 ///----------------------------------------------------------------------------
 
 LLAvatarTracker::LLAvatarTracker() :
-	mTrackingData(NULL),
+	mTrackingData(nullptr),
 	mTrackedAgentValid(false),
 	mModifyMask(0x0),
 	mIsNotifyObservers(false)
@@ -323,14 +323,14 @@ void LLAvatarTracker::terminateBuddy(const LLUUID& id)
 // get all buddy info
 const LLRelationship* LLAvatarTracker::getBuddyInfo(const LLUUID& id) const
 {
-	if(id.isNull()) return NULL;
+	if(id.isNull()) return nullptr;
 	return get_ptr_in_map(mBuddyInfo, id);
 }
 
 bool LLAvatarTracker::isBuddy(const LLUUID& id) const
 {
 	LLRelationship* info = get_ptr_in_map(mBuddyInfo, id);
-	return (info != NULL);
+	return (info != nullptr);
 }
 
 // online status
@@ -450,7 +450,7 @@ void LLAvatarTracker::deleteTrackingData()
 {
 	//make sure mTrackingData never points to freed memory
 	LLTrackingData* tmp = mTrackingData;
-	mTrackingData = NULL;
+	mTrackingData = nullptr;
 	delete tmp;
 }
 
@@ -740,7 +740,7 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 	if(count > 0)
 	{
 		LLUUID agent_id;
-		const LLRelationship* info = NULL;
+		const LLRelationship* info = nullptr;
 		LLUUID tracking_id;
 		if(mTrackingData)
 		{

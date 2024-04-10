@@ -49,13 +49,13 @@ const F32 INVENTORY_POLLING_INTERVAL = 5.0f;
 
 AOEngine::AOEngine() :
 	LLSingleton<AOEngine>(),
-	mCurrentSet(NULL),
-	mDefaultSet(NULL),
+	mCurrentSet(nullptr),
+	mDefaultSet(nullptr),
 	mEnabled(false),
 	mEnabledStands(false),
 	mInMouselook(false),
 	mUnderWater(false),
-	mImportSet(NULL),
+	mImportSet(nullptr),
 	mImportCategory(LLUUID::null),
 	mAOFolder(LLUUID::null),
 	mLastMotion(ANIM_AGENT_STAND),
@@ -122,7 +122,7 @@ void AOEngine::clear(bool aFromTimer)
 	mOldSets.insert(mOldSets.end(), mSets.begin(), mSets.end());
 	mSets.clear();
 
-	mCurrentSet = NULL;
+	mCurrentSet = nullptr;
 
 	//<ND/> FIRE-3801; We cannot delete any AOSet object if we're called from a timer tick. AOSet is derived from LLEventTimer and destruction will
 	// fail in ~LLInstanceTracker when a destructor runs during iteration.
@@ -1526,7 +1526,7 @@ void AOEngine::reload(bool aFromTimer)
 
 AOSet* AOEngine::getSetByName(const std::string& name) const
 {
-	AOSet* found = NULL;
+	AOSet* found = nullptr;
 	for (U32 index = 0; index < mSets.size(); ++index)
 	{
 		if (mSets[index]->getName().compare(name) == 0)
@@ -1593,7 +1593,7 @@ AOSet* AOEngine::selectSetByName(const std::string& name)
 		return set;
 	}
 	LL_WARNS("AOEngine") << "Could not find AO set " << name << LL_ENDL;
-	return NULL;
+	return nullptr;
 }
 
 const std::vector<AOSet*> AOEngine::getSetList() const
@@ -2018,7 +2018,7 @@ void AOEngine::parseNotecard(const char* buffer)
 		LL_WARNS("AOEngine") << "buffer==NULL - aborting import" << LL_ENDL;
 		// NOTE: cleanup is always the same, needs streamlining
 		delete mImportSet;
-		mImportSet = 0;
+		mImportSet = nullptr;
 		mUpdatedSignal();
 		return;
 	}
@@ -2043,7 +2043,7 @@ void AOEngine::parseNotecard(const char* buffer)
 	{
 		LLNotificationsUtil::add("AOImportNoText", LLSD());
 		delete mImportSet;
-		mImportSet = 0;
+		mImportSet = nullptr;
 		mUpdatedSignal();
 		return;
 	}
@@ -2053,7 +2053,7 @@ void AOEngine::parseNotecard(const char* buffer)
 	{
 		LLNotificationsUtil::add("AOImportNoFolder", LLSD());
 		delete mImportSet;
-		mImportSet = 0;
+		mImportSet = nullptr;
 		mUpdatedSignal();
 		return;
 	}
@@ -2149,7 +2149,7 @@ void AOEngine::parseNotecard(const char* buffer)
 		LLNotificationsUtil::add("AOImportInvalid", LLSD());
 		// NOTE: cleanup is always the same, needs streamlining
 		delete mImportSet;
-		mImportSet = NULL;
+		mImportSet = nullptr;
 		mUpdatedSignal();
 		return;
 	}
@@ -2172,7 +2172,7 @@ void AOEngine::processImport(bool aFromTimer)
 				// NOTE: cleanup is the same as at the end of this function. Needs streamlining.
 				mTimerCollection.enableImportTimer(false);
 				delete mImportSet;
-				mImportSet = NULL;
+				mImportSet = nullptr;
 				mImportCategory.setNull();
 				mUpdatedSignal();
 				LLSD args;
@@ -2223,7 +2223,7 @@ void AOEngine::processImport(bool aFromTimer)
 	{
 		mTimerCollection.enableImportTimer(false);
 		mOldImportSets.push_back(mImportSet); //<ND/> FIRE-3801; Cannot delete here, or LLInstanceTracker gets upset. Just remember and delete mOldImportSets once we can. 
-		mImportSet = NULL;
+		mImportSet = nullptr;
 		mImportCategory.setNull();
 		reload(aFromTimer);
 	}

@@ -115,8 +115,8 @@ void LLDrawable::init(bool new_entry)
 	mGeneration = -1;	
 	mSpatialBridge = NULL;
 
-	LLViewerOctreeEntry* entry = NULL;
-	LLVOCacheEntry* vo_entry = NULL;
+	LLViewerOctreeEntry* entry = nullptr;
+	LLVOCacheEntry* vo_entry = nullptr;
 	if(!new_entry && mVObjp && getRegion() != NULL)
 	{
 		vo_entry = getRegion()->getCacheEntryForOctree(mVObjp->getLocalID());
@@ -137,7 +137,7 @@ void LLDrawable::init(bool new_entry)
 
 		if(vo_entry->getNumOfChildren() > 0)
 		{
-			getRegion()->addVisibleChildCacheEntry(vo_entry, NULL); //to load all children.
+			getRegion()->addVisibleChildCacheEntry(vo_entry, nullptr); //to load all children.
 		}		
 
 		llassert(!vo_entry->getGroup()); //not in the object cache octree.
@@ -232,7 +232,7 @@ LLVOVolume* LLDrawable::getVOVolume() const
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -581,7 +581,7 @@ void LLDrawable::makeStatic(bool warning_enabled)
 		if (mSpatialBridge)
 		{
 			mSpatialBridge->markDead();
-			setSpatialBridge(NULL);
+			setSpatialBridge(nullptr);
 		}
 		updatePartition();
 	}
@@ -1142,7 +1142,7 @@ void LLDrawable::setGroup(LLViewerOctreeGroup *groupp)
 */
 LLSpatialPartition* LLDrawable::getSpatialPartition()
 { 
-	LLSpatialPartition* retval = NULL;
+	LLSpatialPartition* retval = nullptr;
 
 	if (!mVObjp || 
 		!getVOVolume() ||
@@ -1164,21 +1164,21 @@ LLSpatialPartition* LLDrawable::getSpatialPartition()
 				// Was/became HUD
 				// remove obsolete bridge
 				mSpatialBridge->markDead();
-				setSpatialBridge(NULL);
+				setSpatialBridge(nullptr);
 			}
 			else if ((partition_type == LLViewerRegion::PARTITION_CONTROL_AV) != is_animesh)
 			{
 				// Was/became part of animesh
 				// remove obsolete bridge
                 mSpatialBridge->markDead();
-				setSpatialBridge(NULL);
+				setSpatialBridge(nullptr);
 			}
 			else if ((partition_type == LLViewerRegion::PARTITION_AVATAR) != is_attachment)
 			{
 				// Was/became part of avatar
 				// remove obsolete bridge
                 mSpatialBridge->markDead();
-				setSpatialBridge(NULL);
+				setSpatialBridge(nullptr);
 			}
 		}
 		//must be an active volume
@@ -1216,7 +1216,7 @@ LLSpatialPartition* LLDrawable::getSpatialPartition()
 	if (retval && mSpatialBridge.notNull())
 	{
 		mSpatialBridge->markDead();
-		setSpatialBridge(NULL);
+		setSpatialBridge(nullptr);
 	}
 	
 	return retval;
@@ -1270,7 +1270,7 @@ LLSpatialBridge::~LLSpatialBridge()
 void LLSpatialBridge::destroyTree()
 {
 	delete mOctree;
-	mOctree = NULL;
+	mOctree = nullptr;
 }
 
 void LLSpatialBridge::updateSpatialExtents()
@@ -1543,7 +1543,7 @@ void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* 
 
 void LLSpatialBridge::updateDistance(LLCamera& camera_in, bool force_update)
 {
-	if (mDrawable == NULL)
+	if (mDrawable == nullptr)
 	{
 		markDead();
 		return;
@@ -1630,7 +1630,7 @@ void LLSpatialBridge::cleanupReferences()
 	LLDrawable::cleanupReferences();
 	if (mDrawable)
 	{
-		mDrawable->setGroup(NULL);
+		mDrawable->setGroup(nullptr);
 
 		if (mDrawable->getVObj())
 		{
@@ -1642,7 +1642,7 @@ void LLSpatialBridge::cleanupReferences()
 				LLDrawable* drawable = child->mDrawable;					
 				if (drawable)
 				{
-					drawable->setGroup(NULL);				
+					drawable->setGroup(nullptr);
 				}
 				}
 			}
@@ -1654,7 +1654,7 @@ void LLSpatialBridge::cleanupReferences()
 
 		// </FS:ND>
 
-		mDrawable = NULL;
+		mDrawable = nullptr;
 		drawablep->setSpatialBridge(NULL);
 	}
 }

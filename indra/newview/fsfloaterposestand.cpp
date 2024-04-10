@@ -23,7 +23,7 @@
 
 FSFloaterPoseStand::FSFloaterPoseStand(const LLSD& key)
 :	LLFloater(key),
-	mComboPose(NULL),
+	mComboPose(nullptr),
 	mPoseStandLock(false),
 	mAOPaused(false)
 {
@@ -65,8 +65,8 @@ void FSFloaterPoseStand::onOpen(const LLSD& key)
 	}
 	gAgent.stopCurrentAnimations(true);
 	gAgent.setCustomAnim(true);
-	gFocusMgr.setKeyboardFocus(NULL);
-	gFocusMgr.setMouseCapture(NULL);
+	gFocusMgr.setKeyboardFocus(nullptr);
+	gFocusMgr.setMouseCapture(nullptr);
 	std::string last_pose = gSavedSettings.getString("FSPoseStandLastSelectedPose");
 	if (!last_pose.empty())
 	{

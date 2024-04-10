@@ -48,7 +48,7 @@ LLContainerView::LLContainerView(const LLContainerView::Params& p)
 	mLabel(p.label),
 	mDisplayChildren(p.display_children)
 {
-	mScrollContainer = NULL;
+	mScrollContainer = nullptr;
 }
 
 LLContainerView::~LLContainerView()

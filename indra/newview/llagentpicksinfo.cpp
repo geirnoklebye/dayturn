@@ -84,7 +84,7 @@ private:
 //////////////////////////////////////////////////////////////////////////
 
 LLAgentPicksInfo::LLAgentPicksInfo()
- : mAgentPicksObserver(NULL)
+ : mAgentPicksObserver(nullptr)
  , mMaxNumberOfPicks(MAX_AVATAR_PICKS)
  // Disable Pick creation until we get number of Picks from server - in case 
  // avatar has maximum number of Picks.

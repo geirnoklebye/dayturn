@@ -553,7 +553,7 @@ void setControlValueCB(const LLCommandLineParser::token_vector_t& value,
     // compound types
     // ?...
 
-    if(NULL != ctrl)
+    if(nullptr != ctrl)
     {
         switch(ctrl->type())
         {

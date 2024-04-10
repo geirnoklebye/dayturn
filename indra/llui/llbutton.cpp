@@ -175,9 +175,9 @@ LLButton::LLButton(const LLButton::Params& p)
 	mForcePressedState(false),
 	mDisplayPressedState(p.display_pressed_state),
 	mLastDrawCharsCount(0),
-	mMouseDownSignal(NULL),
-	mMouseUpSignal(NULL),
-	mHeldDownSignal(NULL),
+	mMouseDownSignal(nullptr),
+	mMouseUpSignal(nullptr),
+	mHeldDownSignal(nullptr),
 	mUseDrawContextAlpha(p.use_draw_context_alpha),
 	mHandleRightMouse(p.handle_right_mouse),
 	mButtonFlashCount(p.button_flash_count),
@@ -185,9 +185,9 @@ LLButton::LLButton(const LLButton::Params& p)
 	// mButtonFlashRate(p.button_flash_rate)
 	mButtonFlashRate(p.button_flash_rate),
 	mCheckboxControl(p.checkbox_control),
-	mCheckboxControlPanel(NULL),
+	mCheckboxControlPanel(nullptr),
 	// </FS:Zi>
-	mFlashingTimer(NULL)
+	mFlashingTimer(nullptr)
 
 {
 	if (p.button_flash_enable)
@@ -518,7 +518,7 @@ bool LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
         resetMouseDownTimer();
 
 		// Always release the mouse
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( nullptr );
 
 		/*
 		 * ATTENTION! This call fires another mouse up callback.
@@ -589,7 +589,7 @@ bool	LLButton::handleRightMouseUp(S32 x, S32 y, MASK mask)
 		if( hasMouseCapture() )
 		{
 			// Always release the mouse
-			gFocusMgr.setMouseCapture( NULL );
+			gFocusMgr.setMouseCapture( nullptr );
 
 	//		if (pointInView(x, y))
 	//		{
@@ -691,8 +691,8 @@ void LLButton::draw()
 	LLColor4 highlighting_color = LLColor4::white;
 	LLColor4 glow_color = LLColor4::white;
 	LLRender::eBlendType glow_type = LLRender::BT_ADD_WITH_ALPHA;
-    LLUIImage* imagep = NULL;
-    LLUIImage* image_glow = NULL;
+    LLUIImage* imagep = nullptr;
+    LLUIImage* image_glow = nullptr;
 
     //  Cancel sticking of color, if the button is pressed,
 	//  or when a flashing of the previously selected button is ended
@@ -851,7 +851,7 @@ void LLButton::draw()
 
 	// Draw button image, if available.
 	// Otherwise draw basic rectangular button.
-	if (imagep != NULL)
+	if (imagep != nullptr)
 	{
 		// apply automatic 50% alpha fade to disabled image
 		LLColor4 disabled_color = mFadeWhenDisabled ? mDisabledImageColor.get() % 0.5f : mDisabledImageColor.get();
@@ -1013,7 +1013,7 @@ void LLButton::draw()
 
 void LLButton::drawBorder(LLUIImage* imagep, const LLColor4& color, S32 size)
 {
-	if (imagep == NULL) return;
+	if (imagep == nullptr) return;
 	if (mScaleImage)
 	{
 		imagep->drawBorder(getLocalRect(), color, size);

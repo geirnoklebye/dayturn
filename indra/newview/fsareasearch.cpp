@@ -159,7 +159,7 @@ FSAreaSearch::~FSAreaSearch()
 	{
 		LLViewerParcelMgr::getInstance()->removeObserver(mParcelChangedObserver);
 		delete mParcelChangedObserver;
-		mParcelChangedObserver = NULL;
+		mParcelChangedObserver = nullptr;
 	}
 }
 
@@ -1296,8 +1296,8 @@ void FSAreaSearch::onCommitCheckboxRegex()
 
 FSPanelAreaSearchList::FSPanelAreaSearchList(FSAreaSearch* pointer)
 :	LLPanel(),
-	mCounterText(0),
-	mResultList(0),
+	mCounterText(nullptr),
+	mResultList(nullptr),
 	mFSAreaSearch(pointer),
 	mFSAreaSearchColumnConfigConnection()
 {

@@ -311,7 +311,7 @@ bool LLAutoReplaceSettings::listNameMatches( const LLSD& list, const std::string
 
 const LLSD* LLAutoReplaceSettings::getListEntries(std::string listName)
 {
-	const LLSD* returnedEntries = NULL;
+	const LLSD* returnedEntries = nullptr;
 	for( LLSD::array_const_iterator list = mLists.beginArray(), endList = mLists.endArray();
 		 returnedEntries == NULL && list != endList;
 		 list++
@@ -443,7 +443,7 @@ bool LLAutoReplaceSettings::listIsValid(const LLSD& list)
 
 const LLSD* LLAutoReplaceSettings::exportList(std::string listName)
 {
-	const LLSD* exportedList = NULL;
+	const LLSD* exportedList = nullptr;
 	for ( LLSD::array_const_iterator list = mLists.beginArray(), listEnd = mLists.endArray();
 		  exportedList == NULL && list != listEnd;
 		  list++

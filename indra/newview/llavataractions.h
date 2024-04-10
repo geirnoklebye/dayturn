@@ -272,7 +272,7 @@ public:
 	 *
 	 * @return false if the selected items cannot be shared or the active inventory panel cannot be obtained
 	 */
-	static bool canShareSelectedItems(LLInventoryPanel* inv_panel = NULL);
+	static bool canShareSelectedItems(LLInventoryPanel* inv_panel = nullptr);
 
 	/**
 	 * Builds a string of residents' display names separated by "words_separator" string.

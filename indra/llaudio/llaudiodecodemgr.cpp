@@ -165,7 +165,7 @@ LLVorbisDecodeState::LLVorbisDecodeState(const LLUUID &uuid, const std::string &
 	mValid = false;
 	mBytesRead = -1;
 	mUUID = uuid;
-	mInFilep = NULL;
+	mInFilep = nullptr;
 	mCurrentSection = 0;
 	mOutFilename = out_filename;
 	mFileHandle = LLLFSThread::nullHandle();
@@ -180,7 +180,7 @@ LLVorbisDecodeState::~LLVorbisDecodeState()
 	if (!mDone)
 	{
 		delete mInFilep;
-		mInFilep = NULL;
+		mInFilep = nullptr;
 	}
 }
 
@@ -200,11 +200,11 @@ bool LLVorbisDecodeState::initDecode()
 	{
 		LL_WARNS("AudioEngine") << "unable to open vorbis source vfile for reading" << LL_ENDL;
 		delete mInFilep;
-		mInFilep = NULL;
+		mInFilep = nullptr;
 		return false;
 	}
 
-	S32 r = ov_open_callbacks(mInFilep, &mVF, NULL, 0, cache_callbacks);
+	S32 r = ov_open_callbacks(mInFilep, &mVF, nullptr, 0, cache_callbacks);
 	if(r < 0) 
 	{
 		LL_WARNS("AudioEngine") << r << " Input to vorbis decode does not appear to be an Ogg bitstream: " << mUUID << LL_ENDL;
@@ -256,7 +256,7 @@ bool LLVorbisDecodeState::initDecode()
 			LL_WARNS("AudioEngine") << "Bad asset encoded by: " << comment->vendor << LL_ENDL;
 		}
 		delete mInFilep;
-		mInFilep = NULL;
+		mInFilep = nullptr;
 		return false;
 	}
 
@@ -269,7 +269,7 @@ bool LLVorbisDecodeState::initDecode()
 	{
 		LL_WARNS("AudioEngine") << "Out of memory when trying to alloc buffer: " << size_guess << LL_ENDL;
 		delete mInFilep;
-		mInFilep = NULL;
+		mInFilep = nullptr;
 		return false;
 	}
 

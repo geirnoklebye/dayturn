@@ -72,7 +72,7 @@ LLDerenderEntry* LLDerenderEntry::fromLLSD(const LLSD& sdData)
 		case TYPE_AVATAR:
 			return new LLDerenderAvatar(sdData);
 		default:
-			return NULL;
+			return nullptr;
 	}
 }
 
@@ -98,7 +98,7 @@ LLDerenderObject::LLDerenderObject(const LLSelectNode* pNode, bool fPersist)
 	//
 	// Fill in all object related information
 	//
-	const LLViewerObject* pObj = (pNode) ? pNode->getObject() : NULL;
+	const LLViewerObject* pObj = (pNode) ? pNode->getObject() : nullptr;
 	if (!pObj)
 		return;
 
