@@ -166,9 +166,9 @@ LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary* LLAvatarAppearance::sAv
 LLAvatarAppearance::LLAvatarAppearance(LLWearableData* wearable_data) :
 	LLCharacter(),
 	mIsDummy(false),
-	mTexSkinColor( NULL ),
-	mTexHairColor( NULL ),
-	mTexEyeColor( NULL ),
+	mTexSkinColor(NULL),
+	mTexHairColor(NULL),
+	mTexEyeColor(NULL),
 	mPelvisToFoot(0.f),
 	mHeadOffset(),
 	mRoot(NULL),

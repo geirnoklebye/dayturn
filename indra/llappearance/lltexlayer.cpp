@@ -745,15 +745,15 @@ bool LLTexLayerInfo::createVisualParams(LLAvatarAppearance *appearance)
 
 LLTexLayerInterface::LLTexLayerInterface(LLTexLayerSet* const layer_set):
 	mTexLayerSet( layer_set ),
-	mMorphMasksValid( false ),
-	mInfo(NULL),
+	mMorphMasksValid(false),
+	mInfo(nullptr),
 	mHasMorph(false)
 {
 }
 
 LLTexLayerInterface::LLTexLayerInterface(const LLTexLayerInterface &layer, LLWearable *wearable):
 	mTexLayerSet( layer.mTexLayerSet ),
-	mInfo(NULL)
+	mInfo(nullptr)
 {
 	// don't add visual params for cloned layers
 	setInfo(layer.getInfo(), wearable);
@@ -765,7 +765,7 @@ bool LLTexLayerInterface::setInfo(const LLTexLayerInfo *info, LLWearable* wearab
 {
 	// setInfo should only be called once. Code is not robust enough to handle redefinition of a texlayer.
 	// Not a critical warning, but could be useful for debugging later issues. -Nyx
-	if (mInfo != NULL) 
+	if (mInfo != nullptr)
 	{
 			LL_WARNS() << "mInfo != NULL" << LL_ENDL;
 	}
@@ -906,7 +906,7 @@ void LLTexLayerInterface::invalidateMorphMasks()
 
 LLViewerVisualParam* LLTexLayerInterface::getVisualParamPtr(S32 index) const
 {
-	LLViewerVisualParam *result = NULL;
+	LLViewerVisualParam *result = nullptr;
 	for (LLTexLayerParamColor* param : mParamColorList)
 	{
 		if (param->getID() == index)
@@ -940,13 +940,13 @@ LLViewerVisualParam* LLTexLayerInterface::getVisualParamPtr(S32 index) const
 //-----------------------------------------------------------------------------
 LLTexLayer::LLTexLayer(LLTexLayerSet* const layer_set) :
 	LLTexLayerInterface( layer_set ),
-	mLocalTextureObject(NULL)
+	mLocalTextureObject(nullptr)
 {
 }
 
 LLTexLayer::LLTexLayer(const LLTexLayer &layer, LLWearable *wearable) :
 	LLTexLayerInterface( layer, wearable ),
-	mLocalTextureObject(NULL)
+	mLocalTextureObject(nullptr)
 {
 }
 
@@ -1092,13 +1092,13 @@ bool LLTexLayer::render(S32 x, S32 y, S32 width, S32 height, LLRenderTarget* bou
 	if( (getInfo()->mLocalTexture != -1) && !getInfo()->mUseLocalTextureAlphaOnly )
 	{
 		{
-			LLGLTexture* tex = NULL;
+			LLGLTexture* tex = nullptr;
 			if (mLocalTextureObject && mLocalTextureObject->getImage())
 			{
 				tex = mLocalTextureObject->getImage();
 				if (mLocalTextureObject->getID() == IMG_DEFAULT_AVATAR)
 				{
-					tex = NULL;
+					tex = nullptr;
 				}
 			}
 			else
@@ -1409,7 +1409,7 @@ void LLTexLayer::renderMorphMasks(S32 x, S32 y, S32 width, S32 height, const LLC
 		}
 
 		U32 cache_index = alpha_mask_crc.getCRC();
-		U8* alpha_data = NULL; 
+		U8* alpha_data = nullptr;
                 // We believe we need to generate morph masks, do not assume that the cached version is accurate.
                 // We can get bad morph masks during login, on minimize, and occasional gl errors.
                 // We should only be doing this when we believe something has changed with respect to the user's appearance.
@@ -1617,11 +1617,11 @@ LLTexLayer* LLTexLayerTemplate::getLayer(U32 i) const
 {
 	if (mWearableCache.size() <= i)
 	{
-		return NULL;
+		return nullptr;
 	}
 	LLWearable *wearable = mWearableCache[i];
-	LLLocalTextureObject *lto = NULL;
-	LLTexLayer *layer = NULL;
+	LLLocalTextureObject *lto = nullptr;
+	LLTexLayer *layer = nullptr;
 	if (wearable)
 	{
 		 lto = wearable->getLocalTextureObject(mInfo->mLocalTexture);
@@ -1756,7 +1756,7 @@ LLTexLayerInterface*  LLTexLayerSet::findLayerByName(const std::string& name)
 			return layer;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void LLTexLayerSet::cloneTemplates(LLLocalTextureObject *lto, LLAvatarAppearanceDefines::ETextureIndex tex_index, LLWearable *wearable)
@@ -1847,7 +1847,7 @@ LLImageTGA* LLTexLayerStaticImageList::getImageTGA(const std::string& file_name)
 		}
 		else
 		{
-			return NULL;
+			return nullptr;
 		}
 	}
 }

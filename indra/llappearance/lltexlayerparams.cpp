@@ -43,9 +43,9 @@
 LLTexLayerParam::LLTexLayerParam(LLTexLayerInterface *layer)
 	: LLViewerVisualParam(),
 	mTexLayer(layer),
-	mAvatarAppearance(NULL)
+	mAvatarAppearance(nullptr)
 {
-	if (mTexLayer != NULL)
+	if (mTexLayer != nullptr)
 	{
 		mAvatarAppearance = mTexLayer->getTexLayerSet()->getAvatarAppearance();
 	}
@@ -57,7 +57,7 @@ LLTexLayerParam::LLTexLayerParam(LLTexLayerInterface *layer)
 
 LLTexLayerParam::LLTexLayerParam(LLAvatarAppearance *appearance)
 	: LLViewerVisualParam(),
-	mTexLayer(NULL),
+	mTexLayer(nullptr),
 	mAvatarAppearance(appearance)
 {
 }
@@ -183,7 +183,7 @@ bool LLTexLayerParamAlpha::getMultiplyBlend() const
 
 void LLTexLayerParamAlpha::setWeight(F32 weight)
 {
-	if (mIsAnimating || mTexLayer == NULL)
+	if (mIsAnimating || mTexLayer == nullptr)
 	{
 		return;
 	}

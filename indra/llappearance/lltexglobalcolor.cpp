@@ -38,7 +38,7 @@ class LLWearable;
 LLTexGlobalColor::LLTexGlobalColor(LLAvatarAppearance* appearance)
 	:
 	mAvatarAppearance(appearance),
-	mInfo(NULL)
+	mInfo(nullptr)
 {
 }
 
