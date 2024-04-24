@@ -671,7 +671,7 @@ bool LLVOCachePartition::addEntry(LLViewerOctreeEntry* entry)
 	
 void LLVOCachePartition::removeEntry(LLViewerOctreeEntry* entry)
 {
-	entry->getVOCacheEntry()->setGroup(NULL);
+	entry->getVOCacheEntry()->setGroup(nullptr);
 
 	llassert(!entry->getGroup());
 }
@@ -1263,7 +1263,7 @@ void LLVOCache::readCacheHeader()
 		
 		if(success)
 		{
-			HeaderEntryInfo* entry = NULL ;
+			HeaderEntryInfo* entry = nullptr ;
 			mNumEntries = 0 ;
 			U32 num_read = 0 ;
 			while(num_read++ < MAX_NUM_OBJECT_ENTRIES)
@@ -1278,7 +1278,7 @@ void LLVOCache::readCacheHeader()
 				{
 					LL_WARNS() << "Error reading cache header entry. (entry_index=" << mNumEntries << ")" << LL_ENDL;
 					delete entry ;
-					entry = NULL ;
+					entry = nullptr ;
 					break ;
 				}
 				else if(entry->mTime == INVALID_TIME)
@@ -1289,7 +1289,7 @@ void LLVOCache::readCacheHeader()
 				entry->mIndex = mNumEntries++ ;
 				mHeaderEntryQueue.insert(entry) ;
 				mHandleEntryMap[entry->mHandle] = entry ;
-				entry = NULL ;
+				entry = nullptr ;
 			}
 			if(entry)
 			{

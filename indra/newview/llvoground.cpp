@@ -85,7 +85,7 @@ bool LLVOGround::updateGeometry(LLDrawable *drawable)
 	LLDrawPoolGround *poolp = (LLDrawPoolGround*) gPipeline.getPool(LLDrawPool::POOL_GROUND);
 
 	if (drawable->getNumFaces() < 1)
-		drawable->addFace(poolp, NULL);
+		drawable->addFace(poolp, nullptr);
 	face = drawable->getFace(0); 
 	if (!face)
 		return true;

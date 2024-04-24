@@ -70,7 +70,7 @@ S32 LLVOGrass::sMaxGrassSpecies = 0;
 LLVOGrass::LLVOGrass(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 :	LLAlphaObject(id, pcode, regionp)
 {
-	mPatch               = NULL;
+	mPatch               = nullptr;
 	mLastPatchUpdateTime = 0;
 	mGrassVel.clearVec();
 	mGrassBend.clearVec();
@@ -445,7 +445,7 @@ void LLVOGrass::plantBlades()
 		face->setTexture(getTEImage(0));
 		face->setState(LLFace::GLOBAL);
 		face->setSize(mNumBlades * 8, mNumBlades * 12);
-		face->setVertexBuffer(NULL);
+		face->setVertexBuffer(nullptr);
 		face->setTEOffset(0);
 		face->mCenterLocal = mPosition + mRegionp->getOriginAgent();
 	}
@@ -878,18 +878,18 @@ bool LLVOGrass::lineSegmentIntersect(const LLVector4a& start, const LLVector4a& 
 					getTEImage(0)->getMask(hit_tc))
 				{
 					closest_t = t;
-					if (intersection != NULL)
+					if (intersection != nullptr)
 					{
 						dir.mul(closest_t);
 						intersection->setAdd(start, dir);
 					}
 
-					if (tex_coord != NULL)
+					if (tex_coord != nullptr)
 					{
 						*tex_coord = hit_tc;
 					}
 
-					if (normal != NULL)
+					if (normal != nullptr)
 					{
 						normal->load3(normal1.mV);
 					}
