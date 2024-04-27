@@ -86,6 +86,13 @@ std::string LLDate::asRFC1123() const
 	return toHTTPDateString (std::string ("%A, %d %b %Y %H:%M:%S GMT"));
 }
 
+std::string LLDate::toLocalDateString (std::string fmt) const
+{
+    time_t locSeconds = (time_t) mSecondsSinceEpoch;
+    struct tm * lt = localtime (&locSeconds);
+    return toHTTPDateString(lt, fmt);
+}
+
 std::string LLDate::toHTTPDateString (std::string fmt) const
 {
 	time_t locSeconds = (time_t) mSecondsSinceEpoch;
