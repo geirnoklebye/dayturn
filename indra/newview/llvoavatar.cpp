@@ -2646,6 +2646,26 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
         return;
     }
 
+    LLCachedControl<bool> friends_only(gSavedSettings, "RenderAvatarFriendsOnly", false);
+    if (friends_only()
+        && !isUIAvatar()
+        && !isControlAvatar()
+        && !isSelf()
+        && !isBuddy())
+    {
+        if (mNameText)
+        {
+            mNameIsSet = false;
+            mNameText->markDead();
+            mNameText = NULL;
+            sNumVisibleChatBubbles--;
+        }
+        deleteParticleSource();
+        mVoiceVisualizer->setVoiceEnabled(false);
+
+        return;
+    }
+
 	static LLCachedControl<bool> disable_all_render_types(gSavedSettings, "DisableAllRenderTypes");
 	if (!(gPipeline.hasRenderType(mIsControlAvatar ? LLPipeline::RENDER_TYPE_CONTROL_AV : LLPipeline::RENDER_TYPE_AVATAR))
 		&& !disable_all_render_types && !isSelf())
@@ -11512,4 +11532,9 @@ void LLVOAvatar::revokePermissionsOnObject(LLViewerObject *sit_object)
 		gMessageSystem->addU32Fast(_PREHASH_ObjectPermissions, 0xFFFFFFFF);
 		gAgent.sendReliableMessage();
 	}
+}
+
+bool LLVOAvatar::isBuddy() const
+{
+    return LLAvatarTracker::instance().isBuddy(getID());
 }
