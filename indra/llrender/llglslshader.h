@@ -75,8 +75,8 @@ public:
     template<typename T>
     struct UniformSetting
     {
-        S32 mUniform;
-        T mValue;
+        S32 mUniform{0};
+        T mValue{};
     };
 
     typedef UniformSetting<S32> IntSetting;

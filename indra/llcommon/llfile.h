@@ -99,7 +99,7 @@ public:
     // no copy
     LLUniqueFile(const LLUniqueFile&) = delete;
     // move construction
-    LLUniqueFile(LLUniqueFile&& other)
+    LLUniqueFile(LLUniqueFile&& other) noexcept
     {
         mFileHandle = other.mFileHandle;
         other.mFileHandle = nullptr;
@@ -120,7 +120,7 @@ public:
     // copy assignment deleted
     LLUniqueFile& operator=(const LLUniqueFile&) = delete;
     // move assignment
-    LLUniqueFile& operator=(LLUniqueFile&& other)
+    LLUniqueFile& operator=(LLUniqueFile&& other) noexcept
     {
         close();
         std::swap(mFileHandle, other.mFileHandle);

@@ -239,7 +239,7 @@ public:
 
 
 	private:
-		S32 mValue;
+		S32 mValue{0};
 	};
 
 	//
