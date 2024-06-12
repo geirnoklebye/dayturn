@@ -9920,13 +9920,9 @@ bool LLPipeline::getVisiblePointCloud(LLCamera& camera, LLVector3& min, LLVector
 			fp.push_back(pp[i]);
 		}
 	}
-	
-	if (fp.empty())
-	{
-		return false;
-	}
-	
-	return true;
+
+	return !fp.empty();
+
 }
 
 void LLPipeline::renderHighlight(const LLViewerObject* obj, F32 fade)
@@ -11146,14 +11142,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar, bool preview_avatar)
 
 		LLGLDisable blend(GL_BLEND);
 
-		if (visually_muted || too_complex)
-		{
-			gGL.setColorMask(true, true);
-		}
-		else
-		{
-			gGL.setColorMask(false, true);
-		}
+		gGL.setColorMask(visually_muted || too_complex, true);
 		
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 

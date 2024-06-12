@@ -261,7 +261,7 @@ void LLAccordionCtrl::showScrollbar(S32 width, S32 height)
 
 void LLAccordionCtrl::hideScrollbar(S32 width, S32 height)
 {
-	if (mScrollbar->getVisible() == false)
+	if (!mScrollbar->getVisible())
 		return;
 	mScrollbar->setVisible(false);
 
@@ -387,7 +387,7 @@ void LLAccordionCtrl::updateNoTabsHelpTextVisibility()
 		}
 	}
 
-	mNoVisibleTabsHelpText->setVisible(visible_exists ? false : true);
+	mNoVisibleTabsHelpText->setVisible(!visible_exists);
 }
 
 void LLAccordionCtrl::arrangeSingle()
@@ -403,7 +403,7 @@ void LLAccordionCtrl::arrangeSingle()
 	{
 		LLAccordionCtrlTab* accordion_tab = dynamic_cast<LLAccordionCtrlTab*>(mAccordionTabs[i]);
 		
-		if (accordion_tab->getVisible() == false) // Skip hidden accordion tabs
+		if (!accordion_tab->getVisible()) // Skip hidden accordion tabs
 			continue;
 		if (!accordion_tab->isExpanded() )
 		{
@@ -417,7 +417,7 @@ void LLAccordionCtrl::arrangeSingle()
 	{
 		LLAccordionCtrlTab* accordion_tab = dynamic_cast<LLAccordionCtrlTab*>(mAccordionTabs[i]);
 		
-		if (accordion_tab->getVisible() == false) // Skip hidden accordion tabs
+		if (!accordion_tab->getVisible()) // Skip hidden accordion tabs
 			continue;
 		if (!accordion_tab->isExpanded() )
 		{
@@ -465,7 +465,7 @@ void LLAccordionCtrl::arrangeMultiple()
 	{
 		LLAccordionCtrlTab* accordion_tab = dynamic_cast<LLAccordionCtrlTab*>(mAccordionTabs[i]);
 		
-		if (accordion_tab->getVisible() == false) // Skip hidden accordion tabs
+		if (!accordion_tab->getVisible()) // Skip hidden accordion tabs
 			continue;
 		
 		if (!accordion_tab->isExpanded() )
@@ -621,7 +621,7 @@ bool LLAccordionCtrl::autoScroll (S32 x, S32 y)
 		}
 	}
 
-	return scrolling ? true : false;
+	return scrolling;
 }
 
 void LLAccordionCtrl::updateLayout(S32 width, S32 height)
