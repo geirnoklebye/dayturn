@@ -206,7 +206,7 @@ LLOSInfo::LLOSInfo() :
 		DWORD cbData(sizeof(DWORD));
 		DWORD data(0);
 		HKEY key;
-		BOOL ret_code = RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &key);
+		LSTATUS ret_code = RegOpenKeyExW(HKEY_LOCAL_MACHINE, TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"), 0, KEY_READ, &key);
 		if (ERROR_SUCCESS == ret_code)
 		{
 			ret_code = RegQueryValueExW(key, L"UBR", 0, NULL, reinterpret_cast<LPBYTE>(&data), &cbData);
