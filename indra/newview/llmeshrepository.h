@@ -465,7 +465,7 @@ public:
 	void doWholeModelUpload();
 	void requestWholeModelFee();
 
-	void wholeModelToLLSD(LLSD& dest, bool include_textures);
+    void wholeModelToLLSD(LLSD& dest, std::vector<std::string>& texture_list_dest, bool include_textures);
 
 	void decomposeMeshMatrix(LLMatrix4& transformation,
 							 LLVector3& result_pos,
@@ -484,8 +484,9 @@ private:
 	LLHandle<LLWholeModelFeeObserver> mFeeObserverHandle;
 	LLHandle<LLWholeModelUploadObserver> mUploadObserverHandle;
 
-	bool mDoUpload; // if FALSE only model data will be requested, otherwise the model will be uploaded
+	bool mDoUpload; // if false only model data will be requested, otherwise the model will be uploaded
 	LLSD mModelData;
+    std::vector<std::string> mTextureFiles;
 	
 	// llcorehttp library interface objects.
 	LLCore::HttpStatus					mHttpStatus;
