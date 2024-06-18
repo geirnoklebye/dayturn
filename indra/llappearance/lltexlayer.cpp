@@ -1053,7 +1053,7 @@ bool LLTexLayer::render(S32 x, S32 y, S32 width, S32 height, LLRenderTarget* bou
 		// However, we can't do this optimization if we have morph masks that need updating.
 /*		if (!mHasMorph)
 		{
-			BOOL skip_layer = TRUE;
+			bool skip_layer = true;
 
 			while( iter != mParamAlphaList.end() )
 			{
@@ -1061,7 +1061,7 @@ bool LLTexLayer::render(S32 x, S32 y, S32 width, S32 height, LLRenderTarget* bou
 		
 				if( !param->getSkip() )
 				{
-					skip_layer = FALSE;
+					skip_layer = false;
 					break;
 				}
 
