@@ -2646,7 +2646,7 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
         return;
     }
 
-    LLCachedControl<bool> friends_only(gSavedSettings, "RenderAvatarFriendsOnly", false);
+    static LLCachedControl<bool> friends_only(gSavedSettings, "RenderAvatarFriendsOnly", false);
     if (friends_only()
         && !isUIAvatar()
         && !isControlAvatar()
