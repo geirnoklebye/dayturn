@@ -81,6 +81,7 @@ void LLMemory::initMaxHeapSizeGB(F32Gigabytes max_heap_size)
 //static 
 void LLMemory::updateMemoryInfo() 
 {
+    U32Kilobytes avail_phys; 
 #if LL_WINDOWS
 	PROCESS_MEMORY_COUNTERS counters;
 
@@ -91,22 +92,11 @@ void LLMemory::updateMemoryInfo()
 	}
 
 	sAllocatedMemInKB = U32Kilobytes::convert(U64Bytes(counters.WorkingSetSize));
-	sample(sAllocatedMem, sAllocatedMemInKB);
 	sAllocatedPageSizeInKB = U32Kilobytes::convert(U64Bytes(counters.PagefileUsage));
 	sample(sVirtualMem, sAllocatedPageSizeInKB);
 
-	U32Kilobytes avail_phys, avail_virtual;
+    U32Kilobytes avail_virtual; 
 	LLMemoryInfo::getAvailableMemoryKB(avail_phys, avail_virtual) ;
-	sMaxPhysicalMemInKB = llmin(avail_phys + sAllocatedMemInKB, sMaxHeapSizeInKB);
-
-	if(sMaxPhysicalMemInKB > sAllocatedMemInKB)
-	{
-		sAvailPhysicalMemInKB = sMaxPhysicalMemInKB - sAllocatedMemInKB ;
-	}
-	else
-	{
-		sAvailPhysicalMemInKB = U32Kilobytes(0);
-	}
 
 #elif defined(LL_DARWIN)
     task_vm_info info;
@@ -143,10 +133,9 @@ void LLMemory::updateMemoryInfo()
     if (result == KERN_SUCCESS) {
         // This is what Chrome reports as 'the "Physical Memory Free" value reported by the Memory Monitor in Instruments.'
         // Note though that inactive pages are not included here and not yet free, but could become so under memory pressure.
-        sAvailPhysicalMemInKB = U32Bytes(vmstat.free_count * page_size);
-
-        sMaxPhysicalMemInKB = LLMemoryInfo::getHardwareMemSize();
-      }
+        avail_phys = U32Bytes(vmstat.free_count * page_size);
+        sMaxHeapSizeInKB = LLMemoryInfo::getHardwareMemSize();
+    }
     else
     {
         LL_WARNS() << "task_info failed" << LL_ENDL;
@@ -154,11 +143,23 @@ void LLMemory::updateMemoryInfo()
 
 #else
 	//not valid for other systems for now.
+    LL_WARNS() << "LLMemory::updateMemoryInfo() not implemented for this platform." << LL_ENDL;
 	sAllocatedMemInKB = U64Bytes(LLMemory::getCurrentRSS());
 	sMaxPhysicalMemInKB = U64Bytes(U32_MAX);
 	sAvailPhysicalMemInKB = U64Bytes(U32_MAX);
 #endif
+    sample(sAllocatedMem, sAllocatedMemInKB);
+    // sMaxPhysicalMem - max this process can use = the lesser of (what we already have + what's available) or MaxHeap
+    sMaxPhysicalMemInKB = llmin(avail_phys + sAllocatedMemInKB, sMaxHeapSizeInKB); 
 
+    if(sMaxPhysicalMemInKB > sAllocatedMemInKB)
+    {
+        sAvailPhysicalMemInKB = sMaxPhysicalMemInKB - sAllocatedMemInKB ;
+    }
+    else
+    {
+        sAvailPhysicalMemInKB = U32Kilobytes(0);
+    }
 	return ;
 }
 
