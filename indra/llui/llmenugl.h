@@ -531,7 +531,7 @@ public:
 	void setTornOff(bool torn_off);
 	bool getTornOff() { return mTornOff; }
 
-	bool getCanTearOff() { return mTearOffItem != NULL; }
+	bool getCanTearOff() { return mTearOffItem != nullptr; }
 
 	KEY getJumpKey() const { return mJumpKey; }
 	void setJumpKey(KEY key) { mJumpKey = key; }
@@ -680,8 +680,8 @@ public:
 
 	virtual void openMenu();
 
-	virtual LLView* getChildView(const std::string& name, bool recurse = true) const;
-	virtual LLView* findChildView(const std::string& name, bool recurse = true) const;
+    virtual LLView* getChildView(std::string_view name, bool recurse = true) const;
+    virtual LLView* findChildView(std::string_view name, bool recurse = true) const;
 
 private:
 	LLHandle<LLView> mBranchHandle;
@@ -716,7 +716,7 @@ public:
 	// can't set visibility directly, must call show or hide
 	virtual void	setVisible			(bool visible);
 	
-	virtual void	show				(S32 x, S32 y, LLView* spawning_view = NULL);
+	virtual void	show				(S32 x, S32 y, LLView* spawning_view = nullptr);
 	virtual void	hide				();
 
 	virtual bool	handleHover			( S32 x, S32 y, MASK mask );
@@ -844,7 +844,7 @@ public:
 	virtual bool handleKey(KEY key, MASK mask, bool called_from_parent);
 	virtual const LLRect getMenuRect() const { return getLocalRect(); }
 	LLView*const getVisibleMenu() const;
-	virtual bool hasVisibleMenu() const {return getVisibleMenu() != NULL;}
+	virtual bool hasVisibleMenu() const {return getVisibleMenu() != nullptr;}
 
 	static void setActivatedItem(LLMenuItemGL* item);
 

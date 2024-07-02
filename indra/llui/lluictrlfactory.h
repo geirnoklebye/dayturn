@@ -131,7 +131,7 @@ public:
 	void popFileName();
 
 	template<typename T>
-	static T* create(typename T::Params& params, LLView* parent = NULL)
+	static T* create(typename T::Params& params, LLView* parent = nullptr)
 	{
 		params.fillFrom(instance().mParamDefaultsMap.obtain<
 						ParamDefaults<typename T::Params, 0> >().get());
@@ -172,7 +172,7 @@ public:
 					LL_WARNS() << "Widget in " << filename << " was of type " << typeid(view).name() << " instead of expected type " << typeid(T).name() << LL_ENDL;
 
 					deleteView(view);
-					view = NULL;
+					view = nullptr;
 				}
 			}
 		}
@@ -182,10 +182,10 @@ fail:
 	}
 
 	template<class T>
-	static T* getDefaultWidget(const std::string& name)
+    static T* getDefaultWidget(std::string_view name)
 	{
 		typename T::Params widget_params;
-		widget_params.name = name;
+        widget_params.name = std::string(name);
 		return create<T>(widget_params);
 	}
 
@@ -207,7 +207,7 @@ private:
 	static void loadWidgetTemplate(const std::string& widget_tag, LLInitParam::BaseBlock& block);
 
 	template<typename T>
-	static T* createWidgetImpl(const typename T::Params& params, LLView* parent = NULL)
+	static T* createWidgetImpl(const typename T::Params& params, LLView* parent = nullptr)
 	{
 		T* widget = NULL;
 

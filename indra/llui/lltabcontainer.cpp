@@ -314,7 +314,7 @@ void LLTabContainer::reshape(S32 width, S32 height, bool called_from_parent)
 }
 
 //virtual
-LLView* LLTabContainer::getChildView(const std::string& name, bool recurse) const
+LLView* LLTabContainer::getChildView(std::string_view name, bool recurse) const
 {
 	tuple_list_t::const_iterator itor;
 	for (itor = mTabList.begin(); itor != mTabList.end(); ++itor)
@@ -342,7 +342,7 @@ LLView* LLTabContainer::getChildView(const std::string& name, bool recurse) cons
 }
 
 //virtual
-LLView* LLTabContainer::findChildView(const std::string& name, bool recurse) const
+LLView* LLTabContainer::findChildView(std::string_view name, bool recurse) const
 {
 	tuple_list_t::const_iterator itor;
 	for (itor = mTabList.begin(); itor != mTabList.end(); ++itor)

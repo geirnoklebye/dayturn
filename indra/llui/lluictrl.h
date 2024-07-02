@@ -183,7 +183,7 @@ public:
 
 	bool setControlValue(const LLSD& value);
 	void setControlVariable(LLControlVariable* control);
-	virtual void setControlName(const std::string& control, LLView *context = NULL);
+	virtual void setControlName(const std::string& control, LLView *context = nullptr);
 	
 	LLControlVariable* getControlVariable() { return mControlVariable; } 
 	// <FS:Ansariel> Accessors for other ControlVariables
@@ -352,7 +352,7 @@ private:
 // Build time optimization, generate once in .cpp file
 #ifndef LLUICTRL_CPP
 extern template class LLUICtrl* LLView::getChild<class LLUICtrl>(
-	const std::string& name, bool recurse) const;
+    std::string_view name, bool recurse) const;
 #endif
 
 #endif  // LL_LLUICTRL_H
