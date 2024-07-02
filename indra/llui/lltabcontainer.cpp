@@ -1394,7 +1394,7 @@ S32 LLTabContainer::getIndexForPanel(LLPanel* panel)
 	return -1;
 }
 
-S32 LLTabContainer::getPanelIndexByTitle(const std::string& title)
+S32 LLTabContainer::getPanelIndexByTitle(std::string_view title)
 {
 	for (S32 index = 0 ; index < (S32)mTabList.size(); index++)
 	{
@@ -1406,7 +1406,7 @@ S32 LLTabContainer::getPanelIndexByTitle(const std::string& title)
 	return -1;
 }
 
-LLPanel* LLTabContainer::getPanelByName(const std::string& name)
+LLPanel* LLTabContainer::getPanelByName(std::string_view name)
 {
 	for (S32 index = 0 ; index < (S32)mTabList.size(); index++)
 	{
@@ -1632,7 +1632,7 @@ bool LLTabContainer::setTab(S32 which)
 	return is_visible;
 }
 
-bool LLTabContainer::selectTabByName(const std::string& name)
+bool LLTabContainer::selectTabByName(std::string_view name)
 {
 	LLPanel* panel = getPanelByName(name);
 	if (!panel)
