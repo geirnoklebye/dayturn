@@ -3060,13 +3060,14 @@ void FSPanelSearchWeb::loadURL(const SearchQuery &p)
 	// add the maturity and category variables to the new Second Life search URL
 //	if (LLGridManager::getInstance()->isInSecondLife())
 //	{
-		url = gSavedSettings.getString("SearchURL") + "&maturity=" + maturity + "&" + mCategoryPaths[p.category].asString();
+//		url = gSavedSettings.getString("SearchURL") + "&maturity=" + maturity + "&" + mCategoryPaths[p.category].asString();
+        url = gSavedSettings.getString("SearchURL") + "&maturity=" + maturity;
 //	}
 //	// for OpenSim, do the same as in earlier versions
 //	else
 //	{
 //		std::string debug_url = gSavedSettings.getString("SearchURLDebug");
-//		if (gSavedSettings.getBOOL("DebugSearch") && !debug_url.empty())
+//		if (gSavedSettings.getbool("DebugSearch") && !debug_url.empty())
 //		{
 //			url = debug_url;
 //		}
