@@ -2422,10 +2422,12 @@ bool LLVolume::unpackVolumeFacesInternal(const LLSD& mdl)
 				continue;
 			}
 
-			LLSD::Binary pos = mdl[i]["Position"];
-			LLSD::Binary norm = mdl[i]["Normal"];
-			LLSD::Binary tc = mdl[i]["TexCoord0"];
-			LLSD::Binary idx = mdl[i]["TriangleList"];
+            const LLSD::Binary& pos = mdl[i]["Position"].asBinary();
+            const LLSD::Binary& norm = mdl[i]["Normal"].asBinary();
+//            const LLSD::Binary& tangent = mdl[i]["Tangent"].asBinary();
+            const LLSD::Binary& tc = mdl[i]["TexCoord0"].asBinary();
+            const LLSD::Binary& idx = mdl[i]["TriangleList"].asBinary();
+
 
 			
 
@@ -2578,7 +2580,7 @@ bool LLVolume::unpackVolumeFacesInternal(const LLSD& mdl)
                     continue;
                 }
 
-				LLSD::Binary weights = mdl[i]["Weights"];
+                const LLSD::Binary& weights = mdl[i]["Weights"].asBinary();
 
 				U32 idx = 0;
 
