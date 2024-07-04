@@ -122,11 +122,17 @@ public:
 	virtual void assign(Impl*& var, LLSD::Boolean);
 	virtual void assign(Impl*& var, LLSD::Integer);
 	virtual void assign(Impl*& var, LLSD::Real);
+    virtual void assign(Impl*& var, const char*);
 	virtual void assign(Impl*& var, const LLSD::String&);
 	virtual void assign(Impl*& var, const LLSD::UUID&);
 	virtual void assign(Impl*& var, const LLSD::Date&);
 	virtual void assign(Impl*& var, const LLSD::URI&);
 	virtual void assign(Impl*& var, const LLSD::Binary&);
+    virtual void assign(Impl*& var, LLSD::String&&);
+    virtual void assign(Impl*& var, LLSD::UUID&&);
+    virtual void assign(Impl*& var, LLSD::Date&&);
+    virtual void assign(Impl*& var, LLSD::URI&&);
+    virtual void assign(Impl*& var, LLSD::Binary&&);
 		///< If the receiver is the right type and unshared, these are simple
 		//   data assignments, othewise the default implementation handless
 		//   constructing the proper Impl subclass
@@ -182,7 +188,7 @@ namespace LLSDUnnamedNamespace
 namespace 
 #endif
 {
-	template<LLSD::Type T, class Data, class DataRef = Data>
+    template<LLSD::Type T, class Data, class DataRef = Data, class DataMove = Data>
 	class ImplBase : public LLSD::Impl
 		///< This class handles most of the work for a subclass of Impl
 		//   for a given simple data type.  Subclasses of this provide the
@@ -195,7 +201,8 @@ namespace
 
 	public:
 		ImplBase(DataRef value) : mValue(value) { }
-		
+        ImplBase(DataMove value) : mValue(std::move(value)) { }
+	
 		virtual LLSD::Type type() const { return T; }
 
 		using LLSD::Impl::assign; // Unhiding base class virtuals...
@@ -209,11 +216,21 @@ namespace
 				mValue = value;
 			}
 		}
+        virtual void assign(LLSD::Impl*& var, DataMove value) {
+            if (shared())
+            {
+                Impl::assign(var, std::move(value));
+            }
+            else
+            {
+                mValue = std::move(value);
+            }
+        }
 	};
 
 	
 	class ImplBoolean
-		: public ImplBase<LLSD::TypeBoolean, LLSD::Boolean>
+        : public ImplBase<LLSD::TypeBoolean, LLSD::Boolean, LLSD::Boolean, LLSD::Boolean&&>
 	{
 	public:
 		ImplBoolean(LLSD::Boolean v) : Base(v) { }
@@ -234,7 +251,7 @@ namespace
 
 
 	class ImplInteger
-		: public ImplBase<LLSD::TypeInteger, LLSD::Integer>
+        : public ImplBase<LLSD::TypeInteger, LLSD::Integer, LLSD::Integer, LLSD::Integer&&>
 	{
 	public:
 		ImplInteger(LLSD::Integer v) : Base(v) { }
@@ -250,7 +267,7 @@ namespace
 
 
 	class ImplReal
-		: public ImplBase<LLSD::TypeReal, LLSD::Real>
+        : public ImplBase<LLSD::TypeReal, LLSD::Real, LLSD::Real, LLSD::Real&&>
 	{
 	public:
 		ImplReal(LLSD::Real v) : Base(v) { }
@@ -272,10 +289,11 @@ namespace
 
 
 	class ImplString
-		: public ImplBase<LLSD::TypeString, LLSD::String, const LLSD::String&>
+        : public ImplBase<LLSD::TypeString, LLSD::String, const LLSD::String&, LLSD::String&&>
 	{
 	public:
 		ImplString(const LLSD::String& v) : Base(v) { }
+        ImplString(LLSD::String&& v) : Base(std::move(v)) {}
 				
 		virtual LLSD::Boolean	asBoolean() const	{ return !mValue.empty(); }
 		virtual LLSD::Integer	asInteger() const;
@@ -286,6 +304,19 @@ namespace
 		virtual LLSD::URI		asURI() const	{ return LLURI(mValue); }
 		virtual size_t 			size() const	{ return mValue.size(); }
 		virtual const LLSD::String&	asStringRef() const { return mValue; }
+
+        using LLSD::Impl::assign; // Unhiding base class virtuals...
+        virtual void assign(LLSD::Impl*& var, const char* value)
+        {
+            if (shared())
+            {
+                Impl::assign(var, value);
+            }
+            else
+            {
+                mValue = value;
+            }
+        }
 	};
 	
 	LLSD::Integer	ImplString::asInteger() const
@@ -316,10 +347,11 @@ namespace
 	
 
 	class ImplUUID
-		: public ImplBase<LLSD::TypeUUID, LLSD::UUID, const LLSD::UUID&>
+        : public ImplBase<LLSD::TypeUUID, LLSD::UUID, const LLSD::UUID&, LLSD::UUID&&>
 	{
 	public:
 		ImplUUID(const LLSD::UUID& v) : Base(v) { }
+        ImplUUID(LLSD::UUID&& v) : Base(std::move(v)) { }
 				
 		virtual LLSD::String	asString() const{ return mValue.asString(); }
 		virtual LLSD::UUID		asUUID() const	{ return mValue; }
@@ -327,13 +359,17 @@ namespace
 
 
 	class ImplDate
-		: public ImplBase<LLSD::TypeDate, LLSD::Date, const LLSD::Date&>
+        : public ImplBase<LLSD::TypeDate, LLSD::Date, const LLSD::Date&, LLSD::Date&&>
 	{
 	public:
 		ImplDate(const LLSD::Date& v)
-			: ImplBase<LLSD::TypeDate, LLSD::Date, const LLSD::Date&>(v)
+            : ImplBase(v)
 			{ }
 		
+        ImplDate(LLSD::Date&& v)
+            : ImplBase(std::move(v))
+        { }
+
 		virtual LLSD::Integer asInteger() const
 		{
 			return (LLSD::Integer)(mValue.secondsSinceEpoch());
@@ -348,10 +384,11 @@ namespace
 
 
 	class ImplURI
-		: public ImplBase<LLSD::TypeURI, LLSD::URI, const LLSD::URI&>
+        : public ImplBase<LLSD::TypeURI, LLSD::URI, const LLSD::URI&, LLSD::URI&&>
 	{
 	public:
 		ImplURI(const LLSD::URI& v) : Base(v) { }
+        ImplURI(LLSD::URI&& v) : Base(std::move(v)) { }
 				
 		virtual LLSD::String	asString() const{ return mValue.asString(); }
 		virtual LLSD::URI		asURI() const	{ return mValue; }
@@ -359,10 +396,11 @@ namespace
 
 
 	class ImplBinary
-		: public ImplBase<LLSD::TypeBinary, LLSD::Binary, const LLSD::Binary&>
+        : public ImplBase<LLSD::TypeBinary, LLSD::Binary, const LLSD::Binary&, LLSD::Binary&&>
 	{
 	public:
 		ImplBinary(const LLSD::Binary& v) : Base(v) { }
+        ImplBinary(LLSD::Binary&& v) : Base(std::move(v)) { }
 				
 		virtual const LLSD::Binary&	asBinary() const{ return mValue; }
 	};
@@ -738,6 +776,11 @@ void LLSD::Impl::assign(Impl*& var, LLSD::Real v)
 	reset(var, new ImplReal(v));
 }
 
+void LLSD::Impl::assign(Impl*& var, const char* v)
+{
+    reset(var, new ImplString(v));
+}
+
 void LLSD::Impl::assign(Impl*& var, const LLSD::String& v)
 {
 	reset(var, new ImplString(v));
@@ -761,6 +804,31 @@ void LLSD::Impl::assign(Impl*& var, const LLSD::URI& v)
 void LLSD::Impl::assign(Impl*& var, const LLSD::Binary& v)
 {
 	reset(var, new ImplBinary(v));
+}
+
+void LLSD::Impl::assign(Impl*& var, LLSD::String&& v)
+{
+    reset(var, new ImplString(std::move(v)));
+}
+
+void LLSD::Impl::assign(Impl*& var, LLSD::UUID&& v)
+{
+    reset(var, new ImplUUID(std::move(v)));
+}
+
+void LLSD::Impl::assign(Impl*& var, LLSD::Date&& v)
+{
+    reset(var, new ImplDate(std::move(v)));
+}
+
+void LLSD::Impl::assign(Impl*& var, LLSD::URI&& v)
+{
+    reset(var, new ImplURI(std::move(v)));
+}
+
+void LLSD::Impl::assign(Impl*& var, LLSD::Binary&& v)
+{
+    reset(var, new ImplBinary(std::move(v)));
 }
 
 
@@ -849,6 +917,11 @@ LLSD::LLSD(const String& v) : impl(nullptr)	{ ALLOC_LLSD_OBJECT;	assign(v); }
 LLSD::LLSD(const Date& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
 LLSD::LLSD(const URI& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
 LLSD::LLSD(const Binary& v) : impl(nullptr)	{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(UUID&& v) : impl(0)          { ALLOC_LLSD_OBJECT;    assign(std::move(v)); }
+LLSD::LLSD(String&& v) : impl(0)        { ALLOC_LLSD_OBJECT;    assign(std::move(v)); }
+LLSD::LLSD(Date&& v) : impl(0)          { ALLOC_LLSD_OBJECT;    assign(std::move(v)); }
+LLSD::LLSD(URI&& v) : impl(0)           { ALLOC_LLSD_OBJECT;    assign(std::move(v)); }
+LLSD::LLSD(Binary&& v) : impl(0)        { ALLOC_LLSD_OBJECT;    assign(std::move(v)); }
 
 // Scalar Assignment
 void LLSD::assign(Boolean v)			{ safe(impl).assign(impl, v); }
@@ -859,6 +932,11 @@ void LLSD::assign(const UUID& v)		{ safe(impl).assign(impl, v); }
 void LLSD::assign(const Date& v)		{ safe(impl).assign(impl, v); }
 void LLSD::assign(const URI& v)			{ safe(impl).assign(impl, v); }
 void LLSD::assign(const Binary& v)		{ safe(impl).assign(impl, v); }
+void LLSD::assign(String&& v)           { safe(impl).assign(impl, std::move(v)); }
+void LLSD::assign(UUID&& v)             { safe(impl).assign(impl, std::move(v)); }
+void LLSD::assign(Date&& v)             { safe(impl).assign(impl, std::move(v)); }
+void LLSD::assign(URI&& v)              { safe(impl).assign(impl, std::move(v)); }
+void LLSD::assign(Binary&& v)           { safe(impl).assign(impl, std::move(v)); }
 
 // Scalar Accessors
 LLSD::Boolean	LLSD::asBoolean() const	{ return safe(impl).asBoolean(); }
@@ -876,7 +954,7 @@ const LLSD::String& LLSD::asStringRef() const { return safe(impl).asStringRef();
 LLSD::LLSD(const char* v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
 void LLSD::assign(const char* v)
 {
-	if(v) assign(std::string(v));
+    if(v) safe(impl).assign(impl, v);
 	else assign(std::string());
 }
 
