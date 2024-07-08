@@ -684,13 +684,13 @@ void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 		//KKA-878 For alwaystoast we're going to need to defeat the don't show nearby toast check coming up
 		std::string user_preferences;
 		if (CHAT_SOURCE_OBJECT == chat_msg.mSourceType)
-    {
-      user_preferences = gSavedSettings.getString("NotificationObjectIMOptions");
-    }
-    else
-    {
-      user_preferences = gSavedSettings.getString("NotificationNearbyChatOptions");
-    }
+		{
+		  user_preferences = gSavedSettings.getString("NotificationObjectIMOptions");
+		}
+		else
+		{
+		  user_preferences = gSavedSettings.getString("NotificationNearbyChatOptions");
+		}
 		//Don't show nearby toast, if conversation is visible and selected (unless 'alwaystoast' is active)
 		if ((nearby_chat->hasFocus()) ||
 			(LLFloater::isVisible(nearby_chat) && nearby_chat->isTornOff() && !nearby_chat->isMinimized()) ||
