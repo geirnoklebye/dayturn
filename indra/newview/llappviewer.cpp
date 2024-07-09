@@ -337,7 +337,6 @@ bool			gUseWireframe = false;
 //use for remember deferred mode in wireframe switch
 bool			gInitialDeferredModeForWireframe = false;
 
-LLMemoryInfo gSysMemory;
 U64Bytes gMemoryAllocated(0); // updated in display_stats() in llviewerdisplay.cpp
 
 std::string gLastVersionChannel;

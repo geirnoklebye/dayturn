@@ -81,7 +81,12 @@ void LLMemory::initMaxHeapSizeGB(F32Gigabytes max_heap_size)
 //static 
 void LLMemory::updateMemoryInfo() 
 {
-    U32Kilobytes avail_phys; 
+    sMaxPhysicalMemInKB = gSysMemory.getPhysicalMemoryKB();
+
+    U32Kilobytes avail_mem;
+    LLMemoryInfo::getAvailableMemoryKB(avail_mem);
+    sAvailPhysicalMemInKB = avail_mem;
+
 #if LL_WINDOWS
 	PROCESS_MEMORY_COUNTERS counters;
 
@@ -94,9 +99,6 @@ void LLMemory::updateMemoryInfo()
 	sAllocatedMemInKB = U32Kilobytes::convert(U64Bytes(counters.WorkingSetSize));
 	sAllocatedPageSizeInKB = U32Kilobytes::convert(U64Bytes(counters.PagefileUsage));
 	sample(sVirtualMem, sAllocatedPageSizeInKB);
-
-    U32Kilobytes avail_virtual; 
-	LLMemoryInfo::getAvailableMemoryKB(avail_phys, avail_virtual) ;
 
 #elif defined(LL_DARWIN)
     task_vm_info info;
@@ -123,43 +125,15 @@ void LLMemory::updateMemoryInfo()
         LL_WARNS() << "task_info failed" << LL_ENDL;
     }
 
-    // Total installed and available physical memory are properties of the host, not just our process.
-    vm_statistics64_data_t vmstat;
-    mach_msg_type_number_t count = HOST_VM_INFO64_COUNT;
-    mach_port_t host = mach_host_self();
-    vm_size_t page_size;
-    host_page_size(host, &page_size);
-    kern_return_t result = host_statistics64(host, HOST_VM_INFO64, reinterpret_cast<host_info_t>(&vmstat), &count);
-    if (result == KERN_SUCCESS) {
-        // This is what Chrome reports as 'the "Physical Memory Free" value reported by the Memory Monitor in Instruments.'
-        // Note though that inactive pages are not included here and not yet free, but could become so under memory pressure.
-        avail_phys = U32Bytes(vmstat.free_count * page_size);
-        sMaxHeapSizeInKB = LLMemoryInfo::getHardwareMemSize();
-    }
-    else
-    {
-        LL_WARNS() << "task_info failed" << LL_ENDL;
-    }
-
 #else
 	//not valid for other systems for now.
     LL_WARNS() << "LLMemory::updateMemoryInfo() not implemented for this platform." << LL_ENDL;
 	sAllocatedMemInKB = U64Bytes(LLMemory::getCurrentRSS());
-	sMaxPhysicalMemInKB = U64Bytes(U32_MAX);
-	sAvailPhysicalMemInKB = U64Bytes(U32_MAX);
 #endif
     sample(sAllocatedMem, sAllocatedMemInKB);
-    // sMaxPhysicalMem - max this process can use = the lesser of (what we already have + what's available) or MaxHeap
-    sMaxPhysicalMemInKB = llmin(avail_phys + sAllocatedMemInKB, sMaxHeapSizeInKB); 
 
-    if(sMaxPhysicalMemInKB > sAllocatedMemInKB)
-    {
-        sAvailPhysicalMemInKB = sMaxPhysicalMemInKB - sAllocatedMemInKB ;
-    }
-    else
-    {
-        sAvailPhysicalMemInKB = U32Kilobytes(0);
-    }
+    sAvailPhysicalMemInKB = llmin(sAvailPhysicalMemInKB, sMaxHeapSizeInKB - sAllocatedMemInKB);
+
 	return ;
 }
 
@@ -195,10 +169,10 @@ void LLMemory::logMemoryInfo(bool update)
 		updateMemoryInfo() ;
 	}
 
-	LL_INFOS() << "Current allocated physical memory(KB): " << sAllocatedMemInKB << LL_ENDL ;
-	LL_INFOS() << "Current allocated page size (KB): " << sAllocatedPageSizeInKB << LL_ENDL ;
-	LL_INFOS() << "Current available physical memory(KB): " << sAvailPhysicalMemInKB << LL_ENDL ;
-	LL_INFOS() << "Current max usable memory(KB): " << sMaxPhysicalMemInKB << LL_ENDL ;
+    LL_INFOS() << llformat("Current allocated physical memory: %.2f MB", sAllocatedMemInKB / 1024.0) << LL_ENDL;
+    LL_INFOS() << llformat("Current allocated page size: %.2f MB", sAllocatedPageSizeInKB / 1024.0) << LL_ENDL;
+    LL_INFOS() << llformat("Current available physical memory: %.2f MB", sAvailPhysicalMemInKB / 1024.0) << LL_ENDL;
+    LL_INFOS() << llformat("Current max usable memory: %.2f MB", sMaxPhysicalMemInKB / 1024.0) << LL_ENDL;
 }
 
 //static 
