@@ -2257,7 +2257,7 @@ protected:
 void process_improved_im(LLMessageSystem *msg, void **user_data)
 {
     LLUUID from_id;
-    BOOL from_group;
+    bool from_group;
     LLUUID to_id;
     U8 offline;
     U8 d = 0;
@@ -2273,7 +2273,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
     // *TODO: Translate - need to fix the full name to first/last (maybe)
     msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, from_id);
-    msg->getBOOLFast(_PREHASH_MessageBlock, _PREHASH_FromGroup, from_group);
+    msg->getboolFast(_PREHASH_MessageBlock, _PREHASH_FromGroup, from_group);
     msg->getUUIDFast(_PREHASH_MessageBlock, _PREHASH_ToAgentID, to_id);
     msg->getU8Fast(_PREHASH_MessageBlock, _PREHASH_Offline, offline);
     msg->getU8Fast(_PREHASH_MessageBlock, _PREHASH_Dialog, d);

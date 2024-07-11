@@ -43,7 +43,7 @@ public:
 	virtual ~LLEventTimer();
 
 	//function to be called at the supplied frequency
-	// Normally return FALSE; TRUE will delete the timer after the function returns.
+	// Normally return false; true will delete the timer after the function returns.
 	virtual bool tick() = 0;
 
 	static void updateClass();

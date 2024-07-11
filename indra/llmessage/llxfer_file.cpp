@@ -287,11 +287,11 @@ S32 LLXfer_File::suck(S32 start_position)
 			
 		if (feof(mFp))
 		{
-			mBufferContainsEOF = TRUE;
+			mBufferContainsEOF = true;
 		}
 		else
 		{
-			mBufferContainsEOF = FALSE;
+			mBufferContainsEOF = false;
 		}		
 	}
 	else

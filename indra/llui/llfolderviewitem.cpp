@@ -1995,7 +1995,7 @@ bool LLFolderViewFolder::handleMouseDown( S32 x, S32 y, MASK mask )
 		if(mIndentation < x && x < mIndentation + (isCollapsed() ? 0 : mArrowSize) + mTextPad)
 		{
 			toggleOpen();
-			handled = TRUE;
+			handled = true;
 		}
 		else
 		{

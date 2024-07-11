@@ -1104,7 +1104,7 @@ LLToolBarButton* LLToolBar::createButton(const LLCommandId& id)
 		{
 			// set up button's control name and make it a toggle, so it works properly
 			button_p.control_name = commandp->controlVariableName();
-			button_p.is_toggle = TRUE;
+			button_p.is_toggle = true;
 		}
 
 		if(!commandp->checkboxControlVariableName().empty())

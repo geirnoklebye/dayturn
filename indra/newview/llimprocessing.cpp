@@ -122,7 +122,7 @@ static std::string clean_name_from_im(const std::string& name, EInstantMessage t
 }
 
 static std::string clean_name_from_task_im(const std::string& msg,
-    BOOL from_group)
+    bool from_group)
 {
     boost::smatch match;
     static const boost::regex returned_exp(
@@ -416,7 +416,7 @@ static void notification_display_name_callback(const LLUUID& id,
 }
 
 void LLIMProcessing::processNewMessage(LLUUID from_id,
-    BOOL from_group,
+    bool from_group,
     LLUUID to_id,
     U8 offline,
     EInstantMessage dialog, // U8
@@ -671,7 +671,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
                 // aux_id contains group id, binary bucket contains name and asset type
                 group_id = aux_id;
                 has_inventory = binary_bucket_size > 1 ? TRUE : FALSE;
-                from_group = TRUE; // inaccurate value correction
+                from_group = true; // inaccurate value correction
                 if (has_inventory)
                 {
                     std::string str_bucket = ll_safe_string((char*)binary_bucket, binary_bucket_size);
@@ -1682,7 +1682,7 @@ void LLIMProcessing::requestOfflineMessagesCoro(std::string url)
         }
 
         // Todo: once drtsim-451 releases, remove the string option
-        BOOL from_group;
+        bool from_group;
         if (message_data["from_group"].isInteger())
         {
             from_group = message_data["from_group"].asInteger();

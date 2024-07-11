@@ -802,7 +802,7 @@ void FSFloaterObjectExport::inventoryChanged(LLViewerObject* object, LLInventory
 							    item->getType(),
 							    onLoadComplete,
 							    data,
-							    TRUE);
+							    true);
 			}
 		}
 	}

@@ -643,7 +643,7 @@ protected:
 
 	// misc
 	void							updateRects();
-	void							needsScroll() { mScrollNeeded = TRUE; }
+	void							needsScroll() { mScrollNeeded = true; }
 
 	struct URLLabelCallback;
 	// Replace a URL with a new icon and label, for example, when
