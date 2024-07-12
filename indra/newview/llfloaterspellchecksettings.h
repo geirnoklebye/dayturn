@@ -40,11 +40,13 @@ public:
 	/*virtual*/ void onClose(bool app_quitting);
 
 protected:
-	void onBtnImport();
-	void onBtnMove(const std::string& from, const std::string& to);
-	void onBtnRemove();
-	void onSpellCheckSettingsChange();
-	void refreshDictionaries(bool from_settings);
+    void onBtnImport();
+    void onBtnMove(const std::string& from, const std::string& to);
+    void onBtnRemove();
+    void onSpellCheckSettingsChange();
+    void refreshDictionaries(bool from_settings);
+
+    bool mMainSelectionChanged{ false };
 };
 
 class LLFloaterSpellCheckerImport : public LLFloater
