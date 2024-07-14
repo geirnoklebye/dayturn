@@ -239,6 +239,8 @@ protected:
 
 	virtual bool meetsRequirementsForMaximizedStart(); // Used on first login to decide to launch maximized
 
+    virtual void sendOutOfDiskSpaceNotification();
+
 private:
 
 	bool doFrame();

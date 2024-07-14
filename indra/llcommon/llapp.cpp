@@ -520,6 +520,33 @@ int LLApp::getPid()
 #endif
 }
 
+// static
+void LLApp::notifyOutOfDiskSpace()
+{
+    static U32Seconds recently_sent = U32Seconds(0);
+    static U32Seconds min_interval = U32Seconds(60);
+    U32Seconds now = LLTimer::getTotalTime();
+    if (now - recently_sent < min_interval)
+        return;
+
+    recently_sent = now;
+
+    if (LLApp* app = instance())
+    {
+        app->sendOutOfDiskSpaceNotification();
+    }
+    else
+    {
+        LL_WARNS() << "No app instance" << LL_ENDL;
+    }
+}
+
+// virtual
+void LLApp::sendOutOfDiskSpaceNotification()
+{
+    LL_WARNS() << "Should never be called" << LL_ENDL; // Should be overridden
+}
+
 #if LL_WINDOWS
 LONG WINAPI default_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)
 {

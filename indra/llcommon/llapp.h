@@ -199,6 +199,8 @@ public:
 	static bool isExiting(); // Either quitting or error (app is exiting, cleanly or not)
 	static int getPid();
 
+    static void notifyOutOfDiskSpace();
+
 	//
 	// Sleep for specified time while still running
 	//
@@ -298,6 +300,8 @@ protected:
 	  * @brief This method is called once a frame to do once a frame tasks.
 	  */
 	void stepFrame();
+
+    virtual void sendOutOfDiskSpaceNotification();
 
 private:
 	// Contains the filename of the minidump file after a crash.

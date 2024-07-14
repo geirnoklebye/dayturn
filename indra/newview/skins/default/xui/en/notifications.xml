@@ -3041,6 +3041,14 @@ This is usually a temporary failure. Please customize and save the wearable agai
   </notification>
 
   <notification
+   icon="notifytip.tga"
+   name="OutOfDiskSpace"
+   type="notifytip">
+The system is out of disk space. You will need to free up some space on your computer or clear the cache.
+<tag>fail</tag>
+  </notification>
+
+  <notification
    icon="alertmodal.tga"
    name="YouHaveBeenLoggedOut"
    type="alertmodal">
