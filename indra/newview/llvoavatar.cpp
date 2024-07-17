@@ -2636,11 +2636,14 @@ void LLVOAvatar::dumpAnimationState()
 //------------------------------------------------------------------------
 void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 {
-	if (isDead())
-	{
-		LL_INFOS() << "Warning!  Idle on dead avatar" << LL_ENDL;
-		return;
-	}
+    if (LLApp::isExiting())
+        return;
+
+    if (isDead())
+    {
+        LL_INFOS() << "Warning!  Idle on dead avatar" << LL_ENDL;
+        return;
+    }
 
 	static LLCachedControl<bool> disable_all_render_types(gSavedSettings, "DisableAllRenderTypes");
 	if (!(gPipeline.hasRenderType(mIsControlAvatar ? LLPipeline::RENDER_TYPE_CONTROL_AV : LLPipeline::RENDER_TYPE_AVATAR))
