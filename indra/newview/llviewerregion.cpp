@@ -3166,6 +3166,7 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("ObjectNavMeshProperties");
         capabilityNames.append("ReadOfflineMsgs");
 		capabilityNames.append("RegionObjects");
+    	capabilityNames.append("RegionSchedule");
         capabilityNames.append("RetrieveNavMeshSrc");
         capabilityNames.append("TerrainNavMeshProperties");
     	capabilityNames.append("UploadAgentProfileImage");

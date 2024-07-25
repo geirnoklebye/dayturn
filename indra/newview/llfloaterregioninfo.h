@@ -151,6 +151,7 @@ public:
 	void disableButton(const std::string& btn_name);
 	
 	void onClickManageTelehub();
+    void onClickManageRestartSchedule();
 	
 protected:
 	void initCtrl(const std::string& name);
@@ -170,6 +171,7 @@ protected:
 	
 	// member data
 	LLHost mHost;
+    LLHandle<LLFloater> mFloaterRestartScheduleHandle;
 };
 
 /////////////////////////////////////////////////////////////////////////////
