@@ -298,7 +298,7 @@ LLPanelObject::LLPanelObject()
     mHasClipboardPos(false),
     mHasClipboardSize(false),
     mHasClipboardRot(false),
-	mSizeChanged(FALSE)
+	mSizeChanged(false)
 {
     mCommitCallbackRegistrar.add("PanelObject.menuDoToSelected", boost::bind(&LLPanelObject::menuDoToSelected, this, _2));
     mEnableCallbackRegistrar.add("PanelObject.menuEnable", boost::bind(&LLPanelObject::menuEnableItem, this, _2));
@@ -335,7 +335,7 @@ void LLPanelObject::getState( )
 
 	LLCalc* calcp = LLCalc::getInstance();
 
-	LLVOVolume *volobjp = NULL;
+	LLVOVolume *volobjp = nullptr;
 	if ( objectp && (objectp->getPCode() == LL_PCODE_VOLUME))
 	{
 		volobjp = (LLVOVolume *)objectp;
@@ -346,7 +346,7 @@ void LLPanelObject::getState( )
 		//forfeit focus
 		if (gFocusMgr.childHasKeyboardFocus(this))
 		{
-			gFocusMgr.setKeyboardFocus(NULL);
+			gFocusMgr.setKeyboardFocus(nullptr);
 		}
 
 		// Disable all text input fields
@@ -523,10 +523,10 @@ void LLPanelObject::getState( )
 
 	S32 selected_item	= MI_BOX;
 	S32	selected_hole	= MI_HOLE_SAME;
-	BOOL enabled = FALSE;
-	BOOL hole_enabled = FALSE;
+	bool enabled = false;
+	bool hole_enabled = false;
 	F32 scale_x=1.f, scale_y=1.f;
-	BOOL isMesh = FALSE;
+	bool isMesh = false;
 	
 	if( !objectp || !objectp->getVolume() || !editable || !single_volume)
 	{
@@ -572,7 +572,7 @@ void LLPanelObject::getState( )
 		scale_x = volume_params.getRatioX();
 		scale_y = volume_params.getRatioY();
 
-		BOOL linear_path = (path == LL_PCODE_PATH_LINE) || (path == LL_PCODE_PATH_FLEXIBLE);
+		bool linear_path = (path == LL_PCODE_PATH_LINE) || (path == LL_PCODE_PATH_FLEXIBLE);
 		if ( linear_path && profile == LL_PCODE_PROFILE_CIRCLE )
 		{
 			selected_item = MI_CYLINDER;
@@ -676,7 +676,7 @@ void LLPanelObject::getState( )
 		else
 		{
 			mComboHoleType->setCurrentByIndex( MI_HOLE_SAME );
-			hole_enabled = FALSE;
+			hole_enabled = false;
 		}
 
 		// Cut interpretation varies based on base object type
@@ -806,38 +806,38 @@ void LLPanelObject::getState( )
 	
 	// Compute control visibility, label names, and twist range.
 	// Start with defaults.
-	BOOL cut_visible                = TRUE;
-	BOOL hollow_visible             = TRUE;
-	BOOL top_size_x_visible			= TRUE;
-	BOOL top_size_y_visible			= TRUE;
-	BOOL top_shear_x_visible		= TRUE;
-	BOOL top_shear_y_visible		= TRUE;
-	BOOL twist_visible				= TRUE;
-	BOOL advanced_cut_visible		= FALSE;
-	BOOL taper_visible				= FALSE;
-	BOOL skew_visible				= FALSE;
-	BOOL radius_offset_visible		= FALSE;
-	BOOL revolutions_visible		= FALSE;
-	BOOL sculpt_texture_visible     = FALSE;
+	bool cut_visible                = true;
+	bool hollow_visible             = true;
+	bool top_size_x_visible			= true;
+	bool top_size_y_visible			= true;
+	bool top_shear_x_visible		= true;
+	bool top_shear_y_visible		= true;
+	bool twist_visible				= true;
+	bool advanced_cut_visible		= false;
+	bool taper_visible				= false;
+	bool skew_visible				= false;
+	bool radius_offset_visible		= false;
+	bool revolutions_visible		= false;
+	bool sculpt_texture_visible     = false;
 	F32	 twist_min					= OBJECT_TWIST_LINEAR_MIN;
 	F32	 twist_max					= OBJECT_TWIST_LINEAR_MAX;
 	F32	 twist_inc					= OBJECT_TWIST_LINEAR_INC;
 
-	BOOL advanced_is_dimple = FALSE;
-	BOOL advanced_is_slice = FALSE;
-	BOOL size_is_hole = FALSE;
+	bool advanced_is_dimple = false;
+	bool advanced_is_slice = false;
+	bool size_is_hole = false;
 
 	// Tune based on overall volume type
 	switch (selected_item)
 	{
 	case MI_SPHERE:
-		top_size_x_visible		= FALSE;
-		top_size_y_visible		= FALSE;
-		top_shear_x_visible		= FALSE;
-		top_shear_y_visible		= FALSE;
-		//twist_visible			= FALSE;
-		advanced_cut_visible	= TRUE;
-		advanced_is_dimple		= TRUE;
+		top_size_x_visible		= false;
+		top_size_y_visible		= false;
+		top_shear_x_visible		= false;
+		top_shear_y_visible		= false;
+		//twist_visible			= false;
+		advanced_cut_visible	= true;
+		advanced_is_dimple		= true;
 		twist_min				= OBJECT_TWIST_MIN;
 		twist_max				= OBJECT_TWIST_MAX;
 		twist_inc				= OBJECT_TWIST_INC;
@@ -846,14 +846,14 @@ void LLPanelObject::getState( )
 	case MI_TORUS:
 	case MI_TUBE:	
 	case MI_RING:
-		//top_size_x_visible		= FALSE;
-		//top_size_y_visible		= FALSE;
-	  	size_is_hole 			= TRUE;
-		skew_visible			= TRUE;
-		advanced_cut_visible	= TRUE;
-		taper_visible			= TRUE;
-		radius_offset_visible	= TRUE;
-		revolutions_visible		= TRUE;
+		//top_size_x_visible		= false;
+		//top_size_y_visible		= false;
+	  	size_is_hole 			= true;
+		skew_visible			= true;
+		advanced_cut_visible	= true;
+		taper_visible			= true;
+		radius_offset_visible	= true;
+		revolutions_visible		= true;
 		twist_min				= OBJECT_TWIST_MIN;
 		twist_max				= OBJECT_TWIST_MAX;
 		twist_inc				= OBJECT_TWIST_INC;
@@ -861,35 +861,35 @@ void LLPanelObject::getState( )
 		break;
 
 	case MI_SCULPT:
-		cut_visible             = FALSE;
-		hollow_visible          = FALSE;
-		twist_visible           = FALSE;
-		top_size_x_visible      = FALSE;
-		top_size_y_visible      = FALSE;
-		top_shear_x_visible     = FALSE;
-		top_shear_y_visible     = FALSE;
-		skew_visible            = FALSE;
-		advanced_cut_visible    = FALSE;
-		taper_visible           = FALSE;
-		radius_offset_visible   = FALSE;
-		revolutions_visible     = FALSE;
-		sculpt_texture_visible  = TRUE;
+		cut_visible             = false;
+		hollow_visible          = false;
+		twist_visible           = false;
+		top_size_x_visible      = false;
+		top_size_y_visible      = false;
+		top_shear_x_visible     = false;
+		top_shear_y_visible     = false;
+		skew_visible            = false;
+		advanced_cut_visible    = false;
+		taper_visible           = false;
+		radius_offset_visible   = false;
+		revolutions_visible     = false;
+		sculpt_texture_visible  = true;
 
 		break;
 		
 	case MI_BOX:
-		advanced_cut_visible	= TRUE;
-		advanced_is_slice		= TRUE;
+		advanced_cut_visible	= true;
+		advanced_is_slice		= true;
 		break;
 
 	case MI_CYLINDER:
-		advanced_cut_visible	= TRUE;
-		advanced_is_slice		= TRUE;
+		advanced_cut_visible	= true;
+		advanced_is_slice		= true;
 		break;
 
 	case MI_PRISM:
-		advanced_cut_visible	= TRUE;
-		advanced_is_slice		= TRUE;
+		advanced_cut_visible	= true;
+		advanced_is_slice		= true;
 		break;
 
 	default:
@@ -1095,8 +1095,8 @@ void LLPanelObject::getState( )
 		
 			U8 sculpt_type = sculpt_params->getSculptType();
 			U8 sculpt_stitching = sculpt_type & LL_SCULPT_TYPE_MASK;
-			BOOL sculpt_invert = sculpt_type & LL_SCULPT_FLAG_INVERT;
-			BOOL sculpt_mirror = sculpt_type & LL_SCULPT_FLAG_MIRROR;
+			bool sculpt_invert = sculpt_type & LL_SCULPT_FLAG_INVERT;
+			bool sculpt_mirror = sculpt_type & LL_SCULPT_FLAG_MIRROR;
 			isMesh = (sculpt_stitching == LL_SCULPT_TYPE_MESH);
 
 			LLTextureCtrl*  mTextureCtrl = getChild<LLTextureCtrl>("sculpt texture control");
@@ -1773,30 +1773,38 @@ void LLPanelObject::sendSculpt()
 	LLUUID sculpt_id = LLUUID::null;
 
 	if (mCtrlSculptTexture)
+	{
 		sculpt_id = mCtrlSculptTexture->getImageAssetID();
+	}
 
 	U8 sculpt_type = 0;
 	
 	if (mCtrlSculptType)
+	{
 		sculpt_type |= mCtrlSculptType->getValue().asInteger();
+	}
 
 	bool enabled = sculpt_type != LL_SCULPT_TYPE_MESH;
 
 	if (mCtrlSculptMirror)
 	{
-		mCtrlSculptMirror->setEnabled(enabled ? true : false);
+		mCtrlSculptMirror->setEnabled(enabled);
 	}
 	if (mCtrlSculptInvert)
 	{
-		mCtrlSculptInvert->setEnabled(enabled ? true : false);
+		mCtrlSculptInvert->setEnabled(enabled);
 	}
-	
+
 	if ((mCtrlSculptMirror) && (mCtrlSculptMirror->get()))
+	{
 		sculpt_type |= LL_SCULPT_FLAG_MIRROR;
+	}
 
 	if ((mCtrlSculptInvert) && (mCtrlSculptInvert->get()))
+	{
 		sculpt_type |= LL_SCULPT_FLAG_INVERT;
-	
+	}
+
 	sculpt_params.setSculptTexture(sculpt_id, sculpt_type);
 	mObject->setParameterEntry(LLNetworkData::PARAMS_SCULPT, sculpt_params, true);
 }
@@ -2002,7 +2010,7 @@ void LLPanelObject::onSelectSculpt(const LLSD& data)
 }
 
 
-void LLPanelObject::onCommitSculpt( const LLSD& data )
+void LLPanelObject::onCommitSculpt(const LLSD& data)
 {
 	sendSculpt();
 }
@@ -2106,7 +2114,7 @@ bool LLPanelObject::menuEnableItem(const LLSD& userdata)
     if (command == "psr_paste")
     {
         S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-        BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode(LL_PCODE_VOLUME))
+        bool single_volume = (LLSelectMgr::getInstance()->selectionAllPCode(LL_PCODE_VOLUME))
             && (selected_count == 1);
 
         if (!single_volume)
@@ -2142,7 +2150,7 @@ bool LLPanelObject::menuEnableItem(const LLSD& userdata)
     else if (command == "psr_copy")
     {
         S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-        BOOL single_volume = (LLSelectMgr::getInstance()->selectionAllPCode(LL_PCODE_VOLUME))
+        bool single_volume = (LLSelectMgr::getInstance()->selectionAllPCode(LL_PCODE_VOLUME))
             && (selected_count == 1);
 
         if (!single_volume)
@@ -2296,14 +2304,14 @@ void LLPanelObject::onPasteParams()
         LLUUID sculpt_id = mClipboardParams["sculpt"]["id"].asUUID();
         U8 sculpt_type = (U8)mClipboardParams["sculpt"]["type"].asInteger();
         sculpt_params.setSculptTexture(sculpt_id, sculpt_type);
-        objectp->setParameterEntry(LLNetworkData::PARAMS_SCULPT, sculpt_params, TRUE);
+        objectp->setParameterEntry(LLNetworkData::PARAMS_SCULPT, sculpt_params, true);
     }
     else
     {
         LLSculptParams *sculpt_params = (LLSculptParams *)objectp->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
         if (sculpt_params)
         {
-            objectp->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, FALSE, TRUE);
+            objectp->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, false, true);
         }
     }
 
