@@ -231,13 +231,13 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 
 	// do not enable the UI for incomplete items.
 	LLViewerInventoryItem* i = (LLViewerInventoryItem*)item;
-	BOOL is_complete = i->isFinished();
-	const BOOL cannot_restrict_permissions = LLInventoryType::cannotRestrictPermissions(i->getInventoryType());
-	const BOOL is_calling_card = (i->getInventoryType() == LLInventoryType::IT_CALLINGCARD);
+	bool is_complete = i->isFinished();
+	const bool cannot_restrict_permissions = LLInventoryType::cannotRestrictPermissions(i->getInventoryType());
+	const bool is_calling_card = (i->getInventoryType() == LLInventoryType::IT_CALLINGCARD);
 	const LLPermissions& perm = item->getPermissions();
-	const BOOL can_agent_manipulate = gAgent.allowOperation(PERM_OWNER, perm, 
+	const bool can_agent_manipulate = gAgent.allowOperation(PERM_OWNER, perm,
 															GP_OBJECT_MANIPULATE);
-	const BOOL can_agent_sell = gAgent.allowOperation(PERM_OWNER, perm, 
+	const bool can_agent_sell = gAgent.allowOperation(PERM_OWNER, perm,
 													  GP_OBJECT_SET_SALE) &&
 		!cannot_restrict_permissions;
 	const bool is_link = i->getIsLinkType();
@@ -246,7 +246,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	// item in it.
 	LLViewerObject* object = NULL;
 	if(!mObjectID.isNull()) object = gObjectList.findObject(mObjectID);
-	BOOL is_obj_modify = TRUE;
+	bool is_obj_modify = true;
 	if(object)
 	{
 		is_obj_modify = object->permOwnerModify();
@@ -255,7 +255,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	//////////////////////
 	// ITEM NAME & DESC //
 	//////////////////////
-	BOOL is_modifiable = gAgent.allowOperation(PERM_MODIFY, perm,
+	bool is_modifiable = gAgent.allowOperation(PERM_MODIFY, perm,
 											   GP_OBJECT_MANIPULATE)
 		&& is_obj_modify && is_complete;
 

@@ -134,7 +134,7 @@ public:
 	virtual void markDead();				// Mark this object as dead, and clean up its references
 	bool isDead() const									{return mDead;}
 	bool isOrphaned() const								{ return mOrphaned; }
-	BOOL isParticleSource() const;
+	bool isParticleSource() const;
 
 	virtual LLVOAvatar* asAvatar();
 
@@ -257,7 +257,7 @@ public:
 	// ability to modify the object. Since this calls into the
 	// selection manager, you should avoid calling this method from
 	// there.
-	BOOL isProbablyModifiable() const;
+	bool isProbablyModifiable() const;
 	*/
 
 	virtual bool setParent(LLViewerObject* parent);
@@ -274,16 +274,16 @@ public:
 	
 
 	//detect if given line segment (in agent space) intersects with this viewer object.
-	//returns TRUE if intersection detected and returns information about intersection
+	//returns true if intersection detected and returns information about intersection
 	virtual bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end,
 									  S32 face = -1,                          // which face to check, -1 = ALL_SIDES
 									  bool pick_transparent = false,
 									  bool pick_rigged = false,
-									  S32* face_hit = NULL,                   // which face was hit
-									  LLVector4a* intersection = NULL,         // return the intersection point
-									  LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
-									  LLVector4a* normal = NULL,               // return the surface normal at the intersection point
-									  LLVector4a* tangent = NULL             // return the surface tangent at the intersection point
+									  S32* face_hit = nullptr,                   // which face was hit
+									  LLVector4a* intersection = nullptr,         // return the intersection point
+									  LLVector2* tex_coord = nullptr,            // return the texture coordinates of the intersection point
+									  LLVector4a* normal = nullptr,               // return the surface normal at the intersection point
+									  LLVector4a* tangent = nullptr             // return the surface tangent at the intersection point
 		);
 	
 	virtual bool lineSegmentBoundingBox(const LLVector4a& start, const LLVector4a& end);
@@ -303,13 +303,13 @@ public:
 	const LLQuaternion getRenderRotation() const;
 	virtual	const LLMatrix4 getRenderMatrix() const;
 
-	void setPosition(const LLVector3 &pos, BOOL damped = FALSE);
-	void setPositionGlobal(const LLVector3d &position, BOOL damped = FALSE);
-	void setPositionRegion(const LLVector3 &position, BOOL damped = FALSE);
-	void setPositionEdit(const LLVector3 &position, BOOL damped = FALSE);
-	void setPositionAgent(const LLVector3 &pos_agent, BOOL damped = FALSE);
-	void setPositionParent(const LLVector3 &pos_parent, BOOL damped = FALSE);
-	void setPositionAbsoluteGlobal( const LLVector3d &pos_global, BOOL damped = FALSE );
+	void setPosition(const LLVector3 &pos, bool damped = false);
+	void setPositionGlobal(const LLVector3d &position, bool damped = false);
+	void setPositionRegion(const LLVector3 &position, bool damped = false);
+	void setPositionEdit(const LLVector3 &position, bool damped = false);
+	void setPositionAgent(const LLVector3 &pos_agent, bool damped = false);
+	void setPositionParent(const LLVector3 &pos_parent, bool damped = false);
+	void setPositionAbsoluteGlobal( const LLVector3d &pos_global, bool damped = false );
 
 	virtual const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const		{ return xform->getWorldMatrix(); }
 
@@ -370,11 +370,11 @@ public:
     virtual F32 getEstTrianglesStreamingCost() const;
 	virtual F32 getStreamingCost() const;
     virtual bool getCostData(LLMeshCostData& costs) const;
-	virtual U32 getTriangleCount(S32* vcount = NULL) const;
+	virtual U32 getTriangleCount(S32* vcount = nullptr) const;
 	virtual U32 getHighLODTriangleCount();
     F32 recursiveGetScaledSurfaceArea() const;
 
-    U32 recursiveGetTriangleCount(S32* vcount = NULL) const;
+    U32 recursiveGetTriangleCount(S32* vcount = nullptr) const;
 
 	void setObjectCost(F32 cost);
 	F32 getObjectCost();
@@ -403,11 +403,11 @@ public:
 	void setAttachedSound(const LLUUID &audio_uuid, const LLUUID& owner_id, const F32 gain, const U8 flags);
 	void adjustAudioGain(const F32 gain);
 	F32  getSoundCutOffRadius() const { return mSoundCutOffRadius; }
-	void clearAttachedSound()								{ mAudioSourcep = NULL; }
+	void clearAttachedSound()								{ mAudioSourcep = nullptr; }
 
 	 // Create if necessary
 	LLAudioSource *getAudioSource(const LLUUID& owner_id);
-	bool isAudioSource() const {return mAudioSourcep != NULL;}
+	bool isAudioSource() const {return mAudioSourcep != nullptr;}
 
 	U8 getMediaType() const;
 	void setMediaType(U8 media_type);
@@ -505,37 +505,37 @@ public:
 	// Find the number of instances of this object's inventory that are of the given type
 	S32 countInventoryContents( LLAssetType::EType type );
 
-	BOOL			permAnyOwner() const;	
-	BOOL			permYouOwner() const;
-	BOOL			permGroupOwner() const;
-	BOOL			permOwnerModify() const;
-	BOOL			permModify() const;	
-	BOOL			permCopy() const;	
-	BOOL			permMove() const;		
-	BOOL			permTransfer() const;
+	bool			permAnyOwner() const;
+	bool			permYouOwner() const;
+	bool			permGroupOwner() const;
+	bool			permOwnerModify() const;
+	bool			permModify() const;
+	bool			permCopy() const;
+	bool			permMove() const;
+	bool			permTransfer() const;
 	inline bool		flagUsePhysics() const			{ return ((mFlags & FLAGS_USE_PHYSICS) != 0); }
-	inline BOOL		flagObjectAnyOwner() const		{ return ((mFlags & FLAGS_OBJECT_ANY_OWNER) != 0); }
-	inline BOOL		flagObjectYouOwner() const		{ return ((mFlags & FLAGS_OBJECT_YOU_OWNER) != 0); }
-	inline BOOL		flagObjectGroupOwned() const	{ return ((mFlags & FLAGS_OBJECT_GROUP_OWNED) != 0); }
-	inline BOOL		flagObjectOwnerModify() const	{ return ((mFlags & FLAGS_OBJECT_OWNER_MODIFY) != 0); }
-	inline BOOL		flagObjectModify() const		{ return ((mFlags & FLAGS_OBJECT_MODIFY) != 0); }
-	inline BOOL		flagObjectCopy() const			{ return ((mFlags & FLAGS_OBJECT_COPY) != 0); }
-	inline BOOL		flagObjectMove() const			{ return ((mFlags & FLAGS_OBJECT_MOVE) != 0); }
-	inline BOOL		flagObjectTransfer() const		{ return ((mFlags & FLAGS_OBJECT_TRANSFER) != 0); }
-	inline BOOL		flagObjectPermanent() const		{ return ((mFlags & FLAGS_AFFECTS_NAVMESH) != 0); }
+	inline bool		flagObjectAnyOwner() const		{ return ((mFlags & FLAGS_OBJECT_ANY_OWNER) != 0); }
+	inline bool		flagObjectYouOwner() const		{ return ((mFlags & FLAGS_OBJECT_YOU_OWNER) != 0); }
+	inline bool		flagObjectGroupOwned() const	{ return ((mFlags & FLAGS_OBJECT_GROUP_OWNED) != 0); }
+	inline bool		flagObjectOwnerModify() const	{ return ((mFlags & FLAGS_OBJECT_OWNER_MODIFY) != 0); }
+	inline bool		flagObjectModify() const		{ return ((mFlags & FLAGS_OBJECT_MODIFY) != 0); }
+	inline bool		flagObjectCopy() const			{ return ((mFlags & FLAGS_OBJECT_COPY) != 0); }
+	inline bool		flagObjectMove() const			{ return ((mFlags & FLAGS_OBJECT_MOVE) != 0); }
+	inline bool		flagObjectTransfer() const		{ return ((mFlags & FLAGS_OBJECT_TRANSFER) != 0); }
+	inline bool		flagObjectPermanent() const		{ return ((mFlags & FLAGS_AFFECTS_NAVMESH) != 0); }
 	inline bool		flagCharacter() const			{ return ((mFlags & FLAGS_CHARACTER) != 0); }
-	inline BOOL		flagVolumeDetect() const		{ return ((mFlags & FLAGS_VOLUME_DETECT) != 0); }
-	inline BOOL		flagIncludeInSearch() const     { return ((mFlags & FLAGS_INCLUDE_IN_SEARCH) != 0); }
-	inline BOOL		flagScripted() const			{ return ((mFlags & FLAGS_SCRIPTED) != 0); }
-	inline BOOL		flagHandleTouch() const			{ return ((mFlags & FLAGS_HANDLE_TOUCH) != 0); }
-	inline BOOL		flagTakesMoney() const			{ return ((mFlags & FLAGS_TAKES_MONEY) != 0); }
-	inline BOOL		flagPhantom() const				{ return ((mFlags & FLAGS_PHANTOM) != 0); }
-	inline BOOL		flagInventoryEmpty() const		{ return ((mFlags & FLAGS_INVENTORY_EMPTY) != 0); }
-	inline BOOL		flagAllowInventoryAdd() const	{ return ((mFlags & FLAGS_ALLOW_INVENTORY_DROP) != 0); }
+	inline bool		flagVolumeDetect() const		{ return ((mFlags & FLAGS_VOLUME_DETECT) != 0); }
+	inline bool		flagIncludeInSearch() const     { return ((mFlags & FLAGS_INCLUDE_IN_SEARCH) != 0); }
+	inline bool		flagScripted() const			{ return ((mFlags & FLAGS_SCRIPTED) != 0); }
+	inline bool		flagHandleTouch() const			{ return ((mFlags & FLAGS_HANDLE_TOUCH) != 0); }
+	inline bool		flagTakesMoney() const			{ return ((mFlags & FLAGS_TAKES_MONEY) != 0); }
+	inline bool		flagPhantom() const				{ return ((mFlags & FLAGS_PHANTOM) != 0); }
+	inline bool		flagInventoryEmpty() const		{ return ((mFlags & FLAGS_INVENTORY_EMPTY) != 0); }
+	inline bool		flagAllowInventoryAdd() const	{ return ((mFlags & FLAGS_ALLOW_INVENTORY_DROP) != 0); }
 	inline bool		flagTemporaryOnRez() const		{ return ((mFlags & FLAGS_TEMPORARY_ON_REZ) != 0); }
-	inline BOOL		flagAnimSource() const			{ return ((mFlags & FLAGS_ANIM_SOURCE) != 0); }
-	inline BOOL		flagCameraSource() const		{ return ((mFlags & FLAGS_CAMERA_SOURCE) != 0); }
-	inline BOOL		flagCameraDecoupled() const		{ return ((mFlags & FLAGS_CAMERA_DECOUPLED) != 0); }
+	inline bool		flagAnimSource() const			{ return ((mFlags & FLAGS_ANIM_SOURCE) != 0); }
+	inline bool		flagCameraSource() const		{ return ((mFlags & FLAGS_CAMERA_SOURCE) != 0); }
+	inline bool		flagCameraDecoupled() const		{ return ((mFlags & FLAGS_CAMERA_DECOUPLED) != 0); }
 
 	// <FS:Techwolf Lupindo> prim export
 	U32 getFlags() { return mFlags; }

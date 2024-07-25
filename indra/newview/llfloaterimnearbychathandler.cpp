@@ -324,7 +324,7 @@ bool	LLFloaterIMNearbyChatScreenChannel::createPoolToast()
 void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 {
 	//look in pool. if there is any message
-	if(mStopProcessing)
+	if (mStopProcessing)
 		return;
 
 	if (mFloaterSnapRegion == NULL)
@@ -339,7 +339,7 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
     find last toast and check ID
 	*/
 
-	if(m_active_toasts.size())
+	if (m_active_toasts.size())
 	{
 		LLUUID fromID = chat["from_id"].asUUID();		// agent id or object id
 		std::string from = chat["from"].asString();
@@ -348,7 +348,7 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 		{
 			LLFloaterIMNearbyChatToastPanel* panel = dynamic_cast<LLFloaterIMNearbyChatToastPanel*>(toast->getPanel());
   
-			if(panel && panel->messageID() == fromID && panel->getFromName() == from && panel->canAddText())
+			if (panel && panel->messageID() == fromID && panel->getFromName() == from && panel->canAddText())
 			{
 				panel->addMessage(chat);
 				// <FS:Ansariel> Zi Ree's customizable nearby chat toast width
@@ -365,7 +365,7 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 	
 
 	
-	if(m_toast_pool.empty())
+	if (m_toast_pool.empty())
 	{
 		//"pool" is empty - create one more panel
 		LL_DEBUGS("NearbyChat") << "Empty pool" << LL_ENDL;
@@ -377,11 +377,11 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 
 	int chat_type = chat["chat_type"].asInteger();
 	
-	if( ((EChatType)chat_type == CHAT_TYPE_DEBUG_MSG))
+	if ( ((EChatType)chat_type == CHAT_TYPE_DEBUG_MSG))
 	{
-		if(gSavedSettings.getbool("ShowScriptErrors") == false) 
+		if (!gSavedSettings.getbool("ShowScriptErrors")) 
 			return;
-		if(gSavedSettings.getS32("ShowScriptErrorsLocation")== 1)
+		if (gSavedSettings.getS32("ShowScriptErrorsLocation") == 1)
 			return;
 	}
 		
@@ -395,7 +395,7 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 
 
 	LLFloaterIMNearbyChatToastPanel* panel = dynamic_cast<LLFloaterIMNearbyChatToastPanel*>(toast->getPanel());
-	if(!panel)
+	if (!panel)
 		return;
 	panel->init(chat);
 
@@ -421,7 +421,7 @@ static bool sort_toasts_predicate(LLHandle<LLToast> first, LLHandle<LLToast> sec
 
 void LLFloaterIMNearbyChatScreenChannel::arrangeToasts()
 {
-	if(mStopProcessing || isHovering())
+	if (mStopProcessing || isHovering())
 		return;
 
 	if (mFloaterSnapRegion == NULL)
@@ -467,7 +467,7 @@ void LLFloaterIMNearbyChatScreenChannel::arrangeToasts()
 
 		S32 toast_top = bottom + toast->getRect().getHeight() + margin;
 
-		if(toast_top > channel_rect.getHeight())
+		if (toast_top > channel_rect.getHeight())
 		{
 			while(it!=m_active_toasts.end())
 			{
@@ -537,10 +537,10 @@ void LLFloaterIMNearbyChatHandler::initChannel()
 void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 									  const LLSD &args)
 {
-	if(chat_msg.mMuted == true)
+	if (chat_msg.mMuted)
 		return;
 
-	if(chat_msg.mText.empty())
+	if (chat_msg.mText.empty())
 		return;//don't process empty messages
 
     LLFloaterReg::getInstance("im_container");
@@ -574,7 +574,7 @@ void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 	{
         if (LLFloater::isQuitRequested()) return;
 
-		if(gSavedSettings.getbool("ShowScriptErrors") == false)
+		if(!gSavedSettings.getbool("ShowScriptErrors"))
 			return;
 
 		// don't process debug messages from not owned objects, see EXT-7762
@@ -616,9 +616,9 @@ void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 
     LLFloaterIMContainer* im_box = LLFloaterReg::getTypedInstance<LLFloaterIMContainer>("im_container");
 
-	if((  ( chat_msg.mSourceType == CHAT_SOURCE_AGENT
-			&& !gSavedSettings.getBOOL("KokuaSuppressBubbleChatOverridingToasts") //KKA-694
-			&& gSavedSettings.getBOOL("UseChatBubbles") )
+	if (( ( chat_msg.mSourceType == CHAT_SOURCE_AGENT
+			&& !gSavedSettings.getbool("KokuaSuppressBubbleChatOverridingToasts") //KKA-694
+			&& gSavedSettings.getbool("UseChatBubbles") )
 		|| mChannel.isDead()
 		|| !mChannel.get()->getShowToasts() )
 		&& nearby_chat->isMessagePaneExpanded())
@@ -626,7 +626,7 @@ void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 		return;//no need in toast if chat is visible or if bubble chat is enabled
 
 	// arrange a channel on a screen
-	if(!mChannel.get()->getVisible())
+	if (!mChannel.get()->getVisible())
 	{
 		initChannel();
 	}
@@ -645,7 +645,7 @@ void LLFloaterIMNearbyChatHandler::processChat(const LLChat& chat_msg,
 
 	LLFloaterIMNearbyChatScreenChannel* channel = dynamic_cast<LLFloaterIMNearbyChatScreenChannel*>(mChannel.get());
 
-	if(channel)
+	if (channel)
 	{
 		// Handle IRC styled messages.
 		std::string toast_msg;
