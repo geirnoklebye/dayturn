@@ -47,6 +47,8 @@
 #include "llxmltree.h"
 #include "llviewercontrol.h"
 
+bool LLHUDEffectLookAt::sDebugLookAt = false;
+
 // packet layout
 const S32 SOURCE_AVATAR = 0;
 const S32 TARGET_OBJECT = 16;
@@ -645,8 +647,16 @@ void LLHUDEffectLookAt::update()
 	{
 		if (calcTargetPosition())
 		{
+            static LLCachedControl<bool> disable_look_at(gSavedSettings, "DisableLookAtAnimation", true);
 			LLMotion* head_motion = ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->findMotion(ANIM_AGENT_HEAD_ROT);
-			if (!head_motion || head_motion->isStopped())
+            if (disable_look_at())
+            {
+                if (head_motion)
+                {
+                    ((LLVOAvatar*)(LLViewerObject*)mSourceObject)->stopMotion(ANIM_AGENT_HEAD_ROT);
+                }
+            }
+            else if (!head_motion || head_motion->isStopped())
 			{
 				((LLVOAvatar*)(LLViewerObject*)mSourceObject)->startMotion(ANIM_AGENT_HEAD_ROT);
 			}
@@ -744,7 +754,15 @@ bool LLHUDEffectLookAt::calcTargetPosition()
 	if (!mTargetPos.isFinite())
 		return false;
 
-	source_avatar->setAnimationData("LookAtPoint", (void *)&mTargetPos);
+    static LLCachedControl<bool> disable_look_at(gSavedSettings, "DisableLookAtAnimation", true);
+    if (disable_look_at())
+    {
+        source_avatar->removeAnimationData("LookAtPoint");
+    }
+    else
+    {
+        source_avatar->setAnimationData("LookAtPoint", (void*)&mTargetPos);
+    }
 
 	return true;
 }
