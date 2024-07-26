@@ -35,7 +35,7 @@
 //static 
 LLScrollListCell* LLScrollListCell::create(const LLScrollListCell::Params& cell_p)
 {
-	LLScrollListCell* cell = NULL;
+	LLScrollListCell* cell = nullptr;
 
 	if (cell_p.type() == "icon")
 	{
@@ -235,7 +235,7 @@ bool LLScrollListText::needsToolTip() const
 		return LLScrollListCell::needsToolTip();
 	
 	// ...otherwise, show tooltips for truncated text
-	return mFont->getWidth(mText.getString()) > getWidth();
+    return mFont->getWidth(mText.getWString().c_str()) > getWidth();
 }
 
 //virtual 
@@ -265,7 +265,7 @@ S32	LLScrollListText::getContentWidth() const
 void LLScrollListText::setColor(const LLColor4& color)
 {
 	mColor = color;
-	mUseColor = TRUE;
+	mUseColor = true;
 }
 
 void LLScrollListText::setText(const LLStringExplicit& text)
@@ -413,7 +413,7 @@ LLScrollListCheck::~LLScrollListCheck()
 	delete mCommitSignal;
 // [/SL:KB]
 	delete mCheckBox;
-	mCheckBox = NULL;
+	mCheckBox = nullptr;
 }
 
 void LLScrollListCheck::draw(const LLColor4& color, const LLColor4& highlight_color) const

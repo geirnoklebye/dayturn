@@ -188,7 +188,7 @@ protected:
 	const LLFontGL*	mFont;
 	LLColor4		mColor;
 	LLColor4		mHighlightColor;
-	U8				mUseColor;
+	bool			mUseColor;
 	LLFontGL::HAlign mFontAlignment;
 	bool			mVisible;
 	S32				mHighlightCount;
