@@ -533,7 +533,7 @@ void LLGestureMgr::playGesture(LLMultiGesture* gesture)
 	if (!gesture) return;
 
 	// Reset gesture to first step
-	gesture->mCurrentStep = 0;
+    gesture->reset();
 
 	// Add to list of playing
 	gesture->mPlaying = true;
