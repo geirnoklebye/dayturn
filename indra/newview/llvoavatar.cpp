@@ -11541,5 +11541,19 @@ void LLVOAvatar::revokePermissionsOnObject(LLViewerObject *sit_object)
 
 bool LLVOAvatar::isBuddy() const
 {
-    return LLAvatarTracker::instance().isBuddy(getID());
+    bool is_friend = false;
+    F64 now = LLFrameTimer::getTotalSeconds();
+    if (now < mCachedBuddyListUpdateTime)
+    {
+        is_friend = mCachedInBuddyList;
+    }
+    else
+    {
+        is_friend = LLAvatarTracker::instance().isBuddy(getID());
+
+        const F64 SECONDS_BETWEEN_BUDDY_UPDATES = 1;
+        mCachedBuddyListUpdateTime = now + SECONDS_BETWEEN_BUDDY_UPDATES;
+        mCachedInBuddyList = is_friend;
+    }
+    return is_friend;
 }
