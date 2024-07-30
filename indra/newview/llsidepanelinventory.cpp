@@ -574,7 +574,7 @@ void LLSidepanelInventory::showItemInfoPanel()
 	mInventoryPanel->setVisible(false);
 
 	mItemPanel->dirty();
-	mItemPanel->setIsEditing(FALSE);
+	mItemPanel->setIsEditing(false);
 }
 
 void LLSidepanelInventory::showTaskInfoPanel()
@@ -586,7 +586,7 @@ void LLSidepanelInventory::showTaskInfoPanel()
 	{
 		mTaskPanel->setVisible(true);
 		mTaskPanel->dirty();
-		mTaskPanel->setIsEditing(FALSE);
+		mTaskPanel->setIsEditing(false);
 	}
 }
 

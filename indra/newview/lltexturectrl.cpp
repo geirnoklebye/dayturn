@@ -1754,8 +1754,8 @@ void LLTextureCtrl::draw()
 	// Using the discard level, do not show the string if the texture is almost but not 
 	// fully loaded.
 	if (mTexturep.notNull() &&
-		(!mTexturep->isFullyLoaded()) &&
-		(mShowLoadingPlaceholder == true))
+		!mTexturep->isFullyLoaded() &&
+		mShowLoadingPlaceholder)
 	{
 		U32 v_offset = 25;
 		LLFontGL* font = LLFontGL::getFontSansSerif();

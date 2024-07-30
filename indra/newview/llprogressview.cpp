@@ -145,7 +145,7 @@ void LLProgressView::revealIntroPanel()
 	std::string intro_url = gSavedSettings.getString("PostFirstLoginIntroURL");
 	if ( intro_url.length() > 0 && 
 			gSavedSettings.getbool("BrowserJavascriptEnabled") &&
-			gSavedSettings.getbool("PostFirstLoginIntroViewed" ) == false )
+			!gSavedSettings.getbool("PostFirstLoginIntroViewed" ))
 	{
 		// hide the progress bar
 		getChild<LLView>("stack1")->setVisible(false);
@@ -514,8 +514,8 @@ void LLProgressView::initTextures(S32 location_id, bool is_in_production)
     initStartTexture(location_id, is_in_production);
     initLogos();
 
-    childSetVisible("panel_icons", mLogosList.empty() ? false : true);
-    childSetVisible("panel_top_spacer", mLogosList.empty() ? true : false);
+    childSetVisible("panel_icons", !mLogosList.empty());
+    childSetVisible("panel_top_spacer", mLogosList.empty());
 }
 
 void LLProgressView::releaseTextures()
@@ -529,8 +529,8 @@ void LLProgressView::releaseTextures()
 
 void LLProgressView::setCancelButtonVisible(bool b, const std::string& label)
 {
-	mCancelBtn->setVisible( b );
-	mCancelBtn->setEnabled( b );
+	mCancelBtn->setVisible(b);
+	mCancelBtn->setEnabled(b);
 	mCancelBtn->setLabelSelected(label);
 	mCancelBtn->setLabelUnselected(label);
 }

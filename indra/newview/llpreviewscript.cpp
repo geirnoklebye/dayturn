@@ -2448,7 +2448,6 @@ LLLiveLSLSaveData::LLLiveLSLSaveData(const LLUUID& id,
 	mItem = new LLViewerInventoryItem(item);
 }
 
-
 /*static*/
 void LLLiveLSLEditor::finishLSLUpload(LLUUID itemId, LLUUID taskId, LLUUID newAssetId, LLSD response, bool isRunning)
 {
@@ -2472,15 +2471,13 @@ void LLLiveLSLEditor::finishLSLUpload(LLUUID itemId, LLUUID taskId, LLUUID newAs
             preview->callbackLSLCompileFailed(response["errors"]);
         }
     }
-
 }
-
 
 // virtual
 void LLLiveLSLEditor::saveIfNeeded(bool sync /*= true*/)
 {
 	LLViewerObject* object = gObjectList.findObject(mObjectUUID);
-	if(!object)
+	if (!object)
 	{
 		LLNotificationsUtil::add("SaveScriptFailObjectNotFound");
 		return;
@@ -2505,7 +2502,7 @@ void LLLiveLSLEditor::saveIfNeeded(bool sync /*= true*/)
     }
 
     // Don't need to save if we're pristine
-    if(!mScriptEd->hasChanged())
+    if (!mScriptEd->hasChanged())
     {
         return;
     }
@@ -2658,14 +2655,14 @@ void LLLiveLSLEditor::onSaveBytecodeComplete(const LLUUID& asset_uuid, void* use
 
 bool LLLiveLSLEditor::canClose()
 {
-	return (mScriptEd->canClose());
+	return mScriptEd->canClose();
 }
 
 void LLLiveLSLEditor::closeIfNeeded()
 {
 	getWindow()->decBusyCount();
 	mPendingUploads--;
-	if (mPendingUploads <= 0 && mCloseAfterSave)
+	if ((mPendingUploads <= 0) && mCloseAfterSave)
 	{
 		closeFloater();
 	}
@@ -2681,15 +2678,13 @@ void LLLiveLSLEditor::onLoad(void* userdata)
 // static
 void LLLiveLSLEditor::onSave(void* userdata, bool close_after_save)
 {
-	LLLiveLSLEditor* self = (LLLiveLSLEditor*)userdata;
-	if(self)
+	if (LLLiveLSLEditor* self = (LLLiveLSLEditor*)userdata)
 	{
 		self->mCloseAfterSave = close_after_save;
 		self->mScriptEd->mErrorList->setCommentText("");
 		self->saveIfNeeded();
 	}
 }
-
 
 // static
 void LLLiveLSLEditor::processScriptRunningReply(LLMessageSystem* msg, void**)
@@ -2702,8 +2697,7 @@ void LLLiveLSLEditor::processScriptRunningReply(LLMessageSystem* msg, void**)
 	LLSD floater_key;
 	floater_key["taskid"] = object_id;
 	floater_key["itemid"] = item_id;
-	LLLiveLSLEditor* instance = LLFloaterReg::findTypedInstance<LLLiveLSLEditor>("preview_scriptedit", floater_key);
-	if(instance)
+	if (LLLiveLSLEditor* instance = LLFloaterReg::findTypedInstance<LLLiveLSLEditor>("preview_scriptedit", floater_key))
 	{
 		instance->mHaveRunningInfo = true;
 		bool running;
@@ -2720,7 +2714,6 @@ void LLLiveLSLEditor::processScriptRunningReply(LLMessageSystem* msg, void**)
 	LLFloaterLocateQueue::processScriptRunningReply(msg);
 }
 
-
 void LLLiveLSLEditor::onMonoCheckboxClicked(LLUICtrl*, void* userdata)
 {
 	LLLiveLSLEditor* self = static_cast<LLLiveLSLEditor*>(userdata);
@@ -2730,20 +2723,15 @@ void LLLiveLSLEditor::onMonoCheckboxClicked(LLUICtrl*, void* userdata)
 
 bool LLLiveLSLEditor::monoChecked() const
 {
-	if(NULL != mMonoCheckbox)
-	{
-		return mMonoCheckbox->getValue()? true : false;
-	}
-	return false;
+	return mMonoCheckbox && mMonoCheckbox->getValue();
 }
 
 void LLLiveLSLEditor::setAssociatedExperience( LLHandle<LLLiveLSLEditor> editor, const LLSD& experience )
 {
-	LLLiveLSLEditor* scriptEd = editor.get();
-	if(scriptEd)
+	if (LLLiveLSLEditor* scriptEd = editor.get())
 	{
 		LLUUID id;
-		if(experience.has(LLExperienceCache::EXPERIENCE_ID))
+		if (experience.has(LLExperienceCache::EXPERIENCE_ID))
 		{
 			id=experience[LLExperienceCache::EXPERIENCE_ID].asUUID();
 		}

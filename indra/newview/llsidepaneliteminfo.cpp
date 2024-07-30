@@ -271,7 +271,7 @@ void LLSidepanelItemInfo::refresh()
 	{
 		if (getIsEditing())
 		{
-			setIsEditing(FALSE);
+			setIsEditing(false);
 		}
 	}
 
@@ -334,14 +334,14 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
     }
 
 	// do not enable the UI for incomplete items.
-	BOOL is_complete = item->isFinished();
-	const BOOL cannot_restrict_permissions = LLInventoryType::cannotRestrictPermissions(item->getInventoryType());
-	const BOOL is_calling_card = (item->getInventoryType() == LLInventoryType::IT_CALLINGCARD);
-	const BOOL is_settings = (item->getInventoryType() == LLInventoryType::IT_SETTINGS);
+	bool is_complete = item->isFinished();
+	const bool cannot_restrict_permissions = LLInventoryType::cannotRestrictPermissions(item->getInventoryType());
+	const bool is_calling_card = (item->getInventoryType() == LLInventoryType::IT_CALLINGCARD);
+	const bool is_settings = (item->getInventoryType() == LLInventoryType::IT_SETTINGS);
 	const LLPermissions& perm = item->getPermissions();
-	const BOOL can_agent_manipulate = gAgent.allowOperation(PERM_OWNER, perm, 
+	const bool can_agent_manipulate = gAgent.allowOperation(PERM_OWNER, perm, 
 								GP_OBJECT_MANIPULATE);
-	const BOOL can_agent_sell = gAgent.allowOperation(PERM_OWNER, perm, 
+	const bool can_agent_sell = gAgent.allowOperation(PERM_OWNER, perm, 
 							  GP_OBJECT_SET_SALE) &&
 		!cannot_restrict_permissions;
 	const bool is_link = item->getIsLinkType();
@@ -377,7 +377,7 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	//////////////////////
 	// ITEM NAME & DESC //
 	//////////////////////
-	BOOL is_modifiable = gAgent.allowOperation(PERM_MODIFY, perm,
+	bool is_modifiable = gAgent.allowOperation(PERM_MODIFY, perm,
 											   GP_OBJECT_MANIPULATE)
 		&& is_obj_modify && is_complete && not_in_trash;
 
@@ -537,11 +537,11 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	U32 next_owner_mask	= perm.getMaskNextOwner();
 
 	getChildView("CheckOwnerModify")->setEnabled(false);
-	getChild<LLUICtrl>("CheckOwnerModify")->setValue(LLSD((BOOL)(owner_mask & PERM_MODIFY)));
+	getChild<LLUICtrl>("CheckOwnerModify")->setValue(LLSD((bool)(owner_mask & PERM_MODIFY)));
 	getChildView("CheckOwnerCopy")->setEnabled(false);
-	getChild<LLUICtrl>("CheckOwnerCopy")->setValue(LLSD((BOOL)(owner_mask & PERM_COPY)));
+	getChild<LLUICtrl>("CheckOwnerCopy")->setValue(LLSD((bool)(owner_mask & PERM_COPY)));
 	getChildView("CheckOwnerTransfer")->setEnabled(false);
-	getChild<LLUICtrl>("CheckOwnerTransfer")->setValue(LLSD((BOOL)(owner_mask & PERM_TRANSFER)));
+	getChild<LLUICtrl>("CheckOwnerTransfer")->setValue(LLSD((bool)(owner_mask & PERM_TRANSFER)));
 
 	///////////////////////
 	// DEBUG PERMISSIONS //
@@ -622,40 +622,37 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	}
 
 	// Set values.
-	bool is_group_copy = (group_mask & PERM_COPY) ? true : false;
-	bool is_group_modify = (group_mask & PERM_MODIFY) ? true : false;
-	bool is_group_move = (group_mask & PERM_MOVE) ? true : false;
+	bool is_group_copy = group_mask & PERM_COPY;
+	bool is_group_modify = group_mask & PERM_MODIFY;
+	bool is_group_move = group_mask & PERM_MOVE;
 
 	if (is_group_copy && is_group_modify && is_group_move)
 	{
-		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD((BOOL)TRUE));
+		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD((bool)true));
 
-		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
-		if(ctl)
+		if (LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup"))
 		{
 			ctl->setTentative(false);
 		}
 	}
 	else if (!is_group_copy && !is_group_modify && !is_group_move)
 	{
-		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD((BOOL)FALSE));
-		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
-		if(ctl)
+		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD((bool)false));
+		if (LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup"))
 		{
 			ctl->setTentative(false);
 		}
 	}
 	else
 	{
-		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
-		if(ctl)
+		if (LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup"))
 		{
 			ctl->setTentative(!ctl->getEnabled());
 			ctl->set(true);
 		}
 	}
-	
-	getChild<LLUICtrl>("CheckEveryoneCopy")->setValue(LLSD((BOOL)(everyone_mask & PERM_COPY)));
+
+	getChild<LLUICtrl>("CheckEveryoneCopy")->setValue(LLSD((bool)(everyone_mask & PERM_COPY)));
 
 	///////////////
 	// SALE INFO //
@@ -714,9 +711,9 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 
 	// Set values.
 	getChild<LLUICtrl>("CheckPurchase")->setValue(is_for_sale);
-	getChild<LLUICtrl>("CheckNextOwnerModify")->setValue(LLSD(BOOL(next_owner_mask & PERM_MODIFY)));
-	getChild<LLUICtrl>("CheckNextOwnerCopy")->setValue(LLSD(BOOL(next_owner_mask & PERM_COPY)));
-	getChild<LLUICtrl>("CheckNextOwnerTransfer")->setValue(LLSD(BOOL(next_owner_mask & PERM_TRANSFER)));
+	getChild<LLUICtrl>("CheckNextOwnerModify")->setValue(LLSD(bool(next_owner_mask & PERM_MODIFY)));
+	getChild<LLUICtrl>("CheckNextOwnerCopy")->setValue(LLSD(bool(next_owner_mask & PERM_COPY)));
+	getChild<LLUICtrl>("CheckNextOwnerTransfer")->setValue(LLSD(bool(next_owner_mask & PERM_TRANSFER)));
 
 	if (is_for_sale)
 	{
@@ -986,10 +983,10 @@ void LLSidepanelItemInfo::updateSaleInfo()
 	LLSaleInfo sale_info(item->getSaleInfo());
 	if(!gAgent.allowOperation(PERM_TRANSFER, item->getPermissions(), GP_OBJECT_SET_SALE))
 	{
-		getChild<LLUICtrl>("CheckPurchase")->setValue(LLSD((BOOL)FALSE));
+		getChild<LLUICtrl>("CheckPurchase")->setValue(LLSD((bool)false));
 	}
 
-	if((BOOL)getChild<LLUICtrl>("CheckPurchase")->getValue())
+	if((bool)getChild<LLUICtrl>("CheckPurchase")->getValue())
 	{
 		// turn on sale info
 		LLSaleInfo::EForSale sale_type = LLSaleInfo::FS_COPY;

@@ -307,7 +307,7 @@ void LLPanelVolume::getState( )
 		if(LightColorSwatch)
 		{
 			LightColorSwatch->setEnabled(true);
-			LightColorSwatch->setValid( TRUE );
+			LightColorSwatch->setValid(true);
 			LightColorSwatch->set(volobjp->getLightSRGBBaseColor());
 		}
 
@@ -537,7 +537,7 @@ void LLPanelVolume::getState( )
 	mComboPhysicsShapeType->removeall();
 	mComboPhysicsShapeType->add(getString("None"), LLSD(1));
 
-	BOOL isMesh = FALSE;
+	bool isMesh = false;
 	LLSculptParams *sculpt_params = (LLSculptParams *)objectp->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 	if (sculpt_params)
 	{
@@ -1053,7 +1053,7 @@ void LLPanelVolume::onPasteLight()
     {
         if (clipboard.has("light"))
         {
-            volobjp->setIsLight(TRUE);
+            volobjp->setIsLight(true);
             volobjp->setLightIntensity((F32)clipboard["light"]["intensity"].asReal());
             volobjp->setLightRadius((F32)clipboard["light"]["radius"].asReal());
             volobjp->setLightFalloff((F32)clipboard["light"]["falloff"].asReal());
@@ -1064,7 +1064,7 @@ void LLPanelVolume::onPasteLight()
         }
         else
         {
-            volobjp->setIsLight(FALSE);
+            volobjp->setIsLight(false);
         }
 
         if (clipboard.has("spot"))

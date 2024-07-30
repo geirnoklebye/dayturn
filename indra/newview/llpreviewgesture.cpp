@@ -616,10 +616,9 @@ void LLPreviewGesture::refresh()
 	LLPreview::refresh();
 	// If previewing or item is incomplete, all controls are disabled
 	LLViewerInventoryItem* item = (LLViewerInventoryItem*)getItem();
-	bool is_complete = (item && item->isFinished()) ? true : false;
+	bool is_complete = item && item->isFinished();
 	if (mPreviewGesture || !is_complete)
 	{
-		
 		getChildView("desc")->setEnabled(false);
 		//mDescEditor->setEnabled(false);
 		mTriggerEditor->setEnabled(false);
@@ -649,7 +648,7 @@ void LLPreviewGesture::refresh()
 		return;
 	}
 
-	BOOL modifiable = item->getPermissions().allowModifyBy(gAgent.getID());
+	bool modifiable = item->getPermissions().allowModifyBy(gAgent.getID());
 
 	getChildView("desc")->setEnabled(modifiable);
 	mTriggerEditor->setEnabled(true);
@@ -666,18 +665,18 @@ void LLPreviewGesture::refresh()
 	mActiveCheck->setEnabled(true);
 
 	const std::string& trigger = mTriggerEditor->getText();
-	BOOL have_trigger = !trigger.empty();
+	bool have_trigger = !trigger.empty();
 
 	const std::string& replace = mReplaceEditor->getText();
-	BOOL have_replace = !replace.empty();
+	bool have_replace = !replace.empty();
 
 	LLScrollListItem* library_item = mLibraryList->getFirstSelected();
-	BOOL have_library = (library_item != NULL);
+	bool have_library = (library_item != NULL);
 
 	LLScrollListItem* step_item = mStepList->getFirstSelected();
 	S32 step_index = mStepList->getFirstSelectedIndex();
 	S32 step_count = mStepList->getItemCount();
-	BOOL have_step = (step_item != NULL);
+	bool have_step = (step_item != NULL);
 
 	mReplaceText->setEnabled(have_trigger || have_replace);
 	mReplaceEditor->setEnabled(have_trigger || have_replace);
@@ -1141,7 +1140,7 @@ void LLPreviewGesture::saveIfNeeded()
 
             LLLineEditor* descEditor = getChild<LLLineEditor>("desc");
             LLSaveInfo* info = new LLSaveInfo(mItemUUID, mObjectUUID, descEditor->getText(), tid);
-            gAssetStorage->storeAssetData(tid, LLAssetType::AT_GESTURE, onSaveComplete, info, FALSE);
+            gAssetStorage->storeAssetData(tid, LLAssetType::AT_GESTURE, onSaveComplete, info, false);
         }
 
     }
