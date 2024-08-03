@@ -95,9 +95,9 @@ public:
 	void removeData(LLViewerOctreeEntryData* data);
 
 	LLViewerOctreeEntryData* getDrawable() const {return mData[LLDRAWABLE];}
-	bool                     hasDrawable() const {return mData[LLDRAWABLE] != NULL;}
+	bool                     hasDrawable() const {return mData[LLDRAWABLE] != nullptr;}
 	LLViewerOctreeEntryData* getVOCacheEntry() const {return mData[LLVOCACHEENTRY];}
-	bool                     hasVOCacheEntry() const {return mData[LLVOCACHEENTRY] != NULL;}
+	bool                     hasVOCacheEntry() const {return mData[LLVOCACHEENTRY] != nullptr;}
 
 	const LLVector4a* getSpatialExtents() const {return mExtents;} 
 	const LLVector4a& getPositionGroup() const  {return mPositionGroup;}	
@@ -224,7 +224,7 @@ public:
 
 	U32  getState()				   {return mState; }
 	bool isDirty() const           {return mState & DIRTY;}
-	bool hasState(U32 state) const {return mState & state;}
+	[[nodiscard]] bool hasState(U32 state) const {return mState & state;}
 	void setState(U32 state)       {mState |= state;}
 	void clearState(U32 state)     {mState &= ~state;}	
 
@@ -304,9 +304,9 @@ public:
 	void setOcclusionState(U32 state, S32 mode = STATE_MODE_SINGLE);
 	void clearOcclusionState(U32 state, S32 mode = STATE_MODE_SINGLE);
 	void checkOcclusion(); //read back last occlusion query (if any)
-	void doOcclusion(LLCamera* camera, const LLVector4a* shift = NULL); //issue occlusion query
-	bool isOcclusionState(U32 state) const	{ return mOcclusionState[LLViewerCamera::sCurCameraID] & state ? true : false; }
-	U32  getOcclusionState() const	{ return mOcclusionState[LLViewerCamera::sCurCameraID];}
+	void doOcclusion(LLCamera* camera, const LLVector4a* shift = nullptr); //issue occlusion query
+	[[nodiscard]] bool isOcclusionState(U32 state) const	{ return (mOcclusionState[LLViewerCamera::sCurCameraID] & state) != 0; }
+	[[nodiscard]] U32  getOcclusionState() const	{ return mOcclusionState[LLViewerCamera::sCurCameraID];}
 
 	bool needsUpdate();
 	U32  getLastOcclusionIssuedTime();
@@ -315,9 +315,9 @@ public:
 	void handleChildAddition(const OctreeNode* parent, OctreeNode* child);
 
 	//virtual
-	bool isRecentlyVisible() const;
+	[[nodiscard]] bool isRecentlyVisible() const;
 	LLViewerOctreePartition* getSpatialPartition()const {return mSpatialPartition;}
-	bool isAnyRecentlyVisible() const;
+	[[nodiscard]] bool isAnyRecentlyVisible() const;
 
 	static U32 getNewOcclusionQueryObjectName();
 	static void releaseOcclusionQueryObjectName(U32 name);

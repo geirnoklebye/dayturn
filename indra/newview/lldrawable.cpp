@@ -815,7 +815,7 @@ bool LLDrawable::updateMoveDamped()
 		mVObjp->updateText();
 	}
 
-	bool done_moving = (dist_squared == 0.0f) ? true : false;
+	bool done_moving = dist_squared == 0.0f;
 
 	if (done_moving)
 	{
@@ -1318,10 +1318,10 @@ void LLSpatialBridge::updateSpatialExtents()
 	LLVector4a newMin;
 	LLVector4a newMax;	
 	newMin = newMax = center;
-	for (U32 i = 0; i < 4; i++)
+	for (const auto & i : v)
 	{
 		LLVector4a delta;
-		delta.setAbs(v[i]);
+		delta.setAbs(i);
 		LLVector4a min;
 		min.setSub(center, delta);
 		LLVector4a max;
@@ -1699,17 +1699,13 @@ bool LLDrawable::isAnimating() const
 	{
 		return true;
 	}
-	if (mVObjp->getPCode() == LLViewerObject::LL_VO_HUD_PART_GROUP)
-	{
-		return true;
-	}
+    return mVObjp->getPCode() == LLViewerObject::LL_VO_HUD_PART_GROUP;
 
 	/*if (!isRoot() && !mVObjp->getAngularVelocity().isExactlyZero())
 	{ //target omega
 		return true;
 	}*/
 
-	return false;
 }
 
 void LLDrawable::updateFaceSize(S32 idx)

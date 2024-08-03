@@ -111,8 +111,8 @@ void LLViewerJointMesh::uploadJointMatrices()
 {
 	S32 joint_num;
 	LLPolyMesh *reference_mesh = mMesh->getReferenceMesh();
-	LLDrawPool *poolp = mFace ? mFace->getPool() : NULL;
-	bool hardware_skinning = (poolp && poolp->getShaderLevel() > 0) ? true : false;
+	LLDrawPool *poolp = mFace ? mFace->getPool() : nullptr;
+	bool hardware_skinning = poolp && poolp->getShaderLevel() > 0;
 
 	//calculate joint matrices
 	for (joint_num = 0; joint_num < reference_mesh->mJointRenderData.size(); joint_num++)
@@ -225,7 +225,7 @@ U32 LLViewerJointMesh::drawShape( F32 pixelArea, bool first_pass, bool is_dummy)
 	if (!mValid || !mMesh || !mFace || !mVisible || 
 		!mFace->getVertexBuffer() ||
 		mMesh->getNumFaces() == 0 ||
-		LLGLSLShader::sCurBoundShaderPtr == NULL)
+		LLGLSLShader::sCurBoundShaderPtr == nullptr)
 	{
 		return 0;
 	}
@@ -369,7 +369,7 @@ void LLViewerJointMesh::updateFaceData(LLFace *face, F32 pixel_area, bool damp_w
 	}
 
 	LLDrawPool *poolp = mFace->getPool();
-	bool hardware_skinning = (poolp && poolp->getShaderLevel() > 0) ? true : false;
+	bool hardware_skinning = poolp && poolp->getShaderLevel() > 0;
 
 	if (!hardware_skinning && terse_update)
 	{ //no need to do terse updates if we're doing software vertex skinning

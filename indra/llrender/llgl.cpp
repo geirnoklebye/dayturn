@@ -1040,7 +1040,7 @@ void LLGLManager::initExtensions()
 	mHasTextureRectangle = ExtensionExists("GL_ARB_texture_rectangle", gGLHExts.mSysExts);
 	mHasTextureMultisample = ExtensionExists("GL_ARB_texture_multisample", gGLHExts.mSysExts);
 	mHasDebugOutput = ExtensionExists("GL_ARB_debug_output", gGLHExts.mSysExts);
-	mHasTransformFeedback = mGLVersion >= 4.f ? true : false;
+	mHasTransformFeedback = mGLVersion >= 4.f;
 #if !LL_DARWIN
 	mHasPointParameters = ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);
 #endif

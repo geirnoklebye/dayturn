@@ -1919,7 +1919,7 @@ void LLPanelEstateInfo::refresh()
     getChildView("limit_bots")->setEnabled(public_access);
 
 	// if this is set to false, then the limit fields are meaningless and should be turned off
-	if (public_access == false)
+	if (!public_access)
 	{
 		getChild<LLUICtrl>("limit_payment")->setValue(false);
 		getChild<LLUICtrl>("limit_age_verified")->setValue(false);
@@ -2851,10 +2851,10 @@ void LLPanelEstateAccess::updateControls(LLViewerRegion* region)
 	bool enable_cotrols = god || owner || manager;	
 	setCtrlsEnabled(enable_cotrols);
 	
-	bool has_allowed_avatar = getChild<LLNameListCtrl>("allowed_avatar_name_list")->getFirstSelected() ? true : false;
-	bool has_allowed_group = getChild<LLNameListCtrl>("allowed_group_name_list")->getFirstSelected() ? true : false;
-	bool has_banned_agent = getChild<LLNameListCtrl>("banned_avatar_name_list")->getFirstSelected() ? true : false;
-	bool has_estate_manager = getChild<LLNameListCtrl>("estate_manager_name_list")->getFirstSelected() ? true : false;
+	bool has_allowed_avatar = getChild<LLNameListCtrl>("allowed_avatar_name_list")->getFirstSelected() != nullptr;
+	bool has_allowed_group = getChild<LLNameListCtrl>("allowed_group_name_list")->getFirstSelected() != nullptr;
+	bool has_banned_agent = getChild<LLNameListCtrl>("banned_avatar_name_list")->getFirstSelected() != nullptr;
+	bool has_estate_manager = getChild<LLNameListCtrl>("estate_manager_name_list")->getFirstSelected() != nullptr;
 
 	getChildView("add_allowed_avatar_btn")->setEnabled(enable_cotrols);
 	getChildView("remove_allowed_avatar_btn")->setEnabled(has_allowed_avatar && enable_cotrols);

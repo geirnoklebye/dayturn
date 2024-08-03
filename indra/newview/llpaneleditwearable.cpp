@@ -1344,7 +1344,7 @@ void LLPanelEditWearable::updateTypeSpecificControls(LLWearableType::EType type)
         {
                 // Update avatar height
                 F32 new_size = gAgentAvatarp->mBodySize.mV[VZ];
-                if (gSavedSettings.getbool("HeightUnits") == false)
+                if (!gSavedSettings.getbool("HeightUnits"))
                 {
                         // convert meters to feet
                         new_size = new_size / ONE_FOOT;
@@ -1757,7 +1757,7 @@ public:
         bool handle(const LLSD& params, const LLSD& query_map, const std::string& grid, LLMediaCtrl* web)
         {
                 // change height units true for meters and false for feet
-                bool new_value = (gSavedSettings.getbool("HeightUnits") == false) ? true : false;
+                bool new_value = !gSavedSettings.getbool("HeightUnits");
                 gSavedSettings.setbool("HeightUnits", new_value);
                 return true;
         }

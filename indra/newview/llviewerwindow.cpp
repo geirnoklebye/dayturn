@@ -868,8 +868,8 @@ public:
             LLCoordGL coord = gViewerWindow->getCurrentMouse();
 
             // Convert x,y to raw pixel coords
-            S32 x_raw = llround(coord.mX * gViewerWindow->getWindowWidthRaw() / (F32) gViewerWindow->getWindowWidthScaled());
-            S32 y_raw = llround(coord.mY * gViewerWindow->getWindowHeightRaw() / (F32) gViewerWindow->getWindowHeightScaled());
+            long long int x_raw = llround(coord.mX * gViewerWindow->getWindowWidthRaw() / (F32) gViewerWindow->getWindowWidthScaled());
+            long long int y_raw = llround(coord.mY * gViewerWindow->getWindowHeightRaw() / (F32) gViewerWindow->getWindowHeightScaled());
             
             glReadPixels(x_raw, y_raw, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
             addText(xpos, ypos, llformat("Pixel <%1d, %1d> R:%1d G:%1d B:%1d A:%1d", x_raw, y_raw, color[0], color[1], color[2], color[3]));
@@ -3941,17 +3941,10 @@ void LLViewerWindow::updateMouseDelta()
 	//RN: fix for asynchronous notification of mouse leaving window not working
 	LLCoordWindow mouse_pos;
 	mWindow->getCursorPosition(&mouse_pos);
-	if (mouse_pos.mX < 0 || 
-		mouse_pos.mY < 0 ||
-		mouse_pos.mX > mWindowRectRaw.getWidth() ||
-		mouse_pos.mY > mWindowRectRaw.getHeight())
-	{
-		mMouseInWindow = false;
-	}
-	else
-	{
-		mMouseInWindow = true;
-	}
+	mMouseInWindow = !(mouse_pos.mX < 0 ||
+			mouse_pos.mY < 0 ||
+			mouse_pos.mX > mWindowRectRaw.getWidth() ||
+			mouse_pos.mY > mWindowRectRaw.getHeight());
 
 	LLVector2 mouse_vel; 
 
@@ -4072,7 +4065,7 @@ void LLViewerWindow::updateWorldViewRect(bool use_full_window)
 	// start off using whole window to render world
 	LLRect new_world_rect = mWindowRectRaw;
 
-	if (use_full_window == false && mWorldViewPlaceholder.get())
+	if (!use_full_window && mWorldViewPlaceholder.get())
 	{
 		new_world_rect = mWorldViewPlaceholder.get()->calcScreenRect();
 		// clamp to at least a 1x1 rect so we don't try to allocate zero width gl buffers
@@ -5630,7 +5623,7 @@ bool LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	setCursor(UI_CURSOR_WAIT);
 
 	// Hide all the UI widgets first and draw a frame
-	bool prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI) ? true : false;
+	bool prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI);
 
 	if ( prev_draw_ui != show_ui)
 	{
@@ -5936,8 +5929,8 @@ bool LLViewerWindow::simpleSnapshot(LLImageRaw* raw, S32 image_width, S32 image_
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     setCursor(UI_CURSOR_WAIT);
 
-    bool prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI) ? true : false;
-    if (prev_draw_ui != false)
+    bool prev_draw_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI);
+    if (prev_draw_ui)
     {
         LLPipeline::toggleRenderDebugFeature(LLPipeline::RENDER_DEBUG_FEATURE_UI);
     }
@@ -6008,7 +6001,7 @@ bool LLViewerWindow::simpleSnapshot(LLImageRaw* raw, S32 image_width, S32 image_
 
     if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
     {
-        if (prev_draw_ui != false)
+        if (prev_draw_ui)
         {
             LLPipeline::toggleRenderDebugFeature(LLPipeline::RENDER_DEBUG_FEATURE_UI);
         }
@@ -6901,11 +6894,7 @@ bool LLPickInfo::isFlora(LLViewerObject* object)
 
 	LLPCode pcode = object->getPCode();
 
-	if( (LL_PCODE_LEGACY_GRASS == pcode) 
-		|| (LL_PCODE_LEGACY_TREE == pcode) 
-		|| (LL_PCODE_TREE_NEW == pcode))
-	{
-		return true;
-	}
-	return false;
+	return (LL_PCODE_LEGACY_GRASS == pcode)
+			|| (LL_PCODE_LEGACY_TREE == pcode)
+			|| (LL_PCODE_TREE_NEW == pcode);
 }

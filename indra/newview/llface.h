@@ -118,7 +118,7 @@ public:
 	U32				getState()			const	{ return mState; }
 	void			setState(U32 state)			{ mState |= state; }
 	void			clearState(U32 state)		{ mState &= ~state; }
-	bool			isState(U32 state)	const	{ return ((mState & state) != 0) ? true : false; }
+	bool			isState(U32 state)	const	{ return (mState & state) != 0; }
 	void			setVirtualSize(F32 size) { mVSize = size; }
 	void			setPixelArea(F32 area)	{ mPixelArea = area; }
 	F32				getVirtualSize() const { return mVSize; }
@@ -204,7 +204,7 @@ public:
 	S32			getReferenceIndex() 		const	{ return mReferenceIndex; }
 	void		setReferenceIndex(const S32 index)	{ mReferenceIndex = index; }
 
-	bool		verify(const U32* indices_array = NULL) const;
+	bool		verify(const U32* indices_array = nullptr) const;
 	void		printDebugInfo() const;
 
 	void		setGeomIndex(U16 idx); 

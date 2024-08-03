@@ -176,7 +176,7 @@ public:
 	S32 isLargeImage() ;	
 	
 	void setParcelMedia(LLViewerMediaTexture* media) {mParcelMedia = media;}
-	bool hasParcelMedia() const { return mParcelMedia != NULL;}
+	bool hasParcelMedia() const { return mParcelMedia != nullptr;}
 	LLViewerMediaTexture* getParcelMedia() const { return mParcelMedia;}
 
 	/*virtual*/ void updateBindStatsForTester() ;
@@ -332,10 +332,7 @@ public:
 
 			if( llabs( fDiff ) < 0.001 ) // Very small difference, don't take the risk and just compare the pointers.
 				return lhsp < rhsp;
-			else if( fDiff > 0 ) // lhs is bigger, so by the priority queue it is 'less'
-				return true;
-			else
-				return false;
+			else return fDiff > 0;
 
 			// </FS:ND>
 		}
@@ -352,7 +349,7 @@ public:
 	void setLoadedCallback(loaded_callback_func cb,
 						   S32 discard_level, bool keep_imageraw, bool needs_aux,
 						   void* userdata, LLLoadedCallbackEntry::source_callback_list_t* src_callback_list, bool pause = false);
-	bool hasCallbacks() { return mLoadedCallbackList.empty() ? false : true; }	
+	bool hasCallbacks() { return !mLoadedCallbackList.empty() && true; }
 	void pauseLoadedCallbacks(const LLLoadedCallbackEntry::source_callback_list_t* callback_list);
 	void unpauseLoadedCallbacks(const LLLoadedCallbackEntry::source_callback_list_t* callback_list);
 	bool doLoadedCallbacks();
@@ -618,7 +615,7 @@ protected:
 	/*virtual*/ ~LLViewerMediaTexture() ;
 
 public:
-	LLViewerMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = NULL) ;
+	LLViewerMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = nullptr) ;
 
 	/*virtual*/ S8 getType() const;
 	void reinit(bool usemipmaps = true);	
@@ -696,12 +693,12 @@ public:
 	static LLViewerFetchedTexture*    findFetchedTexture(const LLUUID& id, S32 tex_type);
 	static LLViewerMediaTexture*      findMediaTexture(const LLUUID& id) ;
 	
-	static LLViewerMediaTexture*      createMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = NULL) ;
+	static LLViewerMediaTexture*      createMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = nullptr) ;
 
 	//
 	//"get-texture" will create a new texture if the texture does not exist.
 	//
-	static LLViewerMediaTexture*      getMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = NULL) ;
+	static LLViewerMediaTexture*      getMediaTexture(const LLUUID& id, bool usemipmaps = true, LLImageGL* gl_image = nullptr) ;
 	
 	static LLPointer<LLViewerTexture> getLocalTexture(bool usemipmaps = true, bool generate_gl_tex = true);
 	static LLPointer<LLViewerTexture> getLocalTexture(const LLUUID& id, bool usemipmaps, bool generate_gl_tex = true) ;

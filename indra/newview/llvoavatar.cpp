@@ -2454,8 +2454,8 @@ void LLVOAvatar::updateMeshData()
 					// Attempt to create a dummy triangle (one vertex, 3 indices, all 0)
 					facep->setSize(1, 3);
 					buff->allocateBuffer(1, 3, true);
-					memset((U8*) buff->getMappedData(), 0, buff->getSize());
-					memset((U8*) buff->getMappedIndices(), 0, buff->getIndicesSize());
+					memset(buff->getMappedData(), 0, buff->getSize());
+					memset(buff->getMappedIndices(), 0, buff->getIndicesSize());
 				}
 				facep->setVertexBuffer(buff);
 			}
@@ -2474,8 +2474,8 @@ void LLVOAvatar::updateMeshData()
 						// Attempt to create a dummy triangle (one vertex, 3 indices, all 0)
 						facep->setSize(1, 3);
 						buff->resizeBuffer(1, 3);
-						memset((U8*) buff->getMappedData(), 0, buff->getSize());
-						memset((U8*) buff->getMappedIndices(), 0, buff->getIndicesSize());
+						memset(buff->getMappedData(), 0, buff->getSize());
+						memset(buff->getMappedIndices(), 0, buff->getIndicesSize());
 					}
 				}
 			}
@@ -5021,14 +5021,7 @@ void LLVOAvatar::updateVisibility()
 	}
 	else
 	{
-		if (!mDrawable->getSpatialGroup() || mDrawable->getSpatialGroup()->isVisible())
-		{
-			visible = true;
-		}
-		else
-		{
-			visible = false;
-		}
+		visible = !mDrawable->getSpatialGroup() || mDrawable->getSpatialGroup()->isVisible();
 
 		if(isSelf())
 		{
@@ -6775,8 +6768,8 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LL
 
 	if ( vobj && vobj->isMesh() && pSkinData )
 	{
-		const int bindCnt = pSkinData->mAlternateBindMatrix.size();								
-        const int jointCnt = pSkinData->mJointNames.size();
+		unsigned long bindCnt = pSkinData->mAlternateBindMatrix.size();
+        unsigned long jointCnt = pSkinData->mJointNames.size();
         if ((bindCnt > 0) && (bindCnt != jointCnt))
         {
             LL_WARNS_ONCE() << "invalid mesh, bindCnt " << bindCnt << "!= jointCnt " << jointCnt << ", joint overrides will be ignored." << LL_ENDL;
@@ -6803,7 +6796,7 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LL
                 LL_DEBUGS("AnimatedObjects") << "adding attachment overrides for " << mesh_id 
                                              << " to root object " << root_object->getID() << LL_ENDL;
             }
-			bool fullRig = (jointCnt>=JOINT_COUNT_REQUIRED_FOR_FULLRIG) ? true : false;								
+			bool fullRig = jointCnt >= JOINT_COUNT_REQUIRED_FOR_FULLRIG;
 			if ( fullRig && !mesh_overrides_loaded )
 			{								
 				for ( int i=0; i<jointCnt; ++i )
@@ -8192,12 +8185,8 @@ void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color)
 // Do rigged mesh attachments display with this av?
 bool LLVOAvatar::shouldRenderRigged() const
 {
-	if (getOverallAppearance() == AOA_NORMAL)
-	{
-		return true;
-	}
+	return getOverallAppearance() == AOA_NORMAL;
 	// TBD - render for AOA_JELLYDOLL?
-	return false;
 }
 
 // FIXME: We have an mVisible member, set in updateVisibility(), but this
@@ -10404,14 +10393,7 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 	{
 		LLVOAvatar* inst = (LLVOAvatar*) *iter;
 		bool culled;
-		if (inst->isSelf() || inst->isFullyBaked())
-		{
-			culled = false;
-		}
-		else 
-		{
-			culled = true;
-		}
+		culled = !(inst->isSelf() || inst->isFullyBaked());
 
 		if (inst->mCulled != culled)
 		{

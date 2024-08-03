@@ -513,8 +513,8 @@ bool LLFloaterPreference::postBuild()
 	getChild<LLComboBox>("ObjectIMOptions")->setCommitCallback(boost::bind(&LLFloaterPreference::onNotificationsChange, this,"ObjectIMOptions"));
 
 	// if floater is opened before login set default localized do not disturb message
-	getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);
-	getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);	
+	getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(!(LLStartUp::getStartupState() < STATE_STARTED));
+	getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(!(LLStartUp::getStartupState() < STATE_STARTED));
 
 	gSavedSettings.getControl("NameTagShowUsernames")->getCommitSignal()->connect(boost::bind(&handleNameTagOptionChanged,  _2));	
 	gSavedSettings.getControl("NameTagShowFriends")->getCommitSignal()->connect(boost::bind(&handleNameTagOptionChanged,  _2));	
@@ -1483,16 +1483,16 @@ void LLFloaterPreference::refreshEnabledState()
 	bool bumpshiny = gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps && LLFeatureManager::getInstance()->isFeatureAvailable("RenderObjectBump") && gSavedSettings.getbool("RenderObjectBump");
 	bool shaders = gSavedSettings.getbool("WindLightUseAtmosShaders");
 	bool enabled = LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred") &&
-						bumpshiny &&
-						shaders && 
-						(ctrl_wind_light->get()) ? true : false;
+			bumpshiny &&
+			shaders &&
+			(ctrl_wind_light->get());
 
 	ctrl_deferred->setEnabled(enabled);
 
 	// Cannot have floater active until caps have been received
-	getChild<LLButton>("default_creation_permissions")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);
-	getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);
-	getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(LLStartUp::getStartupState() < STATE_STARTED ? false : true);
+	getChild<LLButton>("default_creation_permissions")->setEnabled(!(LLStartUp::getStartupState() < STATE_STARTED));
+	getChild<LLUICtrl>("WindowTitleAvatarName")->setEnabled(!(LLStartUp::getStartupState() < STATE_STARTED));
+	getChild<LLUICtrl>("WindowTitleGridName")->setEnabled(!(LLStartUp::getStartupState() < STATE_STARTED));
 
 	getChildView("block_list")->setEnabled(LLLoginInstance::getInstance()->authSuccess());
 	refreshEnabledStateAdvanced();
@@ -1533,7 +1533,7 @@ void LLFloaterPreference::refreshEnabledStateAdvanced()
 	// Bump & Shiny	
 	LLCheckBoxCtrl* bumpshiny_ctrl = getChild<LLCheckBoxCtrl>("BumpShiny");
 	bool bumpshiny = gGLManager.mHasCubeMap && LLCubeMap::sUseCubeMaps && LLFeatureManager::getInstance()->isFeatureAvailable("RenderObjectBump");
-	bumpshiny_ctrl->setEnabled(bumpshiny ? true : false);
+	bumpshiny_ctrl->setEnabled(bumpshiny);
     
 	// Avatar Mode
 	// Avatar Render Mode
@@ -1559,8 +1559,8 @@ void LLFloaterPreference::refreshEnabledStateAdvanced()
     LLCheckBoxCtrl* ctrl_deferred = getChild<LLCheckBoxCtrl>("UseLightShaders");
     
     bool enabled = LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferred") &&
-                        ((bumpshiny_ctrl && bumpshiny_ctrl->get()) ? true : false) &&
-                        (ctrl_wind_light->get()) ? true : false;
+			bumpshiny_ctrl && bumpshiny_ctrl->get() &&
+			(ctrl_wind_light->get());
 
     ctrl_deferred->setEnabled(enabled);
 

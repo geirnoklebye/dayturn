@@ -1006,7 +1006,7 @@ bool LLAppViewer::init()
 	// do any necessary set-up for accepting incoming SLURLs from apps
 	initSLURLHandler();
 
-	if(false == initHardwareTest())
+	if(!initHardwareTest())
 	{
 		// Early out from user choice.
 		return false;
@@ -2363,14 +2363,14 @@ bool LLAppViewer::initThreads()
 
 	LLImage::initClass(gSavedSettings.getbool("TextureNewByteRange"),gSavedSettings.getS32("TextureReverseByteRange"));
 
-	LLLFSThread::initClass(enable_threads && false);
+	LLLFSThread::initClass(false);
 
 	// Image decoding
-	LLAppViewer::sImageDecodeThread = new LLImageDecodeThread(enable_threads && true);
-	LLAppViewer::sTextureCache = new LLTextureCache(enable_threads && true);
+	LLAppViewer::sImageDecodeThread = new LLImageDecodeThread(true);
+	LLAppViewer::sTextureCache = new LLTextureCache(true);
 	LLAppViewer::sTextureFetch = new LLTextureFetch(LLAppViewer::getTextureCache(),
 													sImageDecodeThread,
-													enable_threads && true,
+													true,
 													app_metrics_qa_mode);
 	LLAppViewer::sPurgeDiskCacheThread = new LLPurgeDiskCacheThread();
 
@@ -4397,7 +4397,7 @@ U32 LLAppViewer::getObjectCacheVersion()
 bool LLAppViewer::initCache()
 {
 	mPurgeCache = false;
-	bool read_only = mSecondInstance ? true : false;
+	bool read_only = mSecondInstance;
 	LLAppViewer::getTextureCache()->setReadOnly(read_only) ;
 	LLVOCache::initParamSingleton(read_only);
 

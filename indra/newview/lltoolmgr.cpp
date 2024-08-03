@@ -145,7 +145,7 @@ LLToolMgr::~LLToolMgr()
 
 bool LLToolMgr::usingTransientTool()
 {
-	return mTransientTool ? true : false;
+	return mTransientTool != nullptr;
 }
 
 void LLToolMgr::setCurrentToolset(LLToolset* current)

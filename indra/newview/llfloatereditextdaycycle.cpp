@@ -755,7 +755,7 @@ void LLFloaterEditExtDayCycle::onCloneTrack()
         return;
     }
     const LLEnvironment::altitude_list_t &altitudes = LLEnvironment::instance().getRegionAltitudes();
-    bool use_altitudes = altitudes.size() > 0 && ((mEditContext == CONTEXT_PARCEL) || (mEditContext == CONTEXT_REGION));
+    bool use_altitudes = (mEditContext == CONTEXT_PARCEL) || (mEditContext == CONTEXT_REGION);
 
     LLSD args = LLSD::emptyArray();
 

@@ -177,7 +177,7 @@ public:
 				// HACK: force recalculation of pixel area if interest is the "magic default" of 1024.
 				if (interest == 1024.f)
 				{
-					const_cast<LLVOVolume*>(static_cast<LLVOVolume*>(mObject))->setPixelAreaAndAngle(gAgent);
+					(static_cast<LLVOVolume *>(mObject))->setPixelAreaAndAngle(gAgent);
 					interest = mObject->getPixelArea();
 				}
 			}
@@ -273,7 +273,7 @@ void LLVOVolume::markDead()
 
 		if(getMDCImplCount() > 0)
 		{
-			LLMediaDataClientObject::ptr_t obj = new LLMediaDataClientObjectImpl(const_cast<LLVOVolume*>(this), false);
+			LLMediaDataClientObject::ptr_t obj = new LLMediaDataClientObjectImpl(this, false);
 			if (sObjectMediaClient) sObjectMediaClient->removeFromQueue(obj);
 			if (sObjectMediaNavigateClient) sObjectMediaNavigateClient->removeFromQueue(obj);
 		}
@@ -2192,11 +2192,7 @@ void LLVOVolume::updateFaceSize(S32 idx)
 
 bool LLVOVolume::isRootEdit() const
 {
-	if (mParent && !((LLViewerObject*)mParent)->isAvatar())
-	{
-		return false;
-	}
-	return true;
+	return !(mParent && !((LLViewerObject *) mParent)->isAvatar());
 }
 
 //virtual
@@ -2418,7 +2414,7 @@ S32 LLVOVolume::setTEMaterialID(const U8 te, const LLMaterialID& pMaterialID)
 {
 	S32 res = LLViewerObject::setTEMaterialID(te, pMaterialID);
 	LL_DEBUGS("MaterialTEs") << "te "<< (S32)te << " materialid " << pMaterialID.asString() << " res " << res
-								<< ( LLSelectMgr::getInstance()->getSelection()->contains(const_cast<LLVOVolume*>(this), te) ? " selected" : " not selected" )
+								<< ( LLSelectMgr::getInstance()->getSelection()->contains(this, te) ? " selected" : " not selected" )
 								<< LL_ENDL;
 		
 	LL_DEBUGS("MaterialTEs") << " " << pMaterialID.asString() << LL_ENDL;
@@ -2674,7 +2670,7 @@ S32 LLVOVolume::setTEMaterialParams(const U8 te, const LLMaterialPtr pMaterialPa
 	S32 res = LLViewerObject::setTEMaterialParams(te, pMaterial);
 
 	LL_DEBUGS("MaterialTEs") << "te " << (S32)te << " material " << ((pMaterial) ? pMaterial->asLLSD() : LLSD("null")) << " res " << res
-							 << ( LLSelectMgr::getInstance()->getSelection()->contains(const_cast<LLVOVolume*>(this), te) ? " selected" : " not selected" )
+							 << ( LLSelectMgr::getInstance()->getSelection()->contains(this, te) ? " selected" : " not selected" )
 							 << LL_ENDL;
 	setChanged(ALL_CHANGED);
 	if (!mDrawable.isNull())
@@ -3296,25 +3292,9 @@ void LLVOVolume::setIsLight(bool is_light)
 	bool was_light = getIsLight();
 	if (is_light != was_light)
 	{
-		if (is_light)
-		{
-			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, true, true);
-		}
-		else
-		{
-			setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, false, true);
-		}
+		setParameterEntryInUse(LLNetworkData::PARAMS_LIGHT, is_light, true);
 
-		if (is_light)
-		{
-			// Add it to the pipeline mLightSet
-			gPipeline.setLight(mDrawable, true);
-		}
-		else
-		{
-			// Not a light.  Remove it from the pipeline's light set.
-			gPipeline.setLight(mDrawable, false);
-		}
+		gPipeline.setLight(mDrawable, is_light);
 	}
 }
 
@@ -3604,12 +3584,7 @@ bool LLVOVolume::isFlexible() const
 
 bool LLVOVolume::isSculpted() const
 {
-	if (getParameterEntryInUse(LLNetworkData::PARAMS_SCULPT))
-	{
-		return true;
-	}
-	
-	return false;
+	return getParameterEntryInUse(LLNetworkData::PARAMS_SCULPT);
 }
 
 bool LLVOVolume::isMesh() const
@@ -3631,19 +3606,14 @@ bool LLVOVolume::isMesh() const
 
 bool LLVOVolume::hasLightTexture() const
 {
-	if (getParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE))
-	{
-		return true;
-	}
-
-	return false;
+	return getParameterEntryInUse(LLNetworkData::PARAMS_LIGHT_IMAGE);
 }
 
 bool LLVOVolume::isVolumeGlobal() const
 {
 	if (mVolumeImpl)
 	{
-		return mVolumeImpl->isVolumeGlobal() ? true : false;
+		return mVolumeImpl->isVolumeGlobal();
 	}
 	else if (mRiggedVolume.notNull())
 	{
@@ -3789,11 +3759,7 @@ void LLVOVolume::setExtendedMeshFlags(U32 flags)
 bool LLVOVolume::canBeAnimatedObject() const
 {
     F32 est_tris = recursiveGetEstTrianglesMax();
-    if (est_tris < 0 || est_tris > getAnimatedObjectMaxTris())
-    {
-        return false;
-    }
-    return true;
+	return !(est_tris < 0 || est_tris > getAnimatedObjectMaxTris());
 }
 
 bool LLVOVolume::isAnimatedObject() const
@@ -5188,12 +5154,7 @@ bool can_batch_texture(LLFace* facep)
 		return false;
 	}
 
-	if (facep->isState(LLFace::TEXTURE_ANIM) && facep->getVirtualSize() > MIN_TEX_ANIM_SIZE)
-	{ //texture animation breaks batches
-		return false;
-	}
-	
-	return true;
+	return !(facep->isState(LLFace::TEXTURE_ANIM) && facep->getVirtualSize() > MIN_TEX_ANIM_SIZE);
 }
 
 const static U32 MAX_FACE_COUNT = 4096U;
@@ -6624,7 +6585,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 			const LLTextureEntry* te = facep->getTextureEntry();
 			tex = facep->getTexture();
 
-			bool is_alpha = (facep->getPoolType() == LLDrawPool::POOL_ALPHA) ? true : false;
+			bool is_alpha = facep->getPoolType() == LLDrawPool::POOL_ALPHA;
 		
 			LLMaterial* mat = te->getMaterialParams().get();
 
@@ -6641,7 +6602,7 @@ U32 LLVolumeGeometryManager::genDrawInfo(LLSpatialGroup* group, U32 mask, LLFace
 			bool opaque = te_alpha >= 0.999f;
             bool transparent = te_alpha < 0.999f;
 
-            is_alpha = (is_alpha || transparent) ? true : false;
+            is_alpha = is_alpha || transparent;
 
 			if (mat && LLPipeline::sRenderDeferred && !hud_group)
 			{

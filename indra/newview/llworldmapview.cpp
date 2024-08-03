@@ -338,7 +338,7 @@ void LLWorldMapView::setPan( S32 x, S32 y, bool snap )
     sVisibleTilesLoaded = false;
 }
 
-bool LLWorldMapView::showRegionInfo() { return (LLWorldMipmap::scaleToLevel(mMapScale) <= DRAW_SIMINFO_THRESHOLD ? true : false); }
+bool LLWorldMapView::showRegionInfo() { return LLWorldMipmap::scaleToLevel(mMapScale) <= DRAW_SIMINFO_THRESHOLD; }
 
 ///////////////////////////////////////////////////////////////////////////////////
 // HELPERS
@@ -952,7 +952,7 @@ void LLWorldMapView::drawItems()
 		U64 handle = *iter;
 		LLSimInfo* info = LLWorldMap::getInstance()->simInfoFromHandle(handle);
 
-		if ((info == NULL) || (info->isDown()))
+		if ((info == nullptr) || (info->isDown()))
 		{
 			continue;
 		}
@@ -1005,7 +1005,7 @@ void LLWorldMapView::drawAgents()
 		U64 handle = *iter;
 		LLSimInfo* siminfo = LLWorldMap::getInstance()->simInfoFromHandle(handle);
 
-		if ((siminfo == NULL) || (siminfo->isDown()))
+		if ((siminfo == nullptr) || (siminfo->isDown()))
 		{
 			continue;
 		}
@@ -1647,7 +1647,7 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 			{
 				U64 handle = *iter;
 				LLSimInfo* siminfo = LLWorldMap::getInstance()->simInfoFromHandle(handle);
-				if ((siminfo == NULL) || (siminfo->isDown()))
+				if ((siminfo == nullptr) || (siminfo->isDown()))
 				{
 					continue;
 				}
@@ -1741,7 +1741,6 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 	gFloaterWorldMap->trackLocation(pos_global);
 	mItemPicked = false;
 	*id = LLUUID::null;
-	return;
 }
 
 
@@ -1786,7 +1785,7 @@ bool LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 			handleClick(x, y, mask, &hit_type, &id);
 		}
 		gViewerWindow->showCursor();
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture(nullptr);
 		return true;
 	}
 	return false;
@@ -1856,7 +1855,7 @@ bool LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 	{
 		// While we're waiting for data from the tracker, we're busy. JC
 		LLVector3d pos_global = LLTracker::getTrackedPositionGlobal();
-		if (LLTracker::isTracking(NULL)
+		if (LLTracker::isTracking(nullptr)
 			&& pos_global.isExactlyZero())
 		{
 			gViewerWindow->setCursor( UI_CURSOR_WAIT );

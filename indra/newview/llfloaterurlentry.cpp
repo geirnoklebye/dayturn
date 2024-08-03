@@ -40,7 +40,7 @@
 #include "llviewerwindow.h"
 #include "llcorehttputil.h"
 
-static LLFloaterURLEntry* sInstance = NULL;
+static LLFloaterURLEntry* sInstance = nullptr;
 
 //-----------------------------------------------------------------------------
 // LLFloaterURLEntry()
@@ -57,7 +57,7 @@ LLFloaterURLEntry::LLFloaterURLEntry(LLHandle<LLPanel> parent)
 //-----------------------------------------------------------------------------
 LLFloaterURLEntry::~LLFloaterURLEntry()
 {
-	sInstance = NULL;
+	sInstance = nullptr;
 }
 
 bool LLFloaterURLEntry::postBuild()
@@ -71,7 +71,7 @@ bool LLFloaterURLEntry::postBuild()
 	childSetAction("clear_btn", onBtnClear, this);
 	// clear media list button
 	LLSD parcel_history = LLURLHistory::getURLHistory("parcel");
-	bool enable_clear_button = parcel_history.size() > 0 ? true : false;
+	bool enable_clear_button = parcel_history.size() > 0;
 	getChildView("clear_btn")->setEnabled(enable_clear_button );
 
 	// OK button

@@ -319,7 +319,7 @@ void LLViewerJoystick::HotPlugRemovalCallback(NDOF_Device *dev)
 // -----------------------------------------------------------------------------
 LLViewerJoystick::LLViewerJoystick()
 :	mDriverState(JDS_UNINITIALIZED),
-	mNdofDev(NULL),
+	mNdofDev(nullptr),
 	mResetFlag(false),
 	mCameraUpdated(true),
 	mOverrideCamera(false),
@@ -779,7 +779,7 @@ void LLViewerJoystick::moveObjects(bool reset)
 
 	// max feather is 32
 	F32 feather = gSavedSettings.getF32("BuildFeathering"); 
-	bool is_zero = true, absolute = gSavedSettings.getBOOL("Cursor3D");
+	bool is_zero = true, absolute = gSavedSettings.getbool("Cursor3D");
 	
 	for (U32 i = 0; i < 6; i++)
 	{

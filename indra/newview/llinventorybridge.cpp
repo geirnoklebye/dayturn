@@ -772,7 +772,7 @@ void hide_context_entries(LLMenuGL& menu,
 			// so that some other UI element from multi-select doesn't later set this invisible.
 			menu_item->pushVisible(true);
 
-			bool enabled = (menu_item->getEnabled() == true);
+			bool enabled = menu_item->getEnabled();
 			for (itor2 = disabled_entries.begin(); enabled && (itor2 != disabled_entries.end()); ++itor2)
 			{
 				enabled &= (*itor2 != name);
@@ -1247,11 +1247,7 @@ bool LLInvFVBridge::isLinkedObjectMissing() const
 	{
 		return true;
 	}
-	if (obj->getIsLinkType() && LLAssetType::lookupIsLinkType(obj->getType()))
-	{
-		return true;
-	}
-	return false;
+	return obj->getIsLinkType() && LLAssetType::lookupIsLinkType(obj->getType());
 }
 
 bool LLInvFVBridge::isAgentInventory() const
@@ -2225,9 +2221,7 @@ bool LLFolderBridge::isItemMovable() const
 	if(obj)
 	{
 		// If it's a protected type folder, we can't move it
-		if (LLFolderType::lookupIsProtectedType(((LLInventoryCategory*)obj)->getPreferredType()))
-			return false;
-		return true;
+		return !LLFolderType::lookupIsProtectedType(((LLInventoryCategory *) obj)->getPreferredType());
 	}
 	return false;
 }
@@ -2371,12 +2365,8 @@ bool LLFolderBridge::isItemRemovable() const
 		}
 	}
 
-	if (isMarketplaceListingsFolder() && (!LLMarketplaceData::instance().isSLMDataFetched() || LLMarketplaceData::instance().getActivationState(mUUID)))
-	{
-		return false;
-	}
+	return !(isMarketplaceListingsFolder() && (!LLMarketplaceData::instance().isSLMDataFetched() || LLMarketplaceData::instance().getActivationState(mUUID)));
 
-	return true;
 }
 
 bool LLFolderBridge::isUpToDate() const
@@ -4097,7 +4087,7 @@ bool LLFolderBridge::checkFolderForContentsOfType(LLInventoryModel* model, LLInv
 								item_array,
 								LLInventoryModel::EXCLUDE_TRASH,
 								is_type);
-	return ((item_array.size() > 0) ? true : false );
+	return item_array.size() > 0;
 }
 
 void LLFolderBridge::buildContextMenuOptions(U32 flags, menuentry_vec_t&   items, menuentry_vec_t& disabled_items)
@@ -4911,12 +4901,8 @@ static bool can_move_to_outfit(LLInventoryItem* inv_item, bool move_is_into_curr
 		return !move_is_into_current_outfit;
 	}
 
-	if (move_is_into_current_outfit && get_is_item_worn(inv_item->getUUID()))
-	{
-		return false;
-	}
+	return !(move_is_into_current_outfit && get_is_item_worn(inv_item->getUUID()));
 
-	return true;
 }
 
 // Returns true if folder's content can be moved to Current Outfit or any outfit folder.
@@ -6555,7 +6541,7 @@ LLObjectBridge::LLObjectBridge(LLInventoryPanel* inventory,
 	LLItemBridge(inventory, root, uuid)
 {
 	mAttachPt = (flags & 0xff); // low bye of inventory flags
-	mIsMultiObject = ( flags & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS ) ?  true: false;
+	mIsMultiObject = (flags & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS) != 0;
 	mInvType = type;
 }
 

@@ -775,7 +775,7 @@ bool LLViewerObject::isReturnable()
 		boxes.push_back( LLBBox(child->getPositionRegion(), child->getRotationRegion(), child->getScale() * -0.5f, child->getScale() * 0.5f).getAxisAligned());
 	}
 
-	bool result = (mRegionp && mRegionp->objectIsReturnable(getPositionRegion(), boxes)) ? true : false;
+	bool result = mRegionp && mRegionp->objectIsReturnable(getPositionRegion(), boxes);
 	
 	if ( !result )
 	{		
@@ -2056,7 +2056,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				
 				if (sent_parentp && (sent_parentp != this) && !sent_parentp->isDead())
 				{
-                    if (((LLViewerObject*)sent_parentp)->isAvatar())
+                    if (sent_parentp->isAvatar())
                     {
                         //LL_DEBUGS("Avatar") << "ATT got object update for attachment " << LL_ENDL; 
                     }
@@ -2434,16 +2434,9 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	llassert(accel_mag_sq >= 0.f);
 	llassert(getAngularVelocity().magVecSquared() >= 0.f);
 
-	if ((MAG_CUTOFF >= vel_mag_sq) && 
-		(MAG_CUTOFF >= accel_mag_sq) &&
-		(MAG_CUTOFF >= getAngularVelocity().magVecSquared()))
-	{
-		mStatic = true; // This object doesn't move!
-	}
-	else
-	{
-		mStatic = false;
-	}
+	mStatic = (MAG_CUTOFF >= vel_mag_sq) &&
+			(MAG_CUTOFF >= accel_mag_sq) &&
+			(MAG_CUTOFF >= getAngularVelocity().magVecSquared());
 
 // BUG: This code leads to problems during group rotate and any scale operation.
 // Small discepencies between the simulator and viewer representations cause the 
@@ -3089,7 +3082,7 @@ void LLViewerObject::updateControlAvatar()
 {
     LLViewerObject *root = getRootEdit();
     bool is_animated_object = root->isAnimatedObject();
-    bool has_control_avatar = getControlAvatar();
+    bool has_control_avatar = static_cast<bool>(getControlAvatar());
     if (!is_animated_object && !has_control_avatar)
     {
         return;
