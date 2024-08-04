@@ -1004,8 +1004,8 @@ void LLOutfitGalleryItem::setOutfitWorn(bool value)
     LLStringUtil::format_map_t worn_string_args;
     std::string worn_string = getString("worn_string", worn_string_args);
     LLUIColor text_color = LLUIColorTable::instance().getColor(mSelected ? "White" : (mWorn ? "OutfitGalleryItemWorn" : "White"), LLColor4::white);
-    mOutfitWornText->setReadOnlyColor(text_color.get());
-    mOutfitNameText->setReadOnlyColor(text_color.get());
+    mOutfitWornText->setReadOnlyColor(text_color);
+    mOutfitNameText->setReadOnlyColor(text_color);
     mOutfitWornText->setValue(value ? worn_string : "");
 }
 

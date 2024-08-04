@@ -2286,7 +2286,7 @@ void LLViewerWindow::initWorldUI()
 	gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP | FOLLOWS_RIGHT);
 	gStatusBar->setShape(status_bar_container->getLocalRect());
 	// sync bg color with menu bar
-	gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor().get() );
+	gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor());
     // add InBack so that gStatusBar won't be drawn over menu
     status_bar_container->addChildInBack(gStatusBar, 2/*tab order, after menu*/);
     status_bar_container->setVisible(true);
@@ -2296,7 +2296,7 @@ void LLViewerWindow::initWorldUI()
 
 	LLNavigationBar* navbar = LLNavigationBar::getInstance();
 	navbar->setShape(nav_bar_container->getLocalRect());
-	navbar->setBackgroundColor(gMenuBarView->getBackgroundColor().get());
+	navbar->setBackgroundColor(gMenuBarView->getBackgroundColor());
 	nav_bar_container->addChild(navbar);
 	nav_bar_container->setVisible(true);
 

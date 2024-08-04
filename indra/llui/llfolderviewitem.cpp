@@ -768,7 +768,7 @@ void LLFolderViewItem::drawHighlight(const bool showContent, const bool hasKeybo
     const S32 FOCUS_LEFT = 1;
 	
 	// Determine which background color to use for highlighting
-	LLUIColor bgColor = (isFlashing() ? flashColor : selectColor);
+    const LLUIColor& bgColor = (isFlashing() ? flashColor : selectColor);
 
     //--------------------------------------------------------------------------------//
     // Draw highlight for selected items
