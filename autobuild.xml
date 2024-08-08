@@ -1768,16 +1768,16 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>4fbe9b66bbd05249f5f9b1f8c3531f69</string>
+              <string>4d7a460780a1012057c3a9e389e33b85</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/xxhash-0.8.1-69ff69a-common-69ff69a.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/xxhash-0.8.2-10285735820-common-10285735820.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
           </map>
         </map>
         <key>version</key>
-        <string>0.8.1-69ff69a</string>
+        <string>0.8.2-10285735820</string>
       </map>
       <key>zlib-ng</key>
       <map>
