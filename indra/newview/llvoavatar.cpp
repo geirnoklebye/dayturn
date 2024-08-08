@@ -2678,6 +2678,29 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 	}
 
     // Update should be happening max once per frame.
+    static LLCachedControl<S32> refreshPeriod(gSavedSettings, "AvatarExtentRefreshPeriodBatch");
+    static LLCachedControl<S32> refreshMaxPerPeriod(gSavedSettings, "AvatarExtentRefreshMaxPerBatch");
+    static S32 upd_freq = refreshPeriod; // initialise to a reasonable default of 1 batch
+    static S32 lastRecalibrationFrame{ 0 };
+
+    const S32 thisFrame = LLDrawable::getCurrentFrame();
+    if (thisFrame - lastRecalibrationFrame >= upd_freq)
+    {
+        // Only update at the start of a cycle. .
+        // update frequency = ((Num_Avatars -1 / NumberPerPeriod) + 1 ) * Periodicity
+        // Given NumberPerPeriod = 5 and Periodicity = 4
+        // | NumAvatars  | frequency |
+        // +-------------+-----------+
+        // |      1      |     4     |
+        // |      2      |     4     |
+        // |      5      |     4     |
+        // |     10      |     8     |
+        // |     25      |     20    |
+
+        upd_freq = (((gObjectList.getAvatarCount() - 1) / refreshMaxPerPeriod) + 1)*refreshPeriod;
+        lastRecalibrationFrame = thisFrame;
+    }
+
 	if ((mLastAnimExtents[0]==LLVector3())||
 		(mLastAnimExtents[1])==LLVector3())
 	{
@@ -2685,8 +2708,9 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
 	}
 	else
 	{
-		const S32 upd_freq = 4; // force update every upd_freq frames.
-		mNeedsExtentUpdate = ((LLDrawable::getCurrentFrame()+mID.mData[0])%upd_freq==0);
+        // Update extent if necessary.
+        // if the frame counnter + the first byte of the UUID % upd_freq = 0 then update the extent.
+        mNeedsExtentUpdate = ((thisFrame + mID.mData[0]) % upd_freq == 0);
 	}
     
     LLScopedContextString str("avatar_idle_update " + getFullname());
