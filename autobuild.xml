@@ -348,11 +348,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>bacc471873e371198108050a4b0db173</string>
+              <string>697988371ed34ee3b05ecf6bbc669d99</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/dullahan-1.14.0.202310042042_117.2.2_ge80c977_chromium-117.0.5938.132-darwin64-bb8417d.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/dullahan-1.14.0.202408091638_118.4.1_g3dd6078_chromium-118.0.5993.54-darwin64-10322607516.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -362,16 +362,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>ba2df26a50314ef89fb08d336e3c8292</string>
+              <string>5bfa6a8ab93f8e598ada5277ea9a5adc</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/dullahan-1.14.0.202310042145_117.2.2_ge80c977_chromium-117.0.5938.132-windows64-bb8417d.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/dullahan-1.14.0.202408091639_118.4.1_g3dd6078_chromium-118.0.5993.54-windows64-10322607516.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.14.0.202310042145_117.2.2_ge80c977_chromium-117.0.5938.132</string>
+        <string>1.14.0.202408091639_118.4.1_g3dd6078_chromium-118.0.5993.54</string>
       </map>
       <key>expat</key>
       <map>
