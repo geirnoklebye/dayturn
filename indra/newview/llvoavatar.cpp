@@ -10510,18 +10510,18 @@ void showRigInfoTabExtents(LLVOAvatar *avatar, LLJointRiggingInfoTab& tab, S32& 
 
 void LLVOAvatar::getAssociatedVolumes(std::vector<LLVOVolume*>& volumes)
 {
-	for ( LLVOAvatar::attachment_map_t::iterator iter = mAttachmentPoints.begin(); iter != mAttachmentPoints.end(); ++iter )
+    for (const auto& iter : mAttachmentPoints)
 	{
-		LLViewerJointAttachment* attachment = iter->second;
+		LLViewerJointAttachment* attachment = iter.second;
 		LLViewerJointAttachment::attachedobjs_vec_t::iterator attach_end = attachment->mAttachedObjects.end();
 		
-		for (LLViewerJointAttachment::attachedobjs_vec_t::iterator attach_iter = attachment->mAttachedObjects.begin();
-			 attach_iter != attach_end; ++attach_iter)
+        for (LLViewerObject* attached_object : attachment->mAttachedObjects)
 		{
-			LLViewerObject* attached_object =  attach_iter->get();
-            LLVOVolume *volume = dynamic_cast<LLVOVolume*>(attached_object);
-            if (volume)
+            if (attached_object->isDead())
+                continue;
+            if (attached_object->getPCode() == LL_PCODE_VOLUME)
             {
+                LLVOVolume* volume = (LLVOVolume*)attached_object;
                 volumes.push_back(volume);
                 if (volume->isAnimatedObject())
                 {
@@ -10531,15 +10531,12 @@ void LLVOAvatar::getAssociatedVolumes(std::vector<LLVOVolume*>& volumes)
                     continue;
                 }
             }
-            LLViewerObject::const_child_list_t& children = attached_object->getChildren();
-            for (LLViewerObject::const_child_list_t::const_iterator it = children.begin();
-                 it != children.end(); ++it)
+
+            for (LLViewerObject* childp : attached_object->getChildren())
             {
-                LLViewerObject *childp = *it;
-                LLVOVolume *volume = dynamic_cast<LLVOVolume*>(childp);
-                if (volume)
+                if (!childp->isDead() &&  childp->getPCode() == LL_PCODE_VOLUME)
                 {
-                    volumes.push_back(volume);
+                    volumes.push_back((LLVOVolume*)childp);
                 }
             }
         }
@@ -10576,55 +10573,40 @@ void LLVOAvatar::updateRiggingInfo()
 
 	getAssociatedVolumes(volumes);
 
-	std::map<LLUUID,S32> curr_rigging_info_key;
+    std::map<LLUUID, S32> curr_rigging_info_key;
+
+    // Get current rigging info key
+    for (LLVOVolume* vol : volumes)
 	{
-		// Get current rigging info key
-		// <FS:Ansariel> Performance tweak
-		//for (std::vector<LLVOVolume*>::iterator it = volumes.begin(); it != volumes.end(); ++it)
-		std::vector<LLVOVolume*>::iterator vol_end = volumes.end();
-		for (std::vector<LLVOVolume*>::iterator it = volumes.begin(); it != vol_end; ++it)
-		// </FS:Ansariel>
+        if (vol->isMesh() && vol->getVolume())
 		{
-			LLVOVolume *vol = *it;
-			if (vol->isMesh() && vol->getVolume())
-			{
-				const LLUUID& mesh_id = vol->getVolume()->getParams().getSculptID();
-				S32 max_lod = llmax(vol->getLOD(), vol->mLastRiggingInfoLOD);
-				curr_rigging_info_key[mesh_id] = max_lod;
-			}
-		}
-		
-		// Check for key change, which indicates some change in volume composition or LOD.
-		if (curr_rigging_info_key == mLastRiggingInfoKey)
-		{
-			return;
+            const LLUUID& mesh_id = vol->getVolume()->getParams().getSculptID();
+            S32 max_lod = llmax(vol->getLOD(), vol->mLastRiggingInfoLOD);
+            curr_rigging_info_key[mesh_id] = max_lod;
 		}
 	}
 
-	// Something changed. Update.
-	// <FS:Ansariel> Performance tweak
-	//mLastRiggingInfoKey = curr_rigging_info_key;
-	mLastRiggingInfoKey.swap(curr_rigging_info_key);
-	// </FS:Ansariel>
-    mJointRiggingInfoTab.clear();
-    // <FS:Ansariel> Performance tweak
-    //for (std::vector<LLVOVolume*>::iterator it = volumes.begin(); it != volumes.end(); ++it)
-    std::vector<LLVOVolume*>::iterator vol_end = volumes.end();
-    for (std::vector<LLVOVolume*>::iterator it = volumes.begin(); it != vol_end; ++it)
-    // </FS:Ansariel>
+    // Check for key change, which indicates some change in volume composition or LOD.
+    if (curr_rigging_info_key == mLastRiggingInfoKey)
     {
-        LLVOVolume *vol = *it;
+        return;
+	}
+
+	// Something changed. Update.
+	mLastRiggingInfoKey = curr_rigging_info_key;
+    mJointRiggingInfoTab.clear();
+    for (LLVOVolume* vol : volumes)
+    {
         vol->updateRiggingInfo();
         mJointRiggingInfoTab.merge(vol->mJointRiggingInfoTab);
     }
 
     //LL_INFOS() << "done update rig count is " << countRigInfoTab(mJointRiggingInfoTab) << LL_ENDL;
-    //LL_DEBUGS("RigSpammish") << getFullname() << " after update rig tab:" << LL_ENDL; // <FS:Ansariel> Performance tweak
-	//<FS:Beq> remove debug only stuff on hot path
-    //S32 joint_count, box_count;
-    //showRigInfoTabExtents(this, mJointRiggingInfoTab, joint_count, box_count);
-	//</FS:Beq>
-    //LL_DEBUGS("RigSpammish") << "uses " << joint_count << " joints " << " nonzero boxes: " << box_count << LL_ENDL; // <FS:Ansariel> Performance tweak
+    // Remove debug only stuff on hot path
+    // LL_DEBUGS("RigSpammish") << getFullname() << " after update rig tab:" << LL_ENDL;
+    // S32 joint_count, box_count;
+    // showRigInfoTabExtents(this, mJointRiggingInfoTab, joint_count, box_count);
+    // LL_DEBUGS("RigSpammish") << "uses " << joint_count << " joints " << " nonzero boxes: " << box_count << LL_ENDL;
 }
 
 // virtual
