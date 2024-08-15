@@ -1264,13 +1264,13 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
       <key>nvapi</key>
       <map>
         <key>copyright</key>
-        <string>Copyright © 2012 NVIDIA Corporation.  All rights reserved.</string>
+        <string>(c) 2024 NVIDIA CORPORATION and AFFILIATES. All rights reserved.</string>
         <key>description</key>
         <string>NVAPI provides an interface to NVIDIA devices.</string>
         <key>license</key>
-        <string>NVIDIA Corporation Software License Agreement – NVAPI SDK</string>
+        <string>MIT</string>
         <key>license_file</key>
-        <string>LICENSES/NVAPI_SDK_License_Agreement.pdf</string>
+        <string>nvapi.txt</string>
         <key>name</key>
         <string>nvapi</string>
         <key>platforms</key>
@@ -1280,18 +1280,18 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>e506cbd89841c488aa3c67c91e163fe3</string>
+              <string>4508580a397461b3167964574a895a9d</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/nvapi-352.aac0e19-windows64-aac0e19.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/nvapi-560.0.0-r1-windows64-10390321492.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
           </map>
         </map>
         <key>version</key>
-        <string>352.aac0e19</string>
+        <string>560.0.0-r1</string>
       </map>
       <key>ogg_vorbis</key>
       <map>
