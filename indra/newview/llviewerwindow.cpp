@@ -2175,6 +2175,8 @@ void LLViewerWindow::initBase()
 	// Hide the toolbars for the moment: we'll make them visible after logging in world (see LLViewerWindow::initWorldUI())
 	gToolBarView->setVisible(false);
 
+    mFloaterSnapRegion = gToolBarView->getChild<LLView>("floater_snap_region");
+    mChicletContainer = gToolBarView->getChild<LLPanel>("chiclet_container");
 	// Constrain floaters to inside the menu and status bar regions.
 	gFloaterView = main_view->getChild<LLFloaterView>("Floater View");
 	for (S32 i = 0; i < LLToolBarEnums::TOOLBAR_COUNT; ++i)
@@ -2185,7 +2187,7 @@ void LLViewerWindow::initBase()
 			toolbarp->getCenterLayoutPanel()->setReshapeCallback(boost::bind(&LLFloaterView::setToolbarRect, gFloaterView, _1, _2));
 		}
 	}
-	gFloaterView->setFloaterSnapView(main_view->getChild<LLView>("floater_snap_region")->getHandle());
+    gFloaterView->setFloaterSnapView(mFloaterSnapRegion->getHandle());
 	gSnapshotFloaterView = main_view->getChild<LLSnapshotFloaterView>("Snapshot Floater View");
 
 	// Console

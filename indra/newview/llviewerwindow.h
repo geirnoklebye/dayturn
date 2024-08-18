@@ -441,6 +441,9 @@ public:
 
 	static std::string getLastSnapshotDir();
 
+    LLView* getFloaterSnapRegion() { return mFloaterSnapRegion; }
+    LLPanel* getChicletContainer() { return mChicletContainer; }
+
 private:
 	bool            shouldShowToolTipFor(LLMouseHandler *mh);
 
@@ -469,6 +472,8 @@ private:
 	LLRect			mWorldViewRectRaw;			// area of screen for 3D world
 	LLRect			mWorldViewRectScaled;		// area of screen for 3D world scaled by UI size
 	LLRootView*		mRootView;					// a view of size mWindowRectRaw, containing all child views
+    LLView*         mFloaterSnapRegion = nullptr;
+    LLPanel*        mChicletContainer = nullptr;
 	LLVector2		mDisplayScale;
 
 	LLCoordGL		mCurrentMousePoint;			// last mouse position in GL coords

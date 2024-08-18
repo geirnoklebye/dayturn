@@ -329,7 +329,7 @@ void LLFloaterIMNearbyChatScreenChannel::addChat(LLSD& chat)
 
 	if (mFloaterSnapRegion == NULL)
 	{
-		mFloaterSnapRegion = gViewerWindow->getRootView()->getChildView("floater_snap_region");
+        mFloaterSnapRegion = gViewerWindow->getFloaterSnapRegion();
 	}
 	LLRect channel_rect;
 	mFloaterSnapRegion->localRectToOtherView(mFloaterSnapRegion->getLocalRect(), &channel_rect, gFloaterView);
@@ -426,7 +426,7 @@ void LLFloaterIMNearbyChatScreenChannel::arrangeToasts()
 
 	if (mFloaterSnapRegion == NULL)
 	{
-		mFloaterSnapRegion = gViewerWindow->getRootView()->getChildView("floater_snap_region");
+        mFloaterSnapRegion = gViewerWindow->getFloaterSnapRegion();
 	}
 	
 	if (!getParent())
