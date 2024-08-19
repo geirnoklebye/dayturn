@@ -43,7 +43,6 @@
 #ifndef LL_LLAPPVIEWER_H
 #define LL_LLAPPVIEWER_H
 
-#include "llallocator.h"
 #include "llapr.h"
 #include "llcontrol.h"
 #include "llsys.h"			// for LLOSInfo
@@ -192,15 +191,13 @@ public:
 	// *NOTE:Mani Fix this for login abstraction!!
 	void handleLoginComplete();
 
-    LLAllocator & getAllocator() { return mAlloc; }
-
-	// On LoginCompleted callback
-	typedef boost::signals2::signal<void (void)> login_completed_signal_t;
-	login_completed_signal_t mOnLoginCompleted;
-	boost::signals2::connection setOnLoginCompletedCallback( const login_completed_signal_t::slot_type& cb )
-	{
-		return mOnLoginCompleted.connect(cb);
-	}
+    // On LoginCompleted callback
+    typedef boost::signals2::signal<void (void)> login_completed_signal_t;
+    login_completed_signal_t mOnLoginCompleted;
+    boost::signals2::connection setOnLoginCompletedCallback( const login_completed_signal_t::slot_type& cb )
+    {
+        return mOnLoginCompleted.connect(cb);
+    }
 
 	void addOnIdleCallback(const boost::function<void()>& cb); // add a callback to fire (once) when idle
 
@@ -334,10 +331,8 @@ private:
 	bool mAgentRegionLastAlive;
 	LLUUID mAgentRegionLastID;
 
-    LLAllocator mAlloc;
-
-	// llcorehttp library init/shutdown helper
-	LLAppCoreHttp mAppCoreHttp;
+    // llcorehttp library init/shutdown helper
+    LLAppCoreHttp mAppCoreHttp;
 
     bool mIsFirstRun;
 
