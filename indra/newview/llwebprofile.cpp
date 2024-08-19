@@ -38,6 +38,7 @@
 // newview
 #include "llpanelprofile.h" // for getProfileURL(). FIXME: move the method to LLAvatarActions
 #include "llviewermedia.h" // FIXME: don't use LLViewerMedia internals
+#include "llnotificationsutil.h"
 
 #include "llcorehttputil.h"
 
@@ -136,6 +137,10 @@ void LLWebProfile::uploadImageCoro(LLPointer<LLImageFormatted> image, std::strin
 
     if (!status)
     {
+        if (image->getDataSize() > MAX_WEB_DATASIZE)
+        {
+            LLNotificationsUtil::add("CannotUploadSnapshotWebTooBig");
+        }
         LL_WARNS("Snapshots") << "Failed to get image upload config" << LL_ENDL;
         LLWebProfile::reportImageUploadStatus(false);
         return;
