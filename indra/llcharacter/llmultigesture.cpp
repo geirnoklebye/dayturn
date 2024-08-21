@@ -28,7 +28,7 @@
 
 #include <algorithm>
 
-#include "stdio.h"
+#include <cstdio>
 
 #include "llmultigesture.h"
 
