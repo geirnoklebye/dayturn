@@ -2595,7 +2595,7 @@ void LLPanelGroupRolesSubTab::onDescriptionCommit(LLUICtrl* ctrl, void* user_dat
 void LLPanelGroupRolesSubTab::onMemberVisibilityChange(LLUICtrl* ctrl, void* user_data)
 {
 	LLPanelGroupRolesSubTab* self = static_cast<LLPanelGroupRolesSubTab*>(user_data);
-	LLCheckBoxCtrl* check = static_cast<LLCheckBoxCtrl*>(ctrl);
+	LLCheckBoxCtrl* check = dynamic_cast<LLCheckBoxCtrl*>(ctrl);
 	if (!check || !self) return;
 
 	self->handleMemberVisibilityChange(check->get());

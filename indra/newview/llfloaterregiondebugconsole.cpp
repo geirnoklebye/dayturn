@@ -136,7 +136,7 @@ bool LLFloaterRegionDebugConsole::postBuild()
 
 void LLFloaterRegionDebugConsole::onInput(LLUICtrl* ctrl, const LLSD& param)
 {
-	LLLineEditor* input = static_cast<LLLineEditor*>(ctrl);
+	LLLineEditor* input = dynamic_cast<LLLineEditor*>(ctrl);
 	std::string text = input->getText() + "\n";
 
 	std::string url = gAgent.getRegionCapability("SimConsoleAsync");

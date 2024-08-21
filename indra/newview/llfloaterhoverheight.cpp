@@ -102,7 +102,7 @@ void LLFloaterHoverHeight::onSliderMoved(LLUICtrl* ctrl, void* userData)
 {
     if (isAgentAvatarValid())
     {
-        LLSliderCtrl* sldrCtrl = static_cast<LLSliderCtrl*>(ctrl);
+        LLSliderCtrl* sldrCtrl = dynamic_cast<LLSliderCtrl*>(ctrl);
         F32 value = sldrCtrl->getValueF32();
         LLVector3 offset(0.0, 0.0, llclamp(value, MIN_HOVER_Z, MAX_HOVER_Z));
         LL_INFOS("Avatar") << "setting hover from slider moved" << offset[2] << LL_ENDL;

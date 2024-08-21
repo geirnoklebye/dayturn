@@ -129,7 +129,7 @@ void LLFlyoutComboBtnCtrl::onFlyoutButton(LLUICtrl *ctrl, const LLSD &data)
 
 void LLFlyoutComboBtnCtrl::onFlyoutItemSelected(LLUICtrl *ctrl, const LLSD &data)
 {
-    LLMenuItemGL *pmenuitem = static_cast<LLMenuItemGL*>(ctrl);
+    LLMenuItemGL *pmenuitem = dynamic_cast<LLMenuItemGL*>(ctrl);
     setSelectedItem(pmenuitem);
 
     if (mApplyImmediately)
@@ -146,7 +146,7 @@ bool LLFlyoutComboBtnCtrl::onFlyoutItemCheck(LLUICtrl *ctrl, const LLSD &data)
     }
     else
     {
-        LLMenuItemGL *pmenuitem = static_cast<LLMenuItemGL*>(ctrl);
+        LLMenuItemGL *pmenuitem = dynamic_cast<LLMenuItemGL*>(ctrl);
 
         return pmenuitem->getName() == mSelectedName;
     }
