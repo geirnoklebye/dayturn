@@ -84,7 +84,7 @@ LLToolComposite::LLToolComposite(const std::string& name)
 	  mCur(sNullTool), 
 	  mDefault(sNullTool), 
 	  mSelected(false),
-	  mMouseDown(false), mManip(NULL), mSelectRect(NULL)
+	  mMouseDown(false), mManip(nullptr), mSelectRect(nullptr)
 {
 }
 
@@ -144,7 +144,7 @@ LLToolCompInspect::LLToolCompInspect()
 LLToolCompInspect::~LLToolCompInspect()
 {
 	delete mSelectRect;
-	mSelectRect = NULL;
+	mSelectRect = nullptr;
 }
 
 bool LLToolCompInspect::handleMouseDown(S32 x, S32 y, MASK mask)
@@ -249,10 +249,10 @@ LLToolCompTranslate::LLToolCompTranslate()
 LLToolCompTranslate::~LLToolCompTranslate()
 {
 	delete mManip;
-	mManip = NULL;
+	mManip = nullptr;
 
 	delete mSelectRect;
-	mSelectRect = NULL;
+	mSelectRect = nullptr;
 }
 
 bool LLToolCompTranslate::handleHover(S32 x, S32 y, MASK mask)
@@ -697,14 +697,14 @@ LLToolCompGun::LLToolCompGun()
 LLToolCompGun::~LLToolCompGun()
 {
 	delete mGun;
-	mGun = NULL;
+	mGun = nullptr;
 
 	delete mGrab;
-	mGrab = NULL;
+	mGrab = nullptr;
 
 	// don't delete a static object
 	// delete mNull;
-	mNull = NULL;
+	mNull = nullptr;
 }
 
 bool LLToolCompGun::handleHover(S32 x, S32 y, MASK mask)

@@ -66,7 +66,7 @@ LLLandmark* LLLandmarkList::getAsset(const LLUUID& asset_uuid, loaded_callback_t
 	{
 	    if ( mBadList.find(asset_uuid) != mBadList.end() )
 		{
-			return NULL;
+			return nullptr;
 		}
 
         if (cb)
@@ -84,7 +84,7 @@ LLLandmark* LLLandmarkList::getAsset(const LLUUID& asset_uuid, loaded_callback_t
 			const F32 rerequest_time = 30.f; // 30 seconds between requests
 			if (gFrameTimeSeconds - iter->second < rerequest_time)
 			{
-				return NULL;
+				return nullptr;
 			}
 		}
 
@@ -96,7 +96,7 @@ LLLandmark* LLLandmarkList::getAsset(const LLUUID& asset_uuid, loaded_callback_t
 									LLLandmarkList::processGetAssetReply,
 									NULL);
 	}
-	return NULL;
+	return nullptr;
 }
 
 // static

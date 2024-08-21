@@ -209,7 +209,7 @@ void LLWindowListener::getInfo(LLSD const & evt)
 	{
 		std::string path(evt["path"]);
 		LLView * target_view = LLUI::getInstance()->resolvePath(LLUI::getInstance()->getRootView(), path);
-		if (target_view != 0)
+		if (target_view != nullptr)
 		{
 			response.setResponse(target_view->getInfo());
 		}
@@ -229,7 +229,7 @@ void LLWindowListener::getInfo(LLSD const & evt)
 void LLWindowListener::getPaths(LLSD const & request)
 {
 	Response response(LLSD(), request);
-	LLView *root(LLUI::getInstance()->getRootView()), *base(NULL);
+	LLView *root(LLUI::getInstance()->getRootView()), *base(nullptr);
 	// Capturing request["under"] as string means we conflate the case in
 	// which there is no ["under"] key with the case in which its value is the
 	// empty string. That seems to make sense to me.
@@ -268,7 +268,7 @@ void LLWindowListener::keyDown(LLSD const & evt)
 	{
 		std::string path(evt["path"]);
 		LLView * target_view = LLUI::getInstance()->resolvePath(LLUI::getInstance()->getRootView(), path);
-		if (target_view == 0) 
+		if (target_view == nullptr)
 		{
 			response.error(STRINGIZE(evt["op"].asString() << " request "
 											"specified invalid \"path\": '" << path << "'"));
@@ -303,7 +303,7 @@ void LLWindowListener::keyUp(LLSD const & evt)
 	{
 		std::string path(evt["path"]);
 		LLView * target_view = LLUI::getInstance()->resolvePath(LLUI::getInstance()->getRootView(), path);
-		if (target_view == 0 )
+		if (target_view == nullptr )
 		{
 			response.error(STRINGIZE(evt["op"].asString() << " request "
 											"specified invalid \"path\": '" << path << "'"));
@@ -488,7 +488,7 @@ void LLWindowListener::mouseDown(LLSD const & request)
 		// bypasses that special case: it only knows you're trying to pass an
 		// int to a pointer. Explicitly cast NULL to the desired pointer type.
 		mouseEvent(boost::bind(actions.down, mWindow,
-							 static_cast<LLWindow*>(NULL), _1, _2),
+							 static_cast<LLWindow*>(nullptr), _1, _2),
 				   request);
 	}
 }
@@ -499,7 +499,7 @@ void LLWindowListener::mouseUp(LLSD const & request)
 	if (actions.valid)
 	{
 		mouseEvent(boost::bind(actions.up, mWindow,
-							 static_cast<LLWindow*>(NULL), _1, _2),
+							 static_cast<LLWindow*>(nullptr), _1, _2),
 				   request);
 	}
 }
@@ -512,7 +512,7 @@ void LLWindowListener::mouseMove(LLSD const & request)
 	// uses that bool return. Use MouseFuncTrue to construct a callable that
 	// returns bool anyway.
 	mouseEvent(MouseFuncTrue(boost::bind(&LLWindowCallbacks::handleMouseMove, mWindow,
-						  static_cast<LLWindow*>(NULL), _1, _2)),
+						  static_cast<LLWindow*>(nullptr), _1, _2)),
 			   request);
 }
 
@@ -520,5 +520,5 @@ void LLWindowListener::mouseScroll(LLSD const & request)
 {
 	S32 clicks = request["clicks"].asInteger();
 
-	mWindow->handleScrollWheel(NULL, clicks);
+	mWindow->handleScrollWheel(nullptr, clicks);
 }

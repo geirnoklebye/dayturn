@@ -399,10 +399,10 @@ public:
 									 bool pick_transparent,
 									 bool pick_rigged,
 									 S32* face_hit,                          // return the face hit
-									 LLVector4a* intersection = NULL,         // return the intersection point
-									 LLVector2* tex_coord = NULL,            // return the texture coordinates of the intersection point
-									 LLVector4a* normal = NULL,               // return the surface normal at the intersection point
-									 LLVector4a* tangent = NULL             // return the surface tangent at the intersection point
+									 LLVector4a* intersection = nullptr,         // return the intersection point
+									 LLVector2* tex_coord = nullptr,            // return the texture coordinates of the intersection point
+									 LLVector4a* normal = nullptr,               // return the surface normal at the intersection point
+									 LLVector4a* tangent = nullptr             // return the surface tangent at the intersection point
 		);
 	
 	
@@ -424,7 +424,7 @@ public:
 	bool isHUDPartition() ;
 	
 	LLSpatialBridge* asBridge() { return mBridge; }
-	bool isBridge() { return asBridge() != NULL; }
+	bool isBridge() { return asBridge() != nullptr; }
 
 	void renderPhysicsShapes();
 	void renderDebug();
@@ -465,7 +465,7 @@ public:
 	virtual bool isSpatialBridge() const		{ return true; }
 	virtual void updateSpatialExtents();
 	virtual void updateBinRadius();
-	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, bool for_select = false);
+	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = nullptr, bool for_select = false);
 	virtual void updateDistance(LLCamera& camera_in, bool force_update);
 	virtual void makeActive();
 	virtual void move(LLDrawable *drawablep, LLSpatialGroup *curp, bool immediate = false);

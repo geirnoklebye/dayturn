@@ -204,7 +204,7 @@ void FSFloaterObjectExport::onIdle()
 
 FSFloaterObjectExport::FSFloaterObjectExport(const LLSD& key)
 : LLFloater(key),
-  mCurrentObjectID(NULL),
+  mCurrentObjectID(nullptr),
   mDirty(true)
 {
 }
@@ -414,7 +414,7 @@ void FSFloaterObjectExport::addPrim(LLViewerObject* object, bool root)
 			prim["clickaction"] = (S32)object->getClickAction();
 		}
 
-		LLVOVolume *volobjp = NULL;
+		LLVOVolume *volobjp = nullptr;
 		if (object->getPCode() == LL_PCODE_VOLUME)
 		{
 			volobjp = (LLVOVolume *)object;
@@ -875,7 +875,7 @@ void FSFloaterObjectExport::onLoadComplete(const LLUUID& asset_uuid, LLAssetType
 		{
 			LL_WARNS("export") << "Unable to load gesture " << asset_uuid << LL_ENDL;
 			delete gesture;
-			gesture = NULL;
+			gesture = nullptr;
 			break;
 		}
 		std::string name;

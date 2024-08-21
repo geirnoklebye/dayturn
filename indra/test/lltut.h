@@ -122,7 +122,7 @@ namespace tut
 
 	inline void ensure_approximately_equals(F32 actual, F32 expected, U32 frac_bits)
 	{
-		ensure_approximately_equals(NULL, actual, expected, frac_bits);
+		ensure_approximately_equals(nullptr, actual, expected, frac_bits);
 	}
 
 	inline void ensure_approximately_equals_range(const char *msg, F32 actual, F32 expected, F32 delta)
@@ -148,7 +148,7 @@ namespace tut
 
 	inline void ensure_memory_matches(const void* actual, U32 actual_len, const void* expected,U32 expected_len)
 	{
-		ensure_memory_matches(NULL, actual, actual_len, expected, expected_len);
+		ensure_memory_matches(nullptr, actual, actual_len, expected, expected_len);
 	}
 
 	template <class T,class Q>

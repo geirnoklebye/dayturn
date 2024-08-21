@@ -37,8 +37,8 @@
 #include "llviewertexteditor.h"
 
 const S32 LLToastScriptTextbox::DEFAULT_MESSAGE_MAX_LINE_COUNT= 14;
-const LLFontGL* LLToastScriptTextbox::sFont = NULL;
-const LLFontGL* LLToastScriptTextbox::sFontSmall = NULL;
+const LLFontGL* LLToastScriptTextbox::sFont = nullptr;
+const LLFontGL* LLToastScriptTextbox::sFontSmall = nullptr;
 
 //KKA-675 various changes here patterned after lltoastnotifypanel.cpp to apply
 //the Kokua control settings for text size and button text size here too

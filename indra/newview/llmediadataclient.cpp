@@ -571,7 +571,7 @@ void LLMediaDataClient::Request::updateScore()
 		   
 void LLMediaDataClient::Request::markDead() 
 { 
-	mMDC = NULL;
+	mMDC = nullptr;
 }
 
 bool LLMediaDataClient::Request::isDead() 

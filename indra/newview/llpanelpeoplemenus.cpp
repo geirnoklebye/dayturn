@@ -330,7 +330,7 @@ bool PeopleContextMenu::enableFreezeEject(const LLSD& userdata)
     const LLUUID& id = mUUIDs.front();
 
     // Use avatar_id if available, otherwise default to right-click avatar
-    LLVOAvatar* avatar = NULL;
+    LLVOAvatar* avatar = nullptr;
     if (id.notNull())
     {
         LLViewerObject* object = gObjectList.findObject(id);
@@ -338,7 +338,7 @@ bool PeopleContextMenu::enableFreezeEject(const LLSD& userdata)
         {
             if( !object->isAvatar() )
             {
-                object = NULL;
+                object = nullptr;
             }
             avatar = (LLVOAvatar*) object;
         }
@@ -403,7 +403,7 @@ void PeopleContextMenu::eject()
 	const LLUUID& id = mUUIDs.front();
 
 	// Use avatar_id if available, otherwise default to right-click avatar
-	LLVOAvatar* avatar = NULL;
+	LLVOAvatar* avatar = nullptr;
 	if (id.notNull())
 	{
 		LLViewerObject* object = gObjectList.findObject(id);
@@ -411,7 +411,7 @@ void PeopleContextMenu::eject()
 		{
 			if( !object->isAvatar() )
 			{
-				object = NULL;
+				object = nullptr;
 			}
 			avatar = (LLVOAvatar*) object;
 		}

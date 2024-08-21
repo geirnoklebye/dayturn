@@ -223,7 +223,7 @@ LLLogChatTimeScanner::LLLogChatTimeScanner()
 }
 
 LLLogChat::LLLogChat()
-: mSaveHistorySignal(NULL) // only needed in preferences
+: mSaveHistorySignal(nullptr) // only needed in preferences
 {
     mHistoryThreadsMutex = new LLMutex();
 }
@@ -231,13 +231,13 @@ LLLogChat::LLLogChat()
 LLLogChat::~LLLogChat()
 {
     delete mHistoryThreadsMutex;
-    mHistoryThreadsMutex = NULL;
+    mHistoryThreadsMutex = nullptr;
 
     if (mSaveHistorySignal)
     {
         mSaveHistorySignal->disconnect_all_slots();
         delete mSaveHistorySignal;
-        mSaveHistorySignal = NULL;
+        mSaveHistorySignal = nullptr;
     }
 }
 
@@ -540,7 +540,7 @@ LLLoadHistoryThread* LLLogChat::getLoadHistoryThread(LLUUID session_id)
 	{
 		return it->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLDeleteHistoryThread* LLLogChat::getDeleteHistoryThread(LLUUID session_id)
@@ -551,7 +551,7 @@ LLDeleteHistoryThread* LLLogChat::getDeleteHistoryThread(LLUUID session_id)
 	{
 		return it->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool LLLogChat::addLoadHistoryThread(LLUUID& session_id, LLLoadHistoryThread* lthread)
@@ -607,7 +607,7 @@ LLMutex* LLLogChat::historyThreadsMutex()
 
 void LLLogChat::triggerHistorySignal()
 {
-    if (NULL != mSaveHistorySignal)
+    if (nullptr != mSaveHistorySignal)
     {
         (*mSaveHistorySignal)();
     }

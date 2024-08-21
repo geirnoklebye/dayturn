@@ -92,7 +92,7 @@ boost::signals2::connection LLFloaterRegionDebugConsole::setConsoleReplyCallback
 }
 
 LLFloaterRegionDebugConsole::LLFloaterRegionDebugConsole(LLSD const & key)
-: LLFloater(key), mOutput(NULL)
+: LLFloater(key), mOutput(nullptr)
 {
 	mReplySignalConnection = sConsoleReplySignal.connect(
 		boost::bind(

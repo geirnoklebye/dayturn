@@ -159,9 +159,9 @@ static LLPanelInjector<LLPanelCameraZoom> t_camera_zoom_panel("camera_zoom_panel
 //-------------------------------------------------------------------------------
 
 LLPanelCameraZoom::LLPanelCameraZoom()
-:	mPlusBtn( NULL ),
-	mMinusBtn( NULL ),
-	mSlider( NULL )
+:	mPlusBtn( nullptr ),
+	mMinusBtn( nullptr ),
+	mSlider( nullptr )
 {
 	mCommitCallbackRegistrar.add("Zoom.minus", boost::bind(&LLPanelCameraZoom::onZoomMinusHeldDown, this));
 	mCommitCallbackRegistrar.add("Zoom.plus", boost::bind(&LLPanelCameraZoom::onZoomPlusHeldDown, this));

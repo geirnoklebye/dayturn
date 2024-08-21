@@ -127,8 +127,8 @@ const S32 PAY_AMOUNT_NOTIFICATION = 200;
 LLFloaterPay::LLFloaterPay(const LLSD& key)
 	: LLFloater(key),
 	  mCallbackData(),
-	  mCallback(NULL),
-	  mObjectNameText(NULL),
+	  mCallback(nullptr),
+	  mObjectNameText(nullptr),
 	  mTargetUUID(key.asUUID()),
 	  mTargetIsGroup(FALSE),
 	  mHaveName(FALSE)
@@ -349,7 +349,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 
 		self->reshape( self->getRect().getWidth() + padding_required, self->getRect().getHeight(), false );
 	}
-	msg->setHandlerFunc("PayPriceReply",NULL,NULL);
+	msg->setHandlerFunc("PayPriceReply",nullptr,nullptr);
 }
 
 // static

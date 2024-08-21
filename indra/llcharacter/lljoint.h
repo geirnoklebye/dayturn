@@ -194,7 +194,7 @@ private:
 
 public:
 	// set name and parent
-	void setup( const std::string &name, LLJoint *parent=NULL );
+	void setup( const std::string &name, LLJoint *parent=nullptr );
 
 	void touch(U32 flags = ALL_DIRTY);
 

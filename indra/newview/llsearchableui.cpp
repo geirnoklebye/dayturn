@@ -121,8 +121,8 @@ bool ll::prefs::TabContainerData::hightlightAndHide( LLWString const &aFilter )
 }
 
 ll::statusbar::SearchableItem::SearchableItem()
-	: mMenu(0)
-	, mCtrl(0)
+	: mMenu(nullptr)
+	, mCtrl(nullptr)
 	, mWasHiddenBySearch( false )
 { }
 

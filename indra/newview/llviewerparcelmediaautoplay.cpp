@@ -62,7 +62,7 @@ void LLViewerParcelMediaAutoPlay::playStarted()
 
 bool LLViewerParcelMediaAutoPlay::tick()
 {
-	LLParcel *this_parcel = NULL;
+	LLParcel *this_parcel = nullptr;
 	LLViewerRegion *this_region = NULL;
 	std::string this_media_url;
 	std::string this_media_type;

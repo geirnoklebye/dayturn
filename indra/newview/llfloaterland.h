@@ -256,7 +256,7 @@ public:
 	bool callbackReturnOtherObjects(const LLSD& notification, const LLSD& response);
 	bool callbackReturnOwnerList(const LLSD& notification, const LLSD& response);
 
-	static void clickShowCore(LLPanelLandObjects* panelp, S32 return_type, uuid_list_t* list = 0);
+	static void clickShowCore(LLPanelLandObjects* panelp, S32 return_type, uuid_list_t* list = nullptr);
 	static void onClickShowOwnerObjects(void*);
 	static void onClickShowGroupObjects(void*);
 	static void onClickShowOtherObjects(void*);

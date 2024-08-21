@@ -120,7 +120,7 @@ void LLHUDEffectSpiral::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 	htolememcpy(target_object_id.mData, packed_data + 16, MVT_LLUUID, 16);
 	htolememcpy(mPositionGlobal.mdV, packed_data + 32, MVT_LLVector3d, 24);
 
-	LLViewerObject *objp = NULL;
+	LLViewerObject *objp = nullptr;
 
 	if (object_id.isNull())
 	{
@@ -143,7 +143,7 @@ void LLHUDEffectSpiral::unpackData(LLMessageSystem *mesgsys, S32 blocknum)
 
 	if (target_object_id.isNull())
 	{
-		setTargetObject(NULL);
+		setTargetObject(nullptr);
 	}
 	else
 	{

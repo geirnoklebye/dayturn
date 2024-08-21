@@ -99,7 +99,7 @@ LLPreviewGesture* LLPreviewGesture::show(const LLUUID& item_id, const LLUUID& ob
 	LLPreviewGesture* preview = LLFloaterReg::showTypedInstance<LLPreviewGesture>("preview_gesture", LLSD(item_id), TAKE_FOCUS_YES);
 	if (!preview)
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	preview->setObjectID(object_id);
@@ -183,7 +183,7 @@ bool LLPreviewGesture::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 				}
 				else if (drop)
 				{
-					LLScrollListItem* line = NULL;
+					LLScrollListItem* line = nullptr;
 					if (cargo_type == DAD_ANIMATION)
 					{
 						line = addStep( STEP_ANIMATION );
@@ -296,23 +296,23 @@ bool LLPreviewGesture::handleSaveChangesDialog(const LLSD& notification, const L
 
 LLPreviewGesture::LLPreviewGesture(const LLSD& key)
 :	LLPreview(key),
-	mTriggerEditor(NULL),
-	mModifierCombo(NULL),
-	mKeyCombo(NULL),
-	mLibraryList(NULL),
-	mAddBtn(NULL),
-	mUpBtn(NULL),
-	mDownBtn(NULL),
-	mDeleteBtn(NULL),
-	mStepList(NULL),
-	mOptionsText(NULL),
-	mAnimationRadio(NULL),
-	mAnimationCombo(NULL),
-	mSoundCombo(NULL),
-	mChatEditor(NULL),
-	mSaveBtn(NULL),
-	mPreviewBtn(NULL),
-	mPreviewGesture(NULL),
+	mTriggerEditor(nullptr),
+	mModifierCombo(nullptr),
+	mKeyCombo(nullptr),
+	mLibraryList(nullptr),
+	mAddBtn(nullptr),
+	mUpBtn(nullptr),
+	mDownBtn(nullptr),
+	mDeleteBtn(nullptr),
+	mStepList(nullptr),
+	mOptionsText(nullptr),
+	mAnimationRadio(nullptr),
+	mAnimationCombo(nullptr),
+	mSoundCombo(nullptr),
+	mChatEditor(nullptr),
+	mSaveBtn(nullptr),
+	mPreviewBtn(nullptr),
+	mPreviewGesture(nullptr),
 	mDirty(false)
 {
 	NONE_LABEL =  LLTrans::getString("---");
@@ -671,12 +671,12 @@ void LLPreviewGesture::refresh()
 	bool have_replace = !replace.empty();
 
 	LLScrollListItem* library_item = mLibraryList->getFirstSelected();
-	bool have_library = (library_item != NULL);
+	bool have_library = (library_item != nullptr);
 
 	LLScrollListItem* step_item = mStepList->getFirstSelected();
 	S32 step_index = mStepList->getFirstSelectedIndex();
 	S32 step_count = mStepList->getItemCount();
-	bool have_step = (step_item != NULL);
+	bool have_step = (step_item != nullptr);
 
 	mReplaceText->setEnabled(have_trigger || have_replace);
 	mReplaceEditor->setEnabled(have_trigger || have_replace);
@@ -874,7 +874,7 @@ void LLPreviewGesture::onLoadComplete(const LLUUID& asset_uuid,
 			}
 
 			delete gesture;
-			gesture = NULL;
+			gesture = nullptr;
 
 			self->mAssetStatus = PREVIEW_ASSET_LOADED;
 		}
@@ -895,7 +895,7 @@ void LLPreviewGesture::onLoadComplete(const LLUUID& asset_uuid,
 		}
 	}
 	delete item_idp;
-	item_idp = NULL;
+	item_idp = nullptr;
 }
 
 
@@ -946,7 +946,7 @@ void LLPreviewGesture::loadUIFromGesture(LLMultiGesture* gesture)
 	{
 		LLGestureStep* step = gesture->mSteps[i];
 
-		LLGestureStep* new_step = NULL;
+		LLGestureStep* new_step = nullptr;
 		
 		switch(step->getType())
 		{
@@ -1065,14 +1065,14 @@ void LLPreviewGesture::saveIfNeeded()
         LLNotificationsUtil::add("GestureSaveFailedTooManySteps");
 
         delete gesture;
-        gesture = NULL;
+        gesture = nullptr;
         return;
     }
     else if (!ok)
     {
         LLNotificationsUtil::add("GestureSaveFailedTryAgain");
         delete gesture;
-        gesture = NULL;
+        gesture = nullptr;
         return;
     }
 
@@ -1160,7 +1160,7 @@ void LLPreviewGesture::saveIfNeeded()
     {
         // we're done with this gesture
         delete gesture;
-        gesture = NULL;
+        gesture = nullptr;
     }
 
     mDirty = false;
@@ -1206,7 +1206,7 @@ void LLPreviewGesture::onSaveComplete(const LLUUID& asset_uuid, void* user_data,
 		{
 			// Saving into in-world object inventory
 			LLViewerObject* object = gObjectList.findObject(info->mObjectUUID);
-			LLViewerInventoryItem* item = NULL;
+			LLViewerInventoryItem* item = nullptr;
 			if(object)
 			{
 				item = (LLViewerInventoryItem*)object->getInventoryObject(info->mItemUUID);
@@ -1240,7 +1240,7 @@ void LLPreviewGesture::onSaveComplete(const LLUUID& asset_uuid, void* user_data,
 		LLNotificationsUtil::add("GestureSaveFailedReason", args);
 	}
 	delete info;
-	info = NULL;
+	info = nullptr;
 }
 
 
@@ -1589,7 +1589,7 @@ LLScrollListItem* LLPreviewGesture::addStep( const EStepType step_type )
 {
 	// Order of enum EStepType MUST match the library_list element in floater_preview_gesture.xml
 
-	LLGestureStep* step = NULL;
+	LLGestureStep* step = nullptr;
 	switch( step_type)
 	{
 		case STEP_ANIMATION:
@@ -1607,7 +1607,7 @@ LLScrollListItem* LLPreviewGesture::addStep( const EStepType step_type )
 			break;
 		default:
 			LL_ERRS() << "Unknown step type: " << (S32)step_type << LL_ENDL;
-			return NULL;
+			return nullptr;
 	}
 
 

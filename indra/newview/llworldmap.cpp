@@ -271,7 +271,7 @@ bool LLWorldMap::clearItems(bool force)
 	{
 		mRequestTimer.reset();
 
-		LLSimInfo* sim_info = NULL;
+		LLSimInfo* sim_info = nullptr;
 		for (sim_info_map_t::iterator it = mSimInfoMap.begin(); it != mSimInfoMap.end(); ++it)
 		{
 			sim_info = it->second;
@@ -293,7 +293,7 @@ void LLWorldMap::clearImageRefs()
 	mWorldMipmap.reset();
 
 	// Images hold by the region map
-	LLSimInfo* sim_info = NULL;
+	LLSimInfo* sim_info = nullptr;
 	for (sim_info_map_t::iterator it = mSimInfoMap.begin(); it != mSimInfoMap.end(); ++it)
 	{
 		sim_info = it->second;
@@ -342,13 +342,13 @@ LLSimInfo* LLWorldMap::simInfoFromHandle(const U64 handle)
 	{
 		return it->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 
 LLSimInfo* LLWorldMap::simInfoFromName(const std::string& sim_name)
 {
-	LLSimInfo* sim_info = NULL;
+	LLSimInfo* sim_info = nullptr;
 	if (!sim_name.empty())
 	{
 		// Iterate through the entire sim info map and compare the name
@@ -364,7 +364,7 @@ LLSimInfo* LLWorldMap::simInfoFromName(const std::string& sim_name)
 		}
 		// If we got to the end, we haven't found the sim. Reset the ouput value to NULL.
 		if (it == mSimInfoMap.end())
-			sim_info = NULL;
+			sim_info = nullptr;
 	}
 	return sim_info;
 }
@@ -382,7 +382,7 @@ bool LLWorldMap::simNameFromPosGlobal(const LLVector3d& pos_global, std::string 
 		outSimName = "(unknown region)";
 	}
 
-	return (sim_info != NULL);
+	return (sim_info != nullptr);
 }
 
 void LLWorldMap::reloadItems(bool force)
@@ -423,7 +423,7 @@ bool LLWorldMap::insertRegion(U32 x_world, U32 y_world, U16 x_size, U16 y_size, 
 		// Insert the region in the region map of the world map
 		// Loading the LLSimInfo object with what we got and insert it in the map
 		LLSimInfo* siminfo = LLWorldMap::getInstance()->simInfoFromHandle(handle);
-		if (siminfo == NULL)
+		if (siminfo == nullptr)
 		{
 			siminfo = LLWorldMap::getInstance()->createSimInfoFromHandle(handle);
 		}
@@ -467,7 +467,7 @@ bool LLWorldMap::insertItem(U32 x_world, U32 y_world, std::string& name, LLUUID&
 
 	// Get the region record for that handle or NULL if we haven't browsed it yet
 	LLSimInfo* siminfo = LLWorldMap::getInstance()->simInfoFromHandle(handle);
-	if (siminfo == NULL)
+	if (siminfo == nullptr)
 	{
 		siminfo = LLWorldMap::getInstance()->createSimInfoFromHandle(handle);
 	}

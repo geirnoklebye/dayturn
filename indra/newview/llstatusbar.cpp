@@ -95,7 +95,7 @@
 //
 // Globals
 //
-LLStatusBar *gStatusBar = NULL;
+LLStatusBar *gStatusBar = nullptr;
 S32 STATUS_BAR_HEIGHT = 26;
 extern S32 MENU_BAR_HEIGHT;
 
@@ -111,26 +111,26 @@ static void onClickVolume(void*);
 
 LLStatusBar::LLStatusBar(const LLRect& rect)
 :	LLPanel(),
-	mTextTime(NULL),
-	mSGBandwidth(NULL),
-	mSGPacketLoss(NULL),
-	mFPSText(NULL),
-	mDrawDistancePanel(NULL),
-	mStatisticsPanel(NULL),
-	mFPSPanel(NULL),
-	mBtnVolume(NULL),
-	mBoxBalance(NULL),
+	mTextTime(nullptr),
+	mSGBandwidth(nullptr),
+	mSGPacketLoss(nullptr),
+	mFPSText(nullptr),
+	mDrawDistancePanel(nullptr),
+	mStatisticsPanel(nullptr),
+	mFPSPanel(nullptr),
+	mBtnVolume(nullptr),
+	mBoxBalance(nullptr),
 	mInMouselookMode(false),
 	mBalance(0),
 	mHealth(100),
 	mSquareMetersCredit(0),
 	mSquareMetersCommitted(0),
 	mAudioStreamEnabled(false),	// ## Zi: Media/Stream separation
-	mMediaToggle(NULL),
+	mMediaToggle(nullptr),
 	mMouseEnterVolumeConnection(),
 	mMouseEnterNearbyMediaConnection(),    
-	mFilterEdit(NULL),			// Edit for filtering
-	mSearchPanel(NULL)			// Panel for filtering
+	mFilterEdit(nullptr),			// Edit for filtering
+	mSearchPanel(nullptr)			// Panel for filtering
 {
 	setRect(rect);
 	
@@ -146,10 +146,10 @@ LLStatusBar::LLStatusBar(const LLRect& rect)
 LLStatusBar::~LLStatusBar()
 {
 	delete mBalanceTimer;
-	mBalanceTimer = NULL;
+	mBalanceTimer = nullptr;
 
 	delete mHealthTimer;
-	mHealthTimer = NULL;
+	mHealthTimer = nullptr;
 	// <FS:Ansariel> FIRE-19697: Add setting to disable graphics preset menu popup on mouse over
 	//NP graphics presets no longer disabled
 	if (mMouseEnterVolumeConnection.connected())

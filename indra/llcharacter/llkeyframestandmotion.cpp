@@ -47,7 +47,7 @@ const F32 POSITION_THRESHOLD = 0.1f;
 LLKeyframeStandMotion::LLKeyframeStandMotion(const LLUUID &id) : LLKeyframeMotion(id)
 {
 	mFlipFeet = false;
-	mCharacter = NULL;
+	mCharacter = nullptr;
 
 	// create kinematic hierarchy
 	mPelvisJoint.addChild( &mHipLeftJoint );

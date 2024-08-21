@@ -69,9 +69,9 @@ LLFloaterInspect::LLFloaterInspect(const LLSD& key)
 	mDirty(false),
 	mOwnerNameCacheConnection(),
 	mCreatorNameCacheConnection(),
-	mPopupMenu(NULL),
+	mPopupMenu(nullptr),
 	// <FS:Ansariel> FIRE-22292: Configurable columns
-	mOptionsButton(NULL),
+	mOptionsButton(nullptr),
 	mFSInspectColumnConfigConnection(),
 	mLastResizeDelta(0)
 	// </FS:Ansariel>
@@ -183,7 +183,7 @@ void LLFloaterInspect::onScrollListRightClicked(LLUICtrl* ctrl, S32 x, S32 y)
 			// create the context menu from the XUI file and display it
 			std::string menu_name = "menu_floater_inspect_list.xml";
 			delete mPopupMenu;
-			llassert(LLMenuGL::sMenuContainer != NULL);
+			llassert(LLMenuGL::sMenuContainer != nullptr);
 			mPopupMenu = LLUICtrlFactory::getInstance()->createFromFile<LLContextMenu>(
 				menu_name, LLMenuGL::sMenuContainer, LLMenuHolderGL::child_registry_t::instance());
 			mPopupMenu->show(x, y);
@@ -207,7 +207,7 @@ const LLSelectNode* LLFloaterInspect::getSelectedNode() /*const*/
 {
 	if(mObjectList->getAllSelected().size() == 0)
 	{
-		return NULL;
+		return nullptr;
 	}
 	LLScrollListItem* first_selected =mObjectList->getFirstSelected();
 
@@ -216,7 +216,7 @@ const LLSelectNode* LLFloaterInspect::getSelectedNode() /*const*/
 		struct f : public LLSelectedNodeFunctor
 		{
 			LLUUID obj_id;
-			f(const LLUUID& id) : obj_id(id) {}
+			explicit f(const LLUUID& id) : obj_id(id) {}
 			virtual bool apply(LLSelectNode* node)
 			{
 				return (obj_id == node->getObject()->getID());
@@ -224,7 +224,7 @@ const LLSelectNode* LLFloaterInspect::getSelectedNode() /*const*/
 		} func(first_selected->getUUID());
 		return mObjectSelection->getFirstNode(&func);
 	}
-	return NULL;
+	return nullptr;
 }
 
 void LLFloaterInspect::onClickCreatorProfile()

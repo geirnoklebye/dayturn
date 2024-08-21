@@ -73,7 +73,7 @@ LLTrace::SampleStatHandle<F32Seconds> LLTextureFetch::sTexDecodeLatency("texture
 LLTrace::SampleStatHandle<F32Seconds> LLTextureFetch::sCacheWriteLatency("texture_write_latency");
 LLTrace::SampleStatHandle<F32Seconds> LLTextureFetch::sTexFetchLatency("texture_fetch_latency");
 
-LLTextureFetchTester* LLTextureFetch::sTesterp = NULL ;
+LLTextureFetchTester* LLTextureFetch::sTesterp = nullptr ;
 const std::string sTesterName("TextureFetchTester");
 
 //////////////////////////////////////////////////////////////////////////////
@@ -626,7 +626,7 @@ private:
 		:	mData(data), mSize(size) 
 		{}
 		~PacketData() { clearData(); }
-		void clearData() { delete[] mData; mData = NULL; }
+		void clearData() { delete[] mData; mData = nullptr; }
 
 		U8* mData;
 		U32 mSize;
@@ -958,7 +958,7 @@ LLTextureFetchWorker::LLTextureFetchWorker(LLTextureFetch* fetcher,
 	  mImageCodec(IMG_CODEC_INVALID),
 	  mMetricsStartTime(0),
 	  mHttpHandle(LLCORE_HTTP_HANDLE_INVALID),
-	  mHttpBufferArray(NULL),
+	  mHttpBufferArray(nullptr),
 	  mHttpPolicyClass(mFetcher->mHttpPolicyClass),
 	  mHttpActive(false),
 	  mHttpReplySize(0U),
@@ -1016,7 +1016,7 @@ LLTextureFetchWorker::~LLTextureFetchWorker()
 	if (mHttpBufferArray)
 	{
 		mHttpBufferArray->release();
-		mHttpBufferArray = NULL;
+		mHttpBufferArray = nullptr;
 	}
 	unlockWorkMutex();													// -Mw
 	mFetcher->removeFromHTTPQueue(mID, (S32Bytes)0);
@@ -1133,7 +1133,7 @@ void LLTextureFetchWorker::resetFormattedData()
 	if (mHttpBufferArray)
 	{
 		mHttpBufferArray->release();
-		mHttpBufferArray = NULL;
+		mHttpBufferArray = nullptr;
 	}
 	if (mFormattedImage.notNull())
 	{
@@ -1224,7 +1224,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 		if (mHttpBufferArray)
 		{
 			mHttpBufferArray->release();
-			mHttpBufferArray = NULL;
+			mHttpBufferArray = nullptr;
 		}
 		mHttpReplySize = 0;
 		mHttpReplyOffset = 0;
@@ -1382,7 +1382,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 // 		if (mHost.isInvalid()) get_url = false;
 		if ( use_http && mCanUseHTTP && mUrl.empty())//get http url.
 		{
-			LLViewerRegion* region = NULL;
+			LLViewerRegion* region = nullptr;
             if (mHost.isInvalid())
             {
                 region = gAgent.getRegion();
@@ -1772,7 +1772,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 				if (mHttpBufferArray)
 				{
 					mHttpBufferArray->release();
-					mHttpBufferArray = NULL;
+					mHttpBufferArray = nullptr;
 				}
 
 				// abort.
@@ -1848,7 +1848,7 @@ bool LLTextureFetchWorker::doWork(S32 param)
 
 			// Done with buffer array
 			mHttpBufferArray->release();
-			mHttpBufferArray = NULL;
+			mHttpBufferArray = nullptr;
 			mHttpReplySize = 0;
 			mHttpReplyOffset = 0;
 			
@@ -2376,7 +2376,7 @@ S32 LLTextureFetchWorker::callbackHttpGet(LLCore::HttpResponse * response,
 			// *TODO: set the formatted image data here directly to avoid the copy
 
 			// Hold on to body for later copy
-			llassert_always(NULL == mHttpBufferArray);
+			llassert_always(nullptr == mHttpBufferArray);
 			body->addRef();
 			mHttpBufferArray = body;
 
@@ -2609,7 +2609,7 @@ LLTextureFetch::LLTextureFetch(LLTextureCache* cache, LLImageDecodeThread* image
 	  mHTTPTextureBits(0),
 	  mTotalHTTPRequests(0),
 	  mQAMode(qa_mode),
-	  mHttpRequest(NULL),
+	  mHttpRequest(nullptr),
 	  mHttpOptions(),
 	  mHttpOptionsWithHeaders(),
 	  mHttpHeaders(),
@@ -2619,7 +2619,7 @@ LLTextureFetch::LLTextureFetch(LLTextureCache* cache, LLImageDecodeThread* image
 	  mTotalCacheReadCount(0U),
 	  mTotalCacheWriteCount(0U),
 	  mTotalResourceWaitCount(0U),
-	  mFetchDebugger(NULL),
+	  mFetchDebugger(nullptr),
 	  mFetchSource(LLTextureFetch::FROM_ALL),
 	  mOriginFetchSource(LLTextureFetch::FROM_ALL),
 	  mFetcherLocked(false),
@@ -2665,7 +2665,7 @@ LLTextureFetch::LLTextureFetch(LLTextureCache* cache, LLImageDecodeThread* image
 		if (!sTesterp->isValid())
 		{
 			delete sTesterp;
-			sTesterp = NULL;
+			sTesterp = nullptr;
 		}
 	}
 }
@@ -2684,10 +2684,10 @@ LLTextureFetch::~LLTextureFetch()
 	mHttpWaitResource.clear();
 	
 	delete mHttpRequest;
-	mHttpRequest = NULL;
+	mHttpRequest = nullptr;
 
 	delete mFetchDebugger;
-	mFetchDebugger = NULL;
+	mFetchDebugger = nullptr;
 	
 	// ~LLQueuedThread() called here
 }
@@ -2716,7 +2716,7 @@ bool LLTextureFetch::createRequest(FTType f_type, const std::string& url, const 
 			LL_WARNS(LOG_TXT) << "LLTextureFetch::createRequest " << id << " called with multiple hosts: "
 							  << host << " != " << worker->mHost << LL_ENDL;
 			removeRequest(worker, true);
-			worker = NULL;
+			worker = nullptr;
 			return false;
 		}
 	}
@@ -2916,7 +2916,7 @@ void LLTextureFetch::removeRequest(LLTextureFetchWorker* worker, bool cancel)
 
 void LLTextureFetch::deleteAllRequests()
 {
-	while(1)
+	while(true)
 	{
 		lockQueue();
 		if(mRequestMap.empty())
@@ -2967,7 +2967,7 @@ U32 LLTextureFetch::getTotalNumHTTPRequests()
 // Locks:  Mfq
 LLTextureFetchWorker* LLTextureFetch::getWorkerAfterLock(const LLUUID& id)
 {
-	LLTextureFetchWorker* res = NULL;
+	LLTextureFetchWorker* res = nullptr;
 	map_t::iterator iter = mRequestMap.find(id);
 	if (iter != mRequestMap.end())
 	{
@@ -3229,7 +3229,7 @@ void LLTextureFetch::shutDownTextureCacheThread()
 	if(mTextureCache)
 	{
 		llassert_always(mTextureCache->isQuitting() || mTextureCache->isStopped()) ;
-		mTextureCache = NULL ;
+		mTextureCache = nullptr ;
 	}
 }
 	
@@ -3241,7 +3241,7 @@ void LLTextureFetch::shutDownImageDecodeThread()
 	if(mImageDecodeThread)
 	{
 		llassert_always(mImageDecodeThread->isQuitting() || mImageDecodeThread->isStopped()) ;
-		mImageDecodeThread = NULL ;
+		mImageDecodeThread = nullptr ;
 	}
 }
 
@@ -4034,7 +4034,7 @@ void LLTextureFetch::cmdEnqueue(TFRequest * req)
 // Threads:  T*
 LLTextureFetch::TFRequest * LLTextureFetch::cmdDequeue()
 {
-	TFRequest * ret = 0;
+	TFRequest * ret = nullptr;
 	
 	lockQueue();														// +Mfq
 	if (! mCommands.empty())
@@ -5220,7 +5220,7 @@ LLTextureFetchTester::LLTextureFetchTester() : LLMetricPerformanceTesterBasic(sT
 LLTextureFetchTester::~LLTextureFetchTester()
 {
 	outputTestResults();
-	LLTextureFetch::sTesterp = NULL;
+	LLTextureFetch::sTesterp = nullptr;
 }
 
 //virtual 

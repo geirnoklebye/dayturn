@@ -452,15 +452,15 @@ LLMarketplaceInventoryImporter::LLMarketplaceInventoryImporter()
 	, mImportInProgress(false)
 	, mInitialized(false)
 	, mMarketPlaceStatus(MarketplaceStatusCodes::MARKET_PLACE_NOT_INITIALIZED)
-	, mErrorInitSignal(NULL)
-	, mStatusChangedSignal(NULL)
-	, mStatusReportSignal(NULL)
+	, mErrorInitSignal(nullptr)
+	, mStatusChangedSignal(nullptr)
+	, mStatusReportSignal(nullptr)
 {
 }
 
 boost::signals2::connection LLMarketplaceInventoryImporter::setInitializationErrorCallback(const status_report_signal_t::slot_type& cb)
 {
-	if (mErrorInitSignal == NULL)
+	if (mErrorInitSignal == nullptr)
 	{
 		mErrorInitSignal = new status_report_signal_t();
 	}
@@ -470,7 +470,7 @@ boost::signals2::connection LLMarketplaceInventoryImporter::setInitializationErr
 
 boost::signals2::connection LLMarketplaceInventoryImporter::setStatusChangedCallback(const status_changed_signal_t::slot_type& cb)
 {
-	if (mStatusChangedSignal == NULL)
+	if (mStatusChangedSignal == nullptr)
 	{
 		mStatusChangedSignal = new status_changed_signal_t();
 	}
@@ -480,7 +480,7 @@ boost::signals2::connection LLMarketplaceInventoryImporter::setStatusChangedCall
 
 boost::signals2::connection LLMarketplaceInventoryImporter::setStatusReportCallback(const status_report_signal_t::slot_type& cb)
 {
-	if (mStatusReportSignal == NULL)
+	if (mStatusReportSignal == nullptr)
 	{
 		mStatusReportSignal = new status_report_signal_t();
 	}
@@ -643,7 +643,7 @@ void LLMarketplaceInventoryObserver::changed(U32 mask)
 
     if (!sProcessingQueue && (!sAddQueue.empty() || !sStructureQueue.empty()))
     {
-        gIdleCallbacks.addFunction(onIdleProcessQueue, NULL);
+        gIdleCallbacks.addFunction(onIdleProcessQueue, nullptr);
         // can do without sProcessingQueue, but it's usufull for simplicity and reliability
         sProcessingQueue = true;
     }
@@ -726,7 +726,7 @@ void LLMarketplaceInventoryObserver::onIdleProcessQueue(void *userdata)
     if (LLApp::isExiting() || (sAddQueue.empty() && sStructureQueue.empty()))
     {
         // Nothing to do anymore
-        gIdleCallbacks.deleteFunction(onIdleProcessQueue, NULL);
+        gIdleCallbacks.deleteFunction(onIdleProcessQueue, nullptr);
         sProcessingQueue = false;
     }
 }
@@ -764,8 +764,8 @@ LLMarketplaceTuple::LLMarketplaceTuple(const LLUUID& folder_id, S32 listing_id, 
 LLMarketplaceData::LLMarketplaceData() : 
  mMarketPlaceStatus(MarketplaceStatusCodes::MARKET_PLACE_NOT_INITIALIZED),
  mMarketPlaceDataFetched(MarketplaceFetchCodes::MARKET_FETCH_NOT_DONE),
- mStatusUpdatedSignal(NULL),
- mDataFetchedSignal(NULL),
+ mStatusUpdatedSignal(nullptr),
+ mDataFetchedSignal(nullptr),
  mDirtyCount(false)
 {
     mInventoryObserver = new LLMarketplaceInventoryObserver;
@@ -799,7 +799,7 @@ LLSD LLMarketplaceData::getMarketplaceStringSubstitutions()
 
 void LLMarketplaceData::initializeSLM(const status_updated_signal_t::slot_type& cb)
 {
-	if (mStatusUpdatedSignal == NULL)
+	if (mStatusUpdatedSignal == nullptr)
 	{
 		mStatusUpdatedSignal = new status_updated_signal_t();
 	}
@@ -887,7 +887,7 @@ void LLMarketplaceData::getMerchantStatusCoro()
 
 void LLMarketplaceData::setDataFetchedSignal(const status_updated_signal_t::slot_type& cb)
 {
-	if (mDataFetchedSignal == NULL)
+	if (mDataFetchedSignal == nullptr)
 	{
 		mDataFetchedSignal = new status_updated_signal_t();
 	}

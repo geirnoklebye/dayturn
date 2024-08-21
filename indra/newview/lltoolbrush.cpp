@@ -459,7 +459,7 @@ void LLToolBrushLand::handleDeselect()
 {
 	if( gEditMenuHandler == this )
 	{
-		gEditMenuHandler = NULL;
+		gEditMenuHandler = nullptr;
 	}
 	LLViewerParcelMgr::getInstance()->setSelectionVisible(true);
 	mBrushSelected = false;
@@ -589,7 +589,7 @@ void LLToolBrushLand::determineAffectedRegions(region_list_t& regions,
 	LLVector3d corner(spot);
 	corner.mdV[VX] -= (mBrushSize / 2);
 	corner.mdV[VY] -= (mBrushSize / 2);
-	LLViewerRegion* region = NULL;
+	LLViewerRegion* region = nullptr;
 	region = LLWorld::getInstance()->getRegionFromPosGlobal(corner);
 	if(region && regions.find(region) == regions.end())
 	{

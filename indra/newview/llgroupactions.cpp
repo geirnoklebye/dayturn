@@ -238,7 +238,7 @@ public:
      }
 };
 
-LLFetchLeaveGroupData* gFetchLeaveGroupData = NULL;
+LLFetchLeaveGroupData* gFetchLeaveGroupData = nullptr;
 
 // static
 void LLGroupActions::search()
@@ -342,10 +342,10 @@ void LLGroupActions::leave(const LLUUID& group_id)
 		LLGroupMgrGroupData* gdatap = LLGroupMgr::getInstance()->getGroupData(group_id);
 		if (!gdatap || !gdatap->isMemberDataComplete())
 		{
-			if (gFetchLeaveGroupData != NULL)
+			if (gFetchLeaveGroupData != nullptr)
 			{
 				delete gFetchLeaveGroupData;
-				gFetchLeaveGroupData = NULL;
+				gFetchLeaveGroupData = nullptr;
 			}
 			gFetchLeaveGroupData = new LLFetchLeaveGroupData(group_id);
 		}
@@ -424,7 +424,7 @@ static EGroupVisibility getGroupVisible(const LLUUID& idGroup)
 	}
 
 	// Check if we have the group open in the people sidepanel
-	static LLPanelGroup* s_pPanelGroupInfo = NULL;
+	static LLPanelGroup* s_pPanelGroupInfo = nullptr;
 	if (!s_pPanelGroupInfo)
 	{
 		s_pPanelGroupInfo = LLFloaterSidePanelContainer::findPanel<LLPanelGroup>("people", "panel_group_info_sidetray");

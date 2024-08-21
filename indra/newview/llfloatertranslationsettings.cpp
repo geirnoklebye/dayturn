@@ -44,7 +44,7 @@
 
 LLFloaterTranslationSettings::LLFloaterTranslationSettings(const LLSD& key)
 :	LLFloater(key)
-,	mMachineTranslationCB(NULL)
+,	mMachineTranslationCB(nullptr)
 ,	mAzureKeyVerified(false)
 ,	mGoogleKeyVerified(false)
 ,	mDeepLKeyVerified(false)

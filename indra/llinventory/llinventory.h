@@ -203,7 +203,7 @@ public:
 	//--------------------------------------------------------------------
 public:
 	// Pack all information needed to reconstruct this item into the given binary bucket.
-	S32 packBinaryBucket(U8* bin_bucket, LLPermissions* perm_override = NULL) const;
+	S32 packBinaryBucket(U8* bin_bucket, LLPermissions* perm_override = nullptr) const;
 	void unpackBinaryBucket(U8* bin_bucket, S32 bin_bucket_size);
 	LLSD asLLSD() const;
 	void asLLSD( LLSD& sd ) const;

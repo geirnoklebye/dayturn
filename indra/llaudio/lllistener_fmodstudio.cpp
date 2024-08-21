@@ -51,7 +51,7 @@ void LLListener_FMODSTUDIO::translate(LLVector3 offset)
 {
 	LLListener::translate(offset);
 
-	mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*)mPosition.mV, NULL, NULL, NULL);
+	mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*)mPosition.mV, nullptr, nullptr, nullptr);
 }
 
 //-----------------------------------------------------------------------
@@ -59,7 +59,7 @@ void LLListener_FMODSTUDIO::setPosition(LLVector3 pos)
 {
 	LLListener::setPosition(pos);
 
-	mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*)mPosition.mV, NULL, NULL, NULL);
+	mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*)mPosition.mV, nullptr, nullptr, nullptr);
 }
 
 //-----------------------------------------------------------------------
@@ -67,7 +67,7 @@ void LLListener_FMODSTUDIO::setVelocity(LLVector3 vel)
 {
 	LLListener::setVelocity(vel);
 
-	mSystem->set3DListenerAttributes(0, NULL, (FMOD_VECTOR*)mVelocity.mV, NULL, NULL);
+	mSystem->set3DListenerAttributes(0, nullptr, (FMOD_VECTOR*)mVelocity.mV, nullptr, nullptr);
 }
 
 //-----------------------------------------------------------------------
@@ -75,7 +75,7 @@ void LLListener_FMODSTUDIO::orient(LLVector3 up, LLVector3 at)
 {
 	LLListener::orient(up, at);
 
-	mSystem->set3DListenerAttributes(0, NULL, NULL, (FMOD_VECTOR*)at.mV, (FMOD_VECTOR*)up.mV);
+	mSystem->set3DListenerAttributes(0, nullptr, nullptr, (FMOD_VECTOR*)at.mV, (FMOD_VECTOR*)up.mV);
 }
 
 //-----------------------------------------------------------------------
@@ -98,8 +98,8 @@ void LLListener_FMODSTUDIO::setRolloffFactor(F32 factor)
 	if(mRolloffFactor != factor)
 	{
 		LLVector3 tmp_pos = mPosition - LLVector3(0.f,0.f,.1f);
-		mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*) tmp_pos.mV, NULL, NULL, NULL);
-		mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*) mPosition.mV, NULL, NULL, NULL);
+		mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*) tmp_pos.mV, nullptr, nullptr, nullptr);
+		mSystem->set3DListenerAttributes(0, (FMOD_VECTOR*) mPosition.mV, nullptr, nullptr, nullptr);
 	}
 	mRolloffFactor = factor;
 	mSystem->set3DSettings(mDopplerFactor, 1.f, mRolloffFactor);

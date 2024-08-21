@@ -96,7 +96,7 @@ LLSnapshotLivePreview::LLSnapshotLivePreview (const LLSnapshotLivePreview::Param
     mFilterName(""),
     mAllowRenderUI(true),
     mAllowFullScreenPreview(true),
-    mViewContainer(NULL)
+    mViewContainer(nullptr)
 {
 	setSnapshotQuality(gSavedSettings.getS32("SnapshotQuality"));
 	mSnapshotDelayTimer.setTimerExpirySec(0.0f);
@@ -595,7 +595,7 @@ LLViewerTexture* LLSnapshotLivePreview::getBigThumbnailImage()
 {
 	if (mThumbnailUpdateLock) //in the process of updating
 	{
-		return NULL;
+		return nullptr;
 	}
 	if (mBigThumbnailUpToDate && mBigThumbnailImage)//already updated
 	{

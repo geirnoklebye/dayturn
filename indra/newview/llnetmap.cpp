@@ -1128,7 +1128,7 @@ bool LLNetMap::handleMouseUp(S32 x, S32 y, MASK mask)
 			mTargetPan.setZero();
 		}
 		gViewerWindow->showCursor();
-		gFocusMgr.setMouseCapture(NULL);
+		gFocusMgr.setMouseCapture(nullptr);
 		return true;
 	}
 	return false;
@@ -1159,7 +1159,7 @@ bool LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	{
 		menu->buildDrawLabels();
 		menu->updateParent(LLMenuGL::sMenuContainer);
-		menu->setItemEnabled("Stop Tracking", LLTracker::isTracking(0));
+		menu->setItemEnabled("Stop Tracking", LLTracker::isTracking(nullptr));
 		LLMenuGL::showPopup(this, menu, x, y);
 	}
 	return true;
@@ -1185,7 +1185,7 @@ bool LLNetMap::handleDoubleClick(S32 x, S32 y, MASK mask)
 	if (double_click_teleport || double_click_show_world_map)
 	{
 		// If we're not tracking a beacon already, double-click will set one 
-		if (!LLTracker::isTracking(NULL))
+		if (!LLTracker::isTracking(nullptr))
 		{
 			LLFloaterWorldMap* world_map = LLFloaterWorldMap::getInstance();
 			if (world_map)
@@ -1542,7 +1542,7 @@ void LLNetMap::handleStopTracking (const LLSD& userdata)
 	if (menu)
 	{
 		menu->setItemEnabled ("Stop Tracking", false);
-		LLTracker::stopTracking (LLTracker::isTracking(NULL));
+		LLTracker::stopTracking (LLTracker::isTracking(nullptr));
 	}
 }
 void LLNetMap::handleAddToContactSet()

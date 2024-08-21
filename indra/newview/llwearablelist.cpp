@@ -99,7 +99,7 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 {
 	BOOL isNewWearable = FALSE;
 	LLWearableArrivedData* data = (LLWearableArrivedData*) userdata;
-	LLViewerWearable* wearable = NULL; // NULL indicates failure
+	LLViewerWearable* wearable = nullptr; // NULL indicates failure
 	LLAvatarAppearance *avatarp = data->mAvatarp;
 	
 	if( !filename )
@@ -130,7 +130,7 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 					isNewWearable = TRUE;
 				}
 				delete wearable;
-				wearable = NULL;
+				wearable = nullptr;
 			}
 
 			if(filename)

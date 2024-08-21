@@ -55,7 +55,7 @@ static LLVOAvatar* find_avatar(const LLUUID& id)
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -71,7 +71,7 @@ LLViewerPartSource::LLViewerPartSource(const U32 type) :
 	static U32 id_seed = 0;
 	mID = ++id_seed;
 
-	mLastPart = NULL;
+	mLastPart = nullptr;
 
 	mDelay = 0 ;
 }

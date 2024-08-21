@@ -30,10 +30,10 @@
 
 LLFloaterSearchReplace::LLFloaterSearchReplace(const LLSD& sdKey)
 	: LLFloater(sdKey)
-	, m_pSearchEditor(NULL)
-	, m_pReplaceEditor(NULL)
-	, m_pCaseInsensitiveCheck(NULL)
-	, m_pSearchUpCheck(NULL)
+	, m_pSearchEditor(nullptr)
+	, m_pReplaceEditor(nullptr)
+	, m_pCaseInsensitiveCheck(nullptr)
+	, m_pSearchUpCheck(nullptr)
 {
 }
 
@@ -140,9 +140,9 @@ LLFloaterSearchReplace* LLFloaterSearchReplace::show(LLTextEditor* pEditor)
 {
 	LLFloaterSearchReplace* pSelf = LLFloaterReg::getTypedInstance<LLFloaterSearchReplace>("search_replace");
 	if ( (!pSelf) || (!pEditor) )
-		return NULL;
+		return nullptr;
 
-	LLFloater *pDependeeNew = NULL, *pDependeeOld = pSelf->getDependee();
+	LLFloater *pDependeeNew = nullptr, *pDependeeOld = pSelf->getDependee();
 	LLView* pView = pEditor->getParent();
 	while (pView)
 	{

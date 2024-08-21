@@ -84,7 +84,7 @@ std::string construct_start_string();
 
 LLLoginInstance::LLLoginInstance() :
 	mLoginModule(new LLLogin()),
-	mNotifications(NULL),
+	mNotifications(nullptr),
 	mLoginState("offline"),
     mSaveMFA(true),
 	mAttemptComplete(false),

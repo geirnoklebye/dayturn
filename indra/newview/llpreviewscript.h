@@ -241,7 +241,7 @@ public:
 	/*virtual*/ bool postBuild();
 
 // [SL:KB] - Patch: UI-FloaterSearchReplace | Checked: 2010-11-05 (Catznip-2.3.0a) | Added: Catznip-2.3.0a
-	LLScriptEditor* getEditor() { return (mScriptEd) ? mScriptEd->mEditor : NULL; }
+	LLScriptEditor* getEditor() { return (mScriptEd) ? mScriptEd->mEditor : nullptr; }
 // [/SL:KB]
 
 protected:
@@ -299,7 +299,7 @@ public:
     void setIsNew() { mIsNew = TRUE; }
 
 // [SL:KB] - Patch: UI-FloaterSearchReplace | Checked: 2010-11-05 (Catznip-2.3.0a) | Added: Catznip-2.3.0a
-	LLScriptEditor* getEditor() { return (mScriptEd) ? mScriptEd->mEditor : NULL; }
+	LLScriptEditor* getEditor() { return (mScriptEd) ? mScriptEd->mEditor : nullptr; }
 // [/SL:KB]
 
 	static void setAssociatedExperience( LLHandle<LLLiveLSLEditor> editor, const LLSD& experience );

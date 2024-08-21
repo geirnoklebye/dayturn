@@ -427,11 +427,11 @@ bool LLSpatialGroup::removeObject(LLDrawable *drawablep, bool from_octree)
 	unbound();
 	if (mOctreeNode && !from_octree)
 	{
-		drawablep->setGroup(NULL);
+		drawablep->setGroup(nullptr);
 	}
 	else
 	{
-		drawablep->setGroup(NULL);
+		drawablep->setGroup(nullptr);
 		setState(GEOM_DIRTY);
 		gPipeline.markRebuild(this, true);
 
@@ -812,7 +812,7 @@ void LLSpatialGroup::handleDestruction(const TreeNode* node)
 		{
 			if(entry->hasDrawable())
 			{
-				((LLDrawable*)entry->getDrawable())->setGroup(NULL);
+				((LLDrawable*)entry->getDrawable())->setGroup(nullptr);
 			}
 		}
 	}
@@ -821,7 +821,7 @@ void LLSpatialGroup::handleDestruction(const TreeNode* node)
 	mVertexBuffer = NULL;
 	mBufferMap.clear();
 	sZombieGroups++;
-	mOctreeNode = NULL;
+	mOctreeNode = nullptr;
 }
 
 void LLSpatialGroup::handleChildAddition(const OctreeNode* parent, OctreeNode* child) 
@@ -920,7 +920,7 @@ void LLSpatialGroup::destroyGL(bool keep_occlusion)
 //==============================================
 
 LLSpatialPartition::LLSpatialPartition(U32 data_mask, bool render_by_group, U32 buffer_usage, LLViewerRegion* regionp)
-: mRenderByGroup(render_by_group), mBridge(NULL)
+: mRenderByGroup(render_by_group), mBridge(nullptr)
 {
 	mRegionp = regionp;		
 	mPartitionType = LLViewerRegion::PARTITION_NONE;
@@ -972,7 +972,7 @@ bool LLSpatialPartition::remove(LLDrawable *drawablep, LLSpatialGroup *curp)
 	}
 	else
 	{
-		drawablep->setGroup(NULL);
+		drawablep->setGroup(nullptr);
 	}
 
 	assert_octree_valid(mOctree);
@@ -1521,7 +1521,7 @@ void pushVerts(LLDrawInfo* params, U32 mask)
 
 void pushVerts(LLSpatialGroup* group, U32 mask)
 {
-	LLDrawInfo* params = NULL;
+	LLDrawInfo* params = nullptr;
 
 	for (LLSpatialGroup::draw_map_t::iterator i = group->mDrawMap.begin(); i != group->mDrawMap.end(); ++i)
 	{
@@ -1567,7 +1567,7 @@ void pushVerts(LLVolume* volume)
 	for (S32 i = 0; i < volume->getNumVolumeFaces(); ++i)
 	{
 		const LLVolumeFace& face = volume->getVolumeFace(i);
-		LLVertexBuffer::drawElements(LLRender::TRIANGLES, face.mPositions, NULL, face.mNumIndices, face.mIndices);
+		LLVertexBuffer::drawElements(LLRender::TRIANGLES, face.mPositions, nullptr, face.mNumIndices, face.mIndices);
 	}
 }
 
@@ -1615,7 +1615,7 @@ void pushBufferVerts(LLSpatialGroup* group, U32 mask, bool push_alpha = true)
 
 void pushVertsColorCoded(LLSpatialGroup* group, U32 mask)
 {
-	LLDrawInfo* params = NULL;
+	LLDrawInfo* params = nullptr;
 
 	static const LLColor4 colors[] = {
 		LLColor4::green,
@@ -2679,11 +2679,11 @@ void renderPhysicsShape(LLDrawable* drawable, LLVOVolume* volume)
 
 				llassert(LLGLSLShader::sCurBoundShader != 0);
 				
-                LLVertexBuffer::drawElements(LLRender::TRIANGLES, phys_volume->mHullPoints, NULL, phys_volume->mNumHullIndices, phys_volume->mHullIndices);
+                LLVertexBuffer::drawElements(LLRender::TRIANGLES, phys_volume->mHullPoints, nullptr, phys_volume->mNumHullIndices, phys_volume->mHullIndices);
 				
 				gGL.diffuseColor4fv(color.mV);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-				LLVertexBuffer::drawElements(LLRender::TRIANGLES, phys_volume->mHullPoints, NULL, phys_volume->mNumHullIndices, phys_volume->mHullIndices);
+				LLVertexBuffer::drawElements(LLRender::TRIANGLES, phys_volume->mHullPoints, nullptr, phys_volume->mNumHullIndices, phys_volume->mHullIndices);
 				
 			}
 			else
@@ -3045,7 +3045,7 @@ void renderTexelDensity(LLDrawable* drawable)
 		LLVertexBuffer* buffer = facep->getVertexBuffer();
 		LLViewerTexture* texturep = facep->getTexture();
 
-		if (texturep == NULL) continue;
+		if (texturep == nullptr) continue;
 
 		switch(LLViewerTexture::sDebugTexelsMode)
 		{
@@ -3178,7 +3178,7 @@ public:
 	
 	
 	LLRenderOctreeRaycast(const LLVector4a& start, const LLVector4a& dir, F32* closest_t)
-		: LLOctreeTriangleRayIntersect(start, dir, NULL, closest_t, NULL, NULL, NULL, NULL)
+		: LLOctreeTriangleRayIntersect(start, dir, nullptr, closest_t, nullptr, nullptr, nullptr, nullptr)
 	{
 
 	}
@@ -3453,11 +3453,11 @@ public:
 
 				gGL.flush();
 				gGL.pushMatrix();
-				gGLLastMatrix = NULL;
+				gGLLastMatrix = nullptr;
 				gGL.loadMatrix(gGLModelView);
 				renderVisibility(group, mCamera);
 				stop_glerror();
-				gGLLastMatrix = NULL;
+				gGLLastMatrix = nullptr;
 				gGL.popMatrix();
 				gGL.diffuseColor4f(1,1,1,1);
 			}
@@ -3649,11 +3649,11 @@ public:
 
 				gGL.flush();
 				gGL.pushMatrix();
-				gGLLastMatrix = NULL;
+				gGLLastMatrix = nullptr;
 				gGL.loadMatrix(gGLModelView);
 				renderXRay(group, mCamera);
 				stop_glerror();
-				gGLLastMatrix = NULL;
+				gGLLastMatrix = nullptr;
 				gGL.popMatrix();
 			}
 		}
@@ -3828,7 +3828,7 @@ void LLSpatialPartition::renderPhysicsShapes()
 	
 	if (bridge)
 	{
-		camera = NULL;
+		camera = nullptr;
 	}
 
 	gGL.flush();
@@ -3884,7 +3884,7 @@ void LLSpatialPartition::renderDebug()
 	
 	if (bridge)
 	{
-		camera = NULL;
+		camera = nullptr;
 	}
 
 	LLOctreeStateCheck checker;
@@ -3966,7 +3966,7 @@ public:
 		  mTexCoord(tex_coord),
 		  mNormal(normal),
 		  mTangent(tangent),
-		  mHit(NULL),
+		  mHit(nullptr),
 		  mPickTransparent(pick_transparent),
 		  mPickRigged(pick_rigged)
 	{
@@ -4114,8 +4114,8 @@ LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset,
 					   bool fullbright, U8 bump, bool particle, F32 part_size)
 :	mVertexBuffer(buffer),
 	mTexture(texture),
-	mTextureMatrix(NULL),
-	mModelMatrix(NULL),
+	mTextureMatrix(nullptr),
+	mModelMatrix(nullptr),
 	mStart(start),
 	mEnd(end),
 	mCount(count),
@@ -4125,7 +4125,7 @@ LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset,
 	mParticle(particle),
 	mPartSize(part_size),
 	mVSize(0.f),
-	mGroup(NULL),
+	mGroup(nullptr),
 	mFace(NULL),
 	mDistance(0.f),
 	mDrawMode(LLRender::TRIANGLES),

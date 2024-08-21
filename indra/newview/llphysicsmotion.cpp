@@ -104,7 +104,7 @@ public:
                 mParamDriverName(param_driver_name),
                 mJointName(joint_name),
                 mMotionDirectionVec(motion_direction_vec),
-                mParamDriver(NULL),
+                mParamDriver(nullptr),
                 mParamControllers(controllers),
                 mCharacter(character),
                 mLastTime(0),
@@ -224,7 +224,7 @@ BOOL LLPhysicsMotion::initialize()
         mJointState->setUsage(LLJointState::ROT);
 
         mParamDriver = (LLViewerVisualParam*)mCharacter->getVisualParam(mParamDriverName.c_str());
-        if (mParamDriver == NULL)
+        if (mParamDriver == nullptr)
         {
                 LL_INFOS() << "Failure reading in  [ " << mParamDriverName << " ]" << LL_ENDL;
                 return FALSE;
@@ -235,7 +235,7 @@ BOOL LLPhysicsMotion::initialize()
 
 LLPhysicsMotionController::LLPhysicsMotionController(const LLUUID &id) : 
         LLMotion(id),
-        mCharacter(NULL)
+        mCharacter(nullptr)
 {
         mName = "breast_motion";
 }
@@ -700,7 +700,7 @@ bool LLPhysicsMotion::onUpdate(F32 time)
 		const F32 area_for_this_setting = area_for_max_settings + (area_for_min_settings-area_for_max_settings)*(1.0-lod_factor);
 	        const F32 pixel_area = sqrtf(mCharacter->getPixelArea());
         
-		const BOOL is_self = (dynamic_cast<LLVOAvatarSelf *>(mCharacter) != NULL);
+		const bool is_self = (dynamic_cast<LLVOAvatarSelf *>(mCharacter) != nullptr);
 		if ((pixel_area > area_for_this_setting) || is_self)
 		{
 			const F32 position_diff_local = llabs(mPositionLastUpdate_local-position_new_local_clamped);

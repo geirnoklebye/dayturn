@@ -52,7 +52,7 @@
 
 const U8  OVERLAY_IMG_COMPONENTS = 4;
 
-LLViewerParcelOverlay::update_signal_t* LLViewerParcelOverlay::sUpdateSignal = NULL;
+LLViewerParcelOverlay::update_signal_t* LLViewerParcelOverlay::sUpdateSignal = nullptr;
 
 LLViewerParcelOverlay::LLViewerParcelOverlay(LLViewerRegion* region, F32 region_width_meters)
 :	mRegion( region ),
@@ -61,8 +61,8 @@ LLViewerParcelOverlay::LLViewerParcelOverlay(LLViewerRegion* region, F32 region_
 	mTimeSinceLastUpdate(),
 	mOverlayTextureIdx(-1),
 	mVertexCount(0),
-	mVertexArray(NULL),
-	mColorArray(NULL)
+	mVertexArray(nullptr),
+	mColorArray(nullptr)
 {
 	// Create a texture to hold color information.
 	// 4 components
@@ -99,13 +99,13 @@ LLViewerParcelOverlay::LLViewerParcelOverlay(LLViewerRegion* region, F32 region_
 LLViewerParcelOverlay::~LLViewerParcelOverlay()
 {
 	delete[] mOwnership;
-	mOwnership = NULL;
+	mOwnership = nullptr;
 
 	delete[] mVertexArray;
-	mVertexArray = NULL;
+	mVertexArray = nullptr;
 
 	delete[] mColorArray;
-	mColorArray = NULL;
+	mColorArray = nullptr;
 
 // JC No textures.
 //	delete mTexCoordArray;
@@ -633,9 +633,9 @@ void LLViewerParcelOverlay::updatePropertyLines()
 	{
 		// ...need new arrays
 		delete[] mVertexArray;
-		mVertexArray = NULL;
+		mVertexArray = nullptr;
 		delete[] mColorArray;
-		mColorArray = NULL;
+		mColorArray = nullptr;
 
 		mVertexCount = new_vertex_count;
 

@@ -74,7 +74,7 @@ const S32 ARROW_OFF_RADIUS_SQRD = 100;
 const S32 HUD_ARROW_SIZE = 32;
 
 // static
-LLTracker *LLTracker::sTrackerp = NULL;
+LLTracker *LLTracker::sTrackerp = nullptr;
 bool LLTracker::sCheesyBeacon = false;
 
 LLTracker::LLTracker()

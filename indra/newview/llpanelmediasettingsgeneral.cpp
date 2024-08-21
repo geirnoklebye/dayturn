@@ -62,16 +62,16 @@ const char *CHECKERBOARD_DATA_URL = "data:image/svg+xml,%3Csvg xmlns=%22http://w
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLPanelMediaSettingsGeneral::LLPanelMediaSettingsGeneral() :
-	mAutoLoop( NULL ),
-	mFirstClick( NULL ),
-	mAutoZoom( NULL ),
-	mAutoPlay( NULL ),
-	mAutoScale( NULL ),
-	mWidthPixels( NULL ),
-	mHeightPixels( NULL ),
-	mHomeURL( NULL ),
-	mCurrentURL( NULL ),
-	mParent( NULL ),
+	mAutoLoop( nullptr ),
+	mFirstClick( nullptr ),
+	mAutoZoom( nullptr ),
+	mAutoPlay( nullptr ),
+	mAutoScale( nullptr ),
+	mWidthPixels( nullptr ),
+	mHeightPixels( nullptr ),
+	mHomeURL( nullptr ),
+	mCurrentURL( nullptr ),
+	mParent( nullptr ),
 	mMediaEditable(false)
 {
 	// build dialog from XML
@@ -353,7 +353,7 @@ void LLPanelMediaSettingsGeneral::onClose(bool app_quitting)
 void LLPanelMediaSettingsGeneral::checkHomeUrlPassesWhitelist()
 {
 	// parent floater has not constructed the security panel yet
-	if ( mParent->getPanelSecurity() == 0 ) 
+	if ( mParent->getPanelSecurity() == nullptr )
 		return;
 
 	std::string home_url = getHomeUrl();

@@ -72,7 +72,7 @@
 
 #include "llsdserialize.h"
 
-LLPanelLogin *LLPanelLogin::sInstance = NULL;
+LLPanelLogin *LLPanelLogin::sInstance = nullptr;
 bool LLPanelLogin::sCapslockDidNotification = false;
 bool LLPanelLogin::sCredentialSet = false;
 
@@ -443,11 +443,11 @@ void LLPanelLogin::addFavoritesToStartLocation()
 
 LLPanelLogin::~LLPanelLogin()
 {
-	LLPanelLogin::sInstance = NULL;
+	LLPanelLogin::sInstance = nullptr;
 
 	// Controls having keyboard focus by default
 	// must reset it on destroy. (EXT-2748)
-	gFocusMgr.setDefaultKeyboardFocus(NULL);
+	gFocusMgr.setDefaultKeyboardFocus(nullptr);
 }
 
 // virtual
@@ -478,8 +478,8 @@ void LLPanelLogin::giveFocus()
 		bool have_username = !username.empty();
 		bool have_pass = !pass.empty();
 
-		LLLineEditor* edit = NULL;
-		LLComboBox* combo = NULL;
+		LLLineEditor* edit = nullptr;
+		LLComboBox* combo = nullptr;
 		if (have_username && !have_pass)
 		{
 			// User saved his name but not his password.  Move
@@ -829,9 +829,9 @@ void LLPanelLogin::autologinToLocation(const LLSLURL& slurl)
 	LL_DEBUGS("AppInit")<<"automatically logging into Location "<<slurl.asString()<<LL_ENDL;
 	LLStartUp::setStartSLURL(slurl); // calls onUpdateStartSLURL, above
 
-	if ( LLPanelLogin::sInstance != NULL )
+	if ( LLPanelLogin::sInstance != nullptr )
 	{
-		void* unused_parameter = 0;
+		void* unused_parameter = nullptr;
 		LLPanelLogin::sInstance->onClickConnect(unused_parameter);
 	}
 }
@@ -848,7 +848,7 @@ void LLPanelLogin::closePanel()
 		}
 
 		delete sInstance;
-		sInstance = NULL;
+		sInstance = nullptr;
 	}
 }
 

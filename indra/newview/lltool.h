@@ -72,9 +72,9 @@ public:
 	virtual const std::string& getName() const	{ return mName; }
 
 	// New virtual functions
-	virtual LLViewerObject*	getEditingObject()		{ return NULL; }
+	virtual LLViewerObject*	getEditingObject()		{ return nullptr; }
 	virtual LLVector3d		getEditingPointGlobal()	{ return LLVector3d(); }
-	virtual bool			isEditing()				{ return (getEditingObject() != NULL); }
+	virtual bool			isEditing()				{ return (getEditingObject() != nullptr); }
 	virtual void			stopEditing()			{}
 
 	virtual bool			clipMouseWhenDown()		{ return true; }

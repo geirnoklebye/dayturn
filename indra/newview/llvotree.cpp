@@ -98,7 +98,7 @@ LLVOTree::~LLVOTree()
 	if (mData)
 	{
 		delete[] mData;
-		mData = NULL;
+		mData = nullptr;
 	}
 }
 
@@ -501,7 +501,7 @@ bool LLVOTree::updateGeometry(LLDrawable *drawable)
 		LLFace * facep = drawable->getFace(0);
 		if (facep)
 		{
-			facep->setVertexBuffer(NULL);
+			facep->setVertexBuffer(nullptr);
 		}
 		return true ;
 	}

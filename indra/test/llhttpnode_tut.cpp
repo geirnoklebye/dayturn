@@ -93,7 +93,7 @@ namespace tut
 		{
 			mContext.clear();
 			const LLHTTPNode* node = mRoot.traverse(path, mContext);
-			ensure(path + " found", node != NULL);
+			ensure(path + " found", node != nullptr);
 
 			ResponsePtr response = Response::create();
 			node->get(LLHTTPNode::ResponsePtr(response), mContext);
@@ -104,7 +104,7 @@ namespace tut
 		{
 			mContext.clear();
 			const LLHTTPNode* node = mRoot.traverse(path, mContext);
-			ensure(path + " found", node != NULL);
+			ensure(path + " found", node != nullptr);
 
 			ResponsePtr response = Response::create();
 			node->post(LLHTTPNode::ResponsePtr(response), mContext, input);

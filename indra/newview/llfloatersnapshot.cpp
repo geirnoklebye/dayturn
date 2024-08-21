@@ -46,7 +46,7 @@
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
-LLSnapshotFloaterView* gSnapshotFloaterView = NULL;
+LLSnapshotFloaterView* gSnapshotFloaterView = nullptr;
 
 const F32 AUTO_SNAPSHOT_TIME_DELAY = 1.f;
 
@@ -62,7 +62,7 @@ LLPanelSnapshot* LLFloaterSnapshot::Impl::getActivePanel(LLFloaterSnapshotBase* 
 	LLPanelSnapshot* active_panel = dynamic_cast<LLPanelSnapshot*>(panel_container->getCurrentPanel());
 	if (!ok_if_not_found)
 	{
-		llassert_always(active_panel != NULL);
+		llassert_always(active_panel != nullptr);
 	}
 	return active_panel;
 }
@@ -933,10 +933,10 @@ void LLFloaterSnapshot::Impl::onSendingPostcardFinished(LLFloaterSnapshotBase* f
 // Default constructor
 LLFloaterSnapshotBase::LLFloaterSnapshotBase(const LLSD& key)
     : LLFloater(key),
-	  mRefreshBtn(NULL),
-	  mRefreshLabel(NULL),
-	  mSucceessLblPanel(NULL),
-	  mFailureLblPanel(NULL)
+	  mRefreshBtn(nullptr),
+	  mRefreshLabel(nullptr),
+	  mSucceessLblPanel(nullptr),
+	  mFailureLblPanel(nullptr)
 {
 }
 
@@ -1283,7 +1283,7 @@ void LLFloaterSnapshotBase::ImplBase::updateLivePreview()
 void LLFloaterSnapshot::update()
 {
 	LLFloaterSnapshot* inst = findInstance();
-	if (inst != NULL)
+	if (inst != nullptr)
 	{
 		inst->impl->updateLivePreview();
 	}
@@ -1313,7 +1313,7 @@ void LLFloaterSnapshot::saveTexture()
 	LLSnapshotLivePreview* previewp = getPreviewView();
 	if (!previewp)
 	{
-		llassert(previewp != NULL);
+		llassert(previewp != nullptr);
 		return;
 	}
 
@@ -1324,7 +1324,7 @@ void LLFloaterSnapshot::saveLocal(const snapshot_saved_signal_t::slot_type& succ
 {
     LL_DEBUGS() << "saveLocal" << LL_ENDL;
     LLSnapshotLivePreview* previewp = getPreviewView();
-	llassert(previewp != NULL);
+	llassert(previewp != nullptr);
 	if (previewp)
     {
 		previewp->saveLocal(success_cb, failure_cb);
@@ -1359,7 +1359,7 @@ LLPointer<LLImageFormatted> LLFloaterSnapshotBase::getImageData()
 	LLSnapshotLivePreview* previewp = getPreviewView();
 	if (!previewp)
 	{
-		llassert(previewp != NULL);
+		llassert(previewp != nullptr);
 		return NULL;
 	}
 
@@ -1378,7 +1378,7 @@ const LLVector3d& LLFloaterSnapshotBase::getPosTakenGlobal()
 	LLSnapshotLivePreview* previewp = getPreviewView();
 	if (!previewp)
 	{
-		llassert(previewp != NULL);
+		llassert(previewp != nullptr);
 		return LLVector3d::zero;
 	}
 

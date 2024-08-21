@@ -86,7 +86,7 @@ LLMediaCtrl::LLMediaCtrl( const Params& p) :
 	LLPanel( p ),
 	LLInstanceTracker<LLMediaCtrl, LLUUID>(LLUUID::generateNewID()),
 	mTextureDepthBytes( 4 ),
-	mBorder(NULL),
+	mBorder(nullptr),
 	mFrequentUpdates( true ),
 	mForceUpdate( false ),
 	mHomePageUrl( "" ),
@@ -104,7 +104,7 @@ LLMediaCtrl::LLMediaCtrl( const Params& p) :
 	mHomePageMimeType(p.initial_mime_type),
 	mErrorPageURL(p.error_page_url),
 	mTrusted(p.trusted_content),
-	mWindowShade(NULL),
+	mWindowShade(nullptr),
 	mHoverTextChanged(false),
     mAllowFileDownload(false)
 {
@@ -273,7 +273,7 @@ bool LLMediaCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 		mMediaSource->mouseUp(x, y, mask);
 	}
 	
-	gFocusMgr.setMouseCapture( NULL );
+	gFocusMgr.setMouseCapture( nullptr );
 
 	return true;
 }
@@ -310,7 +310,7 @@ bool LLMediaCtrl::handleMiddleMouseUp( S32 x, S32 y, MASK mask )
 		mMediaSource->mouseUp(x, y, mask, 2);
 	}
 	
-	gFocusMgr.setMouseCapture( NULL );
+	gFocusMgr.setMouseCapture( nullptr );
 
 	return true;
 }
@@ -355,7 +355,7 @@ bool LLMediaCtrl::handleRightMouseUp( S32 x, S32 y, MASK mask )
 		}
 	}
 	
-	gFocusMgr.setMouseCapture( NULL );
+	gFocusMgr.setMouseCapture( nullptr );
 
 	return true;
 }
@@ -387,8 +387,8 @@ bool LLMediaCtrl::handleRightMouseDown( S32 x, S32 y, MASK mask )
 
 		// stinson 05/05/2014 : use this as the parent of the context menu if the static menu
 		// container has yet to be created
-		LLPanel* menuParent = (LLMenuGL::sMenuContainer != NULL) ? dynamic_cast<LLPanel*>(LLMenuGL::sMenuContainer) : dynamic_cast<LLPanel*>(this);
-		llassert(menuParent != NULL);
+		LLPanel* menuParent = (LLMenuGL::sMenuContainer != nullptr) ? dynamic_cast<LLPanel*>(LLMenuGL::sMenuContainer) : dynamic_cast<LLPanel*>(this);
+		llassert(menuParent != nullptr);
 		menu = LLUICtrlFactory::getInstance()->createFromFile<LLContextMenu>(
 			"menu_media_ctrl.xml", menuParent, LLViewerMenuHolderGL::child_registry_t::instance());
 		if (menu)
@@ -457,7 +457,7 @@ void LLMediaCtrl::onFocusLost()
 		if( LLEditMenuHandler::gEditMenuHandler == mMediaSource )
 		{
 			// Clear focus for edit menu items
-			LLEditMenuHandler::gEditMenuHandler = NULL;
+			LLEditMenuHandler::gEditMenuHandler = nullptr;
 		}
 	}
 
@@ -839,8 +839,8 @@ void LLMediaCtrl::draw()
 	
 	bool draw_media = false;
 	
-	LLPluginClassMedia* media_plugin = NULL;
-	LLViewerMediaTexture* media_texture = NULL;
+	LLPluginClassMedia* media_plugin = nullptr;
+	LLViewerMediaTexture* media_texture = nullptr;
 	
 	if(mMediaSource && mMediaSource->hasMedia())
 	{

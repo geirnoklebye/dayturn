@@ -54,7 +54,7 @@ LLJointState* LLPose::getFirstJointState()
 	mListIter = mJointMap.begin();
 	if (mListIter == mJointMap.end())
 	{
-		return NULL;
+		return nullptr;
 	}
 	else
 	{
@@ -70,7 +70,7 @@ LLJointState *LLPose::getNextJointState()
 	mListIter++;
 	if (mListIter == mJointMap.end())
 	{
-		return NULL;
+		return nullptr;
 	}
 	else
 	{
@@ -117,7 +117,7 @@ LLJointState* LLPose::findJointState(LLJoint *joint)
 
 	if (iter == mJointMap.end())
 	{
-		return NULL;
+		return nullptr;
 	}
 	else
 	{
@@ -134,7 +134,7 @@ LLJointState* LLPose::findJointState(const std::string &name)
 
 	if (iter == mJointMap.end())
 	{
-		return NULL;
+		return nullptr;
 	}
 	else
 	{

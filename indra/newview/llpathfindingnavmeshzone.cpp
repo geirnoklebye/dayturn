@@ -105,7 +105,7 @@ void LLPathfindingNavMeshZone::disable()
 
 void LLPathfindingNavMeshZone::refresh()
 {
-	if (LLPathingLib::getInstance() != NULL)
+	if (LLPathingLib::getInstance() != nullptr)
 	{
 		LLPathingLib::getInstance()->cleanupResidual();
 	}
@@ -278,8 +278,8 @@ void LLPathfindingNavMeshZone::updateStatus()
 	if ((mNavMeshZoneRequestStatus != kNavMeshZoneRequestCompleted) &&
 		(zoneRequestStatus == kNavMeshZoneRequestCompleted))
 	{
-		llassert(LLPathingLib::getInstance() != NULL);
-		if (LLPathingLib::getInstance() != NULL)
+		llassert(LLPathingLib::getInstance() != nullptr);
+		if (LLPathingLib::getInstance() != nullptr)
 		{
 			LLPathingLib::getInstance()->processNavMeshData();
 		}
@@ -314,7 +314,7 @@ void LLPathfindingNavMeshZone::NavMeshLocation::enable()
 	clear();
 
 	LLViewerRegion *region = getRegion();
-	if (region == NULL)
+	if (region == nullptr)
 	{
 		mRegionUUID.setNull();
 	}
@@ -329,7 +329,7 @@ void LLPathfindingNavMeshZone::NavMeshLocation::refresh()
 {
 	LLViewerRegion *region = getRegion();
 
-	if (region == NULL)
+	if (region == nullptr)
 	{
 		llassert(mRegionUUID.isNull());
 		LLPathfindingNavMeshStatus newNavMeshStatus(mRegionUUID);
@@ -368,8 +368,8 @@ void LLPathfindingNavMeshZone::NavMeshLocation::handleNavMesh(LLPathfindingNavMe
 		llassert(!pNavMeshData.empty());
 		mHasNavMesh = true;
 		mNavMeshVersion = pNavMeshStatus.getVersion();
-		llassert(LLPathingLib::getInstance() != NULL);
-		if (LLPathingLib::getInstance() != NULL)
+		llassert(LLPathingLib::getInstance() != nullptr);
+		if (LLPathingLib::getInstance() != nullptr)
 		{
 			LLPathingLib::getInstance()->extractNavMeshSrcFromLLSD(pNavMeshData, mDirection);
 		}
@@ -393,10 +393,10 @@ void LLPathfindingNavMeshZone::NavMeshLocation::clear()
 
 LLViewerRegion *LLPathfindingNavMeshZone::NavMeshLocation::getRegion() const
 {
-	LLViewerRegion *region = NULL;
+	LLViewerRegion *region = nullptr;
 
 	LLViewerRegion *currentRegion = gAgent.getRegion();
-	if (currentRegion != NULL)
+	if (currentRegion != nullptr)
 	{
 		if (mDirection == CENTER_REGION)
 		{

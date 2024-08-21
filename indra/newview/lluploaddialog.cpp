@@ -38,7 +38,7 @@
 #include "llrootview.h"
 
 // static
-LLUploadDialog*	LLUploadDialog::sDialog = NULL;
+LLUploadDialog*	LLUploadDialog::sDialog = nullptr;
 
 // static
 LLUploadDialog* LLUploadDialog::modalUploadDialog(const std::string& msg)
@@ -52,7 +52,7 @@ void LLUploadDialog::modalUploadFinished()
 {
 	// Note: object adds, removes, and destroys itself.
 	delete LLUploadDialog::sDialog;
-	LLUploadDialog::sDialog = NULL;
+	LLUploadDialog::sDialog = nullptr;
 }
 
 ////////////////////////////////////////////////////////////
@@ -154,7 +154,7 @@ LLUploadDialog::~LLUploadDialog()
 //    LLFilePicker::instance().reset();
 
 
-	LLUploadDialog::sDialog = NULL;
+	LLUploadDialog::sDialog = nullptr;
 }
 
 

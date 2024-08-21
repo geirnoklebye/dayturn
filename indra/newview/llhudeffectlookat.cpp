@@ -271,7 +271,7 @@ void LLHUDEffectLookAt::packData(LLMessageSystem *mesgsys)
 
 
 	LLViewerObject* source_object = (LLViewerObject*)mSourceObject;
-	LLVOAvatar* source_avatar = NULL;
+	LLVOAvatar* source_avatar = nullptr;
 
 	if (!source_object)//kokua TODO: find out why this happens at all and fix there
 	{

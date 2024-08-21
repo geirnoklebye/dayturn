@@ -76,12 +76,12 @@ LLViewerPart::LLViewerPart() :
 	mPartID(0),
 	mLastUpdateTime(0.f),
 	mSkipOffset(0.f),
-	mVPCallback(NULL),
+	mVPCallback(nullptr),
 	mImagep(NULL)
 {
 	mPartSourcep = NULL;
-	mParent = NULL;
-	mChild = NULL;
+	mParent = nullptr;
+	mChild = nullptr;
 	++LLViewerPartSim::sParticleCount2 ;
 }
 
@@ -172,7 +172,7 @@ LLViewerPartGroup::LLViewerPartGroup(const LLVector3 &center_agent, const F32 bo
 
 	LLSpatialGroup* group = mVOPartGroupp->mDrawable->getSpatialGroup();
 
-	if (group != NULL)
+	if (group != nullptr)
 	{
 		LLVector3 center(group->getOctreeNode()->getCenter().getF32ptr());
 		LLVector3 size(group->getOctreeNode()->getSize().getF32ptr());
@@ -564,7 +564,7 @@ void LLViewerPartSim::addPart(LLViewerPart* part)
 	{
 		//delete the particle if can not add it in
 		delete part ;
-		part = NULL ;
+		part = nullptr ;
 	}
 }
 
@@ -572,7 +572,7 @@ void LLViewerPartSim::addPart(LLViewerPart* part)
 LLViewerPartGroup *LLViewerPartSim::put(LLViewerPart* part)
 {
 	const F32 MAX_MAG = 1000000.f*1000000.f; // 1 million
-	LLViewerPartGroup *return_group = NULL ;
+	LLViewerPartGroup *return_group = nullptr ;
 	if (part->mPosAgent.magVecSquared() > MAX_MAG || !part->mPosAgent.isFinite())
 	{
 #if 0 && !LL_RELEASE_FOR_DOWNLOAD
@@ -611,7 +611,7 @@ LLViewerPartGroup *LLViewerPartSim::put(LLViewerPart* part)
 				LL_INFOS() << part->mPosAgent << LL_ENDL;
 				mViewerPartGroups.pop_back() ;
 				delete groupp;
-				groupp = NULL ;
+				groupp = nullptr ;
 			}
 			return_group = groupp;
 		}
@@ -620,7 +620,7 @@ LLViewerPartGroup *LLViewerPartSim::put(LLViewerPart* part)
 	if(!return_group) //failed to insert the particle
 	{
 		delete part ;
-		part = NULL ;
+		part = nullptr ;
 	}
 
 	return return_group ;

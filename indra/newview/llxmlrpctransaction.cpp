@@ -94,17 +94,17 @@ LLXMLRPCValue LLXMLRPCValue::next()
 
 bool LLXMLRPCValue::isValid() const
 {
-	return mV != NULL;
+	return mV != nullptr;
 }
 
 LLXMLRPCValue LLXMLRPCValue::createArray()
 {
-	return LLXMLRPCValue(XMLRPC_CreateVector(NULL, xmlrpc_vector_array));
+	return LLXMLRPCValue(XMLRPC_CreateVector(nullptr, xmlrpc_vector_array));
 }
 
 LLXMLRPCValue LLXMLRPCValue::createStruct()
 {
-	return LLXMLRPCValue(XMLRPC_CreateVector(NULL, xmlrpc_vector_struct));
+	return LLXMLRPCValue(XMLRPC_CreateVector(nullptr, xmlrpc_vector_struct));
 }
 
 
@@ -120,17 +120,17 @@ void LLXMLRPCValue::appendString(const std::string& v)
 
 void LLXMLRPCValue::appendInt(int v)
 {
-	XMLRPC_AddValueToVector(mV, XMLRPC_CreateValueInt(NULL, v));
+	XMLRPC_AddValueToVector(mV, XMLRPC_CreateValueInt(nullptr, v));
 }
 
 void LLXMLRPCValue::appendBool(bool v)
 {
-	XMLRPC_AddValueToVector(mV, XMLRPC_CreateValueBoolean(NULL, v));
+	XMLRPC_AddValueToVector(mV, XMLRPC_CreateValueBoolean(nullptr, v));
 }
 
 void LLXMLRPCValue::appendDouble(double v)
 {
-	XMLRPC_AddValueToVector(mV, XMLRPC_CreateValueDouble(NULL, v));
+	XMLRPC_AddValueToVector(mV, XMLRPC_CreateValueDouble(nullptr, v));
 }
 
 
@@ -163,7 +163,7 @@ void LLXMLRPCValue::appendDouble(const char* id, double v)
 void LLXMLRPCValue::cleanup()
 {
 	XMLRPC_CleanupValue(mV);
-	mV = NULL;
+	mV = nullptr;
 }
 
 XMLRPC_VALUE LLXMLRPCValue::getValue() const
@@ -274,7 +274,7 @@ void LLXMLRPCTransaction::Handler::onCompleted(LLCore::HttpHandle handle,
 
 	body->read(0, bodydata, body->size());
 
-	mImpl->mResponse = XMLRPC_REQUEST_FromXML(bodydata, body->size(), 0);
+	mImpl->mResponse = XMLRPC_REQUEST_FromXML(bodydata, body->size(), nullptr);
 
 	delete[] bodydata;
 
@@ -318,7 +318,7 @@ LLXMLRPCTransaction::Impl::Impl(const std::string& uri,
 	: mHttpRequest(),
 	  mStatus(LLXMLRPCTransaction::StatusNotStarted),
 	  mURI(uri),
-	  mResponse(0)
+	  mResponse(nullptr)
 {
 	init(request, useGzip, httpParams);
 }
@@ -329,7 +329,7 @@ LLXMLRPCTransaction::Impl::Impl(const std::string& uri,
 	: mHttpRequest(),
 	  mStatus(LLXMLRPCTransaction::StatusNotStarted),
 	  mURI(uri),
-	  mResponse(0)
+	  mResponse(nullptr)
 {
 	XMLRPC_REQUEST request = XMLRPC_RequestNew();
 	XMLRPC_RequestSetMethodName(request, method.c_str());

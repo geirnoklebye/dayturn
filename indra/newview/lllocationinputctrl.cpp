@@ -210,15 +210,15 @@ LLLocationInputCtrl::LLLocationInputCtrl(const LLLocationInputCtrl::Params& p)
 :	LLComboBox(p),
 	mIconHPad(p.icon_hpad),
 	mAddLandmarkHPad(p.add_landmark_hpad),
-	mLocationContextMenu(NULL),
-	mAddLandmarkBtn(NULL),
-	mForSaleBtn(NULL),
-	mInfoBtn(NULL),
+	mLocationContextMenu(nullptr),
+	mAddLandmarkBtn(nullptr),
+	mForSaleBtn(nullptr),
+	mInfoBtn(nullptr),
 	mRegionCrossingSlot(),
 	mNavMeshSlot(),
 	mIsNavMeshDirty(false),
-	mLandmarkImageOn(NULL),
-	mLandmarkImageOff(NULL),
+	mLandmarkImageOn(nullptr),
+	mLandmarkImageOff(nullptr),
 	mIconMaturityGeneral(NULL),
 	mIconMaturityAdult(NULL),
 	mIconMaturityModerate(NULL),
@@ -989,7 +989,7 @@ void LLLocationInputCtrl::positionMaturityButton()
 void LLLocationInputCtrl::rebuildLocationHistory(const std::string& filter)
 {
 	LLLocationHistory::location_list_t filtered_items;
-	const LLLocationHistory::location_list_t* itemsp = NULL;
+	const LLLocationHistory::location_list_t* itemsp = nullptr;
 	LLLocationHistory* lh = LLLocationHistory::getInstance();
 	
 	if (filter.empty())
@@ -1272,7 +1272,7 @@ void LLLocationInputCtrl::createNavMeshStatusListenerForCurrentRegion()
 	}
 
 	LLViewerRegion *currentRegion = gAgent.getRegion();
-	if (currentRegion != NULL)
+	if (currentRegion != nullptr)
 	{
 		mNavMeshSlot = LLPathfindingManager::getInstance()->registerNavMeshListenerForRegion(currentRegion, boost::bind(&LLLocationInputCtrl::onNavMeshStatusChange, this, _2));
 		LLPathfindingManager::getInstance()->requestGetNavMeshForRegion(currentRegion, true);

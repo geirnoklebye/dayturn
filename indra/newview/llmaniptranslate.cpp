@@ -2291,10 +2291,10 @@ bool LLManipTranslate::canAffectSelection()
 		{
 			virtual bool apply(LLViewerObject* objectp)
 			{
-				LLViewerObject *root_object = (objectp == NULL) ? NULL : objectp->getRootEdit();
+				LLViewerObject *root_object = (objectp == nullptr) ? nullptr : objectp->getRootEdit();
 				return objectp->permMove() && !objectp->isPermanentEnforced() &&
-					((root_object == NULL) || !root_object->isPermanentEnforced()) &&
-					(objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
+					((root_object == nullptr) || !root_object->isPermanentEnforced()) &&
+					(objectp->permModify() || !gSavedSettings.getbool("EditLinkedParts"));
 			}
 		} func;
 		can_move = mObjectSelection->applyToObjects(&func);

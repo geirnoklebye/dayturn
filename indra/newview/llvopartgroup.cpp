@@ -48,7 +48,7 @@ extern U64MicrosecondsImplicit gFrameTime;
 
 LLPointer<LLVertexBuffer> LLVOPartGroup::sVB = NULL;
 S32 LLVOPartGroup::sVBSlotFree[];
-S32* LLVOPartGroup::sVBSlotCursor = NULL;
+S32* LLVOPartGroup::sVBSlotCursor = nullptr;
 
 void LLVOPartGroup::initClass()
 {
@@ -171,7 +171,7 @@ void LLVOPartGroup::freeVBSlot(S32 idx)
 
 LLVOPartGroup::LLVOPartGroup(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	:	LLAlphaObject(id, pcode, regionp),
-		mViewerPartGroupp(NULL)
+		mViewerPartGroupp(nullptr)
 {
 	setNumTEs(1);
 	setTETexture(0, LLUUID::null);
@@ -371,7 +371,7 @@ bool LLVOPartGroup::updateGeometry(LLDrawable *drawable)
 
 		if (part->mFlags & LLPartData::LL_PART_RIBBON_MASK)
 		{ //include ribbon segment length in scale
-			const LLVector3* pos_agent = NULL;
+			const LLVector3* pos_agent = nullptr;
 			if (part->mParent)
 			{
 				pos_agent = &(part->mParent->mPosAgent);

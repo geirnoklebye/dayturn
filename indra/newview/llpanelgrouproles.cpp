@@ -116,9 +116,9 @@ bool agentCanAddToRole(const LLUUID& group_id,
 // static
 LLPanelGroupRoles::LLPanelGroupRoles()
 :	LLPanelGroupTab(),
-	mCurrentTab(NULL),
-	mRequestedTab( NULL ),
-	mSubTabContainer( NULL ),
+	mCurrentTab(nullptr),
+	mRequestedTab( nullptr ),
+	mSubTabContainer( nullptr ),
 	mFirstUse( true )
 {
 }
@@ -200,7 +200,7 @@ bool LLPanelGroupRoles::handleSubTabSwitch(const LLSD& data)
 {
 	std::string panel_name = data.asString();
 	
-	if(mRequestedTab != NULL)//we already have tab change request
+	if(mRequestedTab != nullptr)//we already have tab change request
 	{
 		return false;
 	}
@@ -246,7 +246,7 @@ void LLPanelGroupRoles::transitionToTab()
 		// This is now the current tab;
 		mCurrentTab = mRequestedTab;
 		mCurrentTab->activate();
-		mRequestedTab = 0;
+		mRequestedTab = nullptr;
 	}
 }
 
@@ -287,7 +287,7 @@ bool LLPanelGroupRoles::handleNotifyCallback(const LLSD& notification, const LLS
 		break;
 	case 2: // "Cancel"
 	default:
-		mRequestedTab = NULL;
+		mRequestedTab = nullptr;
 		// Do nothing.  The user is canceling the action.
 		break;
 	}
@@ -427,11 +427,11 @@ void LLPanelGroupRoles::setGroupID(const LLUUID& id)
 // LLPanelGroupSubTab ////////////////////////////////////////////////////
 LLPanelGroupSubTab::LLPanelGroupSubTab()
 :	LLPanelGroupTab(),
-	mHeader(NULL),
-	mFooter(NULL),
+	mHeader(nullptr),
+	mFooter(nullptr),
 	mActivated(false),
 	mHasGroupBanPower(false),
-	mSearchEditor(NULL)
+	mSearchEditor(nullptr)
 {
 }
 
@@ -780,9 +780,9 @@ static LLPanelInjector<LLPanelGroupMembersSubTab> t_panel_group_members_subtab("
 
 LLPanelGroupMembersSubTab::LLPanelGroupMembersSubTab()
 : 	LLPanelGroupSubTab(),
-	mMembersList(NULL),
-	mAssignedRolesList(NULL),
-	mAllowedActionsList(NULL),
+	mMembersList(nullptr),
+	mAssignedRolesList(nullptr),
+	mAllowedActionsList(nullptr),
 	mChanged(false),
 	mPendingMemberUpdate(false),
 	mHasMatch(false),
@@ -1153,7 +1153,7 @@ void LLPanelGroupMembersSubTab::onInviteMember(void *userdata)
 
 void LLPanelGroupMembersSubTab::handleInviteMember()
 {
-	LLFloaterGroupInvite::showForGroup(mGroupID, NULL, false);
+	LLFloaterGroupInvite::showForGroup(mGroupID, nullptr, false);
 }
 
 void LLPanelGroupMembersSubTab::onEjectMembers(void *userdata)
@@ -1569,7 +1569,7 @@ U64 LLPanelGroupMembersSubTab::getAgentPowersBasedOnRoleChanges(const LLUUID& ag
 	}
 
 	//see if there are unsaved role changes for this agent
-	role_change_data_map_t* role_change_datap = NULL;
+	role_change_data_map_t* role_change_datap = nullptr;
 	member_role_changes_map_t::iterator member = mMemberRoleChangeData.find(agent_id);
 	if ( member != mMemberRoleChangeData.end() )
 	{
@@ -1954,16 +1954,16 @@ static LLPanelInjector<LLPanelGroupRolesSubTab> t_panel_group_roles_subtab("pane
 
 LLPanelGroupRolesSubTab::LLPanelGroupRolesSubTab()
   : LLPanelGroupSubTab(),
-	mRolesList(NULL),
-	mAssignedMembersList(NULL),
-	mAllowedActionsList(NULL),
-	mRoleName(NULL),
-	mRoleTitle(NULL),
-	mRoleDescription(NULL),
-	mMemberVisibleCheck(NULL),
-	mDeleteRoleButton(NULL),
-	mCopyRoleButton(NULL),
-	mCreateRoleButton(NULL),
+	mRolesList(nullptr),
+	mAssignedMembersList(nullptr),
+	mAllowedActionsList(nullptr),
+	mRoleName(nullptr),
+	mRoleTitle(nullptr),
+	mRoleDescription(nullptr),
+	mMemberVisibleCheck(nullptr),
+	mDeleteRoleButton(nullptr),
+	mCopyRoleButton(nullptr),
+	mCreateRoleButton(nullptr),
 	mFirstOpen(true),
 	mHasRoleChange(false)
 {
@@ -2181,7 +2181,7 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 		}
 		mRolesList->deleteAllItems();
 
-		LLScrollListItem* item = NULL;
+		LLScrollListItem* item = nullptr;
 
 		LLGroupMgrGroupData::role_list_t::iterator rit = gdatap->mRoles.begin();
 		LLGroupMgrGroupData::role_list_t::iterator end = gdatap->mRoles.end();
@@ -3043,9 +3043,9 @@ static LLPanelInjector<LLPanelGroupBanListSubTab> t_panel_group_ban_subtab("pane
 
 LLPanelGroupBanListSubTab::LLPanelGroupBanListSubTab()
 	: LLPanelGroupSubTab(),
-	  mBanList(NULL),
-	  mCreateBanButton(NULL),
-	  mDeleteBanButton(NULL)
+	  mBanList(nullptr),
+	  mCreateBanButton(nullptr),
+	  mDeleteBanButton(nullptr)
 {}
 
 bool LLPanelGroupBanListSubTab::postBuildSubTab(LLView* root)

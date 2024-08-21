@@ -151,7 +151,7 @@ void LLWatchdogTimeout::ping(const std::string& state)
 // LLWatchdog
 LLWatchdog::LLWatchdog()
     :mSuspectsAccessMutex()
-    ,mTimer(NULL)
+    ,mTimer(nullptr)
 	,mLastClockCount(0)
 {
 }
@@ -195,13 +195,13 @@ void LLWatchdog::cleanup()
 	{
 		mTimer->stop();
 		delete mTimer;
-		mTimer = NULL;
+		mTimer = nullptr;
 	}
 
 	if(mSuspectsAccessMutex)
 	{
 		delete mSuspectsAccessMutex;
-		mSuspectsAccessMutex = NULL;
+		mSuspectsAccessMutex = nullptr;
 	}
 
 	mLastClockCount = 0;
@@ -251,7 +251,7 @@ void LLWatchdog::run()
 
 void LLWatchdog::lockThread()
 {
-	if(mSuspectsAccessMutex != NULL)
+	if(mSuspectsAccessMutex != nullptr)
 	{
 		mSuspectsAccessMutex->lock();
 	}
@@ -259,7 +259,7 @@ void LLWatchdog::lockThread()
 
 void LLWatchdog::unlockThread()
 {
-	if(mSuspectsAccessMutex != NULL)
+	if(mSuspectsAccessMutex != nullptr)
 	{
 		mSuspectsAccessMutex->unlock();
 	}

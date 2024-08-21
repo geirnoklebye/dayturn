@@ -385,7 +385,7 @@ void LLKeyframeMotion::JointMotion::update(LLJointState* joint_state, F32 time, 
 {
 	// this value being 0 is the cause of https://jira.lindenlab.com/browse/SL-22678 but I haven't 
 	// managed to get a stack to see how it got here. Testing for 0 here will stop the crash.
-	if ( joint_state == NULL )
+	if ( joint_state == nullptr )
 	{
 		return;
 	}
@@ -430,8 +430,8 @@ void LLKeyframeMotion::JointMotion::update(LLJointState* joint_state, F32 time, 
 //-----------------------------------------------------------------------------
 LLKeyframeMotion::LLKeyframeMotion(const LLUUID &id) 
 	: LLMotion(id),
-		mJointMotionList(NULL),
-		mPelvisp(NULL),
+		mJointMotionList(nullptr),
+		mPelvisp(nullptr),
 		mLastSkeletonSerialNum(0),
 		mLastUpdateTime(0.f),
 		mLastLoopedTime(0.f),
@@ -570,7 +570,7 @@ LLMotion::LLMotionInitStatus LLKeyframeMotion::onInitialize(LLCharacter *charact
 	if (!anim_file || !anim_file->getSize())
 	{
 		delete anim_file;
-		anim_file = NULL;
+		anim_file = nullptr;
 		
 		// request asset over network on next call to load
 		mAssetStatus = ASSET_NEEDS_FETCH;
@@ -590,7 +590,7 @@ LLMotion::LLMotionInitStatus LLKeyframeMotion::onInitialize(LLCharacter *charact
 			LL_WARNS() << "Failed to allocate buffer: " << anim_file_size << mID << LL_ENDL;
 		}
 		delete anim_file;
-		anim_file = NULL;
+		anim_file = nullptr;
 	}
 
 	if (!success)
@@ -995,8 +995,8 @@ void LLKeyframeMotion::applyConstraint(JointConstraint* constraint, F32 time, U8
 	}
 	
 	LLVector3 norm;
-	LLJoint *source_jointp = NULL;
-	LLJoint *target_jointp = NULL;
+	LLJoint *source_jointp = nullptr;
+	LLJoint *target_jointp = nullptr;
 
 	if (shared_data->mConstraintType == CONSTRAINT_TYPE_PLANE)
 	{
@@ -1464,7 +1464,7 @@ bool LLKeyframeMotion::deserialize(LLDataPacker& dp, const LLUUID& asset_id, boo
                            << " is outside of legal range [0-"
                            << LL_CHARACTER_MAX_ANIMATED_JOINTS << ") for joint " << joint->getName()
                            << " for animation " << asset_id << LL_ENDL;
-                joint = NULL;
+                joint = nullptr;
             }
 		}
 		else
@@ -2486,7 +2486,7 @@ LLKeyframeMotion::JointMotionList* LLKeyframeDataCache::getKeyframeData(const LL
 	keyframe_data_map_t::iterator found_data = sKeyframeDataMap.find(id);
 	if (found_data == sKeyframeDataMap.end())
 	{
-		return NULL;
+		return nullptr;
 	}
 	return found_data->second;
 }
@@ -2516,8 +2516,8 @@ LLKeyframeMotion::JointConstraint::JointConstraint(JointConstraintSharedData* sh
 	mWeight = 0.f;
 	mTotalLength = 0.f;
 	mActive = false;
-	mSourceVolume = NULL;
-	mTargetVolume = NULL;
+	mSourceVolume = nullptr;
+	mTargetVolume = nullptr;
 	mFixupDistanceRMS = 0.f;
 
 	for (S32 i=0; i<MAX_CHAIN_LENGTH; ++i)

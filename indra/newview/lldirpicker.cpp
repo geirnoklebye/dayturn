@@ -217,7 +217,7 @@ std::string LLDirPicker::getDirName()
 #endif
 
 
-LLMutex* LLDirPickerThread::sMutex = NULL;
+LLMutex* LLDirPickerThread::sMutex = nullptr;
 std::queue<LLDirPickerThread*> LLDirPickerThread::sDeadQ;
 
 void LLDirPickerThread::getFile()
@@ -264,7 +264,7 @@ void LLDirPickerThread::cleanupClass()
 	clearDead();
 
 	delete sMutex;
-	sMutex = NULL;
+	sMutex = nullptr;
 }
 
 //static
@@ -285,7 +285,7 @@ void LLDirPickerThread::clearDead()
 
 LLDirPickerThread::LLDirPickerThread(const dir_picked_signal_t::slot_type& cb, const std::string &proposed_name)
 	: LLThread("dir picker"),
-	mFilePickedSignal(NULL)
+	mFilePickedSignal(nullptr)
 {
 	mFilePickedSignal = new dir_picked_signal_t();
 	mFilePickedSignal->connect(cb);

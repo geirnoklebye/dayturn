@@ -566,8 +566,8 @@ void LLFloaterImagePreview::onMouseCaptureLostImagePreview(LLMouseHandler* handl
 LLImagePreviewAvatar::LLImagePreviewAvatar(S32 width, S32 height) : LLViewerDynamicTexture(width, height, 3, ORDER_MIDDLE, false)
 {
 	mNeedsUpdate = true;
-	mTargetJoint = NULL;
-	mTargetMesh = NULL;
+	mTargetJoint = nullptr;
+	mTargetMesh = nullptr;
 	mCameraDistance = 0.f;
 	mCameraYaw = 0.f;
 	mCameraPitch = 0.f;

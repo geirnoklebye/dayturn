@@ -135,7 +135,7 @@ LLHUDEffect *LLHUDManager::createViewerEffect(const U8 type, bool send_to_sim, b
 	LLHUDEffect *hep = LLHUDObject::addHUDEffect(type);
 	if (!hep)
 	{
-		return NULL;
+		return nullptr;
 	}
 
 	LLUUID tmp;
@@ -152,7 +152,7 @@ LLHUDEffect *LLHUDManager::createViewerEffect(const U8 type, bool send_to_sim, b
 //static
 void LLHUDManager::processViewerEffect(LLMessageSystem *mesgsys, void **user_data)
 {
-	LLHUDEffect *effectp = NULL;
+	LLHUDEffect *effectp = nullptr;
 	LLUUID effect_id;
 	U8 effect_type = 0;
 	S32 number_blocks = mesgsys->getNumberOfBlocksFast(_PREHASH_Effect);
@@ -160,7 +160,7 @@ void LLHUDManager::processViewerEffect(LLMessageSystem *mesgsys, void **user_dat
 
 	for (k = 0; k < number_blocks; k++)
 	{
-		effectp = NULL;
+		effectp = nullptr;
 		LLHUDEffect::getIDType(mesgsys, k, effect_id, effect_type);
 		S32 i;
 		for (i = 0; i < LLHUDManager::getInstance()->mHUDEffects.size(); i++)

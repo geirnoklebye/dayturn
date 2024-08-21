@@ -334,9 +334,9 @@ bool	LLPanelFace::postBuild()
 LLPanelFace::LLPanelFace()
 :	LLPanel(),
     mIsAlpha(false),
-    mComboMatMedia(NULL),
-    mTitleMedia(NULL),
-    mTitleMediaText(NULL),
+    mComboMatMedia(nullptr),
+    mTitleMedia(nullptr),
+    mTitleMediaText(nullptr),
     mNeedMediaTitle(true)
     {
     USE_TEXTURE = LLTrans::getString("use_texture");
@@ -814,7 +814,7 @@ void LLPanelFace::sendTextureInfo()
 {
 	if ((bool)childGetValue("checkbox planar align").asBoolean())
 	{
-		LLFace* last_face = NULL;
+		LLFace* last_face = nullptr;
 		bool identical_face =false;
 		LLSelectedTE::getFace(last_face, identical_face);		
 		LLPanelFaceSetAlignedTEFunctor setfunc(this, last_face);
@@ -832,7 +832,7 @@ void LLPanelFace::sendTextureInfo()
 
 void LLPanelFace::alignTestureLayer()
 {
-    LLFace* last_face = NULL;
+    LLFace* last_face = nullptr;
     bool identical_face = false;
     LLSelectedTE::getFace(last_face, identical_face);
 
@@ -1137,7 +1137,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 
 			if (align_planar && enabled)
 			{
-				LLFace* last_face = NULL;
+				LLFace* last_face = nullptr;
 				bool identical_face = false;
 				LLSelectedTE::getFace(last_face, identical_face);
 
@@ -1771,7 +1771,7 @@ void LLPanelFace::refreshMedia()
         {
             LLSelectNode* node = *iter;
             LLVOVolume* object = dynamic_cast<LLVOVolume*>(node->getObject());
-            if (NULL != object)
+            if (nullptr != object)
             {
                 if (!object->permModify())
                 {
@@ -1923,7 +1923,7 @@ void LLPanelFace::navigateToTitleMedia( const std::string url )
 	{
 		LLPluginClassMedia* media_plugin = mTitleMedia->getMediaPlugin();
 		// check if url changed or if we need a new media source
-		if (mTitleMedia->getCurrentNavUrl() != url || media_plugin == NULL)
+		if (mTitleMedia->getCurrentNavUrl() != url || media_plugin == nullptr)
 		{
 			mTitleMedia->navigateTo( url );
 
@@ -3217,7 +3217,7 @@ void LLPanelFace::onCommitMaterialBumpyRot(LLUICtrl* ctrl, void* userdata)
 	{
         if ((bool)self->childGetValue("checkbox planar align").asBoolean())
         {
-            LLFace* last_face = NULL;
+            LLFace* last_face = nullptr;
             bool identical_face = false;
             LLSelectedTE::getFace(last_face, identical_face);
             LLPanelFaceSetAlignedTEFunctor setfunc(self, last_face);
@@ -3245,7 +3245,7 @@ void LLPanelFace::onCommitMaterialShinyRot(LLUICtrl* ctrl, void* userdata)
 	{
         if ((bool)self->childGetValue("checkbox planar align").asBoolean())
         {
-            LLFace* last_face = NULL;
+            LLFace* last_face = nullptr;
             bool identical_face = false;
             LLSelectedTE::getFace(last_face, identical_face);
             LLPanelFaceSetAlignedTEFunctor setfunc(self, last_face);
@@ -3466,7 +3466,7 @@ struct LLPanelFaceSetMediaFunctor : public LLSelectedTEFunctor
 		viewer_media_t pMediaImpl;
 				
 		const LLTextureEntry* tep = object->getTE(te);
-		const LLMediaEntry* mep = tep->hasMedia() ? tep->getMediaData() : NULL;
+		const LLMediaEntry* mep = tep->hasMedia() ? tep->getMediaData() : nullptr;
 		if ( mep )
 		{
 			pMediaImpl = LLViewerMedia::getInstance()->getMediaImplFromTextureID(mep->getMediaID());
@@ -4089,7 +4089,7 @@ void LLPanelFace::onPasteTexture(LLViewerObject* objectp, S32 te)
             if (te_data["te"].has("imageid"))
             {
                 const LLUUID& imageid = te_data["te"]["imageid"].asUUID(); //texture or asset id
-                LLViewerInventoryItem* itemp_res = NULL;
+                LLViewerInventoryItem* itemp_res = nullptr;
 
                 if (te_data["te"].has("imageitemid"))
                 {
@@ -4684,7 +4684,7 @@ void LLPanelFace::LLSelectedTE::getTexId(LLUUID& id, bool& identical)
 			{
 				if (te)
 				{
-					LLViewerTexture* tex = te->getID().notNull() ? gTextureList.findImage(te->getID(), TEX_LIST_STANDARD) : NULL;
+					LLViewerTexture* tex = te->getID().notNull() ? gTextureList.findImage(te->getID(), TEX_LIST_STANDARD) : nullptr;
 					if(!tex)
 					{
 						tex = LLViewerFetchedTexture::sDefaultImagep;

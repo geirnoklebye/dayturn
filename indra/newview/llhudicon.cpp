@@ -323,7 +323,7 @@ LLHUDIcon* LLHUDIcon::handlePick(S32 pick_id)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 //static
@@ -334,7 +334,7 @@ LLHUDIcon* LLHUDIcon::lineSegmentIntersectAll(const LLVector4a& start, const LLV
 	LLVector4a local_end = end;
 	LLVector4a position;
 
-	LLHUDIcon* ret = NULL;
+	LLHUDIcon* ret = nullptr;
 	for(icon_it = sIconInstances.begin(); icon_it != sIconInstances.end(); ++icon_it)
 	{
 		LLHUDIcon* icon = *icon_it;

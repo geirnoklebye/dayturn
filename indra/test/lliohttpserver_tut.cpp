@@ -110,7 +110,7 @@ namespace tut
 			LLPipeStringExtractor* extractor = new LLPipeStringExtractor();
 			
 			apr_pool_t* pool;
-			apr_pool_create(&pool, NULL);
+			apr_pool_create(&pool, nullptr);
 
 			LLPumpIO* pump;
 			pump = new LLPumpIO(pool);

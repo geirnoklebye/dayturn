@@ -96,7 +96,7 @@ bool cb_do_nothing()
 LLFloaterIMNearbyChat::LLFloaterIMNearbyChat(const LLSD& llsd)
 :	LLFloaterIMSessionTab(LLSD(LLUUID::null)),
 	//mOutputMonitor(NULL),
-	mSpeakerMgr(NULL),
+	mSpeakerMgr(nullptr),
 	mExpandedHeight(COLLAPSED_HEIGHT + EXPANDED_HEIGHT)
 {
     mIsP2PChat = false;
@@ -370,8 +370,8 @@ bool LLFloaterIMNearbyChat::isChatVisible() const
 	bool isVisible = false;
 	LLFloaterIMContainer* im_box = LLFloaterIMContainer::getInstance();
 	// Is the IM floater container ever null?
-	llassert(im_box != NULL);
-	if (im_box != NULL)
+	llassert(im_box != nullptr);
+	if (im_box != nullptr)
 	{
 		isVisible =
 				isChatMultiTab() && gSavedPerAccountSettings.getbool("NearbyChatIsNotTornOff")?
@@ -385,7 +385,7 @@ bool LLFloaterIMNearbyChat::isChatVisible() const
 void LLFloaterIMNearbyChat::showHistory()
 {
 	openFloater();
-	LLFloaterIMContainer::getInstance()->selectConversation(LLUUID(NULL));
+	LLFloaterIMContainer::getInstance()->selectConversation(LLUUID(nullptr));
 
 	if(!isMessagePaneExpanded())
 	{
@@ -805,7 +805,7 @@ void LLFloaterIMNearbyChat::startChat(const char* line)
 	{
 		if(!nearby_chat->isTornOff())
 		{
-			LLFloaterIMContainer::getInstance()->selectConversation(LLUUID(NULL));
+			LLFloaterIMContainer::getInstance()->selectConversation(LLUUID(nullptr));
 		}
 		if(nearby_chat->isMinimized())
 		{

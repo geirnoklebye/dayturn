@@ -49,14 +49,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLPanelMediaSettingsPermissions::LLPanelMediaSettingsPermissions() :
-	mControls( NULL ),
-    mPermsOwnerInteract( 0 ),
-    mPermsOwnerControl( 0 ),
-	mPermsGroupName( 0 ),
-    mPermsGroupInteract( 0 ),
-    mPermsGroupControl( 0 ),
-    mPermsWorldInteract( 0 ),
-    mPermsWorldControl( 0 )
+	mControls( nullptr ),
+    mPermsOwnerInteract( nullptr ),
+    mPermsOwnerControl( nullptr ),
+	mPermsGroupName( nullptr ),
+    mPermsGroupInteract( nullptr ),
+    mPermsGroupControl( nullptr ),
+    mPermsWorldInteract( nullptr ),
+    mPermsWorldControl( nullptr )
 {
     // build dialog from XML
     buildFromFile( "panel_media_settings_permissions.xml");

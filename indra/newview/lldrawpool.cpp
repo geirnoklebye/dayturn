@@ -61,7 +61,7 @@ S32 LLDrawPool::sNumDrawPools = 0;
 //=============================
 LLDrawPool *LLDrawPool::createPool(const U32 type, LLViewerTexture *tex0)
 {
-	LLDrawPool *poolp = NULL;
+	LLDrawPool *poolp = nullptr;
 	switch (type)
 	{
 	case POOL_SIMPLE:
@@ -119,7 +119,7 @@ LLDrawPool *LLDrawPool::createPool(const U32 type, LLViewerTexture *tex0)
 		break;
 	default:
 		LL_ERRS() << "Unknown draw pool type!" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	llassert(poolp->mType == type);
@@ -142,7 +142,7 @@ LLDrawPool::~LLDrawPool()
 
 LLViewerTexture *LLDrawPool::getDebugTexture()
 {
-	return NULL;
+	return nullptr;
 }
 
 //virtual
@@ -300,7 +300,7 @@ void LLFacePool::resetDrawOrders()
 
 LLViewerTexture *LLFacePool::getTexture()
 {
-	return NULL;
+	return nullptr;
 }
 
 void LLFacePool::removeFaceReference(LLFace *facep)

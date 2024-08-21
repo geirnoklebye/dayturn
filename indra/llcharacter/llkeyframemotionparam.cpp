@@ -48,8 +48,8 @@
 //-----------------------------------------------------------------------------
 LLKeyframeMotionParam::LLKeyframeMotionParam( const LLUUID &id) : LLMotion(id)
 {
-	mDefaultKeyframeMotion = NULL;
-	mCharacter = NULL;
+	mDefaultKeyframeMotion = nullptr;
+	mCharacter = nullptr;
 
 	mEaseInDuration = 0.f;
 	mEaseOutDuration = 0.f;

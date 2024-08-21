@@ -274,7 +274,7 @@ void LLFloaterJoystick::refreshListOfDevices()
     // On MAC there is an ndof_idsearch and it is possible to specify product
     // and manufacturer in NDOF_Device for ndof_init_first to pick specific one
     U32 device_type = 0;
-    void* callback = NULL;
+    void* callback = nullptr;
 #endif
     if (gViewerWindow->getWindow()->getInputDevices(device_type, callback, this))
     {

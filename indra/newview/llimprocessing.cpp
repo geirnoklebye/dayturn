@@ -454,7 +454,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
         // object IMs contain sender object id in session_id (STORM-1209)
         || (dialog == IM_FROM_TASK && LLMuteList::getInstance()->isMuted(session_id));
     BOOL is_owned_by_me = FALSE;
-    BOOL is_friend = (LLAvatarTracker::instance().getBuddyInfo(from_id) == NULL) ? false : true;
+    BOOL is_friend = (LLAvatarTracker::instance().getBuddyInfo(from_id) == nullptr) ? false : true;
     BOOL accept_im_from_only_friend = gSavedPerAccountSettings.getBOOL("VoiceCallsFriendsOnly");
     BOOL is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
         LLMuteList::isLinden(name);
@@ -754,7 +754,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
             }
 
             // If there is inventory, give the user the inventory offer.
-            LLOfferInfo* info = NULL;
+            LLOfferInfo* info = nullptr;
 
             if (has_inventory)
             {
@@ -1229,7 +1229,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
             {
                 return;
             }
-            else if (gSavedPerAccountSettings.getBOOL("VoiceCallsFriendsOnly") && (LLAvatarTracker::instance().getBuddyInfo(from_id) == NULL))
+            else if (gSavedPerAccountSettings.getBOOL("VoiceCallsFriendsOnly") && (LLAvatarTracker::instance().getBuddyInfo(from_id) == nullptr))
             {
                 return;
             }
