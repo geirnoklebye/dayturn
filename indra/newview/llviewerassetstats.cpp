@@ -103,7 +103,7 @@ class DCCountStatHandle:
         public CountStatHandle<T>
 {
 public:
-    DCCountStatHandle(const char *name = makeNewAutoName(), const char *description=NULL):
+    DCCountStatHandle(const char *name = makeNewAutoName(), const char *description=nullptr):
         CountStatHandle<T>(name,description)
     {
     }
@@ -114,7 +114,7 @@ class DCEventStatHandle:
         public EventStatHandle<T>
 {
 public:
-    DCEventStatHandle(const char *name = makeNewAutoName(), const char *description=NULL):
+    DCEventStatHandle(const char *name = makeNewAutoName(), const char *description=nullptr):
         EventStatHandle<T>(name,description)
     {
     }

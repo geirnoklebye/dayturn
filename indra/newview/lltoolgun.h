@@ -34,7 +34,7 @@
 class LLToolGun : public LLTool
 {
 public:
-	LLToolGun( LLToolComposite* composite=NULL );
+	LLToolGun( LLToolComposite* composite=nullptr );
 
 	virtual void	draw();
 

@@ -396,17 +396,17 @@ public:
 										   LLVector4a* intersection);
 
 	LLViewerObject* cursorIntersect(S32 mouse_x = -1, S32 mouse_y = -1, F32 depth = 512.f,
-									LLViewerObject *this_object = NULL,
+									LLViewerObject *this_object = nullptr,
 									S32 this_face = -1,
 									bool pick_transparent = false,
 									bool pick_rigged = false,
-									S32* face_hit = NULL,
-									LLVector4a *intersection = NULL,
-									LLVector2 *uv = NULL,
-									LLVector4a *normal = NULL,
-									LLVector4a *tangent = NULL,
-									LLVector4a* start = NULL,
-									LLVector4a* end = NULL);
+									S32* face_hit = nullptr,
+									LLVector4a *intersection = nullptr,
+									LLVector2 *uv = nullptr,
+									LLVector4a *normal = nullptr,
+									LLVector4a *tangent = nullptr,
+									LLVector4a* start = nullptr,
+									LLVector4a* end = nullptr);
 	
 	
 	// Returns a pointer to the last object hit
@@ -442,7 +442,7 @@ public:
 	static std::string getLastSnapshotDir();
 
 private:
-	bool                    shouldShowToolTipFor(LLMouseHandler *mh);
+	bool            shouldShowToolTipFor(LLMouseHandler *mh);
 
 	void			switchToolByMask(MASK mask);
 	void			destroyWindow();

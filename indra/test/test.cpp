@@ -104,7 +104,6 @@ public:
 
 	virtual void recordMessage(LLError::ELevel level, const std::string& message)
 	{
-        LL_PROFILE_ZONE_SCOPED
 		mFile << message << std::endl;
 	}
 
@@ -449,7 +448,7 @@ static const apr_getopt_option_t TEST_CL_OPTIONS[] =
 	{"wait", 'w', 0, "Wait for input before exit."},
 	{"debug", 'd', 0, "Emit full debug logs."},
 	{"suitename", 'x', 1, "Run tests using this suitename"},
-	{0, 0, 0, 0}
+	{nullptr, 0, 0, nullptr}
 };
 
 void stream_usage(std::ostream& s, const char* app)
@@ -510,12 +509,12 @@ void wouldHaveCrashed(const std::string& message)
 	tut::fail("llerrs message: " + message);
 }
 
-static LLTrace::ThreadRecorder* sMasterThreadRecorder = NULL;
+static LLTrace::ThreadRecorder* sMasterThreadRecorder = nullptr;
 
 int main(int argc, char **argv)
 {
 	ll_init_apr();
-	apr_getopt_t* os = NULL;
+	apr_getopt_t* os = nullptr;
 	if(APR_SUCCESS != apr_getopt_init(&os, gAPRPoolp, argc, argv))
 	{
 		std::cerr << "apr_getopt_init() failed" << std::endl;
@@ -533,10 +532,10 @@ int main(int argc, char **argv)
 
 	// values used for options parsing
 	apr_status_t apr_err;
-	const char* opt_arg = NULL;
+	const char* opt_arg = nullptr;
 	int opt_id = 0;
 	std::unique_ptr<llofstream> output;
-	const char *touch = NULL;
+	const char *touch = nullptr;
 
 	while(true)
 	{
