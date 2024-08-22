@@ -122,7 +122,7 @@ public:
 	EKeyboardMode	getMode() const;
 
 	static bool		modeFromString(const std::string& string, S32 *mode);			// False on failure
-	static BOOL		mouseFromString(const std::string& string, EMouseClickType *mode);// False on failure
+	static bool		mouseFromString(const std::string& string, EMouseClickType *mode);// False on failure
 
     bool            scanKey(KEY key,
                             bool key_down,
@@ -166,8 +166,8 @@ private:
                           bool ignore_additional_masks) const;
 
     S32				loadBindingMode(const LLViewerInput::KeyMode& keymode, S32 mode);
-    BOOL			bindKey(const S32 mode, const KEY key, const MASK mask, const std::string& function_name);
-    BOOL			bindMouse(const S32 mode, const EMouseClickType mouse, const MASK mask, const std::string& function_name);
+    bool			bindKey(const S32 mode, const KEY key, const MASK mask, const std::string& function_name);
+    bool			bindMouse(const S32 mode, const EMouseClickType mouse, const MASK mask, const std::string& function_name);
     void			resetBindings();
 
 	// Hold all the ugly stuff torn out to make LLKeyboard non-viewer-specific here
@@ -186,7 +186,7 @@ private:
 	typedef std::map<U32, U32> key_remap_t;
 	key_remap_t		mRemapKeys[MODE_COUNT];
 	std::set<KEY>	mKeysSkippedByUI;
-	BOOL			mKeyHandledByUI[KEY_COUNT];		// key processed successfully by UI
+	bool			mKeyHandledByUI[KEY_COUNT];		// key processed successfully by UI
 
     // This is indentical to what llkeyboard does (mKeyRepeated, mKeyLevel, mKeyDown e t c),
     // just instead of remembering individually as bools,  we record state as enum
