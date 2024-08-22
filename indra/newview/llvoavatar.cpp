@@ -111,7 +111,6 @@
 #include "llscenemonitor.h"
 #include "llsdserialize.h"
 #include "lldateutil.h"
-#include "llcallstack.h"
 #include "llrendersphere.h"
 #include "llskinningutil.h"
 #include "fscommon.h"
@@ -2713,8 +2712,6 @@ void LLVOAvatar::idleUpdate(LLAgent &agent, const F64 &time)
         mNeedsExtentUpdate = ((thisFrame + mID.mData[0]) % upd_freq == 0);
 	}
     
-    LLScopedContextString str("avatar_idle_update " + getFullname());
-    
 	checkTextureLoading() ;
 	
 	// force immediate pixel area update on avatars using last frames data (before drawable or camera updates)
@@ -4806,16 +4803,12 @@ bool LLVOAvatar::updateCharacter(LLAgent &agent)
 		is_attachment = cav && cav->mRootVolp && cav->mRootVolp->isAttachment(); // For attached animated objects
 	}
 
-    LLScopedContextString str("updateCharacter " + getFullname() + " is_control_avatar "
-                              + boost::lexical_cast<std::string>(is_control_avatar) 
-                              + " is_attachment " + boost::lexical_cast<std::string>(is_attachment));
-
-	// For fading out the names above heads, only let the timer
-	// run if we're visible.
-	if (mDrawable.notNull() && !visible)
-	{
-		mTimeVisible.reset();
-	}
+    // For fading out the names above heads, only let the timer
+    // run if we're visible.
+    if (mDrawable.notNull() && !visible)
+    {
+        mTimeVisible.reset();
+    }
 
 	//--------------------------------------------------------------------
 	// The rest should only be done occasionally for far away avatars.
@@ -6545,8 +6538,6 @@ bool LLVOAvatar::jointIsRiggedTo(const LLJoint *joint) const
 
 void LLVOAvatar::clearAttachmentOverrides()
 {
-    LLScopedContextString str("clearAttachmentOverrides " + getFullname());
-
     for (S32 i=0; i<LL_CHARACTER_MAX_ANIMATED_JOINTS; i++)
 	{
         LLJoint *pJoint = getJoint(i);
@@ -6577,11 +6568,8 @@ void LLVOAvatar::clearAttachmentOverrides()
 //-----------------------------------------------------------------------------
 void LLVOAvatar::rebuildAttachmentOverrides()
 {
-    LLScopedContextString str("rebuildAttachmentOverrides " + getFullname());
-
     LL_DEBUGS("AnimatedObjects") << "rebuilding" << LL_ENDL;
-    dumpStack("AnimatedObjectsStack");
-    
+
     clearAttachmentOverrides();
 
     // Handle the case that we're resetting the skeleton of an animated object.
@@ -6628,10 +6616,7 @@ void LLVOAvatar::rebuildAttachmentOverrides()
 // -----------------------------------------------------------------------------
 void LLVOAvatar::updateAttachmentOverrides()
 {
-    LLScopedContextString str("updateAttachmentOverrides " + getFullname());
-
     LL_DEBUGS("AnimatedObjects") << "updating" << LL_ENDL;
-    dumpStack("AnimatedObjectsStack");
 
     std::set<LLUUID> meshes_seen;
     
@@ -6760,15 +6745,12 @@ void LLVOAvatar::addAttachmentOverridesForObject(LLViewerObject *vo, std::set<LL
         return;
 	}
 
-    LLScopedContextString str("addAttachmentOverridesForObject " + getFullname());
-
 	if (getOverallAppearance() != AOA_NORMAL)
 	{
 		return;
 	}
     
     LL_DEBUGS("AnimatedObjects") << "adding" << LL_ENDL;
-    dumpStack("AnimatedObjectsStack");
     
 	// Process all children
     if (recursive)

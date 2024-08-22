@@ -68,7 +68,6 @@
 #include "u64.h"
 #include "llviewertexturelist.h"
 #include "lldatapacker.h"
-#include "llcallstack.h"
 // [SL:KB] - Patch: World-Derender | Checked: 2011-12-15 (Catznip-3.2.1)
 #include "llderenderlist.h"
 // [/SL:KB]
@@ -260,7 +259,6 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 	// ignore returned flags
     LL_DEBUGS("ObjectUpdate") << "uuid " << objectp->mID << " calling processUpdateMessage " 
                               << objectp << " just_created " << just_created << " from_cache " << from_cache << " msg " << msg << LL_ENDL;
-    dumpStack("ObjectUpdateStack");
 	 	
 	objectp->processUpdateMessage(msg, user_data, i, update_type, dpp);
 		
@@ -414,7 +412,6 @@ LLViewerObject* LLViewerObjectList::processObjectUpdateFromCache(LLVOCacheEntry*
 		objectp = createObjectFromCache(pcode, regionp, fullid, entry->getLocalID());
 
         LL_DEBUGS("ObjectUpdate") << "uuid " << fullid << " created objectp " << objectp << LL_ENDL;
-        dumpStack("ObjectUpdateStack");
 	 	
 		if (!objectp)
 		{
@@ -617,10 +614,9 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
         LL_DEBUGS("ObjectUpdate") << "uuid " << fullid << " objectp " << objectp 
                                      << " update_cache " << (S32) update_cache << " compressed " << compressed
                                      << " update_type "  << update_type << LL_ENDL;
-        dumpStack("ObjectUpdateStack");
-        
-		if(update_cache)
-		{
+
+        if(update_cache)
+        {
             //update object cache if the object receives a full-update or terse update
 			objectp = regionp->updateCacheEntry(local_id, objectp);
 		}
@@ -717,7 +713,6 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			objectp = createObject(pcode, regionp, fullid, local_id, gMessageSystem->getSender());
 
             LL_DEBUGS("ObjectUpdate") << "creating object " << fullid << " result " << objectp << LL_ENDL;
-            dumpStack("ObjectUpdateStack");
 
 			if (!objectp)
 			{
@@ -815,7 +810,6 @@ void LLViewerObjectList::processCachedObjectUpdate(LLMessageSystem *mesgsys,
 		msg_size += sizeof(U32) * 2;
 
         LL_DEBUGS("ObjectUpdate") << "got probe for id " << id << " crc " << crc << LL_ENDL;
-        dumpStack("ObjectUpdateStack");
 
 		// Lookup data packer and add this id to cache miss lists if necessary.
 		U8 cache_miss_type = LLViewerRegion::CACHE_MISS_TYPE_NONE;
@@ -1388,7 +1382,6 @@ void LLViewerObjectList::cleanupReferences(LLViewerObject *objectp)
 	// Remove from object map so noone can look it up.
 
     LL_DEBUGS("ObjectUpdate") << " dereferencing id " << objectp->mID << LL_ENDL;
-    dumpStack("ObjectUpdateStack");
     
 	mUUIDObjectMap.erase(objectp->mID);
 	
@@ -2145,7 +2138,6 @@ LLViewerObject *LLViewerObjectList::createObjectFromCache(const LLPCode pcode, L
 	llassert_always(uuid.notNull());
 
     LL_DEBUGS("ObjectUpdate") << "creating " << uuid << " local_id " << local_id << LL_ENDL;
-    dumpStack("ObjectUpdateStack");
     
 	LLViewerObject *objectp = LLViewerObject::createObject(uuid, pcode, regionp);
 	if (!objectp)
@@ -2197,7 +2189,6 @@ LLViewerObject *LLViewerObjectList::createObject(const LLPCode pcode, LLViewerRe
 	}
 
     LL_DEBUGS("ObjectUpdate") << "createObject creating " << fullid << LL_ENDL;
-    dumpStack("ObjectUpdateStack");
 
 	LLViewerObject *objectp = LLViewerObject::createObject(fullid, pcode, regionp);
 	if (!objectp)

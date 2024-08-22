@@ -65,7 +65,6 @@
 #include "llsdutil.h"
 #include "llstartup.h"
 #include "llsdserialize.h"
-#include "llcallstack.h"
 #include "llcorehttputil.h"
 #include "llfloaterreg.h"
 #include "llviewertexturelist.h"

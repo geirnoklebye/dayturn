@@ -105,7 +105,6 @@
 #include "llfloaterperms.h"
 #include "llvocache.h"
 #include "llcleanup.h"
-#include "llcallstack.h"
 #include "llmeshrepository.h"
 #include "llgl.h"
 
@@ -150,7 +149,6 @@ const F64 INVENTORY_UPDATE_WAIT_TIME_OUTDATED = 1;
 LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp, S32 flags)
 {
     LL_DEBUGS("ObjectUpdate") << "creating " << id << LL_ENDL;
-    dumpStack("ObjectUpdateStack");
     
 	LLViewerObject *res = NULL;
 
@@ -1146,7 +1144,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	LL_DEBUGS_ONCE("SceneLoadTiming") << "Received viewer object data" << LL_ENDL;
 
     LL_DEBUGS("ObjectUpdate") << " mesgsys " << mesgsys << " dp " << dp << " id " << getID() << " update_type " << (S32) update_type << LL_ENDL;
-    dumpStack("ObjectUpdateStack");
 
 	U32 retval = 0x0;
 	
