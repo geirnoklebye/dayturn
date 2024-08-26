@@ -597,33 +597,34 @@ bool LLLoginInstance::handleMFAChallenge(LLSD const & notif, LLSD const & respon
 
 std::string construct_start_string()
 {
-	std::string start;
-	LLSLURL start_slurl = LLStartUp::getStartSLURL();
-	switch(start_slurl.getType())
-	{
-		case LLSLURL::LOCATION:
-		{
-			// a startup URL was specified
-			LLVector3 position = start_slurl.getPosition();
-			std::string unescaped_start = 
-			STRINGIZE(  "uri:" 
-					  << start_slurl.getRegion() << "&" 
-						<< position[VX] << "&" 
-						<< position[VY] << "&" 
-						<< position[VZ]);
-			start = xml_escape_string(unescaped_start);
-			break;
-		}
-		case LLSLURL::HOME_LOCATION:
-		{
-			start = "home";
-			break;
-		}
-		default:
-		{
-			start = "last";
-		}
-	}
-	return start;
+    std::string start;
+    LLSLURL start_slurl = LLStartUp::getStartSLURL();
+    switch(start_slurl.getType())
+    {
+        case LLSLURL::LOCATION:
+        {
+            // a startup URL was specified
+            LLVector3 position = start_slurl.getPosition();
+            // NOTE - do not xml escape here, will get escaped properly later by LLSD::asXMLRPCValue()
+            // see secondlife/viewer#2395
+            start =
+            STRINGIZE(  "uri:"
+                      << start_slurl.getRegion() << "&"
+                        << position[VX] << "&"
+                        << position[VY] << "&"
+                        << position[VZ]);
+            break;
+        }
+        case LLSLURL::HOME_LOCATION:
+        {
+            start = "home";
+            break;
+        }
+        default:
+        {
+            start = "last";
+        }
+    }
+    return start;
 }
 
