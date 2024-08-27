@@ -1768,16 +1768,16 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>e4f77ba0a9b8ec3cc3fabc51c4da81d2</string>
+              <string>4fbe9b66bbd05249f5f9b1f8c3531f69</string>
               <key>url</key>
-              <string>https://automated-builds-secondlife-com.s3.amazonaws.com/ct2/110070/956941/xxhash-0.8.1.578006-windows-578006.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/xxhash-0.8.1-69ff69a-common-69ff69a.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
           </map>
         </map>
         <key>version</key>
-        <string>0.8.1</string>
+        <string>0.8.1-69ff69a</string>
       </map>
       <key>zlib-ng</key>
       <map>
