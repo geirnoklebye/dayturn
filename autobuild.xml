@@ -318,16 +318,16 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>d778c6a3475bc35ee8b9615dfc38b4a9</string>
+              <string>8f97525263e7bcf58befd3df2ee19f91</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/55025/511964/dictionaries-1.538984-common-538984.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/dictionaries-1.a01bb6c-common-a01bb6c.tar.bz2</string>
             </map>
             <key>name</key>
             <string>common</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.538984</string>
+        <string>1.a01bb6c</string>
       </map>
       <key>dullahan</key>
       <map>
