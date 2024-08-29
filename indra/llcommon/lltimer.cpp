@@ -383,7 +383,7 @@ F32SecondsImplicit LLTimer::getElapsedTimeAndResetF32()
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void  LLTimer::setTimerExpirySec(F32SecondsImplicit expiration)
+void LLTimer::setTimerExpirySec(F32SecondsImplicit expiration)
 {
 	mExpirationTicks = get_clock_count()
 		+ (U64)((F32)(expiration * get_timer_info().mClockFrequency.value()));
@@ -400,7 +400,7 @@ F32SecondsImplicit LLTimer::getRemainingTimeF32() const
 }
 
 
-bool  LLTimer::checkExpirationAndReset(F32 expiration)
+bool LLTimer::checkExpirationAndReset(F32 expiration)
 {
 	U64 cur_ticks = get_clock_count();
 	if (cur_ticks < mExpirationTicks)
@@ -414,10 +414,9 @@ bool  LLTimer::checkExpirationAndReset(F32 expiration)
 }
 
 
-bool  LLTimer::hasExpired() const
+bool LLTimer::hasExpired() const
 {
-	return (get_clock_count() >= mExpirationTicks)
-		? true : false;
+	return get_clock_count() >= mExpirationTicks;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

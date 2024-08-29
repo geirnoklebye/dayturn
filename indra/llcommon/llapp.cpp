@@ -507,7 +507,7 @@ void LLApp::disableCrashlogger()
 // static
 bool LLApp::isCrashloggerDisabled()
 {
-	return (sDisableCrashlogger == true); 
+	return sDisableCrashlogger;
 }
 
 // static

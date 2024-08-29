@@ -334,7 +334,7 @@ LLSDParser::~LLSDParser()
 
 S32 LLSDParser::parse(std::istream& istr, LLSD& data, std::streamsize max_bytes, S32 max_depth)
 {
-	mCheckLimits = !(LLSDSerialize::SIZE_UNLIMITED == max_bytes);
+	mCheckLimits = LLSDSerialize::SIZE_UNLIMITED != max_bytes;
 	mMaxBytesLeft = max_bytes;
 	return doParse(istr, data, max_depth);
 }

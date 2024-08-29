@@ -519,7 +519,7 @@ llbind2nd(const _Operation& __oper, const _Tp& __x)
 inline
 bool before(const std::type_info* lhs, const std::type_info* rhs)
 {
-    return lhs->before(*rhs) ? true : false;
+    return lhs->before(*rhs);
 }
 
 /**
