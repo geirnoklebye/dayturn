@@ -452,11 +452,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>aa6d67becfb7db55b81d0accb0bba38c</string>
+              <string>8b1a50eb118394ece613191cf4c004cc</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.17-windows-232581125.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/fmodstudio/downloads/fmodstudio-2.02.23-windows-242471144.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
