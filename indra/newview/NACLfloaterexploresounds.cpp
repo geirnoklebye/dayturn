@@ -362,7 +362,7 @@ void NACLFloaterExploreSounds::handleLookAt()
 
 	gAgentCamera.setFocusOnAvatar(false, false);
 	gAgentCamera.setCameraPosAndFocusGlobal(cam, pos_global, item.mSourceID);
-	gAgentCamera.setCameraAnimating(FALSE);
+	gAgentCamera.setCameraAnimating(false);
 }
 
 void NACLFloaterExploreSounds::handleStop()
