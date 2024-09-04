@@ -60,7 +60,7 @@
 
 extern F32 texmem_lower_bound_scale;
 
-LLTextureView *gTextureView = NULL;
+LLTextureView *gTextureView = nullptr;
 
 #define HIGH_PRIORITY 100000000.f
 
@@ -702,7 +702,7 @@ public:
 	void setTop(S32 loaded, S32 bound, F32 scale) {mTopLoaded = loaded ; mTopBound = bound; mScale = scale ;}
 
 	void draw();	
-	bool handleHover(S32 x, S32 y, MASK mask, BOOL set_pick_size) ;
+	bool handleHover(S32 x, S32 y, MASK mask, bool set_pick_size) ;
 	
 private:
 	S32 mIndex ;
@@ -715,7 +715,7 @@ private:
 	F32 mScale ;
 };
 
-bool LLGLTexSizeBar::handleHover(S32 x, S32 y, MASK mask, BOOL set_pick_size)
+bool LLGLTexSizeBar::handleHover(S32 x, S32 y, MASK mask, bool set_pick_size)
 {
 	if(y > mBottom && (y < mBottom + (S32)(mTopLoaded * mScale) || y < mBottom + (S32)(mTopBound * mScale)))
 	{
@@ -750,26 +750,26 @@ void LLGLTexSizeBar::draw()
 
 LLTextureView::LLTextureView(const LLTextureView::Params& p)
 	:	LLContainerView(p),
-		mFreezeView(FALSE),
-		mOrderFetch(FALSE),
-		mPrintList(FALSE),
+		mFreezeView(false),
+		mOrderFetch(false),
+		mPrintList(false),
 		mNumTextureBars(0)
 {
 	setVisible(false);
 	
 	setDisplayChildren(true);
-	mGLTexMemBar = 0;
-	mAvatarTexBar = 0;
+	mGLTexMemBar = nullptr;
+	mAvatarTexBar = nullptr;
 }
 
 LLTextureView::~LLTextureView()
 {
 	// Children all cleaned up by default view destructor.
 	delete mGLTexMemBar;
-	mGLTexMemBar = 0;
+	mGLTexMemBar = nullptr;
 	
 	delete mAvatarTexBar;
-	mAvatarTexBar = 0;
+	mAvatarTexBar = nullptr;
 }
 
 typedef std::pair<F32,LLViewerFetchedTexture*> decode_pair_t;
@@ -804,14 +804,14 @@ void LLTextureView::draw()
 		{
 			removeChild(mGLTexMemBar);
 			mGLTexMemBar->die();
-			mGLTexMemBar = 0;
+			mGLTexMemBar = nullptr;
 		}
 
 		if (mAvatarTexBar)
 		{
 			removeChild(mAvatarTexBar);
 			mAvatarTexBar->die();
-			mAvatarTexBar = 0;
+			mAvatarTexBar = nullptr;
 		}
 
 		typedef std::multiset<decode_pair_t, compare_decode_pair > display_list_t;
@@ -929,7 +929,7 @@ void LLTextureView::draw()
 		
 		if (mPrintList)
 		{
-			mPrintList = FALSE;
+			mPrintList = false;
 		}
 		
 		static S32 max_count = 50;
@@ -999,7 +999,7 @@ void LLTextureView::draw()
 
 }
 
-BOOL LLTextureView::addBar(LLViewerFetchedTexture *imagep, S32 hilite)
+bool LLTextureView::addBar(LLViewerFetchedTexture *imagep, S32 hilite)
 {
 	llassert(imagep);
 	
@@ -1019,14 +1019,14 @@ BOOL LLTextureView::addBar(LLViewerFetchedTexture *imagep, S32 hilite)
 	addChild(barp);
 	mTextureBars.push_back(barp);
 
-	return TRUE;
+	return true;
 }
 
 bool LLTextureView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	if ((mask & (MASK_CONTROL|MASK_SHIFT|MASK_ALT)) == (MASK_ALT|MASK_SHIFT))
 	{
-		mPrintList = TRUE;
+		mPrintList = true;
 		return true;
 	}
 	if ((mask & (MASK_CONTROL|MASK_SHIFT|MASK_ALT)) == (MASK_CONTROL|MASK_SHIFT))

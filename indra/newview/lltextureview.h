@@ -55,13 +55,13 @@ public:
 	static void clearDebugImages() { sDebugImages.clear(); }
 
 private:
-	BOOL addBar(LLViewerFetchedTexture *image, BOOL hilight = FALSE);
+	bool addBar(LLViewerFetchedTexture *image, S32 hilight = 0);
 	void removeAllBars();
 
 private:
-	BOOL mFreezeView;
-	BOOL mOrderFetch;
-	BOOL mPrintList;
+	bool mFreezeView;
+	bool mOrderFetch;
+	bool mPrintList;
 	
 	LLTextBox *mInfoTextp;
 
