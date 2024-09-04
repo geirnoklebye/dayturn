@@ -154,7 +154,7 @@ public:
 	void				mergeFaces(LLDrawable* src);
 
 	void init(bool new_entry);
-	void unload();
+	void unload() const;
 	void destroy();
 
 	void update();

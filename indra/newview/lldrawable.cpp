@@ -148,7 +148,7 @@ void LLDrawable::init(bool new_entry)
 	initVisible(sCurVisible - 2);//invisible for the current frame and the last frame.
 }
 
-void LLDrawable::unload()
+void LLDrawable::unload() const
 {
 	LLVOVolume *pVVol = getVOVolume();
 	pVVol->setNoLOD();
