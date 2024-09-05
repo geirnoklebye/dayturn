@@ -696,7 +696,7 @@ bool LLSurface::idleUpdate(F32 max_update_time)
 	return did_update;
 }
 
-void LLSurface::decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, BOOL b_large_patch) 
+void LLSurface::decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, bool b_large_patch)
 {
 
 	LLPatchHeader  ph;
@@ -767,12 +767,8 @@ void LLSurface::decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, BOOL
 // "position" is region-local
 bool LLSurface::containsPosition(const LLVector3 &position)
 {
-	if (position.mV[VX] < 0.0f  ||  position.mV[VX] > mMetersPerEdge ||
-		position.mV[VY] < 0.0f  ||  position.mV[VY] > mMetersPerEdge)
-	{
-		return false;
-	}
-	return true;
+	return !(position.mV[VX] < 0.0f || position.mV[VX] > mMetersPerEdge ||
+			position.mV[VY] < 0.0f || position.mV[VY] > mMetersPerEdge);
 }
 
 

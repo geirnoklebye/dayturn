@@ -84,7 +84,7 @@ public:
 	void disconnectNeighbor(LLSurface *neighborp);
 	void disconnectAllNeighbors();
 
-	virtual void decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, BOOL b_large_patch);
+	virtual void decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, bool b_large_patch);
 	virtual void updatePatchVisibilities(LLAgent &agent);
 
 	inline F32 getZ(const U32 k) const				{ return mSurfaceZ[k]; }

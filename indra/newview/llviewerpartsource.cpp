@@ -207,17 +207,17 @@ void LLViewerPartSourceScript::update(const F32 dt)
 		}
 	}
 
-	BOOL first_run = FALSE;
+	bool first_run = false;
 	if (old_update_time <= 0.f)
 	{
-		first_run = TRUE;
+		first_run = true;
 	}
 
 	F32 max_time = llmax(1.f, 10.f*mPartSysData.mBurstRate);
 	dt_update = llmin(max_time, dt_update);
 	while ((dt_update > mPartSysData.mBurstRate) || first_run)
 	{
-		first_run = FALSE;
+		first_run = false;
 		
 		// Update the rotation of the particle source by the angular velocity
 		// First check to see if there is still an angular velocity.

@@ -236,14 +236,10 @@ bool LLViewerPartGroup::posInGroup(const LLVector3 &pos, const F32 desired_size)
 		return false;
 	}
 
-	if (desired_size > 0 && 
-		(desired_size < mBoxRadius*0.5f ||
-		desired_size > mBoxRadius*2.f))
-	{
-		return false;
-	}
+	return !(desired_size > 0 &&
+			(desired_size < mBoxRadius * 0.5f ||
+					desired_size > mBoxRadius * 2.f));
 
-	return true;
 }
 
 
@@ -546,12 +542,8 @@ bool LLViewerPartSim::shouldAddPart()
 
 	// Check frame rate, and don't add more if the viewer is really slow
 	const F32 MIN_FRAME_RATE_FOR_NEW_PARTICLES = 4.f;
-	if (gFPSClamped < MIN_FRAME_RATE_FOR_NEW_PARTICLES)
-	{
-		return false;
-	}
+	return gFPSClamped >= MIN_FRAME_RATE_FOR_NEW_PARTICLES;
 
-	return true;
 }
 
 void LLViewerPartSim::addPart(LLViewerPart* part)
@@ -701,30 +693,30 @@ void LLViewerPartSim::updateSimulation()
 
 		if (!mViewerPartSources[i]->isDead())
 		{
-			BOOL upd = TRUE;
+			bool upd = true;
 			LLViewerObject* vobj = mViewerPartSources[i]->mSourceObjectp;
 
 			if (vobj && vobj->isAvatar() && ((LLVOAvatar*)vobj)->isInMuteList())
 			{
-				upd = FALSE;
+				upd = false;
 			}
 
 			if(vobj && vobj->isOwnerInMuteList(mViewerPartSources[i]->getOwnerUUID()))
 			{
-				upd = FALSE;
+				upd = false;
 			}
 
 			if (upd && vobj && (vobj->getPCode() == LL_PCODE_VOLUME))
 			{
 				if(vobj->getAvatar() && vobj->getAvatar()->isTooComplex())
 				{
-					upd = FALSE;
+					upd = false;
 				}
 
 				LLVOVolume* vvo = (LLVOVolume *)vobj;
 				if (!LLPipeline::sRenderAttachedParticles && vvo && vvo->isAttachment())
 				{
-					upd = FALSE;
+					upd = false;
 				}
 			}
 

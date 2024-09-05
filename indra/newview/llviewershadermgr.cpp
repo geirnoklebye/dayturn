@@ -721,7 +721,7 @@ void LLViewerShaderMgr::setShaders()
 
     if (loaded && !loadShadersDeferred())
     { //everything else succeeded but deferred failed, disable deferred and try again
-        gSavedSettings.setBOOL("RenderDeferred", FALSE);
+        gSavedSettings.setbool("RenderDeferred", false);
         LL_WARNS() << "Falling back to no deferred shaders." << LL_ENDL;
         reentrance = false;
         setShaders();
