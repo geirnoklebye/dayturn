@@ -3294,12 +3294,12 @@ bool LLVolume::isFlat(S32 face)
 
 bool LLVolumeParams::isSculpt() const
 {
-	return mSculptID.notNull();
+    return (mSculptType & LL_SCULPT_TYPE_MASK) != LL_SCULPT_TYPE_NONE;
 }
 
 bool LLVolumeParams::isMeshSculpt() const
 {
-	return isSculpt() && ((mSculptType & LL_SCULPT_TYPE_MASK) == LL_SCULPT_TYPE_MESH);
+	return (mSculptType & LL_SCULPT_TYPE_MASK) == LL_SCULPT_TYPE_MESH;
 }
 
 bool LLVolumeParams::operator==(const LLVolumeParams &params) const

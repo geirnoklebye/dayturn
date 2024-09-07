@@ -32,13 +32,16 @@
 #include <boost/noncopyable.hpp>
 
 #include "mutex.h"
+#include <shared_mutex>
+#include <unordered_map>
 #include <condition_variable>
 
 #include "llbool.h"
 
 //============================================================================
 
-#define MUTEX_DEBUG (LL_DEBUG || LL_RELEASE_WITH_DEBUG_INFO)
+//#define MUTEX_DEBUG (LL_DEBUG || LL_RELEASE_WITH_DEBUG_INFO)
+#define MUTEX_DEBUG 0 //disable mutex debugging as it's interfering with profiles
 
 #if MUTEX_DEBUG
 #include <map>
@@ -63,8 +66,47 @@ protected:
 	mutable LLThread::id_t	mLockingThread{};
 	
 #if MUTEX_DEBUG
-	std::map<LLThread::id_t, bool> mIsLocked{};
+	std::unordered_map<LLThread::id_t, BOOL> mIsLocked;
 #endif
+};
+
+//============================================================================
+
+class LL_COMMON_API LLSharedMutex
+{
+public:
+    LLSharedMutex();
+
+    bool isLocked() const;
+    bool isThreadLocked() const;
+    bool isShared() const { return mIsShared; }
+
+    void lockShared();
+    void lockExclusive();
+    template<bool SHARED> void lock();
+    template<> void lock<true>() { lockShared(); }
+    template<> void lock<false>() { lockExclusive(); }
+
+    bool trylockShared();
+    bool trylockExclusive();
+    template<bool SHARED> bool trylock();
+    template<> bool trylock<true>() { return trylockShared(); }
+    template<> bool trylock<false>() { return trylockExclusive(); }
+
+    void unlockShared();
+    void unlockExclusive();
+    template<bool SHARED> void unlock();
+    template<> void unlock<true>() { unlockShared(); }
+    template<> void unlock<false>() { unlockExclusive(); }
+
+private:
+    std::shared_mutex mSharedMutex;
+    mutable std::mutex mLockMutex;
+    std::unordered_map<LLThread::id_t, U32> mLockingThreads;
+    bool mIsShared;
+
+    using iterator = std::unordered_map<LLThread::id_t, U32>::iterator;
+    using const_iterator = std::unordered_map<LLThread::id_t, U32>::const_iterator;
 };
 
 // Actually a condition/mutex pair (since each condition needs to be associated with a mutex).
@@ -82,24 +124,54 @@ protected:
 	std::condition_variable mCond;
 };
 
+//============================================================================
+
 class LLMutexLock
 {
 public:
 	explicit LLMutexLock(LLMutex* mutex)
 	{
 		mMutex = mutex;
-		
-		if(mMutex)
+
+		if (mMutex)
 			mMutex->lock();
 	}
+
 	~LLMutexLock()
 	{
-		if(mMutex)
+		if (mMutex)
 			mMutex->unlock();
 	}
+
 private:
 	LLMutex* mMutex;
 };
+
+//============================================================================
+
+template<bool SHARED>
+class LLSharedMutexLockTemplate
+{
+public:
+    LLSharedMutexLockTemplate(LLSharedMutex* mutex)
+    : mSharedMutex(mutex)
+    {
+        if (mSharedMutex)
+            mSharedMutex->lock<SHARED>();
+    }
+
+    ~LLSharedMutexLockTemplate()
+    {
+        if (mSharedMutex)
+            mSharedMutex->unlock<SHARED>();
+    }
+
+private:
+    LLSharedMutex* mSharedMutex;
+};
+
+using LLSharedMutexLock = LLSharedMutexLockTemplate<true>;
+using LLExclusiveMutexLock = LLSharedMutexLockTemplate<false>;
 
 //============================================================================
 
@@ -127,6 +199,8 @@ private:
 	LLMutex*	mMutex;
 	bool		mLocked;
 };
+
+//============================================================================
 
 /**
 * @class LLScopedLock

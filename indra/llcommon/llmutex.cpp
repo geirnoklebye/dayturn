@@ -29,17 +29,18 @@
 #include "llthread.h"
 #include "lltimer.h"
 
-//============================================================================
 
+//---------------------------------------------------------------------
+//
+// LLMutex
+//
 LLMutex::LLMutex() :
  mCount(0)
 {
 }
 
-
 LLMutex::~LLMutex()
 = default;
-
 
 void LLMutex::lock()
 {
@@ -107,7 +108,7 @@ LLThread::id_t LLMutex::lockingThread() const
 
 bool LLMutex::trylock()
 {
-	if(isSelfLocked())
+	if (isSelfLocked())
 	{ //redundant lock
 		mCount++;
 		return true;
@@ -130,17 +131,174 @@ bool LLMutex::trylock()
 	return true;
 }
 
-//============================================================================
+//---------------------------------------------------------------------
+//
+// LLSharedMutex
+//
+LLSharedMutex::LLSharedMutex()
+: mLockingThreads(2) // Reserve 2 slots in the map hash table
+, mIsShared(false)
+{
+}
 
+bool LLSharedMutex::isLocked() const
+{
+    std::lock_guard<std::mutex> lock(mLockMutex);
+
+    return !mLockingThreads.empty();
+}
+
+bool LLSharedMutex::isThreadLocked() const
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+    std::lock_guard<std::mutex> lock(mLockMutex);
+
+    const_iterator it = mLockingThreads.find(current_thread);
+    return it != mLockingThreads.end();
+}
+
+void LLSharedMutex::lockShared()
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+
+    mLockMutex.lock();
+    iterator it = mLockingThreads.find(current_thread);
+    if (it != mLockingThreads.end())
+    {
+        it->second++;
+    }
+    else
+    {
+        // Acquire the mutex immediately if the mutex is not locked exclusively
+        // or enter a locking state if the mutex is already locked exclusively
+        mLockMutex.unlock();
+        mSharedMutex.lock_shared();
+        mLockMutex.lock();
+        // Continue after acquiring the mutex
+        mLockingThreads.emplace(std::make_pair(current_thread, 1));
+        mIsShared = true;
+    }
+    mLockMutex.unlock();
+}
+
+void LLSharedMutex::lockExclusive()
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+
+    mLockMutex.lock();
+    if (mLockingThreads.size() == 1 && mLockingThreads.begin()->first == current_thread)
+    {
+        mLockingThreads.begin()->second++;
+    }
+    else
+    {
+        // Acquire the mutex immediately if mLockingThreads is empty
+        // or enter a locking state if mLockingThreads is not empty
+        mLockMutex.unlock();
+        mSharedMutex.lock();
+        mLockMutex.lock();
+        // Continue after acquiring the mutex (and possible quitting the locking state)
+        mLockingThreads.emplace(std::make_pair(current_thread, 1));
+        mIsShared = false;
+    }
+    mLockMutex.unlock();
+}
+
+bool LLSharedMutex::trylockShared()
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+    std::lock_guard<std::mutex> lock(mLockMutex);
+
+    iterator it = mLockingThreads.find(current_thread);
+    if (it != mLockingThreads.end())
+    {
+        it->second++;
+    }
+    else
+    {
+        if (!mSharedMutex.try_lock_shared())
+            return false;
+
+        mLockingThreads.emplace(std::make_pair(current_thread, 1));
+        mIsShared = true;
+    }
+
+    return true;
+}
+
+bool LLSharedMutex::trylockExclusive()
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+    std::lock_guard<std::mutex> lock(mLockMutex);
+
+    if (mLockingThreads.size() == 1 && mLockingThreads.begin()->first == current_thread)
+    {
+        mLockingThreads.begin()->second++;
+    }
+    else
+    {
+        if (!mSharedMutex.try_lock())
+            return false;
+
+        mLockingThreads.emplace(std::make_pair(current_thread, 1));
+        mIsShared = false;
+    }
+
+    return true;
+}
+
+void LLSharedMutex::unlockShared()
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+    std::lock_guard<std::mutex> lock(mLockMutex);
+
+    iterator it = mLockingThreads.find(current_thread);
+    if (it != mLockingThreads.end())
+    {
+        if (it->second > 1)
+        {
+            it->second--;
+        }
+        else
+        {
+            mLockingThreads.erase(it);
+            mSharedMutex.unlock_shared();
+        }
+    }
+}
+
+void LLSharedMutex::unlockExclusive()
+{
+    LLThread::id_t current_thread = LLThread::currentID();
+    std::lock_guard<std::mutex> lock(mLockMutex);
+
+    iterator it = mLockingThreads.find(current_thread);
+    if (it != mLockingThreads.end())
+    {
+        if (it->second > 1)
+        {
+            it->second--;
+        }
+        else
+        {
+            mLockingThreads.erase(it);
+            mSharedMutex.unlock();
+        }
+    }
+}
+
+
+//---------------------------------------------------------------------
+//
+// LLCondition
+//
 LLCondition::LLCondition() :
 	LLMutex()
 {
 }
 
-
 LLCondition::~LLCondition()
 = default;
-
 
 void LLCondition::wait()
 {
@@ -159,7 +317,10 @@ void LLCondition::broadcast()
 }
 
 
-
+//---------------------------------------------------------------------
+//
+// LLMutexTrylock
+//
 LLMutexTrylock::LLMutexTrylock(LLMutex* mutex)
     : mMutex(mutex),
     mLocked(false)

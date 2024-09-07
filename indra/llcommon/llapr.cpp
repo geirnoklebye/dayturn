@@ -563,7 +563,7 @@ S32 LLAPRFile::readEx(const std::string& filename, void *buf, S32 offset, S32 nb
 }
 
 //static
-S32 LLAPRFile::writeEx(const std::string& filename, void *buf, S32 offset, S32 nbytes, LLVolatileAPRPool* pool)
+S32 LLAPRFile::writeEx(const std::string& filename, const void *buf, S32 offset, S32 nbytes, LLVolatileAPRPool* pool)
 {
 	apr_int32_t flags = APR_CREATE|APR_WRITE|APR_BINARY;
 	if (offset < 0)
