@@ -28,6 +28,7 @@
 #define LL_LLVIEWEROBJECT_H
 
 #include <map>
+#include <unordered_map>
 
 #include "llassetstorage.h"
 //#include "llhudicon.h"
@@ -121,7 +122,7 @@ protected:
 		bool in_use;
 		LLNetworkData *data;
 	};
-	std::map<U16, ExtraParameter*> mExtraParameterList;
+	std::unordered_map<U16, ExtraParameter*> mExtraParameterList;
 
 public:
 	typedef std::list<LLPointer<LLViewerObject> > child_list_t;
