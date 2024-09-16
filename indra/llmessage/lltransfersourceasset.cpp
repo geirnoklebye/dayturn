@@ -36,7 +36,7 @@
 
 LLTransferSourceAsset::LLTransferSourceAsset(const LLUUID &request_id, const F32 priority) :
 	LLTransferSource(LLTST_ASSET, request_id, priority),
-	mGotResponse(FALSE),
+	mGotResponse(false),
 	mCurPos(0)
 {
 }
@@ -62,7 +62,7 @@ void LLTransferSourceAsset::initTransfer()
 				mParams.getAssetType(),
 				LLTransferSourceAsset::responderCallback,
 				tidp,
-				FALSE);
+				false);
 		}
 		else
 		{
@@ -194,7 +194,7 @@ void LLTransferSourceAsset::responderCallback(const LLUUID& uuid, LLAssetType::E
 
 	LLTSCode status;
 
-	tsap->mGotResponse = TRUE;
+	tsap->mGotResponse = true;
 	if (LL_ERR_NOERR == result)
 	{
 		// Everything's OK.

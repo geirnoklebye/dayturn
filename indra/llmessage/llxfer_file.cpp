@@ -49,10 +49,10 @@ S32 copy_file(const std::string& from, const std::string& to);
 LLXfer_File::LLXfer_File (S32 chunk_size)
 : LLXfer(chunk_size)
 {
-	init(LLStringUtil::null, FALSE, chunk_size);
+	init(LLStringUtil::null, false, chunk_size);
 }
 
-LLXfer_File::LLXfer_File (const std::string& local_filename, BOOL delete_local_on_completion, S32 chunk_size)
+LLXfer_File::LLXfer_File (const std::string& local_filename, bool delete_local_on_completion, S32 chunk_size)
 : LLXfer(chunk_size)
 {
 	init(local_filename, delete_local_on_completion, chunk_size);
@@ -67,16 +67,16 @@ LLXfer_File::~LLXfer_File ()
 
 ///////////////////////////////////////////////////////////
 
-void LLXfer_File::init (const std::string& local_filename, BOOL delete_local_on_completion, S32 chunk_size)
+void LLXfer_File::init (const std::string& local_filename, bool delete_local_on_completion, S32 chunk_size)
 {
 
-	mFp = NULL;
+	mFp = nullptr;
 	mLocalFilename.clear();
 	mRemoteFilename.clear();
 	mRemotePath = LL_PATH_NONE;
 	mTempFilename.clear();
-	mDeleteLocalOnCompletion = FALSE;
-	mDeleteRemoteOnCompletion = FALSE;
+	mDeleteLocalOnCompletion = false;
+	mDeleteRemoteOnCompletion = false;
 
 	if (!local_filename.empty())
 	{
@@ -95,7 +95,7 @@ void LLXfer_File::cleanup ()
 	if (mFp)
 	{
 		fclose(mFp);
-		mFp = NULL;
+		mFp = nullptr;
 	}
 
 	LLFile::remove(mTempFilename, ENOENT);
@@ -120,7 +120,7 @@ S32 LLXfer_File::initializeRequest(U64 xfer_id,
 				   const std::string& remote_filename,
 				   ELLPath remote_path,
 				   const LLHost& remote_host,
-				   BOOL delete_remote_on_completion,
+				   bool delete_remote_on_completion,
 				   void (*callback)(void**,S32,LLExtStat),
 				   void** user_data)
 {
@@ -144,7 +144,7 @@ S32 LLXfer_File::initializeRequest(U64 xfer_id,
 	if (mBuffer)
 	{
 		delete(mBuffer);
-		mBuffer = NULL;
+		mBuffer = nullptr;
 	}
 
 	mBuffer = new char[LL_MAX_XFER_FILE_BUFFER];
@@ -165,7 +165,7 @@ S32 LLXfer_File::startDownload()
 	if (mFp)
 	{
 		fclose(mFp);
-		mFp = NULL;
+		mFp = nullptr;
 
 		// tbd - is it premature to send this message if the queue is backed up?
 		gMessageSystem->newMessageFast(_PREHASH_RequestXfer);
@@ -173,8 +173,8 @@ S32 LLXfer_File::startDownload()
 		gMessageSystem->addU64Fast(_PREHASH_ID, mID);
 		gMessageSystem->addStringFast(_PREHASH_Filename, mRemoteFilename);
 		gMessageSystem->addU8("FilePath", (U8) mRemotePath);
-		gMessageSystem->addBOOL("DeleteOnCompletion", mDeleteRemoteOnCompletion);
-		gMessageSystem->addBOOL("UseBigPackets", BOOL(mChunkSize == LL_XFER_LARGE_PAYLOAD));
+		gMessageSystem->addbool("DeleteOnCompletion", mDeleteRemoteOnCompletion);
+		gMessageSystem->addbool("UseBigPackets", (mChunkSize == LL_XFER_LARGE_PAYLOAD));
 		gMessageSystem->addUUIDFast(_PREHASH_VFileID, LLUUID::null);
 		gMessageSystem->addS16Fast(_PREHASH_VFileType, -1);
 	
@@ -240,7 +240,7 @@ void LLXfer_File::closeFileHandle()
 	if (mFp)
 	{
 		fclose(mFp);
-		mFp = NULL;
+		mFp = nullptr;
 	}
 }
 
@@ -250,10 +250,10 @@ S32 LLXfer_File::reopenFileHandle()
 {
 	S32 retval = LL_ERR_NOERR;  // presume success
 
-	if (mFp == NULL)
+	if (mFp == nullptr)
 	{
 		mFp = LLFile::fopen(mLocalFilename,"rb");		/* Flawfinder : ignore */
-		if (mFp == NULL)
+		if (mFp == nullptr)
 		{
 			LL_INFOS("Xfer") << "Warning: " << mLocalFilename << " not found when re-opening file" << LL_ENDL;
 			retval = LL_ERR_FILE_NOT_FOUND;
@@ -317,7 +317,7 @@ S32 LLXfer_File::flush()
 
 		if (mFp)
 		{
-			S32 write_size = fwrite(mBuffer,1,mBufferLength,mFp);
+			size_t write_size = fwrite(mBuffer,1,mBufferLength,mFp);
 			if (write_size != mBufferLength)
 			{
 				LL_WARNS("Xfer") << "Non-matching write size, requested " << mBufferLength
@@ -327,7 +327,7 @@ S32 LLXfer_File::flush()
 			
 //			LL_INFOS("Xfer") << "******* wrote " << mBufferLength << " bytes of file xfer" << LL_ENDL;
 			fclose(mFp);
-			mFp = NULL;
+			mFp = nullptr;
 			
 			mBufferLength = 0;
 		}
@@ -402,7 +402,7 @@ S32 LLXfer_File::processEOF()
 	if (mFp)
 	{
 		fclose(mFp);
-		mFp = NULL;
+		mFp = nullptr;
 	}
 
 	retval = LLXfer::processEOF();
@@ -456,7 +456,7 @@ S32 copy_file(const std::string& from, const std::string& to)
 	LLFILE* out = LLFile::fopen(to, "wb");	/*Flawfinder: ignore*/
 	if(in && out)
 	{
-		S32 read = 0;
+		size_t read = 0;
 		const S32 COPY_BUFFER_SIZE = 16384;
 		U8 buffer[COPY_BUFFER_SIZE];
 		while(((read = fread(buffer, 1, sizeof(buffer), in)) > 0)

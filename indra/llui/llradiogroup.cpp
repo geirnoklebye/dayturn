@@ -195,7 +195,7 @@ bool LLRadioGroup::setSelectedIndex(S32 index, bool from_event)
 	{
 		LLRadioCtrl* old_radio_item = mRadioButtons[mSelectedIndex];
 		old_radio_item->setTabStop(false);
-		old_radio_item->setValue( FALSE );
+		old_radio_item->setValue(false);
 	}
 	else
 	{
@@ -208,7 +208,7 @@ bool LLRadioGroup::setSelectedIndex(S32 index, bool from_event)
 	{
 		LLRadioCtrl* radio_item = mRadioButtons[mSelectedIndex];
 		radio_item->setTabStop(true);
-		radio_item->setValue( TRUE );
+		radio_item->setValue(true);
 
 		if (hasFocus())
 		{

@@ -89,7 +89,7 @@ void gSetInitDataDefaults(LLPartInitData *setMe)
 		setMe->mFlags[i] = 0x00;
 	}
 
-	setMe->createMe = TRUE;
+	setMe->createMe = true;
 
 	setMe->maxParticles = 25;
 	setMe->initialParticles = 25;

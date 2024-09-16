@@ -73,7 +73,7 @@ protected:
 
 protected:
 	LLTransferSourceParamsAsset mParams;
-	BOOL mGotResponse;
+	bool mGotResponse;
 
 	S32 mCurPos;
 };

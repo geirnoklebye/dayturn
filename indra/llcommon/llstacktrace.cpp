@@ -134,7 +134,7 @@ void ll_get_stack_trace_internal(std::vector<std::string>& lines)
 	const S32 STRING_NAME_LENGTH = 256;
 
 	HANDLE process = GetCurrentProcess();
-	SymInitialize( process, NULL, TRUE );
+	SymInitialize( process, NULL, true );
 
 	void *stack[MAX_STACK_DEPTH];
 

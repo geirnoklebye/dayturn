@@ -342,7 +342,7 @@ void LLTransferManager::processTransferInfo(LLMessageSystem *msgp, void **)
 
 	//LL_INFOS() << "Receiving " << transfer_id << ", size " << size << " bytes" << LL_ENDL;
 	ttp->setSize(size);
-	ttp->setGotInfo(TRUE);
+	ttp->setGotInfo(true);
 
 	// OK, at this point we to handle any delayed transfer packets (which could happen
 	// if this packet was lost)
