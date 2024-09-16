@@ -479,6 +479,7 @@ public:
 
 	void	addBOOLFast( const char* varname, BOOL b);						// typed, checks storage space
 	void	addBOOL( const char* varname, BOOL b);						// typed, checks storage space
+	void	addbool( const char* varname, bool b);						// typed, checks storage space
 	void	addS8Fast(	const char *varname, S8 s);							// typed, checks storage space
 	void	addS8(	const char *varname, S8 s);							// typed, checks storage space
 	void	addU8Fast(	const char *varname, U8 u);							// typed, checks storage space
@@ -505,7 +506,7 @@ public:
 	void	addVector3d( const char *varname, const LLVector3d& vec);	// typed, checks storage space
 	void	addQuatFast( const char *varname, const LLQuaternion& quat);	// typed, checks storage space
 	void	addQuat( const char *varname, const LLQuaternion& quat);	// typed, checks storage space
-	void addUUIDFast( const char *varname, const LLUUID& uuid);			// typed, checks storage space
+	void 	addUUIDFast( const char *varname, const LLUUID& uuid);			// typed, checks storage space
 	void	addUUID( const char *varname, const LLUUID& uuid);			// typed, checks storage space
 	void	addIPAddrFast( const char *varname, const U32 ip);			// typed, checks storage space
 	void	addIPAddr( const char *varname, const U32 ip);			// typed, checks storage space

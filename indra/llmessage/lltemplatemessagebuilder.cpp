@@ -453,6 +453,14 @@ void LLTemplateMessageBuilder::addBOOL(const char* varname, BOOL b)
 	addData(varname, &temp, MVT_BOOL, sizeof(temp));
 }
 
+void LLTemplateMessageBuilder::addbool(const char* varname, bool b)
+{
+	// Can't just cast a BOOL (actually a U32) to a U8.
+	// In some cases the low order bits will be zero.
+	U8 temp = (b != 0);
+	addData(varname, &temp, MVT_BOOL, sizeof(temp));
+}
+
 void LLTemplateMessageBuilder::addString(const char* varname, const char* s)
 {
 	if (s)

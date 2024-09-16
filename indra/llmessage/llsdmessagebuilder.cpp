@@ -173,6 +173,10 @@ void LLSDMessageBuilder::addBOOL(const char* varname, BOOL v)
 	(*mCurrentBlock)[varname] = (v == TRUE);
 }
 
+void LLSDMessageBuilder::addbool(const char* varname, bool v)
+{
+	(*mCurrentBlock)[varname] = (v == true);
+}
 void LLSDMessageBuilder::addString(const char* varname, const char* v)
 {
 	if (v)
@@ -355,6 +359,7 @@ void LLSDMessageBuilder::copyFromMessageData(const LLMsgData& data)
 
 			case MVT_BOOL:
 				addBOOL(varname, *(BOOL*)mvci.getData());
+				addbool(varname, *(bool*)mvci.getData());
 				break;
 
 			case MVT_IP_ADDR:
