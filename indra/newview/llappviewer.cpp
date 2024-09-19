@@ -1479,8 +1479,6 @@ bool LLAppViewer::frame()
 
 bool LLAppViewer::doFrame()
 {
-	LL_RECORD_BLOCK_TIME(FTM_FRAME);
-
     if (!LLWorld::instanceExists())
     {
         LLWorld::createInstance();
@@ -1489,16 +1487,13 @@ bool LLAppViewer::doFrame()
 	LLEventPump& mainloop(LLEventPumps::instance().obtain("mainloop"));
 	LLSD newFrame;
 
-	{
-        LL_PROFILE_ZONE_NAMED_CATEGORY_APP("df LLTrace");
-        if (LLFloaterReg::instanceVisible("block_timers"))
-        {
-	LLTrace::BlockTimer::processTimes();
-        }
+    if (LLFloaterReg::instanceVisible("block_timers"))
+    {
+        LLTrace::BlockTimer::processTimes();
+    }
         
 	LLTrace::get_frame_recording().nextPeriod();
 	LLTrace::BlockTimer::logStats();
-	}
 
 	LLTrace::get_thread_recorder()->pullFromChildren();
 
@@ -1506,7 +1501,6 @@ bool LLAppViewer::doFrame()
 	LL_CLEAR_CALLSTACKS();
 
 	{
-		LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df processMiscNativeEvents" )
 		pingMainloopTimeout("Main:MiscNativeWindowEvents");
 
 		if (gViewerWindow)
@@ -1515,10 +1509,7 @@ bool LLAppViewer::doFrame()
 			gViewerWindow->getWindow()->processMiscNativeEvents();
 		}
 
-		{
-			LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df gatherInput" )
-		pingMainloopTimeout("Main:GatherInput");
-		}
+        pingMainloopTimeout("Main:GatherInput");
 
 		if (gViewerWindow)
 		{
@@ -1542,23 +1533,18 @@ bool LLAppViewer::doFrame()
 			}
 		}
 
-		{
-			LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df mainloop" )
+
 		// canonical per-frame event
 		mainloop.post(newFrame);
-		}
 
-		{
-			LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df suspend" )
 		// give listeners a chance to run
 		llcoro::suspend();
 		// if one of our coroutines threw an uncaught exception, rethrow it now
 		LLCoros::instance().rethrow();
-		}
+
 
 		if (!LLApp::isExiting())
 		{
-			LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df JoystickKeyboard" )
 			pingMainloopTimeout("Main:JoystickKeyboard");
 
 			// Scan keyboard for movement keys.  Command keys and typing
@@ -1587,20 +1573,16 @@ bool LLAppViewer::doFrame()
 
 			// Update state based on messages, user input, object idle.
 			{
-				{
-					LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df pauseMainloopTimeout" )
-					pauseMainloopTimeout(); // *TODO: Remove. Messages shouldn't be stalling for 20+ seconds!
-				}
+
+                pauseMainloopTimeout(); // *TODO: Remove. Messages shouldn't be stalling for 20+ seconds!
 
 				{
-					LL_PROFILE_ZONE_NAMED_CATEGORY_APP("df idle"); //LL_RECORD_BLOCK_TIME(FTM_IDLE);
+					//LL_RECORD_BLOCK_TIME(FTM_IDLE);
 					idle();
 				}
 
-				{
-					LL_PROFILE_ZONE_NAMED_CATEGORY_APP( "df resumeMainloopTimeout" )
-					resumeMainloopTimeout();
-				}
+                resumeMainloopTimeout();
+
 			}
 
 			if (gDoDisconnect && (LLStartUp::getStartupState() == STATE_STARTED))
@@ -1863,7 +1845,7 @@ bool LLAppViewer::cleanup()
 
 	//flag all elements as needing to be destroyed immediately
 	// to ensure shutdown order
-	LLMortician::setZealous(TRUE);
+	LLMortician::setZealous(true);
 
     // Give any remaining SLPlugin instances a chance to exit cleanly.
     LLPluginProcessParent::shutdown();
@@ -2936,7 +2918,7 @@ bool LLAppViewer::initConfiguration()
 	std::string test_name(gSavedSettings.getString("LogMetrics"));
 	if (! test_name.empty())
  	{
-		LLTrace::BlockTimer::sMetricLog = TRUE;
+		LLTrace::BlockTimer::sMetricLog = true;
 		// '--logmetrics' is specified with a named test metric argument so the data gathering is done only on that test
 		// In the absence of argument, every metric would be gathered (makes for a rather slow run and hard to decipher report...)
 		LL_INFOS() << "'--logmetrics' argument : " << test_name << LL_ENDL;
@@ -3162,7 +3144,7 @@ bool LLAppViewer::initConfiguration()
 		if(enable_voice)
 		{
 			const bool DO_NOT_PERSIST = false;
-			enable_voice->setValue(LLSD(FALSE), DO_NOT_PERSIST);
+			enable_voice->setValue(LLSD(false), DO_NOT_PERSIST);
 		}
 	}
 
@@ -4062,7 +4044,7 @@ void LLAppViewer::processMarkerFiles()
 		initLoggingAndGetLastDuration();
 		// Create the marker file for this execution & lock it; it will be deleted on a clean exit
 		apr_status_t s;
-		s = mMarkerFile.open(mMarkerFileName, LL_APR_WB, TRUE);
+		s = mMarkerFile.open(mMarkerFileName, LL_APR_WB, true);
 
 		if (s == APR_SUCCESS && mMarkerFile.getFileHandle())
 		{
