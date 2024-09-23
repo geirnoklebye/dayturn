@@ -120,7 +120,7 @@ public:
 				}
         }
 
-        BOOL initialize();
+        bool initialize();
 
         ~LLPhysicsMotion() {}
 
@@ -217,20 +217,20 @@ default_controller_map_t initDefaultController()
 
 default_controller_map_t LLPhysicsMotion::sDefaultController = initDefaultController();
 
-BOOL LLPhysicsMotion::initialize()
+bool LLPhysicsMotion::initialize()
 {
         if (!mJointState->setJoint(mCharacter->getJoint(mJointName.c_str())))
-                return FALSE;
+                return false;
         mJointState->setUsage(LLJointState::ROT);
 
         mParamDriver = (LLViewerVisualParam*)mCharacter->getVisualParam(mParamDriverName.c_str());
         if (mParamDriver == nullptr)
         {
                 LL_INFOS() << "Failure reading in  [ " << mParamDriverName << " ]" << LL_ENDL;
-                return FALSE;
+                return false;
         }
 
-        return TRUE;
+        return true;
 }
 
 LLPhysicsMotionController::LLPhysicsMotionController(const LLUUID &id) : 
@@ -282,7 +282,7 @@ LLMotion::LLMotionInitStatus LLPhysicsMotionController::onInitialize(LLCharacter
                                                                                                           controller);
                 if (!motion->initialize())
                 {
-                        llassert_always(FALSE);
+                        llassert_always(false);
                         return STATUS_FAILURE;
                 }
                 addMotion(motion);
@@ -305,7 +305,7 @@ LLMotion::LLMotionInitStatus LLPhysicsMotionController::onInitialize(LLCharacter
                                                                                                           controller);
                 if (!motion->initialize())
                 {
-                        llassert_always(FALSE);
+                        llassert_always(false);
                         return STATUS_FAILURE;
                 }
                 addMotion(motion);
@@ -328,7 +328,7 @@ LLMotion::LLMotionInitStatus LLPhysicsMotionController::onInitialize(LLCharacter
                                                                                                           controller);
                 if (!motion->initialize())
                 {
-                        llassert_always(FALSE);
+                        llassert_always(false);
                         return STATUS_FAILURE;
                 }
                 addMotion(motion);
@@ -350,7 +350,7 @@ LLMotion::LLMotionInitStatus LLPhysicsMotionController::onInitialize(LLCharacter
                                                                                                           controller);
                 if (!motion->initialize())
                 {
-                        llassert_always(FALSE);
+                        llassert_always(false);
                         return STATUS_FAILURE;
                 }
                 addMotion(motion);
@@ -373,7 +373,7 @@ LLMotion::LLMotionInitStatus LLPhysicsMotionController::onInitialize(LLCharacter
                                                                                                           controller);
                 if (!motion->initialize())
                 {
-                        llassert_always(FALSE);
+                        llassert_always(false);
                         return STATUS_FAILURE;
                 }
                 addMotion(motion);
@@ -396,7 +396,7 @@ LLMotion::LLMotionInitStatus LLPhysicsMotionController::onInitialize(LLCharacter
                                                                                                           controller);
                 if (!motion->initialize())
                 {
-                        llassert_always(FALSE);
+                        llassert_always(false);
                         return STATUS_FAILURE;
                 }
                 addMotion(motion);

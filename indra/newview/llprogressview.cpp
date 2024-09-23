@@ -255,7 +255,7 @@ void LLProgressView::drawLogos(F32 alpha)
                              iter->mDrawRect.getHeight(),
                              iter->mTexturep.get(),
                              UI_VERTEX_COLOR % alpha,
-                             FALSE,
+                             false,
                              iter->mClipRect,
                              iter->mOffsetRect);
     }

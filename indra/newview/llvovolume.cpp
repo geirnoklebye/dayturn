@@ -873,7 +873,7 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 				S32 lod = llmin(mLOD, 3);
 				F32 lodf = ((F32)(lod + 1.0f)/4.f);
 				F32 tex_size = lodf * LLViewerTexture::sMaxSculptRez ;
-				mSculptTexture->addTextureStats(2.f * tex_size * tex_size, FALSE);
+				mSculptTexture->addTextureStats(2.f * tex_size * tex_size, false);
 			
 				//if the sculpty very close to the view point, load first
 				{				
@@ -909,7 +909,7 @@ void LLVOVolume::updateTextureVirtualSize(bool forced)
 	{
 		LLLightImageParams* params = (LLLightImageParams*) getParameterEntry(LLNetworkData::PARAMS_LIGHT_IMAGE);
 		LLUUID id = params->getLightTexture();
-		mLightTexture = LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_ALM);
+		mLightTexture = LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, true, LLGLTexture::BOOST_ALM);
 		if (mLightTexture.notNull())
 		{
 			F32 rad = getLightRadius();
@@ -1199,7 +1199,7 @@ void LLVOVolume::updateSculptTexture()
 		LLUUID id =  sculpt_params->getSculptTexture();
 		if (id.notNull())
 		{
-			mSculptTexture = LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
+			mSculptTexture = LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
 		}
 
 		mSkinInfoFailed = false;
@@ -2213,7 +2213,7 @@ void LLVOVolume::setNumTEs(const U8 num_tes)
 				setTE(i, *te) ;
 				mMediaImplList[i] = mMediaImplList[old_num_tes -1] ;
 			}
-			mMediaImplList[old_num_tes -1]->setUpdated(TRUE) ;
+			mMediaImplList[old_num_tes -1]->setUpdated(true) ;
 		}
 	}
 	else if(old_num_tes > num_tes && mMediaImplList.size() > num_tes) //old faces removed
@@ -2296,7 +2296,7 @@ S32 LLVOVolume::setTEColor(const U8 te, const LLColor4& color)
 		if (mDrawable.notNull() && retval)
 		{
 			// These should only happen on updates which are not the initial update.
-            mColorChanged = TRUE;
+            mColorChanged = true;
 			mDrawable->setState(LLDrawable::REBUILD_COLOR);
 			dirtyMesh();
 		}
@@ -3178,7 +3178,7 @@ void LLVOVolume::addMediaImpl(LLViewerMediaImpl* media_impl, S32 texture_index)
 		}
 		else //the face is not available now, start media on this face later.
 		{
-			media_impl->setUpdated(TRUE) ;
+			media_impl->setUpdated(true) ;
 		}
 	}
 	return ;
@@ -3490,7 +3490,7 @@ LLViewerTexture* LLVOVolume::getLightTexture()
 	{
 		if (mLightTexture.isNull() || id != mLightTexture->getID())
 		{
-			mLightTexture = LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_ALM);
+			mLightTexture = LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, true, LLGLTexture::BOOST_ALM);
 		}
 	}
 	else
@@ -5319,7 +5319,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 
 	if (mat)
 	{
-		bool is_alpha = (facep->getPoolType() == LLDrawPool::POOL_ALPHA) || (facep->getTextureEntry()->getColor().mV[3] < 0.999f) ? TRUE : FALSE;
+		bool is_alpha = (facep->getPoolType() == LLDrawPool::POOL_ALPHA) || (facep->getTextureEntry()->getColor().mV[3] < 0.999f);
 		if (type == LLRenderPass::PASS_ALPHA)
 		{
 			shader_mask = mat->getShaderMask(LLMaterial::DIFFUSE_ALPHA_MODE_BLEND, is_alpha);
@@ -5534,7 +5534,7 @@ void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value)
 			{
 				LLSculptIDSize::instance().remFromUnloaded(nfo.getSculptId());
 				pVVol->updateLOD();
-				pVVol->markForUpdate(TRUE);
+				pVVol->markForUpdate(true);
 			}
 		}
 	}
@@ -5558,7 +5558,7 @@ void handleRenderAutoMuteByteLimitChanged(const LLSD& new_value)
 				) 
 			{
 				pVVol->updateLOD();
-				pVVol->markForUpdate(TRUE);
+				pVVol->markForUpdate(true);
 			}
 		}
 	}

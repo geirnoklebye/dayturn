@@ -183,8 +183,8 @@ void LLPreviewAnim::cleanup()
 {
 	this->mItemID = LLUUID::null;
 	this->mDidStart = false;
-	getChild<LLUICtrl>("Inworld")->setValue(FALSE);
-	getChild<LLUICtrl>("Locally")->setValue(FALSE);
+	getChild<LLUICtrl>("Inworld")->setValue(false);
+	getChild<LLUICtrl>("Locally")->setValue(false);
 	getChild<LLUICtrl>("Inworld")->setEnabled(true);
 	getChild<LLUICtrl>("Locally")->setEnabled(true);
 }

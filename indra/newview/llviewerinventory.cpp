@@ -637,7 +637,7 @@ void LLViewerInventoryCategory::updateParentOnServer(bool restamp) const
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 
-	msg->addBOOL("Stamp", restamp);
+	msg->addbool("Stamp", restamp);
 	msg->nextBlockFast(_PREHASH_InventoryData);
 	msg->addUUIDFast(_PREHASH_FolderID, mUUID);
 	msg->addUUIDFast(_PREHASH_ParentID, mParentUUID);

@@ -1901,7 +1901,7 @@ LLGLTexture* LLTexLayerStaticImageList::getTexture(const std::string& file_name,
 }
 
 // Reads a .tga file, decodes it, and puts the decoded data in image_raw.
-// Returns TRUE if successful.
+// Returns true if successful.
 bool LLTexLayerStaticImageList::loadImageRaw(const std::string& file_name, LLImageRaw* image_raw)
 {
 	bool success = false;
