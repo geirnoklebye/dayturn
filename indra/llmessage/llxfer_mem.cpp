@@ -145,7 +145,7 @@ S32 LLXfer_Mem::initializeRequest(U64 xfer_id,
 	LL_INFOS() << "Requesting file: " << remote_filename << LL_ENDL;
 
 	delete [] mBuffer;
-	mBuffer = NULL;
+	mBuffer = nullptr;
 
 	mBufferLength = 0;
 	mPacketNum = 0;
@@ -163,8 +163,8 @@ S32 LLXfer_Mem::startDownload()
 	gMessageSystem->addU64Fast(_PREHASH_ID, mID);
 	gMessageSystem->addStringFast(_PREHASH_Filename, mRemoteFilename);
 	gMessageSystem->addU8("FilePath", (U8) mRemotePath);
-	gMessageSystem->addBOOL("DeleteOnCompletion", mDeleteRemoteOnCompletion);
-	gMessageSystem->addBOOL("UseBigPackets", BOOL(mChunkSize == LL_XFER_LARGE_PAYLOAD));
+	gMessageSystem->addbool("DeleteOnCompletion", mDeleteRemoteOnCompletion);
+	gMessageSystem->addbool("UseBigPackets", mChunkSize == LL_XFER_LARGE_PAYLOAD);
 	gMessageSystem->addUUIDFast(_PREHASH_VFileID, LLUUID::null);
 	gMessageSystem->addS16Fast(_PREHASH_VFileType, -1);
 
