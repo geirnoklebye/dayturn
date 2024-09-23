@@ -1560,7 +1560,8 @@ void render_ui_3d()
 	gUIProgram.bind();
 
 	// Coordinate axes
-	if (gSavedSettings.getbool("ShowAxes"))
+    LLCachedControl<bool> show_axes(gSavedSettings, "ShowAxes");
+    if (show_axes())
 	{
 		draw_axes();
 	}

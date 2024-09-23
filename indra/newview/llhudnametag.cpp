@@ -170,7 +170,8 @@ bool LLHUDNameTag::lineSegmentIntersect(const LLVector4a& start, const LLVector4
 	LLVector3 x_pixel_vec;
 	LLVector3 y_pixel_vec;
 	
-	LLViewerCamera::getInstance()->getPixelVectors(position, y_pixel_vec, x_pixel_vec);
+    LLViewerCamera* camera = LLViewerCamera::getInstance();
+    camera->getPixelVectors(mPositionAgent, y_pixel_vec, x_pixel_vec);
 
 	LLVector3 width_vec = mWidth * x_pixel_vec;
 	LLVector3 height_vec = mHeight * y_pixel_vec;
@@ -279,8 +280,10 @@ void LLHUDNameTag::renderText(bool for_select)
 	mOffsetY = lltrunc(mHeight * ((mVertAlignment == ALIGN_VERT_CENTER) ? 0.5f : 1.f));
 
 	// *TODO: make this a per-text setting
-	LLColor4 bg_color = LLUIColorTable::instance().getColor("NameTagBackground");
-	bg_color.setAlpha(gSavedSettings.getF32("ChatBubbleOpacity") * alpha_factor);
+    static LLCachedControl<F32> bubble_opacity(gSavedSettings, "ChatBubbleOpacity");
+    static LLUIColor nametag_bg_color = LLUIColorTable::instance().getColor("NameTagBackground");
+    LLColor4 bg_color = nametag_bg_color;
+    bg_color.setAlpha(bubble_opacity * alpha_factor);
 
 	// scale screen size of borders down
 	//RN: for now, text on hud objects is never occluded
@@ -644,12 +647,13 @@ LLVector2 LLHUDNameTag::updateScreenPos(LLVector2 &offset)
 	LLVector2 screen_pos_vec;
 	LLVector3 x_pixel_vec;
 	LLVector3 y_pixel_vec;
-	LLViewerCamera::getInstance()->getPixelVectors(mPositionAgent, y_pixel_vec, x_pixel_vec);
+    LLViewerCamera* camera = LLViewerCamera::getInstance();
+    camera->getPixelVectors(mPositionAgent, y_pixel_vec, x_pixel_vec);
 	LLVector3 world_pos = mPositionAgent + (offset.mV[VX] * x_pixel_vec) + (offset.mV[VY] * y_pixel_vec);
-	if (!LLViewerCamera::getInstance()->projectPosAgentToScreen(world_pos, screen_pos, false) && mVisibleOffScreen)
+    if (!camera->projectPosAgentToScreen(world_pos, screen_pos, false) && mVisibleOffScreen)
 	{
 		// bubble off-screen, so find a spot for it along screen edge
-		LLViewerCamera::getInstance()->projectPosAgentToScreenEdge(world_pos, screen_pos);
+        camera->projectPosAgentToScreenEdge(world_pos, screen_pos);
 	}
 
 	screen_pos_vec.setVec((F32)screen_pos.mX, (F32)screen_pos.mY);
