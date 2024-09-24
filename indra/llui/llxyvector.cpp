@@ -66,7 +66,7 @@ LLXYVector::Params::Params()
     ghost_color("ghost_color"),
     area_color("area_color", LLColor4::grey4),
     grid_color("grid_color", LLColor4::grey % 0.25f),
-    logarithmic("logarithmic", FALSE)
+    logarithmic("logarithmic", false)
 {
 }
 

@@ -599,7 +599,7 @@ S32 LLTextEditor::indentLine( S32 pos, S32 spaces )
 			LLWString wtext = getWText();
 			if (wtext[pos] == ' ')
 			{
-				delta_spaces += remove( pos, 1, FALSE );
+				delta_spaces += remove( pos, 1, false );
 			}
  		}
 	}
@@ -717,7 +717,7 @@ void LLTextEditor::selectByCursorPosition(S32 prev_cursor_pos, S32 next_cursor_p
 
 bool LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	bool	handled = FALSE;
+	bool	handled = false;
 
 	// set focus first, in case click callbacks want to change it
 	// RN: do we really need to have a tab stop?
@@ -792,7 +792,7 @@ bool LLTextEditor::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	// Prefer editor menu if it has selection. See EXT-6806.
 	if (hasSelection())
 	{
-		S32 click_pos = getDocIndexFromLocalCoord(x, y, FALSE);
+		S32 click_pos = getDocIndexFromLocalCoord(x, y, false);
 		if (click_pos > mSelectionStart && click_pos < mSelectionEnd)
 		{
 			show_menu = true;
@@ -964,7 +964,7 @@ bool LLTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 		// We don't want handleMouseUp() to "finish" the selection (and thereby
 		// set mSelectionEnd to where the mouse is), so we finish the selection here.
-		mIsSelecting = FALSE;  
+		mIsSelecting = false;  
 
 		// delay cursor flashing
 		resetCursorBlink();
@@ -1094,7 +1094,7 @@ void LLTextEditor::removeCharOrTab()
 		for (S32 i = 0; i < chars_to_remove; i++)
 		{
 			setCursorPos(mCursorPos - 1);
-			remove( mCursorPos, 1, FALSE );
+			remove(mCursorPos, 1, false);
 		}
 	}
 	else
@@ -1106,7 +1106,7 @@ void LLTextEditor::removeCharOrTab()
 // Remove a single character from the text
 S32 LLTextEditor::removeChar(S32 pos)
 {
-	return remove( pos, 1, FALSE );
+	return remove(pos, 1, false);
 }
 
 void LLTextEditor::removeChar()
@@ -1157,7 +1157,7 @@ S32 LLTextEditor::addChar(S32 pos, llwchar wc)
 	}
 	else
 	{
-		return execute(new TextCmdAddChar(pos, FALSE, wc, LLTextSegmentPtr()));
+		return execute(new TextCmdAddChar(pos, false, wc, LLTextSegmentPtr()));
 	}
 }
 
@@ -1571,7 +1571,7 @@ void LLTextEditor::pasteTextWithLinebreaks(LLWString & clean_string)
 		if(pos!=start)
 		{
 			std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,pos-start);
-			setCursorPos(mCursorPos + insert(mCursorPos, str, TRUE, LLTextSegmentPtr()));
+			setCursorPos(mCursorPos + insert(mCursorPos, str, true, LLTextSegmentPtr()));
 		}
 		addLineBreakChar(true);			// Add a line break and group with the next addition.
 
@@ -1583,7 +1583,7 @@ void LLTextEditor::pasteTextWithLinebreaks(LLWString & clean_string)
 	if (pos != start && pos == clean_string.length() - 1)
 	{
 		std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,clean_string.length()-start-1);
-		setCursorPos(mCursorPos + insert(mCursorPos, str, TRUE, LLTextSegmentPtr()));
+		setCursorPos(mCursorPos + insert(mCursorPos, str, true, LLTextSegmentPtr()));
 		addLineBreakChar(false);
 	}
 	else if (pos != start)
@@ -1591,7 +1591,7 @@ void LLTextEditor::pasteTextWithLinebreaks(LLWString & clean_string)
 	// </FS:Ansariel>
 	{
 		std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,clean_string.length()-start);
-		setCursorPos(mCursorPos + insert(mCursorPos, str, FALSE, LLTextSegmentPtr()));
+		setCursorPos(mCursorPos + insert(mCursorPos, str, false, LLTextSegmentPtr()));
 	}
 	else
 	{
@@ -2414,7 +2414,7 @@ void LLTextEditor::insertText(const std::string &new_text)
 		deleteSelection(true);
 	}
 
-	setCursorPos(mCursorPos + insert( mCursorPos, utf8str_to_wstring(new_text), FALSE, LLTextSegmentPtr() ));
+	setCursorPos(mCursorPos + insert( mCursorPos, utf8str_to_wstring(new_text), false, LLTextSegmentPtr() ));
 	
 	setEnabled(enabled);
 }
@@ -2430,7 +2430,7 @@ void LLTextEditor::insertText(LLWString &new_text)
 		deleteSelection(true);
 	}
 
-	setCursorPos(mCursorPos + insert( mCursorPos, new_text, FALSE, LLTextSegmentPtr() ));
+	setCursorPos(mCursorPos + insert( mCursorPos, new_text, false, LLTextSegmentPtr() ));
 
 	setEnabled(enabled);
 }
@@ -2452,7 +2452,7 @@ void LLTextEditor::appendWidget(const LLInlineViewSegment::Params& params, const
 	LLWString widget_wide_text = utf8str_to_wstring(text);
 
 	LLTextSegmentPtr segment = new LLInlineViewSegment(params, old_length, old_length + widget_wide_text.size());
-	insert(getLength(), widget_wide_text, FALSE, segment);
+	insert(getLength(), widget_wide_text, false, segment);
 
 	// Set the cursor and scroll position
 	if( selection_start != selection_end )
@@ -2482,7 +2482,7 @@ void LLTextEditor::removeTextFromEnd(S32 num_chars)
 {
 	if (num_chars <= 0) return;
 
-	remove(getLength() - num_chars, num_chars, FALSE);
+	remove(getLength() - num_chars, num_chars, false);
 
 	S32 len = getLength();
 	setCursorPos (llclamp(mCursorPos, 0, len));

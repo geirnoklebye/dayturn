@@ -365,7 +365,7 @@ void LLXSDWriter::writeXSD(const std::string& type_name, LLXMLNodePtr node, cons
 
 	// duplicate element choices
 	LLXMLNodeList children;
-	mElementNode->getChildren("xs:element", children, FALSE);
+	mElementNode->getChildren("xs:element", children, false);
 	for (LLXMLNodeList::iterator child_it = children.begin(); child_it != children.end(); ++child_it)
 	{
 		LLXMLNodePtr child_copy = child_it->second->deepCopy();
@@ -933,7 +933,7 @@ bool LLXUIParser::readBoolValue(Parser& parser, void* val_ptr)
 	S32 value;
 	LLXUIParser& self = static_cast<LLXUIParser&>(parser);
 	bool success = self.mCurReadNode->getBoolValue(1, &value);
-	*((bool*)val_ptr) = (value != FALSE);
+	*((bool*)val_ptr) = value;
 	return success;
 }
 

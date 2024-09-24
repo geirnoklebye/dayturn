@@ -572,7 +572,7 @@ void LLUICtrl::setEnabledControlVariable(LLControlVariable* control)
 		mEnabledControlConnection = mEnabledControlVariable->getSignal()->connect(boost::bind(&controlListener, _2, getHandle(), std::string("enabled")));
 		// <FS:Ansariel> enabled_control / disabled_control don't work properly with LLRadioGroup
 		//setEnabled(mEnabledControlVariable->getValue().asBoolean());
-		setEnabled(mEnabledControlVariable->getValue().asString() == "0" ? FALSE : mEnabledControlVariable->getValue().asBoolean());
+		setEnabled(mEnabledControlVariable->getValue().asString() == "0" ? false : mEnabledControlVariable->getValue().asBoolean());
 	}
 }
 
@@ -589,7 +589,7 @@ void LLUICtrl::setDisabledControlVariable(LLControlVariable* control)
 		mDisabledControlConnection = mDisabledControlVariable->getSignal()->connect(boost::bind(&controlListener, _2, getHandle(), std::string("disabled")));
 		// <FS:Ansariel> enabled_control / disabled_control don't work properly with LLRadioGroup
 		//setEnabled(!(mDisabledControlVariable->getValue().asBoolean()));
-		setEnabled(!(mDisabledControlVariable->getValue().asString() == "0" ? FALSE : mDisabledControlVariable->getValue().asBoolean()));
+		setEnabled(!(mDisabledControlVariable->getValue().asString() == "0" ? false : mDisabledControlVariable->getValue().asBoolean()));
 	}
 }
 
@@ -649,7 +649,7 @@ bool LLUICtrl::controlListener(const LLSD& newvalue, LLHandle<LLUICtrl> handle, 
 		{
 			// <FS:Ansariel> enabled_control / disabled_control don't work properly with LLRadioGroup
 			//ctrl->setEnabled(newvalue.asBoolean());
-			ctrl->setEnabled(newvalue.asString() == "0" ? FALSE : newvalue.asBoolean());
+			ctrl->setEnabled(newvalue.asString() == "0" ? false : newvalue.asBoolean());
 			// </FS:Ansariel>
 			return true;
 		}
@@ -657,7 +657,7 @@ bool LLUICtrl::controlListener(const LLSD& newvalue, LLHandle<LLUICtrl> handle, 
 		{
 			// <FS:Ansariel> enabled_control / disabled_control don't work properly with LLRadioGroup
 			//ctrl->setEnabled(!newvalue.asBoolean());
-			ctrl->setEnabled(!(newvalue.asString() == "0" ? FALSE : newvalue.asBoolean()));
+			ctrl->setEnabled(!(newvalue.asString() == "0" ? false : newvalue.asBoolean()));
 			// </FS:Ansariel>
 			return true;
 		}

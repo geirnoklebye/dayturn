@@ -114,7 +114,7 @@ void LLViewBorder::draw()
 		}
 		else
 		{
-			llassert( FALSE );  // not implemented
+			llassert(false);  // not implemented
 		}
 	}
 

@@ -480,7 +480,7 @@ void XMLCALL StartXMLNode(void *userData,
 
 		// only one attribute child per description
 		LLXMLNodePtr attr_node;
-		if (!new_node->getAttribute(attr_name.c_str(), attr_node, FALSE))
+		if (!new_node->getAttribute(attr_name.c_str(), attr_node, false))
 		{
 			attr_node = new LLXMLNode(attr_name.c_str(), true);
 			attr_node->setLineNumber(XML_GetCurrentLineNumber(*new_node_ptr->mParser));
@@ -908,10 +908,10 @@ void LLXMLNode::writeToOstream(std::ostream& output_stream, const std::string& i
 		return;
 	}
 
-	BOOL has_default_type = mDefault.isNull()?FALSE:(mType == mDefault->mType);
-	BOOL has_default_encoding = mDefault.isNull()?FALSE:(mEncoding == mDefault->mEncoding);
-	BOOL has_default_precision = mDefault.isNull()?FALSE:(mPrecision == mDefault->mPrecision);
-	BOOL has_default_length = mDefault.isNull()?FALSE:(mLength == mDefault->mLength);
+	bool has_default_type = mDefault.isNull()?false:(mType == mDefault->mType);
+	bool has_default_encoding = mDefault.isNull()?false:(mEncoding == mDefault->mEncoding);
+	bool has_default_precision = mDefault.isNull()?false:(mPrecision == mDefault->mPrecision);
+	bool has_default_length = mDefault.isNull()?false:(mLength == mDefault->mLength);
 
 	// stream the name
 	output_stream << indent << "<" << mName->mString << "\n";

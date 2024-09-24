@@ -191,7 +191,7 @@ MASK LLKeyboardWin32::updateModifiers()
 	// (keydown encoded in high order bit of short)
 	mKeyLevel[KEY_CAPSLOCK] = (GetKeyState(VK_CAPITAL) & 0x0001) != 0; // Low order bit carries the toggle state.
 	// Get mask for keyboard events
-	MASK mask = currentMask(FALSE);
+	MASK mask = currentMask(false);
 	return mask;
 }
 

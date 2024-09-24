@@ -150,7 +150,7 @@ void LLKeyboard::addKeyName(KEY key, const std::string& name)
 
 void LLKeyboard::resetKeyDownAndHandle()
 {
-    MASK mask = currentMask(FALSE);
+    MASK mask = currentMask(false);
     for (S32 i = 0; i < KEY_COUNT; i++)
     {
         if (mKeyLevel[i])

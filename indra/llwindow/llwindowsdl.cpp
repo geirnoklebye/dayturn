@@ -1653,7 +1653,7 @@ void LLWindowSDL::gatherInput()
                 LLCoordWindow winCoord(event.button.x, event.button.y);
                 LLCoordGL openGlCoord;
                 convertCoords(winCoord, &openGlCoord);
-				MASK mask = gKeyboard->currentMask(TRUE);
+				MASK mask = gKeyboard->currentMask(true);
 				mCallbacks->handleMouseMove(this, openGlCoord, mask);
                 break;
             }
@@ -1671,7 +1671,7 @@ void LLWindowSDL::gatherInput()
 		    if (event.key.keysym.unicode)
 		    {
 			    handleUnicodeUTF16(event.key.keysym.unicode,
-					       gKeyboard->currentMask(FALSE));
+					       gKeyboard->currentMask(false));
 		    }
                 break;
 
@@ -1692,7 +1692,7 @@ void LLWindowSDL::gatherInput()
                 LLCoordWindow winCoord(event.button.x, event.button.y);
                 LLCoordGL openGlCoord;
                 convertCoords(winCoord, &openGlCoord);
-		MASK mask = gKeyboard->currentMask(TRUE);
+		MASK mask = gKeyboard->currentMask(true);
 
                 if (event.button.button == SDL_BUTTON_LEFT)   // SDL doesn't manage double clicking...
                 {
