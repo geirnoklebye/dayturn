@@ -71,12 +71,12 @@ public:
 	// Returns the number of vertices drawn
 	S32				renderPropertyLines();
 
-	U8				ownership( const LLVector3& pos) const;
-	U8				parcelLineFlags( const LLVector3& pos) const;
+	U8				ownership(const LLVector3& pos) const;
+	U8				parcelLineFlags(const LLVector3& pos) const;
 	U8				parcelLineFlags(S32 row, S32 col) const;
 
 	// MANIPULATE
-	void	uncompressLandOverlay(S32 chunk, U8 *compressed_overlay);
+	void	uncompressLandOverlay(S32 chunk, U8* compressed_overlay);
 
 	// Indicate property lines and overlay texture need to be rebuilt.
 	void	setDirty();
@@ -90,8 +90,7 @@ public:
 private:
 	// This is in parcel rows and columns, not grid rows and columns
 	// Stored in bottom three bits.
-	U8		ownership(S32 row, S32 col) const	
-				{ return parcelFlags(row, col, (U8)0x7); }
+    U8      ownership(S32 row, S32 col) const { return parcelFlags(row, col, (U8)0x7); }
 
     U8		parcelFlags(S32 row, S32 col, U8 flags) const;
 
