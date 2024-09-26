@@ -196,6 +196,8 @@ std::string LLWeb::expandURLSubstitutions(const std::string &url,
 	}
 	substitution["PARCEL_ID"] = llformat("%d", parcel_id);
 
+	substitution["SLURL_TYPE"] = "hop";
+
 	// find the grid
 	std::string current_grid = LLGridManager::getInstance()->getGridId();
 	std::transform(current_grid.begin(), current_grid.end(), current_grid.begin(), ::tolower);
