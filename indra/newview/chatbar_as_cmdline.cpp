@@ -482,7 +482,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                     gSavedSettings.setF32("RenderFarClip", drawDist);
                     gAgentCamera.mDrawDistance = drawDist;
                     LLStringUtil::format_map_t args;
-                    args["DISTANCE"] = llformat("%d", drawDist);
+                    args["DISTANCE"] = llformat("%.0f", drawDist);
                     report_to_nearby_chat(LLTrans::getString("FSCmdLineDrawDistanceSet", args));
                     return false;
                 }
