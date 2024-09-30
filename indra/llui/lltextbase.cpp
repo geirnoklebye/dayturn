@@ -283,7 +283,7 @@ LLTextBase::LLTextBase(const LLTextBase::Params &p)
 LLTextBase::~LLTextBase()
 {
 	mSegments.clear();
-	LLContextMenu* menu = static_cast<LLContextMenu*>(mPopupMenuHandle.get());
+	LLContextMenu* menu = mPopupMenuHandle.get();
 	if (menu)
 	{
 		menu->die();
@@ -1531,7 +1531,7 @@ void LLTextBase::setWriteableColor(const LLColor4 &c)
 //virtual
 void LLTextBase::onVisibilityChange( bool new_visibility )
 {
-	LLContextMenu* menu = static_cast<LLContextMenu*>(mPopupMenuHandle.get());
+	LLContextMenu* menu = mPopupMenuHandle.get();
 	if(!new_visibility && menu)
 	{
 		menu->hide();
@@ -3426,7 +3426,7 @@ const LLColor4& LLTextSegment::getColor() const { return LLColor4::white; }
 LLStyleConstSP LLTextSegment::getStyle() const {static LLStyleConstSP sp(new LLStyle()); return sp; }
 void LLTextSegment::setStyle(LLStyleConstSP style) {}
 void LLTextSegment::setToken( LLKeywordToken* token ) {}
-LLKeywordToken*	LLTextSegment::getToken() const { return NULL; }
+LLKeywordToken*	LLTextSegment::getToken() const { return nullptr; }
 void LLTextSegment::setToolTip( const std::string &msg ) {}
 void LLTextSegment::dump() const {}
 bool LLTextSegment::handleMouseDown(S32 x, S32 y, MASK mask) { return false; }
@@ -3456,7 +3456,7 @@ bool LLTextSegment::hasMouseCapture() { return false; }
 LLNormalTextSegment::LLNormalTextSegment( LLStyleConstSP style, S32 start, S32 end, LLTextBase& editor ) 
 :	LLTextSegment(start, end),
 	mStyle( style ),
-	mToken(NULL),
+	mToken(nullptr),
 	mEditor(editor)
 {
 	mFontHeight = mStyle->getFont()->getLineHeight();
@@ -3470,7 +3470,7 @@ LLNormalTextSegment::LLNormalTextSegment( LLStyleConstSP style, S32 start, S32 e
 
 LLNormalTextSegment::LLNormalTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, bool is_visible) 
 :	LLTextSegment(start, end),
-	mToken(NULL),
+	mToken(nullptr),
 	mEditor(editor)
 {
 	mStyle = new LLStyle(LLStyle::Params().visible(is_visible).color(color));
@@ -3788,7 +3788,7 @@ LLLabelTextSegment::LLLabelTextSegment( LLStyleConstSP style, S32 start, S32 end
 {
 }
 
-LLLabelTextSegment::LLLabelTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, BOOL is_visible)
+LLLabelTextSegment::LLLabelTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, bool is_visible)
 :	LLNormalTextSegment(color, start, end, editor, is_visible)
 {
 }

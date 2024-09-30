@@ -170,7 +170,7 @@ class LLLabelTextSegment : public LLNormalTextSegment
 {
 public:
 	LLLabelTextSegment( LLStyleConstSP style, S32 start, S32 end, LLTextBase& editor );
-	LLLabelTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, BOOL is_visible = TRUE);
+	LLLabelTextSegment( const LLColor4& color, S32 start, S32 end, LLTextBase& editor, bool is_visible = true);
 
 protected:
 
