@@ -4399,7 +4399,9 @@ Tente selecionar uma quantidade menor de terreno.
 	</notification>
 	<notification name="DefaultObjectPermissions">
 		Ocorreu um problema ao salvar as permissões padrão do objeto: [REASON].  Tente definir as permissões padrão mais tarde.
-		<notification name="ChatHistoryIsBusyAlert">
+	<usetemplate name="okbutton" yestext="OK"/>
+	</notification>
+	<notification name="ChatHistoryIsBusyAlert">
 		O arquivo de histórico de bate-papo está ocupado com uma operação anterior. Tente novamente em alguns minutos ou selecione outra pessoa para bater papo.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>

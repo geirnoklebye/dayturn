@@ -884,7 +884,6 @@
                parameter="UseDebugMenus" />
           </menu_item_check>
         </menu>
-
         <menu_item_separator/>
     <!--    <menu_item_check
          label="Show Navigation Bar"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <floater name="settings_debug">
     <color_swatch name="val_color_swatch"
-        label="Colour"
+        label="Colour"/>
 </floater>
