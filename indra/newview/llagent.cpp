@@ -3649,7 +3649,7 @@ void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 		msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group.mID, i);
 		msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupInsigniaID, group.mInsigniaID, i);
 		msg->getU64(_PREHASH_GroupData, "GroupPowers", group.mPowers, i);
-		msg->getBOOL(_PREHASH_GroupData, "AcceptNotices", group.mAcceptNotices, i);
+		msg->getbool(_PREHASH_GroupData, "AcceptNotices", group.mAcceptNotices, i);
 		msg->getS32(_PREHASH_GroupData, "Contribution", group.mContribution, i);
 		msg->getStringFast(_PREHASH_GroupData, _PREHASH_GroupName, group.mName, i);
 		

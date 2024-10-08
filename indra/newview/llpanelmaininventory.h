@@ -110,12 +110,12 @@ protected:
 	
 	void onSelectionChange(LLInventoryPanel *panel, const std::deque<LLFolderViewItem*>& items, bool user_action);
 
-	static BOOL filtersVisible(void* user_data);
+	static bool filtersVisible(void* user_data);
 	void onClearSearch();
 	static void onFoldersByName(void *user_data);
-	static BOOL checkFoldersByName(void *user_data);
+	static bool checkFoldersByName(void *user_data);
 	
-	static BOOL incrementalFind(LLFolderViewItem* first_item, const char *find_text, BOOL backward);
+	static bool incrementalFind(LLFolderViewItem* first_item, const char *find_text, bool backward);
 	void onFilterSelected();
 
 	const std::string getFilterSubString();
@@ -177,7 +177,7 @@ protected:
 	void onFilterLinksChecked(const LLSD& userdata);
 	// ## Zi: Filter Links Menu
 
-	bool handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_type, EAcceptance* accept);
+	bool handleDragAndDropToTrash(bool drop, EDragAndDropType cargo_type, EAcceptance* accept);
     static bool hasSettingsInventory();
 	/**
 	 * Set upload cost in "Upload" sub menu.

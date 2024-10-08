@@ -90,7 +90,7 @@ struct LLAvatarData
 	U8			caption_index;
 	std::string	caption_text;
 	U32			flags;
-	BOOL		allow_publish;
+	bool		allow_publish;
 };
 
 struct LLAvatarPicks
@@ -108,14 +108,14 @@ struct LLPickData
 	LLUUID agent_id;
 	LLUUID pick_id;
 	LLUUID creator_id;
-	BOOL top_pick;
+	bool top_pick;
 	LLUUID parcel_id;
 	std::string name;
 	std::string desc;
 	LLUUID snapshot_id;
 	LLVector3d pos_global;
 	S32 sort_order;
-	BOOL enabled;
+	bool enabled;
 
 	//used only in read requests
 	std::string user_name;
@@ -196,7 +196,7 @@ struct LLAvatarClassifiedInfo
 class LLAvatarPropertiesObserver
 {
 public:
-	virtual ~LLAvatarPropertiesObserver() {}
+	virtual ~LLAvatarPropertiesObserver() = default;
 	virtual void processProperties(void* data, EAvatarProcessorType type) = 0;
 };
 

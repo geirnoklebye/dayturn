@@ -79,8 +79,8 @@ struct LLGroupData
 	LLUUID mID;
 	LLUUID mInsigniaID;
 	U64 mPowers;
-	BOOL mAcceptNotices;
-	BOOL mListInProfile;
+	bool mAcceptNotices;
+	bool mListInProfile;
 	S32 mContribution;
 	std::string mName;
 };

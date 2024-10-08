@@ -72,7 +72,7 @@ class LLChatBarGestureObserver : public LLGestureManagerObserver
 {
 public:
 	LLChatBarGestureObserver(LLChatBar* chat_barp) : mChatBar(chat_barp){}
-	virtual ~LLChatBarGestureObserver() {}
+	virtual ~LLChatBarGestureObserver() = default;
 	virtual void changed() { mChatBar->refreshGestures(); }
 private:
 	LLChatBar* mChatBar;
@@ -200,7 +200,7 @@ void LLChatBar::refreshGestures()
 		mGestureCombo->clearRows();
 
 		// collect list of unique gestures
-		std::map <std::string, BOOL> unique;
+		std::map <std::string, int> unique;
 		LLGestureMgr::item_map_t::const_iterator it;
 		const LLGestureMgr::item_map_t& active_gestures = LLGestureMgr::instance().getActiveGestures();
 		for (it = active_gestures.begin(); it != active_gestures.end(); ++it)
@@ -210,13 +210,13 @@ void LLChatBar::refreshGestures()
 			{
 				if (!gesture->mTrigger.empty())
 				{
-					unique[gesture->mTrigger] = TRUE;
+					unique[gesture->mTrigger] = 1;
 				}
 			}
 		}
 
 		// add unique gestures
-		std::map <std::string, BOOL>::iterator it2;
+		std::map <std::string, int>::iterator it2;
 		for (it2 = unique.begin(); it2 != unique.end(); ++it2)
 		{
 			mGestureCombo->addSimpleElement((*it2).first);

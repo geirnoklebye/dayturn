@@ -178,7 +178,7 @@ void LLAvatarPropertiesProcessor::sendAvatarPropertiesUpdate(const LLAvatarData*
 
 	// This value is required by sendAvatarPropertiesUpdate method.
 	//A profile should never be mature. (From the original code)
-	BOOL mature = FALSE;
+	bool mature = false;
 
 	LLMessageSystem *msg = gMessageSystem;
 
@@ -193,8 +193,8 @@ void LLAvatarPropertiesProcessor::sendAvatarPropertiesUpdate(const LLAvatarData*
 	msg->addStringFast	(_PREHASH_AboutText,	avatar_props->about_text);
 	msg->addStringFast	(_PREHASH_FLAboutText,	avatar_props->fl_about_text);
 
-	msg->addBOOL(_PREHASH_AllowPublish, avatar_props->allow_publish);
-	msg->addBOOL(_PREHASH_MaturePublish, mature);
+	msg->addbool(_PREHASH_AllowPublish, avatar_props->allow_publish);
+	msg->addbool(_PREHASH_MaturePublish, mature);
 	msg->addString(_PREHASH_ProfileURL, avatar_props->profile_url);
 
 	gAgent.sendReliableMessage();
@@ -434,7 +434,7 @@ void LLAvatarPropertiesProcessor::processPickInfoReply(LLMessageSystem* msg, voi
 	msg->getUUID(_PREHASH_Data, _PREHASH_CreatorID, pick_data.creator_id);
 
 	// ** top_pick should be deleted, not being used anymore - angela
-	msg->getBOOL(_PREHASH_Data, _PREHASH_TopPick, pick_data.top_pick);
+	msg->getbool(_PREHASH_Data, _PREHASH_TopPick, pick_data.top_pick);
 	msg->getUUID(_PREHASH_Data, _PREHASH_ParcelID, pick_data.parcel_id);
 	msg->getString(_PREHASH_Data, _PREHASH_Name, pick_data.name);
 	msg->getString(_PREHASH_Data, _PREHASH_Desc, pick_data.desc);
@@ -446,7 +446,7 @@ void LLAvatarPropertiesProcessor::processPickInfoReply(LLMessageSystem* msg, voi
 	msg->getVector3d(_PREHASH_Data, _PREHASH_PosGlobal, pick_data.pos_global);
 
 	msg->getS32(_PREHASH_Data, _PREHASH_SortOrder, pick_data.sort_order);
-	msg->getBOOL(_PREHASH_Data, _PREHASH_Enabled, pick_data.enabled);
+	msg->getbool(_PREHASH_Data, _PREHASH_Enabled, pick_data.enabled);
 
 	LLAvatarPropertiesProcessor* self = getInstance();
 	// don't need to remove pending request as we don't track pick info
@@ -585,7 +585,7 @@ void LLAvatarPropertiesProcessor::sendPickInfoUpdate(const LLPickData* new_pick)
 	msg->addUUID(_PREHASH_CreatorID, new_pick->creator_id);
 
 	//legacy var need to be deleted
-	msg->addBOOL(_PREHASH_TopPick, FALSE);	
+	msg->addbool(_PREHASH_TopPick, false);
 
 	// fills in on simulator if null
 	msg->addUUID(_PREHASH_ParcelID, new_pick->parcel_id);
@@ -597,7 +597,7 @@ void LLAvatarPropertiesProcessor::sendPickInfoUpdate(const LLPickData* new_pick)
 	// Only top picks have a sort order
 	msg->addS32(_PREHASH_SortOrder, 0);
 
-	msg->addBOOL(_PREHASH_Enabled, new_pick->enabled);
+	msg->addbool(_PREHASH_Enabled, new_pick->enabled);
 	gAgent.sendReliableMessage();
 
 	LLAgentPicksInfo::getInstance()->requestNumberOfPicks();

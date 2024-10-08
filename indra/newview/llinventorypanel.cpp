@@ -463,7 +463,7 @@ U32 LLInventoryPanel::getSortOrder() const
 	return getFolderViewModel()->getSorter().getSortOrder();
 }
 
-void LLInventoryPanel::setSinceLogoff(BOOL sl)
+void LLInventoryPanel::setSinceLogoff(bool sl)
 {
 	getFilter().setDateRangeLastLogoff(sl);
 }
@@ -1955,7 +1955,7 @@ LLFolderViewFolder* LLInventoryPanel::getFolderByID(const LLUUID& id)
 }
 
 
-void LLInventoryPanel::setSelectionByID( const LLUUID& obj_id, BOOL    take_keyboard_focus )
+void LLInventoryPanel::setSelectionByID( const LLUUID& obj_id, bool take_keyboard_focus )
 {
 	LLFolderViewItem* itemp = getItemByID(obj_id);
 

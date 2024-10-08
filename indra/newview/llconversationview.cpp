@@ -183,7 +183,7 @@ void LLConversationViewSession::setIsTyping(bool is_typing)
 	LLConversationItem* vmi = dynamic_cast<LLConversationItem*>(getViewModelItem());
 	mTypingStart = LLTrans::getString("IM_typing_start_string");
 	mTypingStart.setArg("[NAME]", vmi->getDisplayName());
-	if (mSessionTitle && gSavedSettings.getBOOL("KokuaIsTypingNotificationInConversationsTabs"))
+	if (mSessionTitle && gSavedSettings.getbool("KokuaIsTypingNotificationInConversationsTabs"))
 	{
 		std::string title = is_typing ? mTypingStart.getString() : vmi->getDisplayName();
 		// KKA-849 use the new friend colouring code

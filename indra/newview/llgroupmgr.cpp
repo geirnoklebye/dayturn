@@ -1451,8 +1451,8 @@ void LLGroupMgr::processCreateGroupReply(LLMessageSystem* msg, void ** data)
 		// This is so when we go to modify the group we will be able to do so.
 		// This isn't actually too bad because real data will come down in 2 or 3 miliseconds and replace this.
 		LLGroupData gd;
-		gd.mAcceptNotices = TRUE;
-		gd.mListInProfile = TRUE;
+		gd.mAcceptNotices = true;
+		gd.mListInProfile = true;
 		gd.mContribution = 0;
 		gd.mID = group_id;
 		gd.mName = "new group";

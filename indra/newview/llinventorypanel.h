@@ -195,7 +195,7 @@ public:
     void setFilterSettingsTypes(U64 filter);
     void setFilterSubString(const std::string& string);
 	const std::string getFilterSubString();
-	void setSinceLogoff(BOOL sl);
+	void setSinceLogoff(bool sl);
 	void setHoursAgo(U32 hours);
 	void setDateSearchDirection(U32 direction);
 	bool getSinceLogoff();
@@ -248,13 +248,13 @@ public:
 													const LLUUID& obj_id,
 													bool main_panel = false,
 													bool take_keyboard_focus = TAKE_FOCUS_YES,
-													bool reset_filter = FALSE);
+													bool reset_filter = false);
 
 	void addItemID(const LLUUID& id, LLFolderViewItem* itemp);
 	void removeItemID(const LLUUID& id);
 	LLFolderViewItem* getItemByID(const LLUUID& id);
 	LLFolderViewFolder* getFolderByID(const LLUUID& id);
-	void setSelectionByID(const LLUUID& obj_id, BOOL take_keyboard_focus);
+	void setSelectionByID(const LLUUID& obj_id, bool take_keyboard_focus);
 	void updateSelection();
 
 	void setSuppressOpenItemAction(bool supress_open_item) { mSuppressOpenItemAction = supress_open_item; }

@@ -85,9 +85,9 @@ public:
 	/*virtual*/	bool	postBuild();
 	void changeFilter(LLInventoryFilter* filter);
 	void updateElementsFromFilter();
-	BOOL getCheckShowEmpty();
-	BOOL getCheckSinceLogoff();
-	BOOL getCheckTransferrable();
+	bool getCheckShowEmpty();
+	bool getCheckSinceLogoff();
+	bool getCheckTransferrable();
 	U32 getDateSearchDirection();
 
 	void onCreatorSelfFilterCommit();
@@ -175,7 +175,7 @@ bool LLPanelMainInventory::postBuild()
 		else
 		{
 			// assign default values until we will be sure that we have setting to restore
-			recent_items_panel->setSinceLogoff(TRUE);
+			recent_items_panel->setSinceLogoff(true);
 			recent_items_panel->setSortOrder(LLInventoryFilter::SO_DATE);
 			recent_items_panel->setShowFolderState(LLInventoryFilter::SHOW_NON_EMPTY_FOLDERS);
 			LLInventoryFilter& recent_filter = recent_items_panel->getFilter();
@@ -447,8 +447,8 @@ void LLPanelMainInventory::resetFilters()
 	filter.setFilterCreator(LLInventoryFilter::FILTERCREATOR_ALL);
 	filter.setSearchType(LLInventoryFilter::SEARCHTYPE_NAME);
 
-	getActivePanel()->updateShowInboxFolder(gSavedSettings.getBOOL("FSShowInboxFolder"));
-	getActivePanel()->updateHideEmptySystemFolders(gSavedSettings.getBOOL("DebugHideEmptySystemFolders"));
+	getActivePanel()->updateShowInboxFolder(gSavedSettings.getbool("FSShowInboxFolder"));
+	getActivePanel()->updateHideEmptySystemFolders(gSavedSettings.getbool("DebugHideEmptySystemFolders"));
 	// </FS:Ansariel>
 	if (finder)
 	{
@@ -562,7 +562,7 @@ void LLPanelMainInventory::updateSearchTypeCombo()
 }
 
 // static
-BOOL LLPanelMainInventory::filtersVisible(void* user_data)
+bool LLPanelMainInventory::filtersVisible(void* user_data)
 {
 	LLPanelMainInventory* self = (LLPanelMainInventory*)user_data;
 	if(!self) return FALSE;
@@ -572,7 +572,7 @@ BOOL LLPanelMainInventory::filtersVisible(void* user_data)
 
 void LLPanelMainInventory::onClearSearch()
 {
-	BOOL initially_active = FALSE;
+	bool initially_active = false;
 	LLFloater *finder = getFinder();
 	if (mActivePanel && (getActivePanel() != mWornItemsPanel))
 	{
@@ -677,7 +677,7 @@ void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
 
 
  //static
- BOOL LLPanelMainInventory::incrementalFind(LLFolderViewItem* first_item, const char *find_text, BOOL backward)
+ bool LLPanelMainInventory::incrementalFind(LLFolderViewItem* first_item, const char *find_text, bool backward)
  {
  	LLPanelMainInventory* active_view = NULL;
 	
@@ -697,23 +697,23 @@ void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
 
  	if (!active_view)
  	{
- 		return FALSE;
+ 		return false;
  	}
 
  	std::string search_string(find_text);
 
  	if (search_string.empty())
  	{
- 		return FALSE;
+ 		return false;
  	}
 
  	if (active_view->getPanel() &&
  		active_view->getPanel()->getRootFolder()->search(first_item, search_string, backward))
  	{
- 		return TRUE;
+ 		return true;
  	}
 
- 	return FALSE;
+ 	return false;
  }
 
 void LLPanelMainInventory::onFilterSelected()
@@ -1052,31 +1052,31 @@ void LLFloaterInventoryFinder::updateElementsFromFilter()
 void LLFloaterInventoryFinder::draw()
 {
 	U64 filter = 0xffffffffffffffffULL;
-	BOOL filtered_by_all_types = TRUE;
+	bool filtered_by_all_types = true;
 
 	if (!getChild<LLUICtrl>("check_animation")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_ANIMATION);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 
 	if (!getChild<LLUICtrl>("check_calling_card")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_CALLINGCARD);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_clothing")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_WEARABLE);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_gesture")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_GESTURE);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_landmark")->getValue())
@@ -1084,50 +1084,50 @@ void LLFloaterInventoryFinder::draw()
 
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_LANDMARK);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_notecard")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_NOTECARD);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_object")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_OBJECT);
 		filter &= ~(0x1 << LLInventoryType::IT_ATTACHMENT);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_script")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_LSL);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_sound")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_SOUND);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_texture")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_TEXTURE);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
 	if (!getChild<LLUICtrl>("check_snapshot")->getValue())
 	{
 		filter &= ~(0x1 << LLInventoryType::IT_SNAPSHOT);
-		filtered_by_all_types = FALSE;
+		filtered_by_all_types = false;
 	}
 
     if (!getChild<LLUICtrl>("check_settings")->getValue())
     {
         filter &= ~(0x1 << LLInventoryType::IT_SETTINGS);
-        filtered_by_all_types = FALSE;
+        filtered_by_all_types = false;
     }
 
 	if (!filtered_by_all_types || (mPanelMainInventory->getPanel()->getFilter().getFilterTypes() & LLInventoryFilter::FILTERTYPE_DATE))
@@ -1163,11 +1163,11 @@ void LLFloaterInventoryFinder::draw()
 
 	if (getCheckTransferrable())
 	{ 
-		gSavedSettings.setBOOL("InventoryFilterTransfer", true);
+		gSavedSettings.setbool("InventoryFilterTransfer", true);
 	}
 	else
 	{
-		gSavedSettings.setBOOL("InventoryFilterTransfer", false);
+		gSavedSettings.setbool("InventoryFilterTransfer", false);
 	}
 
 	mPanelMainInventory->getPanel()->setHoursAgo(hours);
@@ -1218,16 +1218,16 @@ void LLFloaterInventoryFinder::onCreatorOtherFilterCommit()
 	}
 }
 
-BOOL LLFloaterInventoryFinder::getCheckShowEmpty()
+bool LLFloaterInventoryFinder::getCheckShowEmpty()
 {
 	return getChild<LLUICtrl>("check_show_empty")->getValue();
 }
 
-BOOL LLFloaterInventoryFinder::getCheckSinceLogoff()
+bool LLFloaterInventoryFinder::getCheckSinceLogoff()
 {
 	return getChild<LLUICtrl>("check_since_logoff")->getValue();
 }
-BOOL LLFloaterInventoryFinder::getCheckTransferrable()
+bool LLFloaterInventoryFinder::getCheckTransferrable()
 {
 	return getChild<LLUICtrl>("check_transferrable")->getValue();
 }
@@ -1733,7 +1733,7 @@ bool LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
 // ## Zi: Filter Links Menu
 
 
-bool LLPanelMainInventory::handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_type, EAcceptance* accept)
+bool LLPanelMainInventory::handleDragAndDropToTrash(bool drop, EDragAndDropType cargo_type, EAcceptance* accept)
 {
 	*accept = ACCEPT_NO;
 

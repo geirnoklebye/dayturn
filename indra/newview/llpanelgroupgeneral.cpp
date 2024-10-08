@@ -795,8 +795,8 @@ void LLPanelGroupGeneral::setGroupID(const LLUUID& id)
 		return;
 	}
 
-	BOOL accept_notices = FALSE;
-	BOOL list_in_profile = FALSE;
+	bool accept_notices = false;
+	bool list_in_profile = false;
 	LLGroupData data;
 	if(gAgent.getGroupData(mGroupID,data))
 	{
