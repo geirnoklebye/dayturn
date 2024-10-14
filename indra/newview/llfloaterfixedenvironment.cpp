@@ -97,7 +97,7 @@ bool LLFloaterFixedEnvironment::postBuild()
     mTab = getChild<LLTabContainer>(CONTROL_TAB_AREA);
     mTxtName = getChild<LLLineEditor>(FIELD_SETTINGS_NAME);
 
-    mTxtName->setCommitOnFocusLost(TRUE);
+    mTxtName->setCommitOnFocusLost(true);
     mTxtName->setCommitCallback([this](LLUICtrl *, const LLSD &) { onNameChanged(mTxtName->getValue().asString()); });
 
     getChild<LLButton>(BUTTON_NAME_IMPORT)->setClickedCallback([this](LLUICtrl *, const LLSD &) { onButtonImport(); });

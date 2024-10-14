@@ -1125,7 +1125,7 @@ void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
 				mTabContainer->selectTabPanel(landmarks_panel);
 				if (mItem.notNull())
 				{
-					landmarks_panel->setItemSelected(mItem->getUUID(), TRUE);
+					landmarks_panel->setItemSelected(mItem->getUUID(), true);
 				}
 				else
 				{

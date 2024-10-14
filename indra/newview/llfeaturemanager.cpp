@@ -106,7 +106,7 @@ bool LLFeatureList::isFeatureAvailable(const std::string& name)
 
 	LL_WARNS_ONCE("RenderInit") << "Feature " << name << " not on feature list!" << LL_ENDL;
 	
-	// changing this to TRUE so you have to explicitly disable 
+	// changing this to true so you have to explicitly disable 
 	// something for it to be disabled
 	return true;
 }

@@ -1154,7 +1154,7 @@ void LLPanelObjectTools::onClickSet()
 {
     LLView * button = findChild<LLButton>("Set Target");
     LLFloater * root_floater = gFloaterView->getParentFloater(this);
-	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelObjectTools::callbackAvatarID, this, _1,_2), FALSE, FALSE, FALSE, root_floater->getName(), button);
+	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelObjectTools::callbackAvatarID, this, _1,_2), false, false, false, root_floater->getName(), button);
 	// grandparent is a floater, which can have a dependent
 	if (picker)
 	{

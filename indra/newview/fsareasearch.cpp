@@ -1317,7 +1317,7 @@ bool FSPanelAreaSearchList::postBuild()
 {
 	mResultList = getChild<FSScrollListCtrl>("result_list");
 	mResultList->setDoubleClickCallback(boost::bind(&FSPanelAreaSearchList::onDoubleClick, this));
-	mResultList->sortByColumn("name", TRUE);
+	mResultList->sortByColumn("name", true);
 	mResultList->setContextMenu(&gFSAreaSearchMenu);
 
 	mCounterText = getChild<LLTextBox>("counter");

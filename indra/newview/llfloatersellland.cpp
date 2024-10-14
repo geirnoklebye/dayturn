@@ -418,7 +418,7 @@ void LLFloaterSellLandUI::onChangeValue(LLUICtrl *ctrl, void *userdata)
 void LLFloaterSellLandUI::doSelectAgent()
 {
     LLView * button = findChild<LLView>("sell_to_select_agent");
-	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterSellLandUI::callbackAvatarPick, this, _1, _2), FALSE, TRUE, FALSE, this->getName(), button);
+	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterSellLandUI::callbackAvatarPick, this, _1, _2), false, true, false, this->getName(), button);
 	// grandparent is a floater, in order to set up dependency
 	if (picker)
 	{
@@ -552,7 +552,7 @@ bool LLFloaterSellLandUI::onConfirmSale(const LLSD& notification, const LLSD& re
 // 		return;
 // 	}
 
-	parcel->setParcelFlag(PF_FOR_SALE, TRUE);
+	parcel->setParcelFlag(PF_FOR_SALE, true);
 	parcel->setSalePrice(sale_price);
 	bool sell_with_objects = false;
 	if ("yes" == getChild<LLUICtrl>("sell_objects")->getValue().asString())

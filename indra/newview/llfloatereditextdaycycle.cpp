@@ -888,7 +888,7 @@ void LLFloaterEditExtDayCycle::onFrameSliderCallback(const LLSD &data)
         keymap_t::iterator it = mSliderKeyMap.find(curslider);
         if (it != mSliderKeyMap.end())
         {
-            if (gKeyboard->currentMask(TRUE) == MASK_SHIFT && mShiftCopyEnabled && mCanMod)
+            if (gKeyboard->currentMask(true) == MASK_SHIFT && mShiftCopyEnabled && mCanMod)
             {
                 // don't move the point/frame as long as shift is pressed and user is attempting to copy
                 // handleKeyUp will do the move if user releases key too early.
@@ -959,7 +959,7 @@ void LLFloaterEditExtDayCycle::onFrameSliderMouseDown(S32 x, S32 y, MASK mask)
 
     std::string slidername = mFramesSlider->getCurSlider();
 
-    mShiftCopyEnabled = !slidername.empty() && gKeyboard->currentMask(TRUE) == MASK_SHIFT;
+    mShiftCopyEnabled = !slidername.empty() && gKeyboard->currentMask(true) == MASK_SHIFT;
 
     if (!slidername.empty())
     {

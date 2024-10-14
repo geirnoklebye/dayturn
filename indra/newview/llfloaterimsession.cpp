@@ -105,7 +105,7 @@ void LLFloaterIMSession::refresh()
 	if (mMeTyping)
 {
 		// Send an additional Start Typing packet every ME_TYPING_TIMEOUT seconds
-		if (mMeTypingTimer.getElapsedTimeF32() > ME_TYPING_TIMEOUT && false == mShouldSendTypingState)
+		if (mMeTypingTimer.getElapsedTimeF32() > ME_TYPING_TIMEOUT && !mShouldSendTypingState)
 		{
 			LL_DEBUGS("TypingMsgs") << "Send additional Start Typing packet" << LL_ENDL;
 			LLIMModel::instance().sendTypingState(mSessionID, mOtherParticipantUUID, true);
@@ -131,8 +131,8 @@ void LLFloaterIMSession::refresh()
 		LLFloaterIMContainer* im_box = LLFloaterIMContainer::findInstance();
 		if (im_box)
 		{
-			LL_INFOS() << "Updating status to FALSE on timeout" << LL_ENDL;
-			im_box->setConversationItemWidgetIsTyping(mSessionID, FALSE);
+			LL_INFOS() << "Updating status to false on timeout" << LL_ENDL;
+			im_box->setConversationItemWidgetIsTyping(mSessionID, false);
 		}
 	}
 
@@ -383,7 +383,7 @@ void LLFloaterIMSession::onAddButtonClicked()
 {
     LLView * button = findChild<LLView>("toolbar_panel")->findChild<LLButton>("add_btn");
     LLFloater* root_floater = gFloaterView->getParentFloater(this);
-	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterIMSession::addSessionParticipants, this, _1), TRUE, TRUE, FALSE, root_floater->getName(), button);
+	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterIMSession::addSessionParticipants, this, _1), true, true, false, root_floater->getName(), button);
 	if (!picker)
 	{
 		return;
@@ -746,7 +746,7 @@ bool LLFloaterIMSession::getVisible()
 		}
 		else
 		{
-		// getVisible() returns TRUE when Tabbed IM window is minimized.
+		// getVisible() returns true when Tabbed IM window is minimized.
 			visible = is_active && !im_container->isMinimized()
 						&& im_container->getVisible();
 		}
@@ -1065,7 +1065,7 @@ void LLFloaterIMSession::processAgentListUpdates(const LLSD& body)
 				// process the moderator mutes
 				if (agent_id == gAgentID && agent_data.has("info") && agent_data["info"].has("mutes"))
 				{
-					BOOL moderator_muted_text = agent_data["info"]["mutes"]["text"].asBoolean();
+					bool moderator_muted_text = agent_data["info"]["mutes"]["text"].asBoolean();
 					mInputEditor->setEnabled(!moderator_muted_text);
 					std::string label;
 					if (moderator_muted_text)
@@ -1365,7 +1365,7 @@ void LLFloaterIMSession::sRemoveTypingIndicator(const LLSD& data)
 	if (im_box)
 	{
 		LL_INFOS() << "Clearing typing status" << LL_ENDL;
-		im_box->setConversationItemWidgetIsTyping(session_id, FALSE);
+		im_box->setConversationItemWidgetIsTyping(session_id, false);
 	}
 }
 

@@ -184,7 +184,7 @@ void LLFloaterIMNearbyChatToastPanel::addMessage(LLSD& notification)
 		{
 			style_params.font.style = "ITALIC";
 		}
-		mMsgText->appendText(messageText, TRUE, style_params);
+		mMsgText->appendText(messageText, true, style_params);
 	}
 
 	snapToMessageHeight();

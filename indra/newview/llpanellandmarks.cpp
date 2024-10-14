@@ -251,9 +251,9 @@ void LLLandmarksPanel::onShare()
 
 	LLFloaterAvatarPicker *picker = LLFloaterAvatarPicker::show(
 		boost::bind(LLLandmarksPanel::shareLandmarks, this, _1, _2),
-		TRUE,
-		FALSE,
-		FALSE,
+		true,
+		false,
+		false,
 		floater->getName()
 	);
 
@@ -324,7 +324,7 @@ void LLLandmarksPanel::updateVerbs()
 	}
 }
 
-void LLLandmarksPanel::setItemSelected(const LLUUID& obj_id, BOOL take_keyboard_focus)
+void LLLandmarksPanel::setItemSelected(const LLUUID& obj_id, bool take_keyboard_focus)
 {
 	if (!mCurrentSelectedList)
 		return;

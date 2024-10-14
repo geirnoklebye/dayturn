@@ -93,7 +93,7 @@ public:
 	}
 	/*virtual*/ bool	canEdit() const { return false; }
 	// eat handleMouseDown event so we get the mouseup event
-	/*virtual*/ bool	handleMouseDown(S32 x, S32 y, MASK mask) { return TRUE; }
+	/*virtual*/ bool	handleMouseDown(S32 x, S32 y, MASK mask) { return true; }
 	/*virtual*/ bool	handleMouseUp(S32 x, S32 y, MASK mask) { mEditor.onCommit(); return true; }
 	/*virtual*/ bool	handleHover(S32 x, S32 y, MASK mask)
 	{

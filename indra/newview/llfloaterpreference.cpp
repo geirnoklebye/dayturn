@@ -832,7 +832,7 @@ void LLFloaterPreference::onOpen(const LLSD& key)
 		// To keep track of whether do not disturb response is default or changed by user additional setting DoNotDisturbResponseChanged
 		// was added into per account settings.
 
-		// initialization should happen once,so setting variable to TRUE
+		// initialization should happen once,so setting variable to true
 		initialized = true;
 		// this connection is needed to properly set "DoNotDisturbResponseChanged" setting when user makes changes in
 		// do not disturb response message.
@@ -1537,7 +1537,7 @@ void LLFloaterPreference::refreshEnabledStateAdvanced()
     
 	// Avatar Mode
 	// Avatar Render Mode
-    getChild<LLCheckBoxCtrl>("AvatarCloth")->setEnabled(TRUE);
+    getChild<LLCheckBoxCtrl>("AvatarCloth")->setEnabled(true);
 
     // Vertex Shaders, Global Shader Enable
     // SL-12594 Basic shaders are always enabled. DJH TODO clean up now-orphaned state handling code

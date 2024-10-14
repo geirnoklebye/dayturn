@@ -1563,7 +1563,7 @@ void LLPanelPeople::onAddFriendWizButtonClicked()
 
 	// Show add friend wizard.
     LLFloater* root_floater = gFloaterView->getParentFloater(this);
-	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelPeople::onAvatarPicked, _1, _2), FALSE, TRUE, FALSE, root_floater->getName(), button);
+	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelPeople::onAvatarPicked, _1, _2), false, true, false, root_floater->getName(), button);
 	if (!picker)
 	{
 		return;
@@ -2152,7 +2152,7 @@ void LLPanelPeople::onContactSetsMenuItemClicked(const LLSD& userdata)
 	{
 		LLFloater* root_floater = gFloaterView->getParentFloater(this);
 		LLFloater* avatar_picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelPeople::handlePickerCallback, this, _1, mContactSetCombo->getValue().asString()),
-															   TRUE, TRUE, TRUE, root_floater->getName());
+															   true, true, true, root_floater->getName());
 		if (root_floater && avatar_picker)
 			root_floater->addDependentFloater(avatar_picker);
 	}

@@ -160,7 +160,7 @@ private:
 	virtual ~LLFloaterAssociateListing();
     
 	// UI Callbacks
-	void apply(BOOL user_confirm = TRUE);
+	void apply(bool user_confirm = true);
 	void cancel();
     void callback_apply(const LLSD& notification, const LLSD& response);
     

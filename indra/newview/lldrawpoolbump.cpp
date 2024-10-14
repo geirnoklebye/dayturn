@@ -359,11 +359,11 @@ void LLDrawPoolBump::renderShiny()
 		{
             if (mRigged)
             {
-                gPipeline.renderRiggedGroups(this, LLRenderPass::PASS_SHINY_RIGGED, sVertexMask, TRUE);
+                gPipeline.renderRiggedGroups(this, LLRenderPass::PASS_SHINY_RIGGED, sVertexMask, true);
             }
             else
             {
-                gPipeline.renderGroups(this, LLRenderPass::PASS_SHINY, sVertexMask, TRUE);
+                gPipeline.renderGroups(this, LLRenderPass::PASS_SHINY, sVertexMask, true);
             }
 		}
 	}
@@ -905,7 +905,7 @@ LLViewerTexture* LLBumpImageList::getBrightnessDarknessImage(LLViewerFetchedText
 	}
 	else
 	{
-		(*entries_list)[src_image->getID()] = LLViewerTextureManager::getLocalTexture( TRUE );
+		(*entries_list)[src_image->getID()] = LLViewerTextureManager::getLocalTexture(true);
 		bump = (*entries_list)[src_image->getID()]; // In case callback was called immediately and replaced the image
 	}
 
@@ -1031,7 +1031,7 @@ void LLBumpImageList::onSourceLoaded( bool success, LLViewerTexture *src_vi, LLI
 							iter->second->getWidth() != src->getWidth() ||
 							iter->second->getHeight() != src->getHeight()) // bump not cached yet or has changed resolution
 			{ //make sure an entry exists for this image
-				entries_list[src_vi->getID()] = LLViewerTextureManager::getLocalTexture(TRUE);
+				entries_list[src_vi->getID()] = LLViewerTextureManager::getLocalTexture(true);
 				iter = entries_list.find(src_vi->getID());
 			}
 		}
@@ -1222,7 +1222,7 @@ void LLBumpImageList::onSourceLoaded( bool success, LLViewerTexture *src_vi, LLI
                         LLGLDepthTest depth(GL_FALSE);
                         LLGLDisable cull(GL_CULL_FACE);
                         LLGLDisable blend(GL_BLEND);
-                        gGL.setColorMask(TRUE, TRUE);
+                        gGL.setColorMask(true, true);
 
                         gNormalMapGenProgram.bind();
 

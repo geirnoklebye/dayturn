@@ -248,7 +248,7 @@
 //    LLView * button = findChild<LLButton>("plus_btn", TRUE);
 //    LLFloater* root_floater = gFloaterView->getParentFloater(this);
 //    LLFloaterAvatarPicker * picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterAvatarRenderSettings::callbackAvatarPicked, this, _1, visual_setting),
-//                                                                    FALSE, TRUE, FALSE, root_floater->getName(), button);
+//                                                                    false, true, false, root_floater->getName(), button);
 //
 //    if (root_floater)
 //    {

@@ -278,7 +278,7 @@ private:
 /**
  * This class was introduced just for fixing the following issue:
  * EXT-836 Nav bar: Favorites overflow menu passes left-mouse click through.
- * We must explicitly handle drag and drop event by returning TRUE
+ * We must explicitly handle drag and drop event by returning true
  * because otherwise LLToolDragAndDrop will initiate drag and drop operation
  * with the world.
  */

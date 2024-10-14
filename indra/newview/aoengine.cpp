@@ -230,7 +230,7 @@ bool AOEngine::foreignAnimations()
 				// get the source's root prim
 				LLViewerObject* sourceRoot=dynamic_cast<LLViewerObject*>(source->getRoot());
 
-				// if the root prim is the same as the animation source, report back as TRUE
+				// if the root prim is the same as the animation source, report back as true
 				if (sourceRoot && sourceRoot->getID() == seat)
 				{
 					LL_DEBUGS("AOEngine") << "foreign animation " << sourceIterator->second << " found on seat." << LL_ENDL;
@@ -313,7 +313,7 @@ void AOEngine::checkBelowWater(bool yes)
 	mUnderWater = yes;
 
 	// find animation id to start when transitioning
-	id = override(mLastMotion, TRUE);
+	id = override(mLastMotion, true);
 	if (id.isNull())
 	{
 		// no animation in overrider for this state, use Linden Lab motion
@@ -384,7 +384,7 @@ void AOEngine::enable(bool yes)
 				gAgent.sendAnimationRequest(mLastOverriddenMotion, ANIM_REQUEST_STOP);
 			}
 
-			LLUUID animation = override(mLastMotion, TRUE);
+			LLUUID animation = override(mLastMotion, true);
 			if (animation.isNull())
 			{
 				return;
@@ -1580,7 +1580,7 @@ void AOEngine::selectSet(AOSet* set)
 	if (mEnabled)
 	{
 		LL_DEBUGS("AOEngine") << "enabling with motion " << gAnimLibrary.animationName(mLastMotion) << LL_ENDL;
-		gAgent.sendAnimationRequest(override(mLastMotion, TRUE), ANIM_REQUEST_START);
+		gAgent.sendAnimationRequest(override(mLastMotion, true), ANIM_REQUEST_START);
 	}
 }
 
@@ -1758,7 +1758,7 @@ void AOEngine::inMouselook(bool yes)
 	else
 	{
 		stopAllStandVariants();
-		gAgent.sendAnimationRequest(override(ANIM_AGENT_STAND, TRUE), ANIM_REQUEST_START);
+		gAgent.sendAnimationRequest(override(ANIM_AGENT_STAND, true), ANIM_REQUEST_START);
 	}
 }
 

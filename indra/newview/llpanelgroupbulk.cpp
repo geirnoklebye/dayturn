@@ -93,7 +93,7 @@ void LLPanelGroupBulkImpl::callbackClickAdd(void* userdata)
 		LLView* button = panelp->findChild<LLButton>("add_button");
 		LLFloater* root_floater = gFloaterView->getParentFloater(panelp);
 		LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(
-			boost::bind(callbackAddUsers, _1, panelp->mImplementation), TRUE, FALSE, FALSE, root_floater->getName(), button);
+			boost::bind(callbackAddUsers, _1, panelp->mImplementation), true, false, false, root_floater->getName(), button);
 		if(picker)
 		{
 			root_floater->addDependentFloater(picker);

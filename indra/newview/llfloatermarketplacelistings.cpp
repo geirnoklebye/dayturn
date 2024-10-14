@@ -212,11 +212,11 @@ void LLPanelMarketplaceListings::onTabChange()
         panel->setFilterSubString(mFilterSubString);
         
         // Show/hide the drop zone and resize the inventory tabs panel accordingly
-        LLPanel* drop_zone = (LLPanel*)getChild<LLPanel>("marketplace_drop_zone");
+        LLPanel* drop_zone = getChild<LLPanel>("marketplace_drop_zone");
         bool drop_zone_visible = drop_zone->getVisible();
         if (drop_zone_visible != panel->getAllowDropOnRoot())
         {
-            LLPanel* tabs = (LLPanel*)getChild<LLPanel>("tab_container_panel");
+            LLPanel* tabs = getChild<LLPanel>("tab_container_panel");
             S32 delta_height = drop_zone->getRect().getHeight();
             delta_height = (drop_zone_visible ? delta_height : -delta_height);
             tabs->reshape(tabs->getRect().getWidth(),tabs->getRect().getHeight() + delta_height);
@@ -722,7 +722,7 @@ LLFloaterAssociateListing::~LLFloaterAssociateListing()
 
 bool LLFloaterAssociateListing::postBuild()
 {
-	getChild<LLButton>("OK")->setCommitCallback(boost::bind(&LLFloaterAssociateListing::apply, this, TRUE));
+	getChild<LLButton>("OK")->setCommitCallback(boost::bind(&LLFloaterAssociateListing::apply, this, true));
 	getChild<LLButton>("Cancel")->setCommitCallback(boost::bind(&LLFloaterAssociateListing::cancel, this));
 	getChild<LLLineEditor>("listing_id")->setPrevalidate(&LLTextValidate::validateNonNegativeS32);
 	center();
@@ -762,11 +762,11 @@ void LLFloaterAssociateListing::callback_apply(const LLSD& notification, const L
     S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
     if (option == 0) // YES
     {
-        apply(FALSE);
+        apply(false);
     }
 }
 
-void LLFloaterAssociateListing::apply(BOOL user_confirm)
+void LLFloaterAssociateListing::apply(bool user_confirm)
 {
 	if (mUUID.notNull())
 	{

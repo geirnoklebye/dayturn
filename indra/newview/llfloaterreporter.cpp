@@ -369,7 +369,7 @@ void LLFloaterReporter::onClickSelectAbuser()
     LLView * button = findChild<LLButton>("select_abuser", TRUE);
 
     LLFloater * root_floater = gFloaterView->getParentFloater(this);
-	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterReporter::callbackAvatarID, this, _1, _2), FALSE, TRUE, FALSE, root_floater->getName(), button);
+	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterReporter::callbackAvatarID, this, _1, _2), false, true, false, root_floater->getName(), button);
 	if (picker)
 	{
 		root_floater->addDependentFloater(picker);

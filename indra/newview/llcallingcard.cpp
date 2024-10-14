@@ -835,7 +835,7 @@ static void on_avatar_name_cache_notify(const LLUUID& agent_id,
 		LLChat chat;
 		chat.mText = online ? LLTrans::getString("OnlineStatusPhrase") : LLTrans::getString("OfflineStatusPhrase");
 	  chat.mSourceType = CHAT_SOURCE_SYSTEM;
-	  chat.mFromName = av_name.getCompleteName(TRUE, FALSE);
+	  chat.mFromName = av_name.getCompleteName(true, false);
 	  chat.mFromID = agent_id;
 	  chat.mChatType = CHAT_TYPE_RADAR;
 		LLFloaterIMNearbyChat* nearby_chat = LLFloaterReg::findTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");

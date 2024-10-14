@@ -81,7 +81,7 @@ public:
 	/**
 	 * Selects item with "obj_id" in one of accordion tabs.
 	 */
-	void setItemSelected(const LLUUID& obj_id, BOOL take_keyboard_focus);
+	void setItemSelected(const LLUUID& obj_id, bool take_keyboard_focus);
 
 	void updateMenuVisibility(LLUICtrl* menu);
 

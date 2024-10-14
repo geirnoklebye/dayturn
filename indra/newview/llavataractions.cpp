@@ -1062,7 +1062,7 @@ void LLAvatarActions::shareWithAvatars(LLView * panel)
 	LLFloater* root_floater = gFloaterView->getParentFloater(panel);
 	LLInventoryPanel* inv_panel = dynamic_cast<LLInventoryPanel*>(panel);
 	LLFloaterAvatarPicker* picker =
-		LLFloaterAvatarPicker::show(boost::bind(give_inventory, _1, _2, inv_panel), TRUE, FALSE, FALSE, root_floater->getName());
+		LLFloaterAvatarPicker::show(boost::bind(give_inventory, _1, _2, inv_panel), true, false, false, root_floater->getName());
 	if (!picker)
 	{
 		return;

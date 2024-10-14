@@ -2013,7 +2013,7 @@ bool LLPanelLandOptions::postBuild()
 	if (mSnapshotCtrl)
 	{
 		mSnapshotCtrl->setCommitCallback( onCommitAny, this );
-		mSnapshotCtrl->setAllowNoTexture ( TRUE );
+		mSnapshotCtrl->setAllowNoTexture (true);
 		mSnapshotCtrl->setImmediateFilterPermMask(PERM_COPY | PERM_TRANSFER);
 		mSnapshotCtrl->setDnDFilterPermMask(PERM_COPY | PERM_TRANSFER);
 		mSnapshotCtrl->setNonImmediateFilterPermMask(PERM_COPY | PERM_TRANSFER);
@@ -2562,7 +2562,7 @@ void LLPanelLandAccess::refresh()
 					}
 					prefix.append(" " + parent_floater->getString("Remaining") + ") ");
 				}
-				mListAccess->addNameItem(entry.mID, ADD_DEFAULT, TRUE, "", prefix);
+				mListAccess->addNameItem(entry.mID, ADD_DEFAULT, true, "", prefix);
 			}
 			mListAccess->sortByName(true);
 		}
@@ -2923,7 +2923,7 @@ void LLPanelLandAccess::onClickAddAccess()
     LLView * button = findChild<LLButton>("add_allowed");
     LLFloater * root_floater = gFloaterView->getParentFloater(this);
 	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(
-		boost::bind(&LLPanelLandAccess::callbackAvatarCBAccess, this, _1), FALSE, FALSE, FALSE, root_floater->getName(), button);
+		boost::bind(&LLPanelLandAccess::callbackAvatarCBAccess, this, _1), false, false, false, root_floater->getName(), button);
 	if (picker)
 	{
 		root_floater->addDependentFloater(picker);
@@ -2980,7 +2980,7 @@ void LLPanelLandAccess::onClickAddBanned()
     LLView * button = findChild<LLButton>("add_banned");
     LLFloater * root_floater = gFloaterView->getParentFloater(this);
 	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(
-		boost::bind(&LLPanelLandAccess::callbackAvatarCBBanned, this, _1), TRUE, FALSE, FALSE, root_floater->getName(), button);
+		boost::bind(&LLPanelLandAccess::callbackAvatarCBBanned, this, _1), true, false, false, root_floater->getName(), button);
 	if (picker)
 	{
 		root_floater->addDependentFloater(picker);

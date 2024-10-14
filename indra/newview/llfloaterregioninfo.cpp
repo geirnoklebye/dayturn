@@ -3591,7 +3591,7 @@ void LLPanelEstateAccess::requestEstateGetAccessCoro(std::string url)
 			LLUUID id = (*it)["id"].asUUID(); 
 			allowed_agent_name_list->addNameItem(id);
 		}
-		allowed_agent_name_list->sortByName(TRUE);
+		allowed_agent_name_list->sortByName(true);
 	}
 
 	LLNameListCtrl* banned_agent_name_list = panel->getChild<LLNameListCtrl>("banned_avatar_name_list");
@@ -3653,7 +3653,7 @@ void LLPanelEstateAccess::requestEstateGetAccessCoro(std::string url)
 			LLUUID id = (*it)["id"].asUUID();
 			allowed_group_name_list->addGroupNameItem(id);
 		}
-		allowed_group_name_list->sortByName(TRUE);
+		allowed_group_name_list->sortByName(true);
 	}
 
 	LLNameListCtrl* estate_manager_name_list = panel->getChild<LLNameListCtrl>("estate_manager_name_list");
@@ -3672,7 +3672,7 @@ void LLPanelEstateAccess::requestEstateGetAccessCoro(std::string url)
 			LLUUID id = (*it)["agent_id"].asUUID();
 			estate_manager_name_list->addNameItem(id);
 		}
-		estate_manager_name_list->sortByName(TRUE);
+		estate_manager_name_list->sortByName(true);
 	}
 
 

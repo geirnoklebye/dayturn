@@ -45,10 +45,10 @@
 #include "llnotificationsutil.h"
 
 FloaterAO::FloaterAO(const LLSD& key)
-:	LLTransientDockableFloater(NULL, true, key), LLEventTimer(10.f),
+:	LLTransientDockableFloater(nullptr, true, key), LLEventTimer(10.f),
 	mSetList(0),
-	mSelectedSet(0),
-	mSelectedState(0),
+	mSelectedSet(nullptr),
+	mSelectedState(nullptr),
 	mCanDragAndDrop(false),
 	mImportRunning(false),
 	mCurrentBoldItemID(LLUUID::null),
@@ -118,7 +118,7 @@ void FloaterAO::updateAnimationList()
 	{
 		std::string stateName = mSelectedSet->mStateNames[index];
 		AOSet::AOState* state = mSelectedSet->getStateByName(stateName);
-		mStateSelector->add(stateName, state, ADD_BOTTOM, TRUE);
+		mStateSelector->add(stateName, state, ADD_BOTTOM, true);
 	}
 
 	enableStateControls(true);
@@ -190,8 +190,8 @@ void FloaterAO::updateList()
 	for (U32 index = 0; index < mSetList.size(); ++index)
 	{
 		std::string setName = mSetList[index]->getName();
-		mSetSelector->add(setName, &mSetList[index], ADD_BOTTOM, TRUE);
-		mSetSelectorSmall->add(setName, &mSetList[index], ADD_BOTTOM, TRUE);
+		mSetSelector->add(setName, &mSetList[index], ADD_BOTTOM, true);
+		mSetSelectorSmall->add(setName, &mSetList[index], ADD_BOTTOM, true);
 		if (setName.compare(currentSetName) == 0)
 		{
 			mSelectedSet = AOEngine::instance().selectSetByName(currentSetName);
@@ -510,8 +510,8 @@ void FloaterAO::onClickReload()
 {
 	reloading(true);
 
-	mSelectedSet = 0;
-	mSelectedState = 0;
+	mSelectedSet = nullptr;
+	mSelectedState = nullptr;
 
 	AOEngine::instance().reload(false);
 	updateList();
