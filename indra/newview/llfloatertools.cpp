@@ -257,13 +257,13 @@ bool	LLFloaterTools::postBuild()
 	// </FS:PP>
 	
 	mCheckSelectIndividual	= getChild<LLCheckBoxCtrl>("checkbox edit linked parts");	
-	getChild<LLUICtrl>("checkbox edit linked parts")->setValue((BOOL)gSavedSettings.getBOOL("EditLinkedParts"));
+	getChild<LLUICtrl>("checkbox edit linked parts")->setValue(gSavedSettings.getbool("EditLinkedParts"));
 	mCheckSnapToGrid		= getChild<LLCheckBoxCtrl>("checkbox snap to grid");
-	getChild<LLUICtrl>("checkbox snap to grid")->setValue((BOOL)gSavedSettings.getBOOL("SnapEnabled"));
+	getChild<LLUICtrl>("checkbox snap to grid")->setValue(gSavedSettings.getbool("SnapEnabled"));
 	mCheckStretchUniform	= getChild<LLCheckBoxCtrl>("checkbox uniform");
-	getChild<LLUICtrl>("checkbox uniform")->setValue((BOOL)gSavedSettings.getBOOL("ScaleUniform"));
+	getChild<LLUICtrl>("checkbox uniform")->setValue(gSavedSettings.getbool("ScaleUniform"));
 	mCheckStretchTexture	= getChild<LLCheckBoxCtrl>("checkbox stretch textures");
-	getChild<LLUICtrl>("checkbox stretch textures")->setValue((BOOL)gSavedSettings.getBOOL("ScaleStretchTextures"));
+	getChild<LLUICtrl>("checkbox stretch textures")->setValue(gSavedSettings.getbool("ScaleStretchTextures"));
 	mComboGridMode			= getChild<LLComboBox>("combobox grid mode");
 
 	//
@@ -282,9 +282,9 @@ bool	LLFloaterTools::postBuild()
 		}
 	}
 	mCheckCopySelection = getChild<LLCheckBoxCtrl>("checkbox copy selection");
-	getChild<LLUICtrl>("checkbox copy selection")->setValue((BOOL)gSavedSettings.getBOOL("CreateToolCopySelection"));
+	getChild<LLUICtrl>("checkbox copy selection")->setValue(gSavedSettings.getbool("CreateToolCopySelection"));
 	mCheckSticky = getChild<LLCheckBoxCtrl>("checkbox sticky");
-	getChild<LLUICtrl>("checkbox sticky")->setValue((BOOL)gSavedSettings.getBOOL("CreateToolKeepSelected"));
+	getChild<LLUICtrl>("checkbox sticky")->setValue(gSavedSettings.getbool("CreateToolKeepSelected"));
 	mCheckCopyCenters = getChild<LLCheckBoxCtrl>("checkbox copy centers");
 	getChild<LLUICtrl>("checkbox copy centers")->setValue(gSavedSettings.getbool("CreateToolCopyCenters"));
 	mCheckCopyRotates = getChild<LLCheckBoxCtrl>("checkbox copy rotates");
@@ -386,7 +386,7 @@ LLFloaterTools::LLFloaterTools(const LLSD& key)
 	mLandImpactsObserver(NULL),
 
 	mDirty(true),
-	mHasSelection(TRUE)
+	mHasSelection(true)
 {
 	gFloaterTools = this;
 
@@ -758,7 +758,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	}
 	
 	// Focus buttons
-	BOOL focus_visible = (	tool == LLToolCamera::getInstance() );
+	bool focus_visible = (	tool == LLToolCamera::getInstance() );
 
 	mBtnFocus	->setToggleState( focus_visible );
 
@@ -792,7 +792,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	getChild<LLUICtrl>("slider zoom")->setValue(gAgentCamera.getCameraZoomFraction() * 0.5f);
 
 	// Move buttons
-	BOOL move_visible = (tool == LLToolGrab::getInstance());
+	bool move_visible = (tool == LLToolGrab::getInstance());
 
 	if (mBtnMove) mBtnMove	->setToggleState( move_visible );
 
@@ -817,7 +817,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	}
 
 	// Edit buttons
-	BOOL edit_visible = tool == LLToolCompTranslate::getInstance() ||
+	bool edit_visible = tool == LLToolCompTranslate::getInstance() ||
 						tool == LLToolCompRotate::getInstance() ||
 						tool == LLToolCompScale::getInstance() ||
 						tool == LLToolFace::getInstance() ||
@@ -827,7 +827,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 
 	mBtnEdit	->setToggleState( edit_visible );
 	mRadioGroupEdit->setVisible( edit_visible );
-	//bool linked_parts = gSavedSettings.getBOOL("EditLinkedParts");
+	//bool linked_parts = gSavedSettings.getbool("EditLinkedParts");
 	static LLCachedControl<bool> linked_parts(gSavedSettings,  "EditLinkedParts");	
 	//getChildView("RenderingCost")->setVisible( !linked_parts && (edit_visible || focus_visible || move_visible) && sShowObjectCost);
 
@@ -911,7 +911,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	if (mCheckStretchUniformLabel) mCheckStretchUniformLabel->setVisible( edit_visible );
 
 	// Create buttons
-	BOOL create_visible = (tool == LLToolCompCreate::getInstance());
+	bool create_visible = (tool == LLToolCompCreate::getInstance());
 
 	mBtnCreate	->setToggleState(	tool == LLToolCompCreate::getInstance() );
 
@@ -932,7 +932,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 		{
 			LLPCode pcode = LLToolPlacer::getObjectType();
 			LLPCode button_pcode = toolData[t];
-			BOOL state = (pcode == button_pcode);
+			bool state = (pcode == button_pcode);
 			mButtons[t]->setToggleState( state );
 			mButtons[t]->setVisible( create_visible );
 		}
@@ -1043,7 +1043,7 @@ void LLFloaterTools::onOpen(const LLSD& key)
 		// so it won't be getting any layout or visibility updates, update once
 		// further updates will come from updateLayout()
 		LLCoordGL select_center_screen;
-		MASK	mask = gKeyboard->currentMask(TRUE);
+		MASK	mask = gKeyboard->currentMask(true);
 		updatePopup(select_center_screen, mask);
 	}
 	
@@ -1172,7 +1172,7 @@ void click_apply_to_selection(void*)
 
 void commit_radio_group_edit(LLUICtrl *ctrl)
 {
-	S32 show_owners = gSavedSettings.getBOOL("ShowParcelOwners");
+	bool show_owners = gSavedSettings.getbool("ShowParcelOwners");
 
 	LLRadioGroup* group = (LLRadioGroup*)ctrl;
 	std::string selected = group->getValue().asString();
@@ -1197,7 +1197,7 @@ void commit_radio_group_edit(LLUICtrl *ctrl)
 		LLFloaterTools::setEditTool( QToolAlign::getInstance() );
 	}
 
-	gSavedSettings.setBOOL("ShowParcelOwners", show_owners);
+	gSavedSettings.setbool("ShowParcelOwners", show_owners);
 }
 
 void commit_radio_group_land(LLUICtrl* ctrl)
@@ -1238,8 +1238,8 @@ void commit_select_component(void *data)
 		gFocusMgr.setKeyboardFocus(NULL);
 	}
 
-	BOOL select_individuals = floaterp->mCheckSelectIndividual->get();
-	gSavedSettings.setBOOL("EditLinkedParts", select_individuals);
+	bool select_individuals = floaterp->mCheckSelectIndividual->get();
+	gSavedSettings.setbool("EditLinkedParts", select_individuals);
 	floaterp->dirty();
 
 	if (select_individuals)
@@ -1256,7 +1256,7 @@ void commit_select_component(void *data)
 void LLFloaterTools::setObjectType( LLPCode pcode )
 {
 	LLToolPlacer::setObjectType( pcode );
-	gSavedSettings.setBOOL("CreateToolCopySelection", FALSE);
+	gSavedSettings.setbool("CreateToolCopySelection", false);
 	gFocusMgr.setMouseCapture(NULL);
 }
 

@@ -134,7 +134,7 @@ public:
 	virtual ~LLFloaterUIPreview();
 
 	std::string getLocStr(S32 ID);							// fetches the localization string based on what is selected in the drop-down menu
-	void displayFloater(BOOL click, S32 ID);			// needs to be public so live file can call it when it finds an update
+	void displayFloater(bool click, S32 ID);			// needs to be public so live file can call it when it finds an update
 
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void onClose(bool app_quitting);
@@ -142,7 +142,7 @@ public:
 	void refreshList();										// refresh list (empty it out and fill it up from scratch)
 	void addFloaterEntry(const std::string& path);			// add a single file's entry to the list of floaters
 	
-	static BOOL containerType(LLView* viewp);				// check if the element is a container type and tree traverses need to look at its children
+	static bool containerType(LLView* viewp);				// check if the element is a container type and tree traverses need to look at its children
 	
 public:	
 	LLPreviewedFloater*			mDisplayedFloater;			// the floater which is currently being displayed
@@ -150,7 +150,7 @@ public:
 	LLGUIPreviewLiveFile*		mLiveFile;					// live file for checking for updates to the currently-displayed XML file
 	LLOverlapPanel*				mOverlapPanel;				// custom overlapping elements panel
 	// BOOL						mHighlightingDiffs;			// bool for whether localization diffs are being highlighted or not
-	BOOL						mHighlightingOverlaps;		// bool for whether overlapping elements are being highlighted
+	bool						mHighlightingOverlaps;		// bool for whether overlapping elements are being highlighted
 
 	// typedef std::map<std::string,std::pair<std::list<std::string>,std::list<std::string> > > DiffMap; // this version copies the lists etc., and thus is bad memory-wise
 	typedef std::list<std::string> StringList;
@@ -191,11 +191,11 @@ private:
 	void highlightChangedElements();								// look up the list of elements to highlight and highlight them in the current floater
 	void highlightChangedFiles();									// look up the list of changed files to highlight and highlight them in the scroll list
 	void findOverlapsInChildren(LLView* parent);					// fill the map below with element overlap information
-	static BOOL overlapIgnorable(LLView* viewp);					// check it the element can be ignored for overlap/localization purposes
+	static bool overlapIgnorable(LLView* viewp);					// check it the element can be ignored for overlap/localization purposes
 
 	// check if two elements overlap using their rectangles
 	// used instead of llrect functions because by adding a few pixels of leeway I can cut down drastically on the number of overlaps
-	BOOL elementOverlap(LLView* view1, LLView* view2);
+	bool elementOverlap(LLView* view1, LLView* view2);
 
 	// Button/drop-down action listeners (self explanatory)
 	void onClickDisplayFloater(S32 id);
@@ -239,7 +239,7 @@ public:
 	virtual ~LLGUIPreviewLiveFile();
 	LLFloaterUIPreview* mParent;
 	LLFadeEventTimer* mFadeTimer;	// timer for fade-to-yellow-and-back effect to warn that file has been reloaded
-	BOOL mFirstFade;				// setting this avoids showing the fade reload warning on first load
+	bool mFirstFade;				// setting this avoids showing the fade reload warning on first load
 	std::string mFileName;
 protected:
 	bool loadFile();
@@ -253,7 +253,7 @@ public:
 	bool tick();
 	LLGUIPreviewLiveFile* mParent;
 private:
-	BOOL mFadingOut;			// fades in then out; this is toggled in between
+	bool mFadingOut;			// fades in then out; this is toggled in between
 	LLColor4 mOriginalColor;	// original color; color is reset to this after fade is coimplete
 };
 
@@ -271,7 +271,7 @@ public:
 	virtual void draw();
 	bool handleRightMouseDown(S32 x, S32 y, MASK mask);
 	bool handleToolTip(S32 x, S32 y, MASK mask);
-	BOOL selectElement(LLView* parent, int x, int y, int depth);	// select element to display its overlappers
+	bool selectElement(LLView* parent, int x, int y, int depth);	// select element to display its overlappers
 
 	LLFloaterUIPreview* mFloaterUIPreview;
 
@@ -307,7 +307,7 @@ LLLocalizationResetForcer::~LLLocalizationResetForcer()
 LLGUIPreviewLiveFile::LLGUIPreviewLiveFile(std::string path, std::string name, LLFloaterUIPreview* parent)
         : mFileName(name),
 		mParent(parent),
-		mFirstFade(TRUE),
+		mFirstFade(true),
 		mFadeTimer(nullptr),
 		LLLiveFile(path, 1.0)
 {}
@@ -325,10 +325,10 @@ LLGUIPreviewLiveFile::~LLGUIPreviewLiveFile()
 // Live file load
 bool LLGUIPreviewLiveFile::loadFile()
 {
-	mParent->displayFloater(FALSE,1);	// redisplay the floater
-	if(mFirstFade)	// only fade if it wasn't just clicked on; can't use "clicked" BOOL below because of an oddity with setting LLLiveFile initial state
+	mParent->displayFloater(false,1);	// redisplay the floater
+	if(mFirstFade)	// only fade if it wasn't just clicked on; can't use "clicked" bool below because of an oddity with setting LLLiveFile initial state
 	{
-		mFirstFade = FALSE;
+		mFirstFade = false;
 	}
 	else
 	{
@@ -344,7 +344,7 @@ bool LLGUIPreviewLiveFile::loadFile()
 // Initialize fade event timer
 LLFadeEventTimer::LLFadeEventTimer(F32 refresh, LLGUIPreviewLiveFile* parent)
 	: mParent(parent),
-	mFadingOut(TRUE),
+	mFadingOut(true),
 	LLEventTimer(refresh)
 {
 	mOriginalColor = mParent->mParent->mDisplayedFloater->getBackgroundColor();
@@ -354,7 +354,7 @@ LLFadeEventTimer::LLFadeEventTimer(F32 refresh, LLGUIPreviewLiveFile* parent)
 bool LLFadeEventTimer::tick()
 {
 	float diff = 0.04f;
-	if(TRUE == mFadingOut)	// set fade for in/out color direction
+	if(mFadingOut)	// set fade for in/out color direction
 	{
 		diff = -diff;
 	}
@@ -381,7 +381,7 @@ bool LLFadeEventTimer::tick()
 
 	if(bg_color[2] <= 0.0f)	// end of fade out, start fading in
 	{
-		mFadingOut = FALSE;
+		mFadingOut = false;
 	}
 
 	return false;
@@ -394,7 +394,7 @@ LLFloaterUIPreview::LLFloaterUIPreview(const LLSD& key)
 	mDisplayedFloater_2(nullptr),
 	mLiveFile(nullptr),
 	// sHighlightingDiffs(FALSE),
-	mHighlightingOverlaps(FALSE),
+	mHighlightingOverlaps(false),
 	mLastDisplayedX(0),
 	mLastDisplayedY(0)
 {
@@ -537,7 +537,7 @@ void LLFloaterUIPreview::onLanguageComboSelect(LLUICtrl* ctrl)
 		if(mDisplayedFloater)
 		{
 			onClickCloseDisplayedFloater(PRIMARY_FLOATER);
-			displayFloater(TRUE,1);
+			displayFloater(true,1);
 		}
 	}
 	else
@@ -545,7 +545,7 @@ void LLFloaterUIPreview::onLanguageComboSelect(LLUICtrl* ctrl)
 		if(mDisplayedFloater_2)
 		{
 			onClickCloseDisplayedFloater(PRIMARY_FLOATER);
-			displayFloater(TRUE,2);	// *TODO: make take an arg
+			displayFloater(true,2);	// *TODO: make take an arg
 		}
 	}
 
@@ -637,7 +637,7 @@ void LLFloaterUIPreview::refreshList()
 	// Note: the mask doesn't seem to accept regular expressions, so there need to be two directory searches here
 	mFileList->clearRows();		// empty list
 	std::string name;
-	BOOL found = TRUE;
+	bool found = true;
 
 	LLDirIterator floater_iter(getLocalizedDirectory(), "floater_*.xml");
 	while(found)				// for every floater file that matches the pattern
@@ -647,7 +647,7 @@ void LLFloaterUIPreview::refreshList()
 			addFloaterEntry(name.c_str());	// and add it to the list (file name only; localization code takes care of rest of path)
 		}
 	}
-	found = TRUE;
+	found = true;
 
 	LLDirIterator inspect_iter(getLocalizedDirectory(), "inspect_*.xml");
 	while(found)				// for every inspector file that matches the pattern
@@ -657,7 +657,7 @@ void LLFloaterUIPreview::refreshList()
 			addFloaterEntry(name.c_str());	// and add it to the list (file name only; localization code takes care of rest of path)
 		}
 	}
-	found = TRUE;
+	found = true;
 
 	LLDirIterator menu_iter(getLocalizedDirectory(), "menu_*.xml");
 	while(found)				// for every menu file that matches the pattern
@@ -667,7 +667,7 @@ void LLFloaterUIPreview::refreshList()
 			addFloaterEntry(name.c_str());	// and add it to the list (file name only; localization code takes care of rest of path)
 		}
 	}
-	found = TRUE;
+	found = true;
 
 	LLDirIterator panel_iter(getLocalizedDirectory(), "panel_*.xml");
 	while(found)				// for every panel file that matches the pattern
@@ -677,7 +677,7 @@ void LLFloaterUIPreview::refreshList()
 			addFloaterEntry(name.c_str());	// and add it to the list (file name only; localization code takes care of rest of path)
 		}
 	}
-	found = TRUE;
+	found = true;
 
 	LLDirIterator sidepanel_iter(getLocalizedDirectory(), "sidepanel_*.xml");
 	while(found)				// for every sidepanel file that matches the pattern
@@ -767,13 +767,13 @@ void LLFloaterUIPreview::addFloaterEntry(const std::string& path)
 // Respond to button click to display/refresh currently-selected floater
 void LLFloaterUIPreview::onClickDisplayFloater(S32 caller_id)
 {
-	displayFloater(TRUE, caller_id);
+	displayFloater(true, caller_id);
 }
 
 // Saves the current floater/panel
 void LLFloaterUIPreview::onClickSaveFloater(S32 caller_id)
 {
-	displayFloater(TRUE, caller_id);
+	displayFloater(true, caller_id);
 	popupAndPrintWarning("Save-floater functionality removed, use XML schema to clean up XUI files");
 }
 
@@ -785,7 +785,7 @@ void LLFloaterUIPreview::onClickSaveAll(S32 caller_id)
 	for (int index = 0; index < listSize; index++)
 	{
 		mFileList->selectNthItem(index);
-		displayFloater(TRUE, caller_id);
+		displayFloater(true, caller_id);
 	}
 	popupAndPrintWarning("Save-floater functionality removed, use XML schema to clean up XUI files");
 }
@@ -793,7 +793,7 @@ void LLFloaterUIPreview::onClickSaveAll(S32 caller_id)
 // Actually display the floater
 // Only set up a new live file if this came from a click (at which point there should be no existing live file), rather than from the live file's update itself;
 // otherwise, we get an infinite loop as the live file keeps recreating itself.  That means this function is generally called twice.
-void LLFloaterUIPreview::displayFloater(BOOL click, S32 ID)
+void LLFloaterUIPreview::displayFloater(bool click, S32 ID)
 {
 	// Convince UI that we're in a different language (the one selected on the drop-down menu)
 	LLLocalizationResetForcer reset_forcer(this, ID);						// save old language in reset forcer object (to be reset upon destruction when it falls out of scope)
@@ -801,7 +801,7 @@ void LLFloaterUIPreview::displayFloater(BOOL click, S32 ID)
 	LLPreviewedFloater** floaterp = (ID == 1 ? &(mDisplayedFloater) : &(mDisplayedFloater_2));
 	if(ID == 1)
 	{
-		BOOL floater_already_open = mDisplayedFloater != nullptr;
+		bool floater_already_open = mDisplayedFloater != nullptr;
 		if(floater_already_open)											// if we are already displaying a floater
 		{
 			mLastDisplayedX = mDisplayedFloater->calcScreenRect().mLeft;	// save floater's last known position to put the new one there
@@ -1254,17 +1254,17 @@ void LLFloaterUIPreview::highlightChangedElements()
 		boost::char_separator<char> sep(".");
 		tokenizer tokens(*iter, sep);
 		tokenizer::iterator token_iter;
-		BOOL failed = FALSE;
+		bool failed = false;
 		for(token_iter = tokens.begin(); token_iter != tokens.end(); ++token_iter)
 		{
-			element = element->findChild<LLView>(*token_iter,FALSE);	// try to find element: don't recur, and don't create if missing
+			element = element->findChild<LLView>(*token_iter,false);	// try to find element: don't recur, and don't create if missing
 
 			// if we still didn't find it...
 			if(NULL == element)												
 			{
 				LL_INFOS() << "Unable to find element in XuiDelta file named \"" << *iter << "\" in file \"" << mLiveFile->mFileName <<
 							"\". The element may no longer exist, the path may be incorrect, or it may not be a non-displayable element (not an LLView) such as a \"string\" type." << LL_ENDL;
-				failed = TRUE;
+				failed = true;
 				break;
 			}
 		}
@@ -1297,10 +1297,10 @@ void LLFloaterUIPreview::highlightChangedFiles()
 {
 	for(DiffMap::iterator iter = mDiffsMap.begin(); iter != mDiffsMap.end(); ++iter)	// for every file listed in diffs
 	{
-		LLScrollListItem* item = mFileList->getItemByLabel(std::string(iter->first), FALSE, 1);
+		LLScrollListItem* item = mFileList->getItemByLabel(std::string(iter->first), false, 1);
 		if(item)
 		{
-			item->setHighlighted(TRUE);
+			item->setHighlighted(true);
 		}
 	}
 }
@@ -1427,11 +1427,11 @@ bool LLPreviewedFloater::handleRightMouseDown(S32 x, S32 y, MASK mask)
 // -Subsequent clicks on other elements in the overlap panel (they should still be there) should make other elements the final selection.
 // -On close or on the click of a new button, everything should be shown again and all selection state should be cleared.
 //   ~Jacob, 8/08
-BOOL LLPreviewedFloater::selectElement(LLView* parent, int x, int y, int depth)
+bool LLPreviewedFloater::selectElement(LLView* parent, int x, int y, int depth)
 {
 	if(getVisible())
 	{
-		BOOL handled = FALSE;
+		bool handled = false;
 		if(LLFloaterUIPreview::containerType(parent))
 		{
 			for(child_list_const_iter_t child_it = parent->getChildList()->begin(); child_it != parent->getChildList()->end(); ++child_it)
@@ -1443,7 +1443,7 @@ BOOL LLPreviewedFloater::selectElement(LLView* parent, int x, int y, int depth)
 					child->getVisible() &&
 					selectElement(child, x, y, ++depth))
 				{
-					handled = TRUE;
+					handled = true;
 					break;
 				}
 			}
@@ -1453,11 +1453,11 @@ BOOL LLPreviewedFloater::selectElement(LLView* parent, int x, int y, int depth)
 		{
 			LLView::sPreviewClickedElement = parent;
 		}
-		return TRUE;
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
@@ -1468,7 +1468,7 @@ void LLPreviewedFloater::draw()
 		// Set and unset sDrawPreviewHighlights flag so as to avoid using two flags
 		if(mFloaterUIPreview->mHighlightingOverlaps)
 		{
-			LLView::sDrawPreviewHighlights = TRUE;
+			LLView::sDrawPreviewHighlights = true;
 		}
 
 		// If we're looking for truncations, draw debug rects for the displayed
@@ -1488,7 +1488,7 @@ void LLPreviewedFloater::draw()
 
 		if(mFloaterUIPreview->mHighlightingOverlaps)
 		{
-			LLView::sDrawPreviewHighlights = FALSE;
+			LLView::sDrawPreviewHighlights = false;
 		}
 	}
 }
@@ -1514,7 +1514,7 @@ void LLFloaterUIPreview::onClickToggleOverlapping()
 	else
 	{
 		mHighlightingOverlaps = !mHighlightingOverlaps;
-		displayFloater(FALSE,1);
+		displayFloater(false,1);
 		setRect(LLRect(getRect().mLeft,getRect().mTop,getRect().mRight + mOverlapPanel->getRect().getWidth(),getRect().mBottom));
 		setResizeLimits(width + mOverlapPanel->getRect().getWidth(), height);
 	}
@@ -1559,7 +1559,7 @@ void LLFloaterUIPreview::findOverlapsInChildren(LLView* parent)
 // *HACK: don't overlap with the drag handle and various other elements
 // This is using dynamic casts because there is no object-oriented way to tell which elements contain localizable text.  These are a few that are ignorable.
 // *NOTE: If a list of elements which have localizable content were created, this function should return false if viewp's class is in that list.
-BOOL LLFloaterUIPreview::overlapIgnorable(LLView* viewp)
+bool LLFloaterUIPreview::overlapIgnorable(LLView* viewp)
 {
 	return	nullptr != dynamic_cast<LLDragHandle*>(viewp) ||
 			nullptr != dynamic_cast<LLViewBorder*>(viewp) ||
@@ -1568,13 +1568,13 @@ BOOL LLFloaterUIPreview::overlapIgnorable(LLView* viewp)
 
 // *HACK: these are the only two container types as of 8/08, per Richard
 // This is using dynamic casts because there is no object-oriented way to tell which elements are containers.
-BOOL LLFloaterUIPreview::containerType(LLView* viewp)
+bool LLFloaterUIPreview::containerType(LLView* viewp)
 {
 	return nullptr != dynamic_cast<LLPanel*>(viewp) || nullptr != dynamic_cast<LLLayoutStack*>(viewp);
 }
 
 // Check if two llview's rectangles overlap, with some tolerance
-BOOL LLFloaterUIPreview::elementOverlap(LLView* view1, LLView* view2)
+bool LLFloaterUIPreview::elementOverlap(LLView* view1, LLView* view2)
 {
 	LLSD rec1 = view1->getRect().getValue();
 	LLSD rec2 = view2->getRect().getValue();
@@ -1595,7 +1595,7 @@ void LLOverlapPanel::draw()
 	if(!LLView::sPreviewClickedElement)
 	{
 		LLUI::translate(5,getRect().getHeight()-20);	// translate to top-5,left-5
-		LLView::sDrawPreviewHighlights = FALSE;
+		LLView::sDrawPreviewHighlights = false;
 		LLFontGL::getFontSansSerifSmall()->renderUTF8(current_selection_text, 0, 0, 0, text_color,
 				LLFontGL::LEFT, LLFontGL::BASELINE, LLFontGL::NORMAL, LLFontGL::NO_SHADOW, S32_MAX, S32_MAX, NULL, false);
 	}
@@ -1611,7 +1611,7 @@ void LLOverlapPanel::draw()
 		if(overlappers.size() == 0)
 		{
 			LLUI::translate(5,getRect().getHeight()-20);	// translate to top-5,left-5
-			LLView::sDrawPreviewHighlights = FALSE;
+			LLView::sDrawPreviewHighlights = false;
 			std::string current_selection = std::string(current_selection_text + LLView::sPreviewClickedElement->getName() + " (no elements overlap)");
 			S32 text_width = LLFontGL::getFontSansSerifSmall()->getWidth(current_selection) + 10;
 			LLFontGL::getFontSansSerifSmall()->renderUTF8(current_selection, 0, 0, 0, text_color,
@@ -1623,10 +1623,10 @@ void LLOverlapPanel::draw()
 		}
 
 		// recalculate required with and height; otherwise use cached
-		BOOL need_to_recalculate_bounds = FALSE;
+		bool need_to_recalculate_bounds = false;
 		if(mLastClickedElement == nullptr)
 		{
-			need_to_recalculate_bounds = TRUE;
+			need_to_recalculate_bounds = true;
 		}
 
 		if(nullptr == mLastClickedElement)
@@ -1676,7 +1676,7 @@ void LLOverlapPanel::draw()
 		}
 
 		LLUI::translate(5,getRect().getHeight()-10);	// translate to top left
-		LLView::sDrawPreviewHighlights = FALSE;
+		LLView::sDrawPreviewHighlights = false;
 
 		// draw currently-selected element at top of overlappers
 		LLUI::translate(0,-mSpacing);

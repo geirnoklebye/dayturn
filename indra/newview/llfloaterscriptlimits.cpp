@@ -156,9 +156,9 @@ LLPanelScriptLimitsRegionMemory::~LLPanelScriptLimitsRegionMemory()
 	}
 };
 
-BOOL LLPanelScriptLimitsRegionMemory::getLandScriptResources()
+bool LLPanelScriptLimitsRegionMemory::getLandScriptResources()
 {
-	if (!gAgent.getRegion()) return FALSE;
+	if (!gAgent.getRegion()) return false;
 
 	LLSD body;
 	std::string url = gAgent.getRegion()->getCapability("LandResources");
@@ -166,11 +166,11 @@ BOOL LLPanelScriptLimitsRegionMemory::getLandScriptResources()
 	{
         LLCoros::instance().launch("LLPanelScriptLimitsRegionMemory::getLandScriptResourcesCoro",
             boost::bind(&LLPanelScriptLimitsRegionMemory::getLandScriptResourcesCoro, this, url));
-		return TRUE;
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
@@ -469,7 +469,7 @@ void LLPanelScriptLimitsRegionMemory::setRegionDetails(LLSD content)
 			// ...and if not use the slightly more painful method of disovery:
 			else
 			{
-				BOOL name_is_cached;
+				bool name_is_cached;
 				if (is_group_owned)
 				{
 					name_is_cached = gCacheName->getGroupName(owner_id, owner_buf);
@@ -668,7 +668,7 @@ bool LLPanelScriptLimitsRegionMemory::postBuild()
 	return StartRequestChain();
 }
 
-BOOL LLPanelScriptLimitsRegionMemory::StartRequestChain()
+bool LLPanelScriptLimitsRegionMemory::StartRequestChain()
 {
 	LLUUID region_id;
 	

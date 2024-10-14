@@ -505,14 +505,14 @@ void LLTabContainer::draw()
 				{
 					if( tuple->mButton->getFlashing() )
 					{
-						mPrevArrowBtn->setFlashing( TRUE );
+						mPrevArrowBtn->setFlashing(true);
 					}
 				}
 				else if( max_scroll_visible < idx )
 				{
 					if( tuple->mButton->getFlashing() )
 					{
-						mNextArrowBtn->setFlashing( TRUE );
+						mNextArrowBtn->setFlashing(true);
 					}
 				}
 			}

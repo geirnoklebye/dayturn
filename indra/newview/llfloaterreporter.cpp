@@ -150,10 +150,10 @@ LLFloaterReporter::LLFloaterReporter(const LLSD& key)
 	mScreenID(),
 	mAbuserID(),
 	mOwnerName(),
-	mDeselectOnClose( FALSE ),
-	mPicking( FALSE), 
+	mDeselectOnClose(false),
+	mPicking(false),
 	mPosition(),
-	mCopyrightWarningSeen( FALSE ),
+	mCopyrightWarningSeen(false),
 	mResourceDatap(new LLResourceData()),
 	mAvatarNameCacheConnection()
 {
@@ -167,7 +167,7 @@ bool LLFloaterReporter::postBuild()
 	LLAgentUI::buildSLURL(slurl);
 	getChild<LLUICtrl>("abuse_location_edit")->setValue(slurl.getSLURLString());
 
-	enableControls(TRUE);
+	enableControls(true);
 
 	// convert the position to a string
 	LLVector3d pos = gAgent.getPositionGlobal();
@@ -269,7 +269,7 @@ void LLFloaterReporter::onIdle(void* user_data)
 	}
 }
 
-void LLFloaterReporter::enableControls(BOOL enable)
+void LLFloaterReporter::enableControls(bool enable)
 {
 	getChildView("category_combo")->setEnabled(enable);
 	getChildView("chat_check")->setEnabled(enable);
@@ -366,7 +366,7 @@ void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
 
 void LLFloaterReporter::onClickSelectAbuser()
 {
-    LLView * button = findChild<LLButton>("select_abuser", TRUE);
+    LLView * button = findChild<LLButton>("select_abuser", true);
 
     LLFloater * root_floater = gFloaterView->getParentFloater(this);
 	LLFloaterAvatarPicker* picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterReporter::callbackAvatarID, this, _1, _2), false, true, false, root_floater->getName(), button);
@@ -505,7 +505,7 @@ void LLFloaterReporter::onClickSend(void *userdata)
 					category_value == IP_PERMISSONS_EXPLOIT)
 				{
 					LLNotificationsUtil::add("HelpReportAbuseContainsCopyright");
-					self->mCopyrightWarningSeen = TRUE;
+					self->mCopyrightWarningSeen = true;
 					return;
 				}
 			}
@@ -544,7 +544,7 @@ void LLFloaterReporter::onClickCancel(void *userdata)
 	LLFloaterReporter *self = (LLFloaterReporter *)userdata;
 
 	// reset flag in case the next report also contains this text
-	self->mCopyrightWarningSeen = FALSE;
+	self->mCopyrightWarningSeen = false;
 
 	if (self->mPicking)
 	{
@@ -560,7 +560,7 @@ void LLFloaterReporter::onClickObjPicker(void *userdata)
 	LLFloaterReporter *self = (LLFloaterReporter *)userdata;
 	LLToolObjPicker::getInstance()->setExitCallback(LLFloaterReporter::closePickTool, self);
 	LLToolMgr::getInstance()->setTransientTool(LLToolObjPicker::getInstance());
-	self->mPicking = TRUE;
+	self->mPicking = true;
 	self->getChild<LLUICtrl>("object_name")->setValue(LLStringUtil::null);
 	self->getChild<LLUICtrl>("owner_name")->setValue(LLStringUtil::null);
 	self->mOwnerName = LLStringUtil::null;
@@ -578,7 +578,7 @@ void LLFloaterReporter::closePickTool(void *userdata)
 	self->getObjectInfo(object_id);
 
 	LLToolMgr::getInstance()->clearTransientTool();
-	self->mPicking = FALSE;
+	self->mPicking = false;
 	LLButton* pick_btn = self->getChild<LLButton>("pick_btn");
 	if (pick_btn) pick_btn->setToggleState(false);
 }
@@ -595,7 +595,7 @@ void LLFloaterReporter::showFromMenu(EReportType report_type)
 	LLFloaterReporter* reporter_floater = LLFloaterReg::findTypedInstance<LLFloaterReporter>("reporter");
 	if(reporter_floater && reporter_floater->isInVisibleChain())
 	{
-		gSavedPerAccountSettings.setBOOL("PreviousScreenshotForReport", FALSE);
+		gSavedPerAccountSettings.setbool("PreviousScreenshotForReport", false);
 	}
 	reporter_floater = LLFloaterReg::showTypedInstance<LLFloaterReporter>("reporter", LLSD());
 	if (reporter_floater)
@@ -610,7 +610,7 @@ void LLFloaterReporter::show(const LLUUID& object_id, const std::string& avatar_
 	LLFloaterReporter* reporter_floater = LLFloaterReg::findTypedInstance<LLFloaterReporter>("reporter");
 	if(reporter_floater && reporter_floater->isInVisibleChain())
 	{
-		gSavedPerAccountSettings.setBOOL("PreviousScreenshotForReport", FALSE);
+		gSavedPerAccountSettings.setbool("PreviousScreenshotForReport", false);
 	}
 	reporter_floater = LLFloaterReg::showTypedInstance<LLFloaterReporter>("reporter");
 	if (avatar_name.empty())
@@ -628,7 +628,7 @@ void LLFloaterReporter::show(const LLUUID& object_id, const std::string& avatar_
 	}
 
 	// Need to deselect on close
-	reporter_floater->mDeselectOnClose = TRUE;
+	reporter_floater->mDeselectOnClose = true;
 }
 
 
@@ -638,13 +638,13 @@ void LLFloaterReporter::showFromExperience( const LLUUID& experience_id )
 	LLFloaterReporter* reporter_floater = LLFloaterReg::findTypedInstance<LLFloaterReporter>("reporter");
 	if(reporter_floater && reporter_floater->isInVisibleChain())
 	{
-		gSavedPerAccountSettings.setBOOL("PreviousScreenshotForReport", FALSE);
+		gSavedPerAccountSettings.setbool("PreviousScreenshotForReport", false);
 	}
 	reporter_floater = LLFloaterReg::showTypedInstance<LLFloaterReporter>("reporter");
 	reporter_floater->getExperienceInfo(experience_id);
 
 	// Need to deselect on close
-	reporter_floater->mDeselectOnClose = TRUE;
+	reporter_floater->mDeselectOnClose = true;
 }
 
 
@@ -723,7 +723,7 @@ LLSD LLFloaterReporter::gatherReport()
 	if (!regionp) return LLSD(); // *TODO handle this failure case more gracefully
 
 	// reset flag in case the next report also contains this text
-	mCopyrightWarningSeen = FALSE;
+	mCopyrightWarningSeen = false;
 
 	std::ostringstream summary;
 	if (!LLGridManager::getInstance()->isInProductionGrid())
@@ -855,7 +855,7 @@ void LLFloaterReporter::sendReportViaCaps(std::string url, std::string sshot_url
 
 void LLFloaterReporter::takeScreenshot(bool use_prev_screenshot)
 {
-	gSavedPerAccountSettings.setBOOL("PreviousScreenshotForReport", TRUE);
+	gSavedPerAccountSettings.setbool("PreviousScreenshotForReport", true);
 	if(!use_prev_screenshot)
 	{
 		std::string screenshot_filename(gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter() + SCREEN_PREV_FILENAME);
@@ -970,7 +970,7 @@ void LLFloaterReporter::uploadImage()
 	gAssetStorage->storeAssetData(mResourceDatap->mAssetInfo.mTransactionID,
 									mResourceDatap->mAssetInfo.mType,
 									LLFloaterReporter::uploadDoneCallback,
-									(void*)mResourceDatap, TRUE);
+									(void*)mResourceDatap, true);
 }
 
 

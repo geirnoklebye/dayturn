@@ -163,8 +163,8 @@ void LLFloaterTranslationSettings::onOpen(const LLSD& key)
     }
     else
     {
-        mDeepLAPIKeyEditor->setTentative(TRUE);
-        mDeepLKeyVerified = FALSE;
+        mDeepLAPIKeyEditor->setTentative(true);
+        mDeepLKeyVerified = false;
     }
 
 	updateControlsEnabledState();

@@ -56,7 +56,7 @@ bool LLFloaterSettingsDebug::postBuild()
     getChild<LLFilterEditor>("filter_input")->setCommitCallback(boost::bind(&LLFloaterSettingsDebug::setSearchFilter, this, _2));
 
     mSettingList = getChild<LLScrollListCtrl>("setting_list");
-    mSettingList->setCommitOnSelectionChange(TRUE);
+    mSettingList->setCommitOnSelectionChange(true);
     mSettingList->setCommitCallback(boost::bind(&LLFloaterSettingsDebug::onSettingSelect, this));
 
     updateList();
@@ -445,7 +445,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlVariable* controlp)
 			// only set if changed so color picker doesn't update
 			if(clr != LLColor4(color_swatch->getValue()))
 			{
-				color_swatch->set(LLColor4(sd), TRUE, FALSE);
+				color_swatch->set(LLColor4(sd), true, false);
 			}
 			spinner4->setVisible(true);
 			spinner4->setLabel(std::string("Alpha"));

@@ -366,7 +366,7 @@ void LLScrollListText::draw(const LLColor4& color, const LLColor4& highlight_col
 					string_chars, 
 					getTextWidth(),
 					&right_x, 
-					TRUE);
+					true);
 }
 
 //
@@ -605,7 +605,7 @@ void LLScrollListIconText::draw(const LLColor4& color, const LLColor4& highlight
         string_chars,
         getTextWidth(),
         &right_x,
-        TRUE);
+        true);
 
     if (mIcon)
     {

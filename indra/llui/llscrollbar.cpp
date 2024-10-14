@@ -435,7 +435,7 @@ bool LLScrollbar::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 	//		: llclamp( S32(ratio * variable_lines + 0.5f), 0, variable_lines );
 	//	changeLine( new_pos - mDocPos, true );
 	//}
-	//return TRUE;
+	//return true;
 	return false;
 }
 
@@ -516,7 +516,7 @@ void LLScrollbar::draw()
 		gl_rect_2d(mOrientation == HORIZONTAL ? mThickness : 0, 
 		mOrientation == VERTICAL ? getRect().getHeight() - 2 * mThickness : getRect().getHeight(),
 		mOrientation == HORIZONTAL ? getRect().getWidth() - 2 * mThickness : getRect().getWidth(), 
-		mOrientation == VERTICAL ? mThickness : 0, mTrackColor.get(), TRUE);
+		mOrientation == VERTICAL ? mThickness : 0, mTrackColor.get(), true);
 
 		gl_rect_2d(mThumbRect, mThumbColor.get(), true);
 
