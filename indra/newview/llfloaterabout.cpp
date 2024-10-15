@@ -184,7 +184,7 @@ bool LLFloaterAbout::postBuild()
 		licenses_widget->clear();
 		while ( std::getline(licenses_file, license_line) )
 		{
-			licenses_widget->appendText(license_line+"\n", FALSE,
+			licenses_widget->appendText(license_line+"\n", false,
 										LLStyle::Params() .color(about_color));
 		}
 		licenses_file.close();
@@ -328,7 +328,7 @@ void LLFloaterAbout::setSupportText(const std::string& server_release_notes_url)
 	LLUIColor about_color = LLUIColorTable::instance().getColor("TextFgReadOnlyColor");
 	support_widget->clear();
 	support_widget->appendText(LLAppViewer::instance()->getViewerInfoString(),
-							   FALSE, LLStyle::Params() .color(about_color));
+							   false, LLStyle::Params() .color(about_color));
 }
 
 

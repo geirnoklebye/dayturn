@@ -40,7 +40,7 @@ KokuaChatBar::KokuaChatBar(LLSD const & key)
 : LLFloater(key),
 	mInputEditorHeightPad(0),
 	mInputEditorWidthPad(0),
-	mInputEditor(NULL)
+	mInputEditor(nullptr)
 {
 
 }
@@ -92,7 +92,7 @@ void KokuaChatBar::reshapeChatLayoutPanel()
 	// to a single line. If the floater is within the main area of the screen it will expand both top
 	// and bottom and retain the centre point's y position. However, if near top or bottom the system
 	// takes care of preventing ingress outside of visible areas or into the toolbox zone
-	reshape(getRect().getWidth(), mInputEditor->getRect().getHeight() + mInputEditorHeightPad, FALSE);
+	reshape(getRect().getWidth(), mInputEditor->getRect().getHeight() + mInputEditorHeightPad, false);
 	if (mInputEditor->getText().size() == 0)
 	{
 		storeRectControl();

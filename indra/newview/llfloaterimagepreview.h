@@ -83,7 +83,7 @@ public:
 
 	/*virtual*/ S8 getType() const ;
 
-	void setPreviewTarget(const std::string& joint_name, const std::string& mesh_name, LLImageRaw* imagep, F32 distance, BOOL male);
+	void setPreviewTarget(const std::string& joint_name, const std::string& mesh_name, LLImageRaw* imagep, F32 distance, bool male);
 	void setTexture(U32 name) { mTextureName = name; }
 	void clearPreviewTexture(const std::string& mesh_name);
 

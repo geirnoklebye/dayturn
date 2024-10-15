@@ -355,7 +355,7 @@ LLFloaterCamera::LLFloaterCamera(const LLSD& val)
 	mCommitCallbackRegistrar.add("CameraPresets.ChangeView", boost::bind(&LLFloaterCamera::onClickCameraItem, _2));
 	mCommitCallbackRegistrar.add("CameraPresets.Resize", boost::bind(&LLFloaterCamera::onClickResize, _2));
 	mCommitCallbackRegistrar.add("CameraPresets.Save", boost::bind(&LLFloaterCamera::onSavePreset, this));
-	mCommitCallbackRegistrar.add("CameraPresets.ShowPresetsList", boost::bind(&LLFloaterReg::showInstance, "camera_presets", LLSD(), FALSE));
+	mCommitCallbackRegistrar.add("CameraPresets.ShowPresetsList", boost::bind(&LLFloaterReg::showInstance, "camera_presets", LLSD(), false));
 }
 
 // virtual
@@ -376,7 +376,7 @@ bool LLFloaterCamera::postBuild()
 
 		getChild<LLTextBox>("precise_ctrs_label")->setShowCursorHand(false);
 		getChild<LLTextBox>("precise_ctrs_label")->setSoundFlags(LLView::MOUSE_UP);
-		getChild<LLTextBox>("precise_ctrs_label")->setClickedCallback(boost::bind(&LLFloaterReg::showInstance, "prefs_view_advanced", LLSD(), FALSE));
+		getChild<LLTextBox>("precise_ctrs_label")->setClickedCallback(boost::bind(&LLFloaterReg::showInstance, "prefs_view_advanced", LLSD(), false));
 
 		mPresetCombo->setCommitCallback(boost::bind(&LLFloaterCamera::onCustomPresetSelected, this));
 		LLPresetsManager::getInstance()->setPresetListChangeCameraCallback(boost::bind(&LLFloaterCamera::populatePresetCombo, this));
@@ -491,7 +491,7 @@ void LLFloaterCamera::switchMode(ECameraControlMode mode)
 
 	default:
 		//normally we won't occur here
-		llassert_always(FALSE);
+		llassert_always(false);
 	}
 }
 

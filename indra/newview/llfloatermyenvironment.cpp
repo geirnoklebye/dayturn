@@ -122,7 +122,7 @@ bool LLFloaterMyEnvironment::postBuild()
     mFilterEdit->setCommitCallback([this](LLUICtrl*, const LLSD& param){ onFilterEdit(param.asString()); });
 
     childSetCommitCallback(BUTTON_DELETE, [this](LLUICtrl *, void*) { onDeleteSelected(); }, nullptr);
-    mSavedFolderState.setApply(FALSE);
+    mSavedFolderState.setApply(false);
     return true;
 }
 

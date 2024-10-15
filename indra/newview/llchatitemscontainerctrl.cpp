@@ -63,7 +63,7 @@ public:
 		if (params.size() < 2) return false;
 
 		LLUUID object_id;
-		if (!object_id.set(params[0], FALSE))
+		if (!object_id.set(params[0], false))
 		{
 			return false;
 		}
@@ -260,7 +260,7 @@ void LLFloaterIMNearbyChatToastPanel::init(LLSD& notification)
 			style_params_name.link_href = notification["sender_slurl"].asString();
 			style_params_name.is_link = true;
 
-			mMsgText->appendText(str_sender, FALSE, style_params_name);
+			mMsgText->appendText(str_sender, false, style_params_name);
 
 		}
 		else
@@ -319,7 +319,7 @@ void LLFloaterIMNearbyChatToastPanel::init(LLSD& notification)
 		{
 			style_params.font.style = "ITALIC";
 		}
-		mMsgText->appendText(messageText, FALSE, style_params);
+		mMsgText->appendText(messageText, false, style_params);
 	}
 
 

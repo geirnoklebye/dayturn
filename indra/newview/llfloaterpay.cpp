@@ -104,15 +104,15 @@ private:
 	static void onGive(give_money_ptr info);
 	void give(S32 amount);
 	static void processPayPriceReply(LLMessageSystem* msg, void **userdata);
-	void finishPayUI(const LLUUID& target_id, BOOL is_group);
+	void finishPayUI(const LLUUID& target_id, bool is_group);
 
 protected:
 	std::vector<give_money_ptr> mCallbackData;
 	money_callback mCallback;
 	LLTextBox* mObjectNameText;
 	LLUUID mTargetUUID;
-	BOOL mTargetIsGroup;
-	BOOL mHaveName;
+	bool mTargetIsGroup;
+	bool mHaveName;
 
 	LLButton* mQuickPayButton[MAX_PAY_BUTTONS];
 	give_money_ptr mQuickPayInfo[MAX_PAY_BUTTONS];
@@ -130,8 +130,8 @@ LLFloaterPay::LLFloaterPay(const LLSD& key)
 	  mCallback(nullptr),
 	  mObjectNameText(nullptr),
 	  mTargetUUID(key.asUUID()),
-	  mTargetIsGroup(FALSE),
-	  mHaveName(FALSE)
+	  mTargetIsGroup(false),
+	  mHaveName(false)
 {
 }
 
@@ -435,7 +435,7 @@ bool LLFloaterPay::payConfirmationCallback(const LLSD& notification, const LLSD&
 	return false;
 }
 
-void LLFloaterPay::finishPayUI(const LLUUID& target_id, BOOL is_group)
+void LLFloaterPay::finishPayUI(const LLUUID& target_id, bool is_group)
 {
 	std::string slurl;
 	if (is_group)
@@ -568,7 +568,7 @@ void LLFloaterPay::give(S32 amount)
 					}
 					S32 tx_type = TRANS_PAY_OBJECT;
 					if(dest_object->isAvatar()) tx_type = TRANS_GIFT;
-					mCallback(mTargetUUID, region, amount, FALSE, tx_type, object_name);
+					mCallback(mTargetUUID, region, amount, false, tx_type, object_name);
 					mObjectSelection = NULL;
 
 					// request the object owner in order to check if the owner needs to be unmuted

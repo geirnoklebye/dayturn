@@ -88,7 +88,7 @@ void LLViewerDynamicTexture::generateGLTexture()
 	generateGLTexture(-1, 0, 0, false);
 }
 
-void LLViewerDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, BOOL swap_bytes)
+void LLViewerDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, bool swap_bytes)
 {
 	if (mComponents < 1 || mComponents > 4)
 	{

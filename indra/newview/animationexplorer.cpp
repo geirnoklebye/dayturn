@@ -62,8 +62,7 @@ RecentAnimationList::RecentAnimationList()
 }
 
 RecentAnimationList::~RecentAnimationList()
-{
-}
+= default;
 
 void RecentAnimationList::addAnimation(const LLUUID& id, const LLUUID& playedBy)
 {
@@ -114,7 +113,7 @@ void RecentAnimationList::requestList(AnimationExplorer* explorer)
 
 AnimationExplorer::AnimationExplorer(const LLSD& key)
 :	LLFloater(key),
-	mPreviewCtrl(NULL),
+	mPreviewCtrl(nullptr),
 	mLastMouseX(0),
 	mLastMouseY(0)
 {
@@ -492,7 +491,7 @@ bool AnimationExplorer::handleMouseDown(S32 x, S32 y, MASK mask)
 // Copied from llfloaterbvhpreview.cpp
 bool AnimationExplorer::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	gFocusMgr.setMouseCapture(FALSE);
+	gFocusMgr.setMouseCapture(nullptr);
 	gViewerWindow->showCursor();
 	return LLFloater::handleMouseUp(x, y, mask);
 }

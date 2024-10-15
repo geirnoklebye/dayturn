@@ -308,7 +308,7 @@ void KokuaFloaterBulkRename::handleInventory(LLViewerObject* viewer_obj, LLInven
 						status_text = getString("renaming_text");
 						status_text.setArg("[NEWNAME]", new_name);
 					}
-					updateInventory(object,new_item,TASK_INVENTORY_ITEM_KEY,FALSE);
+					updateInventory(object,new_item,TASK_INVENTORY_ITEM_KEY,false);
 				}
 				else
 				{

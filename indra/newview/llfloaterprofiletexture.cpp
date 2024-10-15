@@ -130,7 +130,7 @@ void LLFloaterProfileTexture::updateDimensions()
         //reshape floater
         reshape(width, height);
 
-        gFloaterView->adjustToFitScreen(this, FALSE);
+        gFloaterView->adjustToFitScreen(this, false);
     }
 }
 

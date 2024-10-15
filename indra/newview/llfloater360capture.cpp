@@ -504,7 +504,7 @@ void LLFloater360Capture::capture360Images()
         // was set to off - I think this is what we need
         LLPipeline::toggleRenderTypeControl(LLPipeline::RENDER_TYPE_AVATAR);
         LLPipeline::toggleRenderTypeControl(LLPipeline::RENDER_TYPE_PARTICLES);
-        LLPipeline::sRenderAttachedLights = FALSE;
+        LLPipeline::sRenderAttachedLights = false;
     }
 
     // these are the 6 directions we will point the camera - essentially,

@@ -85,7 +85,7 @@ public:
 
 protected:
 	void generateGLTexture();
-	void generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, BOOL swap_bytes = FALSE);
+	void generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, bool swap_bytes = false);
 
 protected:
 	bool mClamp;

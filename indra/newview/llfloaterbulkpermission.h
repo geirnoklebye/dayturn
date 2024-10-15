@@ -48,7 +48,7 @@ private:
 	LLFloaterBulkPermission(const LLSD& seed);	
 	virtual ~LLFloaterBulkPermission() {}
 
-	bool start(); // returns true if the queue has started, otherwise FALSE.
+	bool start(); // returns true if the queue has started, otherwise false.
 	bool nextObject();
 	bool popNext();
 

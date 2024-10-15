@@ -77,7 +77,7 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 	F32 select_dist_squared = gSavedSettings.getF32("MaxSelectDistance");
 	select_dist_squared = select_dist_squared * select_dist_squared;
 
-	BOOL deselect = (mask == MASK_CONTROL);
+	bool deselect = (mask == MASK_CONTROL);
 	S32 left =	llmin(x, mDragStartX);
 	S32 right =	llmax(x, mDragStartX);
 	S32 top =	llmax(y, mDragStartY);
@@ -94,16 +94,16 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 	S32 width = right - left + 1;
 	S32 height = top - bottom + 1;
 
-	BOOL grow_selection = FALSE;
-	BOOL shrink_selection = FALSE;
+	bool grow_selection = false;
+	bool shrink_selection = false;
 
 	if (height > mDragLastHeight || width > mDragLastWidth)
 	{
-		grow_selection = TRUE;
+		grow_selection = true;
 	}
 	if (height < mDragLastHeight || width < mDragLastWidth)
 	{
-		shrink_selection = TRUE;
+		shrink_selection = true;
 	}
 
 	if (!grow_selection && !shrink_selection)
