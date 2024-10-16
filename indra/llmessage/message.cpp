@@ -3562,6 +3562,11 @@ void LLMessageSystem::addBOOLFast(const char* varname, BOOL v)
 	mMessageBuilder->addBOOL(varname, v);
 }
 
+void LLMessageSystem::addboolFast(const char* varname, bool v)
+{
+	mMessageBuilder->addbool(varname, v);
+}
+
 void LLMessageSystem::addBOOL(const char* varname, BOOL v)
 {
 	mMessageBuilder->addBOOL(LLMessageStringTable::getInstance()->getString(varname), v);
