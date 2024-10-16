@@ -877,9 +877,9 @@ void LLLocationInputCtrl::refreshParcelIcons()
 		x -= mAddLandmarkHPad;
 
 		// Slide the parcel icons rect from right to left, adjusting rectangles
-		for (S32 i = 0; i < ICON_COUNT; ++i)
+		for (auto & i : mParcelIcon)
 		{
-			x = layout_widget(mParcelIcon[i], x);
+			x = layout_widget(i, x);
 			x -= mIconHPad;
 		}
 		x = layout_widget(mDamageText, x);
@@ -887,9 +887,9 @@ void LLLocationInputCtrl::refreshParcelIcons()
 	}
 	else
 	{
-		for (S32 i = 0; i < ICON_COUNT; ++i)
+		for (auto & i : mParcelIcon)
 		{
-			mParcelIcon[i]->setVisible(false);
+			i->setVisible(false);
 		}
 		mDamageText->setVisible(false);
 	}
