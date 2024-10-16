@@ -101,14 +101,14 @@ public:
 			return false;
 		}
 
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnablePlaceProfile"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnablePlaceProfile"))
 		{
 			LLNotificationsUtil::add("NoPlaceInfo", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
 		}
 
 		LLUUID parcel_id;
-		if (!parcel_id.set(params[0], FALSE))
+		if (!parcel_id.set(params[0], false))
 		{
 			return false;
 		}
@@ -310,7 +310,7 @@ bool LLPanelPlaces::postBuild()
 
     LLDragAndDropButton* trash_btn = (LLDragAndDropButton*)mRemoveSelectedBtn;
     trash_btn->setDragAndDropHandler(boost::bind(&LLPanelPlaces::handleDragAndDropToTrash, this
-        , _4 // BOOL drop
+        , _4 // bool drop
         , _5 // EDragAndDropType cargo_type
         , _6 // void* cargo_data
         , _7 // EAcceptance* accept
@@ -1042,7 +1042,7 @@ void LLPanelPlaces::onRemoveButtonClicked()
     }
 }
 
-bool LLPanelPlaces::handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_type, void* cargo_data, EAcceptance* accept)
+bool LLPanelPlaces::handleDragAndDropToTrash(bool drop, EDragAndDropType cargo_type, void* cargo_data, EAcceptance* accept)
 {
     if (mActivePanel)
     {
@@ -1051,7 +1051,7 @@ bool LLPanelPlaces::handleDragAndDropToTrash(BOOL drop, EDragAndDropType cargo_t
     return false;
 }
 
-void LLPanelPlaces::togglePickPanel(BOOL visible)
+void LLPanelPlaces::togglePickPanel(bool visible)
 {
 	if (mPickPanel)
 	{
@@ -1062,7 +1062,7 @@ void LLPanelPlaces::togglePickPanel(BOOL visible)
 
 }
 
-void LLPanelPlaces::togglePlaceInfoPanel(BOOL visible)
+void LLPanelPlaces::togglePlaceInfoPanel(bool visible)
 {
 	if (!mPlaceProfile || !mLandmarkInfo)
 		return;

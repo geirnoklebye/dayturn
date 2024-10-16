@@ -234,7 +234,7 @@ bool	LLFloaterTools::postBuild()
 	// make sounds on visibility changes.
 	setSoundFlags(LLView::SILENT);
 
-	getDragHandle()->setEnabled( !gSavedSettings.getBOOL("ToolboxAutoMove") );
+	getDragHandle()->setEnabled( !gSavedSettings.getbool("ToolboxAutoMove") );
 
 	LLRect rect;
 	mBtnFocus			= getChild<LLButton>("button focus");//btn;
@@ -718,7 +718,7 @@ void LLFloaterTools::draw()
 		mDirty = false;
 	}
 
-	//	mCheckSelectIndividual->set(gSavedSettings.getBOOL("EditLinkedParts"));
+	//	mCheckSelectIndividual->set(gSavedSettings.getbool("EditLinkedParts"));
 	LLFloater::draw();
 }
 
@@ -851,7 +851,7 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	if (mCheckSelectIndividual)
 	{
 		mCheckSelectIndividual->setVisible(edit_visible);
-		//mCheckSelectIndividual->set(gSavedSettings.getBOOL("EditLinkedParts"));
+		//mCheckSelectIndividual->set(gSavedSettings.getbool("EditLinkedParts"));
 	}
 
 	if ( tool == LLToolCompTranslate::getInstance() )

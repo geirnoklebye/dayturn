@@ -198,7 +198,7 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(slurl.getRegion(),
 									  LLURLDispatcherImpl::regionNameCallback,
 									  slurl.getSLURLString(),
-									  LLUI::getInstance()->mSettingGroups["config"]->getBOOL("SLURLTeleportDirectly"));	// don't teleport
+									  LLUI::getInstance()->mSettingGroups["config"]->getbool("SLURLTeleportDirectly"));	// don't teleport
 	return true;
 }
 

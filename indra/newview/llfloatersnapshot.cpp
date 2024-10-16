@@ -980,10 +980,10 @@ bool LLFloaterSnapshot::postBuild()
 	mFailureLblPanel = getChild<LLUICtrl>("failed_panel");
 
 	childSetCommitCallback("ui_check", ImplBase::onClickUICheck, this);
-	getChild<LLUICtrl>("ui_check")->setValue(gSavedSettings.getBOOL("RenderUIInSnapshot"));
+	getChild<LLUICtrl>("ui_check")->setValue(gSavedSettings.getbool("RenderUIInSnapshot"));
 
 	childSetCommitCallback("hud_check", ImplBase::onClickHUDCheck, this);
-	getChild<LLUICtrl>("hud_check")->setValue(gSavedSettings.getBOOL("RenderHUDInSnapshot"));
+	getChild<LLUICtrl>("hud_check")->setValue(gSavedSettings.getbool("RenderHUDInSnapshot"));
 
 	((Impl*)impl)->setAspectRatioCheckboxValue(this, gSavedSettings.getbool("KeepAspectForSnapshot"));
 
@@ -991,10 +991,10 @@ bool LLFloaterSnapshot::postBuild()
 	getChild<LLUICtrl>("layer_types")->setValue("colors");
 	getChildView("layer_types")->setEnabled(false);
 
-	getChild<LLUICtrl>("freeze_frame_check")->setValue(gSavedSettings.getBOOL("UseFreezeFrame"));
+	getChild<LLUICtrl>("freeze_frame_check")->setValue(gSavedSettings.getbool("UseFreezeFrame"));
 	childSetCommitCallback("freeze_frame_check", ImplBase::onCommitFreezeFrame, this);
 
-	getChild<LLUICtrl>("auto_snapshot_check")->setValue(gSavedSettings.getBOOL("AutoSnapshot"));
+	getChild<LLUICtrl>("auto_snapshot_check")->setValue(gSavedSettings.getbool("AutoSnapshot"));
 	childSetCommitCallback("auto_snapshot_check", ImplBase::onClickAutoSnap, this);
 
     getChild<LLButton>("retract_btn")->setCommitCallback(boost::bind(&LLFloaterSnapshot::onExtendFloater, this));

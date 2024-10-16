@@ -87,8 +87,8 @@ LLToolPie::LLToolPie()
 	mMouseSteerX(-1),
 	mMouseSteerY(-1),
 	mClickAction(0),
-	mClickActionBuyEnabled( (bool)gSavedSettings.getBOOL("ClickActionBuyEnabled") ),
-	mClickActionPayEnabled( (bool)gSavedSettings.getBOOL("ClickActionPayEnabled") ),
+	mClickActionBuyEnabled( gSavedSettings.getbool("ClickActionBuyEnabled") ),
+	mClickActionPayEnabled( gSavedSettings.getbool("ClickActionPayEnabled") ),
 	mDoubleClickTimer()
 {
 }
@@ -114,7 +114,7 @@ bool LLToolPie::handleMouseDown(S32 x, S32 y, MASK mask)
 	mMouseDownX = x;
 	mMouseDownY = y;
 	LLTimer pick_timer;
-	bool pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+	bool pick_rigged = false; //gSavedSettings.getbool("AnimatedObjectsAllowLeftClick");
 	LLPickInfo transparent_pick = gViewerWindow->pickImmediate(x, y, true /*includes transparent*/, pick_rigged);
 	LLPickInfo visible_pick = gViewerWindow->pickImmediate(x, y, false, pick_rigged);
 	LLViewerObject *transp_object = transparent_pick.getObject();
@@ -198,9 +198,9 @@ bool LLToolPie::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	// don't pick transparent so users can't "pay" transparent objects
 	mPick = gViewerWindow->pickImmediate(x, y,
-                                         /*BOOL pick_transparent*/ false,
-                                         /*BOOL pick_rigged*/ true,
-                                         /*BOOL pick_particle*/ true);
+                                         /*bool pick_transparent*/ false,
+                                         /*bool pick_rigged*/ true,
+                                         /*bool pick_particle*/ true);
 	mPick.mKeyMask = mask;
 
 	// claim not handled so UI focus stays same
@@ -263,7 +263,7 @@ bool LLToolPie::handleLeftClickPick()
 				&& !LLViewerParcelMgr::getInstance()->isCollisionBanned())
 			{
 				// if selling passes, just buy one
-				void* deselect_when_done = (void*)TRUE;
+				void* deselect_when_done = (void*)true;
 				LLPanelLandGeneral::onClickBuyPass(deselect_when_done);
 			}
 			else
@@ -594,9 +594,9 @@ bool LLToolPie::walkToClickedLocation()
     if (gAgentCamera.getCameraMode() != CAMERA_MODE_MOUSELOOK)
     {
         mPick = gViewerWindow->pickImmediate(mHoverPick.mMousePt.mX, mHoverPick.mMousePt.mY,
-            FALSE /* ignore transparent */,
-            FALSE /* ignore rigged */,
-            FALSE /* ignore particles */);
+            false /* ignore transparent */,
+            false /* ignore rigged */,
+            false /* ignore particles */);
     }
     else
     {
@@ -604,9 +604,9 @@ bool LLToolPie::walkToClickedLocation()
         // use croshair's position to do a pick
         mPick = gViewerWindow->pickImmediate(gViewerWindow->getWorldViewRectScaled().getWidth() / 2,
             gViewerWindow->getWorldViewRectScaled().getHeight() / 2,
-            FALSE /* ignore transparent */,
-            FALSE /* ignore rigged */,
-            FALSE /* ignore particles */);
+            false /* ignore transparent */,
+            false /* ignore rigged */,
+            false /* ignore particles */);
     }
 
     if (mPick.mPickType == LLPickInfo::PICK_OBJECT)
@@ -670,10 +670,10 @@ bool LLToolPie::teleportToClickedLocation()
     {
         // We do not handle hover in mouselook as we do in other modes, so
         // use croshair's position to do a pick
-        BOOL pick_rigged = false;
+        bool pick_rigged = false;
         mHoverPick = gViewerWindow->pickImmediate(gViewerWindow->getWorldViewRectScaled().getWidth() / 2,
                                                   gViewerWindow->getWorldViewRectScaled().getHeight() / 2,
-                                                  FALSE,
+                                                  false,
                                                   pick_rigged);
     }
     LLViewerObject* objp = mHoverPick.getObject();
@@ -755,7 +755,7 @@ void LLToolPie::selectionPropertiesReceived()
 
 bool LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 {
-    bool pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+    bool pick_rigged = false; //gSavedSettings.getbool("AnimatedObjectsAllowLeftClick");
 	mHoverPick = gViewerWindow->pickImmediate(x, y, false, pick_rigged);
 	LLViewerObject *parent = NULL;
 	LLViewerObject *object = mHoverPick.getObject();
@@ -802,7 +802,7 @@ bool LLToolPie::handleHover(S32 x, S32 y, MASK mask)
 	else
 	{
 		// perform a separate pick that detects transparent objects since they respond to 1-click actions
-		LLPickInfo click_action_pick = gViewerWindow->pickImmediate(x, y, FALSE, pick_rigged);
+		LLPickInfo click_action_pick = gViewerWindow->pickImmediate(x, y, false, pick_rigged);
 
 		LLViewerObject* click_action_object = click_action_pick.getObject();
 
@@ -1197,8 +1197,7 @@ bool LLToolPie::handleTooltipObject( LLViewerObject* hover_object, std::string l
 		//
 		//  Default prefs will suppress display unless the object is interactive
 		//
-		bool show_all_object_tips =
-		(bool)gSavedSettings.getBOOL("ShowAllObjectHoverTip");			
+		bool show_all_object_tips = gSavedSettings.getbool("ShowAllObjectHoverTip");			
 		LLSelectNode *nodep = LLSelectMgr::getInstance()->getHoverNode();
 		
 		// only show tooltip if same inspector not already open
@@ -1626,7 +1625,7 @@ void LLToolPie::handleDeselect()
 
 	// Menu may be still up during transfer to different tool.
 	// toolfocus and toolgrab should retain menu, they will clear it if needed
-	MASK override_mask = gKeyboard ? gKeyboard->currentMask(TRUE) : 0;
+	MASK override_mask = gKeyboard ? gKeyboard->currentMask(true) : 0;
 	if (gMenuHolder && (!gMenuHolder->getVisible() || (override_mask & (MASK_ALT | MASK_CONTROL)) == 0))
 	{
 		// in most cases menu is useless without correct selection, so either keep both or discard both
@@ -1754,7 +1753,7 @@ bool LLToolPie::handleMediaClick(const LLPickInfo& pick, int button)
             gFocusMgr.setKeyboardFocus(LLViewerMediaFocus::getInstance());
             LLEditMenuHandler::gEditMenuHandler = LLViewerMediaFocus::instance().getFocusedMediaImpl();
 
-            media_impl->mouseDown(pick.mUVCoords, gKeyboard->currentMask(TRUE));
+            media_impl->mouseDown(pick.mUVCoords, gKeyboard->currentMask(true));
             mMediaMouseCaptureID = mep->getMediaID();
             setMouseCapture(true);  // This object will send a mouse-up to the media when it loses capture.
         }
@@ -1808,7 +1807,7 @@ bool LLToolPie::handleMediaDblClick(const LLPickInfo& pick)
             gFocusMgr.setKeyboardFocus(LLViewerMediaFocus::getInstance());
             LLEditMenuHandler::gEditMenuHandler = LLViewerMediaFocus::instance().getFocusedMediaImpl();
 
-            media_impl->mouseDoubleClick(pick.mUVCoords, gKeyboard->currentMask(TRUE));
+            media_impl->mouseDoubleClick(pick.mUVCoords, gKeyboard->currentMask(true));
             mMediaMouseCaptureID = mep->getMediaID();
             setMouseCapture(true);  // This object will send a mouse-up to the media when it loses capture.
         }
@@ -1861,7 +1860,7 @@ bool LLToolPie::handleMediaHover(const LLPickInfo& pick)
 			// If this is the focused media face, send mouse move events.
 			if (LLViewerMediaFocus::getInstance()->isFocusedOnFace(objectp, pick.mObjectFace))
 			{
-				media_impl->mouseMove(pick.mUVCoords, gKeyboard->currentMask(TRUE));
+				media_impl->mouseMove(pick.mUVCoords, gKeyboard->currentMask(true));
 				gViewerWindow->setCursor(media_impl->getLastSetCursor());
 			}
 			else

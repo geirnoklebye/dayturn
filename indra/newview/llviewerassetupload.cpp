@@ -711,7 +711,7 @@ mIsRunning(false)
 LLScriptAssetUpload::LLScriptAssetUpload(LLUUID itemId, TargetType_t targetType, std::string buffer, invnUploadFinish_f finish) :
     LLBufferedAssetUploadInfo(itemId, LLAssetType::AT_LSL_TEXT, buffer, finish),
     mExerienceId(),
-    mTargetType(gSavedSettings.getBOOL("SaveInventoryScriptsAsMono") ? LLScriptAssetUpload::MONO : LLScriptAssetUpload::LSL2),
+    mTargetType(gSavedSettings.getbool("SaveInventoryScriptsAsMono") ? LLScriptAssetUpload::MONO : LLScriptAssetUpload::LSL2),
     mIsRunning(false)
 {
 }

@@ -5800,8 +5800,8 @@ void LLSelectMgr::processObjectPropertiesFamily(LLMessageSystem* msg, void** use
 // static
 void LLSelectMgr::processForceObjectSelect(LLMessageSystem* msg, void**)
 {
-	BOOL reset_list;
-	msg->getBOOL("Header", "ResetList", reset_list);
+	bool reset_list;
+	msg->getbool("Header", "ResetList", reset_list);
 
 	if (reset_list)
 	{

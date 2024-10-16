@@ -225,7 +225,7 @@ bool LLFloaterColorPicker::postBuild()
 	mPipetteBtn->setCommitCallback( boost::bind(&LLFloaterColorPicker::onClickPipette, this ));
 
 	mApplyImmediateCheck = getChild<LLCheckBoxCtrl>("apply_immediate");
-	mApplyImmediateCheck->set(gSavedSettings.getBOOL("ApplyColorImmediately"));
+	mApplyImmediateCheck->set(gSavedSettings.getbool("ApplyColorImmediately"));
 	mApplyImmediateCheck->setCommitCallback(onImmediateCheck, this);
 
 	childSetCommitCallback("rspin", onTextCommit, (void*)this );

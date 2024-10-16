@@ -1906,7 +1906,7 @@ void LLItemBridge::gotoItem()
   		const LLUUID inbox_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX);
   		// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
   		//if (gInventory.isObjectDescendentOf(obj->getLinkedUUID(), inbox_id))
-  		if (gInventory.isObjectDescendentOf(obj->getLinkedUUID(), inbox_id) && !gSavedSettings.getBOOL("FSShowInboxFolder"))
+  		if (gInventory.isObjectDescendentOf(obj->getLinkedUUID(), inbox_id) && !gSavedSettings.getbool("FSShowInboxFolder"))
   		// </FS:Ansariel>
   		{
   			LLSidepanelInventory *sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");

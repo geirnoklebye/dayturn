@@ -95,7 +95,7 @@ LLUUID find_ui_sound(const char * namep, bool force_sound)
 // </FS:PP> UI Sounds preview
 {
 	std::string name = ll_safe_string(namep);
-	LLUUID uuid = LLUUID(NULL);
+	LLUUID uuid = LLUUID(nullptr);
 	// <FS:Ansariel> Per-account sounds
 	LLUI *ui_inst = LLUI::getInstance();
 	//if (!ui_inst->mSettingGroups["config"]->controlExists(name))
@@ -118,7 +118,7 @@ LLUUID find_ui_sound(const char * namep, bool force_sound)
 			if (ui_inst->mSettingGroups[group_name]->getString(name) == LLUUID::null.asString())
 			// </FS:Ansariel>
 			{
-				if (ui_inst->mSettingGroups["config"]->getBOOL("UISndDebugSpamToggle"))
+				if (ui_inst->mSettingGroups["config"]->getbool("UISndDebugSpamToggle"))
 				{
 					LL_INFOS() << "UI sound name: " << name << " triggered but silent (null uuid)" << LL_ENDL;	
 				}				
@@ -128,15 +128,15 @@ LLUUID find_ui_sound(const char * namep, bool force_sound)
 				LL_WARNS() << "UI sound named: " << name << " does not translate to a valid uuid" << LL_ENDL;	
 			}
 		}
-		else if (ui_inst->mAudioCallback != NULL)
+		else if (ui_inst->mAudioCallback != nullptr)
 		{
 			// KKA-837 Add option to disable the teleport out sound (with thanks to FS:PP et al for locating this intercept point)
 			// Lookup control name as KokuaPlay* in case this gets expanded in the future to a more comprehensive FS-style implementation
-			if (name == "UISndTeleportOut" && !ui_inst->mSettingGroups[group_name]->getBOOL("KokuaPlay" + name))
+			if (name == "UISndTeleportOut" && !ui_inst->mSettingGroups[group_name]->getbool("KokuaPlay" + name))
 			{
-				return (LLUUID)NULL;
+				return (LLUUID)nullptr;
 			}
-			if (ui_inst->mSettingGroups["config"]->getBOOL("UISndDebugSpamToggle"))
+			if (ui_inst->mSettingGroups["config"]->getbool("UISndDebugSpamToggle"))
 			{
 				LL_INFOS() << "UI sound name: " << name << LL_ENDL;	
 			}
@@ -173,9 +173,9 @@ LLUI::LLUI(const settings_map_t& settings,
 : mSettingGroups(settings),
 mAudioCallback(audio_callback),
 mDeferredAudioCallback(deferred_audio_callback),
-mWindow(NULL), // set later in startup
-mRootView(NULL),
-mHelpImpl(NULL)
+mWindow(nullptr), // set later in startup
+mRootView(nullptr),
+mHelpImpl(nullptr)
 {
 	LLRender2D::initParamSingleton(image_provider);
 
@@ -394,7 +394,7 @@ LLControlGroup& LLUI::getControlControlGroup (const std::string& controlname)
 		 itor != mSettingGroups.end(); ++itor)
 	{
 		LLControlGroup* control_group = itor->second;
-		if(control_group != NULL)
+		if(control_group != nullptr)
 		{
 			if (control_group->controlExists(controlname))
 				return *control_group;

@@ -51,7 +51,7 @@
 
 const std::string& LLTeleportHistoryItem::getTitle() const
 {
-	return gSavedSettings.getBOOL("NavBarShowCoordinates") ? mFullTitle : mTitle;
+	return gSavedSettings.getbool("NavBarShowCoordinates") ? mFullTitle : mTitle;
 }
 
 //////////////////////////////////////////////////////////////////////////////

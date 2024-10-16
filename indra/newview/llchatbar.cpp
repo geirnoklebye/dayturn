@@ -392,7 +392,7 @@ void LLChatBar::sendChat( EChatType type )
 
 	// If the user wants to stop chatting on hitting return, lose focus
 	// and go out of chat mode.
-	if (gChatBar == this && gSavedSettings.getBOOL("CloseChatOnReturn"))
+	if (gChatBar == this && gSavedSettings.getbool("CloseChatOnReturn"))
 	{
 		stopChat();
 	}
@@ -585,7 +585,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, bool 
 	}
 
 	// Don't animate for chats people can't hear (chat to scripts)
-	if (type == CHAT_TYPE_SHOUT && !channel && gSavedSettings.getBOOL("KokuaPreventChatShout"))
+	if (type == CHAT_TYPE_SHOUT && !channel && gSavedSettings.getbool("KokuaPreventChatShout"))
 	{
 		type = CHAT_TYPE_NORMAL;
 	}

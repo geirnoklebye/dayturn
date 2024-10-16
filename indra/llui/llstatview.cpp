@@ -43,7 +43,7 @@ LLStatView::LLStatView(const LLStatView::Params& p)
 	bool isopen = getDisplayChildren();
 	if (mSetting.length() > 0)
 	{
-		isopen = LLUI::getInstance()->mSettingGroups["config"]->getBOOL(mSetting);
+		isopen = LLUI::getInstance()->mSettingGroups["config"]->getbool(mSetting);
 	}
 	setDisplayChildren(isopen);
 }

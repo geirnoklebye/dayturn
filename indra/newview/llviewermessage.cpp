@@ -1646,8 +1646,8 @@ std::string LLOfferInfo::mResponderType = "offer_info";
 
 LLOfferInfo::LLOfferInfo()
  : LLNotificationResponderInterface()
- , mFromGroup(FALSE)
- , mFromObject(FALSE)
+ , mFromGroup(false)
+ , mFromObject(false)
  , mIM(IM_NOTHING_SPECIAL)
  , mType(LLAssetType::AT_NONE)
  , mPersist(false)
@@ -2019,7 +2019,7 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 	std::string from_string; // Used in the pop-up.
 	std::string chatHistory_string;  // Used in chat history.
 
-	if (mFromObject == TRUE)
+	if (mFromObject == true)
 	{
 		if (mFromGroup)
 		{

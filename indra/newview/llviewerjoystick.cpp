@@ -689,7 +689,7 @@ void LLViewerJoystick::agentPitch(F32 pitch_inc)
 void LLViewerJoystick::agentYaw(F32 yaw_inc)
 {	
 	// Cannot steer some vehicles in mouselook if the script grabs the controls
-	if (gAgentCamera.cameraMouselook() && !gSavedSettings.getBOOL("JoystickMouselookYaw"))
+	if (gAgentCamera.cameraMouselook() && !gSavedSettings.getbool("JoystickMouselookYaw"))
 	{
 		gAgent.rotate(-yaw_inc, gAgent.getReferenceUpVector());
 	}

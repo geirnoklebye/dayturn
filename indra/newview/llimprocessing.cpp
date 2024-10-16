@@ -253,7 +253,7 @@ void inventory_offer_handler(LLOfferInfo* info)
     // faked for toast one.
     payload["object_id"] = object_id;
     // Flag indicating that this notification is faked for toast.
-    payload["give_inventory_notification"] = FALSE;
+    payload["give_inventory_notification"] = false;
     args["OBJECTFROMNAME"] = info->mFromName;
     args["NAME"] = info->mFromName;
     if (info->mFromGroup)
@@ -282,7 +282,7 @@ void inventory_offer_handler(LLOfferInfo* info)
         p.name = info->mFromID == gAgentID ? "OwnObjectGiveItem" : "ObjectGiveItem";
 
         // Pop up inv offer chiclet and let the user accept (keep), or reject (and silently delete) the inventory.
-        LLPostponedNotification::add<LLPostponedOfferNotification>(p, info->mFromID, info->mFromGroup == TRUE);
+        LLPostponedNotification::add<LLPostponedOfferNotification>(p, info->mFromID, info->mFromGroup == true);
     }
     else // Agent -> Agent Inventory Offer
     {
@@ -453,10 +453,10 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
     bool is_muted = LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat)
         // object IMs contain sender object id in session_id (STORM-1209)
         || (dialog == IM_FROM_TASK && LLMuteList::getInstance()->isMuted(session_id));
-    BOOL is_owned_by_me = FALSE;
-    BOOL is_friend = (LLAvatarTracker::instance().getBuddyInfo(from_id) == nullptr) ? false : true;
-    BOOL accept_im_from_only_friend = gSavedPerAccountSettings.getBOOL("VoiceCallsFriendsOnly");
-    BOOL is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
+    bool is_owned_by_me = false;
+    bool is_friend = LLAvatarTracker::instance().getBuddyInfo(from_id) != nullptr;
+    bool accept_im_from_only_friend = gSavedPerAccountSettings.getbool("VoiceCallsFriendsOnly");
+    bool is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
         LLMuteList::isLinden(name);
 
     chat.mMuted = is_muted;
@@ -662,7 +662,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
             LL_INFOS("Messaging") << "Received IM_GROUP_NOTICE message." << LL_ENDL;
 
             LLUUID agent_id;
-            U8 has_inventory;
+            bool has_inventory;
             U8 asset_type = 0;
             LLUUID group_id;
             std::string item_name;
@@ -671,7 +671,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
             {
                 // aux_id contains group id, binary bucket contains name and asset type
                 group_id = aux_id;
-                has_inventory = binary_bucket_size > 1 ? TRUE : FALSE;
+                has_inventory = binary_bucket_size > 1;
                 from_group = true; // inaccurate value correction
                 if (has_inventory)
                 {
@@ -700,7 +700,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
                 // All info is in binary bucket, read it for more information.
                 struct notice_bucket_header_t
                 {
-                    U8 has_inventory;
+                    bool has_inventory;
                     U8 asset_type;
                     LLUUID group_id;
                 };
@@ -896,7 +896,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
                 bucketp = (struct offer_agent_bucket_t*) &binary_bucket[0];
                 info->mType = (LLAssetType::EType) bucketp->asset_type;
                 info->mObjectID = bucketp->object_id;
-                info->mFromObject = FALSE;
+                info->mFromObject = false;
             }
             else // IM_TASK_INVENTORY_OFFERED
             {
@@ -925,7 +925,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
                     LL_WARNS("Messaging") << "Malformed inventory offer from object, type might be " << info->mType << LL_ENDL;
                 }
                 info->mObjectID = LLUUID::null;
-                info->mFromObject = TRUE;
+                info->mFromObject = true;
             }
 
             info->mIM = dialog;
@@ -1233,7 +1233,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
             {
                 return;
             }
-            else if (gSavedPerAccountSettings.getBOOL("VoiceCallsFriendsOnly") && (LLAvatarTracker::instance().getBuddyInfo(from_id) == nullptr))
+            else if (gSavedPerAccountSettings.getbool("VoiceCallsFriendsOnly") && (LLAvatarTracker::instance().getBuddyInfo(from_id) == nullptr))
             {
                 return;
             }
@@ -1559,7 +1559,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
 
 void LLIMProcessing::requestOfflineMessages()
 {
-    static BOOL requested = FALSE;
+    static bool requested = false;
     if (!requested
         && gMessageSystem
         && !gDisconnected
@@ -1586,7 +1586,7 @@ void LLIMProcessing::requestOfflineMessages()
             LLCoros::instance().launch("LLIMProcessing::requestOfflineMessagesCoro",
                 boost::bind(&LLIMProcessing::requestOfflineMessagesCoro, cap_url));
         }
-        requested = TRUE;
+        requested = true;
     }
 }
 

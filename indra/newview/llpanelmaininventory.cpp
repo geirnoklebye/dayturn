@@ -1292,7 +1292,7 @@ void LLPanelMainInventory::initListCommandsHandlers()
 
 	mTrashButton = getChild<LLDragAndDropButton>("trash_btn");
 	mTrashButton->setDragAndDropHandler(boost::bind(&LLPanelMainInventory::handleDragAndDropToTrash, this
-			,	_4 // BOOL drop
+			,	_4 // bool drop
 			,	_5 // EDragAndDropType cargo_type
 			,	_7 // EAcceptance* accept
 			));

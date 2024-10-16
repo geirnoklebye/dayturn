@@ -678,11 +678,11 @@ bool LLPanelPeople::postBuild()
 	mOnlineFriendList->setNoItemsCommentText(getString("no_friends_online"));
 	mOnlineFriendList->setShowIcons("FriendsListShowIcons");
 	mOnlineFriendList->showPermissions("FriendsListShowPermissions");
-	mOnlineFriendList->setShowCompleteName(!gSavedSettings.getBOOL("FriendsListHideUsernames"));
+	mOnlineFriendList->setShowCompleteName(!gSavedSettings.getbool("FriendsListHideUsernames"));
 	mAllFriendList->setNoItemsCommentText(getString("no_friends"));
 	mAllFriendList->setShowIcons("FriendsListShowIcons");
 	mAllFriendList->showPermissions("FriendsListShowPermissions");
-	mAllFriendList->setShowCompleteName(!gSavedSettings.getBOOL("FriendsListHideUsernames"));
+	mAllFriendList->setShowCompleteName(!gSavedSettings.getbool("FriendsListHideUsernames"));
 
 	LLPanel* nearby_tab = getChild<LLPanel>(NEARBY_TAB_NAME);
 //CA switching to always active	(commenting this line was missed when the other always active change was merged in
@@ -1828,7 +1828,7 @@ bool LLPanelPeople::onRecentViewSortMenuItemCheck(const LLSD& userdata)
 		return sort_order == E_SORT_BY_NAME;
 	}
 	else if (item == "view_login_names") {
-		return gSavedSettings.getBOOL("UseCompleteNameInLists");
+		return gSavedSettings.getbool("UseCompleteNameInLists");
 	}
 
 	return false;

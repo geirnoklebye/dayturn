@@ -82,18 +82,18 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 	{
 		object = object->getRootEdit();
 	}
-	BOOL select_owned = gSavedSettings.getBOOL("SelectOwnedOnly");
-	BOOL select_movable = gSavedSettings.getBOOL("SelectMovableOnly");
+	bool select_owned = gSavedSettings.getbool("SelectOwnedOnly");
+	bool select_movable = gSavedSettings.getbool("SelectMovableOnly");
 	
 	// *NOTE: These settings must be cleaned up at bottom of function.
 	if (temp_select || LLSelectMgr::getInstance()->mAllowSelectAvatar)
 	{
-		gSavedSettings.setBOOL("SelectOwnedOnly", FALSE);
-		gSavedSettings.setBOOL("SelectMovableOnly", FALSE);
+		gSavedSettings.setbool("SelectOwnedOnly", false);
+		gSavedSettings.setbool("SelectMovableOnly", false);
 		LLSelectMgr::getInstance()->setForceSelection(true);
 	}
 
-	BOOL extend_select = (pick.mKeyMask == MASK_SHIFT) || (pick.mKeyMask == MASK_CONTROL);
+	bool extend_select = (pick.mKeyMask == MASK_SHIFT) || (pick.mKeyMask == MASK_CONTROL);
 
 	// If no object, check for icon, then just deselect
 	if (!object)
@@ -128,7 +128,7 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 			}
 		}
 
-		if ( extend_select )
+		if (extend_select)
 		{
 			if ( already_selected )
 			{
@@ -240,8 +240,8 @@ LLObjectSelectionHandle LLToolSelect::handleObjectSelection(const LLPickInfo& pi
 	// Cleanup temp select settings above.
 	if (temp_select ||LLSelectMgr::getInstance()->mAllowSelectAvatar)
 	{
-		gSavedSettings.setBOOL("SelectOwnedOnly", select_owned);
-		gSavedSettings.setBOOL("SelectMovableOnly", select_movable);
+		gSavedSettings.setbool("SelectOwnedOnly", select_owned);
+		gSavedSettings.setbool("SelectMovableOnly", select_movable);
 		LLSelectMgr::getInstance()->setForceSelection(false);
 	}
 

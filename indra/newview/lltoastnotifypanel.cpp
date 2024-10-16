@@ -202,7 +202,7 @@ void LLToastNotifyPanel::updateButtonsLayout(const std::vector<index_button_pair
 	}
 	// <FS:Ansariel> FIRE-3948: Option to remove the mute button; FIRE-17158: Remove "block" button for script dialog of own objects
 	//if (mIsScriptDialog && mute_btn != NULL)
-	if (mIsScriptDialog && mute_btn != NULL && !gSavedSettings.getBOOL("FSRemoveScriptBlockButton") &&
+	if (mIsScriptDialog && mute_btn != NULL && !gSavedSettings.getbool("FSRemoveScriptBlockButton") &&
 		(!mNotification->getPayload().has("own_object") || !mNotification->getPayload()["own_object"].asBoolean()))
 	// </FS:Ansariel>
 	{

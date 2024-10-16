@@ -240,8 +240,8 @@ public:
     static std::string mResponderType;
 	EInstantMessage mIM;
 	LLUUID mFromID;
-	BOOL mFromGroup;
-	BOOL mFromObject;
+	bool mFromGroup;
+	bool mFromObject;
 	LLUUID mTransactionID;
 	LLUUID mFolderID;
 	LLUUID mObjectID;

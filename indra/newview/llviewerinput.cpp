@@ -124,7 +124,7 @@ bool agent_push_down( EKeystate s )
 	if( KEYSTATE_UP == s  ) return true;
 	// <FS:Ansariel> Chalice Yao's crouch toggle
 	//gAgent.moveUp(-1);
-	else if (KEYSTATE_DOWN == s && !gAgent.getFlying() && !gAgentAvatarp->isSitting() && gSavedPerAccountSettings.getBOOL("FSCrouchToggle"))
+	else if (KEYSTATE_DOWN == s && !gAgent.getFlying() && !gAgentAvatarp->isSitting() && gSavedPerAccountSettings.getbool("FSCrouchToggle"))
 	{
 		if (gSavedPerAccountSettings.getbool("FSCrouchToggleStatus"))
 		{

@@ -476,7 +476,7 @@ bool idle_startup()
 		// Load autopilot and stats stuff
 		gAgentPilot.load();
 
-		//gErrorStream.setTime(gSavedSettings.getBOOL("LogTimestamps"));
+		//gErrorStream.setTime(gSavedSettings.getbool("LogTimestamps"));
 
 		// Load the throttle settings
 		gViewerThrottle.load();
@@ -519,7 +519,7 @@ bool idle_startup()
 			U32 port = gSavedSettings.getU32("UserConnectionPort");
 
 			if ((NET_USE_OS_ASSIGNED_PORT == port) &&   // if nothing specified on command line (-port)
-			    (gSavedSettings.getBOOL("ConnectionPortEnabled")))
+			    (gSavedSettings.getbool("ConnectionPortEnabled")))
 			  {
 			    port = gSavedSettings.getU32("ConnectionPort");
 			  }
@@ -537,7 +537,7 @@ bool idle_startup()
 				   LLVersionInfo::instance().getMajor(),
 				   LLVersionInfo::instance().getMinor(),
 				   LLVersionInfo::instance().getPatch(),
-				   FALSE,
+				   false,
 				   std::string(),
 				   responder,
 				   failure_is_fatal,
@@ -622,13 +622,13 @@ bool idle_startup()
 			if (inBandwidth != 0.f)
 			{
 				LL_DEBUGS("AppInit") << "Setting packetring incoming bandwidth to " << inBandwidth << LL_ENDL;
-				msg->mPacketRing.setUseInThrottle(TRUE);
+				msg->mPacketRing.setUseInThrottle(true);
 				msg->mPacketRing.setInBandwidth(inBandwidth);
 			}
 			if (outBandwidth != 0.f)
 			{
 				LL_DEBUGS("AppInit") << "Setting packetring outgoing bandwidth to " << outBandwidth << LL_ENDL;
-				msg->mPacketRing.setUseOutThrottle(TRUE);
+				msg->mPacketRing.setUseOutThrottle(true);
 				msg->mPacketRing.setOutBandwidth(outBandwidth);
 			}
 		}
@@ -650,7 +650,7 @@ bool idle_startup()
 			if (NULL == getenv("LL_BAD_FMODSTUDIO_DRIVER"))
 #endif // !LL_WINDOWS
 			{
-				gAudiop = (LLAudioEngine *) new LLAudioEngine_FMODSTUDIO(gSavedSettings.getBOOL("FMODProfilerEnable"));
+				gAudiop = (LLAudioEngine *) new LLAudioEngine_FMODSTUDIO(gSavedSettings.getbool("FMODProfilerEnable"));
 			}
 #endif
 
@@ -802,7 +802,7 @@ bool idle_startup()
 
 		// if we've gone backwards in the login state machine, to this state where we show the UI
 		// AND the debug setting to exit in this case is true, then go ahead and bail quickly
-		if ( mLoginStatePastUI && gSavedSettings.getBOOL("QuitOnLoginActivated") )
+		if ( mLoginStatePastUI && gSavedSettings.getbool("QuitOnLoginActivated") )
 		{
 			LL_DEBUGS("AppInit") << "taking QuitOnLoginActivated exit" << LL_ENDL;
 			// no requirement for notification here - just exit
@@ -955,8 +955,8 @@ bool idle_startup()
                 gSecAPIHandler->saveCredential(gUserCredential, gRememberPassword);
             }
         }
-		gSavedSettings.setBOOL("RememberPassword", gRememberPassword);
-		gSavedSettings.setBOOL("RememberUser", gRememberUser);
+		gSavedSettings.setbool("RememberPassword", gRememberPassword);
+		gSavedSettings.setbool("RememberUser", gRememberUser);
 		LL_INFOS("AppInit") << "Attempting login as: " << userid << LL_ENDL;                                           
 //		gDebugInfo["LoginName"] = userid;                                                                              
 // [SL:KB] - Patch: Viewer-CrashReporting | Checked: 2010-11-16 (Catznip-2.6.0a) | Added: Catznip-2.4.0b
@@ -1237,7 +1237,7 @@ bool idle_startup()
                                 general_cert_done);
 
                             reset_login();
-                            gSavedSettings.setBOOL("AutoLogin", FALSE);
+                            gSavedSettings.setbool("AutoLogin", false);
                             show_connect_box = true;
                         }
 						if(certificate)
@@ -1264,7 +1264,7 @@ bool idle_startup()
 														 general_cert_done);
 								
 								reset_login();
-								gSavedSettings.setBOOL("AutoLogin", FALSE);
+								gSavedSettings.setbool("AutoLogin", false);
 								show_connect_box = true;
 								
 							}
@@ -1665,7 +1665,7 @@ bool idle_startup()
 
 		gUseCircuitCallbackCalled = false;
 
-		msg->enableCircuit(gFirstSim, TRUE);
+		msg->enableCircuit(gFirstSim, true);
 		// now, use the circuit info to tell simulator about us!
 		LL_INFOS("AppInit") << "viewer: UserLoginLocationReply() Enabling " << gFirstSim << " with code " << msg->mOurCircuitCode << LL_ENDL;
 		msg->newMessageFast(_PREHASH_UseCircuitCode);
@@ -2198,7 +2198,7 @@ bool idle_startup()
 			{
 				if (start_slurl.getType() == LLSLURL::LAST_LOCATION 
 					&& gAgentStartLocation == "last" 
-					&& gSavedSettings.getBOOL("RestoreCameraPosOnLogin"))
+					&& gSavedSettings.getbool("RestoreCameraPosOnLogin"))
 				{
 					// restore old camera pos
 					gAgentCamera.setFocusOnAvatar(false, false);
@@ -2369,13 +2369,13 @@ bool idle_startup()
 
 	if (STATE_CLEANUP == LLStartUp::getStartupState())
 	{
-		if (gSavedSettings.getBOOL("KokuaReopenChatBarAtLogin")) LLFloaterReg::showInstance("kokua_chatbar", LLSD(), FALSE);
+		if (gSavedSettings.getbool("KokuaReopenChatBarAtLogin")) LLFloaterReg::showInstance("kokua_chatbar", LLSD(), false);
 		// KKA-708, ported from Marine's viewer
 		// Quickly show and hide the Hover Height floater, to make it bind AvatarHoverOffsetZ to its callback.
 		// Maybe it is a bit hacky to that, but this ensures we don't have to call anything when we modify that debug setting
 		// later on. If we didn't, we'd have to call gAgentAvatarp->setHoverOffset(offset) every time we modified that debug
 		// setting, and as soon as we displayed that floater, it would have been called twice until we relogged.
-		LLFloaterReg::showInstance("edit_hover_height", LLSD(), FALSE);
+		LLFloaterReg::showInstance("edit_hover_height", LLSD(), false);
 		LLFloaterReg::hideInstance("edit_hover_height", LLSD());
 		set_startup_status(1.0, "", "");
 		display_startup();
@@ -2531,8 +2531,8 @@ void show_release_notes_if_required()
     static bool release_notes_shown = false;
     if (!release_notes_shown && (LLVersionInfo::instance().getChannelAndVersion() != gLastRunVersion)
         && LLVersionInfo::instance().getViewerMaturity() != LLVersionInfo::TEST_VIEWER // don't show Release Notes for the test builds
-        && gSavedSettings.getBOOL("UpdaterShowReleaseNotes")
-        && !gSavedSettings.getBOOL("FirstLoginThisInstall"))
+        && gSavedSettings.getbool("UpdaterShowReleaseNotes")
+        && !gSavedSettings.getbool("FirstLoginThisInstall"))
     {
 
 #if LL_RELEASE_FOR_DOWNLOAD
@@ -3306,7 +3306,7 @@ bool LLStartUp::startLLProxy()
 	if (proxy_ok)
 	{
 		// Determine the HTTP proxy type (if any)
-		if ((httpProxyType.compare("Web") == 0) && gSavedSettings.getBOOL("BrowserProxyEnabled"))
+		if ((httpProxyType.compare("Web") == 0) && gSavedSettings.getbool("BrowserProxyEnabled"))
 		{
 			LLHost http_host;
 			http_host.setHostByName(gSavedSettings.getString("BrowserProxyAddress"));
@@ -3320,7 +3320,7 @@ bool LLStartUp::startLLProxy()
 				proxy_ok = false;
 			}
 		}
-		else if ((httpProxyType.compare("Socks") == 0) && gSavedSettings.getBOOL("Socks5ProxyEnabled"))
+		else if ((httpProxyType.compare("Socks") == 0) && gSavedSettings.getbool("Socks5ProxyEnabled"))
 		{
 			LLHost socks_host;
 			socks_host.setHostByName(gSavedSettings.getString("Socks5ProxyHost"));
@@ -3437,7 +3437,7 @@ void trust_cert_done(const LLSD& notification, const LLSD& response)
 		}
 		case OPT_CANCEL_TRUST:
 			reset_login();
-			gSavedSettings.setBOOL("AutoLogin", FALSE);			
+			gSavedSettings.setbool("AutoLogin", false);
 			LLStartUp::setStartupState( STATE_LOGIN_SHOW );				
 		default:
 			LLPanelLogin::giveFocus();
@@ -3665,7 +3665,7 @@ bool process_login_success_response()
 		gFirstSim.set(sim_ip_str, sim_port);
 		if (gFirstSim.isOk())
 		{
-			gMessageSystem->enableCircuit(gFirstSim, TRUE);
+			gMessageSystem->enableCircuit(gFirstSim, true);
 		}
 	}
 	std::string region_x_str = response["region_x"];
@@ -3746,7 +3746,7 @@ bool process_login_success_response()
 		std::string flag = login_flags["ever_logged_in"];
 		if(!flag.empty())
 		{
-			gAgent.setFirstLogin((flag == "N") ? TRUE : FALSE);
+			gAgent.setFirstLogin(flag == "N");
 		}
 
 		/*  Flag is currently ignored by the viewer.
@@ -3764,7 +3764,7 @@ bool process_login_success_response()
 			// outfit is chosen on COF contents, initial outfit
 			// requested and available, etc.
 
-			//gAgent.setGenderChosen(TRUE);
+			//gAgent.setGenderChosen(true);
 		}
 		
 		bool pacific_daylight_time = false;
@@ -3863,7 +3863,7 @@ bool process_login_success_response()
 	std::string fake_initial_outfit_name = gSavedSettings.getString("FakeInitialOutfitName");
 	if (!fake_initial_outfit_name.empty())
 	{
-		gAgent.setFirstLogin(TRUE);
+		gAgent.setFirstLogin(true);
 		sInitialOutfit = fake_initial_outfit_name;
 		if (sInitialOutfitGender.empty())
 		{

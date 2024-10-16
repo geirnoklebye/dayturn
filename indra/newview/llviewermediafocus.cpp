@@ -390,11 +390,11 @@ bool LLViewerMediaFocus::handleScrollWheel(S32 x, S32 y, S32 clicks_x, S32 click
 	return retval;
 }
 
-BOOL LLViewerMediaFocus::handleMiddleMouse(S32 x, S32 y, MASK mask, bool down)
+bool LLViewerMediaFocus::handleMiddleMouse(S32 x, S32 y, MASK mask, bool down)
 {
 	LL_DEBUGS("MiddleMouse") << "LLViewerMediaFocus::handleMiddleMouse key is " << (down? "down":"up") << LL_ENDL;
 
-	BOOL retval = FALSE;
+	bool retval = false;
 	LLViewerMediaImpl* media_impl = getFocusedMediaImpl();
 	if(media_impl && media_impl->hasMedia())
 	{
@@ -406,7 +406,7 @@ BOOL LLViewerMediaFocus::handleMiddleMouse(S32 x, S32 y, MASK mask, bool down)
 		{
 			media_impl->getMediaPlugin()->mouseEvent(LLPluginClassMedia::MOUSE_EVENT_UP, 2, x, y, mask);
 		}
-		retval = TRUE;
+		retval = true;
 	}
 	return retval;
 }

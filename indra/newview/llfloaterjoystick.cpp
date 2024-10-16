@@ -135,7 +135,7 @@ void LLFloaterJoystick::draw()
 bool LLFloaterJoystick::postBuild()
 {		
 	center();
-	F32 range = gSavedSettings.getBOOL("Cursor3D") ? 128.f : 2.f;
+	F32 range = gSavedSettings.getbool("Cursor3D") ? 128.f : 2.f;
 
 	for (U32 i = 0; i < 6; i++)
 	{

@@ -265,9 +265,9 @@ void LLFloaterConversationPreview::showHistory()
 
 		LLSD chat_args;
 		chat_args["use_plain_text_chat_history"] =
-						gSavedSettings.getBOOL("PlainTextChatHistory");
-		chat_args["show_time"] = gSavedSettings.getBOOL("IMShowTime");
-		chat_args["show_names_for_p2p_conv"] = gSavedSettings.getBOOL("IMShowNamesForP2PConv");
+						gSavedSettings.getbool("PlainTextChatHistory");
+		chat_args["show_time"] = gSavedSettings.getbool("IMShowTime");
+		chat_args["show_names_for_p2p_conv"] = gSavedSettings.getbool("IMShowNamesForP2PConv");
 
 		mChatHistory->appendMessage(chat,chat_args);
 	}

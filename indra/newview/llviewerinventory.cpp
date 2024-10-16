@@ -264,7 +264,7 @@ public:
 			return false;
 		}
 
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableInventory"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableInventory"))
 		{
 				LLNotificationsUtil::add("NoInventory", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 				return true;

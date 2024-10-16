@@ -2859,7 +2859,7 @@ void LLViewerRegion::unpackRegionHandshake()
 	U8 sim_access;
 	std::string sim_name;
 	LLUUID sim_owner;
-	BOOL is_estate_manager;
+	bool is_estate_manager;
 	F32 water_height;
 	F32 billable_factor;
 	LLUUID cache_id;
@@ -2867,7 +2867,7 @@ void LLViewerRegion::unpackRegionHandshake()
 	msg->getU8		("RegionInfo", "SimAccess", sim_access);
 	msg->getString	("RegionInfo", "SimName", sim_name);
 	msg->getUUID	("RegionInfo", "SimOwner", sim_owner);
-	msg->getBOOL	("RegionInfo", "IsEstateManager", is_estate_manager);
+	msg->getbool	("RegionInfo", "IsEstateManager", is_estate_manager);
 	msg->getF32		("RegionInfo", "WaterHeight", water_height);
 	msg->getF32		("RegionInfo", "BillableFactor", billable_factor);
 	msg->getUUID	("RegionInfo", "CacheID", cache_id );

@@ -536,7 +536,7 @@ void LLPanelGroupNotices::processNotices(LLMessageSystem* msg)
 	std::string subj;
 	std::string name;
 	U32 timestamp;
-	BOOL has_attachment;
+	bool has_attachment;
 	U8 asset_type;
 
 	S32 i=0;
@@ -570,7 +570,7 @@ void LLPanelGroupNotices::processNotices(LLMessageSystem* msg)
 
 		msg->getString("Data","Subject",subj,i);
 		msg->getString("Data","FromName",name,i);
-		msg->getBOOL("Data","HasAttachment",has_attachment,i);
+		msg->getbool("Data","HasAttachment",has_attachment,i);
 		msg->getU8("Data","AssetType",asset_type,i);
 		msg->getU32("Data","Timestamp",timestamp,i);
 

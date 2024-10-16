@@ -60,7 +60,7 @@ public:
 	/*virtual*/ bool	handleUnicodeChar(llwchar uni_char, bool called_from_parent);
 	bool handleScrollWheel(const LLVector2& texture_coords, S32 clicks_x, S32 clicks_y);
 	bool handleScrollWheel(S32 x, S32 y, S32 clicks_x, S32 clicks_y);
-	BOOL handleMiddleMouse(S32 x, S32 y, MASK mask, bool down);
+	bool handleMiddleMouse(S32 x, S32 y, MASK mask, bool down);
 
 	void update();
 	

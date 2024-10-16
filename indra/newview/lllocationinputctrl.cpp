@@ -784,7 +784,7 @@ void LLLocationInputCtrl::refreshLocation()
 	// Update location field.
 	std::string location_name;
 	LLAgentUI::ELocationFormat format =
-		(gSavedSettings.getBOOL("NavBarShowCoordinates")
+		(gSavedSettings.getbool("NavBarShowCoordinates")
 			? LLAgentUI::LOCATION_FORMAT_FULL
 			: LLAgentUI::LOCATION_FORMAT_NO_COORDS);
 
@@ -1115,12 +1115,12 @@ void LLLocationInputCtrl::onLocationContextMenuItemClicked(const LLSD& userdata)
 
 	if (item == "show_coordinates")
 	{
-		gSavedSettings.setBOOL("NavBarShowCoordinates",!gSavedSettings.getBOOL("NavBarShowCoordinates"));
+		gSavedSettings.setbool("NavBarShowCoordinates",!gSavedSettings.getbool("NavBarShowCoordinates"));
 	}
 	else if (item == "show_properties")
 	{
-		gSavedSettings.setBOOL("NavBarShowParcelProperties",
-			!gSavedSettings.getBOOL("NavBarShowParcelProperties"));
+		gSavedSettings.setbool("NavBarShowParcelProperties",
+			!gSavedSettings.getbool("NavBarShowParcelProperties"));
 	}
 	else if (item == "landmark")
 	{
@@ -1184,7 +1184,7 @@ bool LLLocationInputCtrl::onLocationContextMenuItemEnabled(const LLSD& userdata)
 	}
 	else if(item == "show_coordinates")
 	{
-		return gSavedSettings.getBOOL("NavBarShowCoordinates");
+		return gSavedSettings.getbool("NavBarShowCoordinates");
 	}
 
 	return false;
