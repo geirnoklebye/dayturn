@@ -175,7 +175,7 @@ void LLFloaterJoystick::apply()
 
 void LLFloaterJoystick::initFromSettings()
 {
-	mJoystickEnabled = gSavedSettings.getBOOL("JoystickEnabled");
+	mJoystickEnabled = gSavedSettings.getbool("JoystickEnabled");
 	mJoystickId = gSavedSettings.getLLSD("JoystickDeviceUUID");
 
 	mJoystickAxis[0] = gSavedSettings.getS32("JoystickAxis0");
@@ -186,13 +186,13 @@ void LLFloaterJoystick::initFromSettings()
 	mJoystickAxis[5] = gSavedSettings.getS32("JoystickAxis5");
 	mJoystickAxis[6] = gSavedSettings.getS32("JoystickAxis6");
 	
-	m3DCursor = gSavedSettings.getBOOL("Cursor3D");
-	mAutoLeveling = gSavedSettings.getBOOL("AutoLeveling");
-	mZoomDirect  = gSavedSettings.getBOOL("ZoomDirect");
+	m3DCursor = gSavedSettings.getbool("Cursor3D");
+	mAutoLeveling = gSavedSettings.getbool("AutoLeveling");
+	mZoomDirect  = gSavedSettings.getbool("ZoomDirect");
 
-	mAvatarEnabled = gSavedSettings.getBOOL("JoystickAvatarEnabled");
-	mBuildEnabled = gSavedSettings.getBOOL("JoystickBuildEnabled");
-	mFlycamEnabled = gSavedSettings.getBOOL("JoystickFlycamEnabled");
+	mAvatarEnabled = gSavedSettings.getbool("JoystickAvatarEnabled");
+	mBuildEnabled = gSavedSettings.getbool("JoystickBuildEnabled");
+	mFlycamEnabled = gSavedSettings.getbool("JoystickFlycamEnabled");
 	
 	mAvatarAxisScale[0] = gSavedSettings.getF32("AvatarAxisScale0");
 	mAvatarAxisScale[1] = gSavedSettings.getF32("AvatarAxisScale1");

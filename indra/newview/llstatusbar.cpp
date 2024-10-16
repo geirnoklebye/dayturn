@@ -288,7 +288,7 @@ bool LLStatusBar::postBuild()
 	mFilterEdit = getChild<LLSearchEditor>( "search_menu_edit" );
 	mSearchPanel = getChild<LLPanel>( "menu_search_panel" );
 
-	BOOL search_panel_visible = gSavedSettings.getBOOL("MenuSearch");
+	bool search_panel_visible = gSavedSettings.getbool("MenuSearch");
 	mSearchPanel->setVisible(search_panel_visible);
 	mFilterEdit->setKeystrokeCallback(boost::bind(&LLStatusBar::onUpdateFilterTerm, this));
 	mFilterEdit->setCommitCallback(boost::bind(&LLStatusBar::onUpdateFilterTerm, this));
