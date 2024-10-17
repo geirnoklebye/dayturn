@@ -57,3 +57,8 @@ void LLSavedSettingsGlue::setString(LLUICtrl* ctrl, const std::string& name)
 {
 	gSavedSettings.setString(name, ctrl->getValue().asString());
 }
+
+void LLSavedSettingsGlue::setbool(LLUICtrl* ctrl, const std::string& name)
+{
+	gSavedSettings.setbool(name, ctrl->getValue().asBoolean());
+}

@@ -41,6 +41,7 @@ public:
 	static void setF32(LLUICtrl* ctrl, const std::string& name);
 	static void setU32(LLUICtrl* ctrl, const std::string& name);
 	static void setString(LLUICtrl* ctrl, const std::string& name);
+	static void setbool(LLUICtrl* ctrl, const std::string& name);
 };
 
 #endif
