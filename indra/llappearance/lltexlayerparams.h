@@ -100,7 +100,7 @@ private:
 	LLPointer<LLGLTexture>	mCachedProcessedTexture;
 	LLPointer<LLImageTGA>	mStaticImageTGA;
 	LLPointer<LLImageRaw>	mStaticImageRaw;
-	bool					mNeedsCreateTexture;
+	std::atomic<bool>		mNeedsCreateTexture;
 	bool					mStaticImageInvalid;
 	LL_ALIGN_16(LLVector4a				mAvgDistortionVec);
 	F32						mCachedEffectiveWeight;
