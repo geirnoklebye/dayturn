@@ -318,7 +318,7 @@ void LLFloaterJoystick::refreshListOfDevices()
 
 void LLFloaterJoystick::cancel()
 {
-	gSavedSettings.setBOOL("JoystickEnabled", mJoystickEnabled);
+	gSavedSettings.setbool("JoystickEnabled", mJoystickEnabled);
 	gSavedSettings.setLLSD("JoystickDeviceUUID", mJoystickId);
 
 	gSavedSettings.setS32("JoystickAxis0", mJoystickAxis[0]);
@@ -329,13 +329,13 @@ void LLFloaterJoystick::cancel()
 	gSavedSettings.setS32("JoystickAxis5", mJoystickAxis[5]);
 	gSavedSettings.setS32("JoystickAxis6", mJoystickAxis[6]);
 
-	gSavedSettings.setBOOL("Cursor3D", m3DCursor);
-	gSavedSettings.setBOOL("AutoLeveling", mAutoLeveling);
-	gSavedSettings.setBOOL("ZoomDirect", mZoomDirect );
+	gSavedSettings.setbool("Cursor3D", m3DCursor);
+	gSavedSettings.setbool("AutoLeveling", mAutoLeveling);
+	gSavedSettings.setbool("ZoomDirect", mZoomDirect );
 
-	gSavedSettings.setBOOL("JoystickAvatarEnabled", mAvatarEnabled);
-	gSavedSettings.setBOOL("JoystickBuildEnabled", mBuildEnabled);
-	gSavedSettings.setBOOL("JoystickFlycamEnabled", mFlycamEnabled);
+	gSavedSettings.setbool("JoystickAvatarEnabled", mAvatarEnabled);
+	gSavedSettings.setbool("JoystickBuildEnabled", mBuildEnabled);
+	gSavedSettings.setbool("JoystickFlycamEnabled", mFlycamEnabled);
 	
 	gSavedSettings.setF32("AvatarAxisScale0", mAvatarAxisScale[0]);
 	gSavedSettings.setF32("AvatarAxisScale1", mAvatarAxisScale[1]);

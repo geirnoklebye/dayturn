@@ -687,7 +687,7 @@ void LLViewerShaderMgr::setShaders()
                 {
                     avatar_cloth = false;
                 }
-                gSavedSettings.setBOOL("RenderAvatarCloth", avatar_cloth);
+                gSavedSettings.setbool("RenderAvatarCloth", avatar_cloth);
             }
         }
         else

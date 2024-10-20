@@ -1447,9 +1447,9 @@ void LLViewerJoystick::setSNDefaults()
 	gSavedSettings.setS32("JoystickAxis5", 5); // yaw
 	gSavedSettings.setS32("JoystickAxis6", -1);
 
-	gSavedSettings.setBOOL("Cursor3D", is_3d_cursor);
-	gSavedSettings.setBOOL("AutoLeveling", true);
-	gSavedSettings.setBOOL("ZoomDirect", false);
+	gSavedSettings.setbool("Cursor3D", is_3d_cursor);
+	gSavedSettings.setbool("AutoLeveling", true);
+	gSavedSettings.setbool("ZoomDirect", false);
 
 	gSavedSettings.setF32("AvatarAxisScale0", 1.f * platformScaleAvXZ);
 	gSavedSettings.setF32("AvatarAxisScale1", 1.f * platformScaleAvXZ);

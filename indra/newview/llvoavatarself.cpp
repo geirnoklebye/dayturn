@@ -2557,7 +2557,7 @@ ETextureIndex LLVOAvatarSelf::getBakedTE( const LLViewerTexLayerSet* layerset ) 
 // FIXME: This is not called consistently. Something may be broken.
 void LLVOAvatarSelf::outputRezDiagnostics() const
 {
-	if(!gSavedSettings.getBOOL("DebugAvatarLocalTexLoadedTime"))
+	if(!gSavedSettings.getbool("DebugAvatarLocalTexLoadedTime"))
 	{
 		return ;
 	}
@@ -2745,14 +2745,11 @@ void LLVOAvatarSelf::onCustomizeEnd(bool disable_camera_switch)
 		gAgentAvatarp->mIsEditingAppearance = false;
 		gAgentAvatarp->invalidateAll();
 
-		// <FS:Ansariel> Cinder's fix for STORM-2096 / FIRE-5740
-		//if (gSavedSettings.getBOOL("AppearanceCameraMovement") && !disable_camera_switch)
-		if (gAgentCamera.cameraCustomizeAvatar() && !disable_camera_switch)
-		// </FS:Ansariel>
-		{
-			gAgentCamera.changeCameraToDefault();
-			gAgentCamera.resetView();
-		}
+        if (gSavedSettings.getbool("AppearanceCameraMovement") && !disable_camera_switch)
+        {
+            gAgentCamera.changeCameraToDefault();
+            gAgentCamera.resetView();
+        }
 
 		// Dereferencing the previous callback will cause
 		// updateAppearanceFromCOF to be called, whenever all refs

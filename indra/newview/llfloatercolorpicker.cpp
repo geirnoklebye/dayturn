@@ -454,7 +454,7 @@ void LLFloaterColorPicker::onImmediateCheck( LLUICtrl* ctrl, void* data)
 	LLFloaterColorPicker* self = ( LLFloaterColorPicker* )data;
 	if (self)
 	{
-		gSavedSettings.setBOOL("ApplyColorImmediately", self->mApplyImmediateCheck->get());
+		gSavedSettings.setbool("ApplyColorImmediately", self->mApplyImmediateCheck->get());
 		if (self->mApplyImmediateCheck->get() && self->isColorChanged())
 		{
 			LLColorSwatchCtrl::onColorChanged ( self->getSwatch (), LLColorSwatchCtrl::COLOR_CHANGE );

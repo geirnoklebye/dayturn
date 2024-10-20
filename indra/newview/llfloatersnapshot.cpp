@@ -460,7 +460,7 @@ void LLFloaterSnapshotBase::ImplBase::onClickNewSnapshot(void* data)
 void LLFloaterSnapshotBase::ImplBase::onClickAutoSnap(LLUICtrl *ctrl, void* data)
 {
 	LLCheckBoxCtrl *check = (LLCheckBoxCtrl *)ctrl;
-	gSavedSettings.setBOOL( "AutoSnapshot", check->get() );
+	gSavedSettings.setbool( "AutoSnapshot", check->get() );
 	
 	LLFloaterSnapshotBase *view = (LLFloaterSnapshotBase *)data;		
 	if (view)
@@ -494,7 +494,7 @@ void LLFloaterSnapshotBase::ImplBase::onClickFilter(LLUICtrl *ctrl, void* data)
 void LLFloaterSnapshotBase::ImplBase::onClickUICheck(LLUICtrl *ctrl, void* data)
 {
 	LLCheckBoxCtrl *check = (LLCheckBoxCtrl *)ctrl;
-	gSavedSettings.setBOOL( "RenderUIInSnapshot", check->get() );
+	gSavedSettings.setbool( "RenderUIInSnapshot", check->get() );
 	
 	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
 	if (view)
@@ -568,7 +568,7 @@ void LLFloaterSnapshotBase::ImplBase::onCommitFreezeFrame(LLUICtrl* ctrl, void* 
 		return;
 	}
 
-	gSavedSettings.setBOOL("UseFreezeFrame", check_box->get());
+	gSavedSettings.setbool("UseFreezeFrame", check_box->get());
 
 	if (check_box->get())
 	{

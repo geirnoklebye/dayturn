@@ -1023,7 +1023,7 @@ void LLFloaterReporter::setPosBox(const LLVector3d &pos)
 void LLFloaterReporter::onClose(bool app_quitting)
 {
 	mSnapshotTimer.stop();
-	gSavedPerAccountSettings.setBOOL("PreviousScreenshotForReport", app_quitting);
+	gSavedPerAccountSettings.setbool("PreviousScreenshotForReport", app_quitting);
 }
 
 

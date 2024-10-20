@@ -873,7 +873,7 @@ void LLFloaterIMContainer::collapseMessagesPane(bool collapse)
 		gSavedPerAccountSettings.setS32("ConversationsMessagePaneWidth", msg_pane_width);
 
 		// Save the order in which the panels are closed to reverse user's last action.
-		gSavedPerAccountSettings.setBOOL("ConversationsExpandMessagePaneFirst", mConversationsPane->isCollapsed());
+		gSavedPerAccountSettings.setbool("ConversationsExpandMessagePaneFirst", mConversationsPane->isCollapsed());
 	}
 
 	mConversationsPane->setIgnoreReshape(collapse);
@@ -913,7 +913,7 @@ void LLFloaterIMContainer::collapseConversationsPane(bool collapse, bool save_is
 		gSavedPerAccountSettings.setS32("ConversationsListPaneWidth", conv_pane_width);
 
 		// Save the order in which the panels are closed to reverse user's last action.
-		gSavedPerAccountSettings.setBOOL("ConversationsExpandMessagePaneFirst", !mMessagesPane->isCollapsed());
+		gSavedPerAccountSettings.setbool("ConversationsExpandMessagePaneFirst", !mMessagesPane->isCollapsed());
 	}
 
 	mConversationsStack->collapsePanel(mConversationsPane, collapse);

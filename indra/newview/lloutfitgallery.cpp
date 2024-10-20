@@ -992,7 +992,7 @@ void LLOutfitGalleryGearMenu::onTakeSnapshot()
 void LLOutfitGalleryGearMenu::onChangeSortOrder()
 {
     bool sort_by_name = !gSavedSettings.getbool("OutfitGallerySortByName");
-    gSavedSettings.setBOOL("OutfitGallerySortByName", sort_by_name);
+    gSavedSettings.setbool("OutfitGallerySortByName", sort_by_name);
     LLOutfitGallery* gallery = dynamic_cast<LLOutfitGallery*>(mOutfitList);
     if (gallery)
     {

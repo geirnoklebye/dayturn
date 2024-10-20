@@ -1026,7 +1026,7 @@ void LLScriptEdCore::onCheckLock(LLUICtrl* ctrl, void* userdata)
 	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
 
 	// clear out token any time we lock the frame, so we will refresh web page immediately when unlocked
-	gSavedSettings.setBOOL("ScriptHelpFollowsCursor", ctrl->getValue().asBoolean());
+	gSavedSettings.setbool("ScriptHelpFollowsCursor", ctrl->getValue().asBoolean());
 
 	corep->mLastHelpToken = NULL;
 }
@@ -1075,7 +1075,7 @@ void LLScriptEdCore::onBtnInsertFunction(LLUICtrl *ui, void* userdata)
 	self->setHelpPage(self->mFunctions->getSimple());
 }
 
-void LLScriptEdCore::doSave( bool close_after_save )
+void LLScriptEdCore::doSave(bool close_after_save)
 {
 	add(LLStatViewer::LSL_SAVES, 1);
 
