@@ -728,7 +728,7 @@ namespace action_give_inventory
 	 */
 	static LLInventoryPanel* get_active_inventory_panel()
 	{
-		LLInventoryPanel* active_panel = LLInventoryPanel::getActiveInventoryPanel(FALSE);
+		LLInventoryPanel* active_panel = LLInventoryPanel::getActiveInventoryPanel(false);
 		LLFloater* floater_appearance = LLFloaterReg::findInstance("appearance");
 		if (!active_panel || (floater_appearance && floater_appearance->hasFocus()))
 		{
@@ -1269,7 +1269,7 @@ void LLAvatarActions::viewChatHistory(const LLUUID& id)
 //static
 void LLAvatarActions::addToContactSet(const LLUUID& agent_id)
 {
-	LLFloaterReg::showInstance("fs_add_contact", agent_id, TRUE);
+	LLFloaterReg::showInstance("fs_add_contact", agent_id, true);
 }
 
 void LLAvatarActions::addToContactSet(const uuid_vec_t& agent_ids)
@@ -1285,7 +1285,7 @@ void LLAvatarActions::addToContactSet(const uuid_vec_t& agent_ids)
 		{
 			data.append(*it);
 		}
-		LLFloaterReg::showInstance("fs_add_contact", data, TRUE);
+		LLFloaterReg::showInstance("fs_add_contact", data, true);
 	}
 }
 // [/FS:CR] Add to contact set
@@ -1309,7 +1309,7 @@ bool LLAvatarActions::handleRemove(const LLSD& notification, const LLSD& respons
 			case 0: // YES
 				if( ip->isRightGrantedTo(LLRelationship::GRANT_MODIFY_OBJECTS))
 				{
-					LLAvatarTracker::instance().empower(id, FALSE);
+					LLAvatarTracker::instance().empower(id, false);
 					LLAvatarTracker::instance().notifyObservers();
 				}
 				LLAvatarTracker::instance().terminateBuddy(id);
