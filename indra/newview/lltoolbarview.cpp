@@ -326,7 +326,7 @@ bool LLToolBarView::loadToolbars(bool force_default)
 			mToolbars[LLToolBarEnums::TOOLBAR_RIGHT]->setLayoutStyle(layout_style);
 		}
 		// </FS:Zi>
-		for (const LLCommandId::Params& command_params : toolbar_set.left_toolbar.commands)
+		for (const LLCommandId::Params& command_params : toolbar_set.right_toolbar.commands)
 		{
 			if (!addCommandInternal(LLCommandId(command_params), mToolbars[LLToolBarEnums::TOOLBAR_RIGHT]))
 			{
