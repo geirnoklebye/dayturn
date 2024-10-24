@@ -1,25 +1,25 @@
-/** 
+/**
  * @file llviewerwindow.cpp
  * @brief Implementation of the LLViewerWindow class.
  *
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -3462,7 +3462,7 @@ void LLViewerWindow::updateUI()
 	S32 x = mCurrentMousePoint.mX;
 	S32 y = mCurrentMousePoint.mY;
 
-	MASK	mask = gKeyboard->currentMask(TRUE);
+	MASK	mask = gKeyboard->currentMask(true);
 
 	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_RAYCAST))
 	{
@@ -3911,7 +3911,7 @@ void LLViewerWindow::updateLayout()
 			}
 			// Update the location of the blue box tool popup
 			LLCoordGL select_center_screen;
-			MASK	mask = gKeyboard->currentMask(TRUE);
+			MASK	mask = gKeyboard->currentMask(true);
 			gFloaterTools->updatePopup( select_center_screen, mask );
 		}
 		else
@@ -4048,7 +4048,7 @@ void LLViewerWindow::updateKeyboardFocus()
 		// sync all floaters with their focus state
 		gFloaterView->highlightFocusedFloater();
 		gSnapshotFloaterView->highlightFocusedFloater();
-		MASK	mask = gKeyboard->currentMask(TRUE);
+		MASK	mask = gKeyboard->currentMask(true);
 		if ((mask & MASK_CONTROL) == 0)
 		{
 			// control key no longer held down, finish cycle mode
@@ -4432,13 +4432,13 @@ void renderOnePhysicsShape(LLViewerObject* objectp)
 	LLPhysicsShapeBuilderUtil::PhysicsShapeSpecification physics_spec;
 	LLUUID mesh_id;
 	LLModel::Decomposition* decomp = nullptr;
-	bool hasConvexDecomp = FALSE;
+	bool hasConvexDecomp = false;
 
 	// If we are a mesh and the mesh has a hul decomp (is analysed) then set hasDecomp to true
 	if (vovolume->isMesh()){
 		mesh_id = volume_params.getSculptID();
 		decomp = gMeshRepo.getDecomposition(mesh_id);
-		if (decomp && !decomp->mHull.empty()){ hasConvexDecomp = TRUE; }
+		if (decomp && !decomp->mHull.empty()){ hasConvexDecomp = true; }
 	}
 
 	LLPhysicsShapeBuilderUtil::determinePhysicsShape(physics_params, vovolume->getScale(), hasConvexDecomp, physics_spec);
@@ -4726,7 +4726,7 @@ void LLViewerWindow::renderSelections( bool for_gl_pick, bool pick_parcel_walls,
 
         
         // <FS:Beq> Additions to add Physics shape display in edit mode
-        if (LLToolMgr::getInstance()->inEdit() && selection->getSelectType() != SELECT_TYPE_HUD && gSavedSettings.getBOOL("ShowPhysicsShapeInEdit"))
+        if (LLToolMgr::getInstance()->inEdit() && selection->getSelectType() != SELECT_TYPE_HUD && gSavedSettings.getbool("ShowPhysicsShapeInEdit"))
         {
             gGL.flush();
             gGL.pushMatrix();
@@ -5021,7 +5021,7 @@ LLPickInfo LLViewerWindow::pickImmediate(S32 x, S32 y_from_bot, bool pick_transp
 	}
 	
 	// shortcut queueing in mPicks and just update mLastPick in place
-	MASK	key_mask = gKeyboard->currentMask(TRUE);
+	MASK	key_mask = gKeyboard->currentMask(true);
 	mLastPick = LLPickInfo(LLCoordGL(x, y_from_bot), key_mask, pick_transparent, pick_rigged, pick_particle, true, false, NULL);
 	mLastPick.fetchResults();
 
@@ -6148,13 +6148,12 @@ void LLViewerWindow::setup2DViewport(S32 x_offset, S32 y_offset)
 void LLViewerWindow::setup3DRender()
 {
 	// setup perspective camera
-	LLViewerCamera::getInstance()->setPerspective(NOT_FOR_SELECTION, mWorldViewRectRaw.mLeft, mWorldViewRectRaw.mBottom,  mWorldViewRectRaw.getWidth(), mWorldViewRectRaw.getHeight(), FALSE, LLViewerCamera::getInstance()->getNear(), MAX_FAR_CLIP*2.f);
+	LLViewerCamera::getInstance()->setPerspective(NOT_FOR_SELECTION, mWorldViewRectRaw.mLeft, mWorldViewRectRaw.mBottom,  mWorldViewRectRaw.getWidth(), mWorldViewRectRaw.getHeight(), false, LLViewerCamera::getInstance()->getNear(), MAX_FAR_CLIP*2.f);
 	setup3DViewport();
 }
 
 void LLViewerWindow::setup3DViewport(S32 x_offset, S32 y_offset)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_UI
 	gGLViewport[0] = mWorldViewRectRaw.mLeft + x_offset;
 	gGLViewport[1] = mWorldViewRectRaw.mBottom + y_offset;
 	gGLViewport[2] = mWorldViewRectRaw.getWidth();
