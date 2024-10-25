@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel
  follows="all"
- height="423"
+ height="448"
  label="Things"
  layout="topleft"
  min_height="300"

@@ -84,7 +84,7 @@ void LLFloaterSidePanelContainer::closeFloater(bool app_quitting)
 	
 	LLFloater::closeFloater(app_quitting);
 
-	if ((getInstanceName() == "inventory") && !getKey().isUndefined()) //KKA-827 add inventory_lite
+	if (getInstanceName() == "inventory" && !getKey().isUndefined())
 	{
 		destroy();
 	}

@@ -10606,7 +10606,6 @@ void initialize_menus()
 	view_listener_t::addMenu(new FSResetPerAccountControl(), "ResetPerAccountControl");
 	// </FS:Ansariel> Control enhancements
 	commit.add("Inventory.NewWindow", boost::bind(&LLPanelMainInventory::newWindow));
-	commit.add("Inventory.NewLiteWindow", boost::bind(&LLPanelMainInventory::newLiteWindow)); // KKA-827 Just inventory, no recent/worn
 
 	enable.add("EnablePayObject", boost::bind(&enable_pay_object));
 	enable.add("EnablePayAvatar", boost::bind(&enable_pay_avatar));
