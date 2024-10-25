@@ -1,4 +1,4 @@
-/* 
+/*
  * @file llinventorypanel.cpp
  * @brief Implementation of the inventory panel and associated stuff.
  *
@@ -10,16 +10,16 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -66,7 +66,7 @@ const std::string LLInventoryPanel::RECENTITEMS_SORT_ORDER = std::string("Recent
 const std::string LLInventoryPanel::INHERIT_SORT_ORDER = std::string("");
 static const LLInventoryFolderViewModelBuilder INVENTORY_BRIDGE_BUILDER;
 
-// statics 
+// statics
 bool LLInventoryPanel::sColorSetInitialized = false;
 LLUIColor LLInventoryPanel::sDefaultColor;
 LLUIColor LLInventoryPanel::sDefaultHighlightColor;
@@ -235,7 +235,7 @@ void LLInventoryPanel::clearFolderRoot()
         delete mCompletionObserver;
         mCompletionObserver = NULL;
     }
-    
+
     if (mScroller)
     {
         removeChild(mScroller);
@@ -293,7 +293,7 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
     {
         // Build view of inventory if we need default full hierarchy and inventory is ready, otherwise do in onIdle.
         // Initializing views takes a while so always do it onIdle if viewer already loaded.
-        if (mInventory->isInventoryUsable()            
+        if (mInventory->isInventoryUsable()
             && LLStartUp::getStartupState() <= STATE_WEARABLES_WAIT)
         {
             // Usually this happens on login, so we have less time constraits, but too long and we can cause a disconnect
@@ -1029,8 +1029,6 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
     // Force the creation of an extra root level folder item if required by the inventory panel (default is "false")
     bool allow_drop = true;
     bool create_root = false;
-	//KKA-827 Only do this once and promise the compiler it's not going to change
-	const LLAssetType::EType object_type = objectp->getType();
     if (mParams.show_root_folder)
     {
         LLUUID root_id = getRootFolderID();
@@ -1046,19 +1044,19 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
 
  	if (!folder_view_item && parent_folder)
   		{
-			if (object_type <= LLAssetType::AT_NONE)
+			if (objectp->getType() <= LLAssetType::AT_NONE)
 			{
 				LL_WARNS() << "LLInventoryPanel::buildViewsTree called with invalid objectp->mType : "
-					<< ((S32)object_type) << " name " << objectp->getName() << " UUID " << objectp->getUUID()
+					<< ((S32)objectp->getType()) << " name " << objectp->getName() << " UUID " << objectp->getUUID()
 					<< LL_ENDL;
 				return NULL;
 			}
 			
-			if (object_type >= LLAssetType::AT_COUNT)
+			if (objectp->getType() >= LLAssetType::AT_COUNT)
   			{
 				// Example: Happens when we add assets of new, not yet supported type to library
 				LL_DEBUGS() << "LLInventoryPanel::buildViewsTree called with unknown objectp->mType : "
-				<< ((S32)object_type) << " name " << objectp->getName() << " UUID " << objectp->getUUID()
+				<< ((S32) objectp->getType()) << " name " << objectp->getName() << " UUID " << objectp->getUUID()
 				<< LL_ENDL;
 
 				LLInventoryItem* item = (LLInventoryItem*)objectp;
@@ -1080,7 +1078,7 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
 				}
   			}
   		
-  			if ((object_type == LLAssetType::AT_CATEGORY) &&
+  			if ((objectp->getType() == LLAssetType::AT_CATEGORY) &&
   				(objectp->getActualType() != LLAssetType::AT_LINK_FOLDER))
   			{
   				LLInvFVBridge* new_listener = mInvFVBridgeBuilder->createBridge(LLAssetType::AT_CATEGORY,
@@ -1188,13 +1186,6 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
 	{
 		LLViewerInventoryCategory::cat_array_t* categories;
 		LLViewerInventoryItem::item_array_t* items;
-		//KKA-827 Optimise by defining and reusing these. The routine recurses so the scope has to stay internal though
-		LLViewerInventoryCategory* cat;
-		LLUUID cat_uuid;
-		LLViewerInventoryItem* item;
-		LLUUID item_uuid;
-		LLFolderViewItem* view_itemp = NULL;
-		std::map<LLUUID, LLFolderViewItem*>::iterator map_it;
 		mInventory->lockDirectDescendentArrays(id, categories, items);
 
         LLFolderViewFolder *parentp = dynamic_cast<LLFolderViewFolder*>(folder_view_item);
@@ -1206,29 +1197,15 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
 				 cat_iter != categories->end();
 				 ++cat_iter)
 			{
-				//KKA_827 Don't keep defining and throwing away these variables
-				//const LLViewerInventoryCategory* cat = (*cat_iter);
-				//const LLUUID cat_uuid = cat->getUUID();
-				cat = (*cat_iter);
-				cat_uuid = cat->getUUID();
-				if (typedViewsFilter(cat_uuid, cat))
+				const LLViewerInventoryCategory* cat = (*cat_iter);
+                if (typedViewsFilter(cat->getUUID(), cat))
                 {
                     if (has_folders)
                     {
                         // This can be optimized: we don't need to call getItemByID()
                         // each time, especially since content is growing, we can just
                         // iter over copy of mItemMap in some way
-                        //LLFolderViewItem* view_itemp = getItemByID(cat_uuid);
-						//buildViewsTree(cat_uuid, id, cat, view_itemp, parentp);
-
-						//KKA-827 Optimise as suggested above to not call getItemByID()
-						//KKA-827 In addition, only call cat->getUUID() once
-						view_itemp = NULL;
-						map_it = mItemMap.find(cat_uuid);
-						if (map_it != mItemMap.end())
-						{
-							view_itemp = map_it->second;
-						}
+                        LLFolderViewItem* view_itemp = getItemByID(cat->getUUID());
                         buildViewsTree(cat->getUUID(), id, cat, view_itemp, parentp, (mode == BUILD_ONE_FOLDER ? BUILD_NO_CHILDREN : mode));
                     }
                     else
@@ -1245,28 +1222,14 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
 				 item_iter != items->end();
 				 ++item_iter)
 			{
-				//KKA_827 Don't keep defining and throwing away these variables
-				//const LLViewerInventoryItem* item = (*item_iter);
-				//const LLUUID item_uuid = item->getUUID();
-				item = (*item_iter);
-				item_uuid = item->getUUID();
-				if (typedViewsFilter(item_uuid, item))
+				const LLViewerInventoryItem* item = (*item_iter);
+                if (typedViewsFilter(item->getUUID(), item))
                 {
 
                     // This can be optimized: we don't need to call getItemByID()
                     // each time, especially since content is growing, we can just
                     // iter over copy of mItemMap in some way
-                    //LLFolderViewItem* view_itemp = getItemByID(item_uuid);
-					//buildViewsTree(item_uuid, id, item, view_itemp, parentp);
-
-					//KKA-827 Optimise as suggested above to not call getItemByID()
-					//KKA-827 In addition, only call item->getUUID() once
-					map_it = mItemMap.find(item_uuid);
-					view_itemp = NULL;
-					if (map_it != mItemMap.end())
-					{
-						view_itemp = (map_it->second);
-					}
+                    LLFolderViewItem* view_itemp = getItemByID(item->getUUID());
                     buildViewsTree(item->getUUID(), id, item, view_itemp, parentp, mode);
                 }
 			}
