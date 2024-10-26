@@ -790,7 +790,7 @@ LLQuaternion mayaQ(F32 xRot, F32 yRot, F32 zRot, LLQuaternion::Order order)
 
 const char *OrderToString( const LLQuaternion::Order order )
 {
-	const char *p = NULL;
+	const char *p = nullptr;
 	switch( order )
 	{
 	default:
@@ -961,7 +961,7 @@ void LLQuaternion::unpackFromVector3( const LLVector3& vec )
 
 bool LLQuaternion::parseQuat(const std::string& buf, LLQuaternion* value)
 {
-	if( buf.empty() || value == NULL)
+	if( buf.empty() || value == nullptr)
 	{
 		return false;
 	}
