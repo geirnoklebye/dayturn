@@ -936,7 +936,7 @@ public:
 	bool			getTyping() { return mTyping; }
 //mk
 private:
-	bool			mVisibleChat;
+    bool            mVisibleChat = false;
 
 	//--------------------------------------------------------------------
 	// Lip synch morphs
@@ -1128,7 +1128,7 @@ public:
 	static F32 			sGreyUpdateTime; // Last time stats were updated (to prevent multiple updates per frame) 
 protected:
 	S32					getUnbakedPixelAreaRank();
-	bool				mHasGrey;
+    bool                mHasGrey = false;
 private:
 	F32					mMinPixelArea;
 	F32					mMaxPixelArea;
