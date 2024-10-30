@@ -351,6 +351,7 @@ public:
 	static void	replaceNonstandardASCII( string_type& string, T replacement );
 	static void	replaceChar( string_type& string, T target, T replacement );
 	static void replaceString( string_type& string, string_type target, string_type replacement );
+	static void capitalize(string_type& str);
 	
 	static bool	containsNonprintable(const string_type& string);
 	static void	stripNonprintable(string_type& string);
@@ -1586,6 +1587,20 @@ void LLStringUtilBase<T>::replaceTabsWithSpaces( string_type& str, size_type spa
 		}
 	}
 	str = out_str;
+}
+
+//static
+template<class T>
+void LLStringUtilBase<T>::capitalize(string_type& str)
+{
+	if (str.size())
+	{
+		auto last = str[0] = toupper(str[0]);
+		for (U32 i = 1; i < str.size(); ++i)
+		{
+			last = (last == ' ' || last == '-' || last == '_') ? str[i] = toupper(str[i]) : str[i];
+		}
+	}
 }
 
 //static
