@@ -629,9 +629,9 @@ attributedStringInfo getSegments(NSAttributedString *str)
             unsigned(replacementRange.length)
         };
         
-        int string_length = [aString length];
+        NSUInteger string_length = [aString length];
         unichar text[string_length];
-        attributedStringInfo segments;
+        attributedStringInfo segments = attributedStringInfo();
         // I used 'respondsToSelector:@selector(string)'
         // to judge aString is an attributed string or not.
         if ([aString respondsToSelector:@selector(string)])
@@ -644,7 +644,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
         {
             // aString is not attributed
             [aString getCharacters:text range:NSMakeRange(0, string_length)];
-            segments.seg_lengths.push_back(string_length);
+            segments.seg_lengths.push_back(static_cast<int &&>(string_length));
             segments.seg_standouts.push_back(true);
         }
         setMarkedText(text, selected, replacement, string_length, segments);

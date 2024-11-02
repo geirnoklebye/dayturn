@@ -40,7 +40,7 @@
 	unsigned int mModifiers;
 	float mMousePos[2];
 	bool mHasMarkedText;
-	unsigned int mMarkedTextLength;
+	NSUInteger mMarkedTextLength;
     bool mMarkedTextAllowed;
     bool mSimulatedRightClick;
     bool mOldResize;
