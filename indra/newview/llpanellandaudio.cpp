@@ -232,17 +232,17 @@ void LLPanelLandAudio::onCommitAny(LLUICtrl*, void *userdata)
 	}
 
 	// Extract data from UI
-	BOOL sound_local		= self->mCheckSoundLocal->get();
+	bool sound_local		= self->mCheckSoundLocal->get();
 // <FS:CR> FIRE-593 - It's a combobox now
 	//std::string music_url = self->mMusicURLEdit->getText();
 	std::string music_url = self->mMusicURLEdit->getSimple();
 // </FS:CR>
 
-	BOOL voice_enabled = self->mCheckParcelEnableVoice->get();
-	BOOL voice_estate_chan = !self->mCheckParcelVoiceLocal->get();
+	bool voice_enabled = self->mCheckParcelEnableVoice->get();
+	bool voice_estate_chan = !self->mCheckParcelVoiceLocal->get();
 
-	BOOL any_av_sound		= self->mCheckAVSoundAny->get();
-	BOOL group_av_sound		= TRUE;		// If set to "Everyone" then group is checked as well
+	bool any_av_sound		= self->mCheckAVSoundAny->get();
+	bool group_av_sound		= true;		// If set to "Everyone" then group is checked as well
 	if (!any_av_sound)
 	{	// If "Everyone" is off, use the value from the checkbox
 		group_av_sound = self->mCheckAVSoundGroup->get();

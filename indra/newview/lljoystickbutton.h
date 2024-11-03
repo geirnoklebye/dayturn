@@ -199,7 +199,7 @@ public:
 
     LLJoystickQuaternion(const LLJoystickQuaternion::Params &);
 
-    virtual void	setToggleState(BOOL left, BOOL top, BOOL right, BOOL bottom);
+    virtual void	setToggleState(bool left, bool top, bool right, bool bottom);
 
     virtual bool	handleMouseDown(S32 x, S32 y, MASK mask);
     virtual bool	handleMouseUp(S32 x, S32 y, MASK mask);

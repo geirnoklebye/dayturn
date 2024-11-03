@@ -50,7 +50,7 @@ LLKeyframeDataCache::keyframe_data_map_t	LLKeyframeDataCache::sKeyframeDataMap;
 
 //-----------------------------------------------------------------------------
 // Globals
-//-----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 static F32 JOINT_LENGTH_K = 0.7f;
 static S32 MAX_ITERATIONS = 20;
 static S32 MIN_ITERATIONS = 1;

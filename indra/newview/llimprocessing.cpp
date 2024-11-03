@@ -1689,7 +1689,7 @@ void LLIMProcessing::requestOfflineMessagesCoro(std::string url)
         bool from_group;
         if (message_data["from_group"].isInteger())
         {
-            from_group = message_data["from_group"].asInteger();
+            from_group = message_data["from_group"].asBoolean();
         }
         else
         {

@@ -483,7 +483,7 @@ struct LLPanelFaceSetTEFunctor : public LLSelectedTEFunctor
 	LLPanelFaceSetTEFunctor(LLPanelFace* panel) : mPanel(panel) {}
 	virtual bool apply(LLViewerObject* object, S32 te)
 	{
-		BOOL valid;
+		bool valid;
 		F32 value;
 
         LLRadioGroup * radio_mat_type = mPanel->getChild<LLRadioGroup>("radio_material_type");
@@ -1172,9 +1172,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			F32 spec_scale_s = 1.f;
 			F32 norm_scale_s = 1.f;
 
-			BOOL diff_scale_flip_s = FALSE;
-			BOOL spec_scale_flip_s = FALSE;
-			BOOL norm_scale_flip_s = FALSE;
+			bool diff_scale_flip_s = false;
+			bool spec_scale_flip_s = false;
+			bool norm_scale_flip_s = false;
 
 			LLSelectedTE::getScaleS(diff_scale_s, identical_diff_scale_s);
 			LLSelectedTEMaterial::getSpecularRepeatX(spec_scale_s, identical_spec_scale_s);
@@ -1191,15 +1191,15 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 
 			if (diff_scale_s < 0) {
 				diff_scale_s = -diff_scale_s;
-				diff_scale_flip_s = TRUE;
+				diff_scale_flip_s = true;
 			}
 			if (norm_scale_s < 0) {
 				norm_scale_s = -norm_scale_s;
-				norm_scale_flip_s = TRUE;
+				norm_scale_flip_s = true;
 			}
 			if (spec_scale_s < 0) {
 				spec_scale_s = -spec_scale_s;
-				spec_scale_flip_s = TRUE;
+				spec_scale_flip_s = true;
 			}
 
 			getChild<LLUICtrl>("TexScaleU")->setValue(diff_scale_s);
@@ -1218,9 +1218,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			getChildView("shinyScaleFlipU")->setEnabled(editable && specmap_id.notNull());
 			getChildView("bumpyScaleFlipU")->setEnabled(editable && normmap_id.notNull());
 
-			BOOL diff_scale_tentative = !(identical && identical_diff_scale_s);
-			BOOL norm_scale_tentative = !(identical && identical_norm_scale_s);
-			BOOL spec_scale_tentative = !(identical && identical_spec_scale_s);
+			bool diff_scale_tentative = !(identical && identical_diff_scale_s);
+			bool norm_scale_tentative = !(identical && identical_norm_scale_s);
+			bool spec_scale_tentative = !(identical && identical_spec_scale_s);
 
 			getChild<LLUICtrl>("TexScaleU")->setTentative(  LLSD(diff_scale_tentative));			
 			getChild<LLUICtrl>("shinyScaleU")->setTentative(LLSD(spec_scale_tentative));			
@@ -1240,9 +1240,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			F32 spec_scale_t = 1.f;
 			F32 norm_scale_t = 1.f;
 
-			BOOL diff_scale_flip_t = FALSE;
-			BOOL spec_scale_flip_t = FALSE;
-			BOOL norm_scale_flip_t = FALSE;
+			bool diff_scale_flip_t = false;
+			bool spec_scale_flip_t = false;
+			bool norm_scale_flip_t = false;
 
 			LLSelectedTE::getScaleT(diff_scale_t, identical_diff_scale_t);
 			LLSelectedTEMaterial::getSpecularRepeatY(spec_scale_t, identical_spec_scale_t);
@@ -1259,20 +1259,20 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 
 			if (diff_scale_t < 0) {
 				diff_scale_t = -diff_scale_t;
-				diff_scale_flip_t = TRUE;
+				diff_scale_flip_t = true;
 			}
 			if (norm_scale_t < 0) {
 				norm_scale_t = -norm_scale_t;
-				norm_scale_flip_t = TRUE;
+				norm_scale_flip_t = true;
 			}
 			if (spec_scale_t < 0) {
 				spec_scale_t = -spec_scale_t;
-				spec_scale_flip_t = TRUE;
+				spec_scale_flip_t = true;
 			}
 
-			BOOL diff_scale_tentative = !identical_diff_scale_t;
-			BOOL norm_scale_tentative = !identical_norm_scale_t;
-			BOOL spec_scale_tentative = !identical_spec_scale_t;
+			bool diff_scale_tentative = !identical_diff_scale_t;
+			bool norm_scale_tentative = !identical_norm_scale_t;
+			bool spec_scale_tentative = !identical_spec_scale_t;
 
 			getChildView("TexScaleV")->setEnabled(editable);
 			getChildView("shinyScaleV")->setEnabled(editable && specmap_id.notNull());
@@ -1319,9 +1319,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			LLSelectedTEMaterial::getNormalOffsetX(norm_offset_s, identical_norm_offset_s);
 			LLSelectedTEMaterial::getSpecularOffsetX(spec_offset_s, identical_spec_offset_s);
 
-			BOOL diff_offset_u_tentative = !(align_planar ? identical_planar_aligned : identical_diff_offset_s);
-			BOOL norm_offset_u_tentative = !(align_planar ? identical_planar_aligned : identical_norm_offset_s);
-			BOOL spec_offset_u_tentative = !(align_planar ? identical_planar_aligned : identical_spec_offset_s);
+			bool diff_offset_u_tentative = !(align_planar ? identical_planar_aligned : identical_diff_offset_s);
+			bool norm_offset_u_tentative = !(align_planar ? identical_planar_aligned : identical_norm_offset_s);
+			bool spec_offset_u_tentative = !(align_planar ? identical_planar_aligned : identical_spec_offset_s);
 
 			getChild<LLUICtrl>("TexOffsetU")->setValue(  editable ? diff_offset_s : 0.0f);
 			getChild<LLUICtrl>("bumpyOffsetU")->setValue(editable ? norm_offset_s : 0.0f);
@@ -1353,9 +1353,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			LLSelectedTEMaterial::getNormalOffsetY(norm_offset_t, identical_norm_offset_t);
 			LLSelectedTEMaterial::getSpecularOffsetY(spec_offset_t, identical_spec_offset_t);
 			
-			BOOL diff_offset_v_tentative = !(align_planar ? identical_planar_aligned : identical_diff_offset_t);
-			BOOL norm_offset_v_tentative = !(align_planar ? identical_planar_aligned : identical_norm_offset_t);
-			BOOL spec_offset_v_tentative = !(align_planar ? identical_planar_aligned : identical_spec_offset_t);
+			bool diff_offset_v_tentative = !(align_planar ? identical_planar_aligned : identical_diff_offset_t);
+			bool norm_offset_v_tentative = !(align_planar ? identical_planar_aligned : identical_norm_offset_t);
+			bool spec_offset_v_tentative = !(align_planar ? identical_planar_aligned : identical_spec_offset_t);
 
 			getChild<LLUICtrl>("TexOffsetV")->setValue(editable ? diff_offset_t : 0.0f);
 			getChild<LLUICtrl>("bumpyOffsetV")->setValue(editable ? norm_offset_t : 0.0f);
@@ -1387,9 +1387,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			LLSelectedTEMaterial::getSpecularRotation(spec_rotation,identical_spec_rotation);
 			LLSelectedTEMaterial::getNormalRotation(norm_rotation,identical_norm_rotation);
 
-			BOOL diff_rot_tentative = !(align_planar ? identical_planar_aligned : identical_diff_rotation);
-			BOOL norm_rot_tentative = !(align_planar ? identical_planar_aligned : identical_norm_rotation);
-			BOOL spec_rot_tentative = !(align_planar ? identical_planar_aligned : identical_spec_rotation);
+			bool diff_rot_tentative = !(align_planar ? identical_planar_aligned : identical_diff_rotation);
+			bool norm_rot_tentative = !(align_planar ? identical_planar_aligned : identical_norm_rotation);
+			bool spec_rot_tentative = !(align_planar ? identical_planar_aligned : identical_spec_rotation);
 
 			F32 diff_rot_deg = diff_rotation * RAD_TO_DEG;
 			F32 norm_rot_deg = norm_rotation * RAD_TO_DEG;
@@ -1465,8 +1465,8 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			if (mComboTexGen)
 		{
 				S32 index = mComboTexGen ? mComboTexGen->getCurrentIndex() : 0;
-				BOOL enabled = editable && (index != 1);
-				BOOL identical_repeats = true;
+				bool enabled = editable && (index != 1);
+				bool identical_repeats = true;
 				F32  repeats = 1.0f;
 
 				U32 material_type = (mComboMatMedia->getCurrentIndex() == MATMEDIA_MATERIAL) ? radio_mat_type->getSelectedIndex() : MATTYPE_DIFFUSE;
@@ -1500,9 +1500,9 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 					break;
 				}
 
-				BOOL repeats_tentative = !identical_repeats;
+				bool repeats_tentative = !identical_repeats;
 
-				getChildView("rptctrl")->setEnabled(identical_planar_texgen ? FALSE : enabled);
+				getChildView("rptctrl")->setEnabled(identical_planar_texgen ? false : enabled);
 				LLSpinCtrl* rpt_ctrl = getChild<LLSpinCtrl>("rptctrl");
 				if (force_set_values)
 				{
@@ -1570,16 +1570,16 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 						repeat_y *= 2.0f;
 			}
 
-					BOOL flip_x = FALSE;
-					BOOL flip_y = FALSE;
+					bool flip_x = false;
+					bool flip_y = false;
 
 					if (repeat_x < 0) {
 						repeat_x = -repeat_x;
-						flip_x = TRUE;
+						flip_x = true;
 					}
 					if (repeat_y < 0) {
 						repeat_y = -repeat_y;
-						flip_y = TRUE;
+						flip_y = true;
 					}
 
 					rot = material->getSpecularRotation();
@@ -1624,16 +1624,16 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 						repeat_y *= 2.0f;
 					}
 			
-					BOOL flip_x = FALSE;
-					BOOL flip_y = FALSE;
+					bool flip_x = false;
+					bool flip_y = false;
 
 					if (repeat_x < 0) {
 						repeat_x = -repeat_x;
-						flip_x = TRUE;
+						flip_x = true;
 					}
 					if (repeat_y < 0) {
 						repeat_y = -repeat_y;
-						flip_y = TRUE;
+						flip_y = true;
 					}
 
 					rot = material->getNormalRotation();
@@ -1650,7 +1650,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 			}
 		}
         S32 selected_count = LLSelectMgr::getInstance()->getSelection()->getObjectCount();
-        BOOL single_volume = (selected_count == 1);
+        bool single_volume = (selected_count == 1);
         mMenuClipboardColor->setEnabled(editable && single_volume);
 
 		// Set variable values for numeric expressions
@@ -1739,7 +1739,7 @@ void LLPanelFace::refreshMedia()
         && first_object->permModify()
         ))
     {
-        getChildView("add_media")->setEnabled(FALSE);
+        getChildView("add_media")->setEnabled(false);
         mTitleMediaText->clear();
         clearMediaSettings();
         return;
@@ -1750,13 +1750,13 @@ void LLPanelFace::refreshMedia()
 
     if (!has_media_capability)
     {
-        getChildView("add_media")->setEnabled(FALSE);
+        getChildView("add_media")->setEnabled(false);
         LL_WARNS("LLFloaterToolsMedia") << "Media not enabled (no capability) in this region!" << LL_ENDL;
         clearMediaSettings();
         return;
     }
 
-    BOOL is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode()
+    bool is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode()
         && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced())
         || LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
     bool editable = is_nonpermanent_enforced && (first_object->permModify() || selectedMediaEditable());
@@ -4171,7 +4171,7 @@ void LLPanelFace::onPasteTexture(LLViewerObject* objectp, S32 te)
                 else if (full_perm)
                 {
                     // Either library, local or existed as fullperm when user made a copy
-                    LLViewerTexture* image = LLViewerTextureManager::getFetchedTexture(imageid, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
+                    LLViewerTexture* image = LLViewerTextureManager::getFetchedTexture(imageid, FTT_DEFAULT, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
                     objectp->setTEImage(U8(te), image);
                 }
             }
@@ -4388,14 +4388,14 @@ void LLPanelFace::onClickDuplicateDiffuse(void *data)
 	LLPanelFace *self = (LLPanelFace *)data;
 	llassert_always(self);
 
-	const BOOL have_normal_map = self->getCurrentNormalMap().notNull();
-	const BOOL have_specular_map = self->getCurrentSpecularMap().notNull();
+	const bool have_normal_map = self->getCurrentNormalMap().notNull();
+	const bool have_specular_map = self->getCurrentSpecularMap().notNull();
 
 	//
 	//	duplicate diffuse map scale (U)
 	//
 	F32 value = self->getChild<LLSpinCtrl>("TexScaleU")->getValue().asReal();
-	BOOL flip = self->getChild<LLCheckBoxCtrl>("TexScaleFlipU")->getValue().asBoolean();
+	bool flip = self->getChild<LLCheckBoxCtrl>("TexScaleFlipU")->getValue().asBoolean();
 
 	if (have_normal_map) {
 		self->childSetValue("bumpyScaleU", value);
@@ -4474,13 +4474,13 @@ void LLPanelFace::onClickDuplicateNormal(void *data)
 	LLPanelFace *self = (LLPanelFace *)data;
 	llassert_always(self);
 
-	const BOOL have_specular_map = self->getCurrentSpecularMap().notNull();
+	const bool have_specular_map = self->getCurrentSpecularMap().notNull();
 
 	//
 	//	duplicate normal map scale (U)
 	//
 	F32 value = self->getChild<LLSpinCtrl>("bumpyScaleU")->getValue().asReal();
-	BOOL flip = self->getChild<LLCheckBoxCtrl>("bumpyScaleFlipU")->getValue().asBoolean();
+	bool flip = self->getChild<LLCheckBoxCtrl>("bumpyScaleFlipU")->getValue().asBoolean();
 
 	self->childSetValue("TexScaleU", value);
 	self->childSetValue("TexScaleFlipU", flip);
@@ -4551,7 +4551,7 @@ void LLPanelFace::onClickDuplicateSpecular(void *data)
 	LLPanelFace *self = (LLPanelFace *)data;
 	llassert_always(self);
 
-	const BOOL have_normal_map = self->getCurrentNormalMap().notNull();
+	const bool have_normal_map = self->getCurrentNormalMap().notNull();
 
 	//
 	//	duplicate specular map scale (U)

@@ -737,7 +737,7 @@ LLJoystickQuaternion::LLJoystickQuaternion(const LLJoystickQuaternion::Params &p
     }
 }
 
-void LLJoystickQuaternion::setToggleState(BOOL left, BOOL top, BOOL right, BOOL bottom)
+void LLJoystickQuaternion::setToggleState(bool left, bool top, bool right, bool bottom)
 {
     mInLeft = left;
     mInTop = top;

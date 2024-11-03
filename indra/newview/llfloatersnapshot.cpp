@@ -324,7 +324,7 @@ void LLFloaterSnapshot::Impl::updateControls(LLFloaterSnapshotBase* floater)
 	}
 		
 	LLSnapshotLivePreview* previewp = getPreviewView();
-	BOOL got_bytes = previewp && previewp->getDataSize() > 0;
+	bool got_bytes = previewp && previewp->getDataSize() > 0;
 	bool got_snap = previewp && previewp->getSnapshotUpToDate();
 
 	// *TODO: Separate maximum size for Web images from postcards
@@ -512,7 +512,7 @@ void LLFloaterSnapshotBase::ImplBase::onClickUICheck(LLUICtrl *ctrl, void* data)
 void LLFloaterSnapshotBase::ImplBase::onClickHUDCheck(LLUICtrl *ctrl, void* data)
 {
 	LLCheckBoxCtrl *check = (LLCheckBoxCtrl *)ctrl;
-	gSavedSettings.setBOOL( "RenderHUDInSnapshot", check->get() );
+	gSavedSettings.setbool( "RenderHUDInSnapshot", check->get() );
 	
 	LLFloaterSnapshot *view = (LLFloaterSnapshot *)data;
 	if (view)
@@ -1210,7 +1210,7 @@ S32 LLFloaterSnapshotBase::notify(const LLSD& info)
 // virtual
 S32 LLFloaterSnapshot::notify(const LLSD& info)
 {
-	bool res = LLFloaterSnapshotBase::notify(info);
+	S32 res = LLFloaterSnapshotBase::notify(info);
 	if (res)
 		return res;
 	// A child panel wants to change snapshot resolution.

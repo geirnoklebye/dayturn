@@ -456,7 +456,7 @@ void LLSettingsDay::blend(const LLSettingsBase::ptr_t &other, F64 mix)
 
 namespace
 {
-    bool validateDayCycleTrack(LLSD &value, U32 flags)
+    bool validateDayCycleTrack(LLSD &value, bool flags)
     {
         // Trim extra tracks.
         while (value.size() > LLSettingsDay::TRACK_MAX)
@@ -527,7 +527,7 @@ namespace
         return true;
     }
 
-    bool validateDayCycleFrames(LLSD &value, U32 flags)
+    bool validateDayCycleFrames(LLSD &value, bool flags)
     {
         bool hasSky(false);
         bool hasWater(false);

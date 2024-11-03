@@ -398,7 +398,7 @@ void LLFloaterJoystick::onCommitJoystickEnabled(LLUICtrl*, void *joy_panel)
     if (value.isInteger())
     {
         // ndof already has a device selected, we are just setting it enabled or disabled
-        joystick_enabled = value.asInteger();
+        joystick_enabled = value.asBoolean();
     }
     else
     {
@@ -406,8 +406,8 @@ void LLFloaterJoystick::onCommitJoystickEnabled(LLUICtrl*, void *joy_panel)
         // else joystick is enabled, because combobox holds id of the device
         joystick_enabled = true;
     }
-    gSavedSettings.setBOOL("JoystickEnabled", joystick_enabled);
-	BOOL flycam_enabled = self->mCheckFlycamEnabled->get();
+    gSavedSettings.setbool("JoystickEnabled", joystick_enabled);
+	bool flycam_enabled = self->mCheckFlycamEnabled->get();
 
 	if (!joystick_enabled || !flycam_enabled)
 	{

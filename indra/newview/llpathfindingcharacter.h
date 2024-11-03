@@ -44,7 +44,7 @@ public:
 
 	inline F32  getCPUTime() const   {return mCPUTime;};
 
-	inline BOOL isHorizontal() const {return mIsHorizontal;};
+	inline bool isHorizontal() const {return mIsHorizontal;};
 	inline F32  getLength() const    {return mLength;};
 	inline F32  getRadius() const    {return mRadius;};
 

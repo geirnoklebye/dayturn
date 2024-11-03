@@ -71,7 +71,7 @@ struct ViewerFolderEntry : public LLDictionaryEntry
 		*/
 		mIconNameOpen("Inv_FolderOpen"), mIconNameClosed("Inv_FolderClosed"),
 		mNewCategoryName(new_category_name),
-		mIsQuiet(FALSE),
+		mIsQuiet(false),
 		mHideIfEmpty(false)
 	{
 		const std::string delims (",");
@@ -96,7 +96,7 @@ struct ViewerFolderEntry : public LLDictionaryEntry
 	const std::string mNewCategoryName;
 	typedef std::vector<std::string> name_vec_t;
 	name_vec_t mAllowedNames;
-	BOOL mIsQuiet;
+	bool mIsQuiet;
 	bool mHideIfEmpty;
 };
 

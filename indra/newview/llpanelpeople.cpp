@@ -1945,11 +1945,11 @@ void LLPanelPeople::onFriendListRefreshComplete(LLUICtrl*ctrl, const LLSD& param
 {
 	if(ctrl == mOnlineFriendList)
 	{
-		showAccordion("tab_online", param.asInteger());
+		showAccordion("tab_online", param.asBoolean());
 	}
 	else if(ctrl == mAllFriendList)
 	{
-		showAccordion("tab_all", param.asInteger());
+		showAccordion("tab_all", param.asBoolean());
 	}
 }
 

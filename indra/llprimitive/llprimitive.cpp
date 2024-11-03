@@ -140,7 +140,7 @@ struct material_id_type // originally from llrendermaterialtable
         return !operator==(other);
     }
 
-    bool isNull() const
+    [[nodiscard]] bool isNull() const
     {
         return (memcmp(m_value, s_null_id, sizeof(m_value)) == 0);
     }
@@ -155,7 +155,7 @@ const U8 material_id_type::s_null_id[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 //static 
 // LEGACY: by default we use the LLVolumeMgr::gVolumeMgr global
 // TODO -- eliminate this global from the codebase!
-LLVolumeMgr* LLPrimitive::sVolumeManager = NULL;
+LLVolumeMgr* LLPrimitive::sVolumeManager = nullptr;
 
 // static
 void LLPrimitive::setVolumeManager( LLVolumeMgr* volume_manager )
@@ -175,7 +175,7 @@ bool LLPrimitive::cleanupVolumeManager()
 	{
 		res = sVolumeManager->cleanup();
 		delete sVolumeManager;
-		sVolumeManager = NULL;
+		sVolumeManager = nullptr;
 	}
 	return res;
 }

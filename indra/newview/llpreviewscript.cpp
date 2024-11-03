@@ -1871,7 +1871,7 @@ void LLPreviewLSL::uploadAssetViaCaps(const std::string& url,
     LLBufferedAssetUploadInfo::invnUploadFinish_f proc = boost::bind(&LLPreviewLSL::finishedLSLUpload, _1, _4);
 
     // LLResourceUploadInfo::ptr_t uploadInfo(new LLScriptAssetUpload(mItemUUID, buffer, proc));
-    LLResourceUploadInfo::ptr_t uploadInfo(new FSScriptAssetUpload(mItemUUID, buffer, proc, gSavedSettings.getBOOL("SaveInventoryScriptsAsMono")));
+    LLResourceUploadInfo::ptr_t uploadInfo(new FSScriptAssetUpload(mItemUUID, buffer, proc, gSavedSettings.getbool("SaveInventoryScriptsAsMono")));
 
     LLViewerAssetUpload::EnqueueInventoryUpload(url, uploadInfo); // <FS:ND> DoMono needs to be passed/set here.
     //	LLHTTPClient::post(url, body, new LLUpdateAgentInventoryResponder(body, filename, LLAssetType::AT_LSL_TEXT));

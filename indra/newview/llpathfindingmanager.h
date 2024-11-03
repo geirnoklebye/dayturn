@@ -114,7 +114,7 @@ private:
 	//void handleNavMeshStatusRequest(const LLPathfindingNavMeshStatus &pNavMeshStatus, LLViewerRegion *pRegion, bool pIsGetStatusOnly);
 	void handleNavMeshStatusUpdate(const LLPathfindingNavMeshStatus &pNavMeshStatus);
 
-	void handleAgentState(BOOL pCanRebakeRegion);
+	void handleAgentState(bool pCanRebakeRegion);
 
 	LLPathfindingNavMeshPtr getNavMeshForRegion(const LLUUID &pRegionUUID);
 	LLPathfindingNavMeshPtr getNavMeshForRegion(LLViewerRegion *pRegion);

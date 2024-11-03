@@ -378,7 +378,7 @@ static LLNotificationFunctorRegistration friendship_offer_callback_reg_nm("Offer
 // Functions
 //
 
-void give_money(const LLUUID& uuid, LLViewerRegion* region, S32 amount, BOOL is_group,
+void give_money(const LLUUID& uuid, LLViewerRegion* region, S32 amount, bool is_group,
 				S32 trx_type, const std::string& desc)
 {
 	if(0 == amount || !region) return;
@@ -400,7 +400,7 @@ void give_money(const LLUUID& uuid, LLViewerRegion* region, S32 amount, BOOL is_
 		msg->nextBlockFast(_PREHASH_MoneyData);
 		msg->addUUIDFast(_PREHASH_SourceID, gAgent.getID() );
 		msg->addUUIDFast(_PREHASH_DestID, uuid);
-		msg->addU8Fast(_PREHASH_Flags, pack_transaction_flags(FALSE, is_group));
+		msg->addU8Fast(_PREHASH_Flags, pack_transaction_flags(false, is_group));
 		msg->addS32Fast(_PREHASH_Amount, amount);
 		msg->addU8Fast(_PREHASH_AggregatePermNextOwner, (U8)LLAggregatePermissions::AP_EMPTY);
 		msg->addU8Fast(_PREHASH_AggregatePermInventory, (U8)LLAggregatePermissions::AP_EMPTY);
@@ -2192,7 +2192,7 @@ bool mature_lure_callback(const LLSD& notification, const LLSD& response)
 	
 	LLUUID from_id = notification["payload"]["from_id"].asUUID();
 	LLUUID lure_id = notification["payload"]["lure_id"].asUUID();
-	BOOL godlike = notification["payload"]["godlike"].asBoolean();
+	bool godlike = notification["payload"]["godlike"].asBoolean();
 	U8 region_access = static_cast<U8>(notification["payload"]["region_maturity"].asInteger());
 
 	switch(option)
@@ -4349,17 +4349,17 @@ void process_avatar_sit_response(LLMessageSystem *mesgsys, void **user_data)
 	LLVector3 sitPosition;
 	LLQuaternion sitRotation;
 	LLUUID sitObjectID;
-	BOOL use_autopilot;
+	bool use_autopilot;
 	mesgsys->getUUIDFast(_PREHASH_SitObject, _PREHASH_ID, sitObjectID);
-	mesgsys->getBOOLFast(_PREHASH_SitTransform, _PREHASH_AutoPilot, use_autopilot);
+	mesgsys->getboolFast(_PREHASH_SitTransform, _PREHASH_AutoPilot, use_autopilot);
 	mesgsys->getVector3Fast(_PREHASH_SitTransform, _PREHASH_SitPosition, sitPosition);
 	mesgsys->getQuatFast(_PREHASH_SitTransform, _PREHASH_SitRotation, sitRotation);
 	LLVector3 camera_eye;
 	mesgsys->getVector3Fast(_PREHASH_SitTransform, _PREHASH_CameraEyeOffset, camera_eye);
 	LLVector3 camera_at;
 	mesgsys->getVector3Fast(_PREHASH_SitTransform, _PREHASH_CameraAtOffset, camera_at);
-	BOOL force_mouselook;
-	mesgsys->getBOOLFast(_PREHASH_SitTransform, _PREHASH_ForceMouselook, force_mouselook);
+	bool force_mouselook;
+	mesgsys->getboolFast(_PREHASH_SitTransform, _PREHASH_ForceMouselook, force_mouselook);
 
 	if (isAgentAvatarValid() && dist_vec_squared(camera_eye, camera_at) > CAMERA_POSITION_THRESHOLD_SQUARED)
 	{
@@ -4783,21 +4783,21 @@ static void process_money_balance_reply_extended(LLMessageSystem* msg)
     // and agent ids for name lookup.
     S32 transaction_type = 0;
     LLUUID source_id;
-	BOOL is_source_group = FALSE;
+	bool is_source_group = false;
     LLUUID dest_id;
-	BOOL is_dest_group = FALSE;
+	bool is_dest_group = false;
     S32 amount = 0;
     std::string item_description;
-	BOOL success = FALSE;
+	bool success = false;
 
     msg->getS32("TransactionInfo", "TransactionType", transaction_type);
     msg->getUUID("TransactionInfo", "SourceID", source_id);
-	msg->getBOOL("TransactionInfo", "IsSourceGroup", is_source_group);
+	msg->getbool("TransactionInfo", "IsSourceGroup", is_source_group);
     msg->getUUID("TransactionInfo", "DestID", dest_id);
-	msg->getBOOL("TransactionInfo", "IsDestGroup", is_dest_group);
+	msg->getbool("TransactionInfo", "IsDestGroup", is_dest_group);
     msg->getS32("TransactionInfo", "Amount", amount);
     msg->getString("TransactionInfo", "ItemDescription", item_description);
-	msg->getBOOL("MoneyData", "TransactionSuccess", success);
+	msg->getbool("MoneyData", "TransactionSuccess", success);
     LL_INFOS("Money") << "MoneyBalanceReply source " << source_id 
 		<< " dest " << dest_id
 		<< " type " << transaction_type

@@ -161,7 +161,7 @@ void LLMenuOptionPathfindingRebakeNavmesh::setMode(ERebakeNavMeshMode pRebakeNav
 	mRebakeNavMeshMode = pRebakeNavMeshMode;
 }
 
-void LLMenuOptionPathfindingRebakeNavmesh::handleAgentState(BOOL pCanRebakeRegion)
+void LLMenuOptionPathfindingRebakeNavmesh::handleAgentState(bool pCanRebakeRegion)
 {
 	llassert(mIsInitialized);
 	mCanRebakeRegion = pCanRebakeRegion;

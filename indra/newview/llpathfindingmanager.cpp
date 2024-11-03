@@ -707,7 +707,7 @@ void LLPathfindingManager::handleNavMeshStatusUpdate(const LLPathfindingNavMeshS
 	}
 }
 
-void LLPathfindingManager::handleAgentState(BOOL pCanRebakeRegion) 
+void LLPathfindingManager::handleAgentState(bool pCanRebakeRegion) 
 {
 	mAgentStateSignal(pCanRebakeRegion);
 }

@@ -1155,7 +1155,7 @@ void LLPanelPermissions::onCommitPerm(LLUICtrl *ctrl, void *data, U8 field, U32 
 	// Checkbox will have toggled itself
 	// LLPanelPermissions* self = (LLPanelPermissions*)data;
 	LLCheckBoxCtrl *check = (LLCheckBoxCtrl *)ctrl;
-	BOOL new_state = check->get();
+	bool new_state = check->get();
 	
 	LLSelectMgr::getInstance()->selectionSetObjectPermissions(field, new_state, perm);
 }

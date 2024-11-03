@@ -842,9 +842,9 @@ void LLViewerInventoryCategory::localizeName()
 }
 
 // virtual
-BOOL LLViewerInventoryCategory::unpackMessage(const LLSD& category)
+bool LLViewerInventoryCategory::unpackMessage(const LLSD& category)
 {
-	BOOL rv = LLInventoryCategory::fromLLSD(category);
+	bool rv = LLInventoryCategory::fromLLSD(category);
 	localizeName();
 	return rv;
 }

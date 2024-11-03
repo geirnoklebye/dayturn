@@ -145,8 +145,8 @@ bool LLPanelGroupGeneral::postBuild()
 		mSpinEnrollmentFee->resetDirty();
 	}
 
-	BOOL accept_notices = FALSE;
-	BOOL list_in_profile = FALSE;
+	bool accept_notices = false;
+	bool list_in_profile = false;
 	LLGroupData data;
 	if(gAgent.getGroupData(mGroupID,data))
 	{
@@ -404,7 +404,7 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 				}
 				else
 				{
-					gdatap->mMaturePublish = FALSE;
+					gdatap->mMaturePublish = false;
 				}
 			}
 			if (mCtrlShowInGroupList) gdatap->mShowInList = mCtrlShowInGroupList->get();

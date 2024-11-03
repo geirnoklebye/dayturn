@@ -91,7 +91,7 @@ public:
 	const LLUUID& getID() const { return mID; }
 	S32 getContribution() const { return mContribution; }
 	U64	getAgentPowers() const { return mAgentPowers; }
-	BOOL isOwner() const { return mIsOwner; }
+	bool isOwner() const { return mIsOwner; }
 	const std::string& getTitle() const { return mTitle; }
 	const std::string& getOnlineStatus() const { return mOnlineStatus; }
 	void addRole(const LLUUID& role, LLGroupRoleData* rd);
@@ -100,7 +100,7 @@ public:
 	role_list_t::iterator roleBegin() { return mRolesList.begin(); }
 	role_list_t::iterator roleEnd() { return mRolesList.end(); }
 
-	BOOL isInRole(const LLUUID& role_id) { return (mRolesList.find(role_id) != mRolesList.end()); }
+	bool isInRole(const LLUUID& role_id) { return (mRolesList.find(role_id) != mRolesList.end()); }
 
 private:
 	LLUUID	mID;
@@ -108,7 +108,7 @@ private:
 	U64		mAgentPowers;
 	std::string	mTitle;
 	std::string	mOnlineStatus;
-	BOOL	mIsOwner;
+	bool	mIsOwner;
 	role_list_t mRolesList;
 };
 
@@ -297,15 +297,15 @@ public:
 	LLUUID				mOwnerRole;
 	std::string			mName;
 	std::string			mCharter;
-	BOOL				mShowInList;
+	bool				mShowInList;
 	LLUUID				mInsigniaID;
 	LLUUID				mFounderID;
-	BOOL				mOpenEnrollment;
+	bool				mOpenEnrollment;
 	S32					mMembershipFee;
-	BOOL				mAllowPublish;
-	BOOL				mListInProfile;
-	BOOL				mMaturePublish;
-	BOOL				mChanged;
+	bool				mAllowPublish;
+	bool				mListInProfile;
+	bool				mMaturePublish;
+	bool				mChanged;
 	S32					mMemberCount;
 	S32					mRoleCount;
 

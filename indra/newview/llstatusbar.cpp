@@ -779,7 +779,7 @@ bool LLStatusBar::getAudioStreamEnabled() const
 }
 // ## Zi: Media/Stream separation
 
-BOOL can_afford_transaction(S32 cost)
+bool can_afford_transaction(S32 cost)
 {
 	return((cost <= 0)||((gStatusBar) && (gStatusBar->getBalance() >=cost)));
 }

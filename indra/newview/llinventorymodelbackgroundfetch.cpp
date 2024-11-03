@@ -875,7 +875,7 @@ void BGFolderHttpHandler::processFailure(LLCore::HttpStatus status, LLCore::Http
 		{
 			LLSD folder_sd(*folder_it);
 			LLUUID folder_id(folder_sd["folder_id"].asUUID());
-			const BOOL recursive = getIsRecursive(folder_id);
+			const bool recursive = getIsRecursive(folder_id);
 			fetcher->addRequestAtFront(folder_id, recursive, true);
 		}
 	}
@@ -912,7 +912,7 @@ void BGFolderHttpHandler::processFailure(const char * const reason, LLCore::Http
 		{
 			LLSD folder_sd(*folder_it);
 			LLUUID folder_id(folder_sd["folder_id"].asUUID());
-			const BOOL recursive = getIsRecursive(folder_id);
+			const bool recursive = getIsRecursive(folder_id);
 			fetcher->addRequestAtFront(folder_id, recursive, true);
 		}
 	}

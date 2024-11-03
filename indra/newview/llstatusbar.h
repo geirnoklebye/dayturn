@@ -175,7 +175,7 @@ private:
 };
 
 // *HACK: Status bar owns your cached money balance. JC
-BOOL can_afford_transaction(S32 cost);
+bool can_afford_transaction(S32 cost);
 
 extern LLStatusBar *gStatusBar;
 

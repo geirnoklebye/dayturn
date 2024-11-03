@@ -73,7 +73,7 @@ bool LLFloaterRegionRestartSchedule::postBuild()
     // 24h format and prealligned "UTC" label
     if (mPMAMButton->getVisible())
     {
-        bool use_24h_format = gSavedSettings.getBOOL("Use24HourClock");
+        bool use_24h_format = gSavedSettings.getbool("Use24HourClock");
         if (use_24h_format)
         {
             mPMAMButton->setVisible(false);

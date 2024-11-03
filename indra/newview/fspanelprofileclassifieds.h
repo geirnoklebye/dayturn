@@ -184,7 +184,7 @@ public:
 
 	U32 getContentType() { return mContentType; }
 
-	void setAutoRenew(U32 renew) { mAutoRenew = renew; }
+	void setAutoRenew(bool renew) { mAutoRenew = renew; }
 
 	bool getAutoRenew() { return mAutoRenew; }
 
@@ -199,7 +199,7 @@ private:
 	std::string mLocationText;
 	U32 mCategory;
 	U32 mContentType;
-	U32 mAutoRenew;
+	bool mAutoRenew;
 	S32 mPriceForListing;
 };
 

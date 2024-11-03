@@ -683,7 +683,7 @@ void LLPanelVolume::sendIsLight()
 	}	
 	LLVOVolume *volobjp = (LLVOVolume *)objectp;
 	
-	BOOL value = getChild<LLUICtrl>("Light Checkbox Ctrl")->getValue();
+	bool value = getChild<LLUICtrl>("Light Checkbox Ctrl")->getValue();
 	volobjp->setIsLight(value);
 	LL_INFOS() << "update light sent" << LL_ENDL;
 }
@@ -916,10 +916,10 @@ void LLPanelVolume::onPasteFeatures()
     bool is_root = objectp->isRoot();
 
     // Not sure if phantom should go under physics, but doesn't fit elsewhere
-    BOOL is_phantom = clipboard["is_phantom"].asBoolean() && is_root;
+    bool is_phantom = clipboard["is_phantom"].asBoolean() && is_root;
     LLSelectMgr::getInstance()->selectionUpdatePhantom(is_phantom);
 
-    BOOL is_physical = clipboard["is_physical"].asBoolean() && is_root;
+    bool is_physical = clipboard["is_physical"].asBoolean() && is_root;
     LLSelectMgr::getInstance()->selectionUpdatePhysics(is_physical);
 
     if (clipboard.has("physics"))
