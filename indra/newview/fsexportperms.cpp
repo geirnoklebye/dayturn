@@ -63,7 +63,7 @@ bool FSExportPermsCheck::canExportNode(LLSelectNode* node, bool dae)
 	if (exportable)
 	{
 		exportable = false;
-		LLVOVolume* volobjp = NULL;
+		LLVOVolume* volobjp = nullptr;
 
 		if (object->getPCode() == LL_PCODE_VOLUME)
 		{

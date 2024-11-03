@@ -95,7 +95,7 @@ void disconnect_smtp()
 	{
 		apr_status_t status = apr_socket_close(gMailSocket);
 		ll_apr_warn_status(status);
-		gMailSocket = NULL;
+		gMailSocket = nullptr;
 	}
 }
 
@@ -136,11 +136,11 @@ bool LLMail::send(
 // static
 void LLMail::init(const std::string& hostname, apr_pool_t* pool)
 {
-	gMailSocket = NULL;
+	gMailSocket = nullptr;
 	if(hostname.empty() || !pool)
 	{
-		gMailPool = NULL;
-		gSockAddr = NULL;
+		gMailPool = nullptr;
+		gSockAddr = nullptr;
 	}
 	else
 	{

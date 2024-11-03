@@ -696,7 +696,7 @@ void LLSD::Impl::assign(Impl*& var, const Impl* other)
 
 void LLSD::Impl::assignUndefined(Impl*& var)
 {
-	reset(var, 0);
+	reset(var, nullptr);
 }
 
 void LLSD::Impl::assign(Impl*& var, LLSD::Boolean v)
@@ -805,10 +805,10 @@ namespace
 }
 
 
-LLSD::LLSD() : impl(0)					{ ALLOC_LLSD_OBJECT; }
-LLSD::~LLSD()							{ FREE_LLSD_OBJECT; Impl::reset(impl, 0); }
+LLSD::LLSD() : impl(nullptr)					{ ALLOC_LLSD_OBJECT; }
+LLSD::~LLSD()							{ FREE_LLSD_OBJECT; Impl::reset(impl, nullptr); }
 
-LLSD::LLSD(const LLSD& other) : impl(0) { ALLOC_LLSD_OBJECT;  assign(other); }
+LLSD::LLSD(const LLSD& other) : impl(nullptr) { ALLOC_LLSD_OBJECT;  assign(other); }
 void LLSD::assign(const LLSD& other)	{ Impl::assign(impl, other.impl); }
 
 
@@ -817,17 +817,17 @@ void LLSD::clear()						{ Impl::assignUndefined(impl); }
 LLSD::Type LLSD::type() const			{ return safe(impl).type(); }
 
 // Scalar Constructors
-LLSD::LLSD(Boolean v) : impl(0)			{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(Integer v) : impl(0)			{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(Real v) : impl(0)			{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(const UUID& v) : impl(0)		{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(const String& v) : impl(0)	{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(const Date& v) : impl(0)		{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(const URI& v) : impl(0)		{ ALLOC_LLSD_OBJECT;	assign(v); }
-LLSD::LLSD(const Binary& v) : impl(0)	{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(Boolean v) : impl(nullptr)			{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(Integer v) : impl(nullptr)			{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(Real v) : impl(nullptr)			{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(const UUID& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(const String& v) : impl(nullptr)	{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(const Date& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(const URI& v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(const Binary& v) : impl(nullptr)	{ ALLOC_LLSD_OBJECT;	assign(v); }
 
 // Convenience Constructors
-LLSD::LLSD(F32 v) : impl(0)				{ ALLOC_LLSD_OBJECT;	assign((Real)v); }
+LLSD::LLSD(F32 v) : impl(nullptr)				{ ALLOC_LLSD_OBJECT;	assign((Real)v); }
 
 // Scalar Assignment
 void LLSD::assign(Boolean v)			{ safe(impl).assign(impl, v); }
@@ -852,7 +852,7 @@ const LLSD::Binary&	LLSD::asBinary() const	{ return safe(impl).asBinary(); }
 const LLSD::String& LLSD::asStringRef() const { return safe(impl).asStringRef(); }
 
 // const char * helpers
-LLSD::LLSD(const char* v) : impl(0)		{ ALLOC_LLSD_OBJECT;	assign(v); }
+LLSD::LLSD(const char* v) : impl(nullptr)		{ ALLOC_LLSD_OBJECT;	assign(v); }
 void LLSD::assign(const char* v)
 {
 	if(v) assign(std::string(v));
@@ -926,7 +926,7 @@ static const char *llsd_dump(const LLSD &llsd, bool useXMLFormat)
 	// sStorage will point to the result of the last call.  This will actually
 	// be one leak, but since this is used only when running under the
 	// debugger, it should not be an issue.
-	static char *sStorage = NULL;
+	static char *sStorage = nullptr;
 	delete[] sStorage;
 	std::string out_string;
 	{

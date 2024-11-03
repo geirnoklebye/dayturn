@@ -623,7 +623,7 @@ LLIOPipe::EStatus LLFilterXMLRPCResponse2LLSD::process_impl(
 	XMLRPC_REQUEST response = XMLRPC_REQUEST_FromXML(
 		buf,
 		bytes,
-		NULL);
+		nullptr);
 	if(!response)
 	{
 		LL_WARNS() << "XML -> SD Response unable to parse xml." << LL_ENDL;
@@ -723,7 +723,7 @@ LLIOPipe::EStatus LLFilterXMLRPCRequest2LLSD::process_impl(
 	XMLRPC_REQUEST request = XMLRPC_REQUEST_FromXML(
 		buf,
 		bytes,
-		NULL);
+		nullptr);
 	if(!request)
 	{
 		LL_WARNS() << "XML -> SD Request process parse error." << LL_ENDL;

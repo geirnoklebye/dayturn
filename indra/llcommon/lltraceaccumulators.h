@@ -559,8 +559,8 @@ namespace LLTrace
 		void reset(const MemAccumulator* other)
 		{
 			mSize.reset(other ? &other->mSize : NULL);
-			mAllocations.reset(other ? &other->mAllocations : NULL);
-			mDeallocations.reset(other ? &other->mDeallocations : NULL);
+			mAllocations.reset(other ? &other->mAllocations : nullptr);
+			mDeallocations.reset(other ? &other->mDeallocations : nullptr);
 		}
 
 		void sync(F64SecondsImplicit time_stamp) 
@@ -588,7 +588,7 @@ namespace LLTrace
 
 		void append(const AccumulatorBufferGroup& other);
 		void merge(const AccumulatorBufferGroup& other);
-		void reset(AccumulatorBufferGroup* other = NULL);
+		void reset(AccumulatorBufferGroup* other = nullptr);
 		void sync();
 
 		AccumulatorBuffer<CountAccumulator>	 	mCounts;

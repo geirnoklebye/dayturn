@@ -97,7 +97,7 @@ public:
 				HAlign halign = LEFT,  VAlign valign = BASELINE, 
 				U8 style = NORMAL, ShadowType shadow = NO_SHADOW, 
 				S32 max_chars = S32_MAX,
-				F32* right_x=NULL, 
+				F32* right_x=nullptr,
 				bool use_ellipses = false) const;
 
 	S32 render(const LLWString &text, S32 begin_offset, 
@@ -106,7 +106,7 @@ public:
 				HAlign halign = LEFT,  VAlign valign = BASELINE, 
 				U8 style = NORMAL, ShadowType shadow = NO_SHADOW, 
 				S32 max_chars = S32_MAX,
-				F32* right_x=NULL, 
+				F32* right_x=nullptr,
 				bool use_ellipses = false) const;
 
 	S32 render(const LLWString &text, S32 begin_offset, 
@@ -115,7 +115,7 @@ public:
 				HAlign halign = LEFT,  VAlign valign = BASELINE, 
 				U8 style = NORMAL, ShadowType shadow = NO_SHADOW, 
 				S32 max_chars = S32_MAX, S32 max_pixels = S32_MAX, 
-				F32* right_x=NULL, 
+				F32* right_x=nullptr,
 				bool use_ellipses = false) const;
 
 	S32 render(const LLWString &text, S32 begin_offset, F32 x, F32 y, const LLColor4 &color) const;

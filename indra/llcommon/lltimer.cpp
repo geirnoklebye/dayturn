@@ -49,7 +49,7 @@ const U64 SEC_TO_MICROSEC_U64 = 1000000;
 //---------------------------------------------------------------------------
 
 S32 gUTCOffset = 0; // viewer's offset from server UTC, in seconds
-LLTimer* LLTimer::sTimer = NULL;
+LLTimer* LLTimer::sTimer = nullptr;
 
 
 //
@@ -299,7 +299,7 @@ void LLTimer::initClass()
 // static
 void LLTimer::cleanupClass()
 {
-	delete sTimer; sTimer = NULL;
+	delete sTimer; sTimer = nullptr;
 }
 
 // static

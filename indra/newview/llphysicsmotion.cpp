@@ -116,7 +116,7 @@ public:
 
 				for (U32 i = 0; i < NUM_PARAMS; ++i)
 				{
-					mParamCache[i] = NULL;
+					mParamCache[i] = nullptr;
 				}
         }
 

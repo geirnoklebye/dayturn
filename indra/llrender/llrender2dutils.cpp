@@ -301,7 +301,7 @@ void gl_corners_2d(S32 left, S32 top, S32 right, S32 bottom, S32 length, F32 max
 
 void gl_draw_image( S32 x, S32 y, LLTexture* image, const LLColor4& color, const LLRectf& uv_rect )
 {
-	if (NULL == image)
+	if (nullptr == image)
 	{
 		LL_WARNS() << "image == NULL; aborting function" << LL_ENDL;
 		return;
@@ -311,12 +311,12 @@ void gl_draw_image( S32 x, S32 y, LLTexture* image, const LLColor4& color, const
 
 void gl_draw_scaled_target(S32 x, S32 y, S32 width, S32 height, LLRenderTarget* target, const LLColor4& color, const LLRectf& uv_rect)
 {
-	gl_draw_scaled_rotated_image(x, y, width, height, 0.f, NULL, color, uv_rect, target);
+	gl_draw_scaled_rotated_image(x, y, width, height, 0.f, nullptr, color, uv_rect, target);
 }
 
 void gl_draw_scaled_image(S32 x, S32 y, S32 width, S32 height, LLTexture* image, const LLColor4& color, const LLRectf& uv_rect)
 {
-	if (NULL == image)
+	if (nullptr == image)
 	{
 		LL_WARNS() << "image == NULL; aborting function" << LL_ENDL;
 		return;
@@ -326,7 +326,7 @@ void gl_draw_scaled_image(S32 x, S32 y, S32 width, S32 height, LLTexture* image,
 
 void gl_draw_scaled_image_with_border(S32 x, S32 y, S32 border_width, S32 border_height, S32 width, S32 height, LLTexture* image, const LLColor4& color, bool solid_color, const LLRectf& uv_rect, bool scale_inner)
 {
-	if (NULL == image)
+	if (nullptr == image)
 	{
 		LL_WARNS() << "image == NULL; aborting function" << LL_ENDL;
 		return;
@@ -344,7 +344,7 @@ void gl_draw_scaled_image_with_border(S32 x, S32 y, S32 width, S32 height, LLTex
 {
 	stop_glerror();
 
-	if (NULL == image)
+	if (nullptr == image)
 	{
 		LL_WARNS() << "image == NULL; aborting function" << LL_ENDL;
 		return;
@@ -618,7 +618,7 @@ void gl_draw_scaled_rotated_image(S32 x, S32 y, S32 width, S32 height, F32 degre
 
 	LLGLSUIDefault gls_ui;
 
-	if(image != NULL)
+	if(image != nullptr)
 	{
 		gGL.getTexUnit(0)->bind(image, true);
 	}
@@ -678,7 +678,7 @@ void gl_draw_scaled_rotated_image(S32 x, S32 y, S32 width, S32 height, F32 degre
 
 		LLMatrix3 quat(0.f, 0.f, degrees*DEG_TO_RAD);
 
-		if(image != NULL)
+		if(image != nullptr)
 		{
 			gGL.getTexUnit(0)->bind(image, true);
 		}

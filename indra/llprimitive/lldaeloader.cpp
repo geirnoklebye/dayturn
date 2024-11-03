@@ -977,7 +977,7 @@ bool LLDAELoader::OpenFile(const std::string& filename)
 	
 	daeDatabase* db = dae.getDatabase();
 	
-	daeInt count = db->getElementCount(NULL, COLLADA_TYPE_MESH);
+	daeInt count = db->getElementCount(nullptr, COLLADA_TYPE_MESH);
 	
 	daeDocument* doc = dae.getDoc(uri_filename);
 	if (!doc)
@@ -1001,12 +1001,12 @@ bool LLDAELoader::OpenFile(const std::string& filename)
 	
 	//Verify some basic properties of the dae
 	//1. Basic validity check on controller 
-	U32 controllerCount = (int) db->getElementCount( NULL, "controller" );
+	U32 controllerCount = (int) db->getElementCount( nullptr, "controller" );
 	bool result = false;
 	for ( int i=0; i<controllerCount; ++i )
 	{
-		domController* pController = NULL;
-		db->getElement( (daeElement**) &pController, i , NULL, "controller" );
+		domController* pController = nullptr;
+		db->getElement( (daeElement**) &pController, i , nullptr, "controller" );
 		result = verifyController( pController );
 		if (!result)
 		{
@@ -1062,8 +1062,8 @@ bool LLDAELoader::OpenFile(const std::string& filename)
 	U32 submodel_limit = count > 0 ? mGeneratedModelLimit/count : 0;
 	for (daeInt idx = 0; idx < count; ++idx)
 	{ //build map of domEntities to LLModel
-		domMesh* mesh = NULL;
-		db->getElement((daeElement**) &mesh, idx, NULL, COLLADA_TYPE_MESH);
+		domMesh* mesh = nullptr;
+		db->getElement((daeElement**) &mesh, idx, nullptr, COLLADA_TYPE_MESH);
 		
 		if (mesh)
 		{
@@ -1115,11 +1115,11 @@ bool LLDAELoader::OpenFile(const std::string& filename)
 		model_iter++;
 	}
 
-	count = db->getElementCount(NULL, COLLADA_TYPE_SKIN);
+	count = db->getElementCount(nullptr, COLLADA_TYPE_SKIN);
 	for (daeInt idx = 0; idx < count; ++idx)
 	{ //add skinned meshes as instances
-		domSkin* skin = NULL;
-		db->getElement((daeElement**) &skin, idx, NULL, COLLADA_TYPE_SKIN);
+		domSkin* skin = nullptr;
+		db->getElement((daeElement**) &skin, idx, nullptr, COLLADA_TYPE_SKIN);
 		
 		if (skin)
 		{
@@ -1256,16 +1256,16 @@ void LLDAELoader::processDomModel(LLModel* model, DAE* dae, daeElement* root, do
 
 
 		//Some collada setup for accessing the skeleton
-        U32 skeleton_count = dae->getDatabase()->getElementCount( NULL, "skeleton" );
+        U32 skeleton_count = dae->getDatabase()->getElementCount( nullptr, "skeleton" );
         std::vector<domInstance_controller::domSkeleton*> skeletons;
         for (S32 i=0; i<skeleton_count; i++)
         {
-            daeElement* pElement = 0;
-            dae->getDatabase()->getElement( &pElement, i, 0, "skeleton" );
+            daeElement* pElement = nullptr;
+            dae->getDatabase()->getElement( &pElement, i, nullptr, "skeleton" );
 
             //Try to get at the skeletal instance controller
             domInstance_controller::domSkeleton* pSkeleton = daeSafeCast<domInstance_controller::domSkeleton>( pElement );
-			daeElement* pSkeletonRootNode = NULL;
+			daeElement* pSkeletonRootNode = nullptr;
             if (pSkeleton)
             {
                 pSkeletonRootNode = pSkeleton->getValue().getElement();
@@ -1602,7 +1602,7 @@ void LLDAELoader::processDomModel(LLModel* model, DAE* dae, daeElement* root, do
 		if (weights)
 		{
 			domInputLocalOffset_Array& inputs = weights->getInput_array();
-			domFloat_array* vertex_weights = NULL;
+			domFloat_array* vertex_weights = nullptr;
 			for (size_t i = 0; i < inputs.getCount(); ++i)
 			{
 				if (strcmp(inputs[i]->getSemantic(), COMMON_PROFILE_INPUT_WEIGHT) == 0)
@@ -1914,7 +1914,7 @@ void LLDAELoader::extractTranslationViaSID( daeElement* pElement, LLMatrix4& tra
 //-----------------------------------------------------------------------------
 void LLDAELoader::processJointNode( domNode* pNode, JointTransformMap& jointTransforms )
 {
-	if (pNode->getName() == NULL)
+	if (pNode->getName() == nullptr)
 	{
 		LL_WARNS() << "nameless node, can't process" << LL_ENDL;
 		return;
@@ -2005,7 +2005,7 @@ daeElement* LLDAELoader::getChildFromElement( daeElement* pElement, std::string 
 		return pChildOfElement;
 	}
 	LL_DEBUGS("Mesh")<< "Could not find a child [" << name << "] for the element: \"" << pElement->getAttribute("id") << "\"" << LL_ENDL;
-    return NULL;
+    return nullptr;
 }
 
 void LLDAELoader::processElement( daeElement* element, bool& badElement, DAE* dae)
@@ -2214,7 +2214,7 @@ std::map<std::string, LLImportMaterial> LLDAELoader::getMaterials(LLModel* model
 	{
 		LLImportMaterial import_material;
 
-		domInstance_material* instance_mat = NULL;
+		domInstance_material* instance_mat = nullptr;
 
 		domBind_material::domTechnique_common* technique =
 		daeSafeCast<domBind_material::domTechnique_common>(instance_geo->getDescendant(daeElement::matchType(domBind_material::domTechnique_common::ID())));
@@ -2310,7 +2310,7 @@ LLImportMaterial LLDAELoader::profileToMaterial(domProfile_COMMON* material, DAE
 			}
 			else if (texture->getTexture())
 			{
-				domImage* image = NULL;
+				domImage* image = nullptr;
 				dae->getDatabase()->getElement((daeElement**) &image, 0, texture->getTexture(), COLLADA_TYPE_IMAGE);
 				if (image)
 				{

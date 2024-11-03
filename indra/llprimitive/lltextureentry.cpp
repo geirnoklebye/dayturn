@@ -60,7 +60,7 @@ LLTextureEntry* LLTextureEntry::newTextureEntry()
 
 //===============================================================
 LLTextureEntry::LLTextureEntry()
-  : mMediaEntry(NULL)
+  : mMediaEntry(nullptr)
   , mSelected(false)
   , mMaterialUpdatePending(false)
 {
@@ -68,7 +68,7 @@ LLTextureEntry::LLTextureEntry()
 }
 
 LLTextureEntry::LLTextureEntry(const LLUUID& tex_id)
-  : mMediaEntry(NULL)
+  : mMediaEntry(nullptr)
   , mSelected(false)
   , mMaterialUpdatePending(false)
 {
@@ -76,7 +76,7 @@ LLTextureEntry::LLTextureEntry(const LLUUID& tex_id)
 }
 
 LLTextureEntry::LLTextureEntry(const LLTextureEntry &rhs)
-  : mMediaEntry(NULL)
+  : mMediaEntry(nullptr)
   , mSelected(false)
   , mMaterialUpdatePending(false)
 {
@@ -92,7 +92,7 @@ LLTextureEntry::LLTextureEntry(const LLTextureEntry &rhs)
 	mGlow = rhs.mGlow;
 	mMaterialID = rhs.mMaterialID;
 	mMaterial = rhs.mMaterial;
-	if (rhs.mMediaEntry != NULL) {
+	if (rhs.mMediaEntry != nullptr) {
 		// Make a copy
 		mMediaEntry = new LLMediaEntry(*rhs.mMediaEntry);
 	}
@@ -117,12 +117,12 @@ LLTextureEntry &LLTextureEntry::operator=(const LLTextureEntry &rhs)
 		if (mMediaEntry != NULL) {
 			delete mMediaEntry;
 		}
-		if (rhs.mMediaEntry != NULL) {
+		if (rhs.mMediaEntry != nullptr) {
 			// Make a copy
 			mMediaEntry = new LLMediaEntry(*rhs.mMediaEntry);
 		}
 		else {
-			mMediaEntry = NULL;
+			mMediaEntry = nullptr;
 		}
 	}
 
@@ -147,7 +147,7 @@ void LLTextureEntry::init(const LLUUID& tex_id, F32 scale_s, F32 scale_t, F32 of
 	if (mMediaEntry != NULL) {
 	    delete mMediaEntry;
 	}
-	mMediaEntry = NULL;
+	mMediaEntry = nullptr;
 }
 
 LLTextureEntry::~LLTextureEntry()
@@ -155,7 +155,7 @@ LLTextureEntry::~LLTextureEntry()
 	if(mMediaEntry)
 	{
 		delete mMediaEntry;
-		mMediaEntry = NULL;
+		mMediaEntry = nullptr;
 	}
 }
 
@@ -212,7 +212,7 @@ void LLTextureEntry::asLLSD(LLSD& sd) const
 	sd["media_flags"] = mMediaFlags;
 	if (hasMedia()) {
 		LLSD mediaData;
-        if (NULL != getMediaData()) {
+        if (nullptr != getMediaData()) {
             getMediaData()->asLLSD(mediaData);
         }
 		sd[TEXTURE_MEDIA_DATA_KEY] = mediaData;
@@ -500,14 +500,14 @@ S32 LLTextureEntry::setMediaFlags(U8 media_flags)
 		mMediaFlags |= media_flags;
         
 		// Special code for media handling
-		if( hasMedia() && mMediaEntry == NULL)
+		if( hasMedia() && mMediaEntry == nullptr)
 		{
 			mMediaEntry = new LLMediaEntry;
 		}
-        else if ( ! hasMedia() && mMediaEntry != NULL)
+        else if ( ! hasMedia() && mMediaEntry != nullptr)
         {
             delete mMediaEntry;
-            mMediaEntry = NULL;
+            mMediaEntry = nullptr;
         }
         
 		return TEM_CHANGE_MEDIA;
@@ -585,7 +585,7 @@ bool LLTextureEntry::updateMediaData(const LLSD& media_data)
 	}
 	else {
 		mMediaFlags |= MF_HAS_MEDIA;
-		if (mMediaEntry == NULL)
+		if (mMediaEntry == nullptr)
 		{
 			mMediaEntry = new LLMediaEntry;
 		}
@@ -599,16 +599,16 @@ bool LLTextureEntry::updateMediaData(const LLSD& media_data)
 void LLTextureEntry::clearMediaData()
 {
     mMediaFlags &= ~MF_HAS_MEDIA;
-    if (mMediaEntry != NULL) {
+    if (mMediaEntry != nullptr) {
         delete mMediaEntry;
     }
-    mMediaEntry = NULL;
+    mMediaEntry = nullptr;
 }    
 
 void LLTextureEntry::mergeIntoMediaData(const LLSD& media_fields)
 {
     mMediaFlags |= MF_HAS_MEDIA;
-    if (mMediaEntry == NULL)
+    if (mMediaEntry == nullptr)
     {
         mMediaEntry = new LLMediaEntry;
     }

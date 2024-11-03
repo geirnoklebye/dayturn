@@ -114,8 +114,8 @@ public:
 	// Set all media paused(stopped for non time based) or playing, depending on val.   Does not include media in the UI.
 	void setAllMediaPaused(bool val);
 
-	static void onIdle(void* dummy_arg = NULL); // updateMedia wrapper
-	void updateMedia(void* dummy_arg = NULL);
+	static void onIdle(void* dummy_arg = nullptr); // updateMedia wrapper
+	void updateMedia(void* dummy_arg = nullptr);
 
 	F32 getVolume();	
 	void muteListChanged();

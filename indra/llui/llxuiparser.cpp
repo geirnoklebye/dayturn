@@ -1334,7 +1334,7 @@ struct ScopedFile
 	~ScopedFile()
 	{
 		fclose(mFile);
-		mFile = NULL;
+		mFile = nullptr;
 	}
 
 	S32 getRemainingBytes()
@@ -1348,7 +1348,7 @@ struct ScopedFile
 		return file_size - cur_pos;
 	}
 
-	bool isOpen() { return mFile != NULL; }
+	bool isOpen() { return mFile != nullptr; }
 
 	LLFILE* mFile;
 };
@@ -1386,7 +1386,7 @@ bool LLSimpleXUIParser::readXUI(const std::string& filename, LLInitParam::BaseBl
 {
 	LL_RECORD_BLOCK_TIME(FTM_PARSE_XUI);
 
-	mParser = XML_ParserCreate(NULL);
+	mParser = XML_ParserCreate(nullptr);
 	XML_SetUserData(mParser, this);
 	XML_SetElementHandler(			mParser,	startElementHandler, endElementHandler);
 	XML_SetCharacterDataHandler(	mParser,	characterDataHandler);

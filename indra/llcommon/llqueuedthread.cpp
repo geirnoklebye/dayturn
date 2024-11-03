@@ -289,7 +289,7 @@ LLQueuedThread::QueuedRequest* LLQueuedThread::getRequest(handle_t handle)
 {
 	if (handle == nullHandle())
 	{
-		return 0;
+		return nullptr;
 	}
 	lockData();
 	QueuedRequest* res = (QueuedRequest*)mRequestHash.find(handle);
@@ -407,7 +407,7 @@ size_t LLQueuedThread::processNextRequest()
 	
 	while(1)
 	{
-		req = NULL;
+		req = nullptr;
 		if (mRequestQueue.empty())
 		{
 			break;

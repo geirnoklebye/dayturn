@@ -55,7 +55,7 @@ bool gBreak = false;
 bool gSent = false;
 
 int LLCrashLogger::ssl_mutex_count = 0;
-LLCoreInt::HttpMutex ** LLCrashLogger::ssl_mutex_list = NULL;
+LLCoreInt::HttpMutex ** LLCrashLogger::ssl_mutex_list = nullptr;
 
 #define CRASH_UPLOAD_RETRIES 3 /* seconds */
 #define CRASH_UPLOAD_TIMEOUT 180 /* seconds */
@@ -240,7 +240,7 @@ void LLCrashLogger::gatherFiles()
 		if(mDebugLog.has("CAFilename"))
 		{
             LLCore::HttpRequest::setStaticPolicyOption(LLCore::HttpRequest::PO_CA_FILE,
-                LLCore::HttpRequest::GLOBAL_POLICY_ID, mDebugLog["CAFilename"].asString(), NULL);
+                LLCore::HttpRequest::GLOBAL_POLICY_ID, mDebugLog["CAFilename"].asString(), nullptr);
 		}
 		else
 		{

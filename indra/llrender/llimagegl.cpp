@@ -70,7 +70,7 @@ S32 LLImageGL::sCount					= 0;
 bool LLImageGL::sGlobalUseAnisotropic	= false;
 F32 LLImageGL::sLastFrameTime			= 0.f;
 bool LLImageGL::sAllowReadBackRaw       = false ;
-LLImageGL* LLImageGL::sDefaultGLTexture = NULL ;
+LLImageGL* LLImageGL::sDefaultGLTexture = nullptr ;
 bool LLImageGL::sCompressTextures = false;
 std::set<LLImageGL*> LLImageGL::sImageList;
 
@@ -466,7 +466,7 @@ void LLImageGL::init(bool usemipmaps)
 	mTextureMemory = (S32Bytes)0;
 	mLastBindTime = 0.f;
 
-	mPickMask = NULL;
+	mPickMask = nullptr;
 	mPickMaskWidth = 0;
 	mPickMaskHeight = 0;
 	mUseMipMaps = usemipmaps;
@@ -830,11 +830,11 @@ bool LLImageGL::setImage(const U8* data_in, bool data_hasmips /* = false */, S32
 				S32 w = width, h = height;
 
 
-				const U8* new_data = 0;
+				const U8* new_data = nullptr;
 				(void)new_data;
 
-				const U8* prev_mip_data = 0;
-				const U8* cur_mip_data = 0;
+				const U8* prev_mip_data = nullptr;
+				const U8* cur_mip_data = nullptr;
 #ifdef SHOW_ASSERT
 				S32 cur_mip_size = 0;
 #endif
@@ -929,7 +929,7 @@ bool LLImageGL::setImage(const U8* data_in, bool data_hasmips /* = false */, S32
 				if (prev_mip_data && prev_mip_data != data_in)
 				{
 					delete[] prev_mip_data;
-					prev_mip_data = NULL;
+					prev_mip_data = nullptr;
 				}
 			}
 		}
@@ -1101,7 +1101,7 @@ bool LLImageGL::setSubImage(const U8* datap, S32 data_width, S32 data_height, S3
 		//LL_WARNS() << "Setting subimage on image without GL texture" << LL_ENDL;
 		return false;
 	}
-	if (datap == NULL)
+	if (datap == nullptr)
 	{
 		// *TODO: Re-enable warning?  Ran into thread locking issues? DK 2011-02-18
 		//LL_WARNS() << "Setting subimage on image with NULL datap" << LL_ENDL;
@@ -1244,7 +1244,7 @@ void LLImageGL::deleteTextures(S32 numTextures, const U32 *textures)
 void LLImageGL::setManualImage(U32 target, S32 miplevel, S32 intformat, S32 width, S32 height, U32 pixformat, U32 pixtype, const void* pixels, bool allow_compression)
 {
     bool use_scratch = false;
-    U32* scratch = NULL;
+    U32* scratch = nullptr;
     if (LLRender::sGLCoreProfile)
     {
         if (pixformat == GL_ALPHA && pixtype == GL_UNSIGNED_BYTE)
@@ -2232,11 +2232,11 @@ U32 LLImageGL::createPickMask(S32 pWidth, S32 pHeight)
 void LLImageGL::freePickMask()
 {
 	// pickmask validity depends on old image size, delete it
-	if (mPickMask != NULL)
+	if (mPickMask != nullptr)
 	{
 		delete [] mPickMask;
 	}
-	mPickMask = NULL;
+	mPickMask = nullptr;
 	mPickMaskWidth = mPickMaskHeight = 0;
 }
 

@@ -190,7 +190,7 @@ LLAgentHandler gAgentHandler;
 
 //-- LLPanelProfile::ChildStack begins ----------------------------------------
 LLPanelProfile::ChildStack::ChildStack()
-:	mParent(NULL)
+:	mParent(nullptr)
 {
 }
 
@@ -213,7 +213,7 @@ LLPanelProfile::ChildStack::~ChildStack()
 
 void LLPanelProfile::ChildStack::setParent(LLPanel* parent)
 {
-	llassert_always(parent != NULL);
+	llassert_always(parent != nullptr);
 	mParent = parent;
 }
 

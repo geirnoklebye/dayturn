@@ -42,7 +42,7 @@ LLBlowfishCipher::LLBlowfishCipher(const U8* secret, size_t secret_size)
 LLBlowfishCipher::~LLBlowfishCipher()
 {
 	delete [] mSecret;
-	mSecret = NULL;
+	mSecret = nullptr;
 }
 
 // virtual
@@ -62,7 +62,7 @@ U32 LLBlowfishCipher::encrypt(const U8* src, U32 src_len, U8* dst, U32 dst_len)
 	// We want a blowfish cyclic block chain cipher, but need to set 
 	// the key length before we pass in a key, so call EncryptInit 
 	// first with NULLs.
-	EVP_EncryptInit_ex(context, EVP_bf_cbc(), NULL, NULL, NULL);
+	EVP_EncryptInit_ex(context, EVP_bf_cbc(), nullptr, nullptr, nullptr);
 	EVP_CIPHER_CTX_set_key_length(context, (int)mSecretSize);
 	
 	// Complete initialization.  Per EVP_EncryptInit man page, the

@@ -39,7 +39,7 @@ using std::pair;
 using std::make_pair;
 using std::string;
 
-LLShaderMgr * LLShaderMgr::sInstance = NULL;
+LLShaderMgr * LLShaderMgr::sInstance = nullptr;
 
 LLShaderMgr::LLShaderMgr()
 {
@@ -53,7 +53,7 @@ LLShaderMgr::~LLShaderMgr()
 // static
 LLShaderMgr * LLShaderMgr::instance()
 {
-	if(NULL == sInstance)
+	if(nullptr == sInstance)
 	{
 		LL_ERRS("Shaders") << "LLShaderMgr should already have been instantiated by the application!" << LL_ENDL;
 	}
@@ -63,7 +63,7 @@ LLShaderMgr * LLShaderMgr::instance()
 
 bool LLShaderMgr::attachShaderFeatures(LLGLSLShader * shader)
 {
-	llassert_always(shader != NULL);
+	llassert_always(shader != nullptr);
 	LLShaderFeatures *features = & shader->mFeatures;
 
 	if (features->attachNothing)
@@ -626,7 +626,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 
 
 	//read in from file
-	LLFILE* file = NULL;
+	LLFILE* file = nullptr;
 
 	S32 try_gpu_class = shader_level;
 	S32 gpu_class;
@@ -663,7 +663,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 		}
 	}
 	
-	if (file == NULL)
+	if (file == nullptr)
 	{
 		LL_WARNS("ShaderLoading") << "GLSL Shader file not found: " << open_file_name << LL_ENDL;
 		return 0;

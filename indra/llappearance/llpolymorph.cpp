@@ -355,7 +355,7 @@ LLPolyMorphTarget::~LLPolyMorphTarget()
 //-----------------------------------------------------------------------------
 bool LLPolyMorphTarget::setInfo(LLPolyMorphTargetInfo* info)
 {
-	llassert(mInfo == NULL);
+	llassert(mInfo == nullptr);
 	if (info->mID < 0)
 		return false;
 	mInfo = info;
@@ -749,7 +749,7 @@ LLPolyVertexMask::LLPolyVertexMask(LLPolyMorphData* morph_data)
 	mMorphData(morph_data),
 	mWeightsGenerated(false)
 {
-	llassert(mMorphData != NULL);
+	llassert(mMorphData != nullptr);
 	llassert(mMorphData->mNumIndices > 0);
 }
 
@@ -761,7 +761,7 @@ LLPolyVertexMask::LLPolyVertexMask(const LLPolyVertexMask& pOther)
 	mMorphData(pOther.mMorphData),
 	mWeightsGenerated(pOther.mWeightsGenerated)
 {
-	llassert(mMorphData != NULL);
+	llassert(mMorphData != nullptr);
 	llassert(mMorphData->mNumIndices > 0);
 	memcpy(mWeights, pOther.mWeights, sizeof(F32) * mMorphData->mNumIndices);
 }

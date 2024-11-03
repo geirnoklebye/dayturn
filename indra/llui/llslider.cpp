@@ -67,8 +67,8 @@ LLSlider::LLSlider(const LLSlider::Params& p)
 	mTrackImageVertical(p.track_image_vertical),
 	mTrackHighlightHorizontalImage(p.track_highlight_horizontal_image),
 	mTrackHighlightVerticalImage(p.track_highlight_vertical_image),
-	mMouseDownSignal(NULL),
-	mMouseUpSignal(NULL)
+	mMouseDownSignal(nullptr),
+	mMouseUpSignal(nullptr)
 {
     mViewModel->setValue(p.initial_value);
 	updateThumbRect();
@@ -201,7 +201,7 @@ bool LLSlider::handleMouseUp(S32 x, S32 y, MASK mask)
 
 	if( hasMouseCapture() )
 	{
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( nullptr );
 
 		if (mMouseUpSignal)
 			(*mMouseUpSignal)( this, getValueF32() );

@@ -76,11 +76,11 @@ protected:
     void createFile(const std::string& pfx, const Streamer& func)
     {
         // Create file in a temporary place.
-        const char* tempdir = NULL;
+        const char* tempdir = nullptr;
         ll_apr_assert_status(apr_temp_dir_get(&tempdir, mPool));
 
         // Construct a temp filename template in that directory.
-        char *tempname = NULL;
+        char *tempname = nullptr;
         ll_apr_assert_status(apr_filepath_merge(&tempname,
                                                 tempdir,
                                                 (pfx + "XXXXXX").c_str(),
@@ -88,7 +88,7 @@ protected:
                                                 mPool));
 
         // Create a temp file from that template.
-        apr_file_t* fp = NULL;
+        apr_file_t* fp = nullptr;
         ll_apr_assert_status(apr_file_mktemp(&fp,
                                              tempname,
                                              APR_CREATE | APR_WRITE | APR_EXCL,

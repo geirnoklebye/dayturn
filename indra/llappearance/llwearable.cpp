@@ -178,7 +178,7 @@ void LLWearable::createVisualParams(LLAvatarAppearance *avatarp)
 
 void LLWearable::createLayers(S32 te, LLAvatarAppearance *avatarp)
 {
-	LLTexLayerSet *layer_set = NULL;
+	LLTexLayerSet *layer_set = nullptr;
 	const LLAvatarAppearanceDictionary::TextureEntry *texture_dict = LLAvatarAppearance::getDictionary()->getTexture((ETextureIndex)te);
 	if (texture_dict && texture_dict->mIsUsedByBakedTexture)
 	{
@@ -501,7 +501,7 @@ LLLocalTextureObject* LLWearable::getLocalTextureObject(S32 index)
 		LLLocalTextureObject* lto = iter->second;
 		return lto;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const LLLocalTextureObject* LLWearable::getLocalTextureObject(S32 index) const
@@ -512,7 +512,7 @@ const LLLocalTextureObject* LLWearable::getLocalTextureObject(S32 index) const
 		const LLLocalTextureObject* lto = iter->second;
 		return lto;
 	}
-	return NULL;
+	return nullptr;
 }
 
 std::vector<LLLocalTextureObject*> LLWearable::getLocalTextureListSeq()
@@ -583,8 +583,8 @@ void LLWearable::syncImages(te_map_t &src, te_map_t &dst)
 		{
 			te_map_t::const_iterator iter = src.find(te);
 			LLUUID image_id;
-			LLGLTexture *image = NULL;
-			LLLocalTextureObject *lto = NULL;
+			LLGLTexture *image = nullptr;
+			LLLocalTextureObject *lto = nullptr;
 			if(iter != src.end())
 			{
 				// there's a Local Texture Object in the source image map. Use this to populate the values to store in the destination image map.

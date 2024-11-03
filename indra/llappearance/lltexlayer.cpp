@@ -258,7 +258,7 @@ LLTexLayerSet::LLTexLayerSet(LLAvatarAppearance* const appearance) :
 	mAvatarAppearance( appearance ),
 	mIsVisible(true),
 	mBakedTexIndex(LLAvatarAppearanceDefines::BAKED_HEAD),
-	mInfo( NULL )
+	mInfo( nullptr )
 {
 }
 
@@ -279,7 +279,7 @@ LLTexLayerSet::~LLTexLayerSet()
 
 bool LLTexLayerSet::setInfo(const LLTexLayerSetInfo *info)
 {
-	llassert(mInfo == NULL);
+	llassert(mInfo == nullptr);
 	mInfo = info;
 	//mID = info->mID; // No ID
 

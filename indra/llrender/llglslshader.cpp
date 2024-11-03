@@ -48,7 +48,7 @@ using std::make_pair;
 using std::string;
 
 GLhandleARB LLGLSLShader::sCurBoundShader = 0;
-LLGLSLShader* LLGLSLShader::sCurBoundShaderPtr = NULL;
+LLGLSLShader* LLGLSLShader::sCurBoundShaderPtr = nullptr;
 S32 LLGLSLShader::sIndexedTextureChannels = 0;
 bool LLGLSLShader::sProfileEnabled = false;
 std::set<LLGLSLShader*> LLGLSLShader::sInstances;

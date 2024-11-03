@@ -234,7 +234,7 @@ LLFILE*	LLFile::_fsopen(const std::string& filename, const char* mode, int shari
 	return _wfsopen(utf16filename.c_str(),utf16mode.c_str(),sharingFlag);
 #else
 	llassert(0);//No corresponding function on non-windows
-	return NULL;
+	return nullptr;
 #endif
 }
 

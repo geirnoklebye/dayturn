@@ -75,7 +75,7 @@ public:
 };
 #endif
 
-LLCallStackImpl *LLCallStack::s_impl = NULL;
+LLCallStackImpl *LLCallStack::s_impl = nullptr;
 
 LLCallStack::LLCallStack(S32 skip_count, bool verbose):
     m_skipCount(skip_count),

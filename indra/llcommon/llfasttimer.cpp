@@ -61,7 +61,7 @@ std::string BlockTimer::sLogName         = "";
 bool        BlockTimer::sMetricLog       = false;
 U64         BlockTimer::sClockResolution = 1000000; // Microsecond resolution
 
-static LLMutex*			sLogLock = NULL;
+static LLMutex*			sLogLock = nullptr;
 static std::queue<LLSD> sLogQueue;
 
 block_timer_tree_df_iterator_t begin_block_timer_tree_df(BlockTimerStatHandle& id) 
@@ -122,7 +122,7 @@ struct SortTimerByName
 		}
 };
 
-static BlockTimerStatHandle sRootTimer("root", NULL);
+static BlockTimerStatHandle sRootTimer("root", nullptr);
 BlockTimerStatHandle& BlockTimer::getRootTimeBlock()
 {
 	return sRootTimer;

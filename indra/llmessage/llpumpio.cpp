@@ -152,11 +152,11 @@ struct ll_delete_apr_pollset_fd_client_data
 LLPumpIO::LLPumpIO(apr_pool_t* pool) :
 	mState(LLPumpIO::NORMAL),
 	mRebuildPollset(false),
-	mPollset(NULL),
+	mPollset(nullptr),
 	mPollsetClientID(0),
 	mNextLock(0),
-	mPool(NULL),
-	mCurrentPool(NULL),
+	mPool(nullptr),
+	mCurrentPool(nullptr),
 	mCurrentPoolReallocCount(0),
 	mCurrentChain(mRunningChains.end())
 {
@@ -174,7 +174,7 @@ bool LLPumpIO::prime(apr_pool_t* pool)
 {
 	cleanup();
 	initialize(pool);
-	return ((pool == NULL) ? false : true);
+	return ((pool == nullptr) ? false : true);
 }
 
 bool LLPumpIO::addChain(const chain_t& chain, F32 timeout, bool has_curl_request)
@@ -491,7 +491,7 @@ void LLPumpIO::pump(const S32& poll_timeout)
 	PUMP_DEBUG;
 	typedef std::map<S32, S32> signal_client_t;
 	signal_client_t signalled_client;
-	const apr_pollfd_t* poll_fd = NULL;
+	const apr_pollfd_t* poll_fd = nullptr;
 	if(mPollset)
 	{
 		PUMP_DEBUG;
@@ -698,7 +698,7 @@ void LLPumpIO::pump(const S32& poll_timeout)
 
 bool LLPumpIO::respond(LLIOPipe* pipe)
 {
-	if(NULL == pipe) return false;
+	if(nullptr == pipe) return false;
 
 	LLChainInfo info;
 	LLLinkInfo link;
@@ -783,14 +783,14 @@ void LLPumpIO::cleanup()
 	{
 //		LL_DEBUGS() << "cleaning up pollset" << LL_ENDL;
 		apr_pollset_destroy(mPollset);
-		mPollset = NULL;
+		mPollset = nullptr;
 	}
 	if(mCurrentPool)
 	{
 		apr_pool_destroy(mCurrentPool);
-		mCurrentPool = NULL;
+		mCurrentPool = nullptr;
 	}
-	mPool = NULL;
+	mPool = nullptr;
 }
 
 void LLPumpIO::rebuildPollset()
@@ -800,7 +800,7 @@ void LLPumpIO::rebuildPollset()
 	{
 		//LL_DEBUGS() << "destroying pollset" << LL_ENDL;
 		apr_pollset_destroy(mPollset);
-		mPollset = NULL;
+		mPollset = nullptr;
 	}
 	U32 size = 0;
 	running_chains_t::iterator run_it = mRunningChains.begin();
@@ -818,7 +818,7 @@ void LLPumpIO::rebuildPollset()
 		   && (0 == (++mCurrentPoolReallocCount % POLLSET_POOL_RECYCLE_COUNT)))
 		{
 			apr_pool_destroy(mCurrentPool);
-			mCurrentPool = NULL;
+			mCurrentPool = nullptr;
 			mCurrentPoolReallocCount = 0;
 		}
 		if(!mCurrentPool)

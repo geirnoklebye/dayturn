@@ -48,7 +48,7 @@ extern MemStatHandle gTraceMemStat;
 
 Recording::Recording(EPlayState state) 
 :	mElapsedSeconds(0),
-	mActiveBuffers(NULL)
+	mActiveBuffers(nullptr)
 {
 	claim_alloc(gTraceMemStat, this);
 	mBuffers = new AccumulatorBufferGroup();
@@ -57,7 +57,7 @@ Recording::Recording(EPlayState state)
 }
 
 Recording::Recording( const Recording& other )
-:	mActiveBuffers(NULL)
+:	mActiveBuffers(nullptr)
 {
 	claim_alloc(gTraceMemStat, this);
 	*this = other;
@@ -91,7 +91,7 @@ Recording::~Recording()
 	// allow recording destruction without thread recorder running, 
 	// otherwise thread shutdown could crash if a recording outlives the thread recorder
 	// besides, recording construction and destruction is fine without a recorder...just don't attempt to start one
-	if (isStarted() && LLTrace::get_thread_recorder() != NULL)
+	if (isStarted() && LLTrace::get_thread_recorder() != nullptr)
 	{
 		LLTrace::get_thread_recorder()->deactivate(mBuffers.write());
 	}
@@ -106,10 +106,10 @@ void Recording::update()
 		mElapsedSeconds += mSamplingTimer.getElapsedTimeF64();
 
 		// must have 
-		llassert(mActiveBuffers != NULL 
-				&& LLTrace::get_thread_recorder() != NULL);
+		llassert(mActiveBuffers != nullptr
+				&& LLTrace::get_thread_recorder() != nullptr);
 
-		if(!mActiveBuffers->isCurrent() && LLTrace::get_thread_recorder() != NULL)
+		if(!mActiveBuffers->isCurrent() && LLTrace::get_thread_recorder() != nullptr)
 		{
 			AccumulatorBufferGroup* buffers = mBuffers.write();
 			LLTrace::get_thread_recorder()->deactivate(buffers);
@@ -137,7 +137,7 @@ void Recording::handleStart()
 	mSamplingTimer.reset();
 	mBuffers.setStayUnique(true);
 	// must have thread recorder running on this thread
-	llassert(LLTrace::get_thread_recorder() != NULL);
+	llassert(LLTrace::get_thread_recorder() != nullptr);
 	mActiveBuffers = LLTrace::get_thread_recorder()->activate(mBuffers.write());
 #endif
 }
@@ -147,9 +147,9 @@ void Recording::handleStop()
 #if LL_TRACE_ENABLED
 	mElapsedSeconds += mSamplingTimer.getElapsedTimeF64();
 	// must have thread recorder running on this thread
-	llassert(LLTrace::get_thread_recorder() != NULL);
+	llassert(LLTrace::get_thread_recorder() != nullptr);
 	LLTrace::get_thread_recorder()->deactivate(mBuffers.write());
-	mActiveBuffers = NULL;
+	mActiveBuffers = nullptr;
 	mBuffers.setStayUnique(false);
 #endif
 }

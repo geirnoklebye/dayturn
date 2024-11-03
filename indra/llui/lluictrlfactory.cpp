@@ -72,7 +72,7 @@ template class LLUICtrlFactory* LLSingleton<class LLUICtrlFactory>::getInstance(
 // LLUICtrlFactory()
 //-----------------------------------------------------------------------------
 LLUICtrlFactory::LLUICtrlFactory()
-	: mDummyPanel(NULL) // instantiated when first needed
+	: mDummyPanel(nullptr) // instantiated when first needed
 {
 }
 
@@ -187,14 +187,14 @@ LLView *LLUICtrlFactory::createFromXML(LLXMLNodePtr node, LLView* parent, const 
 	LLStringUtil::toLower(ctrl_type);
 
 	const LLWidgetCreatorFunc* funcp = registry.getValue(ctrl_type);
-	if (funcp == NULL)
+	if (funcp == nullptr)
 	{
-		return NULL;
+		return nullptr;
 	}
 
-	if (parent == NULL)
+	if (parent == nullptr)
 	{
-		if (mDummyPanel == NULL)
+		if (mDummyPanel == nullptr)
 		{
 			LLPanel::Params p;
 			mDummyPanel = create<LLPanel>(p);
@@ -256,7 +256,7 @@ void LLUICtrlFactory::registerWidget(const std::type_info* widget_type, const st
 		{
 			std::cerr << "Duplicate entry for T::Params, try creating empty param block in derived classes that inherit T::Params" << std::endl;
 			// forcing crash here
-			char* foo = 0;
+			char* foo = nullptr;
 			*foo = 1;
 		}
 		else

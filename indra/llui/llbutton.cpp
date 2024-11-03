@@ -995,7 +995,7 @@ void LLButton::draw()
 			LLFontGL::NORMAL,
 			mDropShadowedText ? LLFontGL::DROP_SHADOW_SOFT : LLFontGL::NO_SHADOW,
 			S32_MAX, text_width,
-			NULL, mUseEllipses);
+			nullptr, mUseEllipses);
 	}
 
 	// <FS:Zi> Add checkbox control toggle

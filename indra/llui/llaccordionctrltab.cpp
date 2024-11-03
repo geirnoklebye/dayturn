@@ -359,8 +359,8 @@ LLAccordionCtrlTab::LLAccordionCtrlTab(const LLAccordionCtrlTab::Params&p)
 	,mCanOpenClose(true)
 	,mFitPanel(p.fit_panel)
 	,mSelectionEnabled(p.selection_enabled)
-	,mContainerPanel(NULL)
-	,mScrollbar(NULL)
+	,mContainerPanel(nullptr)
+	,mScrollbar(nullptr)
 {
 	mStoredOpenCloseState = false;
 	mWasStateStored = false;
@@ -610,7 +610,7 @@ LLView*	LLAccordionCtrlTab::findContainerView()
 			return child;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void LLAccordionCtrlTab::selectOnFocusReceived()

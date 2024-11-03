@@ -377,7 +377,7 @@ LLViewerShaderMgr::~LLViewerShaderMgr()
 // static
 LLViewerShaderMgr * LLViewerShaderMgr::instance()
 {
-	if(NULL == sInstance)
+	if(nullptr == sInstance)
 	{
 		sInstance = new LLViewerShaderMgr();
 	}
@@ -388,10 +388,10 @@ LLViewerShaderMgr * LLViewerShaderMgr::instance()
 // static
 void LLViewerShaderMgr::releaseInstance()
 {
-	if (sInstance != NULL)
+	if (sInstance != nullptr)
 	{
 		delete sInstance;
-		sInstance = NULL;
+		sInstance = nullptr;
 	}
 }
 

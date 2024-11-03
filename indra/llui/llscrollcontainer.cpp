@@ -89,7 +89,7 @@ LLScrollContainer::LLScrollContainer(const LLScrollContainer::Params& p)
 	mMinAutoScrollRate(p.min_auto_scroll_rate),
 	mMaxAutoScrollRate(p.max_auto_scroll_rate),
 	mMaxAutoScrollZone(p.max_auto_scroll_zone),
-	mScrolledView(NULL),
+	mScrolledView(nullptr),
 	mSize(p.size)
 {
 	static LLUICachedControl<S32> scrollbar_size_control ("UIScrollbarSize", 0);
@@ -146,9 +146,9 @@ LLScrollContainer::~LLScrollContainer( void )
 	// destructor takes care of memory deallocation.
 	for( S32 i = 0; i < ORIENTATION_COUNT; i++ )
 	{
-		mScrollbar[i] = NULL;
+		mScrollbar[i] = nullptr;
 	}
-	mScrolledView = NULL;
+	mScrolledView = nullptr;
 }
 
 // internal scrollbar handlers

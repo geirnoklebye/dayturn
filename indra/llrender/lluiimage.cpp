@@ -37,7 +37,7 @@ LLUIImage::LLUIImage(const std::string& name, LLPointer<LLTexture> image)
 	mImage(image),
 	mScaleRegion(0.f, 1.f, 1.f, 0.f),
 	mClipRegion(0.f, 1.f, 1.f, 0.f),
-	mImageLoaded(NULL),
+	mImageLoaded(nullptr),
 	mScaleStyle(SCALE_INNER),
     mCachedW(-1),
     mCachedH(-1)

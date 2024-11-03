@@ -87,7 +87,7 @@ S32 LL_HEARTBEAT_SIGNAL = (SIGRTMAX >= 0) ? (SIGRTMAX-0) : SIGUSR2;
 #endif // LL_WINDOWS
 
 // the static application instance
-LLApp* LLApp::sApplication = NULL;
+LLApp* LLApp::sApplication = nullptr;
 
 // Allows the generation of core files for post mortem under gdb
 // and disables crashlogger
@@ -100,7 +100,7 @@ bool LLApp::sLogInSignal = false;
 // static
 // Keeps track of application status
 LLScalarCond<LLApp::EAppStatus> LLApp::sStatus{LLApp::APP_STATUS_STOPPED};
-LLAppErrorHandler LLApp::sErrorHandler = NULL;
+LLAppErrorHandler LLApp::sErrorHandler = nullptr;
 bool LLApp::sErrorThreadRunning = false;
 
 

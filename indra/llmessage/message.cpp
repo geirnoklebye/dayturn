@@ -186,10 +186,10 @@ void LLMessageSystem::init()
 
 	mMessageFileVersionNumber = 0.f;
 
-	mTimingCallback = NULL;
-	mTimingCallbackData = NULL;
+	mTimingCallback = nullptr;
+	mTimingCallbackData = nullptr;
 
-	mMessageBuilder = NULL;
+	mMessageBuilder = nullptr;
 	LockMessageReader(mMessageReader, NULL);
 }
 
@@ -227,7 +227,7 @@ LLMessageSystem::LLMessageSystem(const std::string& filename, U32 port,
 
 	mTemplateMessageBuilder = new LLTemplateMessageBuilder(mMessageTemplates);
 	mLLSDMessageBuilder = new LLSDMessageBuilder();
-	mMessageBuilder = NULL;
+	mMessageBuilder = nullptr;
 
 	mTemplateMessageReader = new LLTemplateMessageReader(mMessageNumbers);
 	mLLSDMessageReader = new LLSDMessageReader();
@@ -252,7 +252,7 @@ LLMessageSystem::LLMessageSystem(const std::string& filename, U32 port,
 		LL_ERRS("Messaging") << "No APR pool before message system initialization!" << LL_ENDL;
 		ll_init_apr();
 	}
-	apr_socket_t *aprSocketp = NULL;
+	apr_socket_t *aprSocketp = nullptr;
 	apr_os_sock_put(&aprSocketp, (apr_os_sock_t*)&mSocket, gAPRPoolp);
 
 	mPollInfop = new LLMessagePollInfo;
@@ -262,7 +262,7 @@ LLMessageSystem::LLMessageSystem(const std::string& filename, U32 port,
 	mPollInfop->mPollFD.reqevents = APR_POLLIN;
 	mPollInfop->mPollFD.rtnevents = 0;
 	mPollInfop->mPollFD.desc.s = aprSocketp;
-	mPollInfop->mPollFD.client_data = NULL;
+	mPollInfop->mPollFD.client_data = nullptr;
 
 	F64Seconds mt_sec = getMessageTimeSeconds();
 	mResendDumpTime = mt_sec;
@@ -329,20 +329,20 @@ LLMessageSystem::~LLMessageSystem()
 	mSocket = 0;
 	
 	delete mTemplateMessageReader;
-	mTemplateMessageReader = NULL;
+	mTemplateMessageReader = nullptr;
 
 	delete mTemplateMessageBuilder;
-	mTemplateMessageBuilder = NULL;
-	mMessageBuilder = NULL;
+	mTemplateMessageBuilder = nullptr;
+	mMessageBuilder = nullptr;
 
 	delete mLLSDMessageReader;
-	mLLSDMessageReader = NULL;
+	mLLSDMessageReader = nullptr;
 
 	delete mLLSDMessageBuilder;
-	mLLSDMessageBuilder = NULL;
+	mLLSDMessageBuilder = nullptr;
 
 	delete mPollInfop;
-	mPollInfop = NULL;
+	mPollInfop = nullptr;
 
 	mIncomingCompressedSize = 0;
 	mCurrentRecvPacketID = 0;
@@ -381,7 +381,7 @@ bool LLMessageSystem::poll(F32 seconds)
 bool LLMessageSystem::isTrustedSender(const LLHost& host) const
 {
 	LLCircuitData* cdp = mCircuitInfo.findCircuit(host);
-	if(NULL == cdp)
+	if(nullptr == cdp)
 	{
 		return false;
 	}
@@ -404,7 +404,7 @@ findTemplate(const LLMessageSystem::message_template_name_map_t& templates,
 			 std::string name)
 {
 	const char* namePrehash = LLMessageStringTable::getInstance()->getString(name.c_str());
-	if(NULL == namePrehash) {return templates.end();}
+	if(nullptr == namePrehash) {return templates.end();}
 	return templates.find(namePrehash);
 }
 
@@ -460,7 +460,7 @@ LLCircuitData* LLMessageSystem::findCircuit(const LLHost& host,
 			if (mbProtected)
 			{
 				// don't accept packets from unexpected sources
-				cdp = NULL;
+				cdp = nullptr;
 			}
 			else
 			{
@@ -942,8 +942,8 @@ void LLMessageSystem::nextBlock(const char *blockname)
 
 bool LLMessageSystem::isSendFull(const char* blockname)
 {
-	char* stringTableName = NULL;
-	if(NULL != blockname)
+	char* stringTableName = nullptr;
+	if(nullptr != blockname)
 	{
 		stringTableName = LLMessageStringTable::getInstance()->getString(blockname);
 	}
@@ -2183,7 +2183,7 @@ S32 LLMessageSystem::sendError(
 	{
 		LL_WARNS("Messaging") << "Data and message were too large -- data removed."
 			<< LL_ENDL;
-		addBinaryData("Data", NULL, 0);
+		addBinaryData("Data", nullptr, 0);
 	}
 	return sendReliable(host);
 }
@@ -3067,7 +3067,7 @@ bool LLMessageSystem::generateDigestForNumberAndUUIDs(
 
 	memset(digest, 0, MD5HEX_STR_SIZE);
 	
-	if( secret != NULL)
+	if( secret != nullptr)
 	{
 		d.update(secret, (U32)strlen((char *) secret));	/* Flawfinder: ignore */
 	}
@@ -3078,13 +3078,13 @@ bool LLMessageSystem::generateDigestForNumberAndUUIDs(
 	d.update((unsigned char *) tbuf, (U32)strlen(tbuf));	/* Flawfinder: ignore */ 
 	
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
-	if( (char*) id1str != NULL)
+	if( (char*) id1str != nullptr)
 	{
 		d.update(id1str, (U32)strlen((char *) id1str));	/* Flawfinder: ignore */	 
 	}
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
 	
-	if( (char*) id2str != NULL)
+	if( (char*) id2str != nullptr)
 	{
 		d.update(id2str, (U32)strlen((char *) id2str));	/* Flawfinder: ignore */	
 	}
@@ -3279,9 +3279,9 @@ void LLMessageSystem::establishBidirectionalTrust(const LLHost &host, S64 frame_
 	LLTimer timeout;
 
 	timeout.setTimerExpirySec(20.0);
-	setHandlerFuncFast(_PREHASH_StartPingCheck, null_message_callback, NULL);
+	setHandlerFuncFast(_PREHASH_StartPingCheck, null_message_callback, nullptr);
 	setHandlerFuncFast(_PREHASH_CompletePingCheck, null_message_callback,
-		       NULL);
+		       nullptr);
 
 	while (! timeout.hasExpired())
 	{
@@ -3307,11 +3307,11 @@ void LLMessageSystem::establishBidirectionalTrust(const LLHost &host, S64 frame_
 	newMessage("RequestTrustedCircuit");
 	sendMessage(host);
 	reallySendDenyTrustedCircuit(host);
-	setHandlerFuncFast(_PREHASH_StartPingCheck, process_start_ping_check, NULL);
-	setHandlerFuncFast(_PREHASH_CompletePingCheck, process_complete_ping_check, NULL);
+	setHandlerFuncFast(_PREHASH_StartPingCheck, process_start_ping_check, nullptr);
+	setHandlerFuncFast(_PREHASH_CompletePingCheck, process_complete_ping_check, nullptr);
 
 	timeout.setTimerExpirySec(2.0);
-	LLCircuitData* cdp = NULL;
+	LLCircuitData* cdp = nullptr;
 	while(!timeout.hasExpired())
 	{
 		cdp = mCircuitInfo.findCircuit(host);

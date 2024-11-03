@@ -97,7 +97,7 @@ LLPanelPrimMediaControls::LLPanelPrimMediaControls() :
 	mZoomObjectFace(0),
 	mVolumeSliderVisible(0),
 	mZoomedCameraPos(),
-	mWindowShade(NULL),
+	mWindowShade(nullptr),
 	mHideImmediately(false),
     mSecureURL(false),
 	mMediaPlaySliderCtrlMouseDownValue(0.0)
@@ -287,7 +287,7 @@ LLPluginClassMedia* LLPanelPrimMediaControls::getTargetMediaPlugin()
 		return impl->getMediaPlugin();
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 void LLPanelPrimMediaControls::updateShape()
@@ -301,7 +301,7 @@ void LLPanelPrimMediaControls::updateShape()
 		return;
 	}
 
-	LLPluginClassMedia* media_plugin = NULL;
+	LLPluginClassMedia* media_plugin = nullptr;
 	if(media_impl->hasMedia())
 	{
 		media_plugin = media_impl->getMediaPlugin();
@@ -324,7 +324,7 @@ void LLPanelPrimMediaControls::updateShape()
 		bool hasPermsControl = true;
 		bool mini_controls = false;
 		LLMediaEntry *media_data = objectp->getTE(mTargetObjectFace)->getMediaData();
-		if (media_data && NULL != dynamic_cast<LLVOVolume*>(objectp))
+		if (media_data && nullptr != dynamic_cast<LLVOVolume*>(objectp))
 		{
 			// Don't show the media controls if we do not have permissions
 			enabled = dynamic_cast<LLVOVolume*>(objectp)->hasMediaPermission(media_data, LLVOVolume::MEDIA_PERM_CONTROL);
@@ -358,11 +358,11 @@ void LLPanelPrimMediaControls::updateShape()
         mSecureURL = false;
 		mCurrentURL = media_impl->getCurrentMediaURL();
 		
-		mBackCtrl->setEnabled((media_impl != NULL) && media_impl->canNavigateBack() && can_navigate);
-		mFwdCtrl->setEnabled((media_impl != NULL) && media_impl->canNavigateForward() && can_navigate);
+		mBackCtrl->setEnabled((media_impl != nullptr) && media_impl->canNavigateBack() && can_navigate);
+		mFwdCtrl->setEnabled((media_impl != nullptr) && media_impl->canNavigateForward() && can_navigate);
 		mStopCtrl->setEnabled(has_focus && can_navigate);
 		mHomeCtrl->setEnabled(has_focus && can_navigate);
-		LLPluginClassMediaOwner::EMediaStatus result = ((media_impl != NULL) && media_impl->hasMedia()) ? media_plugin->getStatus() : LLPluginClassMediaOwner::MEDIA_NONE;
+		LLPluginClassMediaOwner::EMediaStatus result = ((media_impl != nullptr) && media_impl->hasMedia()) ? media_plugin->getStatus() : LLPluginClassMediaOwner::MEDIA_NONE;
 		
 		mVolumeCtrl->setVisible(has_focus);
 		mVolumeCtrl->setEnabled(has_focus);
@@ -811,7 +811,7 @@ void LLPanelPrimMediaControls::draw()
 	// draw control background UI image
 	
 	LLViewerObject* objectp = getTargetObject();
-	LLMediaEntry *media_data(0);
+	LLMediaEntry *media_data(nullptr);
 
 	if( objectp )
 		media_data = objectp->getTE(mTargetObjectFace)->getMediaData();

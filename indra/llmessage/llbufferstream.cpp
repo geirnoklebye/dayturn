@@ -252,10 +252,10 @@ streampos LLBufferStreamBuf::seekoff(
 	{
 		return -1;
 	}
-	U8* address = NULL;
+	U8* address = nullptr;
 	if(which & std::ios::in)
 	{
-		U8* base_addr = NULL;
+		U8* base_addr = nullptr;
 		switch(way)
 		{
 		case std::ios::end:
@@ -288,7 +288,7 @@ streampos LLBufferStreamBuf::seekoff(
 	}
 	if(which & std::ios::out)
 	{
-		U8* base_addr = NULL;
+		U8* base_addr = nullptr;
 		switch(way)
 		{
 		case std::ios::end:

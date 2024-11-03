@@ -145,7 +145,7 @@ AOSet::AOState* AOSet::getStateByName(const std::string& name)
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 AOSet::AOState* AOSet::getStateByRemapID(const LLUUID& id)
@@ -163,7 +163,7 @@ AOSet::AOState* AOSet::getStateByRemapID(const LLUUID& id)
 			return &mStates[index];
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 const LLUUID& AOSet::getAnimationForState(AOState* state) const

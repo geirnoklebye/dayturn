@@ -190,8 +190,8 @@ std::map <std::string, std::string> LLFloaterBvhPreview::getJointAliases()
 //-----------------------------------------------------------------------------
 bool LLFloaterBvhPreview::postBuild()
 {
-	LLKeyframeMotion* motionp = NULL;
-	LLBVHLoader* loaderp = NULL;
+	LLKeyframeMotion* motionp = nullptr;
+	LLBVHLoader* loaderp = nullptr;
 
 	if (!LLFloaterNameDesc::postBuild())
 	{

@@ -122,7 +122,7 @@ MediaPluginBase(host_send_func, host_user_data)
 	mWidth = 0;
 	mHeight = 0;
 	mDepth = 4;
-	mPixels = 0;
+	mPixels = nullptr;
 	mEnableMediaPluginDebugging = true;
 	mHostLanguage = "en";
 	mCookiesEnabled = true;
@@ -578,7 +578,7 @@ void MediaPluginCEF::receiveMessage(const char* message_string)
 				{
 					if (mPixels == iter->second.mAddress)
 					{
-						mPixels = NULL;
+						mPixels = nullptr;
 						mTextureSegmentName.clear();
 					}
 					mSharedSegments.erase(iter);

@@ -402,7 +402,7 @@ void LLFloaterPathfindingLinksets::updateEditFieldValues()
 
 LLSD LLFloaterPathfindingLinksets::buildLinksetScrollListItemData(const LLPathfindingLinkset *pLinksetPtr, const LLVector3 &pAvatarPosition) const
 {
-	llassert(pLinksetPtr != NULL);
+	llassert(pLinksetPtr != nullptr);
 	LLSD columns = LLSD::emptyArray();
 
 	if (pLinksetPtr->isTerrain())

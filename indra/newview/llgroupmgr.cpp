@@ -225,13 +225,13 @@ void LLGroupRoleData::clearMembers()
 
 LLGroupMgrGroupData::LLGroupMgrGroupData(const LLUUID& id) : 
 	mID(id), 
-	mShowInList(TRUE), 
-	mOpenEnrollment(FALSE), 
+	mShowInList(true), 
+	mOpenEnrollment(false), 
 	mMembershipFee(0),
-	mAllowPublish(FALSE),
-	mListInProfile(FALSE),
-	mMaturePublish(FALSE),
-	mChanged(FALSE),
+	mAllowPublish(false),
+	mListInProfile(false),
+	mMaturePublish(false),
+	mChanged(false),
 	mMemberCount(0),
 	mRoleCount(0),
 	mReceivedRoleMemberPairs(0),
@@ -567,7 +567,7 @@ bool LLGroupMgrGroupData::changeRoleMember(const LLUUID& role_id,
 
 	recalcAgentPowers(member_id);
 
-	mChanged = TRUE;
+	mChanged = true;
 	return true;
 }
 
@@ -1046,7 +1046,7 @@ void LLGroupMgr::processGroupMembersReply(LLMessageSystem* msg, void** data)
 		}
 	}
 
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	LLGroupMgr::getInstance()->notifyObservers(GC_MEMBER_DATA);
 }
 
@@ -1117,7 +1117,7 @@ void LLGroupMgr::processGroupPropertiesReply(LLMessageSystem* msg, void** data)
 	group_datap->mRoleCount = num_group_roles + 1; // Add the everyone role.
 	
 	group_datap->mGroupPropertiesDataComplete = true;
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 
     properties_request_map_t::iterator request = LLGroupMgr::getInstance()->mPropRequests.find(group_id);
     if (request != LLGroupMgr::getInstance()->mPropRequests.end())
@@ -1212,7 +1212,7 @@ void LLGroupMgr::processGroupRoleDataReply(LLMessageSystem* msg, void** data)
 		}
 	}
 
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	LLGroupMgr::getInstance()->notifyObservers(GC_ROLE_DATA);
 }
 
@@ -1320,7 +1320,7 @@ void LLGroupMgr::processGroupRoleMembersReply(LLMessageSystem* msg, void** data)
 		group_datap->mRoleMembersRequestID.setNull();
 	}
 
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	LLGroupMgr::getInstance()->notifyObservers(GC_ROLE_MEMBER_DATA);
 
 	if (group_datap->mPendingBanRequest)
@@ -1370,7 +1370,7 @@ void LLGroupMgr::processGroupTitlesReply(LLMessageSystem* msg, void** data)
 		}
 	}
 
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	LLGroupMgr::getInstance()->notifyObservers(GC_TITLES);
 }
 
@@ -1537,7 +1537,7 @@ void LLGroupMgr::notifyObservers(LLGroupChange gc)
 			{
 				oi->second->changed(gc);
 			}
-			gi->second->mChanged = FALSE;
+			gi->second->mChanged = false;
 
 
 			// notify LLParticularGroupObserver
@@ -1788,17 +1788,17 @@ void LLGroupMgr::sendUpdateGroupInfo(const LLUUID& group_id)
 	msg->nextBlockFast(_PREHASH_GroupData);
 	msg->addUUIDFast(_PREHASH_GroupID,group_datap->getID());
 	msg->addStringFast(_PREHASH_Charter,group_datap->mCharter);
-	msg->addBOOLFast(_PREHASH_ShowInList,group_datap->mShowInList);
+	msg->addboolFast(_PREHASH_ShowInList,group_datap->mShowInList);
 	msg->addUUIDFast(_PREHASH_InsigniaID,group_datap->mInsigniaID);
 	msg->addS32Fast(_PREHASH_MembershipFee,group_datap->mMembershipFee);
-	msg->addBOOLFast(_PREHASH_OpenEnrollment,group_datap->mOpenEnrollment);
-	msg->addBOOLFast(_PREHASH_AllowPublish,group_datap->mAllowPublish);
-	msg->addBOOLFast(_PREHASH_MaturePublish,group_datap->mMaturePublish);
+	msg->addboolFast(_PREHASH_OpenEnrollment,group_datap->mOpenEnrollment);
+	msg->addboolFast(_PREHASH_AllowPublish,group_datap->mAllowPublish);
+	msg->addboolFast(_PREHASH_MaturePublish,group_datap->mMaturePublish);
 
 	gAgent.sendReliableMessage();
 
 	// Not expecting a response, so let anyone else watching know the data has changed.
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	notifyObservers(GC_PROPERTIES);
 }
 
@@ -1844,7 +1844,7 @@ void LLGroupMgr::sendGroupRoleMemberChanges(const LLUUID& group_id)
 	group_datap->mRoleMemberChanges.clear();
 
 	// Not expecting a response, so let anyone else watching know the data has changed.
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	notifyObservers(GC_ROLE_MEMBER_DATA);
 }
 
@@ -2138,7 +2138,7 @@ void LLGroupMgr::processGroupBanRequest(const LLSD& content)
 		gdatap->createBanEntry(ban_id, ban_data);
 	}
 
-	gdatap->mChanged = TRUE;
+	gdatap->mChanged = true;
 	LLGroupMgr::getInstance()->notifyObservers(GC_BANLIST);
 }
 
@@ -2242,7 +2242,7 @@ void LLGroupMgr::processCapGroupMembersRequest(const LLSD& content)
 		LL_INFOS("GrpMgr") << "Received empty group members list for group id: " << group_id.asString() << LL_ENDL;
 		// Set mMemberDataComplete for correct handling of empty responses. See MAINT-5237
 		group_datap->mMemberDataComplete = true;
-		group_datap->mChanged = TRUE;
+		group_datap->mChanged = true;
 		LLGroupMgr::getInstance()->notifyObservers(GC_MEMBER_DATA);
 		return;
 	}
@@ -2346,7 +2346,7 @@ void LLGroupMgr::processCapGroupMembersRequest(const LLSD& content)
 		sendGroupRoleMembersRequest(group_id);
 	}
 
-	group_datap->mChanged = TRUE;
+	group_datap->mChanged = true;
 	notifyObservers(GC_MEMBER_DATA);
 
 }
@@ -2362,7 +2362,7 @@ void LLGroupMgr::sendGroupRoleChanges(const LLUUID& group_id)
 		group_datap->sendRoleChanges();
 	
 		// Not expecting a response, so let anyone else watching know the data has changed.
-		group_datap->mChanged = TRUE;
+		group_datap->mChanged = true;
 		notifyObservers(GC_ROLE_DATA);
 	}
 }

@@ -37,7 +37,7 @@
 
 FSFloaterAddToContactSet::FSFloaterAddToContactSet(const LLSD& target)
 :	LLFloater(target),
-	mContactSetsCombo(NULL)
+	mContactSetsCombo(nullptr)
 {
 	if (target.isArray())
 	{

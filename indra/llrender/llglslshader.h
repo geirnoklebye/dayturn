@@ -164,11 +164,11 @@ public:
 	bool createShader(std::vector<LLStaticHashedString> * attributes,
 						std::vector<LLStaticHashedString> * uniforms,
 						U32 varying_count = 0,
-						const char** varyings = NULL);
+						const char** varyings = nullptr);
     bool attachFragmentObject(std::string object);
     bool attachVertexObject(std::string object);
 	void attachObject(GLhandleARB object);
-	void attachObjects(GLhandleARB* objects = NULL, S32 count = 0);
+	void attachObjects(GLhandleARB* objects = nullptr, S32 count = 0);
 	bool mapAttributes(const std::vector<LLStaticHashedString> * attributes);
 	bool mapUniforms(const std::vector<LLStaticHashedString> *);
 	void mapUniform(GLint index, const std::vector<LLStaticHashedString> *);

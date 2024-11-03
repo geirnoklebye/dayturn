@@ -540,7 +540,7 @@ LLProcess::LLProcess(const LLSDOrParams& params):
 
 	mPostend = params.postend;
 
-	apr_procattr_t *procattr = NULL;
+	apr_procattr_t *procattr = nullptr;
 	chkapr(apr_procattr_create(&procattr, gAPRPoolp));
 
 	// IQA-490, CHOP-900: On Windows, ask APR to jump through hoops to
@@ -1235,7 +1235,7 @@ void LLProcess::autokill()
 }
 
 // Attempt to reap a process ID -- returns true if the process has exited and been reaped, false otherwise.
-static bool reap_pid(pid_t pid, LLProcess::Status* pstatus=NULL)
+static bool reap_pid(pid_t pid, LLProcess::Status* pstatus=nullptr)
 {
 	LLProcess::Status dummy;
 	if (! pstatus)

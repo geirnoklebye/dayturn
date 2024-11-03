@@ -56,23 +56,23 @@ void cb_group_do_nothing()
 }
 
 LLFloaterIMSessionTab::LLFloaterIMSessionTab(const LLSD& session_id)
-:	LLTransientDockableFloater(NULL, false, session_id),
+:	LLTransientDockableFloater(nullptr, false, session_id),
 	mIsP2PChat(false),
-	mExpandCollapseBtn(NULL),
-	mTearOffBtn(NULL),
-	mCloseBtn(NULL),
+	mExpandCollapseBtn(nullptr),
+	mTearOffBtn(nullptr),
+	mCloseBtn(nullptr),
 	mSessionID(session_id.asUUID()),
-	mConversationsRoot(NULL),
-	mScroller(NULL),
-	mChatHistory(NULL),
-	mInputEditor(NULL),
+	mConversationsRoot(nullptr),
+	mScroller(nullptr),
+	mChatHistory(nullptr),
+	mInputEditor(nullptr),
 	mInputEditorPad(0),
 	mRefreshTimer(new LLTimer()),
 	mIsHostAttached(false),
 	mHasVisibleBeenInitialized(false),
 	mIsParticipantListExpanded(true),
-	mChatLayoutPanel(NULL),
-	mInputPanels(NULL),
+	mChatLayoutPanel(nullptr),
+	mInputPanels(nullptr),
 	mChatLayoutPanelHeight(0)
 {
     setAutoFocus(false);
@@ -685,7 +685,7 @@ void LLFloaterIMSessionTab::refreshConversation()
 	}
 	
 	mConversationViewModel.requestSortAll();
-	if(mConversationsRoot != NULL)
+	if(mConversationsRoot != nullptr)
 	{
 		mConversationsRoot->arrangeAll();
 		mConversationsRoot->update();
@@ -1217,7 +1217,7 @@ void LLFloaterIMSessionTab::getSelectedUUIDs(uuid_vec_t& selected_uuids)
 
 LLConversationItem* LLFloaterIMSessionTab::getCurSelectedViewModelItem()
 {
-	LLConversationItem *conversationItem = NULL;
+	LLConversationItem *conversationItem = nullptr;
 
 	if(mConversationsRoot && 
         mConversationsRoot->getCurSelectedItem() && 

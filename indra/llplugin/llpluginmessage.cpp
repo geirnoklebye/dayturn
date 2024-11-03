@@ -336,7 +336,7 @@ F64 LLPluginMessage::getValueReal(const std::string &key) const
  */
 void* LLPluginMessage::getValuePointer(const std::string &key) const
 {
-	void* result = NULL;
+	void* result = nullptr;
 
 	if(mMessage["params"].has(key))
 	{

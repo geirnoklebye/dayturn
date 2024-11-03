@@ -167,7 +167,7 @@ LLDriverParam::LLDriverParam(LLAvatarAppearance *appearance, LLWearable* wearabl
 	mWearablep(wearable)
 {
 	llassert(mAvatarAppearance);
-	llassert((mWearablep == NULL) || mAvatarAppearance->isSelf());
+	llassert((mWearablep == nullptr) || mAvatarAppearance->isSelf());
 	mDefaultVec.clear();
 }
 
@@ -180,7 +180,7 @@ LLDriverParam::LLDriverParam(const LLDriverParam& pOther)
 	mWearablep(pOther.mWearablep)
 {
 	llassert(mAvatarAppearance);
-	llassert((mWearablep == NULL) || mAvatarAppearance->isSelf());
+	llassert((mWearablep == nullptr) || mAvatarAppearance->isSelf());
 }
 
 LLDriverParam::~LLDriverParam()
@@ -189,7 +189,7 @@ LLDriverParam::~LLDriverParam()
 
 bool LLDriverParam::setInfo(LLDriverParamInfo *info)
 {
-	llassert(mInfo == NULL);
+	llassert(mInfo == nullptr);
 	if (info->mID < 0)
 		return false;
 	mInfo = info;

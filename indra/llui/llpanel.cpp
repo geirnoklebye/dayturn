@@ -104,14 +104,14 @@ LLPanel::LLPanel(const LLPanel::Params& p)
 	mBgAlphaImageOverlay(p.bg_alpha_image_overlay),
 	mBgOpaqueImage(p.bg_opaque_image()),
 	mBgAlphaImage(p.bg_alpha_image()),
-	mDefaultBtn(NULL),
-	mBorder(NULL),
+	mDefaultBtn(nullptr),
+	mBorder(nullptr),
 	mLabel(p.label),
 	mHelpTopic(p.help_topic),
 	mCommitCallbackRegistrar(false),
 	mEnableCallbackRegistrar(false),
 	mXMLFilename(p.filename),
-	mVisibleSignal(NULL)
+	mVisibleSignal(nullptr)
 	// *NOTE: Be sure to also change LLPanel::initFromParams().  We have too
 	// many classes derived from LLPanel to retrofit them all to pass in params.
 {
@@ -155,7 +155,7 @@ void LLPanel::removeBorder()
 	{
 		removeChild(mBorder);
 		delete mBorder;
-		mBorder = NULL;
+		mBorder = nullptr;
 	}
 }
 
@@ -286,7 +286,7 @@ void LLPanel::setDefaultBtn(const std::string& id)
 	}
 	else
 	{
-		setDefaultBtn(NULL);
+		setDefaultBtn(nullptr);
 	}
 }
 
@@ -394,7 +394,7 @@ LLView* LLPanel::fromXML(LLXMLNodePtr node, LLView* parent, LLXMLNodePtr output_
 	std::string class_attr;
 	node->getAttributeString("class", class_attr);
 
-	LLPanel* panelp = NULL;
+	LLPanel* panelp = nullptr;
 	
 	{	LL_RECORD_BLOCK_TIME(FTM_PANEL_CONSTRUCTION);
 		
@@ -414,7 +414,7 @@ LLView* LLPanel::fromXML(LLXMLNodePtr node, LLView* parent, LLXMLNodePtr output_
 			
 			if (!panelp)
 			{
-				return NULL; // :(
+				return nullptr; // :(
 			}
 		}
 
@@ -709,7 +709,7 @@ LLCtrlSelectionInterface* LLPanel::childGetSelectionInterface(const std::string&
 	{
 		return child->getSelectionInterface();
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLCtrlListInterface* LLPanel::childGetListInterface(const std::string& id) const
@@ -719,7 +719,7 @@ LLCtrlListInterface* LLPanel::childGetListInterface(const std::string& id) const
 	{
 		return child->getListInterface();
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLCtrlScrollInterface* LLPanel::childGetScrollInterface(const std::string& id) const
@@ -729,7 +729,7 @@ LLCtrlScrollInterface* LLPanel::childGetScrollInterface(const std::string& id) c
 	{
 		return child->getScrollInterface();
 	}
-	return NULL;
+	return nullptr;
 }
 
 void LLPanel::childSetValue(const std::string& id, LLSD value)

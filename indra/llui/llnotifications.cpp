@@ -494,7 +494,7 @@ LLNotification::LLNotification(const LLSDParamAdapter<Params>& p) :
 	mPriority(p.priority),
 	mCancelled(false),
 	mIgnored(false),
-	mResponderObj(NULL),
+	mResponderObj(nullptr),
 	mId(p.id.isProvided() ? p.id : LLUUID::generateNewID()),
 	mOfferFromAgent(p.offer_from_agent),
     mIsDND(p.is_dnd)
@@ -1805,7 +1805,7 @@ LLNotificationPtr LLNotifications::find(LLUUID uuid)
 	if (it == mItems.end())
 	{
 		LL_DEBUGS("Notifications") << "Tried to dereference uuid '" << uuid << "' as a notification key but didn't find it." << LL_ENDL;
-		return LLNotificationPtr((LLNotification*)NULL);
+		return LLNotificationPtr((LLNotification*)nullptr);
 	}
 	else
 	{

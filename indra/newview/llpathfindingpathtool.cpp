@@ -191,11 +191,11 @@ LLPathfindingPathTool::EPathStatus LLPathfindingPathTool::getPathStatus() const
 {
 	EPathStatus status = kPathStatusUnknown;
 
-	if (LLPathingLib::getInstance() == NULL)
+	if (LLPathingLib::getInstance() == nullptr)
 	{
 		status = kPathStatusNotImplemented;
 	}
-	else if ((gAgent.getRegion() != NULL) && !gAgent.getRegion()->capabilitiesReceived())
+	else if ((gAgent.getRegion() != nullptr) && !gAgent.getRegion()->capabilitiesReceived())
 	{
 		status = kPathStatusUnknown;
 	}
@@ -460,7 +460,7 @@ void LLPathfindingPathTool::clearTemp()
 void LLPathfindingPathTool::computeFinalPath()
 {
 	mPathResult = LLPathingLib::LLPL_NO_PATH;
-	if (LLPathingLib::getInstance() != NULL)
+	if (LLPathingLib::getInstance() != nullptr)
 	{
 		mPathResult = LLPathingLib::getInstance()->generatePath(mFinalPathData);
 	}
@@ -470,7 +470,7 @@ void LLPathfindingPathTool::computeFinalPath()
 void LLPathfindingPathTool::computeTempPath()
 {
 	mPathResult = LLPathingLib::LLPL_NO_PATH;
-	if (LLPathingLib::getInstance() != NULL)
+	if (LLPathingLib::getInstance() != nullptr)
 	{
 		mPathResult = LLPathingLib::getInstance()->generatePath(mTempPathData);
 	}

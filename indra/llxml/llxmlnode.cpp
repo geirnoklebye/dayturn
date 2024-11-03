@@ -335,10 +335,10 @@ void LLXMLNode::setParent(LLXMLNodePtr& new_parent)
 	}
 	else
 	{
-		if (mParent != NULL)
+		if (mParent != nullptr)
 		{
 		    LLXMLNodePtr old_parent = mParent;
-			mParent = NULL;
+			mParent = nullptr;
 			old_parent->removeChild(this);
 		}
 	}

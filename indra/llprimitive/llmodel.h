@@ -196,7 +196,7 @@ public:
 
 	void sortVolumeFacesByMaterialName();
 	void normalizeVolumeFaces();
-	void trimVolumeFacesToSize(U32 new_count = LL_SCULPT_MESH_MAX_FACES, LLVolume::face_list_t* remainder = NULL);
+	void trimVolumeFacesToSize(U32 new_count = LL_SCULPT_MESH_MAX_FACES, LLVolume::face_list_t* remainder = nullptr);
     void remapVolumeFaces();
 	void optimizeVolumeFaces();
 	void offsetMesh( const LLVector3& pivotPoint );

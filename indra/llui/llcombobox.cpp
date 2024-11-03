@@ -86,7 +86,7 @@ LLComboBox::Params::Params()
 
 LLComboBox::LLComboBox(const LLComboBox::Params& p)
 :	LLUICtrl(p),
-	mTextEntry(NULL),
+	mTextEntry(nullptr),
 	mTextEntryTentative(p.show_text_as_tentative),
 	mHasAutocompletedText(false),
 	mAllowTextEntry(p.allow_text_entry),
@@ -98,7 +98,7 @@ LLComboBox::LLComboBox(const LLComboBox::Params& p)
 	mListPosition(p.list_position),
 	mLastSelectedIndex(-1),
 	mLabel(p.label),
-    mMouseDownSignal(NULL)
+    mMouseDownSignal(nullptr)
 {
 	// Text label button
 
@@ -665,7 +665,7 @@ void* LLComboBox::getCurrentUserdata()
 	{
 		return item->getUserdata();
 	}
-	return NULL;
+	return nullptr;
 }
 
 

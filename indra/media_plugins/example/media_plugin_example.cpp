@@ -76,9 +76,9 @@ MediaPluginBase(host_send_func, host_user_data)
 	mWidth = 0;
 	mHeight = 0;
 	mDepth = 4;
-	mPixels = 0;
+	mPixels = nullptr;
 	mLastUpdateTime = 0;
-	mBackgroundPixels = 0;
+	mBackgroundPixels = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +152,7 @@ void mediaPluginExample::receiveMessage(const char* message_string)
 					if (mPixels == iter->second.mAddress)
 					{
 						// This is the currently active pixel buffer.  Make sure we stop drawing to it.
-						mPixels = NULL;
+						mPixels = nullptr;
 						mTextureSegmentName.clear();
 					}
 					mSharedSegments.erase(iter);
@@ -254,7 +254,7 @@ void mediaPluginExample::update(F64 milliseconds)
 	if (mWidth < 1 || mWidth > 2048 || mHeight < 1 || mHeight > 2048)
 		return;
 
-	if (mPixels == 0)
+	if (mPixels == nullptr)
 		return;
 
 	if (mFirstTime)

@@ -129,7 +129,7 @@ void LLFace::init(LLDrawable* drawablep, LLViewerObject* objp)
 	mVSize = 0.f;
 	mPixelArea = 16.f;
 	mState      = GLOBAL;
-	mDrawPoolp  = NULL;
+	mDrawPoolp  = nullptr;
 	mPoolType = 0;
 	mCenterLocal = objp->getPosition();
 	mCenterAgent = drawablep->getPositionAgent();
@@ -156,8 +156,8 @@ void LLFace::init(LLDrawable* drawablep, LLViewerObject* objp)
 
 	mReferenceIndex = -1;
 
-	mTextureMatrix = NULL;
-	mDrawInfo = NULL;
+	mTextureMatrix = nullptr;
+	mDrawInfo = nullptr;
 
 	mFaceColor = LLColor4(1,0,0,1);
 
@@ -193,13 +193,13 @@ void LLFace::destroy()
 	if (mDrawPoolp)
 	{
 		mDrawPoolp->removeFace(this);
-		mDrawPoolp = NULL;
+		mDrawPoolp = nullptr;
 	}
 
 	if (mTextureMatrix)
 	{
 		delete mTextureMatrix;
-		mTextureMatrix = NULL;
+		mTextureMatrix = nullptr;
 
 		if (mDrawablep)
 		{
@@ -212,9 +212,9 @@ void LLFace::destroy()
 		}
 	}
 	
-	setDrawInfo(NULL);
+	setDrawInfo(nullptr);
 
-	mDrawablep = NULL;
+	mDrawablep = nullptr;
 	mVObjp = NULL;
 }
 
@@ -524,7 +524,7 @@ void LLFace::updateCenterAgent()
 
 void LLFace::renderSelected(LLViewerTexture *imagep, const LLColor4& color)
 {
-	if (mDrawablep == NULL || mDrawablep->getSpatialGroup() == NULL)
+	if (mDrawablep == nullptr || mDrawablep->getSpatialGroup() == nullptr)
 	{
 		return;
 	}
@@ -598,7 +598,7 @@ void renderFace(LLDrawable* drawable, LLFace *face)
     LLVOVolume* vobj = drawable->getVOVolume();
     if (vobj)
     {
-        LLVolume* volume = NULL;
+        LLVolume* volume = nullptr;
 
         if (drawable->isState(LLDrawable::RIGGED))
         {
@@ -612,7 +612,7 @@ void renderFace(LLDrawable* drawable, LLFace *face)
         if (volume)
         {
             const LLVolumeFace& vol_face = volume->getVolumeFace(face->getTEOffset());
-            LLVertexBuffer::drawElements(LLRender::TRIANGLES, vol_face.mPositions, NULL, vol_face.mNumIndices, vol_face.mIndices);
+            LLVertexBuffer::drawElements(LLRender::TRIANGLES, vol_face.mPositions, nullptr, vol_face.mNumIndices, vol_face.mIndices);
         }
     }
 }
@@ -958,7 +958,7 @@ LLVector2 LLFace::surfaceToTexture(LLVector2 surface_coord, const LLVector4a& po
 	
 	const LLTextureEntry *tep = getTextureEntry();
 
-	if (tep == NULL)
+	if (tep == nullptr)
 	{
 		// can't do much without the texture entry
 		return surface_coord;
@@ -2637,7 +2637,7 @@ S32 LLFace::renderElements(const U16 *index_array) const
 
 S32 LLFace::renderIndexed()
 {
-	if(mDrawablep == NULL || mDrawPoolp == NULL)
+	if(mDrawablep == nullptr || mDrawPoolp == nullptr)
 	{
 		return 0;
 	}

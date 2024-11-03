@@ -444,7 +444,7 @@ bool LLScrollbar::handleMouseUp(S32 x, S32 y, MASK mask)
 	bool handled = false;
 	if( hasMouseCapture() )
 	{
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( nullptr );
 		handled = true;
 	}
 	else

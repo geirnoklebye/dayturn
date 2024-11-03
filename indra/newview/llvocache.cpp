@@ -89,7 +89,7 @@ LLVOCacheEntry::LLVOCacheEntry()
 	mHitCount(0),
 	mDupeCount(0),
 	mCRCChangeCount(0),
-	mBuffer(NULL),
+	mBuffer(nullptr),
 	mState(INACTIVE),
 	mSceneContrib(0.f),
 	mValid(true),
@@ -101,7 +101,7 @@ LLVOCacheEntry::LLVOCacheEntry()
 
 LLVOCacheEntry::LLVOCacheEntry(LLAPRFile* apr_file)
 :	LLViewerOctreeEntryData(LLViewerOctreeEntry::LLVOCACHEENTRY), 
-	mBuffer(NULL),
+	mBuffer(nullptr),
 	mUpdateFlags(-1),
 	mState(INACTIVE),
 	mSceneContrib(0.f),
@@ -147,7 +147,7 @@ LLVOCacheEntry::LLVOCacheEntry(LLAPRFile* apr_file)
 		else
 		{
 			delete[] mBuffer ;
-			mBuffer = NULL ;
+			mBuffer = nullptr ;
 		}
 	}
 
@@ -158,7 +158,7 @@ LLVOCacheEntry::LLVOCacheEntry(LLAPRFile* apr_file)
 		mHitCount = 0;
 		mDupeCount = 0;
 		mCRCChangeCount = 0;
-		mBuffer = NULL;
+		mBuffer = nullptr;
 		mEntry = NULL;
 		mState = INACTIVE;
 	}
@@ -264,7 +264,7 @@ void LLVOCacheEntry::setState(U32 state)
 
 void LLVOCacheEntry::addChild(LLVOCacheEntry* entry)
 {
-	llassert(entry != NULL);
+	llassert(entry != nullptr);
 	llassert(entry->getParentID() == mLocalID);
 	llassert(entry->getEntry() != NULL);
 
@@ -297,7 +297,7 @@ void LLVOCacheEntry::removeChild(LLVOCacheEntry* entry)
 //remove the first child, and return it.
 LLVOCacheEntry* LLVOCacheEntry::getChild()
 {
-	LLVOCacheEntry* child = NULL;
+	LLVOCacheEntry* child = nullptr;
 	vocache_entry_set_t::iterator iter = mChildrenList.begin();
 	if(iter != mChildrenList.end())
 	{
@@ -313,7 +313,7 @@ LLDataPackerBinaryBuffer *LLVOCacheEntry::getDP()
 	if (mDP.getBufferSize() == 0)
 	{
 		//LL_INFOS() << "Not getting cache entry, invalid!" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	
 	return &mDP;
@@ -323,7 +323,7 @@ LLDataPackerBinaryBuffer *LLVOCacheEntry::getDP()
 const U8* LLVOCacheEntry::getDPBuffer() const
 {
 	if (mDP.getBufferSize() == 0)
-		return NULL;
+		return nullptr;
 	return mDP.getBuffer();
 }
 // [/SL:KB]

@@ -109,11 +109,11 @@ MediaPluginBase(host_send_func, host_user_data)
 	mWidth = 0;
 	mHeight = 0;
 	mDepth = 4;
-	mPixels = 0;
+	mPixels = nullptr;
 
-	mLibVLC = 0;
-	mLibVLCMedia = 0;
-	mLibVLCMediaPlayer = 0;
+	mLibVLC = nullptr;
+	mLibVLCMedia = nullptr;
+	mLibVLCMediaPlayer = nullptr;
 
 	mCurVolume = 0.0;
 
@@ -142,7 +142,7 @@ void* MediaPluginLibVLC::lock(void* data, void** p_pixels)
 
 	*p_pixels = context->texture_pixels;
 
-	return NULL;
+	return nullptr;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -232,7 +232,7 @@ void MediaPluginLibVLC::setDurationDirty()
 void MediaPluginLibVLC::eventCallbacks(const libvlc_event_t* event, void* ptr)
 {
 	MediaPluginLibVLC* parent = (MediaPluginLibVLC*)ptr;
-	if (parent == 0)
+	if (parent == nullptr)
 	{
 		return;
 	}
@@ -321,7 +321,7 @@ void MediaPluginLibVLC::playMedia()
 	mLibVLCMedia = libvlc_media_new_location(mLibVLC, mURL.c_str());
 	if (!mLibVLCMedia)
 	{
-		mLibVLCMediaPlayer = 0;
+		mLibVLCMediaPlayer = nullptr;
 		setStatus(STATUS_ERROR);
 		return;
 	}
@@ -529,9 +529,9 @@ void MediaPluginLibVLC::receiveMessage(const char* message_string)
 					{
 						libvlc_media_player_stop(mLibVLCMediaPlayer);
 						libvlc_media_player_release(mLibVLCMediaPlayer);
-						mLibVLCMediaPlayer = 0;
+						mLibVLCMediaPlayer = nullptr;
 
-						mPixels = NULL;
+						mPixels = nullptr;
 						mTextureSegmentName.clear();
 					}
 					mSharedSegments.erase(iter);

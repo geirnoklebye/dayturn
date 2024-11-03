@@ -2088,9 +2088,9 @@ bool LLManipScale::canAffectSelection()
 		{
 			virtual bool apply(LLViewerObject* objectp)
 			{
-				LLViewerObject *root_object = (objectp == NULL) ? NULL : objectp->getRootEdit();
+				LLViewerObject *root_object = (objectp == nullptr) ? nullptr : objectp->getRootEdit();
 				return objectp->permModify() && objectp->permMove() && !objectp->isPermanentEnforced() &&
-					(root_object == NULL || (!root_object->isPermanentEnforced() && !root_object->isSeat())) &&
+					(root_object == nullptr || (!root_object->isPermanentEnforced() && !root_object->isSeat())) &&
 					!objectp->isSeat();
 			}
 		} func;

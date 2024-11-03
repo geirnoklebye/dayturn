@@ -194,7 +194,7 @@ bool LLStatGraph::handleMouseUp(S32 x, S32 y, MASK mask)
 		//
 		//	release the mouse
 		//
-		gFocusMgr.setMouseCapture(NULL);
+		gFocusMgr.setMouseCapture(nullptr);
 
 		//
 		//	DO THIS AT THE VERY END to allow the widget

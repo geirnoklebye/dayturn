@@ -48,7 +48,7 @@ public:
 	/*virtual*/ bool setPosition(LLCoordScreen position) {return false;};
 	/*virtual*/ bool setSizeImpl(LLCoordScreen size) {return false;};
 	/*virtual*/ bool setSizeImpl(LLCoordWindow size) {return false;};
-	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool enable_vsync, const LLCoordScreen * const posp = NULL) {return false;};
+	/*virtual*/ bool switchContext(bool fullscreen, const LLCoordScreen &size, bool enable_vsync, const LLCoordScreen * const posp = nullptr) {return false;};
     void* createSharedContext()  { return nullptr; }
     void makeContextCurrent(void*)  {}
     void destroySharedContext(void*)  {}
@@ -91,12 +91,12 @@ public:
 	/*virtual*/ bool convertCoords(LLCoordScreen from, LLCoordGL *to) { return false; };
 	/*virtual*/ bool convertCoords(LLCoordGL from, LLCoordScreen *to) { return false; };
 
-	/*virtual*/ LLWindowResolution* getSupportedResolutions(S32 &num_resolutions) { return NULL; };
+	/*virtual*/ LLWindowResolution* getSupportedResolutions(S32 &num_resolutions) { return nullptr; };
 	/*virtual*/ F32	getNativeAspectRatio() { return 1.0f; };
 	/*virtual*/ F32 getPixelAspectRatio() { return 1.0f; };
 	/*virtual*/ void setNativeAspectRatio(F32 ratio) {}
 
-	/*virtual*/ void *getPlatformWindow() { return 0; };
+	/*virtual*/ void *getPlatformWindow() { return nullptr; };
 	/*virtual*/ void bringToFront() {};
 	
 	LLWindowHeadless(LLWindowCallbacks* callbacks,

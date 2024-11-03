@@ -164,7 +164,7 @@ void LLThread::threadRun()
 
 
     delete mRecorder;
-    mRecorder = NULL;
+    mRecorder = nullptr;
 
     // We're done with the run function, this thread is done executing now.
     //NB: we are using this flag to sync across threads...we really need memory barriers here
@@ -178,11 +178,11 @@ LLThread::LLThread(const std::string& name, apr_pool_t *poolp) :
     mName(name),
     mThreadp(NULL),
     mStatus(STOPPED),
-    mRecorder(NULL)
+    mRecorder(nullptr)
 {
     mRunCondition = new LLCondition();
     mDataLock = new LLMutex();
-    mLocalAPRFilePoolp = NULL ;
+    mLocalAPRFilePoolp = nullptr ;
 }
 
 
@@ -198,7 +198,7 @@ LLThread::~LLThread()
     if(mLocalAPRFilePoolp)
     {
         delete mLocalAPRFilePoolp ;
-        mLocalAPRFilePoolp = NULL ;
+        mLocalAPRFilePoolp = nullptr ;
     }
 }
 
@@ -250,7 +250,7 @@ void LLThread::shutdown()
 #endif
 
             delete mRecorder;
-            mRecorder = NULL;
+            mRecorder = nullptr;
             mStatus = STOPPED;
             return;
         }
@@ -258,10 +258,10 @@ void LLThread::shutdown()
     }
 
     delete mRunCondition;
-    mRunCondition = NULL;
+    mRunCondition = nullptr;
 
     delete mDataLock;
-    mDataLock = NULL;
+    mDataLock = nullptr;
 
     if (mRecorder)
     {
@@ -402,7 +402,7 @@ void LLThread::unlockData()
 //----------------------------------------------------------------------------
 
 //static
-LLMutex* LLThreadSafeRefCount::sMutex = 0;
+LLMutex* LLThreadSafeRefCount::sMutex = nullptr;
 
 //static
 void LLThreadSafeRefCount::initThreadSafeRefCount()
@@ -417,7 +417,7 @@ void LLThreadSafeRefCount::initThreadSafeRefCount()
 void LLThreadSafeRefCount::cleanupThreadSafeRefCount()
 {
     delete sMutex;
-    sMutex = NULL;
+    sMutex = nullptr;
 }
     
 

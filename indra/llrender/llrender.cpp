@@ -208,9 +208,9 @@ bool LLTexUnit::bind(LLTexture* texture, bool for_rendering, bool forceBind)
 	{
 		gGL.flush();
 
-		LLImageGL* gl_tex = NULL ;
+		LLImageGL* gl_tex = nullptr ;
 
-		if (texture != NULL && (gl_tex = texture->getGLTexture()))
+		if (texture != nullptr && (gl_tex = texture->getGLTexture()))
 		{
 			if (gl_tex->getTexName()) //if texture exists
 			{
@@ -324,7 +324,7 @@ bool LLTexUnit::bind(LLCubeMap* cubeMap)
 
 	gGL.flush();
 
-	if (cubeMap == NULL)
+	if (cubeMap == nullptr)
 	{
 		LL_WARNS() << "NULL LLTexUnit::bind cubemap" << LL_ENDL;
 		return false;
@@ -931,7 +931,7 @@ void LLRender::shutdown()
 	}
 	mTexUnits.clear();
 	delete mDummyTexUnit;
-	mDummyTexUnit = NULL;
+	mDummyTexUnit = nullptr;
 
 	for (U32 i = 0; i < mLightState.size(); ++i)
 	{
@@ -1521,7 +1521,7 @@ LLLightState* LLRender::getLight(U32 index)
 		return mLightState[index];
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 void LLRender::setAmbientLightColor(const LLColor4& color)
@@ -2013,7 +2013,7 @@ void LLRender::color3fv(const GLfloat* c)
 void LLRender::diffuseColor3f(F32 r, F32 g, F32 b)
 {
 	LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
-	llassert(shader != NULL);
+	llassert(shader != nullptr);
 
 	if (shader)
 	{
@@ -2028,7 +2028,7 @@ void LLRender::diffuseColor3f(F32 r, F32 g, F32 b)
 void LLRender::diffuseColor3fv(const F32* c)
 {
 	LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
-	llassert(shader != NULL);
+	llassert(shader != nullptr);
 
 	if (shader)
 	{
@@ -2043,7 +2043,7 @@ void LLRender::diffuseColor3fv(const F32* c)
 void LLRender::diffuseColor4f(F32 r, F32 g, F32 b, F32 a)
 {
 	LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
-	llassert(shader != NULL);
+	llassert(shader != nullptr);
 
 	if (shader)
 	{
@@ -2058,7 +2058,7 @@ void LLRender::diffuseColor4f(F32 r, F32 g, F32 b, F32 a)
 void LLRender::diffuseColor4fv(const F32* c)
 {
 	LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
-	llassert(shader != NULL);
+	llassert(shader != nullptr);
 
 	if (shader)
 	{
@@ -2073,7 +2073,7 @@ void LLRender::diffuseColor4fv(const F32* c)
 void LLRender::diffuseColor4ubv(const U8* c)
 {
 	LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
-	llassert(shader != NULL);
+	llassert(shader != nullptr);
 
 	if (shader)
 	{
@@ -2088,7 +2088,7 @@ void LLRender::diffuseColor4ubv(const U8* c)
 void LLRender::diffuseColor4ub(U8 r, U8 g, U8 b, U8 a)
 {
 	LLGLSLShader* shader = LLGLSLShader::sCurBoundShaderPtr;
-	llassert(shader != NULL);
+	llassert(shader != nullptr);
 
 	if (shader)
 	{

@@ -105,20 +105,20 @@ LLUICtrl::LLUICtrl(const LLUICtrl::Params& p, const LLViewModelPtr& viewmodel)
 	mTabStop(false),
 	mTentative(false),
     mViewModel(viewmodel),
-	mControlVariable(NULL),
-	mEnabledControlVariable(NULL),
-	mDisabledControlVariable(NULL),
-	mMakeVisibleControlVariable(NULL),
-	mMakeInvisibleControlVariable(NULL),
-	mCommitSignal(NULL),
-	mValidateSignal(NULL),
-	mMouseEnterSignal(NULL),
-	mMouseLeaveSignal(NULL),
-	mMouseDownSignal(NULL),
-	mMouseUpSignal(NULL),
-	mRightMouseDownSignal(NULL),
-	mRightMouseUpSignal(NULL),
-	mDoubleClickSignal(NULL),
+	mControlVariable(nullptr),
+	mEnabledControlVariable(nullptr),
+	mDisabledControlVariable(nullptr),
+	mMakeVisibleControlVariable(nullptr),
+	mMakeInvisibleControlVariable(nullptr),
+	mCommitSignal(nullptr),
+	mValidateSignal(nullptr),
+	mMouseEnterSignal(nullptr),
+	mMouseLeaveSignal(nullptr),
+	mMouseDownSignal(nullptr),
+	mMouseUpSignal(nullptr),
+	mRightMouseDownSignal(nullptr),
+	mRightMouseUpSignal(nullptr),
+	mDoubleClickSignal(nullptr),
 	mTransparencyType(TT_DEFAULT)
 {
 }
@@ -527,7 +527,7 @@ void LLUICtrl::setControlVariable(LLControlVariable* control)
 		//RN: this will happen in practice, should we try to avoid it?
 		//LL_WARNS() << "setControlName called twice on same control!" << LL_ENDL;
 		mControlConnection.disconnect(); // disconnect current signal
-		mControlVariable = NULL;
+		mControlVariable = nullptr;
 	}
 	
 	if (control)
@@ -541,7 +541,7 @@ void LLUICtrl::setControlVariable(LLControlVariable* control)
 //virtual
 void LLUICtrl::setControlName(const std::string& control_name, LLView *context)
 {
-	if (context == NULL)
+	if (context == nullptr)
 	{
 		context = this;
 	}
@@ -564,7 +564,7 @@ void LLUICtrl::setEnabledControlVariable(LLControlVariable* control)
 	if (mEnabledControlVariable)
 	{
 		mEnabledControlConnection.disconnect(); // disconnect current signal
-		mEnabledControlVariable = NULL;
+		mEnabledControlVariable = nullptr;
 	}
 	if (control)
 	{
@@ -581,7 +581,7 @@ void LLUICtrl::setDisabledControlVariable(LLControlVariable* control)
 	if (mDisabledControlVariable)
 	{
 		mDisabledControlConnection.disconnect(); // disconnect current signal
-		mDisabledControlVariable = NULL;
+		mDisabledControlVariable = nullptr;
 	}
 	if (control)
 	{
@@ -598,7 +598,7 @@ void LLUICtrl::setMakeVisibleControlVariable(LLControlVariable* control)
 	if (mMakeVisibleControlVariable)
 	{
 		mMakeVisibleControlConnection.disconnect(); // disconnect current signal
-		mMakeVisibleControlVariable = NULL;
+		mMakeVisibleControlVariable = nullptr;
 	}
 	if (control)
 	{
@@ -616,7 +616,7 @@ void LLUICtrl::setMakeInvisibleControlVariable(LLControlVariable* control)
 	if (mMakeInvisibleControlVariable)
 	{
 		mMakeInvisibleControlConnection.disconnect(); // disconnect current signal
-		mMakeInvisibleControlVariable = NULL;
+		mMakeInvisibleControlVariable = nullptr;
 	}
 	if (control)
 	{
@@ -696,19 +696,19 @@ bool LLUICtrl::setLabelArg( const std::string& key, const LLStringExplicit& text
 // virtual
 LLCtrlSelectionInterface* LLUICtrl::getSelectionInterface()	
 { 
-	return NULL;
+	return nullptr;
 }
 
 // virtual
 LLCtrlListInterface* LLUICtrl::getListInterface()				
 { 
-	return NULL;
+	return nullptr;
 }
 
 // virtual
 LLCtrlScrollInterface* LLUICtrl::getScrollInterface()			
 { 
-	return NULL;
+	return nullptr;
 }
 
 bool LLUICtrl::hasFocus() const
@@ -734,7 +734,7 @@ void LLUICtrl::setFocus(bool b)
 	{
 		if( gFocusMgr.childHasKeyboardFocus(this))
 		{
-			gFocusMgr.setKeyboardFocus( NULL );
+			gFocusMgr.setKeyboardFocus( nullptr );
 		}
 	}
 }
@@ -899,7 +899,7 @@ bool LLUICtrl::focusPrevItem(bool text_fields_only)
 
 LLUICtrl* LLUICtrl::findRootMostFocusRoot()
 {
-	LLUICtrl* focus_root = NULL;
+	LLUICtrl* focus_root = nullptr;
 	LLUICtrl* next_view = this;
 	while(next_view && next_view->hasTabStop())
 	{
@@ -929,7 +929,7 @@ LLUICtrl* LLUICtrl::getParentUICtrl() const
 			parent =  parent->getParent();
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool LLUICtrl::findHelpTopic(std::string& help_topic_out)
@@ -946,7 +946,7 @@ bool LLUICtrl::findHelpTopic(std::string& help_topic_out)
 		{
 
 			LLView *child;
-			LLPanel *subpanel = NULL;
+			LLPanel *subpanel = nullptr;
 
 			// does the panel have a sub-panel with a help topic?
 			bfs_tree_iterator_t it = beginTreeBFS();
@@ -971,7 +971,7 @@ bool LLUICtrl::findHelpTopic(std::string& help_topic_out)
 			}
 
 			// does the panel have an active tab with a help topic?
-			LLPanel *tab_panel = NULL;
+			LLPanel *tab_panel = nullptr;
 
 			it = beginTreeBFS();
 			// skip ourselves
@@ -979,7 +979,7 @@ bool LLUICtrl::findHelpTopic(std::string& help_topic_out)
 			for (; it != endTreeBFS(); ++it)
 			{
 				child = *it;
-				LLPanel *curTabPanel = NULL;
+				LLPanel *curTabPanel = nullptr;
 
 				// do we have a tab container?
 				LLTabContainer *tab = dynamic_cast<LLTabContainer *>(child);

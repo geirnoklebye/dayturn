@@ -96,7 +96,7 @@ public:
 	// until you call idle() again.
 	bool textureValid(void);
 	
-	bool getDirty(LLRect *dirty_rect = NULL);
+	bool getDirty(LLRect *dirty_rect = nullptr);
 	void resetDirty(void);
 	
 	typedef enum 

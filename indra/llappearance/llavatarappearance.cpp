@@ -119,7 +119,7 @@ private:
 //-----------------------------------------------------------------------------
 
 LLAvatarAppearance::LLAvatarXmlInfo::LLAvatarXmlInfo()
-	: mTexSkinColorInfo(0), mTexHairColorInfo(0), mTexEyeColorInfo(0)
+	: mTexSkinColorInfo(nullptr), mTexHairColorInfo(nullptr), mTexEyeColorInfo(nullptr)
 {
 }
 
@@ -158,9 +158,9 @@ LLAvatarAppearance::LLAvatarXmlInfo::~LLAvatarXmlInfo()
 //-----------------------------------------------------------------------------
 // Static Data
 //-----------------------------------------------------------------------------
-LLAvatarSkeletonInfo* LLAvatarAppearance::sAvatarSkeletonInfo = NULL;
-LLAvatarAppearance::LLAvatarXmlInfo* LLAvatarAppearance::sAvatarXmlInfo = NULL;
-LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary* LLAvatarAppearance::sAvatarDictionary = NULL;
+LLAvatarSkeletonInfo* LLAvatarAppearance::sAvatarSkeletonInfo = nullptr;
+LLAvatarAppearance::LLAvatarXmlInfo* LLAvatarAppearance::sAvatarXmlInfo = nullptr;
+LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary* LLAvatarAppearance::sAvatarDictionary = nullptr;
 
 
 LLAvatarAppearance::LLAvatarAppearance(LLWearableData* wearable_data) :
@@ -572,7 +572,7 @@ bool LLAvatarAppearance::parseSkeletonFile(const std::string& filename, LLXmlTre
 //-----------------------------------------------------------------------------
 bool LLAvatarAppearance::setupBone(const LLAvatarBoneInfo* info, LLJoint* parent, S32 &volume_num, S32 &joint_num)
 {
-	LLJoint* joint = NULL;
+	LLJoint* joint = nullptr;
 
     LL_DEBUGS("BVH") << "bone info: name " << info->mName
                      << " isJoint " << info->mIsJoint
@@ -1235,7 +1235,7 @@ LLJoint *LLAvatarAppearance::getCharacterJoint( U32 num )
 	if ((S32)num >= mSkeleton.size()
 	    || (S32)num < 0)
 	{
-		return NULL;
+		return nullptr;
 	}
     if (!mSkeleton[num])
     {
@@ -1265,7 +1265,7 @@ LLJoint* LLAvatarAppearance::findCollisionVolume(S32 volume_id)
 {
 	if ((volume_id < 0) || (volume_id >= mNumCollisionVolumes))
 	{
-		return NULL;
+		return nullptr;
 	}
 	
 	return &mCollisionVolumes[volume_id];

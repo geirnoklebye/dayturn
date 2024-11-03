@@ -186,7 +186,7 @@ void LLAtmosphere::cleanupClass()
     {
         delete gAtmosphere;
     }
-    gAtmosphere = NULL;
+    gAtmosphere = nullptr;
 }
 
 LLAtmosphere::LLAtmosphere()

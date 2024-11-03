@@ -115,7 +115,7 @@ public:
 LLPluginSharedMemory::LLPluginSharedMemory()
 {
 	mSize = 0;
-	mMappedAddress = NULL;
+	mMappedAddress = nullptr;
 	mNeedsDestroy = false;
 
 	mImpl = new LLPluginSharedMemoryPlatformImpl;

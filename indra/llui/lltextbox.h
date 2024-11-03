@@ -58,7 +58,7 @@ public:
 	
 	void			setRightAlign()							{ mHAlign = LLFontGL::RIGHT; }
 	void			setHAlign( LLFontGL::HAlign align )		{ mHAlign = align; }
-	void			setClickedCallback( boost::function<void (void*)> cb, void* userdata = NULL );
+	void			setClickedCallback( boost::function<void (void*)> cb, void* userdata = nullptr );
 
 	void			reshapeToFitText(bool called_from_parent = false);
 

@@ -52,7 +52,7 @@ static const std::string NAME("name");
 const U32 PENDING_TIMEOUT_SECS = 5 * 60;
 
 // Globals
-LLCacheName* gCacheName = NULL;
+LLCacheName* gCacheName = nullptr;
 std::map<std::string, std::string> LLCacheName::sCacheName;
 
 /// ---------------------------------------------------------------------------
@@ -470,7 +470,7 @@ bool LLCacheName::getGroupName(const LLUUID& id, std::string& group)
 		// this group name was loaded from a name cache that did not
 		// bother to save the group name ==> we must ask for it
 		LL_DEBUGS() << "LLCacheName queuing HACK group request: " << id << LL_ENDL;
-		entry = NULL;
+		entry = nullptr;
 	}
 
 	if (entry)

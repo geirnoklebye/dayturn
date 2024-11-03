@@ -131,7 +131,7 @@ public:
 	void addBorder( LLViewBorder::Params p);
 	void addBorder();
 	void			removeBorder();
-	bool			hasBorder() const { return mBorder != NULL; }
+	bool			hasBorder() const { return mBorder != nullptr; }
 	void			setBorderVisible( bool b );
 
 	void			setBackgroundColor( const LLColor4& color ) { mBgOpaqueColor = color; }
@@ -148,7 +148,7 @@ public:
 	bool			isBackgroundVisible() const { return mBgVisible; }
 	void			setBackgroundOpaque(bool b)		{ mBgOpaque = b; }
 	bool			isBackgroundOpaque() const { return mBgOpaque; }
-	void			setDefaultBtn(LLButton* btn = NULL);
+	void			setDefaultBtn(LLButton* btn = nullptr);
 	void			setDefaultBtn(const std::string& id);
 	void			updateDefaultBtn();
 	void			setLabel(const LLStringExplicit& label) { mLabel = label; }
@@ -282,7 +282,7 @@ public:
 	{
 		param_name_map_t::iterator iT =  mPanelClassesNames.find(tag);
 		if(iT == mPanelClassesNames.end())
-			return 0;
+			return nullptr;
 		return iT->second();
 	}
 	template<typename T>

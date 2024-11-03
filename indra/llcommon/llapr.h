@@ -157,7 +157,7 @@ public:
 	LLAPRFile(const std::string& filename, apr_int32_t flags, LLVolatileAPRPool* pool = nullptr);
 	~LLAPRFile() ;
 	
-	apr_status_t open(const std::string& filename, apr_int32_t flags, LLVolatileAPRPool* pool = nullptr, S32* sizep = NULL);
+	apr_status_t open(const std::string& filename, apr_int32_t flags, LLVolatileAPRPool* pool = nullptr, S32* sizep = nullptr);
 	apr_status_t open(const std::string& filename, apr_int32_t flags, bool use_global_pool); //use gAPRPoolp.
 	apr_status_t close() ;
 

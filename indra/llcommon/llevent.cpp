@@ -175,7 +175,7 @@ LLSimpleDispatcher::~LLSimpleDispatcher()
 
 void LLSimpleDispatcher::addListener(LLEventListener* listener, LLSD filter, const LLSD& userdata)
 {
-	if (listener == NULL) return;
+	if (listener == nullptr) return;
 	removeListener(listener);
 	LLListenerEntry new_entry;
 	new_entry.listener = listener;
@@ -235,7 +235,7 @@ LLEventDispatcher::~LLEventDispatcher()
 	if (impl)
 	{
 		delete impl;
-		impl = NULL;
+		impl = nullptr;
 	}
 }
 

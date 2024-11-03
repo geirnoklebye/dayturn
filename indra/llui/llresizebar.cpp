@@ -87,7 +87,7 @@ LLResizeBar::LLResizeBar(const LLResizeBar::Params& p)
 	mResizingView(p.resizing_view),
 	mResizeListener(NULL),
 	mShowDragHandle(p.show_drag_handle),
-	mImagePanel(NULL)
+	mImagePanel(nullptr)
 {
 	setFollowsNone();
 	// set up some generically good follow code.
@@ -171,7 +171,7 @@ bool LLResizeBar::handleMouseUp(S32 x, S32 y, MASK mask)
 	if( hasMouseCapture() )
 	{
 		// Release the mouse
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( nullptr );
 		handled = true;
 	}
 	else
@@ -251,7 +251,7 @@ bool LLResizeBar::handleHover(S32 x, S32 y, MASK mask)
 			scaled_rect.mRight = scaled_rect.mLeft + new_width;
 			mResizingView->setRect(scaled_rect);
 
-			LLView* snap_view = NULL;
+			LLView* snap_view = nullptr;
 
 			if (mSnappingEnabled)
 			{

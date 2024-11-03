@@ -351,7 +351,7 @@ static LLPanelInjector<LLPanelDerenderList> t_panel_derender_list("panel_derende
 
 LLPanelDerenderList::LLPanelDerenderList()
 	: LLPanel()
-	, m_pDerenderList(NULL)
+	, m_pDerenderList(nullptr)
 {
 }
 
@@ -406,7 +406,7 @@ void LLPanelDerenderList::onColumnSortChange()
 
 void LLPanelDerenderList::onSelectionChange()
 {
-	bool hasSelected = (NULL != m_pDerenderList->getFirstSelected());
+	bool hasSelected = (nullptr != m_pDerenderList->getFirstSelected());
 	getChildView("derender_trash_btn")->setEnabled(hasSelected);
 }
 

@@ -377,9 +377,9 @@ bool LLGroupList::onContextMenuItemEnable(const LLSD& userdata)
 
 LLGroupListItem::LLGroupListItem(bool for_agent)
 :	LLPanel(),
-mGroupIcon(NULL),
-mGroupNameBox(NULL),
-mInfoBtn(NULL),
+mGroupIcon(nullptr),
+mGroupNameBox(nullptr),
+mInfoBtn(nullptr),
 mGroupID(LLUUID::null)
 {
 	if (for_agent)

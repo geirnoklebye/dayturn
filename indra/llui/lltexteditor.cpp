@@ -246,8 +246,8 @@ LLTextEditor::LLTextEditor(const LLTextEditor::Params& p) :
 	LLTextBase(p),
 	mAutoreplaceCallback(),
 	mBaseDocIsPristine(true),
-	mPristineCmd( NULL ),
-	mLastCmd( NULL ),
+	mPristineCmd( nullptr ),
+	mLastCmd( nullptr ),
 	mDefaultColor( p.default_color() ),
 	mAutoIndent(p.auto_indent),
 	mCommitOnFocusLost( p.commit_on_focus_lost),
@@ -915,7 +915,7 @@ bool LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 
 	if( hasMouseCapture()  )
 	{
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( nullptr );
 		
 		handled = true;
 	}
@@ -1991,7 +1991,7 @@ void LLTextEditor::doDelete()
 void LLTextEditor::blockUndo()
 {
 	mBaseDocIsPristine = false;
-	mLastCmd = NULL;
+	mLastCmd = nullptr;
 	std::for_each(mUndoStack.begin(), mUndoStack.end(), DeletePointer());
 	mUndoStack.clear();
 }
@@ -1999,7 +1999,7 @@ void LLTextEditor::blockUndo()
 // virtual
 bool LLTextEditor::canUndo() const
 {
-	return !mReadOnly && mLastCmd != NULL;
+	return !mReadOnly && mLastCmd != nullptr;
 }
 
 void LLTextEditor::undo()
@@ -2019,7 +2019,7 @@ void LLTextEditor::undo()
 		if (iter != mUndoStack.end())
 			mLastCmd = *iter;
 		else
-			mLastCmd = NULL;
+			mLastCmd = nullptr;
 
 		} while( mLastCmd && mLastCmd->groupWithNext() );
 
@@ -2053,7 +2053,7 @@ void LLTextEditor::redo()
 			if (iter != mUndoStack.begin())
 				mLastCmd = *(--iter);
 			else
-				mLastCmd = NULL;
+				mLastCmd = nullptr;
 		}
 
 			if( mLastCmd )
@@ -2083,7 +2083,7 @@ void LLTextEditor::focusLostHelper()
 	// Route menu back to the default
  	if( gEditMenuHandler == this )
 	{
-		gEditMenuHandler = NULL;
+		gEditMenuHandler = nullptr;
 	}
 
 	if (mCommitOnFocusLost)
@@ -2346,7 +2346,7 @@ void LLTextEditor::setFocus( bool new_state )
 		// Route menu back to the default
 		if( gEditMenuHandler == this )
 		{
-			gEditMenuHandler = NULL;
+			gEditMenuHandler = nullptr;
 		}
 
 		endSelection();
@@ -2668,7 +2668,7 @@ bool LLTextEditor::importBuffer(const char* buffer, S32 length )
 	bool success = true;
 
 	char* text = new char[ text_len + 1];
-	if (text == NULL)
+	if (text == nullptr)
 	{
         LLError::LLUserWarningMsg::showOutOfMemory();
 		LL_ERRS() << "Memory allocation failure." << LL_ENDL;			
@@ -2997,7 +2997,7 @@ bool LLTextEditor::isDirty() const
 	}
 	else
 	{
-		return ( NULL != mLastCmd );
+		return ( nullptr != mLastCmd );
 	}
 }
 

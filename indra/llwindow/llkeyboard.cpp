@@ -34,19 +34,19 @@
 // Globals
 //
 
-LLKeyboard *gKeyboard = NULL;
+LLKeyboard *gKeyboard = nullptr;
 
 //static
 std::map<KEY,std::string> LLKeyboard::sKeysToNames;
 std::map<std::string,KEY> LLKeyboard::sNamesToKeys;
-LLKeyStringTranslatorFunc*	LLKeyboard::mStringTranslator = NULL;	// Used for l10n + PC/Mac/Linux accelerator labeling
+LLKeyStringTranslatorFunc*	LLKeyboard::mStringTranslator = nullptr;	// Used for l10n + PC/Mac/Linux accelerator labeling
 
 
 //
 // Class Implementation
 //
 
-LLKeyboard::LLKeyboard() : mCallbacks(NULL)
+LLKeyboard::LLKeyboard() : mCallbacks(nullptr)
 {
 	S32 i;
 
@@ -357,7 +357,7 @@ std::string LLKeyboard::stringFromKey(KEY key, bool translate)
 	if (translate)
 	{
 		LLKeyStringTranslatorFunc *trans = gKeyboard->mStringTranslator;
-		if (trans != NULL)
+		if (trans != nullptr)
 		{
 			res = trans(res.c_str());
 		}
@@ -397,7 +397,7 @@ std::string LLKeyboard::stringFromMouse(EMouseClickType click, bool translate)
     if (translate && !res.empty())
     {
         LLKeyStringTranslatorFunc* trans = gKeyboard->mStringTranslator;
-        if (trans != NULL)
+        if (trans != nullptr)
         {
             res = trans(res.c_str());
         }
@@ -412,7 +412,7 @@ std::string LLKeyboard::stringFromAccelerator(MASK accel_mask)
 
     LLKeyStringTranslatorFunc *trans = gKeyboard->mStringTranslator;
 
-    if (trans == NULL)
+    if (trans == nullptr)
     {
         LL_ERRS() << "No mKeyStringTranslator" << LL_ENDL;
         return res;

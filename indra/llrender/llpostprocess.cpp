@@ -47,7 +47,7 @@ static LLStaticHashedString sTexelSize("texelSize");
 static LLStaticHashedString sBlurDirection("blurDirection");
 static LLStaticHashedString sBlurWidth("blurWidth");
 
-LLPostProcess * gPostProcess = NULL;
+LLPostProcess * gPostProcess = nullptr;
 
 static const unsigned int NOISE_SIZE = 512;
 
@@ -136,7 +136,7 @@ void LLPostProcess::initClass(void)
 void LLPostProcess::cleanupClass()
 {
 	delete gPostProcess;
-	gPostProcess = NULL;
+	gPostProcess = nullptr;
 }
 
 void LLPostProcess::setSelectedEffect(std::string const & effectName)
@@ -540,7 +540,7 @@ bool LLPostProcess::checkError(void)
 		// shaderErrorLog << (const char *) gluErrorString(glErr) << std::endl;
 		char const * err_str_raw = (const char *) gluErrorString(glErr);
 
-		if(err_str_raw == NULL)
+		if(err_str_raw == nullptr)
 		{
 			std::ostringstream err_builder;
 			err_builder << "unknown error number " << glErr;

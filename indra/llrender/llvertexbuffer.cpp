@@ -158,7 +158,7 @@ U8* LLVBOPool::allocate(U32& name, U32 size, bool for_seed)
 {
 	llassert(vbo_block_size(size) == size);
 	
-	U8* ret = NULL;
+	U8* ret = nullptr;
 
 	U32 i = vbo_block_index(size);
 
@@ -475,7 +475,7 @@ void LLVertexBuffer::drawArrays(U32 mode, const std::vector<LLVector3>& pos)
 //static
 void LLVertexBuffer::drawElements(U32 mode, const LLVector4a* pos, const LLVector2* tc, S32 num_indices, const U16* indicesp)
 {
-	llassert(LLGLSLShader::sCurBoundShaderPtr != NULL);
+	llassert(LLGLSLShader::sCurBoundShaderPtr != nullptr);
 
 	gGL.syncMatrices();
 
@@ -565,7 +565,7 @@ void LLVertexBuffer::drawRange(U32 mode, U32 start, U32 end, U32 count, U32 indi
 	gGL.syncMatrices();
 
 	llassert(mNumVerts >= 0);
-	llassert(LLGLSLShader::sCurBoundShaderPtr != NULL);
+	llassert(LLGLSLShader::sCurBoundShaderPtr != nullptr);
 
 	if (mGLArray)
 	{
@@ -633,7 +633,7 @@ void LLVertexBuffer::drawRangeFast(U32 mode, U32 start, U32 end, U32 count, U32 
 
 void LLVertexBuffer::draw(U32 mode, U32 count, U32 indices_offset) const
 {
-	llassert(LLGLSLShader::sCurBoundShaderPtr != NULL);
+	llassert(LLGLSLShader::sCurBoundShaderPtr != nullptr);
 	mMappable = false;
 	gGL.syncMatrices();
 
@@ -683,7 +683,7 @@ void LLVertexBuffer::draw(U32 mode, U32 count, U32 indices_offset) const
 
 void LLVertexBuffer::drawArrays(U32 mode, U32 first, U32 count) const
 {
-    llassert(LLGLSLShader::sCurBoundShaderPtr != NULL);
+    llassert(LLGLSLShader::sCurBoundShaderPtr != nullptr);
     mMappable = false;
     gGL.syncMatrices();
 
@@ -835,8 +835,8 @@ LLVertexBuffer::LLVertexBuffer(U32 typemask, S32 usage)
 	mGLBuffer(0),
 	mGLIndices(0),
 	mGLArray(0),
-	mMappedData(NULL),
-	mMappedIndexData(NULL),
+	mMappedData(nullptr),
+	mMappedIndexData(nullptr),
 	mMappedDataUsingVBOs(false),
 	mMappedIndexDataUsingVBOs(false),
 	mVertexLocked(false),
@@ -844,7 +844,7 @@ LLVertexBuffer::LLVertexBuffer(U32 typemask, S32 usage)
 	mFinal(false),
 	mEmpty(true),
 	mMappable(false),
-	mFence(NULL)
+	mFence(nullptr)
 {
 	mMappable = (mUsage == GL_DYNAMIC_DRAW_ARB && !sDisableVBOMapping);
 
@@ -923,7 +923,7 @@ LLVertexBuffer::~LLVertexBuffer()
 		// TODO: mFence was added in scope of SH-2038, but was never enabled, consider removing mFence.
 		LL_ERRS() << "LLVertexBuffer destruction failed" << LL_ENDL;
 		delete mFence;
-		mFence = NULL;
+		mFence = nullptr;
 	}
 
 	sVertexCount -= mNumVerts;
@@ -1014,7 +1014,7 @@ void LLVertexBuffer::releaseBuffer()
 	}
 	
 	mGLBuffer = 0;
-	mMappedData = NULL;
+	mMappedData = nullptr;
 
 	sGLCount--;
 }
@@ -1031,7 +1031,7 @@ void LLVertexBuffer::releaseIndices()
 	}
 
 	mGLIndices = 0;
-	mMappedIndexData = NULL;
+	mMappedIndexData = nullptr;
 	
 	sGLCount--;
 }
@@ -1126,7 +1126,7 @@ void LLVertexBuffer::destroyGLBuffer()
 		else
 		{
 			ll_aligned_free_16((void*)mMappedData);
-			mMappedData = NULL;
+			mMappedData = nullptr;
 			mEmpty = true;
 		}
 	}
@@ -1146,7 +1146,7 @@ void LLVertexBuffer::destroyGLIndices()
 		else
 		{
 			ll_aligned_free_16((void*)mMappedIndexData);
-			mMappedIndexData = NULL;
+			mMappedIndexData = nullptr;
 			mEmpty = true;
 		}
 	}
@@ -1475,7 +1475,7 @@ U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, bool map_ran
 			}
 			else
 			{
-				U8* src = NULL;
+				U8* src = nullptr;
 				waitFence();
 				if (gGLManager.mHasMapBufferRange)
 				{
@@ -1532,7 +1532,7 @@ U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, bool map_ran
 					src = (U8*) glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 				}
 
-				llassert(src != NULL);
+				llassert(src != nullptr);
 
 				mMappedData = LL_NEXT_ALIGNED_ADDRESS<U8>(src);
 				mAlignedOffset = mMappedData - src;
@@ -1659,7 +1659,7 @@ U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range)
 			}
 			else
 			{
-				U8* src = NULL;
+				U8* src = nullptr;
 				waitFence();
 				if (gGLManager.mHasMapBufferRange)
 				{
@@ -1704,7 +1704,7 @@ U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range)
 					src = (U8*) glMapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 				}
 
-				llassert(src != NULL);
+				llassert(src != nullptr);
 
 
 				mMappedIndexData = src; //LL_NEXT_ALIGNED_ADDRESS<U8>(src);
@@ -1832,7 +1832,7 @@ void LLVertexBuffer::unmapBuffer()
 			glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
 			stop_glerror();
 
-			mMappedData = NULL;
+			mMappedData = nullptr;
 		}
 
 		mVertexLocked = false;
@@ -1912,7 +1912,7 @@ void LLVertexBuffer::unmapBuffer()
 			
             glUnmapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB);
 
-			mMappedIndexData = NULL;
+			mMappedIndexData = nullptr;
 		}
 
 		mIndexLocked = false;
@@ -1938,7 +1938,7 @@ template <class T,S32 type> struct VertexBufferStrider
 		{
 			U8* ptr = vbo.mapIndexBuffer(index, count, map_range);
 
-			if (ptr == NULL)
+			if (ptr == nullptr)
 			{
 				LL_WARNS() << "mapIndexBuffer failed!" << LL_ENDL;
 				return false;
@@ -1954,7 +1954,7 @@ template <class T,S32 type> struct VertexBufferStrider
 
 			U8* ptr = vbo.mapVertexBuffer(type, index, count, map_range);
 
-			if (ptr == NULL)
+			if (ptr == nullptr)
 			{
 				LL_WARNS() << "mapVertexBuffer failed!" << LL_ENDL;
 				return false;

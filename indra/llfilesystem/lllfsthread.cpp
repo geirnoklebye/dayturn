@@ -31,14 +31,14 @@
 
 //============================================================================
 
-/*static*/ LLLFSThread* LLLFSThread::sLocal = NULL;
+/*static*/ LLLFSThread* LLLFSThread::sLocal = nullptr;
 
 //============================================================================
 // Run on MAIN thread
 //static
 void LLLFSThread::initClass(bool local_is_threaded)
 {
-	llassert(sLocal == NULL);
+	llassert(sLocal == nullptr);
 	sLocal = new LLLFSThread(local_is_threaded);
 }
 
@@ -52,14 +52,14 @@ size_t LLLFSThread::updateClass(U32 ms_elapsed)
 //static
 void LLLFSThread::cleanupClass()
 {
-	llassert(sLocal != NULL);
+	llassert(sLocal != nullptr);
 	sLocal->setQuitting();
 	while (sLocal->getPending())
 	{
 		sLocal->update(0);
 	}
 	delete sLocal;
-	sLocal = NULL;
+	sLocal = nullptr;
 }
 
 //----------------------------------------------------------------------------

@@ -83,14 +83,14 @@ LLFloater* LLFloaterReg::getLastFloaterInGroup(const std::string& name)
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLFloater* LLFloaterReg::getLastFloaterCascading()
 {
 	LLRect candidate_rect;
 	candidate_rect.mTop = 100000;
-	LLFloater* candidate_floater = NULL;
+	LLFloater* candidate_floater = nullptr;
 
 	std::map<std::string,std::string>::const_iterator it = sGroupMap.begin(), it_end = sGroupMap.end();
 	for( ; it != it_end; ++it)
@@ -124,7 +124,7 @@ LLFloater* LLFloaterReg::getLastFloaterCascading()
 //static
 LLFloater* LLFloaterReg::findInstance(const std::string& name, const LLSD& key)
 {
-	LLFloater* res = NULL;
+	LLFloater* res = nullptr;
 	const std::string& groupname = sGroupMap[name];
 	if (!groupname.empty())
 	{
@@ -164,13 +164,13 @@ LLFloater* LLFloaterReg::getInstance(const std::string& name, const LLSD& key)
 				if (!res)
 				{
 					LL_WARNS() << "Failed to build floater type: '" << name << "'." << LL_ENDL;
-					return NULL;
+					return nullptr;
 				}
 				bool success = res->buildFromFile(xui_file);
 				if (!success)
 				{
 					LL_WARNS() << "Failed to build floater type: '" << name << "'." << LL_ENDL;
-					return NULL;
+					return nullptr;
 				}
 
 				// Note: key should eventually be a non optional LLFloater arg; for now, set mKey to be safe
@@ -200,7 +200,7 @@ LLFloater* LLFloaterReg::getInstance(const std::string& name, const LLSD& key)
 //static
 LLFloater* LLFloaterReg::removeInstance(const std::string& name, const LLSD& key)
 {
-	LLFloater* res = NULL;
+	LLFloater* res = nullptr;
 	const std::string& groupname = sGroupMap[name];
 	if (!groupname.empty())
 	{
@@ -258,7 +258,7 @@ LLFloater* LLFloaterReg::showInstance(const std::string& name, const LLSD& key, 
 	if( sBlockShowFloaters
 			// see EXT-7090
 			&& sAlwaysShowableList.find(name) == sAlwaysShowableList.end())
-		return 0;//
+		return nullptr;//
 	LLFloater* instance = getInstance(name, key); 
 	if (instance) 
 	{
@@ -278,7 +278,7 @@ bool LLFloaterReg::hideInstance(const std::string& name, const LLSD& key)
 	{
 		instance->closeHostedFloater();
 	}
-	return (instance != NULL);
+	return (instance != nullptr);
 }
 
 //static

@@ -349,7 +349,7 @@ bool init_from_xml(LLFontRegistry* registry, LLXMLNodePtr node)
 				// if this is the first time we've seen this font name,
 				// create a new template map entry for it.
 				const LLFontDescriptor *match_desc = registry->getMatchingFontDesc(desc);
-				if (match_desc == NULL)
+				if (match_desc == nullptr)
 				{
 					// Create a new entry (with no corresponding font).
 					registry->mFontMap[norm_desc] = NULL;
@@ -422,7 +422,7 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 	if (!found_size)
 	{
 		LL_WARNS() << "createFont unrecognized size " << norm_desc.getSize() << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	LL_INFOS() << "createFont " << norm_desc.getName() << " size " << norm_desc.getSize() << " style " << ((S32) norm_desc.getStyle()) << LL_ENDL;
 	F32 fallback_scale = 1.0;
@@ -435,7 +435,7 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 	{
 		LL_WARNS() << "createFont failed, no template found for "
 				<< norm_desc.getName() << " style [" << ((S32)norm_desc.getStyle()) << "]" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	// See whether this best-match font has already been instantiated in the requested size.
@@ -485,11 +485,11 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 	if (file_names.empty())
 	{
 		LL_WARNS() << "createFont failed, no file names specified" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	LLFontFreetype::font_vector_t fontlist;
-	LLFontGL *result = NULL;
+	LLFontGL *result = nullptr;
 
 	// Snarf all fonts we can into fontlist.  First will get pulled
 	// off the list and become the "head" font, set to non-fallback.
@@ -507,7 +507,7 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		file_name_it != file_names.end(); 
 		++file_name_it)
 	{
-		LLFontGL *fontp = NULL;
+		LLFontGL *fontp = nullptr;
 		string_vec_t font_paths;
 		font_paths.push_back(local_path + *file_name_it);
 		font_paths.push_back(sys_path + *file_name_it);
@@ -534,7 +534,7 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 			S32 num_faces = is_ft_collection ? fontp->getNumFaces(*font_paths_it) : 1;
 			for (S32 i = 0; i < num_faces; i++)
 			{
-				if (fontp == NULL)
+				if (fontp == nullptr)
 				{
 					fontp = new LLFontGL;
 				}
@@ -551,13 +551,13 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 					{
 						fontlist.push_back(fontp->mFontFreetype);
 						delete fontp;
-						fontp = NULL;
+						fontp = nullptr;
 					}
 				}
 				else
 				{
 					delete fontp;
-					fontp = NULL;
+					fontp = nullptr;
 				}
 			}
 			if (is_font_loaded) break;
@@ -566,7 +566,7 @@ LLFontGL *LLFontRegistry::createFont(const LLFontDescriptor& desc)
 		{
 			LL_INFOS_ONCE("LLFontRegistry") << "Couldn't load font " << *file_name_it <<  LL_ENDL;
 			delete fontp;
-			fontp = NULL;
+			fontp = nullptr;
 		}
 	}
 
@@ -655,7 +655,7 @@ const LLFontDescriptor *LLFontRegistry::getMatchingFontDesc(const LLFontDescript
 	if (it != mFontMap.end())
 		return &(it->first);
 	else
-		return NULL;
+		return nullptr;
 }
 
 static U32 bitCount(U8 c)
@@ -691,7 +691,7 @@ const LLFontDescriptor *LLFontRegistry::getClosestFontTemplate(const LLFontDescr
 
 	LLFontDescriptor norm_desc = desc.normalize();
 
-	const LLFontDescriptor *best_match_desc = NULL;
+	const LLFontDescriptor *best_match_desc = nullptr;
 	for (font_reg_map_t::iterator it = mFontMap.begin();
 		 it != mFontMap.end();
 		 ++it)

@@ -88,8 +88,8 @@ LLMultiSlider::LLMultiSlider(const LLMultiSlider::Params& p)
 	mTriangleColor(p.triangle_color()),
 	mThumbWidth(p.thumb_width),
 	mOrientation((p.orientation() == "vertical") ? VERTICAL : HORIZONTAL),
-	mMouseDownSignal(NULL),
-	mMouseUpSignal(NULL)
+	mMouseDownSignal(nullptr),
+	mMouseUpSignal(nullptr)
 {
 	mValue = LLSD::emptyMap();
 	mCurSlider = LLStringUtil::null;
@@ -539,7 +539,7 @@ bool LLMultiSlider::handleMouseUp(S32 x, S32 y, MASK mask)
 
 	if( gFocusMgr.getMouseCapture() == this )
 	{
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setMouseCapture( nullptr );
 
 		if (mMouseUpSignal)
 			(*mMouseUpSignal)( this, LLSD() );

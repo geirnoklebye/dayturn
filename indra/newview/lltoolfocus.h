@@ -47,7 +47,7 @@ public:
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
 
-	virtual LLTool*	getOverrideTool(MASK mask) { return NULL; }
+	virtual LLTool*	getOverrideTool(MASK mask) { return nullptr; }
 
     void setClickPickPending() { mClickPickPending = true; }
 	static void pickCallback(const LLPickInfo& pick_info);

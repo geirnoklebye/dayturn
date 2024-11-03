@@ -356,7 +356,7 @@ namespace LLError
 		// passing nullptr, 0 forces allocation of a unique buffer we can free
 		// fixing MAINT-8724 on OSX 10.14
 		int status = -1;
-		char* name = abi::__cxa_demangle(mangled, nullptr, 0, &status);
+		char* name = abi::__cxa_demangle(mangled, nullptr, nullptr, &status);
 		std::string result(name ? name : mangled);
 		free(name);
 		return result;
@@ -520,7 +520,7 @@ namespace
         mTagLevelMap(),
         mUniqueLogMessages(),
         mCrashFunction(NULL),
-        mTimeFunction(NULL),
+        mTimeFunction(nullptr),
         mRecorders(),
         mRecorderMutex(),
         mShouldLogCallCounter(0)

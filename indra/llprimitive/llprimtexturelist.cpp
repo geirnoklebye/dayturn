@@ -172,7 +172,7 @@ LLTextureEntry* LLPrimTextureList::getTexture(const U8 index) const
 	{
 		return mEntryList[index];
 	}
-	return NULL;
+	return nullptr;
 }
 
 //virtual 

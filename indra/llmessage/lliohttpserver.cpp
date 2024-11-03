@@ -52,8 +52,8 @@
 
 static const char HTTP_VERSION_STR[] = "HTTP/1.0";
 
-static LLIOHTTPServer::timing_callback_t sTimingCallback = NULL;
-static void* sTimingCallbackData = NULL;
+static LLIOHTTPServer::timing_callback_t sTimingCallback = nullptr;
+static void* sTimingCallbackData = nullptr;
 
 class LLHTTPPipe : public LLIOPipe
 {
@@ -63,7 +63,7 @@ public:
 		  mResponse(NULL),
 		  mState(STATE_INVOKE),
 		  mChainLock(0),
-		  mLockedPump(NULL),
+		  mLockedPump(nullptr),
 		  mStatusCode(0)
 		{ }
 	virtual ~LLHTTPPipe()
@@ -101,7 +101,7 @@ private:
 		void nullPipe();
 
 	private:
-		Response() : mPipe(NULL) {} // Must be accessed through LLPointer.
+		Response() : mPipe(nullptr) {} // Must be accessed through LLPointer.
 		LLHTTPPipe* mPipe;
 	};
 	friend class Response;
@@ -317,7 +317,7 @@ LLHTTPPipe::Response::~Response()
 
 void LLHTTPPipe::Response::nullPipe()
 {
-	mPipe = NULL;
+	mPipe = nullptr;
 }
 
 // virtual
@@ -397,7 +397,7 @@ void LLHTTPPipe::unlockChain()
 	if (mChainLock == 0) { return; }
 
 	mLockedPump->clearLock(mChainLock);
-	mLockedPump = NULL;
+	mLockedPump = nullptr;
 	mChainLock = 0;
 }
 
@@ -592,7 +592,7 @@ protected:
 LLHTTPResponder::LLHTTPResponder(const LLHTTPNode& tree, const LLSD& ctx) :
 	mBuildContext(ctx),
 	mState(STATE_NOTHING),
-	mLastRead(NULL),
+	mLastRead(nullptr),
 	mContentLength(0),
 	mRootNode(tree)
 {
@@ -763,7 +763,7 @@ LLIOPipe::EStatus LLHTTPResponder::process_impl(
 						break;
 					}
 					char* pos_colon = strchr(buf, ':');
-					if(NULL == pos_colon)
+					if(nullptr == pos_colon)
 					{
 						keep_parsing = false;
 						LL_DEBUGS() << "bad header: " << buf << LL_ENDL;

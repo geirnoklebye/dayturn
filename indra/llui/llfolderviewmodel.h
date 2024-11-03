@@ -250,12 +250,12 @@ public:
 		mPassedFolderFilter(true),
 		mStringMatchOffsetFilter(std::string::npos),
 		mStringFilterSize(0),
-		mFolderViewItem(NULL),
+		mFolderViewItem(nullptr),
 		mLastFilterGeneration(-1),
 		mLastFolderFilterGeneration(-1),
 		mMarkedDirtyGeneration(-1),
 		mMostFilteredDescendantGeneration(-1),
-		mParent(NULL),
+		mParent(nullptr),
 		mRootViewModel(root_view_model)
 	{
 		mChildren.clear();
@@ -307,7 +307,7 @@ public:
 	virtual void removeChild(LLFolderViewModelItem* child) 
 	{ 
 		mChildren.remove(child); 
-		child->setParent(NULL);
+		child->setParent(nullptr);
 		dirtyDescendantsFilter();
 		dirtyFilter();
 	}
@@ -370,7 +370,7 @@ public:
 
 protected:
 	virtual void setParent(LLFolderViewModelItem* parent) { mParent = parent; }
-	virtual bool hasParent() { return mParent != NULL; }
+	virtual bool hasParent() { return mParent != nullptr; }
 
 	S32							mSortVersion;
 	bool						mPassedFilter;
@@ -398,7 +398,7 @@ class LLFolderViewModelCommon : public LLFolderViewModelInterface
 public:
 	LLFolderViewModelCommon()
 	:	mTargetSortVersion(0),
-		mFolderView(NULL)
+		mFolderView(nullptr)
 	{}
 
 	virtual void requestSortAll()

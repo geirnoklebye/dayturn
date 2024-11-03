@@ -47,7 +47,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLPanelMediaSettingsSecurity::LLPanelMediaSettingsSecurity() :
-	mParent( NULL )
+	mParent( nullptr )
 {
 	mCommitCallbackRegistrar.add("Media.whitelistAdd",		boost::bind(&LLPanelMediaSettingsSecurity::onBtnAdd, this));
 	mCommitCallbackRegistrar.add("Media.whitelistDelete",	boost::bind(&LLPanelMediaSettingsSecurity::onBtnDel, this));	

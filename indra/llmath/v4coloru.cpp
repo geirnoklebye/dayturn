@@ -90,7 +90,7 @@ std::ostream& operator<<(std::ostream& s, const LLColor4U &a)
 // static
 bool LLColor4U::parseColor4U(const std::string& buf, LLColor4U* value)
 {
-	if( buf.empty() || value == NULL)
+	if( buf.empty() || value == nullptr)
 	{
 		return false;
 	}

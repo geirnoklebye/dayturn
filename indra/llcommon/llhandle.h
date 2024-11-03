@@ -42,7 +42,7 @@
 class LLTombStone : public LLRefCount
 {
 public:
-	LLTombStone(void* target = NULL) : mTarget(target) {}
+	LLTombStone(void* target = nullptr) : mTarget(target) {}
 
 	void setTarget(void* target) { mTarget = target; }
 	void* getTarget() const { return mTarget; }
@@ -90,7 +90,7 @@ public:
 	LLHandle() : mTombStone(getDefaultTombStone()) {}
 
 	template<typename U>
-	LLHandle(const LLHandle<U>& other, typename boost::enable_if< typename boost::is_convertible<U*, T*> >::type* dummy = 0)
+	LLHandle(const LLHandle<U>& other, typename boost::enable_if< typename boost::is_convertible<U*, T*> >::type* dummy = nullptr)
 	: mTombStone(other.mTombStone)
 	{}
 
@@ -199,7 +199,7 @@ public:
 	}
 
 	template <typename U>
-	LLHandle<U> getDerivedHandle(typename boost::enable_if< typename boost::is_convertible<U*, T*> >::type* dummy = 0) const
+	LLHandle<U> getDerivedHandle(typename boost::enable_if< typename boost::is_convertible<U*, T*> >::type* dummy = nullptr) const
 	{
 		LLHandle<U> downcast_handle;
 		downcast_handle.mTombStone = getHandle().mTombStone;

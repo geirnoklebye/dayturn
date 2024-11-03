@@ -51,7 +51,7 @@ const LLUUID LLUUID::null;
 const LLTransactionID LLTransactionID::tnull;
 
 // static 
-LLMutex * LLUUID::mMutex = NULL;
+LLMutex * LLUUID::mMutex = nullptr;
 
 
 
@@ -890,7 +890,7 @@ U32 LLUUID::getRandomSeed()
 
 bool LLUUID::parseUUID(const std::string& buf, LLUUID* value)
 {
-	if( buf.empty() || value == NULL)
+	if( buf.empty() || value == nullptr)
 	{
 		return false;
 	}

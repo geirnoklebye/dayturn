@@ -103,7 +103,7 @@ public:
 		  mID(id),
 		  mCache(cache),
 		  mPriority(priority),
-		  mReadData(NULL),
+		  mReadData(nullptr),
 		  mWriteData(data),
 		  mDataSize(datasize),
 		  mOffset(offset),
@@ -266,7 +266,7 @@ bool LLTextureCacheLocalFileWorker::doRead()
 // 				<< " / " << mDataSize << LL_ENDL;
 		mDataSize = 0;
 		ll_aligned_free_16(mReadData);
-		mReadData = NULL;
+		mReadData = nullptr;
 	}
 	else
 	{
@@ -406,7 +406,7 @@ bool LLTextureCacheRemoteWorker::doRead()
  					<< " / " << mDataSize << LL_ENDL;
 				mDataSize = 0;
 				ll_aligned_free_16(mReadData);
-				mReadData = NULL;
+				mReadData = nullptr;
 			}
 			else
 			{
@@ -465,7 +465,7 @@ bool LLTextureCacheRemoteWorker::doRead()
 						<< " incorrect number of bytes read from header: " << bytes_read
 						<< " / " << size << LL_ENDL;
 				ll_aligned_free_16(mReadData);
-				mReadData = NULL;
+				mReadData = nullptr;
 				mDataSize = -1; // failed
 				done = true;
 			}
@@ -483,7 +483,7 @@ bool LLTextureCacheRemoteWorker::doRead()
 		{
 			LL_WARNS() << "LLTextureCacheWorker: "  << mID
 				<< " failed to allocate memory for reading: " << mDataSize << LL_ENDL;
-			mReadData = NULL;
+			mReadData = nullptr;
 			mDataSize = -1; // failed
 			done = true;
 		}
@@ -518,7 +518,7 @@ bool LLTextureCacheRemoteWorker::doRead()
 					llassert_always(mReadData);
 					memcpy(data, mReadData, data_offset);
 					ll_aligned_free_16(mReadData);
-					mReadData = NULL;
+					mReadData = nullptr;
 				}
 				else
 				{
@@ -530,7 +530,7 @@ bool LLTextureCacheRemoteWorker::doRead()
 				}
 
 				// Now use that buffer as the object read buffer
-				llassert_always(mReadData == NULL);
+				llassert_always(mReadData == nullptr);
 				mReadData = data;
 
 				// Read the data at last
@@ -544,7 +544,7 @@ bool LLTextureCacheRemoteWorker::doRead()
 							<< " incorrect number of bytes read from body: " << bytes_read
 							<< " / " << file_size << LL_ENDL;
 					ll_aligned_free_16(mReadData);
-					mReadData = NULL;
+					mReadData = nullptr;
 					mDataSize = -1; // failed
 					done = true;
 				}
@@ -554,7 +554,7 @@ bool LLTextureCacheRemoteWorker::doRead()
 				LL_WARNS() << "LLTextureCacheWorker: "  << mID
 					<< " failed to allocate memory for reading: " << mDataSize << LL_ENDL;
 				ll_aligned_free_16(mReadData);
-				mReadData = NULL;
+				mReadData = nullptr;
 				mDataSize = -1; // failed
 				done = true;
 			}
@@ -784,19 +784,19 @@ void LLTextureCacheWorker::finishWork(S32 param, bool completed)
 			if (success)
 			{
 				mResponder->setData(mReadData, mDataSize, mImageSize, mImageFormat, mImageLocal);
-				mReadData = NULL; // responder owns data
+				mReadData = nullptr; // responder owns data
 				mDataSize = 0;
 			}
 			else
 			{
 				ll_aligned_free_16(mReadData);
-				mReadData = NULL;
+				mReadData = nullptr;
 			}
 		}
 		else
 		{
 			// write
-			mWriteData = NULL; // we never owned data
+			mWriteData = nullptr; // we never owned data
 			mDataSize = 0;
 		}
 		mCache->addCompleted(mResponder, success);
@@ -835,13 +835,13 @@ LLTextureCache::LLTextureCache(bool threaded)
 	  mHeaderMutex(),
 	  mListMutex(),
 	  mFastCacheMutex(),
-	  mHeaderAPRFile(NULL),
+	  mHeaderAPRFile(nullptr),
 	  mReadOnly(true), //do not allow to change the texture cache until setReadOnly() is called.
 	  mTexturesSizeTotal(0),
 	  mDoPurge(false),
-	  mFastCachep(NULL),
-	  mFastCachePoolp(NULL),
-	  mFastCachePadBuffer(NULL)
+	  mFastCachep(nullptr),
+	  mFastCachePoolp(nullptr),
+	  mFastCachePadBuffer(nullptr)
 {
     mHeaderAPRFilePoolp = new LLVolatileAPRPool(); // is_local = true, because this pool is for headers, headers are under own mutex
 }
@@ -1013,7 +1013,7 @@ void LLTextureCache::purgeCache(ELLPath location, bool remove_dir)
 	if (!mReadOnly)
 	{
 		setDirNames(location);
-		llassert_always(mHeaderAPRFile == NULL);
+		llassert_always(mHeaderAPRFile == nullptr);
 
 		//remove the legacy cache if exists
 		std::string texture_dir = mTexturesDirName ;
@@ -1101,7 +1101,7 @@ S64 LLTextureCache::initCache(ELLPath location, S64 max_size, bool texture_cache
 
 LLAPRFile* LLTextureCache::openHeaderEntriesFile(bool readonly, S32 offset)
 {
-	llassert_always(mHeaderAPRFile == NULL);
+	llassert_always(mHeaderAPRFile == nullptr);
 	apr_int32_t flags = readonly ? APR_READ|APR_BINARY : APR_READ|APR_WRITE|APR_BINARY;
 	mHeaderAPRFile = new LLAPRFile(mHeaderEntriesFileName, flags, mHeaderAPRFilePoolp);
 	if(offset > 0)
@@ -1119,13 +1119,13 @@ void LLTextureCache::closeHeaderEntriesFile()
 	}
 
 	delete mHeaderAPRFile;
-	mHeaderAPRFile = NULL;
+	mHeaderAPRFile = nullptr;
 }
 
 void LLTextureCache::readEntriesHeader()
 {
 	// mHeaderEntriesInfo initializes to default values so safe not to read it
-	llassert_always(mHeaderAPRFile == NULL);
+	llassert_always(mHeaderAPRFile == nullptr);
 	if (LLAPRFile::isExist(mHeaderEntriesFileName, mHeaderAPRFilePoolp))
 	{
 		LLAPRFile::readEx(mHeaderEntriesFileName, (U8*)&mHeaderEntriesInfo, 0, sizeof(EntriesInfo),
@@ -1157,7 +1157,7 @@ void LLTextureCache::setEntriesHeader()
 
 void LLTextureCache::writeEntriesHeader()
 {
-	llassert_always(mHeaderAPRFile == NULL);
+	llassert_always(mHeaderAPRFile == nullptr);
 	if (!mReadOnly)
 	{
 		LLAPRFile::writeEx(mHeaderEntriesFileName, (U8*)&mHeaderEntriesInfo, 0, sizeof(EntriesInfo),

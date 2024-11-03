@@ -50,7 +50,7 @@ LLTexGlobalColor::~LLTexGlobalColor()
 
 bool LLTexGlobalColor::setInfo(LLTexGlobalColorInfo *info)
 {
-	llassert(mInfo == NULL);
+	llassert(mInfo == nullptr);
 	mInfo = info;
 	//mID = info->mID; // No ID
 

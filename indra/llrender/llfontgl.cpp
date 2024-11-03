@@ -62,7 +62,7 @@ bool LLFontGL::sDisplayFont = true ;
 std::string LLFontGL::sAppDir;
 
 LLColor4 LLFontGL::sShadowColor(0.f, 0.f, 0.f, 1.f);
-LLFontRegistry* LLFontGL::sFontRegistry = NULL;
+LLFontRegistry* LLFontGL::sFontRegistry = nullptr;
 
 LLCoordGL LLFontGL::sCurOrigin;
 F32 LLFontGL::sCurDepth;

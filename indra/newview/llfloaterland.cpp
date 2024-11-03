@@ -101,7 +101,7 @@ static const bool BUY_PERSONAL_LAND = false;
 LLPointer<LLParcelSelection> LLPanelLandGeneral::sSelectionForBuyPass = NULL;
 
 // Statics
-LLParcelSelectionObserver* LLFloaterLand::sObserver = NULL;
+LLParcelSelectionObserver* LLFloaterLand::sObserver = nullptr;
 S32 LLFloaterLand::sLastTab = 0;
 
 // Local classes
@@ -186,7 +186,7 @@ void insert_maturity_into_textbox(LLTextBox* target_textbox, LLFloater* names_fl
 //---------------------------------------------------------------------------
 
 void send_parcel_select_objects(S32 parcel_local_id, U32 return_type,
-								uuid_list_t* return_ids = NULL)
+								uuid_list_t* return_ids = nullptr)
 {
 	LLMessageSystem *msg = gMessageSystem;
 
@@ -243,7 +243,7 @@ LLPanelLandObjects* LLFloaterLand::getCurrentPanelLandObjects()
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -257,7 +257,7 @@ LLPanelLandCovenant* LLFloaterLand::getCurrentPanelLandCovenant()
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -352,7 +352,7 @@ LLFloaterLand::~LLFloaterLand()
 {
 	LLViewerParcelMgr::getInstance()->removeObserver( sObserver );
 	delete sObserver;
-	sObserver = NULL;
+	sObserver = nullptr;
 }
 
 // public
@@ -1017,7 +1017,7 @@ void LLPanelLandGeneral::onClickScriptLimits(void* data)
 {
 	LLPanelLandGeneral* panelp = (LLPanelLandGeneral*)data;
 	LLParcel* parcel = panelp->mParcel->getParcel();
-	if(parcel != NULL)
+	if(parcel != nullptr)
 	{
 		LLFloaterReg::showInstance("script_limits");
 	}
@@ -1176,25 +1176,25 @@ LLPanelLandObjects::LLPanelLandObjects(LLParcelSelectionHandle& parcel)
 	:	LLPanel(),
 
 		mParcel(parcel),
-		mParcelObjectBonus(NULL),
-		mSWTotalObjects(NULL),
-		mObjectContribution(NULL),
-		mTotalObjects(NULL),
-		mOwnerObjects(NULL),
-		mBtnShowOwnerObjects(NULL),
-		mBtnReturnOwnerObjects(NULL),
-		mGroupObjects(NULL),
-		mBtnShowGroupObjects(NULL),
-		mBtnReturnGroupObjects(NULL),
-		mOtherObjects(NULL),
-		mBtnShowOtherObjects(NULL),
-		mBtnReturnOtherObjects(NULL),
-		mSelectedObjects(NULL),
-		mCleanOtherObjectsTime(NULL),
+		mParcelObjectBonus(nullptr),
+		mSWTotalObjects(nullptr),
+		mObjectContribution(nullptr),
+		mTotalObjects(nullptr),
+		mOwnerObjects(nullptr),
+		mBtnShowOwnerObjects(nullptr),
+		mBtnReturnOwnerObjects(nullptr),
+		mGroupObjects(nullptr),
+		mBtnShowGroupObjects(nullptr),
+		mBtnReturnGroupObjects(nullptr),
+		mOtherObjects(nullptr),
+		mBtnShowOtherObjects(nullptr),
+		mBtnReturnOtherObjects(nullptr),
+		mSelectedObjects(nullptr),
+		mCleanOtherObjectsTime(nullptr),
 		mOtherTime(0),
-		mBtnRefresh(NULL),
-		mBtnReturnOwnerList(NULL),
-		mOwnerList(NULL),
+		mBtnRefresh(nullptr),
+		mBtnReturnOwnerList(nullptr),
+		mOwnerList(nullptr),
 		mFirstReply(true),
 		mSelectedCount(0),
 		mSelectedIsGroup(false)
@@ -1434,7 +1434,7 @@ void send_other_clean_time_message(S32 parcel_local_id, S32 other_clean_time)
 }
 
 void send_return_objects_message(S32 parcel_local_id, S32 return_type, 
-								 uuid_list_t* owner_ids = NULL)
+								 uuid_list_t* owner_ids = nullptr)
 {
 	LLMessageSystem *msg = gMessageSystem;
 
@@ -1922,25 +1922,25 @@ void LLPanelLandObjects::onCommitClean(LLUICtrl *caller, void* user_data)
 
 LLPanelLandOptions::LLPanelLandOptions(LLParcelSelectionHandle& parcel)
 :	LLPanel(),
-	mCheckEditObjects(NULL),
-	mCheckEditGroupObjects(NULL),
-	mCheckAllObjectEntry(NULL),
-	mCheckGroupObjectEntry(NULL),
-	mCheckSafe(NULL),
-	mCheckFly(NULL),
-	mCheckGroupScripts(NULL),
-	mCheckOtherScripts(NULL),
-	mCheckShowDirectory(NULL),
-	mCategoryCombo(NULL),
-	mLandingTypeCombo(NULL),
-	mSnapshotCtrl(NULL),
-	mLocationText(NULL),
-	mSeeAvatarsText(NULL),
-	mSetBtn(NULL),
-	mClearBtn(NULL),
-	mMatureCtrl(NULL),
-	mPushRestrictionCtrl(NULL),
-	mSeeAvatarsCtrl(NULL),
+	mCheckEditObjects(nullptr),
+	mCheckEditGroupObjects(nullptr),
+	mCheckAllObjectEntry(nullptr),
+	mCheckGroupObjectEntry(nullptr),
+	mCheckSafe(nullptr),
+	mCheckFly(nullptr),
+	mCheckGroupScripts(nullptr),
+	mCheckOtherScripts(nullptr),
+	mCheckShowDirectory(nullptr),
+	mCategoryCombo(nullptr),
+	mLandingTypeCombo(nullptr),
+	mSnapshotCtrl(nullptr),
+	mLocationText(nullptr),
+	mSeeAvatarsText(nullptr),
+	mSetBtn(nullptr),
+	mClearBtn(nullptr),
+	mMatureCtrl(nullptr),
+	mPushRestrictionCtrl(nullptr),
+	mSeeAvatarsCtrl(nullptr),
 	mParcel(parcel)
 {
 }
@@ -2440,7 +2440,7 @@ void LLPanelLandOptions::toggleSeeAvatars(void* userdata)
 	{
 		self->getChild<LLCheckBoxCtrl>("SeeAvatarsCheck")->toggle();
 		self->getChild<LLCheckBoxCtrl>("SeeAvatarsCheck")->setBtnFocus();
-		self->onCommitAny(NULL, userdata);
+		self->onCommitAny(nullptr, userdata);
 	}
 }
 //---------------------------------------------------------------------------
@@ -3297,7 +3297,7 @@ void LLPanelLandExperiences::refreshPanel(LLPanelExperienceListEditor* panel, U3
 	LLParcel *parcel = mParcel->getParcel();
 
 	// Display options
-	if (panel == NULL)
+	if (panel == nullptr)
 	{
 		return;
 	}

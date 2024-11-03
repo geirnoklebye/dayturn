@@ -497,8 +497,8 @@ bool LLVolumeMessage::packVolumeParams(const LLVolumeParams* params, LLMessageSy
 	}
 	else
 	{
-		packPathParams(0, mesgsys);
-		packProfileParams(0, mesgsys);
+		packPathParams(nullptr, mesgsys);
+		packProfileParams(nullptr, mesgsys);
 	}
 	return true;
 }
@@ -513,8 +513,8 @@ bool LLVolumeMessage::packVolumeParams(const LLVolumeParams* params, LLDataPacke
 	}
 	else
 	{
-		packPathParams(0, dp);
-		packProfileParams(0, dp);
+		packPathParams(nullptr, dp);
+		packProfileParams(nullptr, dp);
 	}
 	return true;
 }

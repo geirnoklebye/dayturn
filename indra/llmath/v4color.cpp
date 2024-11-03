@@ -387,7 +387,7 @@ void LLColor4::calcHSL(F32* hue, F32* saturation, F32* luminance) const
 // static
 bool LLColor4::parseColor(const std::string& buf, LLColor4* color)
 {
-	if( buf.empty() || color == NULL)
+	if( buf.empty() || color == nullptr)
 	{
 		return false;
 	}
@@ -714,7 +714,7 @@ bool LLColor4::parseColor(const std::string& buf, LLColor4* color)
 // static
 bool LLColor4::parseColor4(const std::string& buf, LLColor4* value)
 {
-	if( buf.empty() || value == NULL)
+	if( buf.empty() || value == nullptr)
 	{
 		return false;
 	}

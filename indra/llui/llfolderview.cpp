@@ -641,7 +641,7 @@ bool LLFolderView::startDrag()
 void LLFolderView::commitRename( const LLSD& data )
 {
 	finishRenamingItem();
-	arrange( nullptr, NULL );
+	arrange( nullptr, nullptr );
 
 }
 

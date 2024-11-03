@@ -340,17 +340,17 @@ LLClassifiedHandler gClassifiedHandler;
 //-----------------------------------------------------------------------------
 LLPanelPicks::LLPanelPicks()
 :	LLPanelProfileTab(),
-	mPopupMenu(NULL),
-	mProfilePanel(NULL),
-	mPickPanel(NULL),
-	mPicksList(NULL),
-	mClassifiedsList(NULL),
-	mPanelPickInfo(NULL),
-	mPanelPickEdit(NULL),
-	mPlusMenu(NULL),
-	mPicksAccTab(NULL),
-	mClassifiedsAccTab(NULL),
-	mPanelClassifiedInfo(NULL),
+	mPopupMenu(nullptr),
+	mProfilePanel(nullptr),
+	mPickPanel(nullptr),
+	mPicksList(nullptr),
+	mClassifiedsList(nullptr),
+	mPanelPickInfo(nullptr),
+	mPanelPickEdit(nullptr),
+	mPlusMenu(nullptr),
+	mPicksAccTab(nullptr),
+	mClassifiedsAccTab(nullptr),
+	mPanelClassifiedInfo(nullptr),
 	mNoClassifieds(false),
 	mNoPicks(false)
 {
@@ -489,7 +489,7 @@ void LLPanelPicks::processProperties(void* data, EAvatarProcessorType type)
 LLPickItem* LLPanelPicks::getSelectedPickItem()
 {
 	LLPanel* selected_item = mPicksList->getSelectedItem();
-	if (!selected_item) return NULL;
+	if (!selected_item) return nullptr;
 
 	return dynamic_cast<LLPickItem*>(selected_item);
 }
@@ -499,7 +499,7 @@ LLClassifiedItem* LLPanelPicks::getSelectedClassifiedItem()
 	LLPanel* selected_item = mClassifiedsList->getSelectedItem();
 	if (!selected_item) 
 	{
-		return NULL;
+		return nullptr;
 	}
 	return dynamic_cast<LLClassifiedItem*>(selected_item);
 }
@@ -612,11 +612,11 @@ void LLPanelPicks::onAccordionStateChanged(const LLAccordionCtrlTab* acc_tab)
 void LLPanelPicks::onOpen(const LLSD& key)
 {
 	const LLUUID id(key.asUUID());
-	BOOL self = (gAgent.getID() == id);
+	bool self = (gAgent.getID() == id);
 
 	// only agent can edit her picks 
 	getChildView("edit_panel")->setEnabled(self);
-	getChildView("edit_panel")->setVisible( self);
+	getChildView("edit_panel")->setVisible(self);
 
 	// Disable buttons when viewing profile for first time
 	if(getAvatarId() != id)
@@ -629,8 +629,8 @@ void LLPanelPicks::onOpen(const LLSD& key)
 	// and see a special title - set as invisible by default in xml file
 	if (self)
 	{
-		getChildView("pick_title")->setVisible( !self);
-		getChildView("pick_title_agent")->setVisible( self);
+		getChildView("pick_title")->setVisible(!self);
+		getChildView("pick_title_agent")->setVisible(self);
 
 		mPopupMenu->setItemVisible("pick_delete", true);
 		mPopupMenu->setItemVisible("pick_edit", true);
@@ -903,7 +903,7 @@ void LLPanelPicks::createNewPick()
 
 void LLPanelPicks::createNewClassified()
 {
-	LLPanelClassifiedEdit* panel = NULL;
+	LLPanelClassifiedEdit* panel = nullptr;
 	createClassifiedEditPanel(&panel);
 
 	getProfilePanel()->openPanel(panel, LLSD());
@@ -1180,7 +1180,7 @@ LLClassifiedItem *LLPanelPicks::findClassifiedById(const LLUUID& classified_id)
 	// HACK - find item by classified id.  Should be a better way.
 	std::vector<LLPanel*> items;
 	mClassifiedsList->getItems(items);
-	LLClassifiedItem* c_item = NULL;
+	LLClassifiedItem* c_item = nullptr;
 	for(std::vector<LLPanel*>::iterator it = items.begin(); it != items.end(); ++it)
 	{
 		LLClassifiedItem *test_item = dynamic_cast<LLClassifiedItem*>(*it);
@@ -1252,7 +1252,7 @@ bool LLPanelPicks::onEnableMenuItem(const LLSD& user_data)
 
 inline LLPanelProfile* LLPanelPicks::getProfilePanel()
 {
-	llassert_always(NULL != mProfilePanel);
+	llassert_always(nullptr != mProfilePanel);
 	return mProfilePanel;
 }
 

@@ -39,7 +39,7 @@
 LLImageJ2CImpl* fallbackCreateLLImageJ2CImpl();
 
 // Test data gathering handle
-LLImageCompressionTester* LLImageJ2C::sTesterp = NULL ;
+LLImageCompressionTester* LLImageJ2C::sTesterp = nullptr ;
 const std::string sTesterName("ImageCompressionTester");
 
 //static
@@ -73,7 +73,7 @@ LLImageJ2C::LLImageJ2C() : 	LLImageFormatted(IMG_CODEC_J2C),
 		if (!sTesterp->isValid())
 		{
 			delete sTesterp;
-			sTesterp = NULL;
+			sTesterp = nullptr;
 		}
 	}
 }
@@ -211,7 +211,7 @@ bool LLImageJ2C::decodeChannels(LLImageRaw *raw_imagep, F32 decode_time, S32 fir
 
 bool LLImageJ2C::encode(const LLImageRaw *raw_imagep, F32 encode_time)
 {
-	return encode(raw_imagep, NULL, encode_time);
+	return encode(raw_imagep, nullptr, encode_time);
 }
 
 
@@ -487,7 +487,7 @@ LLImageCompressionTester::LLImageCompressionTester() : LLMetricPerformanceTester
 LLImageCompressionTester::~LLImageCompressionTester()
 {
 	outputTestResults();
-	LLImageJ2C::sTesterp = NULL;
+	LLImageJ2C::sTesterp = nullptr;
 }
 
 //virtual 

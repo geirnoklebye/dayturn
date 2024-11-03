@@ -51,7 +51,7 @@ const S32	MAX_NUM_RESOLUTIONS = 32;
 
 namespace
 {
-    NSKeyEventRef mRawKeyEvent = NULL;
+    NSKeyEventRef mRawKeyEvent = nullptr;
 }
 //
 // LLWindowMacOSX
@@ -99,7 +99,7 @@ static long getDictLong (CFDictionaryRef refDict, CFStringRef key);
 // The proper way to do this is to bracket the dialog with calls to beforeDialog() and afterDialog(), but these
 // require a pointer to the LLWindowMacOSX object.  Stash it here and maintain in the constructor and destructor.
 // This assumes that there will be only one object of this class at any time.  Hopefully this is true.
-static LLWindowMacOSX *gWindowImplementation = NULL;
+static LLWindowMacOSX *gWindowImplementation = nullptr;
 
 LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 							   const std::string& title, const std::string& name, S32 x, S32 y, S32 width,
@@ -108,7 +108,7 @@ LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 							   bool enable_vsync, bool use_gl,
 							   bool ignore_pixel_depth,
 							   U32 fsaa_samples)
-	: LLWindow(NULL, fullscreen, flags)
+	: LLWindow(nullptr, fullscreen, flags)
 {
 	// *HACK: During window construction we get lots of OS events for window
 	// reshape, activate, etc. that the viewer isn't ready to handle.
@@ -124,7 +124,7 @@ LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 	gKeyboard->setCallbacks(callbacks);
 
 	// Ignore use_gl for now, only used for drones on PC
-	mWindow = NULL;
+	mWindow = nullptr;
 	mContext = NULL;
 	mPixelFormat = NULL;
 	mDisplay = CGMainDisplayID();
@@ -140,7 +140,7 @@ LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 	mMaximized = false;
 	mMinimized = false;
 	mLanguageTextInputAllowed = false;
-	mPreeditor = NULL;
+	mPreeditor = nullptr;
 	mFSAASamples = fsaa_samples;
 	mForceRebuild = false;
 
@@ -161,7 +161,7 @@ LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 	// Create the GL context and set it up for windowed or fullscreen, as appropriate.
 	if(createContext(x, y, width, height, 32, fullscreen, enable_vsync))
 	{
-		if(mWindow != NULL)
+		if(mWindow != nullptr)
 		{
 			makeWindowOrderFront(mWindow);
 		}
@@ -182,7 +182,7 @@ LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 		initCursors();
 		setCursor( UI_CURSOR_ARROW );
 		
-		allowLanguageTextInput(NULL, false);
+		allowLanguageTextInput(nullptr, false);
 	}
 
 	mCallbacks = callbacks;
@@ -198,7 +198,7 @@ bool callKeyUp(NSKeyEventRef event, unsigned short key, unsigned int mask)
 {
     mRawKeyEvent = event;
 	bool retVal = gKeyboard->handleKeyUp(key, mask);
-    mRawKeyEvent = NULL;
+    mRawKeyEvent = nullptr;
     return retVal;
 }
 
@@ -215,7 +215,7 @@ bool callKeyDown(NSKeyEventRef event, unsigned short key, unsigned int mask, wch
 
     mRawKeyEvent = event;
 	bool retVal = gKeyboard->handleKeyDown(key, mask);
-    mRawKeyEvent = NULL;
+    mRawKeyEvent = nullptr;
     return retVal;
 }
 
@@ -241,7 +241,7 @@ bool callUnicodeCallback(wchar_t character, unsigned int mask)
     mRawKeyEvent = &eventData;
     
     bool result = gWindowImplementation->getCallbacks()->handleUnicodeChar(character, mask);
-    mRawKeyEvent = NULL;
+    mRawKeyEvent = nullptr;
     return result;
 }
 
@@ -329,7 +329,7 @@ void callDoubleClick(float *pos, MASK mask)
 
 void callResize(unsigned int width, unsigned int height)
 {
-	if (gWindowImplementation != NULL)
+	if (gWindowImplementation != nullptr)
 	{
 		gWindowImplementation->getCallbacks()->handleResize(gWindowImplementation, width, height);
 	}
@@ -617,7 +617,7 @@ bool LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 {
 	mFullscreen = fullscreen;
 	
-	if (mWindow == NULL)
+	if (mWindow == nullptr)
 	{
 		mWindow = getMainAppWindow();
 	}
@@ -695,17 +695,17 @@ void LLWindowMacOSX::destroyContext()
 	}
 	
 	// Destroy our LLOpenGLView
-	if(mGLView != NULL)
+	if(mGLView != nullptr)
 	{
 		removeGLView(mGLView);
-		mGLView = NULL;
+		mGLView = nullptr;
 	}
 	
 	// Close the window
-	if(mWindow != NULL)
+	if(mWindow != nullptr)
 	{
         NSWindowRef dead_window = mWindow;
-        mWindow = NULL;
+        mWindow = nullptr;
 		closeWindow(dead_window);
 	}
 
@@ -715,12 +715,12 @@ LLWindowMacOSX::~LLWindowMacOSX()
 {
 	destroyContext();
 
-	if(mSupportedResolutions != NULL)
+	if(mSupportedResolutions != nullptr)
 	{
 		delete []mSupportedResolutions;
 	}
 
-	gWindowImplementation = NULL;
+	gWindowImplementation = nullptr;
 
 }
 
@@ -772,7 +772,7 @@ bool LLWindowMacOSX::isValid()
 		return(true);
 	}
 
-	return (mWindow != NULL);
+	return (mWindow != nullptr);
 }
 
 bool LLWindowMacOSX::getVisible()
@@ -1112,7 +1112,7 @@ bool LLWindowMacOSX::getCursorPosition(LLCoordWindow *position)
 	float cursor_point[2];
 	LLCoordScreen screen_pos;
 
-	if(mWindow == NULL)
+	if(mWindow == nullptr)
 		return false;
 	
 	getCursorPos(mWindow, cursor_point);
@@ -1881,7 +1881,7 @@ void LLWindowMacOSX::allowLanguageTextInput(LLPreeditor *preeditor, bool b)
 		{
 			interruptLanguageTextInput();
 		}
-		mPreeditor = (b ? preeditor : NULL);
+		mPreeditor = (b ? preeditor : nullptr);
 	}
 	
 	if (b == mLanguageTextInputAllowed)

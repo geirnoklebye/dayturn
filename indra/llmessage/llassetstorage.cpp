@@ -51,8 +51,8 @@
 #include "llmetrics.h"
 #include "lltrace.h"
 
-LLAssetStorage *gAssetStorage = NULL;
-LLMetrics *LLAssetStorage::metric_recipient = NULL;
+LLAssetStorage *gAssetStorage = nullptr;
+LLMetrics *LLAssetStorage::metric_recipient = nullptr;
 
 static LLTrace::CountStatHandle<> sFailedDownloadCount("faileddownloads", "Number of times LLAssetStorage::getAssetData() has failed");
 
@@ -196,7 +196,7 @@ LLBaseDownloadRequest::LLBaseDownloadRequest(const LLUUID &uuid, const LLAssetTy
     : mUUID(uuid),
       mType(type),
       mDownCallback(),
-      mUserData(NULL),
+      mUserData(nullptr),
       mHost(),
       mIsTemp(false),
       mIsPriority(false),
@@ -227,7 +227,7 @@ LLBaseDownloadRequest* LLBaseDownloadRequest::getCopy()
 LLAssetRequest::LLAssetRequest(const LLUUID &uuid, const LLAssetType::EType type)
     :   LLBaseDownloadRequest(uuid, type),
         mUpCallback(),
-        mInfoCallback( NULL ),
+        mInfoCallback( nullptr ),
         mIsLocal(false),
         mIsUserWaiting(false),
         mTimeout(LL_ASSET_STORAGE_TIMEOUT),
@@ -1082,7 +1082,7 @@ LLAssetStorage::request_list_t* LLAssetStorage::getRequestList(LLAssetStorage::E
             return &mPendingLocalUploads;
         default:
             LL_WARNS("AssetStorage") << "Unable to find request list for request type '" << rt << "'" << LL_ENDL;
-            return NULL;
+            return nullptr;
     }
 }
 
@@ -1098,7 +1098,7 @@ const LLAssetStorage::request_list_t* LLAssetStorage::getRequestList(LLAssetStor
             return &mPendingLocalUploads;
         default:
             LL_WARNS("AssetStorage") << "Unable to find request list for request type '" << rt << "'" << LL_ENDL;
-            return NULL;
+            return nullptr;
     }
 }
 
@@ -1205,7 +1205,7 @@ const LLAssetRequest* LLAssetStorage::findRequest(const LLAssetStorage::request_
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 // static
@@ -1228,7 +1228,7 @@ LLAssetRequest* LLAssetStorage::findRequest(LLAssetStorage::request_list_t* requ
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 
