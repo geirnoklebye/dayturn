@@ -603,11 +603,7 @@ void LLViewerTexture::updateClass()
 	}
 	else if (sDesiredDiscardBias > 0.0f
 			 && sBoundTextureMemory < sMaxBoundTextureMemory * texmem_lower_bound_scale
-			 // <FS:Ansariel> Link threshold factor for lowering bias based on total texture memory to the same value
-			 //               textures will be destroyed
-			 //&& sTotalTextureMemory < sMaxTotalTextureMem * texmem_lower_bound_scale
-			 && sTotalTextureMemory < sMaxTotalTextureMem * fsDestroyGLTexturesThreshold()
-			 // </FS:Ansariel>
+			 && sTotalTextureMemory < sMaxTotalTextureMem * texmem_lower_bound_scale
 			 && isMemoryForTextureSuficientlyFree())
 	{
 		// If we are using less texture memory than we should,
