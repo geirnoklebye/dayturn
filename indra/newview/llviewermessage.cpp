@@ -3325,7 +3325,9 @@ const F32 MAX_HEAD_ROT_QDOT = 0.99999f;			// ~= 0.5 degrees -- if its greater th
 
 void send_agent_update(bool force_send, bool send_reliable)
 {
-	if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE)
+
+    if (gAgent.getTeleportState() != LLAgent::TELEPORT_NONE
+        && gAgent.getTeleportState() != LLAgent::TELEPORT_ARRIVING)
 	{
 		// We don't care if they want to send an agent update, they're not allowed to until the simulator
 		// that's the target is ready to receive them (after avatar_init_complete is received)

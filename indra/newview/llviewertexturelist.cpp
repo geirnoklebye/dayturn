@@ -784,10 +784,20 @@ void LLViewerTextureList::updateImages(F32 max_time)
 			clearFetchingRequests();
 			gPipeline.clearRebuildGroups();
 			cleared = true;
+			return;
 		}
-		return;
+
+        // ARRIVING is a delay to let things decode, cache and process,
+        // so process textures like normal despite gTeleportDisplay
+        if (gAgent.getTeleportState() != LLAgent::TELEPORT_ARRIVING)
+        {
+            return;
+        }
+    }
+    else
+    {
+        cleared = false;
 	}
-	cleared = false;
 
 	LLAppViewer::getTextureFetch()->setTextureBandwidth(LLTrace::get_frame_recording().getPeriodMeanPerSec(LLStatViewer::TEXTURE_NETWORK_DATA_RECEIVED).value());
 
