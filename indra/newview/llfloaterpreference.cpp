@@ -410,8 +410,6 @@ LLFloaterPreference::LLFloaterPreference(const LLSD& key)
 	mCommitCallbackRegistrar.add("PreviewUISound",				boost::bind(&LLFloaterPreference::onClickPreviewUISound, this, _2));
 	mCommitCallbackRegistrar.add("Pref.BrowseCrashLogs",		boost::bind(&LLFloaterPreference::onClickBrowseCrashLogs, this));
 	mCommitCallbackRegistrar.add("Pref.BrowseSettingsDir",		boost::bind(&LLFloaterPreference::onClickBrowseSettingsDir, this));
-	// <FS:Ansariel> Dynamic texture memory calculation
-	gSavedSettings.getControl("FSDynamicTextureMemory")->getCommitSignal()->connect(boost::bind(&LLFloaterPreference::handleDynamicTextureMemoryChanged, this));
 }
 
 void LLFloaterPreference::processProperties( void* pData, EAvatarProcessorType type )
@@ -953,7 +951,7 @@ void LLFloaterPreference::onRenderOptionEnable()
 }
 
 void LLFloaterPreference::onRenderOptionEnableAdvanced()
-{  
+{
 	LLFloaterPreference* instance = LLFloaterReg::findTypedInstance<LLFloaterPreference>("preferences");
 	if (instance)
 	{
@@ -1497,28 +1495,6 @@ void LLFloaterPreference::refreshEnabledState()
 	getChildView("block_list")->setEnabled(LLLoginInstance::getInstance()->authSuccess());
 	refreshEnabledStateAdvanced();
 }
-// <FS:Ansariel> Dynamic texture memory calculation
-void LLFloaterPreference::handleDynamicTextureMemoryChanged()
-{
-	if (LLViewerTextureList::canUseDynamicTextureMemory())
-	{
-		bool dynamic_tex_mem_enabled = gSavedSettings.getbool("FSDynamicTextureMemory");
-		childSetEnabled("FSDynamicTextureMemory", true);
-		childSetEnabled("FSDynamicTextureMemoryMinTextureMemory", dynamic_tex_mem_enabled);
-		childSetEnabled("FSDynamicTextureMemoryCacheReserve", dynamic_tex_mem_enabled);
-		childSetEnabled("FSDynamicTextureMemoryGPUReserve", dynamic_tex_mem_enabled);
-		childSetEnabled("GraphicsCardTextureMemory", !dynamic_tex_mem_enabled);
-	}
-	else
-	{
-		childSetEnabled("FSDynamicTextureMemory", false);
-		childSetEnabled("FSDynamicTextureMemoryMinTextureMemory", false);
-		childSetEnabled("FSDynamicTextureMemoryCacheReserve", false);
-		childSetEnabled("FSDynamicTextureMemoryGPUReserve", false);
-		childSetEnabled("GraphicsCardTextureMemory", true);
-	}
-}
-// </FS:Ansariel>
 
 void LLFloaterPreference::refreshEnabledStateAdvanced()
 {
@@ -1588,9 +1564,6 @@ void LLFloaterPreference::refreshEnabledStateAdvanced()
 	S32Megabytes max_tex_mem = LLViewerTextureList::getMaxVideoRamSetting(false, mem_multiplier);
 	getChild<LLSliderCtrl>("GraphicsCardTextureMemory")->setMinValue(min_tex_mem.value());
 	getChild<LLSliderCtrl>("GraphicsCardTextureMemory")->setMaxValue(max_tex_mem.value());
-
-	// <FS:Ansariel> Dynamic texture memory calculation
-	handleDynamicTextureMemoryChanged();
 
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderVBOEnable") ||
 		!gGLManager.mHasVertexBufferObject)
@@ -1750,7 +1723,7 @@ void LLFloaterPreference::refresh()
         getChild<LLTextBox>("IndirectMaxComplexityText", true));
 	refreshEnabledState();
 	refreshAdvanced();
-    updateClickActionViews();
+	updateClickActionViews();
 }
 
 void LLFloaterPreference::refreshAdvanced()

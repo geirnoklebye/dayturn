@@ -531,17 +531,29 @@ void LLViewerTexture::getGPUMemoryForTextures(S32Megabytes &gpu, S32Megabytes &p
     }
     timer.reset();
 
+    if (gGLManager.mHasATIMemInfo)
     {
-        gpu_res = (S32Megabytes) LLImageGLThread::getFreeVRAMMegabytes();
+        S32 meminfo[4];
+        glGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI, meminfo);
+        gpu_res = (S32Megabytes)meminfo[0];
         
         //check main memory, only works for windows.
         LLMemory::updateMemoryInfo();
         physical_res = LLMemory::getAvailableMemKB();
-
-        gpu = gpu_res;
-        physical = physical_res;
+	}
+    else if (gGLManager.mHasNVXMemInfo)
+    {
+        S32 free_memory;
+        glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &free_memory);
+        gpu_res = (S32Megabytes)(free_memory / 1024);
     }
+
+    gpu = gpu_res;
+    physical = physical_res;
 }
+
+static LLTrace::BlockTimerStatHandle FTM_TEXTURE_UPDATE_MEDIA("Media");
+static LLTrace::BlockTimerStatHandle FTM_TEXTURE_UPDATE_TEST("Test");
 
 //static
 void LLViewerTexture::updateClass()
@@ -555,9 +567,6 @@ void LLViewerTexture::updateClass()
 	}
 
 	LLViewerMediaTexture::updateClass();
-
-	// <FS:Ansariel> Dynamic texture memory calculation
-	gTextureList.updateTexMemDynamic();
 
 	sBoundTextureMemory = LLImageGL::sBoundTextureMemory;
 	sTotalTextureMemory = LLImageGL::sGlobalTextureMemory;

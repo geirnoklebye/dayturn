@@ -351,17 +351,6 @@ static bool handleVideoMemoryChanged(const LLSD& newvalue)
 	return true;
 }
 
-// <FS:Ansariel> Dynamic texture memory calculation
-static bool handleDynamicTextureMemoryChanged(const LLSD& newvalue)
-{
-	if (!newvalue.asBoolean())
-	{
-		gTextureList.updateMaxResidentTexMem(S32Megabytes(gSavedSettings.getS32("TextureMemory")));
-	}
-	return true;
-}
-// </FS:Ansariel>
-
 static bool handleChatFontSizeChanged(const LLSD& newvalue)
 {
 	if(gConsole)

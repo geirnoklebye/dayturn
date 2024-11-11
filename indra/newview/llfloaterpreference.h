@@ -154,8 +154,6 @@ protected:
 	void loadFontPresetsFromDir(const std::string& dir, LLComboBox* font_selection_combo);
 	//</FS:Kadah>
 
-	// <FS:Ansariel> Dynamic texture memory calculation
-	void handleDynamicTextureMemoryChanged();
 public:
 	// This function squirrels away the current values of the controls so that
 	// cancel() can restore them.	
@@ -390,32 +388,6 @@ private:
 	S32 mEditingColumn;
 	S32 mEditingMode;
 };
-
-//class LLFloaterPreferenceGraphicsAdvanced : public LLFloater
-//{
-//  public: 
-//	LLFloaterPreferenceGraphicsAdvanced(const LLSD& key);
-//	~LLFloaterPreferenceGraphicsAdvanced();
-//	/*virtual*/ bool postBuild();
-//	void onOpen(const LLSD& key);
-//	void onClickCloseBtn(bool app_quitting);
-//	void disableUnavailableSettings();
-//	void refreshEnabledGraphics();
-//	void refreshEnabledState();
-//	void updateSliderText(LLSliderCtrl* ctrl, LLTextBox* text_box);
-//	void updateMaxNonImpostors();
-//	void setMaxNonImpostorsText(U32 value, LLTextBox* text_box);
-//	void updateMaxComplexity();
-//	void setMaxComplexityText(U32 value, LLTextBox* text_box);
-//	static void setIndirectControls();
-//	static void setIndirectMaxNonImpostors();
-//	static void setIndirectMaxArc();
-//	void refresh();
-//	// callback for when client modifies a render option
-//	void onRenderOptionEnable();
-//  void onAdvancedAtmosphericsEnable();
-//	LOG_CLASS(LLFloaterPreferenceGraphicsAdvanced);
-//};
 
 class LLAvatarComplexityControls
 {
