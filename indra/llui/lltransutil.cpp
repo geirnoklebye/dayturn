@@ -48,7 +48,7 @@ bool LLTransUtil::parseStrings(const std::string& xml_filename, const std::set<s
             "Dayturn viewer couldn't access some of the files it needs and will be closed."
             "\n\nPlease reinstall viewer from Dayturn download pages and "
             "contact Dayturn support if issue persists after reinstall.";
-        LLError::LLUserWarningMsg::show(error_string);
+        LLError::LLUserWarningMsg::show(error_string, LLError::LLUserWarningMsg::ERROR_MISSING_FILES);
 		gDirUtilp->dumpCurrentDirectories(LLError::LEVEL_WARN);
 		LL_ERRS() << "Couldn't load string table " << xml_filename << " " << errno << LL_ENDL;
 		return false;
