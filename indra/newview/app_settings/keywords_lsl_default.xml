@@ -2053,6 +2053,15 @@
             <key>tooltip</key>
             <string/>
          </map>
+         <key>INVENTORY_MATERIAL</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>57</integer>
+            <key>tooltip</key>
+            <string/>
+         </map>
          <key>INVENTORY_SOUND</key>
          <map>
             <key>type</key>
@@ -2545,6 +2554,15 @@
             <string>string</string>
             <key>value</key>
             <uuid>00000000-0000-0000-0000-000000000000</uuid>
+            <key>tooltip</key>
+            <string/>
+         </map>
+         <key>NAK</key>
+         <map>
+            <key>type</key>
+            <string>string</string>
+            <key>value</key>
+            <uuid>\\n\\u0015\\n</uuid>
             <key>tooltip</key>
             <string/>
          </map>
@@ -6695,7 +6713,239 @@
             <key>tooltip</key>
             <string>All scripts must have a default state, which is the first state entered when the script starts.\nIf another state is defined before the default state, the compiler will report a syntax error.</string>
          </map>
-         
+
+		<!-- llLinkPlaySound flags -->
+         <key>SOUND_PLAY</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>SOUND_LOOP</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>1</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>SOUND_TRIGGER</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>2</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>SOUND_SYNC</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>4</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+
+		<!-- llRezObjectWithParams parameters -->
+          <key>REZ_PARAM</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAGS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>1</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>		
+		<!-- rez flags values -->
+          <key>REZ_FLAG_TEMP</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0001</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_PHYSICAL</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0002</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_PHANTOM</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0004</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_DIE_ON_COLLIDE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0008</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_DIE_ON_NOENTRY</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0010</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_NO_COLLIDE_OWNER</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0020</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_NO_COLLIDE_FAMILY</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0040</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_FLAG_BLOCK_GRAB_OBJECT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>0x0080</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_POS</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>2</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_ROT</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>3</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_VEL</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>4</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_ACCEL</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>5</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_OMEGA</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>7</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_DAMAGE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>8</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_SOUND</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>9</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_SOUND_COLLIDE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>10</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>         
+          <key>REZ_LOCK_AXES</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>11</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_DAMAGE_TYPE</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>12</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+          <key>REZ_PARAM_STRING</key>
+         <map>
+            <key>type</key>
+            <string>integer</string>
+            <key>value</key>
+            <integer>13</integer>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+
+<!-- End of LSL Constants -->                                                                                                                                                                                                  
+     
 <!-- Start of OSSL Constants -->
           <key>CAMERA_POSITION_X</key>
          <map>
