@@ -138,7 +138,7 @@ public:
 	/*virtual*/ void 				setStyle(LLStyleConstSP style)	{ mStyle = style; }
 	/*virtual*/ void				setToken( LLKeywordToken* token )	{ mToken = token; }
 	/*virtual*/ LLKeywordToken*		getToken() const					{ return mToken; }
-	/*virtual*/ BOOL				getToolTip( std::string& msg ) const;
+	/*virtual*/ bool				getToolTip( std::string& msg ) const;
 	/*virtual*/ void				setToolTip(const std::string& tooltip);
 	/*virtual*/ void				dump() const;
 
@@ -568,11 +568,11 @@ protected:
 		S32				overwrite(LLTextBase* editor, S32 pos, llwchar wc) { return editor->overwriteCharNoUndo(pos, wc); }
 		
 		S32				getPosition() const { return mPos; }
-		BOOL			groupWithNext() const { return mGroupWithNext; }
+		bool			groupWithNext() const { return mGroupWithNext; }
 		
 	protected:
 		const S32			mPos;
-		BOOL				mGroupWithNext;
+		bool				mGroupWithNext;
 		segment_vec_t		mSegments;
 	};
 
