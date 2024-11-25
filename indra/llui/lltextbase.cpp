@@ -199,7 +199,7 @@ LLTextBase::LLTextBase(const LLTextBase::Params &p)
 	mFgColor(p.text_color),
 	mBorderVisible( p.border_visible ),
 	mReadOnlyFgColor(p.text_readonly_color),
-	mTentativeFgColor(p.text_tentative_color()),
+	mTentativeFgColor(p.text_tentative_color),
 	mWriteableBgColor(p.bg_writeable_color),
 	mReadOnlyBgColor(p.bg_readonly_color),
 	mFocusBgColor(p.bg_focus_color),

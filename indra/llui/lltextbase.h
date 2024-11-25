@@ -559,7 +559,7 @@ protected:
 		virtual S32		redo(LLTextBase* editor) = 0;
 		virtual bool	canExtend(S32 pos) const { return false; }
 		virtual void	blockExtensions() {}
-		virtual bool	extendAndExecute( LLTextBase* editor, S32 pos, llwchar c, S32* delta ) { llassert(0); return 0; }
+		virtual bool	extendAndExecute( LLTextBase* editor, S32 pos, llwchar c, S32* delta ) { llassert(0); return false; }
 		virtual bool	hasExtCharValue( llwchar value ) const { return false; }
 
 		// Defined here so they can access protected LLTextEditor editing methods
