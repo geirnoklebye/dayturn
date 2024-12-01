@@ -10296,6 +10296,38 @@
             <key>tooltip</key>
             <string>Removes the indicated sub-string and returns the result.\nStart and End are inclusive.\nUsing negative numbers for Start and/or End causes the index to count backwards from the length of the string, so 0, -1 would delete the entire string.\nIf Start is larger than End, the sub-string is the exclusion of the entries; so 6, 4 would delete the entire string except for the 5th. character.</string>
          </map>
+         <key>llDerezObject</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>integer</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>objectUUID</key>
+                  <map>
+                     <key>type</key>
+                     <string>key</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>flag</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>           
+            </array>
+            <key>tooltip</key>
+            <string></string>
+         </map>
          <key>llDetachFromAvatar</key>
          <map>
             <key>energy</key>
@@ -11412,6 +11444,32 @@
             </array>
             <key>tooltip</key>
             <string>Returns the bounding box around the object (including any linked prims) relative to its root prim, as a list in the format [ (vector) min_corner, (vector) max_corner ].</string>
+         </map>
+         <key>llGetCameraAspect</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <undef/>
+            <key>tooltip</key>
+            <string></string>
+         </map>
+         <key>llGetCameraFOV</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>float</string>
+            <key>arguments</key>
+            <undef/>
+            <key>tooltip</key>
+            <string></string>
          </map>
          <key>llGetCameraPos</key>
          <map>
@@ -14161,6 +14219,15 @@
                   <map>
                      <key>type</key>
                      <string>float</string>
+                     <key>tooltip</key>
+                     <string></string>
+                  </map>
+               </map>
+               <map>
+                  <key>flags</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
                      <key>tooltip</key>
                      <string></string>
                   </map>
@@ -21536,6 +21603,152 @@
             <key>tooltip</key>
             <string>Returns a string that indicates the country in which the avatar is located.</string> 
          </map>                                                
+         <key>osAESDecrypt</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>secret</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>encryptedText</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osAESDecryptFrom</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>secret</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>encryptedText</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>ivString</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osAESEncrypt</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>secret</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>plainText</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
+         <key>osAESEncryptTo</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+       		<key>return</key>
+            <string>string</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>secret</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>plainText</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+               <map>
+                  <key>ivString</key>
+                  <map>
+                     <key>type</key>
+                     <string>string</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string></string> 
+         </map>
          <key>osAgentSaveAppearance</key>
          <map>
             <key>energy</key>
@@ -23187,6 +23400,38 @@
             <key>tooltip</key>
             <string></string>
          </map>                               
+         <key>osGetLinkColor</key>
+         <map>
+            <key>energy</key>
+            <real>10.0</real>
+            <key>sleep</key>
+            <real>0.0</real>
+            <key>return</key>
+            <string>vector</string>
+            <key>arguments</key>
+            <array>
+               <map>
+                  <key>linknum</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>            
+               <map>
+                  <key>face</key>
+                  <map>
+                     <key>type</key>
+                     <string>integer</string>
+                     <key>tooltip</key>
+                     <string/>
+                  </map>
+               </map>
+            </array>
+            <key>tooltip</key>
+            <string></string>
+         </map> 
          <key>osGetLinkNumber</key>
          <map>
             <key>energy</key>
