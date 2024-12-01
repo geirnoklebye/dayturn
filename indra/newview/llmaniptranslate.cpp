@@ -1676,8 +1676,8 @@ void LLManipTranslate::highlightIntersection(LLVector3 normal,
 		static LLStaticHashedString sClipPlane("clip_plane");
 		gClipProgram.uniform4fv(sClipPlane, 1, plane.v);
 		
-		BOOL particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES);
-		BOOL clouds = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_CLOUDS);
+		bool particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES);
+		bool clouds = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_CLOUDS);
 		
 		if (particles)
 		{

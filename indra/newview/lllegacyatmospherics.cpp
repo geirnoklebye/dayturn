@@ -506,7 +506,7 @@ void LLAtmospherics::updateFog(const F32 distance, const LLVector3& tosun_in)
 }
 
 // Functions used a lot.
-F32 color_norm_pow(LLColor3& col, F32 e, BOOL postmultiply)
+F32 color_norm_pow(LLColor3& col, F32 e, bool postmultiply)
 {
 	F32 mv = color_max(col);
 	if (0 == mv)

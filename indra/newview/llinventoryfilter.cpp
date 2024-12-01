@@ -171,7 +171,7 @@ bool LLInventoryFilter::checkFolder(const LLUUID& folder_id) const
 	// Always check against the clipboard
 	// <FS:Ansariel> FIRE-6714: Don't move objects to trash during cut&paste
 	// Don't hide cut items in inventory
-	//const BOOL passed_clipboard = checkAgainstClipboard(folder_id);
+	//const bool passed_clipboard = checkAgainstClipboard(folder_id);
 	const bool passed_clipboard = true;
 	// </FS:Ansariel> FIRE-6714: Don't move objects to trash during cut&paste
 	
@@ -584,7 +584,7 @@ bool LLInventoryFilter::checkAgainstFilterLinks(const LLFolderViewModelItemInven
 bool LLInventoryFilter::checkAgainstCreator(const LLFolderViewModelItemInventory* listener) const
 {
 	if (!listener) return true;
-	const BOOL is_folder = listener->getInventoryType() == LLInventoryType::IT_CATEGORY;
+	const bool is_folder = listener->getInventoryType() == LLInventoryType::IT_CATEGORY;
 	switch (mFilterOps.mFilterCreatorType)
 	{
 		case FILTERCREATOR_SELF:

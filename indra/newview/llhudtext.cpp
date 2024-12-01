@@ -58,7 +58,7 @@ const F32 MAX_DRAW_DISTANCE = 300.f;
 std::set<LLPointer<LLHUDText> > LLHUDText::sTextObjects;
 std::vector<LLPointer<LLHUDText> > LLHUDText::sVisibleTextObjects;
 std::vector<LLPointer<LLHUDText> > LLHUDText::sVisibleHUDTextObjects;
-BOOL LLHUDText::sDisplayText = TRUE ;
+bool LLHUDText::sDisplayText = true ;
 
 bool lltextobject_further_away::operator()(const LLPointer<LLHUDText>& lhs, const LLPointer<LLHUDText>& rhs) const
 {

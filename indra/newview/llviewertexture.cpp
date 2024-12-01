@@ -1207,7 +1207,7 @@ void LLViewerFetchedTexture::cleanup()
 		LLLoadedCallbackEntry *entryp = *iter++;
 		// We never finished loading the image.  Indicate failure.
 		// Note: this allows mLoadedCallbackUserData to be cleaned up.
-		entryp->mCallback( FALSE, this, nullptr, nullptr, 0, true, entryp->mUserData );
+		entryp->mCallback( false, this, nullptr, nullptr, 0, true, entryp->mUserData );
 		entryp->removeTexture(this);
 		delete entryp;
 	}
@@ -1559,7 +1559,7 @@ bool LLViewerFetchedTexture::preCreateTexture(S32 usename/*= 0*/)
         }
         else
         { // leave black border, do not scale image content
-            mRawImage->expandToPowerOfTwo(MAX_IMAGE_SIZE, FALSE);
+            mRawImage->expandToPowerOfTwo(MAX_IMAGE_SIZE, false);
         }
 
         mFullWidth = mRawImage->getWidth();
@@ -2056,7 +2056,7 @@ void LLViewerFetchedTexture::updateVirtualSize()
 {	
 	if(!mMaxVirtualSizeResetCounter)
 	{
-		addTextureStats(0.f, FALSE);//reset
+		addTextureStats(0.f, false);//reset
 	}
 
 	for (U32 ch = 0; ch < LLRender::NUM_TEXTURE_CHANNELS; ++ch)
@@ -2600,7 +2600,7 @@ void LLViewerFetchedTexture::clearCallbackEntryList()
 			
 		// We never finished loading the image.  Indicate failure.
 		// Note: this allows mLoadedCallbackUserData to be cleaned up.
-		entryp->mCallback(FALSE, this, nullptr, nullptr, 0, true, entryp->mUserData);
+		entryp->mCallback(false, this, nullptr, nullptr, 0, true, entryp->mUserData);
 		iter = mLoadedCallbackList.erase(iter);
 		delete entryp;
 	}
@@ -2632,7 +2632,7 @@ void LLViewerFetchedTexture::deleteCallbackEntry(const LLLoadedCallbackEntry::so
 		{
 			// We never finished loading the image.  Indicate failure.
 			// Note: this allows mLoadedCallbackUserData to be cleaned up.
-			entryp->mCallback(FALSE, this, nullptr, nullptr, 0, true, entryp->mUserData);
+			entryp->mCallback(false, this, nullptr, nullptr, 0, true, entryp->mUserData);
 			iter = mLoadedCallbackList.erase(iter);
 			delete entryp;
 		}
@@ -2780,7 +2780,7 @@ bool LLViewerFetchedTexture::doLoadedCallbacks()
 			LLLoadedCallbackEntry *entryp = *iter++;
 			// We never finished loading the image.  Indicate failure.
 			// Note: this allows mLoadedCallbackUserData to be cleaned up.
-			entryp->mCallback(FALSE, this, nullptr, nullptr, 0, true, entryp->mUserData);
+			entryp->mCallback(false, this, nullptr, nullptr, 0, true, entryp->mUserData);
 			delete entryp;
 		}
 		mLoadedCallbackList.clear();
@@ -2918,7 +2918,7 @@ bool LLViewerFetchedTexture::doLoadedCallbacks()
 				//LL_INFOS() << "Running callback for " << getID() << LL_ENDL;
 				//LL_INFOS() << mRawImage->getWidth() << "x" << mRawImage->getHeight() << LL_ENDL;
 				entryp->mLastUsedDiscard = mRawDiscardLevel;
-				entryp->mCallback(TRUE, this, mRawImage, mAuxRawImage, mRawDiscardLevel, final, entryp->mUserData);
+				entryp->mCallback(true, this, mRawImage, mAuxRawImage, mRawDiscardLevel, final, entryp->mUserData);
 				if (final)
 				{
 					iter = mLoadedCallbackList.erase(curiter);
@@ -2947,7 +2947,7 @@ bool LLViewerFetchedTexture::doLoadedCallbacks()
 				mLastCallBackActiveTime = sCurrentTime;
 				bool final = gl_discard <= entryp->mDesiredDiscard ? true : false;
 				entryp->mLastUsedDiscard = gl_discard;
-				entryp->mCallback(TRUE, this, nullptr, nullptr, gl_discard, final, entryp->mUserData);
+				entryp->mCallback(true, this, nullptr, nullptr, gl_discard, final, entryp->mUserData);
 				if (final)
 				{
 					iter = mLoadedCallbackList.erase(curiter);
@@ -4029,7 +4029,7 @@ F32 LLViewerMediaTexture::getMaxVirtualSize()
 
 	if(!mMaxVirtualSizeResetCounter)
 	{
-		addTextureStats(0.f, FALSE);//reset
+		addTextureStats(0.f, false);//reset
 	}
 
 	if(mIsPlaying) //media is playing
@@ -4361,7 +4361,7 @@ LLMetricPerformanceTesterWithSession::LLTestSession* LLTexturePipelineTester::lo
 	
 	//load a session
 	std::string currentLabel = getCurrentLabelName();
-	BOOL in_log = (*log).has(currentLabel);
+	bool in_log = (*log).has(currentLabel);
 	while (in_log)
 	{
 		LLSD::String label = currentLabel;		

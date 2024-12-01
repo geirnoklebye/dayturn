@@ -699,7 +699,7 @@ bool LLHUDEffectLookAt::calcTargetPosition()
 		{
 			LLVOAvatar *target_av = (LLVOAvatar *)target_obj;
 
-			BOOL looking_at_self = source_avatar->isSelf() && target_av->isSelf();
+			bool looking_at_self = source_avatar->isSelf() && target_av->isSelf();
 
 			// if selecting self, stare forward
 			if (looking_at_self && mTargetOffsetGlobal.magVecSquared() < MIN_TARGET_OFFSET_SQUARED)

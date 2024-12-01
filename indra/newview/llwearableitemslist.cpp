@@ -1092,8 +1092,8 @@ void LLWearableItemsList::ContextMenu::updateItemsLabels(LLContextMenu* menu)
 	menu_item->setLabel(new_label);
 }
 
-// We need this method to convert non-zero BOOL values to exactly 1 (TRUE).
-// Otherwise code relying on a BOOL value being TRUE may fail
+// We need this method to convert non-zero bool values to exactly 1 (true).
+// Otherwise code relying on a bool value being true may fail
 // (I experienced a weird assert in LLView::drawChildren() because of that.
 // static
 void LLWearableItemsList::ContextMenu::setMenuItemVisible(LLContextMenu* menu, const std::string& name, bool val)

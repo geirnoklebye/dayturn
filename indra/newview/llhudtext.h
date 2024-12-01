@@ -114,15 +114,15 @@ public:
 	friend class LLHUDObject;
 	/*virtual*/ F32 getDistance() const { return mLastDistance; }
 	bool getVisible() { return mVisible; }
-	BOOL getHidden() const { return mHidden; }
-	void setHidden( BOOL hide ) { mHidden = hide; }
+	bool getHidden() const { return mHidden; }
+	void setHidden( bool hide ) { mHidden = hide; }
 	void setOnHUDAttachment(bool on_hud) { mOnHUDAttachment = on_hud; }
 	void shift(const LLVector3& offset);
 
 	static void shiftAll(const LLVector3& offset);
 	static void renderAllHUD();
 	static void reshape();
-	static void setDisplayText(BOOL flag) { sDisplayText = flag ; }
+	static void setDisplayText(bool flag) { sDisplayText = flag ; }
 
 protected:
 	LLHUDText(const U8 type);
@@ -160,9 +160,9 @@ private:
 	std::vector<LLHUDTextSegment> mTextSegments;
 	ETextAlignment	mTextAlignment;
 	EVertAlignment	mVertAlignment;
-	BOOL			mHidden;
+	bool			mHidden;
 
-	static BOOL    sDisplayText ;
+	static bool    sDisplayText ;
 	static std::set<LLPointer<LLHUDText> > sTextObjects;
 	static std::vector<LLPointer<LLHUDText> > sVisibleTextObjects;
 	static std::vector<LLPointer<LLHUDText> > sVisibleHUDTextObjects;

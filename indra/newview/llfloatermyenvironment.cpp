@@ -108,7 +108,7 @@ bool LLFloaterMyEnvironment::postBuild()
 
         mInventoryList->setFilterTypes(filter_types);
 
-        mInventoryList->setSelectCallback([this](const std::deque<LLFolderViewItem*>&, BOOL) { onSelectionChange(); });
+        mInventoryList->setSelectCallback([this](const std::deque<LLFolderViewItem*>&, bool) { onSelectionChange(); });
         mInventoryList->setShowFolderState(mShowFolders);
         mInventoryList->setFilterSettingsTypes(mTypeFilter);
     }

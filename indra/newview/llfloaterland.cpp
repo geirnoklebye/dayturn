@@ -1666,7 +1666,7 @@ void LLPanelLandObjects::processParcelObjectOwnersReply(LLMessageSystem *msg, vo
 	U32		most_recent_time = 0;
 	bool	is_online;
 	std::string object_count_str;
-	//BOOL b_need_refresh = FALSE;
+	//bool b_need_refresh = false;
 
 	// If we were waiting for the first reply, clear the "Searching..." text.
 	if (self->mFirstReply)

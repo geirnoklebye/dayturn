@@ -76,7 +76,7 @@ LLHUDIcon::~LLHUDIcon()
 	mImagep = NULL;
 }
 
-void LLHUDIcon::renderIcon(BOOL for_select)
+void LLHUDIcon::renderIcon(bool for_select)
 {
 	LLGLSUIDefault texture_state;
 	LLGLDepthTest gls_depth(GL_TRUE);

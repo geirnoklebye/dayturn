@@ -525,7 +525,7 @@ bool LLManipRotate::handleHover(S32 x, S32 y, MASK mask)
 }
 
 
-LLVector3 LLManipRotate::projectToSphere( F32 x, F32 y, BOOL* on_sphere ) 
+LLVector3 LLManipRotate::projectToSphere( F32 x, F32 y, bool* on_sphere )
 {
 	F32 z = 0.f;
 	F32 dist_squared = x*x + y*y;

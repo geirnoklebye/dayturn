@@ -5700,7 +5700,7 @@ void LLVOAvatar::updateTextures()
 		render_avatar = !mCulled; //visible and not culled.
 	}
 
-	std::vector<BOOL> layer_baked;
+	std::vector<bool> layer_baked;
 	// GL NOT ACTIVE HERE - *TODO
 	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
 	{
@@ -8695,10 +8695,10 @@ void LLVOAvatar::updateMeshTextures()
 		paused = !isVisible();
 	}
 
-	std::vector<BOOL> is_layer_baked;
+	std::vector<bool> is_layer_baked;
 	is_layer_baked.resize(mBakedTextureDatas.size(), false);
 
-	std::vector<BOOL> use_lkg_baked_layer; // lkg = "last known good"
+	std::vector<bool> use_lkg_baked_layer; // lkg = "last known good"
 	use_lkg_baked_layer.resize(mBakedTextureDatas.size(), false);
 
 	mBakedTextureDebugText += llformat("%06d\n",update_counter++);

@@ -68,7 +68,7 @@ private:
 	void			updateHoverView();
 
 	void			drag( S32 x, S32 y );
-	LLVector3		projectToSphere( F32 x, F32 y, BOOL* on_sphere );
+	LLVector3		projectToSphere( F32 x, F32 y, bool* on_sphere );
 
 	void			renderSnapGuides();
 	void			renderActiveRing(F32 radius, F32 width, const LLColor4& center_color, const LLColor4& side_color);

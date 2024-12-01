@@ -66,8 +66,8 @@ public:
 
 	static bool iconsNearby();
 
-	BOOL getHidden() const { return mHidden; }
-	void setHidden( BOOL hide ) { mHidden = hide; }
+	bool getHidden() const { return mHidden; }
+	void setHidden( bool hide ) { mHidden = hide; }
 
 	bool lineSegmentIntersect(const LLVector4a& start, const LLVector4a& end, LLVector4a* intersection);
 
@@ -75,7 +75,7 @@ protected:
 	LLHUDIcon(const U8 type);
 	~LLHUDIcon();
 
-	void renderIcon(BOOL for_select); // common render code
+	void renderIcon(bool for_select); // common render code
 
 private:
 	LLPointer<LLViewerTexture> mImagep;
@@ -84,7 +84,7 @@ private:
 	F32				mDistance;
 	S32				mPickID;
 	F32				mScale;
-	BOOL			mHidden;
+	bool			mHidden;
 
 	typedef std::vector<LLPointer<LLHUDIcon> > icon_instance_t;
 	static icon_instance_t sIconInstances;

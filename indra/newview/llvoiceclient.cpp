@@ -394,7 +394,7 @@ bool LLVoiceClient::isSessionCallBackPossible(const LLUUID& id)
 }
 
 /* obsolete
-BOOL LLVoiceClient::sendTextMessage(const LLUUID& participant_id, const std::string& message)
+bool LLVoiceClient::sendTextMessage(const LLUUID& participant_id, const std::string& message)
 {
 	if (mVoiceModule) 
 	{
@@ -402,7 +402,7 @@ BOOL LLVoiceClient::sendTextMessage(const LLUUID& participant_id, const std::str
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}	
 }
 */

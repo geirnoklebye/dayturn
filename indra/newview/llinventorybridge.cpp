@@ -4033,7 +4033,7 @@ void LLFolderBridge::pasteLinkFromClipboard()
 		const bool move_is_into_current_outfit = (mUUID == current_outfit_id);
 		const bool move_is_into_my_outfits = (mUUID == my_outifts_id) || model->isObjectDescendentOf(mUUID, my_outifts_id);
 		const bool move_is_into_outfit = move_is_into_my_outfits || (getCategory() && getCategory()->getPreferredType()==LLFolderType::FT_OUTFIT);
-        const BOOL move_is_into_marketplacelistings = model->isObjectDescendentOf(mUUID, marketplacelistings_id);
+        const bool move_is_into_marketplacelistings = model->isObjectDescendentOf(mUUID, marketplacelistings_id);
 
 		if (move_is_into_marketplacelistings)
 		{

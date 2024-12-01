@@ -50,7 +50,7 @@ public:
 	void setID(const LLUUID &id);
 	const LLUUID &getID() const;
 
-	BOOL isDead() const;
+	bool isDead() const;
 
 	friend class LLHUDManager;
 protected:

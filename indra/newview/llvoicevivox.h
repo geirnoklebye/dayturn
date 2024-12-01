@@ -111,7 +111,7 @@ public:
 	virtual bool isParticipant(const LLUUID& speaker_id);
 
 	// Send a text message to the specified user, initiating the session if necessary.
-	// virtual BOOL sendTextMessage(const LLUUID& participant_id, const std::string& message) const {return false;};
+	// virtual bool sendTextMessage(const LLUUID& participant_id, const std::string& message) const {return false;};
 	
 	// close any existing text IM session with the specified user
 	virtual void endUserIMSession(const LLUUID &uuid);

@@ -51,12 +51,12 @@ class LLImageJ2C;
 class LLMessageSystem;
 class LLTextureView;
 
-typedef	void (*LLImageCallback)(BOOL success,
+typedef	void (*LLImageCallback)(bool success,
 								LLViewerFetchedTexture *src_vi,
 								LLImageRaw* src,
 								LLImageRaw* src_aux,
 								S32 discard_level,
-								BOOL final,
+								bool final,
 								void* userdata);
 
 enum ETexListType
@@ -110,7 +110,7 @@ public:
 	void dump();
 	void destroyGL(bool save_state = true);
 	void restoreGL();
-	bool isInitialized() const {return mInitialized;}
+	[[nodiscard]] bool isInitialized() const {return mInitialized;}
 
 	void findTexturesByID(const LLUUID &image_id, std::vector<LLViewerFetchedTexture*> &output);
 	LLViewerFetchedTexture *findImage(const LLUUID &image_id, ETexListType tex_type);

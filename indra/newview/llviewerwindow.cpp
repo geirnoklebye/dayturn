@@ -1921,10 +1921,10 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 	/*
 	LLWindowCallbacks* callbacks,
 	const std::string& title, const std::string& name, S32 x, S32 y, S32 width, S32 height, U32 flags,
-	BOOL fullscreen, 
-	BOOL clearBg,
-	BOOL disable_vsync,
-	BOOL ignore_pixel_depth,
+	bool fullscreen, 
+	bool clearBg,
+	bool disable_vsync,
+	bool ignore_pixel_depth,
 	U32 fsaa_samples)
 	*/
 	// create window
@@ -6417,7 +6417,7 @@ void LLViewerWindow::restartDisplay(bool show_progress_bar)
 
 bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsync, bool show_progress_bar)
 {
-	//BOOL was_maximized = gSavedSettings.getBOOL("WindowMaximized");
+	//bool was_maximized = gSavedSettings.getbool("WindowMaximized");
 
 	//gResizeScreenTexture = true;
 
@@ -6441,8 +6441,8 @@ bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsyn
 	// Close floaters that don't handle settings change
 	LLFloaterReg::hideInstance("snapshot");
 	
-	BOOL result_first_try = FALSE;
-	BOOL result_second_try = FALSE;
+	bool result_first_try = false;
+	bool result_second_try = false;
 
 	LLFocusableElement* keyboard_focus = gFocusMgr.getKeyboardFocus();
 	send_agent_pause();
@@ -6491,7 +6491,7 @@ bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsyn
 		size = old_size; // for reshape below
 	}
 
-	BOOL success = result_first_try || result_second_try;
+	bool success = result_first_try || result_second_try;
 
 	if (success)
 	{
