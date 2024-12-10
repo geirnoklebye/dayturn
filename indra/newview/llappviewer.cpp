@@ -853,9 +853,11 @@ bool LLAppViewer::init()
 	
     // inits from settings.xml and from strings.xml
 	if (!initConfiguration())
-		return false;
-
-	LL_INFOS("InitInfo") << "Configuration initialized." << LL_ENDL ;
+	{
+        LL_WARNS("InitInfo") << "initConfiguration() failed." << LL_ENDL;
+        // quit immediately
+        return false;
+    }
 
 	//set the max heap size.
 	initMaxHeapSize() ;
