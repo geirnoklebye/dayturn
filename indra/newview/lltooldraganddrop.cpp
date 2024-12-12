@@ -567,7 +567,7 @@ bool LLToolDragAndDrop::handleKey(KEY key, MASK mask)
 
 bool LLToolDragAndDrop::handleToolTip(S32 x, S32 y, MASK mask)
 {
-    const F32 DRAG_N_DROP_TOOLTIP_DELAY = 0.10000000149f;
+    const F32 DRAG_N_DROP_TOOLTIP_DELAY = 0.1f;
 	if (!mToolTipMsg.empty())
 	{
 		LLToolTipMgr::instance().unblockToolTips();
@@ -1122,11 +1122,11 @@ void LLToolDragAndDrop::dropTextureOneFace(LLViewerObject* hit_obj,
 	LLViewerTexture* image = LLViewerTextureManager::getFetchedTexture(asset_id);
 	add(LLStatViewer::EDIT_TEXTURE, 1);
 
-	LLTextureEntry* tep = hit_obj ? (hit_obj->getTE(hit_face)) : NULL;
+    LLTextureEntry* tep = hit_obj->getTE(hit_face);
 
-	LLPanelFace* panel_face = gFloaterTools->getPanelFace();
+    LLPanelFace* panel_face = gFloaterTools ? gFloaterTools->getPanelFace() : nullptr;
 
-	if (gFloaterTools->getVisible() && panel_face)
+    if (panel_face && gFloaterTools->getVisible())
 	{
         tex_channel = (tex_channel > -1) ? tex_channel : LLSelectMgr::getInstance()->getTextureChannel();
         switch (tex_channel)
@@ -1219,7 +1219,10 @@ void LLToolDragAndDrop::dropScript(LLViewerObject* hit_obj,
 			}
 		}
 		hit_obj->saveScript(new_script, active, true);
-		gFloaterTools->dirty();
+        if (gFloaterTools)
+        {
+            gFloaterTools->dirty();
+        }
 
 		// VEFFECT: SetScript
 		LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral *)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_BEAM, true);
@@ -1472,7 +1475,10 @@ void LLToolDragAndDrop::dropInventory(LLViewerObject* hit_obj,
 	effectp->setTargetObject(hit_obj);
 	effectp->setDuration(LL_HUD_DUR_SHORT);
 	effectp->setColor(LLColor4U(gAgent.getEffectColor()));
-	gFloaterTools->dirty();
+    if (gFloaterTools)
+    {
+        gFloaterTools->dirty();
+    }
 }
 
 // accessor that looks at permissions, copyability, and names of
