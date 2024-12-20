@@ -4180,12 +4180,14 @@ void LLVOAvatar::updateDebugText()
 {
     // Leave mDebugText uncleared here, in case a derived class has added some state first
 
-	if (gSavedSettings.getbool("DebugAvatarAppearanceMessage"))
+    static LLCachedControl<bool> debug_av_appearance_message(gSavedSettings, "DebugAvatarAppearanceMessage");
+    if (debug_av_appearance_message)
 	{
         updateAppearanceMessageDebugText();
 	}
 
-	if (gSavedSettings.getbool("DebugAvatarCompositeBaked"))
+    static LLCachedControl<bool> debug_av_composite_baked(gSavedSettings, "DebugAvatarCompositeBaked");
+    if (debug_av_composite_baked)
 	{
 		if (!mBakedTextureDebugText.empty())
 			addDebugText(mBakedTextureDebugText);
@@ -8562,7 +8564,8 @@ LLMotion* LLVOAvatar::findMotion(const LLUUID& id) const
 // colorized if using deferred rendering.
 void LLVOAvatar::debugColorizeSubMeshes(U32 i, const LLColor4& color)
 {
-	if (gSavedSettings.getbool("DebugAvatarCompositeBaked"))
+    static LLCachedControl<bool> debug_av_composite_baked(gSavedSettings, "DebugAvatarCompositeBaked");
+    if (debug_av_composite_baked)
 	{
 		avatar_joint_mesh_list_t::iterator iter = mBakedTextureDatas[i].mJointMeshes.begin();
 		avatar_joint_mesh_list_t::iterator end  = mBakedTextureDatas[i].mJointMeshes.end();
