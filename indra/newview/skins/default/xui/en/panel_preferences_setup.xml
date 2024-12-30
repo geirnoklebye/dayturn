@@ -201,60 +201,59 @@
     Proxy Settings:
   </text>
   <button
-	label="Adjust proxy settings"
+    label="Adjust proxy settings"
     follows="left|top"
     height="23"
-	width="140"
+    width="140"
     label_selected="Browse"
     layout="topleft"
     left_delta="50"
     name="set_proxy"
-    top_pad="5"
-    >
+    top_pad="5">
     <button.commit_callback
-		  function="Pref.Proxy" />
+          function="Pref.Proxy" />
   </button>
-		<button
-		 enabled="true"
-		 follows="left|top"
-		 height="23"
-		 label="Open Viewer Logs"
-		 label_selected="Open Viewer Logs"
-		 layout="topleft"
-		 left="20"
-		 name="browse_crashlogs"
-		 top_delta="50"
-		 width="130">
-			<button.commit_callback
-			 function="Pref.BrowseCrashLogs" />
-		</button>
-		<button
-		 enabled="true"
-		 follows="left|top"
-		 height="23"
-		 label="Open Settings folder"
-		 label_selected="Open Settings folder"
-		 layout="topleft"
-		 left_pad="10"
-		 name="browse_settingsdir"
-		 top_delta="0"
-		 width="130">
-			<button.commit_callback
-			 function="Pref.BrowseSettingsDir" />
-		</button>
-    <button
-     enabled="true"
-     follows="left|top"
-     font.style="BOLD"
-     height="23"
-     label="Reset All Settings"
-     label_selected="Reset All Settings"
-     left_pad="10"
-		 layout="topleft"
-     name="clear_settings"
-     width="130" >
+  <button
+    enabled="true"
+    follows="left|top"
+    height="23"
+    label="Open Viewer Logs"
+    label_selected="Open Viewer Logs"
+    layout="topleft"
+    left="20"
+    name="browse_crashlogs"
+    top_delta="50"
+    width="130">
         <button.commit_callback
-         function="Pref.ClearSettings" />
-    </button>
+        function="Pref.BrowseCrashLogs" />
+  </button>
+  <button
+    enabled="true"
+    follows="left|top"
+    height="23"
+    label="Open Settings folder"
+    label_selected="Open Settings folder"
+    layout="topleft"
+    left_pad="10"
+    name="browse_settingsdir"
+    top_delta="0"
+    width="130">
+        <button.commit_callback
+        function="Pref.BrowseSettingsDir" />
+  </button>
+  <button
+    enabled="true"
+    follows="left|top"
+    font.style="BOLD"
+    height="23"
+    label="Reset All Settings"
+    label_selected="Reset All Settings"
+    left_pad="10"
+    layout="topleft"
+    name="clear_settings"
+    width="130" >
+        <button.commit_callback
+        function="Pref.ClearSettings" />
+  </button>
 </panel>
 
