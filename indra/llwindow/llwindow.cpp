@@ -103,7 +103,6 @@ LLWindow::LLWindow(LLWindowCallbacks* callbacks, bool fullscreen, U32 flags)
 	  mFullscreen(fullscreen),
 	  mFullscreenWidth(0),
 	  mFullscreenHeight(0),
-	  mFullscreenBits(0),
 	  mFullscreenRefresh(0),
 	  mSupportedResolutions(nullptr),
 	  mNumSupportedResolutions(0),
