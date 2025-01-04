@@ -819,6 +819,9 @@ static void on_avatar_name_cache_notify(const LLUUID& agent_id,
 	// Here we use the RADAR chat type so that we get a line with the avatar
 	// as the message source and thus we only need the status change portion
 	// as the message payload
+    // KKA-1134 Go back to Marine's method for plain text chat. Note that switching from one
+    // mode to another and back won't give correctly formatted historical text since we send
+    // in different messages depending on the current mode.
 	// RLV note: Don't put this through a @shownames check, it would become
 	// a way of knowing if that avatar is within range or not since only names
 	// currently in the avatar name cache get anonymised and by the time we get
@@ -830,15 +833,24 @@ static void on_avatar_name_cache_notify(const LLUUID& agent_id,
 	//                  or for groups which have enabled "Show notice for this set" and in the settingpage of CS is checked that the messages need to be in Nearby Chat
 	static LLCachedControl<bool> OnlineOfflinetoNearbyChat(gSavedSettings, "OnlineOfflinetoNearbyChat");
 	static LLCachedControl<bool> FSContactSetsNotificationNearbyChat(gSavedSettings, "FSContactSetsNotificationNearbyChat");
+    static LLCachedControl<bool> PlainTextChatHistory(gSavedSettings, "PlainTextChatHistory");
 	if ((OnlineOfflinetoNearbyChat) || (FSContactSetsNotificationNearbyChat && LGGContactSets::getInstance()->notifyForFriend(agent_id)))
 	{
 		LLChat chat;
-		chat.mText = online ? LLTrans::getString("OnlineStatusPhrase") : LLTrans::getString("OfflineStatusPhrase");
-	  chat.mSourceType = CHAT_SOURCE_SYSTEM;
-	  chat.mFromName = av_name.getCompleteName(true, false);
-	  chat.mFromID = agent_id;
-	  chat.mChatType = CHAT_TYPE_RADAR;
-		LLFloaterIMNearbyChat* nearby_chat = LLFloaterReg::findTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");
+
+        if (PlainTextChatHistory)
+        {
+            // KKA-1134 In PlainTextChatHistory don't cause the name to appear twice
+            chat.mSourceType = CHAT_SOURCE_UNKNOWN; // using CHAT_SOURCE_SYSTEM produces unwanted brackets
+        }
+        else
+        {
+            // KKA-1134 Previous Kokua behaviour, retained for expanded chat
+            chat.mSourceType = CHAT_SOURCE_SYSTEM;
+            chat.mChatType = CHAT_TYPE_RADAR;        
+            chat.mFromName = av_name.getCompleteName(true, false);
+            chat.mFromID = agent_id;
+        }		LLFloaterIMNearbyChat* nearby_chat = LLFloaterReg::findTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");
 		if(nearby_chat)
 		{
 			nearby_chat->addMessage(chat);
