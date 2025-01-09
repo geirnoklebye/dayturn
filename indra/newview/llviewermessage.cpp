@@ -1621,7 +1621,7 @@ void inventory_offer_mute_callback(const LLUUID& blocked_id,
 			{
 				return (notification->getPayload()["from_id"].asUUID() == blocked_id);
 			}
-			return FALSE;
+			return false;
 		}
 	private:
 		const LLUUID& blocked_id;
@@ -2017,7 +2017,7 @@ bool LLOfferInfo::inventory_task_offer_callback(const LLSD& notification, const 
 	std::string from_string; // Used in the pop-up.
 	std::string chatHistory_string;  // Used in chat history.
 
-	if (mFromObject == true)
+	if (mFromObject)
 	{
 		if (mFromGroup)
 		{
@@ -3004,7 +3004,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	LLHost sim_host(sim_ip, sim_port);
 
 	// Viewer trusts the simulator.
-	gMessageSystem->enableCircuit(sim_host, TRUE);
+	gMessageSystem->enableCircuit(sim_host, true);
 	LLViewerRegion* regionp =  LLWorld::getInstance()->addRegion(region_handle, sim_host);
 
 /*
@@ -3400,7 +3400,7 @@ void send_agent_update(bool force_send, bool send_reliable)
         control_flags &= ~mask;
     }
 
-	MASK	key_mask = gKeyboard->currentMask(TRUE);
+	MASK	key_mask = gKeyboard->currentMask(true);
 
 	if (key_mask & MASK_ALT || key_mask & MASK_CONTROL)
 	{
@@ -3995,7 +3995,7 @@ void process_preload_sound(LLMessageSystem *msg, void **user_data)
 	if (gAgent.canAccessMaturityAtGlobal(pos_global))
 	{
 		// Add audioData starts a transfer internally.
-		sourcep->addAudioData(datap, FALSE);
+		sourcep->addAudioData(datap, false);
 	}
 }
 
@@ -5380,8 +5380,8 @@ void process_agent_alert_message(LLMessageSystem* msgsystem, void** user_data)
 
 	if (!attempt_standard_notification(msgsystem))
 	{
-		BOOL modal = FALSE;
-		msgsystem->getBOOL("AlertData", "Modal", modal);
+		bool modal = false;
+		msgsystem->getbool("AlertData", "Modal", modal);
 		process_alert_core(message, modal);
 
         if (message.find("Cannot enter parcel") != std::string::npos)
@@ -5408,7 +5408,7 @@ void process_alert_message(LLMessageSystem *msgsystem, void **user_data)
 
 	if (!attempt_standard_notification(msgsystem))
 	{
-		BOOL modal = FALSE;
+		bool modal = false;
 		process_alert_core(message, modal);
 
         static LLCachedControl<S32> ban_lines_mode(gSavedSettings , "ShowBanLines" , LLViewerParcelMgr::PARCEL_BAN_LINES_ON_COLLISION);
@@ -5443,7 +5443,7 @@ bool handle_special_alerts(const std::string &pAlertName)
 	return isHandled;
 }
 
-void process_alert_core(const std::string& message, BOOL modal)
+void process_alert_core(const std::string& message, bool modal)
 {
 	const std::string ALERT_PREFIX("ALERT: ");
 	const std::string NOTIFY_PREFIX("NOTIFY: ");
@@ -5567,7 +5567,7 @@ void process_mean_collision_alert_message(LLMessageSystem *msgsystem, void **use
 
 		type = (EMeanCollisionType)u8type;
 
-		BOOL b_found = FALSE;
+		bool b_found = false;
 
 		for (mean_collision_list_t::iterator iter = gMeanCollisionList.begin();
 			 iter != gMeanCollisionList.end(); ++iter)
@@ -5577,7 +5577,7 @@ void process_mean_collision_alert_message(LLMessageSystem *msgsystem, void **use
 			{
 				mcd->mTime = time;
 				mcd->mMag = mag;
-				b_found = TRUE;
+				b_found = true;
 				break;
 			}
 		}
@@ -5601,9 +5601,9 @@ void process_frozen_message(LLMessageSystem *msgsystem, void **user_data)
 	// make sure the cursor is back to the usual default since the
 	// alert is probably due to some kind of error.
 	gViewerWindow->getWindow()->resetBusyCount();
-	BOOL b_frozen;
+	bool b_frozen;
 	
-	msgsystem->getBOOL("FrozenData", "Data", b_frozen);
+	msgsystem->getbool("FrozenData", "Data", b_frozen);
 
 	// TODO: make being frozen change view
 	if (b_frozen)
@@ -6804,7 +6804,7 @@ void process_load_url(LLMessageSystem* msg, void**)
 {
 	LLUUID object_id;
 	LLUUID owner_id;
-	BOOL owner_is_group;
+	bool owner_is_group;
 	char object_name[256];		/* Flawfinder: ignore */
 	char message[256];		/* Flawfinder: ignore */
 	char url[256];		/* Flawfinder: ignore */
@@ -6812,7 +6812,7 @@ void process_load_url(LLMessageSystem* msg, void**)
 	msg->getString("Data", "ObjectName", 256, object_name);
 	msg->getUUID(  "Data", "ObjectID", object_id);
 	msg->getUUID(  "Data", "OwnerID", owner_id);
-	msg->getBOOL(  "Data", "OwnerIsGroup", owner_is_group);
+	msg->getbool(  "Data", "OwnerIsGroup", owner_is_group);
 	msg->getString("Data", "Message", 256, message);
 	msg->getString("Data", "URL", 256, url);
 

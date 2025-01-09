@@ -1581,7 +1581,7 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
   	LLHost sim(ip_u32, port);
 
   	// Viewer trusts the simulator.
-  	msg->enableCircuit(sim, TRUE);
+  	msg->enableCircuit(sim, true);
   	LLWorld::getInstance()->addRegion(handle, sim);
 
   	// give the simulator a message it can use to get ip and port

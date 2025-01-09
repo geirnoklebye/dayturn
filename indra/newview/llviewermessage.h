@@ -121,7 +121,7 @@ void process_adjust_balance(LLMessageSystem* msg_system, void**);
 bool attempt_standard_notification(LLMessageSystem* msg);
 void process_alert_message(LLMessageSystem* msg, void**);
 void process_agent_alert_message(LLMessageSystem* msgsystem, void** user_data);
-void process_alert_core(const std::string& message, BOOL modal);
+void process_alert_core(const std::string& message, bool modal);
 
 // "Mean" or player-vs-player abuse
 typedef std::list<LLMeanCollisionData*> mean_collision_list_t;
