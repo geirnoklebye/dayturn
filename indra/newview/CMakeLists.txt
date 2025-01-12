@@ -51,7 +51,6 @@ include(TemplateCheck)
 include(ThreeJS)
 include(Tracy)
 include(UI)
-include(UnixInstall)
 include(ViewerMiscLibs)
 include(ColladaDom)
 # include(VisualLeakDetector)
@@ -1521,12 +1520,6 @@ if (DARWIN)
     ${IOKIT_LIBRARY}
     ${COREAUDIO_LIBRARY}
     )
-
-  if (USE_BUGSPLAT)
-    list(APPEND viewer_LIBRARIES
-      ${BUGSPLAT_LIBRARIES}
-      )
-  endif (USE_BUGSPLAT)
 
   # Add resource files to the project.
   set(viewer_RESOURCE_FILES
