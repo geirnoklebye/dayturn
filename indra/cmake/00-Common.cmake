@@ -123,6 +123,11 @@ if (WINDOWS)
   set(CMAKE_CXX_STANDARD_LIBRARIES "")
   set(CMAKE_C_STANDARD_LIBRARIES "")
 
+  add_link_options(/LARGEADDRESSAWARE
+          /SAFESEH:NO
+          /NODEFAULTLIB:LIMCMT
+          /IGNORE:4009)
+  
   add_definitions(
       /D_SECURE_STL=0
       /D_HAS_ITERATOR_DEBUGGING=0
