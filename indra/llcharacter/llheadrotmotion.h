@@ -94,8 +94,8 @@ public:
 	virtual bool onActivate();
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
+	// must return true while it is active, and
+	// must return false when the motion is completed.
 	virtual bool onUpdate(F32 time, U8* joint_mask);
 
 	// called when a motion is deactivated
@@ -179,8 +179,8 @@ public:
     void adjustEyeTarget(LLVector3* targetPos, LLJointState& left_eye_state, LLJointState& right_eye_state);
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
+	// must return true while it is active, and
+	// must return false when the motion is completed.
 	virtual bool onUpdate(F32 time, U8* joint_mask);
 
 	// called when a motion is deactivated

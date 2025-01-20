@@ -181,7 +181,7 @@ protected:
 	bool activateMotionInstance(LLMotion *motion, F32 time);
 	bool deactivateMotionInstance(LLMotion *motion);
 	void deprecateMotionInstance(LLMotion* motion);
-	bool stopMotionInstance(LLMotion *motion, bool stop_imemdiate);
+	bool stopMotionInstance(LLMotion *motion, bool stop_immedeate);
 	void removeMotionInstance(LLMotion* motion);
 	void updateRegularMotions();
 	void updateAdditiveMotions();

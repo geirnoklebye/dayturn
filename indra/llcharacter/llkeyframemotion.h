@@ -86,31 +86,36 @@ public:
 	//-------------------------------------------------------------------------
 
 	// motions must specify whether or not they loop
-	virtual bool getLoop() { 
+	virtual bool getLoop()
+	{
 		if (mJointMotionList) return mJointMotionList->mLoop; 
 		else return false;
 	}
 
 	// motions must report their total duration
-	virtual F32 getDuration() { 
+	virtual F32 getDuration()
+	{ 
 		if (mJointMotionList) return mJointMotionList->mDuration; 
 		else return 0.f;
 	}
 
 	// motions must report their "ease in" duration
-	virtual F32 getEaseInDuration() { 
+	virtual F32 getEaseInDuration()
+	{ 
 		if (mJointMotionList) return mJointMotionList->mEaseInDuration; 
 		else return 0.f;
 	}
 
 	// motions must report their "ease out" duration.
-	virtual F32 getEaseOutDuration() { 
+	virtual F32 getEaseOutDuration()
+	{ 
 		if (mJointMotionList) return mJointMotionList->mEaseOutDuration; 
 		else return 0.f;
 	}
 
 	// motions must report their priority
-	virtual LLJoint::JointPriority getPriority() { 
+	virtual LLJoint::JointPriority getPriority()
+	{ 
 		if (mJointMotionList) return mJointMotionList->mBasePriority; 
 		else return LLJoint::LOW_PRIORITY;
 	}
@@ -140,8 +145,8 @@ public:
 	virtual bool onActivate();
 
 	// called per time step
-	// must return TRUE while it is active, and
-	// must return FALSE when the motion is completed.
+	// must return true while it is active, and
+	// must return false when the motion is completed.
 	virtual bool onUpdate(F32 time, U8* joint_mask);
 
 	// called when a motion is deactivated

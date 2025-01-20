@@ -695,7 +695,7 @@ void LLRenderTarget::copyContentsToFramebuffer(LLRenderTarget& source, S32 srcX0
 
 bool LLRenderTarget::isComplete() const
 {
-	return (!mTex.empty() || mDepth) ? true : false;
+    return !mTex.empty() || mDepth;
 }
 
 void LLRenderTarget::getViewport(S32* viewport)
