@@ -188,16 +188,16 @@ bool LLCrashLogger::readMinidump(std::string minidump_path)
 	size_t length=0;
 
 	llifstream minidump_stream(minidump_path.c_str(), std::ios_base::in | std::ios_base::binary);
-	if(minidump_stream.is_open())
+	if (minidump_stream.is_open())
 	{
 		minidump_stream.seekg(0, std::ios::end);
 		length = (size_t)minidump_stream.tellg();
         LL_WARNS("CRASHREPORT") << "minidump length "<< length <<LL_ENDL;
 		minidump_stream.seekg(0, std::ios::beg);
-		
+
 		LLSD::Binary data;
 		data.resize(length);
-		
+
 		minidump_stream.read(reinterpret_cast<char *>(&(data[0])),length);
 		minidump_stream.close();
 		
@@ -207,7 +207,7 @@ bool LLCrashLogger::readMinidump(std::string minidump_path)
     {
         LL_WARNS("CRASHREPORT") << "failed to open minidump "<<minidump_path<<LL_ENDL;
     }
-    
+
 	return length > 0;
 }
 

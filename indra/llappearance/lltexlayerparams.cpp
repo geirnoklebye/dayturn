@@ -318,7 +318,7 @@ bool LLTexLayerParamAlpha::render(S32 x, S32 y, S32 width, S32 height)
 				mCachedProcessedTexture = gTextureManagerBridgep->getLocalTexture(image_tga_width, image_tga_height, 1, FALSE);
 
 				// We now have something in one of our caches
-				LLTexLayerSet::sHasCaches |= mCachedProcessedTexture ? true : false;
+				LLTexLayerSet::sHasCaches |= mCachedProcessedTexture.notNull();
 
 				mCachedProcessedTexture->setExplicitFormat(GL_ALPHA8, GL_ALPHA);
 			}
