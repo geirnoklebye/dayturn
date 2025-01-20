@@ -94,3 +94,4 @@ configure-stamp
 
 # no line terminator after this comment
 .fleet/settings.json
+*.vdiff
