@@ -1101,6 +1101,7 @@ bool idle_startup()
 		login->setSerialNumber(LLAppViewer::instance()->getSerialNumber());
 		login->setLastExecEvent(gLastExecEvent);
 		login->setLastExecDuration(gLastExecDuration);
+        login->setLastAgentSessionId(gLastAgentSessionId);
 
 		// This call to LLLoginInstance::connect() starts the 
 		// authentication process.
@@ -3557,6 +3558,7 @@ bool process_login_success_response()
 	text = response["session_id"].asString();
 	if(!text.empty()) gAgentSessionID.set(text);
 	gDebugInfo["SessionID"] = text;
+    LLAppViewer::instance()->recordSessionToMarker();
 
 	// Session id needed for parcel info request in LLUrlEntryParcel
 	// to resolve parcel name.
