@@ -219,7 +219,7 @@ bool KokuaFloaterBulkRename::nextObject()
 }
 
 // Pop the top object off of the queue.
-// Return TRUE if the queue has started, otherwise FALSE.
+// Return true if the queue has started, otherwise false.
 bool KokuaFloaterBulkRename::popNext()
 {
 	// get the head element from the container, and attempt to get its inventory.

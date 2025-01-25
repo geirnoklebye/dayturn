@@ -126,7 +126,7 @@ LLLineEditor::LLLineEditor(const LLLineEditor::Params& p)
 	mTextLeftEdge(0),		// computed in updateTextPadding() below
 	mTextRightEdge(0),		// computed in updateTextPadding() below
 	mCommitOnFocusLost( p.commit_on_focus_lost ),
-	mKeystrokeOnEsc(FALSE),
+	mKeystrokeOnEsc(false),
 	mRevertOnEsc( p.revert_on_esc ),
 	mKeystrokeCallback( p.keystroke_callback() ),
 	mIsSelecting(false),

@@ -92,7 +92,7 @@ LLGroupMemberData::LLGroupMemberData(const LLUUID& id,
 										U64 agent_powers,
 										const std::string& title,
 										const std::string& online_status,
-										BOOL is_owner) : 
+										bool is_owner) :
 	mID(id), 
 	mContribution(contribution), 
 	mAgentPowers(agent_powers), 
@@ -251,7 +251,7 @@ void LLGroupMgrGroupData::setAccessed()
 	mAccessTime = (F32)LLFrameTimer::getTotalSeconds();
 }
 
-BOOL LLGroupMgrGroupData::getRoleData(const LLUUID& role_id, LLRoleData& role_data)
+bool LLGroupMgrGroupData::getRoleData(const LLUUID& role_id, LLRoleData& role_data)
 {
 	role_data_map_t::const_iterator it;
 
@@ -259,10 +259,10 @@ BOOL LLGroupMgrGroupData::getRoleData(const LLUUID& role_id, LLRoleData& role_da
 	it = mRoleChanges.find(role_id);
 	if (it != mRoleChanges.end()) 
 	{
-		if ((*it).second.mChangeType == RC_DELETE) return FALSE;
+		if ((*it).second.mChangeType == RC_DELETE) return false;
 
 		role_data = (*it).second;
-		return TRUE;
+		return true;
 	}
 
 	// Ok, no changes, hasn't been deleted, isn't a new role, just find the role.
@@ -270,11 +270,11 @@ BOOL LLGroupMgrGroupData::getRoleData(const LLUUID& role_id, LLRoleData& role_da
 	if (rit != mRoles.end())
 	{
 		role_data = (*rit).second->getRoleData();
-		return TRUE;
+		return true;
 	}
 
 	// This role must not exist.
-	return FALSE;
+	return false;
 }
 
 
@@ -516,7 +516,7 @@ bool LLGroupMgrGroupData::changeRoleMember(const LLUUID& role_id,
 
 		//TODO move this into addrole function
 		//see if they added someone to the owner role and update isOwner
-		gmd->mIsOwner = (role_id == mOwnerRole) ? TRUE : gmd->mIsOwner;
+		gmd->mIsOwner = (role_id == mOwnerRole) ? true : gmd->mIsOwner;
 	}
 	else if (RMC_REMOVE == rmc)
 	{
@@ -525,7 +525,7 @@ bool LLGroupMgrGroupData::changeRoleMember(const LLUUID& role_id,
 		gmd->removeRole(role_id);
 
 		//see if they removed someone from the owner role and update isOwner
-		gmd->mIsOwner = (role_id == mOwnerRole) ? FALSE : gmd->mIsOwner;
+		gmd->mIsOwner = (role_id == mOwnerRole) ? false : gmd->mIsOwner;
 	}
 
 	lluuid_pair role_member;
@@ -977,7 +977,7 @@ void LLGroupMgr::processGroupMembersReply(LLMessageSystem* msg, void** data)
 		std::string online_status;
 		std::string title;
 		U64 agent_powers = 0;
-		BOOL is_owner = FALSE;
+		bool is_owner = false;
 
 		S32 num_members = msg->getNumberOfBlocksFast(_PREHASH_MemberData);
 		for (S32 i = 0; i < num_members; i++)
@@ -989,7 +989,7 @@ void LLGroupMgr::processGroupMembersReply(LLMessageSystem* msg, void** data)
 			msg->getU64(_PREHASH_MemberData, "AgentPowers", agent_powers, i);
 			msg->getStringFast(_PREHASH_MemberData, _PREHASH_OnlineStatus, online_status, i);
 			msg->getString(_PREHASH_MemberData, "Title", title, i);
-			msg->getBOOL(_PREHASH_MemberData,"IsOwner",is_owner,i);
+			msg->getbool(_PREHASH_MemberData,"IsOwner",is_owner,i);
 
 			if (member_id.notNull())
 			{
@@ -1070,7 +1070,7 @@ void LLGroupMgr::processGroupPropertiesReply(LLMessageSystem* msg, void** data)
 	LLUUID group_id;
 	std::string	name;
 	std::string	charter;
-	BOOL	show_in_list = FALSE;
+	bool	show_in_list = false;
 	LLUUID	founder_id;
 	U64		powers_mask = GP_NO_POWERS;
 	S32		money = 0;
@@ -1078,27 +1078,27 @@ void LLGroupMgr::processGroupPropertiesReply(LLMessageSystem* msg, void** data)
 	LLUUID	insignia_id;
 	LLUUID	owner_role;
 	U32		membership_fee = 0;
-	BOOL	open_enrollment = FALSE;
+	bool	open_enrollment = false;
 	S32		num_group_members = 0;
 	S32		num_group_roles = 0;
-	BOOL	allow_publish = FALSE;
-	BOOL	mature = FALSE;
+	bool	allow_publish = false;
+	bool	mature = false;
 
 	msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group_id );
 	msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_FounderID, founder_id);	
 	msg->getStringFast(_PREHASH_GroupData, _PREHASH_Name, name );
 	msg->getStringFast(_PREHASH_GroupData, _PREHASH_Charter, charter );
-	msg->getBOOLFast(_PREHASH_GroupData, _PREHASH_ShowInList, show_in_list );
+	msg->getboolFast(_PREHASH_GroupData, _PREHASH_ShowInList, show_in_list );
 	msg->getStringFast(_PREHASH_GroupData, _PREHASH_MemberTitle, member_title );
 	msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_InsigniaID, insignia_id );
 	msg->getU64Fast(_PREHASH_GroupData, _PREHASH_PowersMask, powers_mask );
 	msg->getU32Fast(_PREHASH_GroupData, _PREHASH_MembershipFee, membership_fee );
-	msg->getBOOLFast(_PREHASH_GroupData, _PREHASH_OpenEnrollment, open_enrollment );
+	msg->getboolFast(_PREHASH_GroupData, _PREHASH_OpenEnrollment, open_enrollment );
 	msg->getS32Fast(_PREHASH_GroupData, _PREHASH_GroupMembershipCount, num_group_members);
 	msg->getS32(_PREHASH_GroupData, "GroupRolesCount", num_group_roles);
 	msg->getS32Fast(_PREHASH_GroupData, _PREHASH_Money, money);
-	msg->getBOOL("GroupData", "AllowPublish", allow_publish);
-	msg->getBOOL("GroupData", "MaturePublish", mature);
+	msg->getbool("GroupData", "AllowPublish", allow_publish);
+	msg->getbool("GroupData", "MaturePublish", mature);
 	msg->getUUID(_PREHASH_GroupData, "OwnerRole", owner_role);
 
 	LLGroupMgrGroupData* group_datap = LLGroupMgr::getInstance()->createGroupData(group_id);
@@ -1361,7 +1361,7 @@ void LLGroupMgr::processGroupTitlesReply(LLMessageSystem* msg, void** data)
 	{
 		msg->getString("GroupData","Title",title.mTitle,i);
 		msg->getUUID("GroupData","RoleID",title.mRoleID,i);
-		msg->getBOOL("GroupData","Selected",title.mSelected,i);
+		msg->getbool("GroupData","Selected",title.mSelected,i);
 
 		if (!title.mTitle.empty())
 		{
@@ -1380,8 +1380,8 @@ void LLGroupMgr::processEjectGroupMemberReply(LLMessageSystem* msg, void ** data
 	LL_DEBUGS("GrpMgr") << "processEjectGroupMemberReply" << LL_ENDL;
 	LLUUID group_id;
 	msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group_id);
-	BOOL success;
-	msg->getBOOLFast(_PREHASH_EjectData, _PREHASH_Success, success);
+	bool success;
+	msg->getboolFast(_PREHASH_EjectData, _PREHASH_Success, success);
 
 	// If we had a failure, the group panel needs to be updated.
 	if (!success)
@@ -1395,9 +1395,9 @@ void LLGroupMgr::processJoinGroupReply(LLMessageSystem* msg, void ** data)
 {
 	LL_DEBUGS("GrpMgr") << "processJoinGroupReply" << LL_ENDL;
 	LLUUID group_id;
-	BOOL success;
+	bool success;
 	msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group_id);
-	msg->getBOOLFast(_PREHASH_GroupData, _PREHASH_Success, success);
+	msg->getboolFast(_PREHASH_GroupData, _PREHASH_Success, success);
 
 	if (success)
 	{
@@ -1415,9 +1415,9 @@ void LLGroupMgr::processLeaveGroupReply(LLMessageSystem* msg, void ** data)
 {
 	LL_DEBUGS("GrpMgr") << "processLeaveGroupReply" << LL_ENDL;
 	LLUUID group_id;
-	BOOL success;
+	bool success;
 	msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group_id);
-	msg->getBOOLFast(_PREHASH_GroupData, _PREHASH_Success, success);
+	msg->getboolFast(_PREHASH_GroupData, _PREHASH_Success, success);
 
 	if (success)
 	{
@@ -1434,12 +1434,12 @@ void LLGroupMgr::processLeaveGroupReply(LLMessageSystem* msg, void ** data)
 void LLGroupMgr::processCreateGroupReply(LLMessageSystem* msg, void ** data)
 {
 	LLUUID group_id;
-	BOOL success;
+	bool success;
 	std::string message;
 
 	msg->getUUIDFast(_PREHASH_ReplyData, _PREHASH_GroupID, group_id );
 
-	msg->getBOOLFast(_PREHASH_ReplyData, _PREHASH_Success,	success );
+	msg->getboolFast(_PREHASH_ReplyData, _PREHASH_Success,	success );
 	msg->getStringFast(_PREHASH_ReplyData, _PREHASH_Message, message );
 
 	if (success)
@@ -1676,7 +1676,7 @@ void LLGroupMgr::sendGroupRoleMembersRequest(const LLUUID& group_id)
 			LL_INFOS("GrpMgr") << " Pending: " << (group_datap->mPendingRoleMemberRequest ? "Y" : "N")
 				<< " MemberDataComplete: " << (group_datap->mMemberDataComplete ? "Y" : "N")
 				<< " RoleDataComplete: " << (group_datap->mRoleDataComplete ? "Y" : "N") << LL_ENDL;
-			group_datap->mPendingRoleMemberRequest = TRUE;
+			group_datap->mPendingRoleMemberRequest = true;
 			return;
 		}
 
@@ -1735,11 +1735,11 @@ void LLGroupMgr::sendGroupTitleUpdate(const LLUUID& group_id, const LLUUID& titl
 	{
 		if (iter->mRoleID == title_role_id)
 		{
-			iter->mSelected = TRUE;
+			iter->mSelected = true;
 		}
 		else if (iter->mSelected)
 		{
-			iter->mSelected = FALSE;
+			iter->mSelected = false;
 		}
 	}
 }
@@ -1750,9 +1750,9 @@ void LLGroupMgr::sendCreateGroupRequest(const std::string& name,
 										U8 show_in_list,
 										const LLUUID& insignia,
 										S32 membership_fee,
-										BOOL open_enrollment,
-										BOOL allow_publish,
-										BOOL mature_publish)
+										bool open_enrollment,
+										bool allow_publish,
+										bool mature_publish)
 {
 	LLMessageSystem* msg = gMessageSystem;
 	msg->newMessage("CreateGroupRequest");
@@ -1763,12 +1763,12 @@ void LLGroupMgr::sendCreateGroupRequest(const std::string& name,
 	msg->nextBlock("GroupData");
 	msg->addString("Name",name);
 	msg->addString("Charter",charter);
-	msg->addBOOL("ShowInList",show_in_list);
+	msg->addbool("ShowInList",show_in_list);
 	msg->addUUID("InsigniaID",insignia);
 	msg->addS32("MembershipFee",membership_fee);
-	msg->addBOOL("OpenEnrollment",open_enrollment);
-	msg->addBOOL("AllowPublish",allow_publish);
-	msg->addBOOL("MaturePublish",mature_publish);
+	msg->addbool("OpenEnrollment",open_enrollment);
+	msg->addbool("AllowPublish",allow_publish);
+	msg->addbool("MaturePublish",mature_publish);
 
 	gAgent.sendReliableMessage();
 }
@@ -2258,7 +2258,7 @@ void LLGroupMgr::processCapGroupMembersRequest(const LLSD& content)
 	S32			contribution;
 	U64			member_powers;
 	// If this is changed to a bool, make sure to change the LLGroupMemberData constructor
-	BOOL		is_owner;
+	bool		is_owner;
 
 	// Compute this once, rather than every time.
 	U64	default_powers	= llstrtou64(defaults["default_powers"].asString().c_str(), NULL, 16);

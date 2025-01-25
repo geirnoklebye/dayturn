@@ -2327,7 +2327,7 @@ void LLScrollListCtrl::copySLURLToClipboard(std::string id, bool is_group)
 
 bool LLScrollListCtrl::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	//BOOL handled = FALSE;
+	//bool handled = false;
 	bool handled = handleClick(x, y, mask);
 
 	if (!handled)
@@ -2581,7 +2581,7 @@ bool LLScrollListCtrl::handleKeyHere(KEY key,MASK mask )
 				if (mAllowKeyboardMovement || hasFocus())
 				{
 					// commit implicit in call
-					selectPrevItem(FALSE);
+					selectPrevItem(false);
 					mNeedsScroll = true;
 					handled = true;
 				}
@@ -2590,7 +2590,7 @@ bool LLScrollListCtrl::handleKeyHere(KEY key,MASK mask )
 				if (mAllowKeyboardMovement || hasFocus())
 				{
 					// commit implicit in call
-					selectNextItem(FALSE);
+					selectNextItem(false);
 					mNeedsScroll = true;
 					handled = true;
 				}

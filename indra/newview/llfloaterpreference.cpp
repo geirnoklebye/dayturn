@@ -660,7 +660,7 @@ void LLFloaterPreference::updateDeleteTranscriptsButton()
 
 void LLFloaterPreference::onDoNotDisturbResponseChanged()
 {
-	// set "DoNotDisturbResponseChanged" true if user edited message differs from default, FALSE otherwise
+	// set "DoNotDisturbResponseChanged" true if user edited message differs from default, false otherwise
 	bool response_changed_flag =
 			LLTrans::getString("DoNotDisturbModeResponseDefault")
 					!= getChild<LLUICtrl>("do_not_disturb_response")->getValue().asString();
@@ -1546,7 +1546,7 @@ void LLFloaterPreference::refreshEnabledStateAdvanced()
 	LLTextBox* shadow_text = getChild<LLTextBox>("RenderShadowDetailText");
 
 	// note, okay here to get from ctrl_deferred as it's twin, ctrl_deferred2 will alway match it
-	enabled = enabled && LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferredSSAO") && (ctrl_deferred->get() ? TRUE : FALSE);
+	enabled = enabled && LLFeatureManager::getInstance()->isFeatureAvailable("RenderDeferredSSAO") && (ctrl_deferred->get() ? true : false);
 	
 	ctrl_deferred->set(gSavedSettings.getbool("RenderDeferred"));
 

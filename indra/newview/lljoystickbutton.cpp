@@ -79,7 +79,7 @@ LLJoystick::LLJoystick(const LLJoystick::Params& p)
 	mVertSlopFar(0),
 	mHorizSlopNear(0),
 	mHorizSlopFar(0),
-	mHeldDown(FALSE),
+	mHeldDown(false),
 	mHeldDownTimer(),
 	mInitialQuadrant(p.quadrant)
 {

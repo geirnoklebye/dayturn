@@ -220,8 +220,8 @@ public:
 
 	// This method will be called to determine if a drop can be
 	// performed, and will set drop to TRUE if a drop is
-	// requested. Returns TRUE if a drop is possible/happened,
-	// otherwise FALSE.
+	// requested. Returns true if a drop is possible/happened,
+	// otherwise false.
 	virtual bool dragOrDrop(MASK mask, bool drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data,

@@ -573,7 +573,7 @@ void  LLInvFVBridge::removeBatchNoCheck(std::vector<LLFolderViewModelItem*>&  ba
 
 bool LLInvFVBridge::isClipboardPasteable() const
 {
-	// Return FALSE on degenerated cases: empty clipboard, no inventory, no agent
+	// Return false on degenerated cases: empty clipboard, no inventory, no agent
 	if (!LLClipboard::instance().hasContents() || !isAgentInventory())
 	{
 		return false;
@@ -761,7 +761,7 @@ void hide_context_entries(LLMenuGL& menu,
                 menuentry_vec_t::const_iterator itor2 = std::find(exceptions.begin(), exceptions.end(), name);
                 if (itor2 == exceptions.end())
                 {
-                    menu_item->setEnabled(FALSE);
+                    menu_item->setEnabled(false);
                 }
             }
 		}
@@ -2091,7 +2091,7 @@ bool LLItemBridge::renameItem(const std::string& new_name)
 		updates["name"] = new_name;
 		update_inventory_item(item->getUUID(),updates, NULL);
 	}
-	// return FALSE because we either notified observers (& therefore
+	// return false because we either notified observers (& therefore
 	// rebuilt) or we didn't update.
 	return false;
 }
@@ -3240,7 +3240,7 @@ void LLInventoryCopyAndWearObserver::changed(U32 mask)
 				    mContentsCount)
 				{
 					gInventory.removeObserver(this);
-					LLAppearanceMgr::instance().wearInventoryCategory(category, FALSE, !mReplace);
+					LLAppearanceMgr::instance().wearInventoryCategory(category, false, !mReplace);
 					delete this;
 				}
 			}
@@ -3636,7 +3636,7 @@ bool LLFolderBridge::renameItem(const std::string& new_name)
 
 	rename_category(getInventoryModel(), mUUID, new_name);
 
-	// return FALSE because we either notified observers (& therefore
+	// return false because we either notified observers (& therefore
 	// rebuilt) or we didn't update.
 	return false;
 }
@@ -3906,7 +3906,7 @@ void LLFolderBridge::perform_pasteFromClipboard()
                             if (viitem)
                             {
                                 //changeItemParent() implicity calls dirtyFilter
-                                changeItemParent(model, viitem, parent_id, FALSE);
+                                changeItemParent(model, viitem, parent_id, false);
                             }
                         }
                         else
@@ -4705,12 +4705,12 @@ void LLFolderBridge::modifyOutfit(bool append)
 
 	if (isAgentInventory())
 	{
-		LLAppearanceMgr::instance().wearInventoryCategory(cat, FALSE, append);
+		LLAppearanceMgr::instance().wearInventoryCategory(cat, false, append);
 	}
 	else
 	{
 		// Library, we need to copy content first
-		LLAppearanceMgr::instance().wearInventoryCategory(cat, TRUE, append);
+		LLAppearanceMgr::instance().wearInventoryCategory(cat, true, append);
 	}
 }
 
@@ -5411,7 +5411,7 @@ bool LLFolderBridge::dragItemIntoFolder(LLInventoryItem* inv_item,
 		else if ((inv_item->getActualType() == LLAssetType::AT_SETTINGS) && !LLEnvironment::instance().isInventoryEnabled())
 		{
 			tooltip_msg = LLTrans::getString("NoEnvironmentSettings");
-			accept = FALSE;
+			accept = false;
 		}
 		else
 		{
@@ -6852,13 +6852,13 @@ bool LLObjectBridge::renameItem(const std::string& new_name)
 			if(obj)
 			{
 				LLSelectMgr::getInstance()->deselectAll();
-				LLSelectMgr::getInstance()->addAsIndividual( obj, SELECT_ALL_TES, FALSE );
+				LLSelectMgr::getInstance()->addAsIndividual( obj, SELECT_ALL_TES, false );
 				LLSelectMgr::getInstance()->selectionSetObjectName( new_name );
 				LLSelectMgr::getInstance()->deselectAll();
 			}
 		}
 	}
-	// return FALSE because we either notified observers (& therefore
+	// return false because we either notified observers (& therefore
 	// rebuilt) or we didn't update.
 	return false;
 }
@@ -6918,7 +6918,7 @@ std::string LLWearableBridge::getLabelSuffix() const
 
 LLUIImagePtr LLWearableBridge::getIcon() const
 {
-	return LLInventoryIcon::getIcon(mAssetType, mInvType, mWearableType, FALSE);
+	return LLInventoryIcon::getIcon(mAssetType, mInvType, mWearableType, false);
 }
 
 // virtual
@@ -7245,7 +7245,7 @@ LLSettingsBridge::LLSettingsBridge(LLInventoryPanel* inventory,
 
 LLUIImagePtr LLSettingsBridge::getIcon() const
 {
-    return LLInventoryIcon::getIcon(LLAssetType::AT_SETTINGS, LLInventoryType::IT_SETTINGS, mSettingsType, FALSE);
+    return LLInventoryIcon::getIcon(LLAssetType::AT_SETTINGS, LLInventoryType::IT_SETTINGS, mSettingsType, false);
 }
 
 void LLSettingsBridge::performAction(LLInventoryModel* model, std::string action)

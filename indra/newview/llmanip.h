@@ -118,7 +118,7 @@ public:
 	LLManip( const std::string& name, LLToolComposite* composite );
 
 	virtual bool		handleMouseDownOnPart(S32 x, S32 y, MASK mask) = 0;
-	void				renderGuidelines(BOOL draw_x = TRUE, BOOL draw_y = TRUE, BOOL draw_z = TRUE);
+	void				renderGuidelines(bool draw_x = true, bool draw_y = true, bool draw_z = true);
 	static void			renderXYZ(const LLVector3 &vec);
 
     /*virtual*/ bool	handleMouseUp(S32 x, S32 y, MASK mask);

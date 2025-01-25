@@ -400,8 +400,8 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg)
 	std::string media_type;
 	S32 media_width = 0;
 	S32 media_height = 0;
-	U8 media_auto_scale = FALSE;
-	U8 media_loop = FALSE;
+	U8 media_auto_scale = 0;
+	U8 media_loop = 0;
 
 	msg->getUUID( "DataBlock", "MediaID", media_id );
 	char media_url_buffer[257];
@@ -420,7 +420,7 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg)
 	}
 
 	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
-	BOOL same = FALSE;
+	bool same = false;
 	if (parcel)
 	{
 		same = ((parcel->getMediaURL() == media_url) &&

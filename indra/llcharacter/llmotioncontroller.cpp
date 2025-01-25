@@ -749,7 +749,7 @@ void LLMotionController::updateMotionsByType(LLMotion::LLMotionBlendType anim_ty
 
 		}
 
-		// even if onupdate returns FALSE, add this motion in to the blend one last time
+		// even if onupdate returns false, add this motion in to the blend one last time
 		mPoseBlender.addMotion(motionp);
 	}
 }

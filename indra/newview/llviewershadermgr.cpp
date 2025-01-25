@@ -575,7 +575,7 @@ void LLViewerShaderMgr::setShaders()
     gPipeline.mShadersLoaded = true;
 
     // Load all shaders to set max levels
-    BOOL loaded = loadShadersEnvironment();
+    bool loaded = loadShadersEnvironment();
 
     if (loaded)
     {

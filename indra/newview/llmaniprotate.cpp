@@ -874,11 +874,11 @@ void LLManipRotate::renderSnapGuides()
 				F32 end_angle = atan2(y_axis_snap * edge_normal, x_axis_snap * edge_normal);
 				//F32 start_angle = angle_between((-1.f * LLVector3::x_axis) * snap_guide_rot, edge_normal);
 				F32 start_angle = end_angle - F_PI;
-				gl_arc_2d(0.f, 0.f, mRadiusMeters * SNAP_GUIDE_INNER_RADIUS, CIRCLE_STEPS, FALSE, start_angle, end_angle);
+				gl_arc_2d(0.f, 0.f, mRadiusMeters * SNAP_GUIDE_INNER_RADIUS, CIRCLE_STEPS, false, start_angle, end_angle);
 			}
 			else
 			{
-				gl_circle_2d(0.f, 0.f, mRadiusMeters * SNAP_GUIDE_INNER_RADIUS, CIRCLE_STEPS, FALSE);
+				gl_circle_2d(0.f, 0.f, mRadiusMeters * SNAP_GUIDE_INNER_RADIUS, CIRCLE_STEPS, false);
 			}
 			gGL.popMatrix();
 

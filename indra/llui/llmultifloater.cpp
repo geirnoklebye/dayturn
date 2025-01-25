@@ -110,7 +110,7 @@ bool LLMultiFloater::closeAllFloaters()
 		}
 	}
 	if( mTabContainer->getTabCount() != 0 )
-		return false; // Couldn't close all the tabs (pending save dialog?) so return FALSE.
+		return false; // Couldn't close all the tabs (pending save dialog?) so return false.
 	return true; //else all tabs were successfully closed...
 }
 

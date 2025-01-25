@@ -278,11 +278,11 @@ void LLOutfitListBase::performAction(std::string action)
 
 	if ("replaceoutfit" == action)
 	{
-		LLAppearanceMgr::instance().wearInventoryCategory( cat, FALSE, FALSE );
+		LLAppearanceMgr::instance().wearInventoryCategory( cat, false, false );
 	}
 	else if ("addtooutfit" == action)
 	{
-		LLAppearanceMgr::instance().wearInventoryCategory( cat, FALSE, TRUE );
+		LLAppearanceMgr::instance().wearInventoryCategory( cat, false, true );
 	}
 	else if ("rename_outfit" == action)
 	{
@@ -1203,7 +1203,7 @@ void LLOutfitListGearMenuBase::onWear()
     if (selected_outfit)
     {
         LLAppearanceMgr::instance().wearInventoryCategory(
-            selected_outfit, /*copy=*/ FALSE, /*append=*/ FALSE);
+            selected_outfit, /*copy=*/ false, /*append=*/ false);
     }
 }
 

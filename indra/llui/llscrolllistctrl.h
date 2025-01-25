@@ -482,7 +482,7 @@ protected:
 	// (except in the case that the addItem() call fails, in which case it is up
 	// to the caller to delete the item)
 	//
-	// returns FALSE if item faile to be added to list, does NOT delete 'item'
+	// returns false if item faile to be added to list, does NOT delete 'item'
 	bool			addItem( LLScrollListItem* item, EAddPosition pos = ADD_BOTTOM, bool requires_column = true );
 
 	typedef std::deque<LLScrollListItem *> item_list;

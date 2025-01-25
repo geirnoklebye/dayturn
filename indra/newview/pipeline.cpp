@@ -889,7 +889,7 @@ bool LLPipeline::allocateScreenBuffer(U32 resX, U32 resY, U32 samples)
 		//allocate deferred rendering color buffers
 		if (!mDeferredScreen.allocate(resX, resY, GL_SRGB8_ALPHA8, true, true, LLTexUnit::TT_RECT_TEXTURE, false, samples)) return false;
 		if (!mDeferredDepth.allocate(resX, resY, 0, true, false, LLTexUnit::TT_RECT_TEXTURE, false, samples)) return false;
-		if (!mOcclusionDepth.allocate(resX/occlusion_divisor, resY/occlusion_divisor, 0, true, false, LLTexUnit::TT_RECT_TEXTURE, FALSE, samples)) return false;
+		if (!mOcclusionDepth.allocate(resX/occlusion_divisor, resY/occlusion_divisor, 0, true, false, LLTexUnit::TT_RECT_TEXTURE, false, samples)) return false;
 		if (!addDeferredAttachments(mDeferredScreen)) return false;
 	
 		GLuint screenFormat = GL_RGBA16;

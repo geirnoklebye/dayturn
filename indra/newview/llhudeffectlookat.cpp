@@ -575,7 +575,7 @@ void LLHUDEffectLookAt::render()
 			std::string name = nameBuffer.mDisplayName;
 
 			gViewerWindow->setup3DRender();
-			hud_render_utf8text(name, position, *fontp, LLFontGL::NORMAL, LLFontGL::NO_SHADOW, -0.5*fontp->getWidthF32(name), 3.0, color, FALSE);
+			hud_render_utf8text(name, position, *fontp, LLFontGL::NORMAL, LLFontGL::NO_SHADOW, -0.5*fontp->getWidthF32(name), 3.0, color, false);
 
 			glPopMatrix();
 		}

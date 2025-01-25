@@ -369,9 +369,9 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 
 	if (gSavedSettings.getbool("DebugPermissions"))
 	{
-		BOOL slam_perm 			= FALSE;
-		BOOL overwrite_group	= FALSE;
-		BOOL overwrite_everyone	= FALSE;
+		bool slam_perm 			= false;
+		bool overwrite_group	= false;
+		bool overwrite_everyone	= false;
 
 		if (item->getType() == LLAssetType::AT_OBJECT)
 		{
@@ -442,13 +442,13 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	}
 
 	// Set values.
-	BOOL is_group_copy = (group_mask & PERM_COPY) ? TRUE : FALSE;
-	BOOL is_group_modify = (group_mask & PERM_MODIFY) ? TRUE : FALSE;
-	BOOL is_group_move = (group_mask & PERM_MOVE) ? TRUE : FALSE;
+	bool is_group_copy = (group_mask & PERM_COPY) ? true : false;
+	bool is_group_modify = (group_mask & PERM_MODIFY) ? true : false;
+	bool is_group_move = (group_mask & PERM_MOVE) ? true : false;
 
 	if (is_group_copy && is_group_modify && is_group_move)
 	{
-		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD((BOOL)TRUE));
+		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD(true));
 
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
@@ -458,7 +458,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 	}
 	else if (!is_group_copy && !is_group_modify && !is_group_move)
 	{
-		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD((BOOL)FALSE));
+		getChild<LLUICtrl>("CheckShareWithGroup")->setValue(LLSD(false));
 		LLCheckBoxCtrl* ctl = getChild<LLCheckBoxCtrl>("CheckShareWithGroup");
 		if(ctl)
 		{

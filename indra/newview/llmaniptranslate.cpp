@@ -753,7 +753,7 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 					LLViewerObject* root_object = object->getRootEdit();
 					new_position_agent -= root_object->getPositionAgent();
 					new_position_agent = new_position_agent * ~root_object->getRotation();
-					object->setPositionParent(new_position_agent, FALSE);
+					object->setPositionParent(new_position_agent, false);
 					rebuild(object);
 				}
 
@@ -1567,13 +1567,13 @@ void LLManipTranslate::renderSnapGuides()
 					switch (mManipPart)
 					{
 					  case LL_YZ_PLANE:
-						renderGuidelines(FALSE, TRUE, TRUE);
+						renderGuidelines(false, true, true);
 						break;
 					  case LL_XZ_PLANE:
-						renderGuidelines(TRUE, FALSE, TRUE);
+						renderGuidelines(true, false, true);
 						break;
 					  case LL_XY_PLANE:
-						renderGuidelines(TRUE, TRUE, FALSE);
+						renderGuidelines(true, true, false);
 						break;
 					  default:
 						break;

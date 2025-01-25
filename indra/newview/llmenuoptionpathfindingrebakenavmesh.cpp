@@ -221,7 +221,7 @@ void LLMenuOptionPathfindingRebakeNavmesh::handleRegionBoundaryCrossed()
 	if (mIsInitialized)
 	{
 		createNavMeshStatusListenerForCurrentRegion();
-		mCanRebakeRegion = FALSE;
+		mCanRebakeRegion = false;
 		LLPathfindingManager::getInstance()->requestGetAgentState();
 	}
 }

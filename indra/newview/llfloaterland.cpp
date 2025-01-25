@@ -1162,7 +1162,7 @@ void LLPanelLandGeneral::onClickStopSellLand(void* data)
 	LLPanelLandGeneral* panelp = (LLPanelLandGeneral*)data;
 	LLParcel* parcel = panelp->mParcel->getParcel();
 
-	parcel->setParcelFlag(PF_FOR_SALE, FALSE);
+	parcel->setParcelFlag(PF_FOR_SALE, false);
 	parcel->setSalePrice(0);
 	parcel->setAuthorizedBuyerID(LLUUID::null);
 
@@ -2193,7 +2193,7 @@ void LLPanelLandOptions::refresh()
 			fullaccess_mature_ctrl->getTextBox()->appendImageSegment(style);
 			fullaccess_mature_ctrl->getTextBox()->appendText(getString("mature_check_mature"), false);
 			fullaccess_mature_ctrl->setToolTip(getString("mature_check_mature_tooltip"));
-			fullaccess_mature_ctrl->reshape(fullaccess_mature_ctrl->getRect().getWidth(), fullaccess_mature_ctrl->getRect().getHeight(), FALSE);
+			fullaccess_mature_ctrl->reshape(fullaccess_mature_ctrl->getRect().getWidth(), fullaccess_mature_ctrl->getRect().getHeight(), false);
 			
 			// they can see the checkbox, but its disposition depends on the 
 			// state of the region

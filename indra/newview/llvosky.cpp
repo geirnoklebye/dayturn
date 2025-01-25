@@ -394,16 +394,16 @@ const S32 SKYTEX_TILE_RES_X = SKYTEX_RESOLUTION / NUM_TILES_X;
 const S32 SKYTEX_TILE_RES_Y = SKYTEX_RESOLUTION / NUM_TILES_Y;
 
 LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
-:	LLStaticViewerObject(id, pcode, regionp, TRUE),
+:	LLStaticViewerObject(id, pcode, regionp, true),
 	mSun(SUN_DISK_RADIUS), mMoon(MOON_DISK_RADIUS),
 	mBrightnessScale(1.f),
 	mBrightnessScaleNew(0.f),
 	mBrightnessScaleGuess(1.f),
-	mWeatherChange(FALSE),
+	mWeatherChange(false),
 	mCloudDensity(0.2f),
 	mWind(0.f),
-	mForceUpdate(FALSE),
-    mNeedUpdate(TRUE),
+	mForceUpdate(false),
+    mNeedUpdate(true),
     mCubeMapUpdateStage(-1),
 	mWorldScale(1.f),
 	mBumpSunDir(0.f, 0.f, 1.f)

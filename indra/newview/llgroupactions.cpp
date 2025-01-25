@@ -196,7 +196,7 @@ public:
 			} 
 			else if (!gdatap->isMemberDataComplete())
 			{
-				LL_WARNS() << "LLGroupMgr::getInstance()->getGroupData()->isMemberDataComplete() was FALSE" << LL_ENDL;
+				LL_WARNS() << "LLGroupMgr::getInstance()->getGroupData()->isMemberDataComplete() was false" << LL_ENDL;
 				processGroupData();
 				mRequestProcessed = true;
 			}

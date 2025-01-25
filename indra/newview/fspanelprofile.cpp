@@ -1105,11 +1105,11 @@ void FSPanelProfileInterests::processProperties(void* data, EAvatarProcessorType
 			{
 				if (interests_data->want_to_mask & (1<<i))
 				{
-					mWantChecks[i]->setValue(TRUE);
+					mWantChecks[i]->setValue(true);
 				}
 				else
 				{
-					mWantChecks[i]->setValue(FALSE);
+					mWantChecks[i]->setValue(false);
 				}
 			}
 
@@ -1117,11 +1117,11 @@ void FSPanelProfileInterests::processProperties(void* data, EAvatarProcessorType
 			{
 				if (interests_data->skills_mask & (1<<i))
 				{
-					mSkillChecks[i]->setValue(TRUE);
+					mSkillChecks[i]->setValue(true);
 				}
 				else
 				{
-					mSkillChecks[i]->setValue(FALSE);
+					mSkillChecks[i]->setValue(false);
 				}
 			}
 
@@ -1551,14 +1551,14 @@ void FSPanelPick::sendUpdate()
 	pick_data.creator_id = gAgentID;;
 
 	//legacy var  need to be deleted
-	pick_data.top_pick = FALSE;
+	pick_data.top_pick = false;
 	pick_data.parcel_id = mParcelId;
 	pick_data.name = getPickName();
 	pick_data.desc = mPickDescription->getValue().asString();
 	pick_data.snapshot_id = mSnapshotCtrl->getImageAssetID();
 	pick_data.pos_global = getPosGlobal();
 	pick_data.sort_order = 0;
-	pick_data.enabled = TRUE;
+	pick_data.enabled = true;
 
 	LLAvatarPropertiesProcessor::getInstance()->sendPickInfoUpdate(&pick_data);
 
@@ -1984,9 +1984,9 @@ void FSPanelAvatarNotes::apply()
 
 void FSPanelAvatarNotes::fillRightsData()
 {
-	mOnlineStatus->setValue(FALSE);
-	mMapRights->setValue(FALSE);
-	mEditObjectRights->setValue(FALSE);
+	mOnlineStatus->setValue(false);
+	mMapRights->setValue(false);
+	mEditObjectRights->setValue(false);
 
 	const LLRelationship* relation = LLAvatarTracker::instance().getBuddyInfo(getAvatarId());
 	// If true - we are viewing friend's profile, enable check boxes and set values.
@@ -1994,9 +1994,9 @@ void FSPanelAvatarNotes::fillRightsData()
 	{
 		S32 rights = relation->getRightsGrantedTo();
 
-		mOnlineStatus->setValue(LLRelationship::GRANT_ONLINE_STATUS & rights ? TRUE : FALSE);
-		mMapRights->setValue(LLRelationship::GRANT_MAP_LOCATION & rights ? TRUE : FALSE);
-		mEditObjectRights->setValue(LLRelationship::GRANT_MODIFY_OBJECTS & rights ? TRUE : FALSE);
+		mOnlineStatus->setValue(LLRelationship::GRANT_ONLINE_STATUS & rights ? true : false);
+		mMapRights->setValue(LLRelationship::GRANT_MAP_LOCATION & rights ? true : false);
+		mEditObjectRights->setValue(LLRelationship::GRANT_MODIFY_OBJECTS & rights ? true : false);
 	}
 
     enableCheckboxes(NULL != relation);
@@ -2021,7 +2021,7 @@ void FSPanelAvatarNotes::rightsConfirmationCallback(const LLSD& notification,
 	}
 	else
 	{
-		mEditObjectRights->setValue(mEditObjectRights->getValue().asBoolean() ? FALSE : TRUE);
+		mEditObjectRights->setValue(mEditObjectRights->getValue().asBoolean() ? false : true);
 	}
 }
 
@@ -2107,9 +2107,9 @@ void FSPanelAvatarNotes::resetData()
 {
 	resetLoading();
 	mNotesEditor->setValue(LLStringUtil::null);
-	mOnlineStatus->setValue(FALSE);
-	mMapRights->setValue(FALSE);
-	mEditObjectRights->setValue(FALSE);
+	mOnlineStatus->setValue(false);
+	mMapRights->setValue(false);
+	mEditObjectRights->setValue(false);
 }
 
 void FSPanelAvatarNotes::enableCheckboxes(bool enable)

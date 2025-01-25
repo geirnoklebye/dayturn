@@ -66,7 +66,7 @@ LLHUDIcon::LLHUDIcon(const U8 type) :
 			mImagep(NULL),
 			mPickID(0),
 			mScale(0.1f),
-			mHidden(FALSE)
+			mHidden(false)
 {
 	sIconInstances.push_back(this);
 }

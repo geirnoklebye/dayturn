@@ -168,7 +168,7 @@ public:
 
 	virtual ~LLFolderViewItem( void );
 
-	// addToFolder() returns TRUE if it succeeds. FALSE otherwise
+	// addToFolder() returns true if it succeeds. false otherwise
 	virtual void addToFolder(LLFolderViewFolder* folder);
 
 	// Finds width and height of this object and it's children.  Also
@@ -353,7 +353,7 @@ public:
 	LLFolderViewItem* getNextFromChild( LLFolderViewItem*, bool include_children = true );
 	LLFolderViewItem* getPreviousFromChild( LLFolderViewItem*, bool include_children = true  );
 
-	// addToFolder() returns TRUE if it succeeds. FALSE otherwise
+	// addToFolder() returns true if it succeeds. false otherwise
 	virtual void addToFolder(LLFolderViewFolder* folder);
 
 	// Finds width and height of this object and it's children.  Also

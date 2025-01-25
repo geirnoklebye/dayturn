@@ -730,7 +730,7 @@ bool FSFloaterImport::processPrimCreated(LLViewerObject* object)
 		return false;
 	}
 
-	LLSelectMgr::getInstance()->selectObjectAndFamily(object, TRUE);
+	LLSelectMgr::getInstance()->selectObjectAndFamily(object, true);
 
 	LLUUID prim_uuid = mManifest["linkset"][mLinkset][mObject].asUUID();
 	LLSD& prim = mManifest["prim"][prim_uuid.asString()];

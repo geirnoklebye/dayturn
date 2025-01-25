@@ -1720,11 +1720,11 @@ U32 LLXMLNode::getBoolValue(U32 expected_length, BOOL *array)
 		LLStringUtil::toLower(str_array[i]);
 		if (str_array[i] == "false")
 		{
-			array[ret_length++] = FALSE;
+			array[ret_length++] = 0;
 		}
 		else if (str_array[i] == "true")
 		{
-			array[ret_length++] = TRUE;
+			array[ret_length++] = 1;
 		}
 	}
 

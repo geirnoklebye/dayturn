@@ -294,7 +294,7 @@ bool LLManip::getMousePointOnPlaneGlobal(LLVector3d& point, S32 x, S32 y, LLVect
 										point, x, y, origin, normal );
 	}
 
-	//return FALSE;
+	//return false;
 }
 
 // Given the line defined by mouse cursor (a1 + a_param*(a2-a1)) and the line defined by b1 + b_param*(b2-b1),
@@ -397,7 +397,7 @@ LLVector3 LLManip::getPivotPoint()
 }
 
 
-void LLManip::renderGuidelines(BOOL draw_x, BOOL draw_y, BOOL draw_z)
+void LLManip::renderGuidelines(bool draw_x, bool draw_y, bool draw_z)
 {
 	LLVector3 grid_origin;
 	LLQuaternion grid_rot;

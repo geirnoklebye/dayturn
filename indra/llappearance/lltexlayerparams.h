@@ -74,7 +74,7 @@ public:
 	/*virtual*/ LLViewerVisualParam* cloneParam(LLWearable* wearable = nullptr) const;
 
 	// LLVisualParam Virtual functions
-	///*virtual*/ BOOL		parseData(LLXmlTreeNode* node);
+	///*virtual*/ bool		parseData(LLXmlTreeNode* node);
 	/*virtual*/ void		apply( ESex avatar_sex ) {}
 	/*virtual*/ void		setWeight(F32 weight);
 	/*virtual*/ void		setAnimationTarget(F32 target_value); 
@@ -157,7 +157,7 @@ public:
 	/*virtual*/ LLViewerVisualParam* cloneParam(LLWearable* wearable = nullptr) const;
 
 	// LLVisualParam Virtual functions
-	///*virtual*/ BOOL			parseData(LLXmlTreeNode* node);
+	///*virtual*/ bool			parseData(LLXmlTreeNode* node);
 	/*virtual*/ void			apply( ESex avatar_sex ) {}
 	/*virtual*/ void			setWeight(F32 weight);
 	/*virtual*/ void			setAnimationTarget(F32 target_value);

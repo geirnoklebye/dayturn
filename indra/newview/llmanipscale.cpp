@@ -1007,7 +1007,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 			}
 		}
 	}
-	// do the child objects i.e. (FALSE == cur->isRootEdit())
+	// do the child objects i.e. (false == cur->isRootEdit())
 	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
 		 iter != mObjectSelection->end(); iter++)
 	{

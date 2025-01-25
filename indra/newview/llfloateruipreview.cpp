@@ -393,7 +393,7 @@ LLFloaterUIPreview::LLFloaterUIPreview(const LLSD& key)
 	mDisplayedFloater(nullptr),
 	mDisplayedFloater_2(nullptr),
 	mLiveFile(nullptr),
-	// sHighlightingDiffs(FALSE),
+	// sHighlightingDiffs(false),
 	mHighlightingOverlaps(false),
 	mLastDisplayedX(0),
 	mLastDisplayedY(0)

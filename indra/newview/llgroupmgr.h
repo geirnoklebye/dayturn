@@ -84,7 +84,7 @@ public:
 						U64 agent_powers,
 						const std::string& title,
 						const std::string& online_status,
-						BOOL is_owner);
+						bool is_owner);
 
 	~LLGroupMemberData();
 
@@ -221,7 +221,7 @@ struct LLGroupTitle
 {
 	std::string mTitle;
 	LLUUID		mRoleID;
-	BOOL		mSelected;
+	bool		mSelected;
 };
 
 class LLGroupMgrGroupData
@@ -234,7 +234,7 @@ public:
 
 	const LLUUID& getID() { return mID; }
 
-	BOOL getRoleData(const LLUUID& role_id, LLRoleData& role_data);
+	bool getRoleData(const LLUUID& role_id, LLRoleData& role_data);
 	void setRoleData(const LLUUID& role_id, LLRoleData role_data);
 	void createRole(const LLUUID& role_id, LLRoleData role_data);
 	void deleteRole(const LLUUID& role_id);
@@ -398,9 +398,9 @@ public:
 									   U8 show_in_list,
 									   const LLUUID& insignia,
 									   S32 membership_fee,
-									   BOOL open_enrollment,
-									   BOOL allow_publish,
-									   BOOL mature_publish);
+									   bool open_enrollment,
+									   bool allow_publish,
+									   bool mature_publish);
 
 	static void sendGroupMemberJoin(const LLUUID& group_id);
 	static void sendGroupMemberInvites(const LLUUID& group_id, std::map<LLUUID,LLUUID>& role_member_pairs);
