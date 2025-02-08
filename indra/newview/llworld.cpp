@@ -80,12 +80,12 @@ const S32 WORLD_PATCH_SIZE = 16;
 
 extern LLColor4U MAX_WATER_COLOR;
 
-const U32 LLWorld::mWidth = 256;
+U32 LLWorld::mWidth = 256;
 
 // meters/point, therefore mWidth * mScale = meters per edge
 const F32 LLWorld::mScale = 1.f;
 
-const F32 LLWorld::mWidthInMeters = mWidth * mScale;
+F32 LLWorld::mWidthInMeters = mWidth * mScale;
 
 //
 // Functions
@@ -536,15 +536,118 @@ void LLWorld::setTerrainDetailScale(F32 val)
 	else
 		mTerrainDetailScale = val;
 }
+
+void LLWorld::setAllowMinimap(bool val)            { mAllowMinimap = val; }
+void LLWorld::setAllowPhysicalPrims(bool val)    { mAllowPhysicalPrims = val; }
+void LLWorld::setSkyUseClassicClouds(bool val)    { mClassicCloudsEnabled = val; }
+void LLWorld::setAllowParcelWindLight(bool val) { mAllowParcelWindLight = val; }
+void LLWorld::setEnableTeenMode(bool val)        { mEnableTeenMode = val; }
+void LLWorld::setEnforceMaxBuild(bool val)        { mEnforceMaxBuild = val; }
+void LLWorld::setLockedDrawDistance(bool val)    { mLockedDrawDistance = val; }
+void LLWorld::setAllowRenderName(S32 val)        { mAllowRenderName = val; }
+
+void LLWorld::updateLimits()
+{
+    if(!LLGridManager::getInstance())
+    {
+        return;
+    }
+    /*
+    mRegionMaxHeight
+    getRegionMinPrimScale
+    getRegionMaxPrimScale
+    getMinPrimXPos
+    getMinPrimYPos
+    getMinPrimZPos
+    getMaxPrimXPos
+    getMaxPrimYPos
+    getMaxPrimZPos
+    getRegionMaxHollowSize
+    getRegionMinHoleSize
+    getAllowPhysicalPrims
+    mRegionMaxPrimScaleNoMesh // not implemented
+
+    gFloaterTools->updateToolsSizeLimits();
+
+
+    mAllowMinimap
+    */
+
+    if(mAllowMinimap && LLFloaterReg::instanceVisible("mini_map")) LLFloaterReg::showInstance("mini_map");
+    else LLFloaterReg::hideInstance("mini_map");
+
+    /*
+    mMaxLinkedPrims;
+    mMaxPhysLinkedPrims; // not implemented
+    */
+    //done in llselectmgr.cpp
+    /*
+    mMaxDragDistance;
+    */
+    //done in llmaniptranslate.cpp
+    /*
+    mAllowRenderWater
+    */
+
+    /*
+    mMaxInventoryItemsTransfer
+    */
+
+    //done in llgiveinventory.cpp
+    /*
+    drawdistance // set in kowopenregionssettings.cpp
+    mLockedDrawDistance
+    mAllowRenderName;
+    */
+
+    //done in llviewerdisplay.cpp
+    /*
+    skyUseClassicClouds
+    */
+
+    //can't implement, classic clouds are removed from v3 viewers
+    /*
+    mEnableTeenMode
+    */
+    //this is enabletoggle, not set, done in llviewermenu.cpp
+
+    /*
+    mMaxPhysPrimScale
+    */
+
+    //todo
+    /*
+    mEnforceMaxBuild
+    */
+
+    // not used as long as there is no gSavedSettings.getBOOL("DisableMaxBuildConstraints") to overwrite default settings
+    /*
+    mAllowParcelWindLight
+    */
+
+    // not implemented setting
+    /*
+
+    //Update the floater if its around
+    LLPanelRegionOpenSettingsInfo* floater = LLFloaterRegionInfo::getPanelOpenSettings();
+    if (floater != NULL)
+    {
+        floater->refreshFromRegion(gAgent.getRegion());
+    }
+    */
+}
+
 // </AW: opensim-limits>
 
-LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host)
+LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host, const U32 &region_size_x, const U32 &region_size_y)
 {
-	bool suppress = gSavedSettings.getbool("KokuaSuppressPeriodicLogging");
-	if (!suppress)
-	{
-		LL_INFOS() << "Add region with handle: " << region_handle << " on host " << host << LL_ENDL;
-	}
+    // <AW: opensim-limits>
+    if(mLimitsNeedRefresh)
+    {
+        refreshLimits();
+    }
+// </AW: opensim-limits>
+
 	LLViewerRegion *regionp = getRegionFromHandle(region_handle);
 	std::string seedUrl;
 	if (regionp)
@@ -554,10 +657,7 @@ LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host)
 		if (host == old_host && regionp->isAlive())
 		{
 			// This is a duplicate for the same host and it's alive, don't bother.
-			if (!suppress)
-			{
-				LL_INFOS() << "Region already exists and is alive, using existing region" << LL_ENDL;
-			}
+            LL_INFOS() << "Region already exists and is alive, using existing region" << LL_ENDL;
 			return regionp;
 		}
 
@@ -581,23 +681,21 @@ LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host)
 	}
 	else
 	{
-		if (!suppress)
-		{
-			LL_INFOS() << "Region does not exist, creating new one" << LL_ENDL;
-		}
+        LL_INFOS() << "Region does not exist, creating new one" << LL_ENDL;
 	}
 
 	U32 iindex = 0;
 	U32 jindex = 0;
+    mWidth = region_size_x;  //MegaRegion
+    mWidthInMeters = mWidth * mScale; //MegaRegion
 	from_region_handle(region_handle, &iindex, &jindex);
-	S32 x = (S32)(iindex/mWidth);
-	S32 y = (S32)(jindex/mWidth);
-	if (!suppress)
-	{
-		LL_INFOS() << "Adding new region (" << x << ":" << y << ")" 
+    S32 x = (S32)(iindex/256); //MegaRegion
+    S32 y = (S32)(jindex/256); //MegaRegion
+
+    LL_INFOS() << "Adding new region (" << x << ":" << y << ")"
 			<< " on host: " << host << LL_ENDL;
-	}
-	LLVector3d origin_global;
+
+    LLVector3d origin_global;
 
 	origin_global = from_region_handle(region_handle);
 
@@ -1490,7 +1588,6 @@ void LLWorld::updateWaterObjects()
 
 void LLWorld::shiftRegions(const LLVector3& offset)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	for (region_list_t::const_iterator i = getRegionList().begin(); i != getRegionList().end(); ++i)
 	{
 		LLViewerRegion* region = *i;
@@ -1563,8 +1660,7 @@ void LLWorld::disconnectRegions()
 
 void process_enable_simulator(LLMessageSystem *msg, void **user_data)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_NETWORK;
-	// enable the appropriate circuit for this simulator and 
+	// enable the appropriate circuit for this simulator and
 	// add its values into the gSimulator structure
 	U64		handle;
 	U32		ip_u32;
@@ -1580,9 +1676,26 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
   	// which simulator should we modify?
   	LLHost sim(ip_u32, port);
 
+      U32 region_size_x = 256;
+
+      U32 region_size_y = 256;
+
+  #ifdef OPENSIM
+      if (LLGridManager::getInstance()->isInOpenSim())
+      {
+          msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeX, region_size_x);
+          msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeY, region_size_y);
+          if (region_size_y == 0 || region_size_x == 0)
+          {
+              region_size_x = 256;
+              region_size_y = 256;
+          }
+       }
+  #endif
+
   	// Viewer trusts the simulator.
   	msg->enableCircuit(sim, true);
-  	LLWorld::getInstance()->addRegion(handle, sim);
+      LLWorld::getInstance()->addRegion(handle, sim, region_size_x, region_size_y);
 
   	// give the simulator a message it can use to get ip and port
   	if (!gSavedSettings.getbool("KokuaSuppressPeriodicLogging"))

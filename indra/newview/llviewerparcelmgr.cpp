@@ -72,6 +72,8 @@
 
 #include "llenvironment.h"
 
+#include "llviewernetwork.h"
+
 const F32 PARCEL_BAN_LINES_DRAW_SECS_ON_COLLISION = 10.f;
 const F32 PARCEL_COLLISION_DRAW_SECS_ON_PROXIMITY = 1.f;
 
@@ -142,12 +144,13 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mHoverParcel = new LLParcel();
 	mCollisionParcel = new LLParcel();
 
-	mParcelsPerEdge = S32(	REGION_WIDTH_METERS / PARCEL_GRID_STEP_METERS );
-	mHighlightSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
-	resetSegments(mHighlightSegments);
-
-	mCollisionSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
-	resetSegments(mCollisionSegments);
+	F32 region_size = 8192.f; //aurora max region size, 8192
+	mParcelsPerEdge = S32(	region_size / PARCEL_GRID_STEP_METERS );
+	
+	mCollisionBitmap = new U8[getCollisionBitmapSize()];
+	if (mCollisionBitmap) {
+		memset(mCollisionBitmap, 0, getCollisionBitmapSize());
+	}
 
 	// JC: Resolved a merge conflict here, eliminated
 	// mBlockedImage->setAddressMode(LLTexUnit::TAM_WRAP);
@@ -155,19 +158,30 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mBlockedImage = LLViewerTextureManager::getFetchedTextureFromFile("world/NoEntryLines.png", FTT_LOCAL_FILE, true, LLGLTexture::BOOST_UI);
 	mPassImage = LLViewerTextureManager::getFetchedTextureFromFile("world/NoEntryPassLines.png", FTT_LOCAL_FILE, true, LLGLTexture::BOOST_UI);
 
+	mHighlightSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
+	resetSegments(mHighlightSegments);
+
+	mCollisionSegments = new U8[(mParcelsPerEdge+1)*(mParcelsPerEdge+1)];
+	resetSegments(mCollisionSegments);
 	S32 overlay_size = mParcelsPerEdge * mParcelsPerEdge / PARCEL_OVERLAY_CHUNKS;
 	sPackedOverlay = new U8[overlay_size];
 
 	mAgentParcelOverlay = new U8[mParcelsPerEdge * mParcelsPerEdge];
-	S32 i;
-	for (i = 0; i < mParcelsPerEdge * mParcelsPerEdge; i++)
+	if (mAgentParcelOverlay) 
 	{
-		mAgentParcelOverlay[i] = 0;
+		memset(mAgentParcelOverlay, 0, mParcelsPerEdge * mParcelsPerEdge);
 	}
+
+	mParcelsPerEdge = S32(	REGION_WIDTH_METERS / PARCEL_GRID_STEP_METERS );
 
 	mTeleportInProgress = true; // the initial parcel update is treated like teleport
 }
 
+
+void LLViewerParcelMgr::init(F32 region_size)
+{
+	mParcelsPerEdge = S32(	region_size / PARCEL_GRID_STEP_METERS );
+}
 
 LLViewerParcelMgr::~LLViewerParcelMgr()
 {
@@ -1501,8 +1515,9 @@ void LLViewerParcelMgr::processParcelOverlay(LLMessageSystem *msg, void **user)
 		return;
 	}
 
-	S32 parcels_per_edge = LLViewerParcelMgr::getInstance()->mParcelsPerEdge;
-	S32 expected_size = parcels_per_edge * parcels_per_edge / PARCEL_OVERLAY_CHUNKS;
+	//S32 parcels_per_edge = LLViewerParcelMgr::getInstance()->mParcelsPerEdge;
+	//S32 expected_size = parcels_per_edge * parcels_per_edge / PARCEL_OVERLAY_CHUNKS;
+	S32 expected_size = 1024;
 	if (packed_overlay_size != expected_size)
 	{
 		LL_WARNS() << "Got parcel overlay size " << packed_overlay_size
@@ -1844,7 +1859,17 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 			}
 
 			// Request access list information for this land
-			parcel_mgr.sendParcelAccessListRequest(AL_ACCESS | AL_BAN | AL_ALLOW_EXPERIENCE | AL_BLOCK_EXPERIENCE);
+            
+            // <FA.Ansariel> FIRE-17280: Requestion experience access and block list interferes with Opensim land flags
+            
+            if (LLGridManager::instance().isInSecondLife())
+            {
+			    parcel_mgr.sendParcelAccessListRequest(AL_ACCESS | AL_BAN | AL_ALLOW_EXPERIENCE | AL_BLOCK_EXPERIENCE);
+            } else {
+                parcel_mgr.sendParcelAccessListRequest(AL_ACCESS | AL_BAN );
+            }
+            
+            // <FA.Ansariel>
 
 			// Request dwell for this land, if it's not public land.
 			parcel_mgr.mSelectedDwell = DWELL_NAN;
@@ -1883,17 +1908,17 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 
 		}
 
-		S32 bitmap_size =	parcel_mgr.mParcelsPerEdge
-							* parcel_mgr.mParcelsPerEdge
-							/ 8;
-		U8* bitmap = new U8[ bitmap_size ];
-		msg->getBinaryDataFast(_PREHASH_ParcelData, _PREHASH_Bitmap, bitmap, bitmap_size);
+		msg->getBinaryDataFast(_PREHASH_ParcelData, _PREHASH_Bitmap, parcel_mgr.mCollisionBitmap, parcel_mgr.getCollisionBitmapSize());
 
 		parcel_mgr.resetSegments(parcel_mgr.mCollisionSegments);
-		parcel_mgr.writeSegmentsFromBitmap( bitmap, parcel_mgr.mCollisionSegments );
+		parcel_mgr.writeSegmentsFromBitmap(parcel_mgr.mCollisionBitmap, parcel_mgr.mCollisionSegments);
 
-		delete[] bitmap;
-		bitmap = NULL;
+		LLViewerRegion *region = LLWorld::getInstance()->getRegion(msg->getSender());
+		parcel_mgr.mCollisionRegionHandle = (region) ? region->getHandle() : 0;
+
+		if (parcel_mgr.mCollisionUpdateSignal) {
+			(*parcel_mgr.mCollisionUpdateSignal)(region);
+		}
 
 	}
 	else if (sequence_id == HOVERED_PARCEL_SEQ_ID)

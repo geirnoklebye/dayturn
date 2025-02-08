@@ -672,13 +672,17 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 					mWidth);
 
 	mParcelOverlay = new LLViewerParcelOverlay(this, mWidth);
+	LLViewerParcelMgr::getInstance()->init(mWidth);
 
 	setOriginGlobal(from_region_handle(handle));
 	calculateCenterGlobal();
 
 	// Create the object lists
 	initStats();
-
+	initPartitions();
+}
+void LLViewerRegion::initPartitions()
+{
 	//create object partitions
 	//MUST MATCH declaration of eObjectPartitions
 	mImpl->mObjectPartition.push_back(new LLHUDPartition(this));		//PARTITION_HUD
@@ -698,6 +702,15 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mImpl->mVOCachePartition = getVOCachePartition();
 
 	setCapabilitiesReceivedCallback(boost::bind(&LLAvatarRenderInfoAccountant::scanNewRegion, _1));
+
+	mRenderInfoRequestTimer.resetWithExpiry(0.f);		// Set timer to be expired
+	setCapabilitiesReceivedCallback(boost::bind(&LLAvatarRenderInfoAccountant::expireRenderInfoReportTimer, _1));
+}
+void LLViewerRegion::reInitPartitions()
+{
+	std::for_each(mImpl->mObjectPartition.begin(), mImpl->mObjectPartition.end(), DeletePointer());
+	mImpl->mObjectPartition.clear();
+	initPartitions();
 }
 
 

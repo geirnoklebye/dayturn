@@ -84,6 +84,7 @@ public:
 	typedef boost::function<void()> teleport_failed_callback_t;
 	typedef boost::signals2::signal<void()> teleport_failed_signal_t;
 
+	void init(F32 region_size);
 	static void cleanupGlobals();
 
 	bool	selectionEmpty() const;

@@ -6262,7 +6262,7 @@ bool LLViewerObject::permYouOwner() const
 		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLGridManager::getInstance()->isInProductionGrid()
+		if (LLGridManager::getInstance()->isInSLBeta()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return true;
@@ -6299,7 +6299,7 @@ bool LLViewerObject::permOwnerModify() const
 		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLGridManager::getInstance()->isInProductionGrid()
+		if (LLGridManager::getInstance()->isInSLBeta()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 	{
 			return true;
@@ -6323,7 +6323,7 @@ bool LLViewerObject::permModify() const
 		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLGridManager::getInstance()->isInProductionGrid()
+		if (LLGridManager::getInstance()->isInSLBeta()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 	{
 			return true;
@@ -6347,7 +6347,7 @@ bool LLViewerObject::permCopy() const
 		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLGridManager::getInstance()->isInProductionGrid()
+		if (LLGridManager::getInstance()->isInSLBeta()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return true;
@@ -6371,7 +6371,7 @@ bool LLViewerObject::permMove() const
 		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLGridManager::getInstance()->isInProductionGrid()
+		if (LLGridManager::getInstance()->isInSLBeta()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return true;
@@ -6395,13 +6395,13 @@ bool LLViewerObject::permTransfer() const
 		return true;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLGridManager::getInstance()->isInProductionGrid()
+		if (LLGridManager::getInstance()->isInSLBeta()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return true;
 		}
 # endif
-		return flagObjectTransfer(); 
+		return flagObjectTransfer();
 #endif
 	}
 	else
