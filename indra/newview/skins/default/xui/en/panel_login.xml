@@ -170,30 +170,31 @@
           top_pad="2"
           name="server_combo"
           width="186"
-  visible="true" >
-</combo_box>
-<button
-  follows="left|bottom"
-  height="19"
-  image_unselected="PushButton_Off"
-  image_selected="PushButton_On"
-  image_overlay="Refresh_Off"
-  label=" "
-  layout="topleft"
-  left_pad="1"
-  name="add_grid_btn"
-  top_delta="1"
-  width="20" />
-<button
-  follows="left|bottom"
-  height="23"
-  image_unselected="PushButton_Off"
-  label="Grid Manager"
-  layout="topleft"
-  left_pad="1"
-  name="select_grids_btn"
-  top_delta="-1"
-  width="86" />
+          visible="true" >
+	  </combo_box>
+	<button
+	  name="add_grid_btn"
+	  follows="left|bottom"
+	  height="19"
+	  image_unselected="PushButton_Off"
+	  image_selected="PushButton_On"
+	  image_overlay="Refresh_Off"
+	  label=" "
+	  layout="topleft"
+	  left_pad="1"
+	  top_delta="1"
+	  width="20" />
+	<button
+	  name="select_grids_btn"
+	  follows="left|bottom"
+	  height="23"
+	  image_unselected="PushButton_Off"
+	  image_selected="PushButton_On_Selected"
+	  label="Grid Manager"
+	  layout="topleft"
+	  left_pad="1"
+	  top_delta="-1"
+	  width="86" />
     </layout_panel>
     <layout_panel
         tab_stop="false"

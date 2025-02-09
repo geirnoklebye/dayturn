@@ -99,7 +99,7 @@ private:
 	static void setFields(LLPointer<LLCredential> credential);
 
 	static void onClickConnect(bool commit_fields = true);
-	static void onClickNewAccount(void*);
+	static void onClickSelectGrid(void*);
 	static void onClickVersion(void*);
 	static void onClickForgotPassword(void*);
 	static void onClickSignUp(void*);

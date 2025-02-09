@@ -30,6 +30,8 @@
 #include "lllayoutstack.h"
 
 #include "indra_constants.h"		// for key and mask constants
+#include "llfloater.h"
+#include "llfloaterpreference.h"
 #include "llfloaterreg.h"
 #include "llfontgl.h"
 #include "llmd5.h"
@@ -46,6 +48,7 @@
 #include "llnotificationsutil.h"
 #include "llsecapi.h"
 #include "llstartup.h"
+#include "lltabcontainer.h"
 #include "lltextbox.h"
 #include "llui.h"
 #include "lluiconstants.h"
@@ -223,6 +226,8 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	sendChildToBack(getChildView("forgot_password_text"));
 	sendChildToBack(getChildView("sign_up_text"));
 
+	childSetAction("select_grids_btn", onClickSelectGrid, this);
+
     std::string current_grid = LLGridManager::getInstance()->getGrid();
     if (!mFirstLoginThisInstall)
     {
@@ -236,6 +241,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
         // Load all of the grids, sorted, and then add a bar and the current grid at the top
         server_choice_combo->removeall();
+
 
         std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();
         for (std::map<std::string, std::string>::iterator grid_choice = known_grids.begin();
@@ -1008,6 +1014,35 @@ void LLPanelLogin::onClickConnect(bool commit_fields)
 		}
 	}
 }
+
+
+// static
+void LLPanelLogin::onClickSelectGrid(void *)
+{
+//	if ( !sInstance ) return;
+	// bring up the prefs floater
+	LLFloaterPreference* prefsfloater = dynamic_cast<LLFloaterPreference*>(LLFloaterReg::showInstance("preferences"));
+	if (prefsfloater)
+	{
+		// grab the 'opensim' panel from the preferences floater and
+		// bring it the front!
+		LLTabContainer* tabcontainer = prefsfloater->getChild<LLTabContainer>("pref core");
+		LLPanel* gridspanel = tabcontainer->getChild<LLPanel>("opensim");
+		if (tabcontainer && gridspanel)
+		{
+			tabcontainer->selectTabPanel(gridspanel);
+		}
+	}
+/* NP remove web grid selector
+	LLFloaterWebContent::Params p;
+	p.url = gSavedSettings.getString("GridSelectorURI");
+	p.show_chrome = false;
+	p.preferred_media_size = gSavedSettings.getRect("GridSelectorRect");
+
+	LLFloaterReg::toggleInstanceOrBringToFront("select_grid", p);
+*/
+}
+
 
 // static
 void LLPanelLogin::onClickVersion(void*)
