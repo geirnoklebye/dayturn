@@ -443,6 +443,49 @@ private:
 	LOG_CLASS(FSPanelPreferenceBackup);
 };
 
+// <FS:AW  opensim preferences>
+class LLPanelPreferenceOpensim : public LLPanelPreference
+{
+public:
+	LLPanelPreferenceOpensim();
+// <FS:AW  grid management>
+	/*virtual*/ bool postBuild();
+	/*virtual*/ void apply();
+	/*virtual*/ void cancel();
+// </FS:AW  grid management>
+
+protected:
+// <FS:AW  opensim search support>
+	void onClickClearDebugSearchURL();
+	void onClickPickDebugSearchURL();
+// </FS:AW  opensim search support>
+
+// <FS:AW  grid management>
+	void onClickAddGrid();
+	void addedGrid(bool success);
+	void onClickClearGrid();
+	void onClickRefreshGrid();
+	void onClickRemoveGrid();
+	void onSelectGrid();
+	bool removeGridCB(const LLSD& notification, const LLSD& response);
+	void refreshGridList(bool success = true);
+	LLScrollListCtrl* mGridListControl;
+private:
+	LLLineEditor* mEditorGridName;
+	LLLineEditor* mEditorGridURI;
+	LLLineEditor* mEditorLoginPage;
+	LLLineEditor* mEditorHelperURI;
+	LLLineEditor* mEditorWebsite;
+	LLLineEditor* mEditorSupport;
+	LLLineEditor* mEditorRegister;
+	LLLineEditor* mEditorPassword;
+	LLLineEditor* mEditorSearch;
+	LLLineEditor* mEditorGridMessage;
+// </FS:AW  grid management>
+	LOG_CLASS(LLPanelPreferenceOpensim);
+};
+// </FS:AW  opensim preferences>
+
 class LLFloaterPreferenceProxy : public LLFloater
 {
 public: 

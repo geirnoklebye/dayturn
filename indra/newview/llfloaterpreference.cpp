@@ -3594,6 +3594,145 @@ void LLPanelPreferenceControls::onCancelKeyBind()
 //{
 //}
 
+//<FS:AW  opensim preferences>
+static LLPanelInjector<LLPanelPreferenceOpensim> t_pref_opensim("panel_preference_opensim");
+
+LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
+    mGridListControl(NULL)
+{
+    mCommitCallbackRegistrar.add("Pref.AddGrid", boost::bind(&LLPanelPreferenceOpensim::onClickAddGrid, this));
+    mCommitCallbackRegistrar.add("Pref.ClearGrid", boost::bind(&LLPanelPreferenceOpensim::onClickClearGrid, this));
+    mCommitCallbackRegistrar.add("Pref.RefreshGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRefreshGrid, this));
+    mCommitCallbackRegistrar.add("Pref.RemoveGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRemoveGrid, this));
+}
+
+
+bool LLPanelPreferenceOpensim::postBuild()
+{
+	mEditorGridName = findChild<LLLineEditor>("grid_detail_name");
+    mEditorGridURI = findChild<LLLineEditor>("grid_detail_uri");
+	mEditorLoginPage = findChild<LLLineEditor>("grid_detail_login_page");
+	mEditorHelperURI = findChild<LLLineEditor>("grid_detail_helper_uri");
+	mEditorWebsite = findChild<LLLineEditor>("grid_detail_website");
+	mEditorSupport = findChild<LLLineEditor>("grid_detail_support");
+	mEditorRegister = findChild<LLLineEditor>("grid_detail_register");
+	mEditorPassword = findChild<LLLineEditor>("grid_detail_password");
+	mEditorSearch = findChild<LLLineEditor>("grid_detail_search");
+	mEditorGridMessage = findChild<LLLineEditor>("grid_detail_message");
+	mGridListControl = getChild<LLScrollListCtrl>("grid_list");
+	refreshGridList();
+
+	return LLPanelPreference::postBuild();
+}
+
+void LLPanelPreferenceOpensim::apply()
+{
+	//LLGridManager::getInstance()->saveGridList();
+}
+
+void LLPanelPreferenceOpensim::cancel()
+{
+	//LLGridManager::getInstance()->resetGrids();
+	//LLPanelLogin::updateLocationCombo(false);
+}
+
+void LLPanelPreferenceOpensim::onClickAddGrid()
+{
+/* 
+	std::string new_grid = gSavedSettings.getString("OpensimPrefsAddGrid");
+
+	if (!new_grid.empty())
+	{
+		getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
+		LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::addedGrid, this, _1));
+		LLGridManager::getInstance()->addGrid(new_grid);
+	}
+ */
+}
+
+void LLPanelPreferenceOpensim::onClickClearGrid()
+{
+	gSavedSettings.setString("OpensimPrefsAddGrid", std::string());
+}
+
+void LLPanelPreferenceOpensim::onClickRefreshGrid()
+{
+/* 
+	std::string grid = mGridListControl->getSelectedValue();
+	getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
+	LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::refreshGridList, this, _1));
+	LLGridManager::getInstance()->reFetchGrid(grid);
+ */
+}
+
+void LLPanelPreferenceOpensim::onClickRemoveGrid()
+{
+/* 
+	std::string grid = mGridListControl->getSelectedValue();
+	LLSD args;
+
+	if (grid != LLGridManager::getInstance()->getGrid())
+	{
+		args["REMOVE_GRID"] = grid;
+		LLSD payload = grid;
+		LLNotificationsUtil::add("ConfirmRemoveGrid", args, payload, boost::bind(&LLPanelPreferenceOpensim::removeGridCB, this,  _1, _2));
+	}
+	else
+	{
+		args["REMOVE_GRID"] = LLGridManager::getInstance()->getGridLabel();
+		LLNotificationsUtil::add("CanNotRemoveConnectedGrid", args);
+	}
+ */
+}
+
+void LLPanelPreferenceOpensim::refreshGridList(bool success)
+{
+	getChild<LLUICtrl>("grid_management_panel")->setEnabled(true);
+
+	if (!mGridListControl)
+	{
+		return;
+	}
+
+	mGridListControl->operateOnAll(LLCtrlListInterface::OP_DELETE);
+	mGridListControl->sortByColumnIndex(0, true);
+
+	std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();
+        std::map<std::string, std::string>::iterator grid_iter = known_grids.begin();
+	for(; grid_iter != known_grids.end(); grid_iter++)
+	{
+		if (!grid_iter->first.empty() && !grid_iter->second.empty())
+		{
+			LLURI login_uri = LLURI(LLGridManager::getInstance()->getLoginURI(grid_iter->first));
+			LLSD element;
+			const std::string connected_grid = LLGridManager::getInstance()->getGrid();
+
+			std::string style = "NORMAL";
+			if (connected_grid == grid_iter->first)
+			{
+				style = "BOLD";
+			}
+
+			int col = 0;
+			element["id"] = grid_iter->first;
+			element["columns"][col]["column"] = "grid_label";
+			element["columns"][col]["value"] = grid_iter->second;
+			element["columns"][col]["font"]["name"] = "SANSSERIF";
+			element["columns"][col]["font"]["style"] = style;
+			col++;
+			element["columns"][col]["column"] = "login_uri";
+			element["columns"][col]["value"] = login_uri.authority();
+			element["columns"][col]["font"]["name"] = "SANSSERIF";
+			element["columns"][col]["font"]["style"] = style;
+	
+			mGridListControl->addElement(element);
+		}
+	}
+}
+
+
+// </FS:AW  opensim preferences>
+
 LLFloaterPreferenceProxy::LLFloaterPreferenceProxy(const LLSD& key)
 	: LLFloater(key),
 	  mSocksSettingsDirty(false)

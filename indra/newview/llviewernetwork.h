@@ -28,6 +28,12 @@
 
 #ifndef LL_LLVIEWERNETWORK_H
 #define LL_LLVIEWERNETWORK_H
+
+#include "../llxml/llxmlnode.h"
+                                                                                                       
+#include <boost/function.hpp>
+#include <boost/signals2.hpp>
+
 // @TODO this really should be private, but is used in llslurl
 #define MAINGRID "util.agni.lindenlab.com"
 
@@ -98,6 +104,9 @@ public:
 
 	/// Retrieve a map of grid-name -> label
 	std::map<std::string, std::string> getKnownGrids();
+
+	/// get the first (and very probably only) login URI of a specified grid
+	std::string getLoginURI(const std::string& grid);
 
 	//@}
 

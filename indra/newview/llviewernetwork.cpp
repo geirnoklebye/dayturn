@@ -483,6 +483,22 @@ std::string LLGridManager::getGridId(const std::string& grid)
 	return grid_id;
 }
 
+/// this assumes that there is anyway only one uri saved
+std::string LLGridManager::getLoginURI(const std::string& grid)
+{
+	std::string ret;
+	if (!grid.empty()
+		&& mGridList.has(grid)
+		&& mGridList[grid].has(GRID_LOGIN_URI_VALUE)
+		&& mGridList[grid][GRID_LOGIN_URI_VALUE].isArray()
+	   )
+	{
+		ret =  mGridList[grid][GRID_LOGIN_URI_VALUE].beginArray()->asString();
+	}
+
+	return ret;
+}
+
 void LLGridManager::getLoginURIs(const std::string& grid, std::vector<std::string>& uris)
 {
 	uris.clear();
