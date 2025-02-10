@@ -635,7 +635,6 @@ with the same filename but different name
 
   <texture name="Dayturn_Logo" file_name="icons/Dayturn_Logo.png" preload="true" />
   <texture name="Dayturn_Logo_Large" file_name="icons/Dayturn_Logo_Large.png" preload="true" />  
-  <texture name="fmod_logo" file_name="3p_icons/fmod_logo.png" preload="true" />
   <texture name="OBJECT_Icon" file_name="icons/object_icon.png" preload="true" />
   <texture name="Sound_Icon" file_name="icons/sound_icon.png" preload="true" />
   <texture name="Unknown_Icon" file_name="icons/unknown_icon.png" preload="true" />

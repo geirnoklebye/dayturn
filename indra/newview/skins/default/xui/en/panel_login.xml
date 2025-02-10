@@ -202,18 +202,6 @@
           name="create_new_account_text"
           width="200">
         Sign up
-      </text>
-        <icon
-         halign="right"
-         height="24"
-         width="91"
-         right="-20"
-         top="46"
-         image_name="fmod_logo"
-         name="fmod_logo"
-         tool_tip="Made with FMOD Studio by Firelight Technologies Pty Ltd."
-         visible ="true"
-          /> 
     </layout_panel>
   </layout_stack>
 </panel>
