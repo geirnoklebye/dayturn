@@ -330,7 +330,7 @@ void LLFileSystem::updateFileAccessTime(const std::string& file_path)
     // before the last one
     if (delta_time > time_threshold)
     {
-        boost::filesystem::last_write_time(utf8str_to_utf16str(file_path), cur_time, ec);
+        boost::filesystem::last_write_time(ll_convert<std::wstring>(file_path), cur_time, ec);
     }
 #else
     // file last write time
