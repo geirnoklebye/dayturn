@@ -4250,7 +4250,7 @@ void LLAgent::handleTeleportFailed()
     LL_WARNS("Teleport") << "Agent handling teleport failure!" << LL_ENDL;
     if(LLVoiceClient::instanceExists())
     {
-        LLVoiceClient::getInstance()->setHidden(FALSE);
+        LLVoiceClient::getInstance()->setHidden(false);
     }
 
     setTeleportState(LLAgent::TELEPORT_NONE);
