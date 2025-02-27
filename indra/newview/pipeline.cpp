@@ -1323,7 +1323,18 @@ void LLPipeline::createLUTBuffers()
 			const U32 lightResX = render_specular_res_x;
 			const U32 lightResY = render_specular_res_y;
 
-			F32* ls = new F32[lightResX*lightResY];
+			F32* ls = nullptr;
+			try
+			{
+				ls = new F32[lightResX*lightResY];
+			}
+			catch (std::bad_alloc&)
+			{
+				LLError::LLUserWarningMsg::showOutOfMemory();
+				// might be better to set the error into mFatalMessage and rethrow
+				LL_ERRS() << "Bad memory allocation in createLUTBuffers! lightResX: "
+					<< lightResX << " lightResY: " << lightResY << LL_ENDL;
+			}
 			F32 specExp = gSavedSettings.getF32("RenderSpecularExponent");
             // Calculate the (normalized) blinn-phong specular lookup texture. (with a few tweaks)
 			for (U32 y = 0; y < lightResY; ++y)
