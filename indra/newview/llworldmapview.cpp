@@ -61,6 +61,8 @@
 
 #include "llglheaders.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 // # Constants
 static const F32 MAP_DEFAULT_SCALE = 128.f;
 static const F32 MAP_ITERP_TIME_CONSTANT = 0.75f;
@@ -436,13 +438,10 @@ void LLWorldMapView::draw()
 	gGL.setColorMask(true, true);
 
 	// Draw per sim overlayed information (names, mature, offline...)
-	// <FS:Ansariel> Performance tweak
-	//for (LLWorldMap::sim_info_map_t::const_iterator it = LLWorldMap::getInstance()->getRegionMap().begin();
-	//	 it != LLWorldMap::getInstance()->getRegionMap().end(); ++it)
+    static LLCachedControl<bool> show_for_sale(gSavedSettings, "MapShowLandForSale");
 	LLWorldMap::sim_info_map_t::const_iterator end_it = LLWorldMap::instance().getRegionMap().end();
 	for (LLWorldMap::sim_info_map_t::const_iterator it = LLWorldMap::instance().getRegionMap().begin();
 		 it != end_it; ++it)
-	// </FS:Ansariel>
 	{
 		U64 handle = it->first;
 		LLSimInfo* info = it->second;
@@ -513,15 +512,20 @@ void LLWorldMapView::draw()
 			gGL.end();
 		}
 		 **********************/
-		else if (gSavedSettings.getbool("MapShowLandForSale") && (level <= DRAW_LANDFORSALE_THRESHOLD))
+//		else if (show_for_sale && (level <= DRAW_LANDFORSALE_THRESHOLD))
+        else if ((show_for_sale && (level <= DRAW_LANDFORSALE_THRESHOLD)) || !gIsInSecondLife)
 		{
 			// Draw the overlay image "Land for Sale / Land for Auction"
 			LLViewerFetchedTexture* overlayimage = info->getLandForSaleImage();
 			if (overlayimage)
 			{
 				// Inform the fetch mechanism of the size we need
-				S32 draw_size = ll_round(mMapScale);
-				overlayimage->setKnownDrawSize(ll_round(draw_size * LLUI::getScaleFactor().mV[VX]), ll_round(draw_size * LLUI::getScaleFactor().mV[VY]));
+				S32 x_draw_size = llround(mMapScale);
+				S32 y_draw_size = llround(mMapScale);
+				x_draw_size *= (info->mSizeX / REGION_WIDTH_METERS);
+				y_draw_size *= (info->mSizeY / REGION_WIDTH_METERS);
+
+				overlayimage->setKnownDrawSize(llround(x_draw_size * LLUI::getScaleFactor().mV[VX]), llround(y_draw_size * LLUI::getScaleFactor().mV[VY]));
 				// Draw something whenever we have enough info
 				if (overlayimage->hasGLTexture())
 				{
