@@ -224,6 +224,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
                 {
                     return;
                 }
+
                 // As it's a Standalone grid/open, we will always have a hostname, as Standalone/open  style
                 // urls are properly formed, unlike the stinky maingrid style
                 mGrid = slurl_uri.hostName();
