@@ -226,6 +226,7 @@
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
 bool gAgentMovementCompleted = false;
+S32  gMaxAgentGroups;
 
 const std::string SCREEN_HOME_FILENAME = "screen_home%s.png";
 const std::string SCREEN_LAST_FILENAME = "screen_last%s.png";

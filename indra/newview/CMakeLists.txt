@@ -779,10 +779,11 @@ set(viewer_SOURCE_FILES
     viewerinfo.cpp
     sanitycheck.cpp
     streamtitledisplay.cpp
+    astraopenregionsettings.cpp
 	NACLfloaterexploresounds.cpp
-	  kokuachatbar.cpp
-	  kokuafloaterbulkrename.cpp
-	  kokuafloaterstreaminfo.cpp
+	kokuachatbar.cpp
+	kokuafloaterbulkrename.cpp
+	kokuafloaterstreaminfo.cpp
     )
 
 set(VIEWER_BINARY_NAME "dayturn-bin" CACHE STRING
@@ -1452,9 +1453,9 @@ set(viewer_HEADER_FILES
     viewerinfo.h
     VorbisFramework.h
 	NACLfloaterexploresounds.h
-	  kokuachatbar.h
-	  kokuafloaterbulkrename.h
-	  kokuafloaterstreaminfo.h
+	kokuachatbar.h
+	kokuafloaterbulkrename.h
+	kokuafloaterstreaminfo.h
     )
     
 # Generate the build version here to avoid rebuilding all of newview each time
