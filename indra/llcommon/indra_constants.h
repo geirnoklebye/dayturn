@@ -45,6 +45,12 @@ static constexpr 	F32 	DEFAULT_AGENT_DEPTH 	= 0.45f;
 static constexpr 	F32 	DEFAULT_AGENT_WIDTH 	= 0.60f;
 static constexpr 	F32 	DEFAULT_AGENT_HEIGHT	= 1.9f;
 
+// Extended land layer for Aurora Sim
+constexpr	char	AURORA_LAND_LAYER_CODE			= 'M';
+constexpr	char	AURORA_WATER_LAYER_CODE			= 'X';
+constexpr	char	AURORA_WIND_LAYER_CODE			= '9';
+constexpr	char	AURORA_CLOUD_LAYER_CODE			= ':';
+
 enum ETerrainBrushType
 {
 	// the valid brush numbers cannot be reordered, because they 
