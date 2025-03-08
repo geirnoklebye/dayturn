@@ -202,6 +202,7 @@
           name="create_new_account_text"
           width="200">
         Sign up
+      </text>
     </layout_panel>
   </layout_stack>
 </panel>
