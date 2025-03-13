@@ -66,9 +66,12 @@ public:
 
 	F32 getMaxBandwidth()const			{ return mMaxBandwidth; }
 	F32 getCurrentBandwidth() const		{ return mCurrentBandwidth; }
+    F32 mBufferLoadRate = 0;
 
 	void updateDynamicThrottle();
 	void resetDynamicThrottle();
+
+    void setBufferLoadRate(F32 rate) { mBufferLoadRate = llmax(mBufferLoadRate, rate); }
 
 	LLViewerThrottleGroup getThrottleGroup(const F32 bandwidth_kbps);
 
