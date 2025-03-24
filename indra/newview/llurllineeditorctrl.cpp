@@ -62,7 +62,7 @@ void LLURLLineEditor::cut()
 		deleteSelection();
 
 		// Validate new string and rollback the if needed.
-		BOOL need_to_rollback = ( mPrevalidateFunc && !mPrevalidateFunc( mText.getWString() ) );
+		bool need_to_rollback = mPrevalidateFunc && !mPrevalidateFunc( mText.getWString());
 		if( need_to_rollback )
 		{
 			rollback.doRollback( this );
@@ -85,6 +85,8 @@ void LLURLLineEditor::copyEscapedURLToClipboard()
 	LLWString text_to_copy;
 	// *HACK: Because LLSLURL is currently broken we cannot use it to check if unescaped_text is a valid SLURL (see EXT-8335).
 	if (LLStringUtil::startsWith(unescaped_text, "http://") || LLStringUtil::startsWith(unescaped_text, "secondlife://")) // SLURL
+		text_to_copy = utf8str_to_wstring(LLWeb::escapeURL(unescaped_text));
+	else if (LLStringUtil::startsWith(unescaped_text, "hop://"))
 		text_to_copy = utf8str_to_wstring(LLWeb::escapeURL(unescaped_text));
 	else // human-readable location
 		text_to_copy = utf8str_to_wstring(unescaped_text);
