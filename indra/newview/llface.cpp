@@ -2331,7 +2331,7 @@ bool LLFace::calcPixelArea(F32& cos_angle_to_view_dir, F32& radius)
     if (isState(LLFace::RIGGED))
     {
         //override with avatar bounding box
-        LLVOAvatar* avatar = mVObjp->getAvatar();
+        LLVOAvatar* avatar = mVObjp.notNull() ? mVObjp->getAvatar() : nullptr;
         if (avatar && avatar->mDrawable)
         {
             center.load3(avatar->getPositionAgent().mV);
