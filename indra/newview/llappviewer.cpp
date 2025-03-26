@@ -450,8 +450,8 @@ void idle_afk_check()
 {
 	// check idle timers
 	F32 current_idle = gAwayTriggerTimer.getElapsedTimeF32();
-	F32 afk_timeout  = gSavedSettings.getS32("AFKTimeout");
-	if (afk_timeout && (current_idle > afk_timeout) && ! gAgent.getAFK())
+    static LLCachedControl<S32> afk_timeout(gSavedSettings, "AFKTimeout", 300);
+    if (afk_timeout() && (current_idle > (F32)afk_timeout()) && !gAgent.getAFK())
 	{
 		LL_INFOS("IdleAway") << "Idle more than " << afk_timeout << " seconds: automatically changing to Away status" << LL_ENDL;
 		gAgent.setAFK();
@@ -5635,7 +5635,8 @@ void LLAppViewer::idleNetwork()
 	gObjectList.mNumNewObjects = 0;
 	S32 total_decoded = 0;
 
-	if (!gSavedSettings.getbool("SpeedTest"))
+    static LLCachedControl<bool> speed_test(gSavedSettings, "SpeedTest", false);
+    if (!speed_test())
 	{
 		LLTimer check_message_timer;
 		//  Read all available packets from network
@@ -5674,7 +5675,9 @@ void LLAppViewer::idleNetwork()
 			}
 
 			// Handle per-frame message system processing.
-			lmc.processAcks(gSavedSettings.getF32("AckCollectTime"));
+
+            static LLCachedControl<F32> ack_collection_time(gSavedSettings, "AckCollectTime", 0.1f);
+            lmc.processAcks(ack_collection_time());
 		}
 
 #ifdef TIME_THROTTLE_MESSAGES

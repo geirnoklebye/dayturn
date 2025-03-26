@@ -496,7 +496,8 @@ public:
 
 		clearText();
 		
-		if (gSavedSettings.getbool("DebugShowTime"))
+        static LLCachedControl<bool> debug_show_time(gSavedSettings, "DebugShowTime", false);
+        if (debug_show_time())
 		{
 			{
 			const U32 y_inc2 = 15;
@@ -517,7 +518,8 @@ public:
 		}
 		}
 		
-		if (gSavedSettings.getbool("DebugShowMemory"))
+        static LLCachedControl<bool> debug_show_memory(gSavedSettings, "DebugShowMemory", false);
+        if (debug_show_memory())
 		{
 			addText(xpos, ypos,
 					STRINGIZE("Memory: " << (LLMemory::getCurrentRSS() / 1024) << " (KB)"));
@@ -610,7 +612,8 @@ public:
 			ypos += y_inc;
 		}*/
 		
-		if (gSavedSettings.getbool("DebugShowRenderInfo"))
+        static LLCachedControl<bool> debug_show_render_info(gSavedSettings, "DebugShowRenderInfo", false);
+        if (debug_show_render_info())
 		{
 			LLTrace::Recording& last_frame_recording = LLTrace::get_frame_recording().getLastRecording();
 
@@ -792,7 +795,8 @@ public:
 				LLVertexBuffer::sSetCount = LLImageGL::sUniqueCount = 
 				gPipeline.mNumVisibleNodes = LLPipeline::sVisibleLightCount = 0;
 		}
-		if (gSavedSettings.getbool("DebugShowAvatarRenderInfo"))
+        static LLCachedControl<bool> debug_show_avatar_render_info(gSavedSettings, "DebugShowAvatarRenderInfo", false);
+        if (debug_show_avatar_render_info())
 		{
 			std::map<std::string, LLVOAvatar*> sorted_avs;
 			
@@ -827,7 +831,8 @@ public:
 				av_iter++;
 			}
 		}
-		if (gSavedSettings.getbool("DebugShowRenderMatrices"))
+        static LLCachedControl<bool> debug_show_render_matrices(gSavedSettings, "DebugShowRenderMatrices", false);
+        if (debug_show_render_matrices())
 		{
 			char camera_lines[8][32];
 			memset(camera_lines, ' ', sizeof(camera_lines));
@@ -853,7 +858,8 @@ public:
 			ypos += y_inc;
 		}
 		// disable use of glReadPixels which messes up nVidia nSight graphics debugging
-        if (gSavedSettings.getbool("DebugShowColor") && !LLRender::sNsightDebugSupport)
+        static LLCachedControl<bool> debug_show_color(gSavedSettings, "DebugShowColor", false);
+        if (debug_show_color() && !LLRender::sNsightDebugSupport)
         {
             U8 color[4];
             LLCoordGL coord = gViewerWindow->getCurrentMouse();
@@ -945,7 +951,8 @@ public:
 			}
 		}				
 
-		if (gSavedSettings.getbool("DebugShowTextureInfo"))
+        static LLCachedControl<bool> debug_show_texture_info(gSavedSettings, "DebugShowTextureInfo", false);
+        if (debug_show_texture_info())
 		{
 			LLViewerObject* objectp = NULL ;
 			
@@ -1663,7 +1670,8 @@ bool LLViewerWindow::handleActivate(LLWindow *window, bool activated)
 		mActive = false;
 				
 		// if the user has chosen to go Away automatically after some time, then go Away when minimizing
-		if (gSavedSettings.getS32("AFKTimeout"))
+        static LLCachedControl<S32> afk_time(gSavedSettings, "AFKTimeout", 300);
+        if (afk_time())
 		{
 			gAgent.setAFK();
 		}
