@@ -196,12 +196,12 @@ S32 LLSDXMLFormatter::format_impl(const LLSD& data, std::ostream& ostr,
 			// *FIX: memory inefficient.
 			// *TODO: convert to use LLBase64
 			ostr << pre << "<binary encoding=\"base64\">";
-            auto b64_buffer_length = apr_base64_encode_len(narrow(buffer.size()));
+            auto b64_buffer_length = apr_base64_encode_len(buffer.size());
 			char* b64_buffer = new char[b64_buffer_length];
 			b64_buffer_length = apr_base64_encode_binary(
 				b64_buffer,
 				&buffer[0],
-                narrow(buffer.size()));
+                buffer.size());
 			ostr.write(b64_buffer, b64_buffer_length - 1);
 			delete[] b64_buffer;
 			ostr << "</binary>" << post;
@@ -901,6 +901,8 @@ LLSDXMLParser::Impl::Element LLSDXMLParser::Impl::readElement(const XML_Char* na
 			break;
 		case 'd':
 			if (strcmp(name, "date") == 0) { return ELEMENT_DATE; }
+			break;
+		default:
 			break;
 	}
 	return ELEMENT_UNKNOWN;

@@ -393,8 +393,8 @@ namespace LLTrace
 				mLastSampleTimeStamp,
 				mTotalSamplingTime;
 
-		F32		mMin,
-				mMax;
+		F64		mMax;
+		F64 	mMin;
 
 		S32		mNumSamples;
 		// distinct from mNumSamples, since we might have inherited a last value from
