@@ -612,6 +612,13 @@ void LLNotification::cancel()
 LLSD LLNotification::getResponseTemplate(EResponseTemplateType type)
 {
 	LLSD response = LLSD::emptyMap();
+
+    if (!mForm)
+    {
+        LL_WARNS("Notifications") << "Null form when getting response template for notification " << getName() << LL_ENDL;
+        return response;
+    }
+
 	for (S32 element_idx = 0;
 		element_idx < mForm->getNumElements();
 		++element_idx)
@@ -1462,6 +1469,13 @@ bool LLNotifications::templateExists(const std::string& name)
 void LLNotifications::forceResponse(const LLNotification::Params& params, S32 option)
 {
 	LLNotificationPtr temp_notify(new LLNotification(params));
+
+    if (!temp_notify->getForm())
+    {
+        LL_WARNS("Notifications") << "Cannot force response for notification with null form: " << (std::string)params.name << LL_ENDL;
+        return;
+    }
+
 	LLSD response = temp_notify->getResponseTemplate();
 	LLSD selected_item = temp_notify->getForm()->getElement(option);
 	
