@@ -31,7 +31,7 @@
 
 #include <iostream>
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "v3math.h"
 
 const F32 DEFAULT_INTERSECTION_ERROR = 0.000001f;

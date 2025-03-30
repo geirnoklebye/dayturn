@@ -27,7 +27,7 @@
 #define LL_PERLIN_H
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 
 // namespace wrapper
 class LLPerlinNoise

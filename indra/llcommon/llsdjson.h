@@ -32,7 +32,6 @@
 #include <vector>
 
 #include "stdtypes.h"
-//#include "llbool.h"
 
 #include "llsd.h"
 #include "value.h"

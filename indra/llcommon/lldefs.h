@@ -30,7 +30,6 @@
 #include "stdtypes.h"
 #include <type_traits>
 
-//#include "llbool.h"
 
 // Often used array indices
 constexpr U32   VX          = 0;

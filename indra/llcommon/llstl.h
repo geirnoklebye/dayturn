@@ -28,7 +28,6 @@
 #define LL_LLSTL_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include <functional>
 #include <algorithm>
 #include <map>

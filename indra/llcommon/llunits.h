@@ -28,7 +28,6 @@
 #define LL_LLUNITTYPE_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llunittype.h"
 
 //

@@ -33,7 +33,6 @@
 #include <stdint.h>
 #endif
 
-//#include "llbool.h"
 
 class LLMutex ;
 

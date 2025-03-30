@@ -28,7 +28,6 @@
 #define LL_UNITTYPE_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llpreprocessor.h"
 #include "llerror.h"
 

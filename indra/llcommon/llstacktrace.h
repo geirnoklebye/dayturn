@@ -29,7 +29,6 @@
 #define LL_LLSTACKTRACE_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include <vector>
 #include <string>
 

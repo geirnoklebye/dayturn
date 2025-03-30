@@ -28,7 +28,6 @@
 #define LLMORTICIAN_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include <list>
 
 class LL_COMMON_API LLMortician 

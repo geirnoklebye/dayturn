@@ -36,7 +36,7 @@
 #include "v4color.h"
 #include "llstring.h"
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "v4math.h"
 #include "llplane.h"
 #include "llgltypes.h"

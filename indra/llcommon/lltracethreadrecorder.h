@@ -28,7 +28,6 @@
 #define LL_LLTRACETHREADRECORDER_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llpreprocessor.h"
 
 #include "llmutex.h"

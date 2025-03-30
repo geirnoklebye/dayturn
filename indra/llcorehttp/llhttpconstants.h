@@ -28,7 +28,7 @@
 #define LL_HTTP_CONSTANTS_H
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 
 /////// HTTP STATUS CODES ///////
 

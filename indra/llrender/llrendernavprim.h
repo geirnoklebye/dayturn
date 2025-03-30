@@ -28,7 +28,7 @@
 #define LL_LLRENDERNAVPRIM_H
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 
 class LLColor4U;
 class LLVector3;

@@ -30,7 +30,6 @@
 #include <set>
 #include <vector>
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llpreprocessor.h"
 #include <boost/functional/hash.hpp>
 
