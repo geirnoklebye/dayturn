@@ -27,6 +27,8 @@
 #ifndef LL_LLSTRING_H
 #define LL_LLSTRING_H
 
+#include "llbool.h"
+
 #include <boost/call_traits.hpp>
 #include <optional>
 #include <string>

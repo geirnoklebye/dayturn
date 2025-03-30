@@ -27,7 +27,7 @@
 #define LL_LLSTRIDER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 
 template <class Object> class LLStrider
 {

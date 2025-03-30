@@ -28,7 +28,7 @@
 #define LL_EVENTTIMER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "lldate.h"
 #include "llinstancetracker.h"
 #include "lltimer.h"
