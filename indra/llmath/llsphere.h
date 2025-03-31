@@ -30,7 +30,6 @@
 #define LL_SPHERE_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "v3math.h"
 #include <iostream>
 #include <vector>

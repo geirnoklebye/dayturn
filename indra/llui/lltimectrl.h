@@ -28,7 +28,7 @@
 #define LLTIMECTRL_H_
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "llbutton.h"
 #include "v4color.h"
 #include "llrect.h"

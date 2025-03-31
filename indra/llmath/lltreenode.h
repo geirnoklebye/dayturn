@@ -27,7 +27,6 @@
 #define LL_LLTREENODE_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "xform.h"
 #include "llpointer.h"
 #include "llrefcount.h"

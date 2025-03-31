@@ -27,7 +27,6 @@
 #define LL_LLIMAGEPNG_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llimage.h"
 
 class LLImagePNG : public LLImageFormatted

@@ -32,7 +32,7 @@
 // and child widgets
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "llcoord.h"
 #include "llfontgl.h"
 #include "llhandle.h"

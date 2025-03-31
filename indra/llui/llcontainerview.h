@@ -28,7 +28,7 @@
 #define LL_LLCONTAINERVIEW_H
 
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "lltextbox.h"
 #include "llstatbar.h"
 #include "llview.h"

@@ -30,7 +30,7 @@
 
 #include "locale.h"
 #include "stdtypes.h"
-#include "llbool.h"
+//#include "llbool.h"
 #include "llstring.h"
 #include "llsingleton.h"
 

@@ -23,7 +23,6 @@
  * $/LicenseInfo$
  */
 #include "stdtypes.h"
-#include "llbool.h"
 
 U32 gOctreeMaxCapacity;
 F32 gOctreeMinSize;
