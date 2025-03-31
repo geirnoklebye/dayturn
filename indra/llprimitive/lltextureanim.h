@@ -28,7 +28,6 @@
 #define LL_LLTEXTUREANIM_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llsd.h"
 
 class LLMessageSystem;

@@ -30,7 +30,6 @@
 // This class manages the data coming in for viewer layers from the network.
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 class LLVLData;
 class LLViewerRegion;

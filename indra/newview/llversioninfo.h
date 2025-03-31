@@ -37,7 +37,6 @@ class LLEventMailDrop;
 template <typename T>
 class LLStoreListener;
 
-#include "llbool.h"
 
 ///
 /// This API provides version information for the viewer.  This

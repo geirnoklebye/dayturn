@@ -34,7 +34,6 @@
 #define LL_LLFILEPICKER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 #if LL_DARWIN
 

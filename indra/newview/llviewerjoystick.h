@@ -28,7 +28,6 @@
 #define LL_LLVIEWERJOYSTICK_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 #if LIB_NDOF
 #if LL_DARWIN

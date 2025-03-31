@@ -28,7 +28,6 @@
 #define LL_LLBOX_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 class LLBox
 {

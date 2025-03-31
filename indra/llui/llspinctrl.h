@@ -29,7 +29,6 @@
 
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llbutton.h"
 #include "llf32uictrl.h"
 #include "v4color.h"

@@ -30,7 +30,6 @@
 #include "llregionhandle.h"
 
 #include "stdtypes.h"
-#include "llbool.h"
 #include "llvoavatar.h"
 #include "llsdparam.h"
 #include "llsdutil.h"

@@ -28,7 +28,6 @@
 #define LL_SCROLLBAR_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "lluictrl.h"
 #include "v4color.h"
 #include "llbutton.h"

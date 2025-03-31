@@ -32,7 +32,6 @@
 #define LL_LLDIRPICKER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 #include "llthread.h"
 #include <queue>

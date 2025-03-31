@@ -31,7 +31,6 @@
 #include "stdtypes.h"
 #include "llagent.h"
 
-#include "llbool.h"
 
 class LLFloater;
 

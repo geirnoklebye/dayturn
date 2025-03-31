@@ -28,7 +28,6 @@
 #define LL_LLFEATUREMANAGER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 #include "llsingleton.h"
 #include "llstring.h"

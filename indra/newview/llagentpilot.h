@@ -28,7 +28,6 @@
 #define LL_LLAGENTPILOT_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 #include "lltimer.h"
 #include "v3dmath.h"
 

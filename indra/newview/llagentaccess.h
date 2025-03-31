@@ -28,7 +28,6 @@
 #define LL_LLAGENTACCESS_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 // forward declaration so that we don't have to include the whole class
 class LLControlGroup;

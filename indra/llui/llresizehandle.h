@@ -28,7 +28,6 @@
 #define LL_RESIZEHANDLE_H
 
 #include "stdtypes.h"
-//#include "llbool.h"
 #include "llview.h"
 #include "llcoord.h"
 

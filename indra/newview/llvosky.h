@@ -28,7 +28,6 @@
 #define LL_LLVOSKY_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 #include "v3color.h"
 #include "v4coloru.h"
 #include "llquaternion.h"

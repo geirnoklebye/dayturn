@@ -28,7 +28,6 @@
 #define LL_LLCYLINDER_H
 
 //#include "stdtypes.h"
-//#include "llbool.h"
 //#include "llgl.h"
 
 #include "llvertexbuffer.h"
