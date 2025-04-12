@@ -448,6 +448,12 @@ static bool app_metrics_qa_mode = false;
 
 void idle_afk_check()
 {
+    // Don't check AFK status during startup states
+    if (LLStartUp::getStartupState() < STATE_STARTED)
+    {
+        return;
+    }
+
 	// check idle timers
 	F32 current_idle = gAwayTriggerTimer.getElapsedTimeF32();
     static LLCachedControl<S32> afk_timeout(gSavedSettings, "AFKTimeout", 300);
