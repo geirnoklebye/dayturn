@@ -212,7 +212,7 @@ void display_stats()
 {
 	if (gSavedSettings.getbool("KokuaSuppressPeriodicLogging")) return;
 
-	const F32 FPS_LOG_FREQUENCY = 10.f;
+	constexpr F32 FPS_LOG_FREQUENCY = 10.f;
 	if (gRecentFPSTime.getElapsedTimeF32() >= FPS_LOG_FREQUENCY)
 	{
 		F32 fps = gRecentFrameCount / FPS_LOG_FREQUENCY;
@@ -540,8 +540,10 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 
 	LLImageGL::updateStats(gFrameTimeSeconds);
 	
-	LLVOAvatar::sRenderName = gSavedSettings.getS32("AvatarNameTagMode");
-	LLVOAvatar::sRenderGroupTitles = (gSavedSettings.getbool("NameTagShowGroupTitles") && gSavedSettings.getS32("AvatarNameTagMode"));
+    static LLCachedControl<S32> avatar_name_tag_mode(gSavedSettings, "AvatarNameTagMode", 1);
+    static LLCachedControl<bool> name_tag_show_group_titles(gSavedSettings, "NameTagShowGroupTitles", true);
+    LLVOAvatar::sRenderName = avatar_name_tag_mode;
+    LLVOAvatar::sRenderGroupTitles = name_tag_show_group_titles && avatar_name_tag_mode > 0;
 	
 	gPipeline.mBackfaceCull = true;
 	gFrameCount++;
@@ -1078,7 +1080,8 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 		{
 			LLViewerCamera::sCurCameraID = LLViewerCamera::CAMERA_WORLD;
 
-			if (gSavedSettings.getbool("RenderDepthPrePass"))
+            static LLCachedControl<bool> render_depth_pre_pass(gSavedSettings, "RenderDepthPrePass", false);
+            if (render_depth_pre_pass)
 			{
 				gGL.setColorMask(false, false);
 
@@ -1217,7 +1220,8 @@ void render_hud_attachments()
         hud_cam.setAxes(LLVector3(1.f, 0.f, 0.f), LLVector3(0.f, 1.f, 0.f), LLVector3(0.f, 0.f, 1.f));
 		LLViewerCamera::updateFrustumPlanes(hud_cam, true);
 
-		bool render_particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES) && gSavedSettings.getbool("RenderHUDParticles");
+        static LLCachedControl<bool> render_hud_particles(gSavedSettings, "RenderHUDParticles", false);
+        bool render_particles = gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_PARTICLES) && render_hud_particles;
 		
 		//only render hud objects
 		gPipeline.pushRenderTypeMask();
@@ -1560,7 +1564,7 @@ void render_ui_3d()
 	gUIProgram.bind();
 
 	// Coordinate axes
-    LLCachedControl<bool> show_axes(gSavedSettings, "ShowAxes");
+    static LLCachedControl<bool> show_axes(gSavedSettings, "ShowAxes");
     if (show_axes())
 	{
 		draw_axes();
