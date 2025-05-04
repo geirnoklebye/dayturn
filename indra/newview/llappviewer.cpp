@@ -3516,12 +3516,13 @@ LLSD LLAppViewer::getViewerInfo() const
 	{
 		LLVector3d pos = gAgent.getPositionGlobal();
 		info["POSITION"] = ll_sd_from_vector3d(pos);
+		const LLVector3d& coords(region->getOriginGlobal());
+		std::string region_text = llformat("In region %s at (%.0f, %.0f) ", region->getName().c_str(), coords.mdV[VX]/REGION_WIDTH_METERS, coords.mdV[VY]/REGION_WIDTH_METERS);		
+		info["POSITION_DECIMAL"] = region_text;
 		info["POSITION_LOCAL"] = ll_sd_from_vector3(gAgent.getPosAgentFromGlobal(pos));
 		info["REGION"] = gAgent.getRegion()->getName();
-
-		boost::regex regex("\\.(secondlife|lindenlab)\\..*");
-		info["HOSTNAME"] = boost::regex_replace(gAgent.getRegion()->getSimHostName(), regex, "");
-		//info["HOSTIP"] = gAgent.getRegion()->getHost().getString();
+		info["HOSTNAME"] = gAgent.getRegion()->getHost().getHostName();
+		info["HOSTIP"] = gAgent.getRegion()->getHost().getString();
 		info["SERVER_VERSION"] = gLastVersionChannel;
 		LLSLURL slurl;
 		LLAgentUI::buildSLURL(slurl);
@@ -5998,7 +5999,7 @@ void LLAppViewer::handleLoginComplete()
 
 	if(gAgent.getRegion())
 	{
-		gDebugInfo["CurrentSimHost"] = gAgent.getRegion()->getSimHostName();
+		gDebugInfo["CurrentSimHost"] = gAgent.getRegionHost().getHostName();
 		gDebugInfo["CurrentRegion"] = gAgent.getRegion()->getName();
 	}
 

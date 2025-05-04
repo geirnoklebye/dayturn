@@ -400,8 +400,6 @@ public:
 	bool isPaused() const {return mPaused;}
 	S32  getLastUpdate() const {return mLastUpdate;}
 
-	std::string getSimHostName();
-
 	static bool isNewObjectCreationThrottleDisabled() {return sNewObjectCreationThrottle < 0;}
 
 	/* ================================================================
