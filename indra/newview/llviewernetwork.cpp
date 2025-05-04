@@ -140,7 +140,7 @@ void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mDat
 const std::string  GRID_UPDATE_SERVICE_URL = "update_query_url_base";
 const std::string SL_UPDATE_QUERY_URL = "https://update.secondlife.com/update";
 const std::string MAIN_GRID_LOGIN_URI = "https://login.agni.lindenlab.com/cgi-bin/login.cgi";
-const char* DEFAULT_LOGIN_PAGE = "http://viewer-login.agni.lindenlab.com/";
+const char* DEFAULT_LOGIN_PAGE = "https://viewer-splash.secondlife.com";
 
 const char* SYSTEM_GRID_SLURL_BASE = "secondlife://%s/secondlife/";
 const char* MAIN_GRID_SLURL_BASE = "http://maps.secondlife.com/secondlife/";
