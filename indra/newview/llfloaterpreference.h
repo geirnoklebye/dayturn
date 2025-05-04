@@ -466,6 +466,7 @@ protected:
 	void onClickRemoveGrid();
 	void onSelectGrid();
 	bool removeGridCB(const LLSD& notification, const LLSD& response);
+
 	void refreshGridList(bool success = true);
 	LLScrollListCtrl* mGridListControl;
 
