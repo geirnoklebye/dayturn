@@ -2384,7 +2384,7 @@ class LLAdvancedEnableRenderDeferredOptions: public view_listener_t
 };
 
 
-/*
+
 ///////////////////////////////////
 // DISABLE MAX BUILD CONSTRAINTS //
 ///////////////////////////////////
@@ -2393,8 +2393,8 @@ class LLAdvancedToggleMaxBuildConstraints : public view_listener_t
 {
 	bool handleEvent( const LLSD& userdata)
 	{
-		BOOL cur_val = gSavedSettings.getBOOL("DisableMaxBuildConstraints");
-		gSavedSettings.setBOOL("DisableMaxBuildConstraints", !cur_val );
+		bool cur_val = gSavedSettings.getbool("DisableMaxBuildConstraints");
+		gSavedSettings.setbool("DisableMaxBuildConstraints", !cur_val );
 		gFloaterTools->updateToolsSizeLimits();
 		return true;
 	}
@@ -2413,13 +2413,12 @@ class LLAdvancedCheckMaxBuildConstraints : public view_listener_t
 		return true;
 	}
 };
-*/
+
  
 
 //////////////////
 // ADMIN STATUS //
 //////////////////
-
 
 class LLAdvancedRequestAdminStatus : public view_listener_t
 {
@@ -10284,8 +10283,8 @@ void initialize_menus()
 	//// Advanced > Render > Features
 	view_listener_t::addMenu(new LLAdvancedToggleFeature(), "Advanced.ToggleFeature");
 	view_listener_t::addMenu(new LLAdvancedCheckFeature(), "Advanced.CheckFeature");
-//	view_listener_t::addMenu(new LLAdvancedToggleMaxBuildConstraints(), "Advanced.ToggleMaxBuildConstraints");
-//	view_listener_t::addMenu(new LLAdvancedCheckMaxBuildConstraints(), "Advanced.CheckMaxBuildConstraints");
+	view_listener_t::addMenu(new LLAdvancedToggleMaxBuildConstraints(), "Advanced.ToggleMaxBuildConstraints");
+	view_listener_t::addMenu(new LLAdvancedCheckMaxBuildConstraints(), "Advanced.CheckMaxBuildConstraints");
 
 	view_listener_t::addMenu(new LLAdvancedCheckDisplayTextureDensity(), "Advanced.CheckDisplayTextureDensity");
 	view_listener_t::addMenu(new LLAdvancedSetDisplayTextureDensity(), "Advanced.SetDisplayTextureDensity");

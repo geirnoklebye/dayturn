@@ -150,6 +150,7 @@ void*	LLFloaterTools::createPanelPermissions(void* data)
 {
 	LLFloaterTools* floater = (LLFloaterTools*)data;
 	floater->mPanelPermissions = new LLPanelPermissions();
+    LLWorld::getInstance()->refreshLimits();
 	return floater->mPanelPermissions;
 }
 //static
@@ -225,6 +226,59 @@ LLPCode toolData[]={
 	LL_PCODE_LEGACY_TREE,
 	LL_PCODE_LEGACY_GRASS};
 
+void LLFloaterTools::updateToolsSizeLimits()
+{
+    LLWorld::getInstance()->refreshLimits();
+    if (gSavedSettings.getbool("DisableMaxBuildConstraints"))
+    {
+        getChild<LLSpinCtrl>("Scale X")->setMaxValue(F32_MAX);
+        getChild<LLSpinCtrl>("Scale Y")->setMaxValue(F32_MAX);
+        getChild<LLSpinCtrl>("Scale Z")->setMaxValue(F32_MAX);
+        
+    }
+    else
+    {
+        getChild<LLSpinCtrl>("Scale X")->setMinValue(LLWorld::getInstance()->getRegionMinPrimScale());
+        getChild<LLSpinCtrl>("Scale Y")->setMinValue(LLWorld::getInstance()->getRegionMinPrimScale());
+        getChild<LLSpinCtrl>("Scale Z")->setMinValue(LLWorld::getInstance()->getRegionMinPrimScale());
+    }
+        //these switch between OS and SL in each method
+        getChild<LLSpinCtrl>("Scale X")->setMaxValue(LLWorld::getInstance()->getRegionMaxPrimScale());
+        getChild<LLSpinCtrl>("Scale Y")->setMaxValue(LLWorld::getInstance()->getRegionMaxPrimScale());
+        getChild<LLSpinCtrl>("Scale Z")->setMaxValue(LLWorld::getInstance()->getRegionMaxPrimScale());
+        
+        getChild<LLSpinCtrl>("Scale X")->setMinValue(LLWorld::getInstance()->getRegionMinPrimScale());
+        getChild<LLSpinCtrl>("Scale Y")->setMinValue(LLWorld::getInstance()->getRegionMinPrimScale());
+        getChild<LLSpinCtrl>("Scale Z")->setMinValue(LLWorld::getInstance()->getRegionMinPrimScale());
+        getChild<LLSpinCtrl>("Pos X")->setMinValue(LLWorld::getInstance()->getRegionMinPrimXPos());
+        getChild<LLSpinCtrl>("Pos Y")->setMinValue(LLWorld::getInstance()->getRegionMinPrimYPos());
+        getChild<LLSpinCtrl>("Pos Z")->setMinValue(LLWorld::getInstance()->getRegionMinPrimZPos());
+        getChild<LLSpinCtrl>("Pos X")->setMaxValue(LLWorld::getInstance()->getRegionMaxPrimXPos());
+        getChild<LLSpinCtrl>("Pos Y")->setMaxValue(LLWorld::getInstance()->getRegionMaxPrimYPos());
+        getChild<LLSpinCtrl>("Pos Z")->setMaxValue(LLWorld::getInstance()->getRegionMaxPrimZPos());
+}
+void LLFloaterTools::updateToolsPrecision()
+{
+    U32 decimals = gSavedSettings.getU32("DecimalsForTools");
+    if (decimals != mPrecision)
+    {
+        if (decimals > 5)
+        {
+            decimals = 5;
+        }
+        getChild<LLSpinCtrl>("Pos X")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Pos Y")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Pos Z")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Scale X")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Scale Y")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Scale Z")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Rot X")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Rot Y")->setPrecision(decimals);
+        getChild<LLSpinCtrl>("Rot Z")->setPrecision(decimals);
+        mPrecision = decimals;
+    }
+}
+
 bool	LLFloaterTools::postBuild()
 {	
 	// Hide until tool selected
@@ -265,6 +319,9 @@ bool	LLFloaterTools::postBuild()
 	mCheckStretchTexture	= getChild<LLCheckBoxCtrl>("checkbox stretch textures");
 	getChild<LLUICtrl>("checkbox stretch textures")->setValue(gSavedSettings.getbool("ScaleStretchTextures"));
 	mComboGridMode			= getChild<LLComboBox>("combobox grid mode");
+
+    updateToolsSizeLimits();
+    updateToolsPrecision();
 
 	//
 	// Create Buttons
@@ -386,6 +443,7 @@ LLFloaterTools::LLFloaterTools(const LLSD& key)
 	mLandImpactsObserver(NULL),
 
 	mDirty(true),
+    mPrecision(3),
 	mHasSelection(true)
 {
 	gFloaterTools = this;
@@ -686,7 +744,10 @@ void LLFloaterTools::refresh()
 	getChildView("link_num_obj_count")->setVisible(have_selection);
 	// </FS>
 
-	// Refresh child tabs
+    updateToolsSizeLimits();
+    updateToolsPrecision();
+
+    // Refresh child tabs
 	mPanelPermissions->refresh();
 	mPanelObject->refresh();
 	mPanelVolume->refresh();

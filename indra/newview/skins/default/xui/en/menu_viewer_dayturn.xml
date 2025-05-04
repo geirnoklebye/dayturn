@@ -1966,7 +1966,6 @@
              parameter="LimitSelectDistance" />
         </menu_item_check>
 
-<!-- Disabled for SL
         <menu_item_check
         label="Disable Build Constraints"
         name="Disable Max Build Constraints">
@@ -1977,7 +1976,6 @@
           function="CheckControl"
           parameter="DisableMaxBuildConstraints" />
         </menu_item_check>
--->
 
         <menu_item_check
          label="Disable Camera Constraints"
