@@ -162,9 +162,9 @@ std::string LLWeb::expandURLSubstitutions(const std::string &url,
 	substitution["VERSION_PATCH"] = LLVersionInfo::instance().getPatch();
 	substitution["VERSION_BUILD"] = std::to_string(LLVersionInfo::instance().getBuild());
 	substitution["CHANNEL"] = LLVersionInfo::instance().getChannel();
-	substitution["GRID"] = LLGridManager::getInstance()->getGridId();
-	substitution["GRID_LOWERCASE"] = utf8str_tolower(LLGridManager::getInstance()->getGridId());
-	substitution["OS"] = LLOSInfo::instance().getOSStringSimple();
+    substitution["GRID"] = LLGridManager::getInstance()->getGridNick();
+    substitution["GRID_LOWERCASE"] = utf8str_tolower(LLGridManager::getInstance()->getGridNick());
+    substitution["OS"] = LLOSInfo::instance().getOSStringSimple();
 	substitution["SESSION_ID"] = gAgent.getSessionID();
 	substitution["FIRST_LOGIN"] = gAgent.isFirstLogin();
 
@@ -199,7 +199,7 @@ std::string LLWeb::expandURLSubstitutions(const std::string &url,
 	substitution["SLURL_TYPE"] = "hop";
 
 	// find the grid
-	std::string current_grid = LLGridManager::getInstance()->getGridId();
+	std::string current_grid = LLGridManager::getInstance()->getGridNick();
 	std::transform(current_grid.begin(), current_grid.end(), current_grid.begin(), ::tolower);
     if (current_grid == "damballah")
 	{

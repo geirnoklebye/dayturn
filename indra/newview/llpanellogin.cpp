@@ -53,6 +53,7 @@
 #include "llui.h"
 #include "lluiconstants.h"
 #include "llslurl.h"
+#include "viewerinfo.h"
 #include "llversioninfo.h"
 #include "llviewerhelp.h"
 #include "llviewertexturelist.h"
@@ -790,7 +791,7 @@ void LLPanelLogin::onUpdateStartSLURL(const LLSLURL& new_start_slurl)
 
 				// update the grid selector to match the slurl
 				LLComboBox* server_combo = sInstance->getChild<LLComboBox>("server_combo");
-				std::string server_label(LLGridManager::getInstance()->getGridLabel(slurl_grid));
+				std::string server_label(LLGridManager::getInstance()->getGridLabel());
 				server_combo->setSimple(server_label);
 
 				updateServer(); // to change the links and splash screen
@@ -905,7 +906,7 @@ void LLPanelLogin::loadLoginPage()
 	params["channel"] = LLVersionInfo::instance().getChannel();
 
 	// Grid
-	params["grid"] = LLGridManager::getInstance()->getGridId();
+	params["grid"] = LLGridManager::getInstance()->getGridNick();
 
 	// add OS info
 	params["os"] = LLOSInfo::instance().getOSStringSimple();
@@ -922,7 +923,7 @@ void LLPanelLogin::loadLoginPage()
 									 login_page.path(),
 									 params));
 
-	gViewerWindow->setMenuBackgroundColor(false, !LLGridManager::getInstance()->isInProductionGrid());
+	gViewerWindow->setMenuBackgroundColor(false, !LLGridManager::getInstance()->isInSLBeta());
 
 	LLMediaCtrl* web_browser = sInstance->getChild<LLMediaCtrl>("login_html");
 	if (web_browser->getCurrentNavUrl() != login_uri.asString())
@@ -1142,7 +1143,7 @@ void LLPanelLogin::onRememberPasswordCheck(void*)
         bool remember_user, remember_password;
         getFields(cred, remember_user, remember_password);
 
-        std::string grid(LLGridManager::getInstance()->getGridId());
+        std::string grid(LLGridManager::getInstance()->getGridNick());
         std::string user_id(cred->userID());
     }
 }

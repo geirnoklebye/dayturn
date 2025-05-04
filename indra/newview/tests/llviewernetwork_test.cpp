@@ -417,7 +417,7 @@ namespace tut
 		ensure_equals("getLoginPage",
 					  LLGridManager::getInstance()->getLoginPage(),
 					  std::string("https://viewer-splash.secondlife.com/"));
-		ensure("Is Agni a production grid", LLGridManager::getInstance()->isInProductionGrid());
+		ensure("Is Agni a production grid", LLGridManager::getInstance()->isInSLBeta());
 		std::vector<std::string> uris;
 		LLGridManager::getInstance()->getLoginURIs(uris);
 		ensure_equals("getLoginURIs size", 1, uris.size());
@@ -435,7 +435,7 @@ namespace tut
 		ensure("alternative grid is not a system grid",
 			   !LLGridManager::getInstance()->isSystemGrid());
 		ensure("alternative grid is not a production grid",
-			   !LLGridManager::getInstance()->isInProductionGrid());
+			   !LLGridManager::getInstance()->isInSLBeta());
 	}
 
 }

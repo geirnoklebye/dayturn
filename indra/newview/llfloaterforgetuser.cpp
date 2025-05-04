@@ -62,7 +62,7 @@ bool LLFloaterForgetUser::postBuild()
 
 
     bool show_grid_marks = gSavedSettings.getbool("ForceShowGrid");
-    show_grid_marks |= !LLGridManager::getInstance()->isInProductionGrid();
+    show_grid_marks |= !LLGridManager::getInstance()->isInSLBeta();
 
     std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();
 
@@ -164,7 +164,7 @@ bool LLFloaterForgetUser::onConfirmLogout(const LLSD& notification, const LLSD& 
     if (option == 0)
     {
         // Remove creds
-        std::string grid_id = LLGridManager::getInstance()->getGridId(grid);
+        std::string grid_id = LLGridManager::getInstance()->getGridNick();
         if (grid_id.empty())
         {
             grid_id = grid;
@@ -234,7 +234,7 @@ void LLFloaterForgetUser::processForgetUser()
 void LLFloaterForgetUser::forgetUser(const std::string &userid, const std::string &fav_id, const std::string &grid, bool delete_data)
 {
     // Remove creds
-    std::string grid_id = LLGridManager::getInstance()->getGridId(grid);
+    std::string grid_id = LLGridManager::getInstance()->getGridNick();
     if (grid_id.empty())
     {
         grid_id = grid;
@@ -268,7 +268,7 @@ void LLFloaterForgetUser::loadGridToList(const std::string &grid, bool show_grid
     std::string grid_label;
     if (show_grid_name)
     {
-        grid_label = LLGridManager::getInstance()->getGridId(grid); //login id (shortened label)
+        grid_label = LLGridManager::getInstance()->getGridNick(); //login id (shortened label)
     }
     if (gSecAPIHandler->hasCredentialMap("login_list", grid))
     {

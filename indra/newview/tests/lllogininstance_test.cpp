@@ -173,7 +173,7 @@ void LLGridManager::setGridChoice(const std::string& grid_name)
 {
 }
 
-bool LLGridManager::isInProductionGrid()
+bool LLGridManager::isInSLBeta()
 {
 	return false;
 }

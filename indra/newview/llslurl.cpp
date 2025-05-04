@@ -152,7 +152,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
                 // so parse the grid name to derive the grid ID
                 if (!slurl_uri.hostName().empty())
                 {
-                    mGrid = LLGridManager::getInstance()->getGridId(slurl_uri.hostName());
+                    mGrid = LLGridManager::getInstance()->getGridNick();
                 }
                 else if(path_array[0].asString() == LLSLURL::SLURL_SECONDLIFE_PATH)
                 {
@@ -164,7 +164,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
                 {
                     // for app style slurls, where no grid name is specified, assume the currently
                     // selected or logged in grid.
-                    mGrid =  LLGridManager::getInstance()->getGridId();
+                    mGrid =  LLGridManager::getInstance()->getGridNick();
                 }
 
                 if (mGrid.empty())
@@ -220,7 +220,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
                 // (or its a slurl.com or maps.secondlife.com URL).
                 if ((slurl_uri.scheme() == LLSLURL::SLURL_HTTP_SCHEME ||
                      slurl_uri.scheme() == LLSLURL::SLURL_HTTPS_SCHEME) &&
-                    slurl_uri.hostName() != LLGridManager::getInstance()->getGrid())
+                    slurl_uri.hostName() != LLGridManager::getInstance()->getGridNick())
                 {
                     return;
                 }
@@ -352,7 +352,7 @@ LLSLURL::LLSLURL(const std::string& grid,
 LLSLURL::LLSLURL(const std::string& region,
         const LLVector3& position)
 {
-    *this = LLSLURL(LLGridManager::getInstance()->getGridId(), region, position);
+    *this = LLSLURL(LLGridManager::getInstance()->getGridNick(), region, position);
 }
 
 // create a slurl from a global position
@@ -360,7 +360,7 @@ LLSLURL::LLSLURL(const std::string& grid,
          const std::string& region,
          const LLVector3d& global_position)
 {
-    *this = LLSLURL(LLGridManager::getInstance()->getGridId(grid), region,
+    *this = LLSLURL(LLGridManager::getInstance()->getGridNick(), region,
         LLVector3(global_position.mdV[VX], global_position.mdV[VY], global_position.mdV[VZ]));
 }
 
@@ -368,7 +368,7 @@ LLSLURL::LLSLURL(const std::string& grid,
 LLSLURL::LLSLURL(const std::string& region,
         const LLVector3d& global_position)
 {
-    *this = LLSLURL(LLGridManager::getInstance()->getGridId(),
+    *this = LLSLURL(LLGridManager::getInstance()->getGridNick(),
         region, global_position);
 }
 

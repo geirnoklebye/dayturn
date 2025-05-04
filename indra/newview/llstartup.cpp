@@ -763,6 +763,56 @@ bool idle_startup()
 
 		LL_INFOS("AppInit") << "Message System Initialized." << LL_ENDL;
 
+        
+        // <AW: opensim>
+                if(!gSavedSettings.getbool("GridListDownload"))
+                {
+                    sGridListRequestReady = true;
+                }
+                else
+                {
+                    std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "grids.remote.xml");
+                    llstat file_stat; //platform independent wrapper for stat
+                    time_t last_modified = 0;
+                    if(!LLFile::stat(filename, &file_stat))//exists
+                    {
+                        last_modified = file_stat.st_mtime;
+                    }
+                    std::string url = gSavedSettings.getString("GridListDownloadURL");
+                    LLCoreHttpUtil::HttpCoroutineAdapter::callbackHttpGet( url, boost::bind( downloadGridlistComplete, _1 ), boost::bind( downloadGridlistError, _1, url ) );
+                }
+                // Fetch grid infos as needed
+                LLGridManager::getInstance()->initGrids();
+                LLStartUp::setStartupState( STATE_FETCH_GRID_INFO );
+            }
+            if (STATE_FETCH_GRID_INFO == LLStartUp::getStartupState())
+            {
+                static LLFrameTimer grid_timer;
+                const F32 grid_time = grid_timer.getElapsedTimeF32();
+                const F32 MAX_GRID_TIME = 15.f;//don't wait forever
+                if(grid_time>MAX_GRID_TIME ||
+                    ( sGridListRequestReady && LLGridManager::getInstance()->isReadyToLogin() ))
+                {
+                    LLStartUp::setStartupState( STATE_AUDIO_INIT );
+                }
+                else
+                {
+                    ms_sleep(1);
+                    return false;
+                }
+            }
+            if (STATE_AUDIO_INIT == LLStartUp::getStartupState())
+            {
+                // parsing slurls depending on the grid obviously
+                // only works after we have a grid list
+                // Anyway this belongs into the gridmanager as soon as
+                // it is cleaner
+                if(!LLStartUp::sStartSLURLString.empty())
+                {
+                    LLStartUp::setStartSLURL(LLStartUp::sStartSLURLString);
+                }
+        // </AW: opensim>
+
 		//-------------------------------------------------
 		// Init audio, which may be needed for prefs dialog
 		// or audio cues in connection UI.
@@ -1235,7 +1285,9 @@ bool idle_startup()
 		// This call to LLLoginInstance::connect() starts the 
 		// authentication process.
 		login->connect(gUserCredential);
-
+        // <AW: opensim>
+                LLGridManager::getInstance()->saveGridList();
+        // </AW: opensim>
 		LLStartUp::setStartupState( STATE_LOGIN_CURL_UNSTUCK );
 		return false;
 	}
@@ -1426,7 +1478,12 @@ bool idle_startup()
 				LLVoiceClient::getInstance()->userAuthorized(gUserCredential->userID(), gAgentID);
 				// create the default proximal channel
 				LLVoiceChannel::initClass();
-				LLStartUp::setStartupState( STATE_WORLD_INIT);
+// <AW: opensim>
+                // Not used anymore
+                //LLGridManager::getInstance()->setFavorite();
+                 
+// </AW: opensim>
+                LLStartUp::setStartupState( STATE_WORLD_INIT);
 				LLTrace::get_frame_recording().reset();
 			}
 			else
@@ -3038,13 +3095,13 @@ bool callback_choose_gender(const LLSD& notification, const LLSD& response)
 
 std::string get_screen_filename(const std::string& pattern)
 {
-    if (LLGridManager::getInstance()->isInProductionGrid())
+    if (LLGridManager::getInstance()->isInSLBeta())
     {
         return llformat(pattern.c_str(), "");
     }
     else
     {
-        const std::string& grid_id_str = LLGridManager::getInstance()->getGridId();
+        const std::string& grid_id_str = LLGridManager::getInstance()->getGridNick();
         const std::string& grid_id_lower = utf8str_tolower(grid_id_str);
         std::string grid = "." + grid_id_lower;
         return llformat(pattern.c_str(), grid.c_str());
@@ -4093,7 +4150,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
        && gSavedSettings.getbool("RememberUser")
        && LLLoginInstance::getInstance()->saveMFA())
 	{
-		std::string grid(LLGridManager::getInstance()->getGridId());
+		std::string grid(LLGridManager::getInstance()->getGridNick());
 		std::string user_id(gUserCredential->userID());
 		gSecAPIHandler->addToProtectedMap("mfa_hash", grid, user_id, response["mfa_hash"]);
 		// TODO(brad) - related to SL-17223 consider building a better interface that sync's automatically
@@ -4101,7 +4158,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 	}
     else if (!LLLoginInstance::getInstance()->saveMFA())
     {
-        std::string grid(LLGridManager::getInstance()->getGridId());
+        std::string grid(LLGridManager::getInstance()->getGridNick());
         std::string user_id(gUserCredential->userID());
         gSecAPIHandler->removeFromProtectedMap("mfa_hash", grid, user_id);
         gSecAPIHandler->syncProtectedMap();

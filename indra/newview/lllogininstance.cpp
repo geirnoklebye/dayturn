@@ -242,7 +242,7 @@ void LLLoginInstance::constructAuthParams(LLPointer<LLCredential> user_credentia
     }
 
     std::string mfa_hash = gSavedSettings.getString("MFAHash"); //non-persistent to enable testing
-    std::string grid(LLGridManager::getInstance()->getGridId());
+    std::string grid(LLGridManager::getInstance()->getGridNick());
     std::string user_id = user_credential->userID();
     if (gSecAPIHandler)
     {

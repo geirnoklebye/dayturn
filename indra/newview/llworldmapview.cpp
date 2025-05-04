@@ -1909,25 +1909,21 @@ bool LLWorldMapView::handleDoubleClick( S32 x, S32 y, MASK mask )
 				// Invoke the event details floater if someone is clicking on an event.
 				LLSD params(LLSD::emptyArray());
 				params.append(event_id);
-				LLCommandDispatcher::dispatch("event", params, LLSD(), LLGridManager::getInstance()->getGrid(), NULL, LLCommandHandler::NAV_TYPE_CLICKED, true);
+                LLCommandDispatcher::dispatch("event", params, LLSD(), LLGridManager::getInstance()->getGrid(), NULL, LLCommandHandler::NAV_TYPE_CLICKED, true);
 				break;
 			}
 		case MAP_ITEM_LAND_FOR_SALE:
 		case MAP_ITEM_LAND_FOR_SALE_ADULT:
-			{
-				// <FS:Ansariel> Show parcel details instead of search with possible useless result
-				//LLVector3d pos_global = viewPosToGlobal(x, y);
-				//std::string sim_name;
-				//if (LLWorldMap::getInstance()->simNameFromPosGlobal(pos_global, sim_name))
-				//{
-				//	LLFloaterReg::hideInstance("world_map");
-				//	LLFloaterReg::showInstance("search", LLSD().with("category", "land").with("query", sim_name));
-				//}
-				LLFloaterReg::hideInstance("world_map");
-				LLUrlAction::executeSLURL(LLSLURL("parcel", id, "about").getSLURLString());
-				// </FS:Ansariel>
-				break;
-			}
+            {
+                LLVector3d pos_global = viewPosToGlobal(x, y);
+                std::string sim_name;
+                if (LLWorldMap::getInstance()->simNameFromPosGlobal(pos_global, sim_name))
+                {
+                    LLFloaterReg::hideInstance("world_map");
+                    LLFloaterReg::showInstance("search", LLSD().with("category", "land").with("query", sim_name));
+                }
+                break;
+            }
 		case MAP_ITEM_CLASSIFIED:
 			{
 				LLFloaterReg::hideInstance("world_map");

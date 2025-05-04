@@ -3859,7 +3859,7 @@ void LLAppViewer::writeSystemInfo()
 
 	// The user is not logged on yet, but record the current grid choice login url
 	// which may have been the intended grid.
-	gDebugInfo["GridName"] = LLGridManager::getInstance()->getGridId();
+	gDebugInfo["GridName"] = LLGridManager::getInstance()->getGridNick();
 
 	// *FIX:Mani - move this down in llappviewerwin32
 #ifdef LL_WINDOWS
@@ -4816,7 +4816,7 @@ std::string get_name_cache_filename(const std::string &base_file, const std::str
 {
     std::string filename;
     std::string path(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, base_file));
-    if (LLGridManager::getInstance()->isInProductionGrid())
+    if (LLGridManager::getInstance()->isInSLBeta())
     {
         filename = llformat(PRODUCTION_CACHE_FORMAT_STRING, path.c_str(), extention.c_str());
     }
@@ -4825,7 +4825,7 @@ std::string get_name_cache_filename(const std::string &base_file, const std::str
         // NOTE: The inventory cache filenames now include the grid name.
         // Add controls against directory traversal or problematic pathname lengths
         // if your viewer uses grid names from an untrusted source.
-        const std::string& grid_id_str   = LLGridManager::getInstance()->getGridId();
+        const std::string& grid_id_str   = LLGridManager::getInstance()->getGridNick();
         const std::string& grid_id_lower = utf8str_tolower(grid_id_str);
         filename                         = llformat(GRID_CACHE_FORMAT_STRING, path.c_str(), grid_id_lower.c_str(), extention.c_str());
     }

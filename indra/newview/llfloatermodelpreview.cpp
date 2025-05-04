@@ -247,7 +247,7 @@ bool LLFloaterModelPreview::postBuild()
 			text->setMouseDownCallback(boost::bind(&LLFloaterModelPreview::setPreviewLOD, this, i));
 		}
 	}
-	std::string current_grid = LLGridManager::getInstance()->getGridId();
+	std::string current_grid = LLGridManager::getInstance()->getGridNick();
 	std::transform(current_grid.begin(),current_grid.end(),current_grid.begin(),::tolower);
 	std::string validate_url;
 	if (current_grid == "agni")

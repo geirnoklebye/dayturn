@@ -5,7 +5,7 @@
  * $LicenseInfo:firstyear=2007&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
@@ -226,7 +226,7 @@ bool LLURLDispatcherImpl::handleGrid(const LLSLURL& slurl)
         args["SLURL"] = slurl.getLocationString();
         args["CURRENT_GRID"] = LLGridManager::getInstance()->getGridLabel();
         std::string grid_label =
-            LLGridManager::getInstance()->getGridLabel(slurl.getGrid());
+            LLGridManager::getInstance()->getGridLabel();
 
         if (!grid_label.empty())
         {

@@ -3594,12 +3594,17 @@ void LLPanelPreferenceControls::onCancelKeyBind()
 //{
 //}
 
-//<FS:AW  opensim preferences>
+//<Opensim preferences>
 static LLPanelInjector<LLPanelPreferenceOpensim> t_pref_opensim("panel_preference_opensim");
 
 LLPanelPreferenceOpensim::LLPanelPreferenceOpensim() : LLPanelPreference(),
     mGridListControl(NULL)
 {
+// <Opensim search support>
+	mCommitCallbackRegistrar.add("Pref.ClearDebugSearchURL", boost::bind(&LLPanelPreferenceOpensim::onClickClearDebugSearchURL, this));
+	mCommitCallbackRegistrar.add("Pref.PickDebugSearchURL", boost::bind(&LLPanelPreferenceOpensim::onClickPickDebugSearchURL, this));
+
+// <Opensim grid management>
     mCommitCallbackRegistrar.add("Pref.AddGrid", boost::bind(&LLPanelPreferenceOpensim::onClickAddGrid, this));
     mCommitCallbackRegistrar.add("Pref.ClearGrid", boost::bind(&LLPanelPreferenceOpensim::onClickClearGrid, this));
     mCommitCallbackRegistrar.add("Pref.RefreshGrid", boost::bind( &LLPanelPreferenceOpensim::onClickRefreshGrid, this));
@@ -3730,8 +3735,18 @@ void LLPanelPreferenceOpensim::refreshGridList(bool success)
 	}
 }
 
+void LLPanelPreferenceOpensim::onClickClearDebugSearchURL()
+{
+	LLNotificationsUtil::add("ConfirmClearDebugSearchURL", LLSD(), LLSD(), callback_clear_debug_search);
+}
 
-// </FS:AW  opensim preferences>
+void LLPanelPreferenceOpensim::onClickPickDebugSearchURL()
+{
+	LLNotificationsUtil::add("ConfirmPickDebugSearchURL", LLSD(), LLSD(),callback_pick_debug_search );
+}
+// </Opensim search support>
+// </Opensim grid management support>
+// </Opensim preferences>
 
 LLFloaterPreferenceProxy::LLFloaterPreferenceProxy(const LLSD& key)
 	: LLFloater(key),

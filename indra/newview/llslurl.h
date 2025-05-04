@@ -29,6 +29,7 @@
 
 #include "llstring.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 // represents a location in a grid
 
@@ -63,7 +64,7 @@ public:
 		NUM_SLURL_TYPES // must be last
 	};
 		
-	
+
 	LLSLURL(): mType(INVALID)  { }
 	LLSLURL(const std::string& slurl);
 	LLSLURL(const std::string& grid, const std::string& region);

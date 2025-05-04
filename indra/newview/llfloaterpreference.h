@@ -443,24 +443,22 @@ private:
 	LOG_CLASS(FSPanelPreferenceBackup);
 };
 
-// <FS:AW  opensim preferences>
+// <Opensim preferences>
 class LLPanelPreferenceOpensim : public LLPanelPreference
 {
 public:
 	LLPanelPreferenceOpensim();
-// <FS:AW  grid management>
+// <Opensim  grid management>
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void apply();
 	/*virtual*/ void cancel();
-// </FS:AW  grid management>
 
 protected:
-// <FS:AW  opensim search support>
+// <Opensim search support>
 	void onClickClearDebugSearchURL();
 	void onClickPickDebugSearchURL();
-// </FS:AW  opensim search support>
 
-// <FS:AW  grid management>
+// <Opensim  grid management>
 	void onClickAddGrid();
 	void addedGrid(bool success);
 	void onClickClearGrid();
@@ -470,6 +468,7 @@ protected:
 	bool removeGridCB(const LLSD& notification, const LLSD& response);
 	void refreshGridList(bool success = true);
 	LLScrollListCtrl* mGridListControl;
+
 private:
 	LLLineEditor* mEditorGridName;
 	LLLineEditor* mEditorGridURI;
@@ -481,10 +480,10 @@ private:
 	LLLineEditor* mEditorPassword;
 	LLLineEditor* mEditorSearch;
 	LLLineEditor* mEditorGridMessage;
-// </FS:AW  grid management>
+// </Opensim grid management>
 	LOG_CLASS(LLPanelPreferenceOpensim);
 };
-// </FS:AW  opensim preferences>
+// </Opensim preferences>
 
 class LLFloaterPreferenceProxy : public LLFloater
 {

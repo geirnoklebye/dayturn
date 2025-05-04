@@ -31,6 +31,8 @@
 // Newview
 #include "fspanelprofile.h"
 #include "llagent.h" //gAgent
+#include "llviewernetwork.h" //LLGridManager
+#include "lltabcontainer.h"
 
 static const std::string PANEL_PROFILE_VIEW = "panel_profile_view";
 
@@ -68,6 +70,16 @@ bool FSFloaterProfile::postBuild()
 {
     childSetAction("ok_btn", boost::bind(&FSFloaterProfile::onOKBtn, this));
     childSetAction("cancel_btn", boost::bind(&FSFloaterProfile::onCancelBtn, this));
+
+    if(LLGridManager::getInstance()->isInOpenSim())
+    {
+        LLTabContainer* tab_container = getChild<LLTabContainer>("tabs");
+        if (tab_container)
+        {
+            std::string nick = LLGridManager::getInstance()->getGridNick();
+            tab_container->setCurrentTabName(nick);
+        }
+    }
 
     return true;
 }

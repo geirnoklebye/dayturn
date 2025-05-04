@@ -191,14 +191,14 @@ void LLViewerTextureList::doPreloadImages()
 
 static std::string get_texture_list_name()
 {
-    if (LLGridManager::getInstance()->isInProductionGrid())
+    if (LLGridManager::getInstance()->isInSLBeta())
     {
         return gDirUtilp->getExpandedFilename(LL_PATH_CACHE,
             "texture_list_" + gSavedSettings.getString("LoginLocation") + "." + gDirUtilp->getUserName() + ".xml");
     }
     else
     {
-        const std::string& grid_id_str = LLGridManager::getInstance()->getGridId();
+        const std::string& grid_id_str = LLGridManager::getInstance()->getGridNick();
         const std::string& grid_id_lower = utf8str_tolower(grid_id_str);
         return gDirUtilp->getExpandedFilename(LL_PATH_CACHE,
             "texture_list_" + gSavedSettings.getString("LoginLocation") + "." + gDirUtilp->getUserName() + "." + grid_id_lower + ".xml");

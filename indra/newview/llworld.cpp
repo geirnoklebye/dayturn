@@ -1396,7 +1396,6 @@ void LLWorld::waterHeightRegionInfo(std::string const& sim_name, F32 water_heigh
 
 void LLWorld::precullWaterObjects(LLCamera& camera, LLCullResult* cull, bool include_void_water)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	if (!gAgent.getRegion())
 	{
 		return;
