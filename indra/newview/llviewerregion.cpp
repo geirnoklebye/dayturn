@@ -5,21 +5,21 @@
  * $LicenseInfo:firstyear=2000&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010-2013, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -33,13 +33,9 @@
 #include "llaisapi.h"
 #include "llavatarnamecache.h"		// name lookup cap url
 #include "llfloaterreg.h"
-#include "llmath.h"
 #include "llregionflags.h"
 #include "llregionhandle.h"
 #include "llsurface.h"
-#include "message.h"
-#include "v3math.h"
-#include "v4math.h"
 
 #include "llagent.h"
 #include "llagentcamera.h"
@@ -81,6 +77,7 @@
 #include "lleventcoro.h"
 #include "llcorehttputil.h"
 #include "llsettingsdaycycle.h"
+#include "lllogininstance.h"
 
 #include <boost/regex.hpp>
 
@@ -3189,7 +3186,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
     // Capabilities unique to OpenSim
     if(!gIsInSecondLife)
     {
-        // capabilityNames.append("CustomMenuAction"); OnLook specific
         capabilityNames.append("OpenSimExtras");
     }
 
@@ -3569,6 +3565,156 @@ std::string LLViewerRegion::getSimHostName()
  * OpenSimExtras capability Simulator Features implementation below
  */
 
+
+std::string LLViewerRegion::getGridURL() const
+{
+	std::string url;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("GridURL"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["GridURL"].asString();
+	}
+	else
+	{
+		std::vector<std::string> uris;
+		LLGridManager::getInstance()->getLoginURIs(uris);
+		url = uris.front();
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getGridName() const
+{
+	std::string name;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("GridName"))
+	{
+		name = mSimulatorFeatures["OpenSimExtras"]["GridName"].asString();
+	}
+	else
+	{
+		name = LLGridManager::getInstance()->getGridLabel();
+	}
+	return name;
+}
+
+std::string LLViewerRegion::getAvatarPickerURL() const
+{
+	std::string url = LLStringUtil::null;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("avatar-picker-url"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["avatar-picker-url"].asString();
+	}
+	else if (LLLoginInstance::getInstance()->hasResponse("avatar_picker_url"))
+	{
+		url = LLLoginInstance::getInstance()->getResponse("avatar_picker_url").asString();
+	}
+	else if (gIsInSecondLife)
+	{
+		url = gSavedSettings.getString("AvatarPickerURL");
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getDestinationGuideURL() const
+{
+	std::string url = LLStringUtil::null;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("destination-guide-url"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["destination-guide-url"].asString();
+	}
+	else if (LLLoginInstance::getInstance()->hasResponse("destination_guide_url"))
+	{
+		url = LLLoginInstance::getInstance()->getResponse("destination_guide_url").asString();
+	}
+	else if (gIsInSecondLife)
+	{
+		url = gSavedSettings.getString("DestinationGuideURL");
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getMapServerURL() const
+{
+	std::string url;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("map-server-url"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["map-server-url"].asString();
+	}
+	else
+	{
+		url = gSavedSettings.getString("CurrentMapServerURL");
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getSearchServerURL() const
+{
+	std::string url;
+	// Check the region it trumps the grid
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("search-server-url"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["search-server-url"].asString();
+	}
+	// Check the login message
+	else if (LLLoginInstance::getInstance()->hasResponse("search"))
+	{
+		url = LLLoginInstance::getInstance()->getResponse("search").asString();
+	}
+	// If all else fails, fall back to defaults
+	else
+	{
+		url = gSavedSettings.getString(!gIsInSecondLife ? "SearchURLOpenSim" : "SearchURL");
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getBuyCurrencyServerURL() const
+{
+	std::string url = LLGridManager::getInstance()->getHelperURI() + "currency.php";
+	// If we have the feature, override grid default.
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("currency-base-uri"))
+	{
+		url = mSimulatorFeatures["OpenSimExtras"]["currency-base-uri"].asString();
+	}
+	return url;
+}
+
+std::string LLViewerRegion::getHGGrid() const
+{
+	std::string authority = LLStringUtil::null;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("GridURL"))
+	{
+		const std::string& url = mSimulatorFeatures["OpenSimExtras"]["GridURL"].asString();
+		authority = LLURI(url).authority();
+	}
+	else
+	{
+		authority = LLGridManager::getInstance()->getGrid();
+	}
+	return authority;
+}
+
+std::string LLViewerRegion::getHGGridName() const
+{
+	std::string name;
+	if (mSimulatorFeatures.has("OpenSimExtras")
+		&& mSimulatorFeatures["OpenSimExtras"].has("GridName"))
+	{
+		name = mSimulatorFeatures["OpenSimExtras"]["GridName"].asString();
+	}
+	else
+	{
+		name = LLGridManager::getInstance()->getGridLabel();
+	}
+	return name;
+}
 
 U32 LLViewerRegion::getChatRange() const
 {
