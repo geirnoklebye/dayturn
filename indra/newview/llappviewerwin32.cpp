@@ -907,6 +907,29 @@ void LLAppViewerWin32::reportCrashToBugsplat(void* pExcepInfo)
 #endif // LL_BUGSPLAT
 }
 
+bool LLAppViewerWin32::initWindow()
+{
+    // This is a workaround/hotfix for a change in Windows 11 24H2 (and possibly later)
+    // Where the window width and height need to correctly reflect an available FullScreen size
+    if (gSavedSettings.getbool("FullScreen"))
+    {
+        DEVMODE dev_mode;
+        ::ZeroMemory(&dev_mode, sizeof(DEVMODE));
+        dev_mode.dmSize = sizeof(DEVMODE);
+        if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode))
+        {
+            gSavedSettings.setU32("WindowWidth", dev_mode.dmPelsWidth);
+            gSavedSettings.setU32("WindowHeight", dev_mode.dmPelsHeight);
+        }
+        else
+        {
+            LL_WARNS("AppInit") << "Unable to set WindowWidth and WindowHeight for FullScreen mode" << LL_ENDL;
+        }
+    }
+
+    return LLAppViewer::initWindow();
+}
+
 void LLAppViewerWin32::initLoggingAndGetLastDuration()
 {
 	LLAppViewer::initLoggingAndGetLastDuration();
