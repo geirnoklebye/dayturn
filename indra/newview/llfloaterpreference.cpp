@@ -3653,18 +3653,17 @@ void LLPanelPreferenceOpensim::onSelectGrid()
 
 void LLPanelPreferenceOpensim::apply()
 {
-	//LLGridManager::getInstance()->saveGridList();
+	LLGridManager::getInstance()->saveGridList();
 }
 
 void LLPanelPreferenceOpensim::cancel()
 {
-	//LLGridManager::getInstance()->resetGrids();
+	LLGridManager::getInstance()->resetGrids();
 	//LLPanelLogin::updateLocationCombo(false);
 }
 
 void LLPanelPreferenceOpensim::onClickAddGrid()
-{
-/* 
+{ 
 	std::string new_grid = gSavedSettings.getString("OpensimPrefsAddGrid");
 
 	if (!new_grid.empty())
@@ -3673,7 +3672,15 @@ void LLPanelPreferenceOpensim::onClickAddGrid()
 		LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::addedGrid, this, _1));
 		LLGridManager::getInstance()->addGrid(new_grid);
 	}
- */
+}
+
+void LLPanelPreferenceOpensim::addedGrid(bool success)
+{
+	if (success)
+	{
+		onClickClearGrid();
+	}
+	refreshGridList(success);
 }
 
 void LLPanelPreferenceOpensim::onClickClearGrid()
@@ -3683,17 +3690,14 @@ void LLPanelPreferenceOpensim::onClickClearGrid()
 
 void LLPanelPreferenceOpensim::onClickRefreshGrid()
 {
-/* 
 	std::string grid = mGridListControl->getSelectedValue();
 	getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
 	LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::refreshGridList, this, _1));
 	LLGridManager::getInstance()->reFetchGrid(grid);
- */
 }
 
 void LLPanelPreferenceOpensim::onClickRemoveGrid()
 {
-/* 
 	std::string grid = mGridListControl->getSelectedValue();
 	LLSD args;
 
@@ -3708,7 +3712,19 @@ void LLPanelPreferenceOpensim::onClickRemoveGrid()
 		args["REMOVE_GRID"] = LLGridManager::getInstance()->getGridLabel();
 		LLNotificationsUtil::add("CanNotRemoveConnectedGrid", args);
 	}
- */
+}
+
+bool LLPanelPreferenceOpensim::removeGridCB(const LLSD& notification, const LLSD& response)
+{
+	const S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
+	if (0 == option)
+	{
+		std::string grid = notification["payload"].asString();
+		getChild<LLUICtrl>("grid_management_panel")->setEnabled(false);
+		/*mGridListChanged =*/ LLGridManager::getInstance()->addGridListChangedCallback(boost::bind(&LLPanelPreferenceOpensim::refreshGridList, this, _1));
+		LLGridManager::getInstance()->removeGrid(grid);
+	}
+	return false;
 }
 
 void LLPanelPreferenceOpensim::refreshGridList(bool success)
