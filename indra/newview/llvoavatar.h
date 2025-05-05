@@ -541,7 +541,7 @@ public:
 	// Global colors
 	//--------------------------------------------------------------------
 public:
-	/*virtual*/void onGlobalColorChanged(const LLTexGlobalColor* global_color);
+	/*virtual*/void onGlobalColorChanged(const LLTexGlobalColor* global_color, bool upload_bake);
 
 	//--------------------------------------------------------------------
 	// Visibility
@@ -706,7 +706,7 @@ protected:
 	// Composites
 	//--------------------------------------------------------------------
 public:
-	virtual void	invalidateComposite(LLTexLayerSet* layerset);
+	virtual void	invalidateComposite(LLTexLayerSet* layerset, bool upload_result);
 	virtual void	invalidateAll();
 	virtual void	setCompositeUpdatesEnabled(bool b) {}
 	virtual void 	setCompositeUpdatesEnabled(U32 index, bool b) {}
@@ -740,7 +740,7 @@ private:
 public:
 	void			debugColorizeSubMeshes(U32 i, const LLColor4& color);
 	virtual void 	updateMeshTextures();
-	void 			updateSexDependentLayerSets();
+	void 			updateSexDependentLayerSets(bool upload_bake);
 	virtual void	dirtyMesh(); // Dirty the avatar mesh
 	void 			updateMeshData();
 	void			updateMeshVisibility();

@@ -50,7 +50,7 @@ extern const char* DEFAULT_LOGIN_PAGE;
 #define GRID_IS_FAVORITE_VALUE "favorite"
 #define GRID_REGISTER_NEW_ACCOUNT "register"
 #define GRID_FORGOT_PASSWORD "password"
-#define MAINGRID "login.agni.lindenlab.com"
+#define MAINGRID "grid.xmir.org:8002"
 #define GRID_LOGIN_IDENTIFIER_TYPES "login_identifier_types"
 // <FS:CR> Aurora Sim
 #define GRID_HELP "help"
@@ -240,8 +240,8 @@ public:
     // <FS:CR> Variable parcel listing fee
 private:
     friend class GridInfoRequestResponder;
-    friend void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState mState );
-    friend void downloadError( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState mState );
+    friend void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState state );
+    friend void downloadError( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState state );
     void addGrid(GridEntry* grid_info, AddState state);
     void incResponderCount(){++mResponderCount;}
     void decResponderCount(){--mResponderCount;}

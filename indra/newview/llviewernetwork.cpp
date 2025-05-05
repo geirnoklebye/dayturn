@@ -27,8 +27,8 @@
  */
 
 #include "llviewerprecompiledheaders.h"
-#include "llappviewer.h" //global variable gIsInSecondLife and 
 
+#include "llappviewer.h"
 #include "llviewernetwork.h"
 #include "llviewercontrol.h"
 #include "llsdserialize.h"
@@ -47,20 +47,23 @@
 #include <unistd.h>
 #endif
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 /// url base for update queries
 
 
-void downloadError( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState mState )
+void downloadError( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState state )
 {
     LLCore::HttpStatus status = LLCoreHttpUtil::HttpCoroutineAdapter::getStatusFromLLSD( aData );
+
     if (HTTP_GATEWAY_TIME_OUT == status.getType() )// gateway timeout ... well ... retry once >_>
     {
-        if (LLGridManager::FETCH == mState)
+        if (LLGridManager::FETCH == state)
         {
             mOwner->addGrid(mData,    LLGridManager::RETRY);
         }
     }
-    else if (LLGridManager::TRYLEGACY == mState) //we did TRYLEGACY and faild
+    else if (LLGridManager::TRYLEGACY == state) //we did TRYLEGACY and faild
     {
         LLSD args;
         args["GRID"] = mData->grid[GRID_VALUE];
@@ -84,7 +87,7 @@ void downloadError( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, 
     }
 }
 
-void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState mState )
+void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, LLGridManager::AddState state )
 {
     mOwner->decResponderCount();
     LLSD header = aData[ LLCoreHttpUtil::HttpCoroutineAdapter::HTTP_RESULTS ][ LLCoreHttpUtil::HttpCoroutineAdapter::HTTP_RESULTS_HEADERS];
@@ -93,7 +96,7 @@ void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mDat
     const LLSD::Binary &rawData = aData[LLCoreHttpUtil::HttpCoroutineAdapter::HTTP_RESULTS_RAW].asBinary();
 
 	// LL_DEBUGS("GridManager") << mData->grid[GRID_VALUE] << " status: " << getStatus() << " reason: " << getReason() << LL_ENDL;
-	if(LLGridManager::TRYLEGACY == mState && HTTP_OK ==  status.getType() )
+	if(LLGridManager::TRYLEGACY == state && HTTP_OK ==  status.getType() )
 	{
 		mOwner->addGrid(mData, LLGridManager::SYSTEM);
 	}
@@ -122,18 +125,18 @@ void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mDat
 			mOwner->addGrid(mData, LLGridManager::FAIL);
 		}
 	}
-	else if (HTTP_NOT_MODIFIED ==  status.getType() && LLGridManager::TRYLEGACY != mState)// not modified
+	else if (HTTP_NOT_MODIFIED ==  status.getType() && LLGridManager::TRYLEGACY != state)// not modified
 	{
 		mOwner->addGrid(mData, LLGridManager::FINISH);
 	}
-	else if (HTTP_INTERNAL_ERROR ==  status.getType() && LLGridManager::LOCAL == mState) //add localhost even if its not up
+	else if (HTTP_INTERNAL_ERROR ==  status.getType() && LLGridManager::LOCAL == state) //add localhost even if its not up
 	{
 		mOwner->addGrid(mData,	LLGridManager::FINISH);
 		//since we know now that its not up we cold also start it
 	}
 	else
 	{
-		downloadError( aData[ LLCoreHttpUtil::HttpCoroutineAdapter::HTTP_RESULTS ], mOwner, mData, mState );
+		downloadError( aData[ LLCoreHttpUtil::HttpCoroutineAdapter::HTTP_RESULTS ], mOwner, mData, state );
 	}
 }
 

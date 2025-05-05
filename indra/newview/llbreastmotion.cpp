@@ -340,7 +340,8 @@ bool LLBreastMotion::onUpdate(F32 time, U8* joint_mask)
 		if (mBreastParamsDriven[i])
 		{
 			mCharacter->setVisualParamWeight(mBreastParamsDriven[i],
-											 new_local_pt[i]);
+											 new_local_pt[i],
+											 false);
 		}
 	}
 

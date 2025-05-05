@@ -266,7 +266,7 @@ void LLViewerWearable::setParamsToDefaults()
 	{
 		if( (((LLViewerVisualParam*)param)->getWearableType() == mType ) && (param->isTweakable() ) )
 		{
-			setVisualParamWeight(param->getID(),param->getDefaultWeight());
+			setVisualParamWeight(param->getID(),param->getDefaultWeight(), false);
 		}
 	}
 }
@@ -351,14 +351,14 @@ void LLViewerWearable::writeToAvatar(LLAvatarAppearance *avatarp)
 	ESex new_sex = avatarp->getSex();
 	if( old_sex != new_sex )
 	{
-		viewer_avatar->updateSexDependentLayerSets();
+		viewer_avatar->updateSexDependentLayerSets(false);
 	}	
 }
 
 
 // Updates the user's avatar's appearance, replacing this wearables' parameters and textures with default values.
 // static 
-void LLViewerWearable::removeFromAvatar( LLWearableType::EType type)
+void LLViewerWearable::removeFromAvatar( LLWearableType::EType type, bool upload_bake)
 {
 	if (!isAgentAvatarValid()) return;
 
@@ -377,7 +377,7 @@ void LLViewerWearable::removeFromAvatar( LLWearableType::EType type)
 		if( (((LLViewerVisualParam*)param)->getWearableType() == type) && (param->isTweakable() ) )
 		{
 			S32 param_id = param->getID();
-			gAgentAvatarp->setVisualParamWeight( param_id, param->getDefaultWeight());
+			gAgentAvatarp->setVisualParamWeight( param_id, param->getDefaultWeight(), upload_bake);
 		}
 	}
 
@@ -387,7 +387,7 @@ void LLViewerWearable::removeFromAvatar( LLWearableType::EType type)
 	}
 
 	gAgentAvatarp->updateVisualParams();
-	gAgentAvatarp->wearableUpdated(type);
+	gAgentAvatarp->wearableUpdated(type, false);
 }
 
 // Does not copy mAssetID.

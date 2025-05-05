@@ -39,7 +39,7 @@
 #include "llui.h"
 #include "llviewercontrol.h"
 #include "llweb.h"
-#include "llviewernetwork.h"// </FS:AW  opensim search support>
+//#include "llviewernetwork.h"// </FS:AW  opensim search support>
 
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
@@ -118,7 +118,18 @@ void LLFloaterSearch::onOpen(const LLSD& key)
 {
 	Params p(key);
 	p.trusted_content = true;
-	p.allow_address_entry = false;
+// <FS:AW  opensim search support>
+//	p.allow_address_entry = false;
+    // <FS:AW opensim support>
+    if (!gIsInSecondLife)
+    {
+        bool debug = gSavedSettings.getbool("DebugSearch");
+        p.allow_address_entry = debug;
+    }
+    else // <FS:AW opensim support>
+    {
+        p.allow_address_entry = false;
+    }
 
 	LLFloaterWebContent::onOpen(p);
 	mWebBrowser->setFocus(true);
@@ -209,8 +220,27 @@ void LLFloaterSearch::search(const SearchQuery &p)
 
 	// get the search URL and expand all of the substitutions
 	// (also adds things like [LANGUAGE], [VERSION], [OS], etc.)
-	std::string url = gSavedSettings.getString("SearchURL");
-	url = LLWeb::expandURLSubstitutions(url, subs);
+	// <FS:AW  opensim search support>
+//	std::string url = gSavedSettings.getString("SearchURL");
+	std::string url;
+
+    // <FS:AW opensim support>
+	std::string debug_url = gSavedSettings.getString("SearchURLDebug");
+	if (gSavedSettings.getbool("DebugSearch") && !debug_url.empty())
+	{
+		url = debug_url;
+	}
+	else if (!gIsInSecondLife)
+	{
+        LLViewerRegion* regionp = gAgent.getRegion();
+        url = regionp != nullptr ? regionp->getSearchServerURL() : gSavedSettings.getString("SearchURL");
+	}
+	else // we are in SL or SL beta
+    // <FS:AW opensim support>
+	{
+		url = gSavedSettings.getString("SearchURL");
+	}
+// </FS:AW  opensim search support>
 
 	// and load the URL in the web view
 	mWebBrowser->navigateTo(url, HTTP_CONTENT_TEXT_HTML);

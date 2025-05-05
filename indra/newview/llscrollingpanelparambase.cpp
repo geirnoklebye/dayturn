@@ -94,7 +94,7 @@ void LLScrollingPanelParamBase::onSliderMoved(LLUICtrl* ctrl, void* userdata)
 	F32 new_weight = self->sliderToWeight( (F32)slider->getValue().asReal() );
 	if (current_weight != new_weight )
 	{
-		self->mWearable->setVisualParamWeight( param->getID(), new_weight);
+		self->mWearable->setVisualParamWeight( param->getID(), new_weight, false);
 		self->mWearable->writeToAvatar(gAgentAvatarp);
 		gAgentAvatarp->updateVisualParams();
 	}

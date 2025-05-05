@@ -360,7 +360,7 @@ bool LLPolyMorphTarget::setInfo(LLPolyMorphTargetInfo* info)
 		return false;
 	mInfo = info;
 	mID = info->mID;
-	setWeight(getDefaultWeight());
+	setWeight(getDefaultWeight(), false);
 
 	LLAvatarAppearance* avatarp = mMesh->getAvatar();
 	for (LLPolyVolumeMorphInfo& volume_info : getInfo()->mVolumeInfoList)

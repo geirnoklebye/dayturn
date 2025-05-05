@@ -76,9 +76,9 @@ public:
 	// LLVisualParam Virtual functions
 	///*virtual*/ bool		parseData(LLXmlTreeNode* node);
 	/*virtual*/ void		apply( ESex avatar_sex ) {}
-	/*virtual*/ void		setWeight(F32 weight);
-	/*virtual*/ void		setAnimationTarget(F32 target_value); 
-	/*virtual*/ void		animate(F32 delta);
+	/*virtual*/ void		setWeight(F32 weight, bool upload_bake);
+	/*virtual*/ void		setAnimationTarget(F32 target_value, bool upload_bake); 
+	/*virtual*/ void		animate(F32 delta, bool upload_bake);
 
 	// LLViewerVisualParam Virtual functions
 	/*virtual*/ F32					getTotalDistortion()									{ return 1.f; }
@@ -159,9 +159,9 @@ public:
 	// LLVisualParam Virtual functions
 	///*virtual*/ bool			parseData(LLXmlTreeNode* node);
 	/*virtual*/ void			apply( ESex avatar_sex ) {}
-	/*virtual*/ void			setWeight(F32 weight);
-	/*virtual*/ void			setAnimationTarget(F32 target_value);
-	/*virtual*/ void			animate(F32 delta);
+	/*virtual*/ void			setWeight(F32 weight, bool upload_bake);
+	/*virtual*/ void			setAnimationTarget(F32 target_value, bool upload_bake);
+	/*virtual*/ void			animate(F32 delta, bool upload_bake);
 
 
 	// LLViewerVisualParam Virtual functions
@@ -177,7 +177,7 @@ public:
 protected:
 	LLTexLayerParamColor(const LLTexLayerParamColor& pOther);
 
-	virtual void onGlobalColorChanged() {}
+	virtual void onGlobalColorChanged(bool upload_bake) {}
 private:
 	LLVector4a				mAvgDistortionVec;
 };

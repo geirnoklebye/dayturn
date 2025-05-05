@@ -365,7 +365,7 @@ void LLAgentWearables::saveWearable(const LLWearableType::EType type, const U32 
 			return;
 		}
 
-		gAgentAvatarp->wearableUpdated(type);
+		gAgentAvatarp->wearableUpdated(type, true);
 	}
 }
 
@@ -609,7 +609,8 @@ void LLAgentWearables::wearableUpdated(LLWearable *wearable, bool removed)
 {
 	if (isAgentAvatarValid())
 	{
-		gAgentAvatarp->wearableUpdated(wearable->getType());
+		const bool upload_result = removed;
+		gAgentAvatarp->wearableUpdated(wearable->getType(), upload_result);
 	}
 
 	LLWearableData::wearableUpdated(wearable, removed);
@@ -937,7 +938,7 @@ void LLAgentWearables::removeWearableFinal(const LLWearableType::EType type, boo
 			if (old_wearable)
 			{
 				eraseWearable(old_wearable);
-				old_wearable->removeFromAvatar();
+				old_wearable->removeFromAvatar(true);
 			}
 		}
 		clearWearableType(type);
@@ -949,7 +950,7 @@ void LLAgentWearables::removeWearableFinal(const LLWearableType::EType type, boo
 		if (old_wearable)
 		{
 			eraseWearable(old_wearable);
-			old_wearable->removeFromAvatar();
+			old_wearable->removeFromAvatar(true);
 		}
 	}
 
@@ -1447,7 +1448,7 @@ bool LLAgentWearables::canWearableBeRemoved(const LLViewerWearable* wearable) co
 	return !(((type == LLWearableType::WT_SHAPE) || (type == LLWearableType::WT_SKIN) || (type == LLWearableType::WT_HAIR) || (type == LLWearableType::WT_EYES))
 			 && (getWearableCount(type) <= 1) );		  
 }
-void LLAgentWearables::animateAllWearableParams(F32 delta)
+void LLAgentWearables::animateAllWearableParams(F32 delta, bool upload_bake)
 {
 	for( S32 type = 0; type < LLWearableType::WT_COUNT; ++type )
 	{
@@ -1457,7 +1458,7 @@ void LLAgentWearables::animateAllWearableParams(F32 delta)
 			llassert(wearable);
 			if (wearable)
 			{
-				wearable->animateParams(delta);
+				wearable->animateParams(delta, upload_bake);
 			}
 		}
 	}

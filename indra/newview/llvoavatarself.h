@@ -94,16 +94,16 @@ public:
 	
     /*virtual*/ void renderJoints();
 
-	/*virtual*/ bool setVisualParamWeight(const LLVisualParam *which_param, F32 weight);
-	/*virtual*/ bool setVisualParamWeight(const char* param_name, F32 weight);
-	/*virtual*/ bool setVisualParamWeight(S32 index, F32 weight);
+	/*virtual*/ bool setVisualParamWeight(const LLVisualParam *which_param, F32 weight, bool upload_bake = false);
+	/*virtual*/ bool setVisualParamWeight(const char* param_name, F32 weight, bool upload_bake = false);
+	/*virtual*/ bool setVisualParamWeight(S32 index, F32 weight, bool upload_bake = false);
 	/*virtual*/ void updateVisualParams();
 	void writeWearablesToAvatar();
 	/*virtual*/ void idleUpdateAppearanceAnimation();
 
 private:
 	// helper function. Passed in param is assumed to be in avatar's parameter list.
-	bool setParamWeight(const LLViewerVisualParam *param, F32 weight);
+	bool setParamWeight(const LLViewerVisualParam *param, F32 weight, bool upload_bake = false);
 
     std::mutex          mJointMapMutex; // getJoint gets used from mesh thread
 
@@ -243,7 +243,7 @@ public:
 	// Composites
 	//--------------------------------------------------------------------
 public:
-	/* virtual */ void	invalidateComposite(LLTexLayerSet* layerset);
+	/* virtual */ void	invalidateComposite(LLTexLayerSet* layerset, bool upload_result);
 	/* virtual */ void	invalidateAll();
 	/* virtual */ void	setCompositeUpdatesEnabled(bool b); // only works for self
 	/* virtual */ void  setCompositeUpdatesEnabled(U32 index, bool b);
@@ -285,7 +285,7 @@ protected:
  **/
 
 public:
-	void				wearableUpdated(LLWearableType::EType type);
+	void				wearableUpdated(LLWearableType::EType type, bool upload_result);
 protected:
 	U32 getNumWearables(LLAvatarAppearanceDefines::ETextureIndex i) const;
 

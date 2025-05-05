@@ -5,21 +5,21 @@
  * $LicenseInfo:firstyear=2001&license=viewerlgpl$
  * Second Life Viewer Source Code
  * Copyright (C) 2010, Linden Research, Inc.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation;
  * version 2.1 of the License only.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
+ *
  * Linden Research, Inc., 945 Battery Street, San Francisco, CA  94111  USA
  * $/LicenseInfo$
  */
@@ -1144,7 +1144,7 @@ void LLVOAvatar::restoreGL()
 	gAgentAvatarp->setCompositeUpdatesEnabled(true);
 	for (U32 i = 0; i < gAgentAvatarp->mBakedTextureDatas.size(); i++)
 	{
-		gAgentAvatarp->invalidateComposite(gAgentAvatarp->getTexLayerSet(i));
+		gAgentAvatarp->invalidateComposite(gAgentAvatarp->getTexLayerSet(i), false);
 	}
 	gAgentAvatarp->updateMeshTextures();
 }
@@ -2173,7 +2173,7 @@ void LLVOAvatar::applyDefaultParams()
 
 		U8 value = it->second;
 		F32 newWeight = U8_to_F32(value, param->getMinWeight(), param->getMaxWeight());
-		param->setWeight(newWeight);
+		param->setWeight(newWeight, true);
 	}
 }
 
@@ -2910,8 +2910,8 @@ void LLVOAvatar::idleUpdateVoiceVisualizer(bool voice_enabled, const LLVector3 &
 				
 				if ( mLipSyncActive )
 				{
-					if( mOohMorph ) mOohMorph->setWeight(mOohMorph->getMinWeight());
-					if( mAahMorph ) mAahMorph->setWeight(mAahMorph->getMinWeight());
+					if( mOohMorph ) mOohMorph->setWeight(mOohMorph->getMinWeight(), false);
+					if( mAahMorph ) mAahMorph->setWeight(mAahMorph->getMinWeight(), false);
 					
 					mLipSyncActive = false;
 					LLCharacter::updateVisualParams();
@@ -3109,7 +3109,7 @@ void LLVOAvatar::idleUpdateAppearanceAnimation()
 			{
 				if (param->isTweakable())
 				{
-					param->stopAnimating();
+					param->stopAnimating(false);
 				}
 			}
 			updateVisualParams();
@@ -3169,7 +3169,7 @@ void LLVOAvatar::idleUpdateLipSync(bool voice_enabled)
 			F32 ooh_weight = mOohMorph->getMinWeight()
 				+ ooh_morph_amount * (mOohMorph->getMaxWeight() - mOohMorph->getMinWeight());
 
-			mOohMorph->setWeight( ooh_weight);
+			mOohMorph->setWeight( ooh_weight, false);
 		}
 
 		if( mAahMorph )
@@ -3177,7 +3177,7 @@ void LLVOAvatar::idleUpdateLipSync(bool voice_enabled)
 			F32 aah_weight = mAahMorph->getMinWeight()
 				+ aah_morph_amount * (mAahMorph->getMaxWeight() - mAahMorph->getMinWeight());
 
-			mAahMorph->setWeight( aah_weight);
+			mAahMorph->setWeight( aah_weight, false);
 		}
 
 		mLipSyncActive = true;
@@ -7450,11 +7450,11 @@ bool LLVOAvatar::updateGeometry(LLDrawable *drawable)
 //-----------------------------------------------------------------------------
 // updateSexDependentLayerSets()
 //-----------------------------------------------------------------------------
-void LLVOAvatar::updateSexDependentLayerSets()
+void LLVOAvatar::updateSexDependentLayerSets(bool upload_bake)
 {
-	invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet);
-	invalidateComposite( mBakedTextureDatas[BAKED_UPPER].mTexLayerSet);
-	invalidateComposite( mBakedTextureDatas[BAKED_LOWER].mTexLayerSet);
+	invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet, upload_bake);
+	invalidateComposite( mBakedTextureDatas[BAKED_UPPER].mTexLayerSet, upload_bake);
+	invalidateComposite( mBakedTextureDatas[BAKED_LOWER].mTexLayerSet, upload_bake);
 }
 
 //-----------------------------------------------------------------------------
@@ -8223,7 +8223,7 @@ LLViewerObject *	LLVOAvatar::findAttachmentByID( const LLUUID & target_id ) cons
 }
 
 // virtual
-void LLVOAvatar::invalidateComposite( LLTexLayerSet* layerset)
+void LLVOAvatar::invalidateComposite( LLTexLayerSet* layerset, bool upload_bake)
 {
 }
 
@@ -8232,18 +8232,18 @@ void LLVOAvatar::invalidateAll()
 }
 
 // virtual
-void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color)
+void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color, bool upload_bake)
 {
 	if (global_color == mTexSkinColor)
 	{
-		invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet);
-		invalidateComposite( mBakedTextureDatas[BAKED_UPPER].mTexLayerSet);
-		invalidateComposite( mBakedTextureDatas[BAKED_LOWER].mTexLayerSet);
+		invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet, upload_bake);
+		invalidateComposite( mBakedTextureDatas[BAKED_UPPER].mTexLayerSet, upload_bake);
+		invalidateComposite( mBakedTextureDatas[BAKED_LOWER].mTexLayerSet, upload_bake);
 	}
 	else if (global_color == mTexHairColor)
 	{
-		invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet);
-		invalidateComposite( mBakedTextureDatas[BAKED_HAIR].mTexLayerSet);
+		invalidateComposite( mBakedTextureDatas[BAKED_HEAD].mTexLayerSet, upload_bake);
+		invalidateComposite( mBakedTextureDatas[BAKED_HAIR].mTexLayerSet, upload_bake);
 		
 		// ! BACKWARDS COMPATIBILITY !
 		// Fix for dealing with avatars from viewers that don't bake hair.
@@ -8265,7 +8265,7 @@ void LLVOAvatar::onGlobalColorChanged(const LLTexGlobalColor* global_color)
 	else if (global_color == mTexEyeColor)
 	{
 		// LL_INFOS() << "invalidateComposite cause: onGlobalColorChanged( eyecolor )" << LL_ENDL; 
-		invalidateComposite( mBakedTextureDatas[BAKED_EYES].mTexLayerSet);
+		invalidateComposite( mBakedTextureDatas[BAKED_EYES].mTexLayerSet, upload_bake);
 	}
 	updateMeshTextures();
 }
@@ -9731,12 +9731,12 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 				if(is_first_appearance_message || slam_params)
 				{
 					//LL_DEBUGS("Avatar") << "param slam " << i << " " << newWeight << LL_ENDL;
-					param->setWeight(newWeight);
+					param->setWeight(newWeight, false);
 				}
 				else
 				{
 					interp_params = true;
-					param->setAnimationTarget(newWeight);
+					param->setAnimationTarget(newWeight, false);
 				}
 			}
 		}
@@ -9759,7 +9759,7 @@ void LLVOAvatar::applyParsedAppearanceMessage(LLAppearanceMessageContents& conte
 			ESex new_sex = getSex();
 			if( old_sex != new_sex )
 			{
-				updateSexDependentLayerSets();
+				updateSexDependentLayerSets(false);
 			}	
 		}
 
