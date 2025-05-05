@@ -4542,6 +4542,16 @@ LLPointer<LLInventoryValidationInfo> LLInventoryModel::validate() const
 		{
 			continue;
 		}
+		// skip root folder for now
+		if (folder_type == LLFolderType::FT_ROOT_INVENTORY)
+        {
+            continue;
+        }
+		// suitcase may or may not exist on a grid so don't verify
+		if (folder_type == LLFolderType::FT_SUITCASE)
+        {
+            continue;
+        }
 		bool is_automatic = LLFolderType::lookupIsAutomaticType(folder_type);
 		bool is_singleton = LLFolderType::lookupIsSingletonType(folder_type);
 		S32 count_under_root = ft_counts_under_root[folder_type];
