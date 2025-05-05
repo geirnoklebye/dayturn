@@ -3659,7 +3659,7 @@ void LLPanelPreferenceOpensim::apply()
 void LLPanelPreferenceOpensim::cancel()
 {
 	LLGridManager::getInstance()->resetGrids();
-	//LLPanelLogin::updateLocationCombo(false);
+	LLPanelLogin::updateLocationCombo(false);
 }
 
 void LLPanelPreferenceOpensim::onClickAddGrid()

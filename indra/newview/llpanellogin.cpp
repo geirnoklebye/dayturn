@@ -744,6 +744,52 @@ bool LLPanelLogin::areCredentialFieldsDirty()
 	return false;	
 }
 
+// static
+void LLPanelLogin::updateLocationCombo( bool force_visible )
+{
+    if (!sInstance)
+    {
+        return;
+    }
+    
+    LL_DEBUGS("PanelLogin") << " " << LL_ENDL;
+    
+    LLComboBox* combo = sInstance->getChild<LLComboBox>("start_location_combo");
+    
+    switch(LLStartUp::getStartSLURL().getType())
+    {
+        case LLSLURL::LOCATION:
+        {
+            
+            combo->setCurrentByIndex( 2 );
+            combo->setTextEntry(LLStartUp::getStartSLURL().getLocationString());
+            break;
+        }
+        case LLSLURL::HOME_LOCATION:
+            combo->setCurrentByIndex(1);
+            break;
+        default:
+            combo->setCurrentByIndex(0);
+            break;
+    }
+    
+    bool show_start = true;
+    
+    if ( ! force_visible )
+        show_start = gSavedSettings.getbool("ShowStartLocation");
+    
+    sInstance->getChildView("start_location_combo")->setVisible(show_start);
+    sInstance->getChildView("start_location_text")->setVisible(show_start);
+
+    bool show_server = gSavedSettings.getbool("ForceShowGrid");
+    sInstance->getChildView("server_combo_text")->setVisible( show_server);
+    sInstance->getChildView("server_combo")->setVisible( show_server);
+
+    if (show_server)
+    {
+        updateServerCombo();
+    }
+}
 
 // static
 void LLPanelLogin::updateLocationSelectorsVisibility()
@@ -1306,6 +1352,59 @@ void LLPanelLogin::populateUserList(LLPointer<LLCredential> credential)
     }
 }
 
+// <FS:AW  grid management>
+void LLPanelLogin::gridListChanged(bool success)
+{
+	LL_DEBUGS("PanelLogin") << __FUNCTION__ << LL_ENDL;
+	updateServerCombo();
+}
+// </FS:AW  grid management>
+
+void LLPanelLogin::updateServerCombo()
+{
+	if (!sInstance) 
+	{
+			return;
+		}
+
+	LL_DEBUGS("PanelLogin") << __FUNCTION__ << LL_ENDL;
+// <FS:AW  grid management>
+	LLGridManager::getInstance()->addGridListChangedCallback(&LLPanelLogin::gridListChanged);
+// </FS:AW  grid management>
+
+	// We add all of the possible values, sorted, and then add a bar and the current value at the top
+	LLComboBox* server_choice_combo = sInstance->getChild<LLComboBox>("server_combo");	
+	server_choice_combo->removeall();
+
+	std::string add_grid_item = LLTrans::getString("ServerComboAddGrid");
+
+	std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();
+
+	for (std::map<std::string, std::string>::iterator grid_choice = known_grids.begin();
+		 grid_choice != known_grids.end();
+		 grid_choice++)
+	{
+		if (!grid_choice->first.empty())
+		{
+
+			if(!grid_choice->second.empty() || grid_choice->first != add_grid_item)
+			{
+				std::string login_uri = LLURI(LLGridManager::getInstance()->getLoginURI(grid_choice->first)).authority();
+				std::string entry = grid_choice->second + " ("+ login_uri +")";
+				server_choice_combo->add(entry, grid_choice->first);
+			}
+	}
+	}
+	server_choice_combo->sortByName();
+	std::string grid_id = " (" + LLGridManager::getInstance()->getGridLoginID() + ")";
+	server_choice_combo->addSeparator(ADD_TOP);
+	server_choice_combo->add(LLGridManager::getInstance()->getGridLabel() +  grid_id, LLGridManager::getInstance()->getGrid(), ADD_TOP);
+ 
+	server_choice_combo->add(add_grid_item, add_grid_item, ADD_BOTTOM);
+	server_choice_combo->selectFirstItem();
+ 
+	//update_grid_help();
+}
 
 void LLPanelLogin::onSelectServer()
 {

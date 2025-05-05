@@ -65,6 +65,7 @@ public:
 	static void setLocation(const LLSLURL& slurl);
 	static void autologinToLocation(const LLSLURL& slurl);
 	
+    static void updateLocationCombo(bool force_visible);  // simply update the combo box
 	/// Call when preferences that control visibility may have changed
 	static void updateLocationSelectorsVisibility();
 
@@ -108,6 +109,7 @@ private:
 	static void onRememberUserCheck(void*);
     static void onRememberPasswordCheck(void*);
 	static void onPassKey(LLLineEditor* caller, void* user_data);
+	static void gridListChanged(bool success);// <FS:AW  grid management>
 	static void updateServerCombo();
 
 private:
@@ -124,7 +126,9 @@ private:
 
 	static LLPanelLogin* sInstance;
 	static bool		sCapslockDidNotification;
-	bool			mFirstLoginThisInstall;
+    bool            mHtmlAvailable;
+    std::string     mLoginPage;
+    bool			mFirstLoginThisInstall;
     
     static bool sCredentialSet;
 
