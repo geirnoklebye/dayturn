@@ -447,11 +447,18 @@ LLSLURL::LLSLURL(const std::string& grid,
 {
     mGrid = grid;
     mRegion = region;
-    S32 x = ll_round((F32)fmod(position[VX], (F32)REGION_WIDTH_METERS));
-    S32 y = ll_round((F32)fmod(position[VY], (F32)REGION_WIDTH_METERS));
-    S32 z = ll_round((F32)position[VZ]);
+    mPosition = position;
     mType = LOCATION;
-    mPosition = LLVector3(x, y, z);
+
+	if (!gIsInSecondLife)
+	{
+	    S32 x = ll_round((F32)fmod(position[VX], (F32)REGION_WIDTH_METERS));
+    	S32 y = ll_round((F32)fmod(position[VY], (F32)REGION_WIDTH_METERS));
+    	S32 z = ll_round((F32)position[VZ]);
+    	mPosition = LLVector3((F32)x, (F32)y, (F32)z);
+	}
+	
+
 }
 
 // create a simstring
