@@ -181,8 +181,8 @@ LLSLURL::LLSLURL(const std::string& slurl)
 
             mGrid = MAINGRID;
 
-            if ((path_array[0].asString() == LLSLURL::SLURL_SECONDLIFE_PATH) ||
-                (path_array[0].asString() == LLSLURL::SLURL_APP_PATH))
+            if ((path_array[nullptr].asString() == LLSLURL::SLURL_SECONDLIFE_PATH) ||
+                (path_array[nullptr].asString() == LLSLURL::SLURL_APP_PATH))
             {
                 // it's in the form secondlife://<grid>/(app|secondlife)
                 // so parse the grid name to derive the grid ID
@@ -190,13 +190,13 @@ LLSLURL::LLSLURL(const std::string& slurl)
                 {
                     mGrid = LLGridManager::getInstance()->getGridNick();
                 }
-                else if(path_array[0].asString() == LLSLURL::SLURL_SECONDLIFE_PATH)
+                else if(path_array[nullptr].asString() == LLSLURL::SLURL_SECONDLIFE_PATH)
                 {
                     // If the slurl is in the form secondlife:///secondlife/<region> form,
                     // then we are in fact on maingrid.
                     mGrid = MAINGRID;
                 }
-                else if(path_array[0].asString() == LLSLURL::SLURL_APP_PATH)
+                else if(path_array[nullptr].asString() == LLSLURL::SLURL_APP_PATH)
                 {
                     // for app style slurls, where no grid name is specified, assume the currently
                     // selected or logged in grid.
@@ -210,7 +210,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
                     return;
                 }
                 // set the type as appropriate.
-                if (path_array[0].asString() == LLSLURL::SLURL_SECONDLIFE_PATH)
+                if (path_array[nullptr].asString() == LLSLURL::SLURL_SECONDLIFE_PATH)
                 {
                     mType = LOCATION;
                 }
@@ -324,8 +324,8 @@ LLSLURL::LLSLURL(const std::string& slurl)
 			// we need to normalize the urls so
 			// the path portion starts with the 'command' that we want to do
 			// it can either be region or app. 
-			if ((path_array[0].asString() == LLSLURL::SLURL_REGION_PATH) ||
-				(path_array[0].asString() == LLSLURL::SLURL_SECONDLIFE_PATH))
+			if ((path_array[nullptr].asString() == LLSLURL::SLURL_REGION_PATH) ||
+				(path_array[nullptr].asString() == LLSLURL::SLURL_SECONDLIFE_PATH))
 			{
 				LL_DEBUGS("SLURL") << "its a location slurl"  << LL_ENDL;
 				// strip off 'region' or 'secondlife'
@@ -333,7 +333,7 @@ LLSLURL::LLSLURL(const std::string& slurl)
 				// it's a location
 				mType = LOCATION;
 			}
-			else if (path_array[0].asString() == LLSLURL::SLURL_APP_PATH)
+			else if (path_array[nullptr].asString() == LLSLURL::SLURL_APP_PATH)
 			{
 				LL_DEBUGS("SLURL") << "its an app hop or slurl"  << LL_ENDL;
 				mType = APP;
