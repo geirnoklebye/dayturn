@@ -185,7 +185,7 @@ void LLViewerTexLayerSetBuffer::postRenderTexLayerSet(bool success)
 }
 
 // virtual
-void LLViewerTexLayerSetBuffer::midRenderTexLayerSet(bool success)
+void LLViewerTexLayerSetBuffer::midRenderTexLayerSet(bool success, LLRenderTarget* bound_target)
 {
 	const bool update_now = mNeedsUpdate && isReadyToUpdate();
 	if (update_now)

@@ -976,9 +976,12 @@ void LLAgent::capabilityReceivedCallback(const LLUUID &region_id, LLViewerRegion
 //-----------------------------------------------------------------------------
 void LLAgent::setRegion(LLViewerRegion *regionp)
 {
+	bool notifyRegionChange;
+	
 	llassert(regionp);
 	if (mRegionp != regionp)
 	{
+		notifyRegionChange = true;
 
 		LL_INFOS("AgentLocation","Teleport") << "Moving agent into region: handle " << regionp->getHandle() 
 											 << " id " << regionp->getRegionID()
@@ -1054,6 +1057,10 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 		// Pass new region along to metrics components that care about this level of detail.
 		LLAppViewer::metricsUpdateRegion(regionp->getHandle());
 	}
+	else
+	{
+		notifyRegionChange = false;
+	}
 
 	mRegionp = regionp;
 
@@ -1076,23 +1083,29 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	LLSelectMgr::getInstance()->updateSelectionCenter();
 
 	LLFloaterMove::sUpdateFlyingStatus();
+	
 
-	LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
-	mRegionChangedSignal();
-	// imported from HB as part of delaying the server rebake until region capabilities
-	// have definitely been received
-
-	// Check for transitional features changes between regions
-	if (regionp->capabilitiesReceived())
+	if (notifyRegionChange)
 	{
-		handleServerFeaturesTransition();
+		LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
+		mRegionChangedSignal();
+	}
+	
+	// If the newly entered region is using server bakes, and our
+	// current appearance is non-baked, request appearance update from
+	// server.
+	if (mRegionp->capabilitiesReceived())
+	{
+		handleServerBakeRegionTransition(mRegionp->getRegionID());
 	}
 	else
 	{
 		// Need to handle via callback after caps arrive.
-		regionp->setCapabilitiesReceivedCallback(boost::bind(&LLAgent::handleServerFeaturesTransition,
-													   this));
+		mRegionp->setCapabilitiesReceivedCallback(boost::bind(&LLAgent::handleServerBakeRegionTransition,this,_1));
 	}
+
+    LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
+    mRegionChangedSignal();
 }
 
 
@@ -3965,6 +3978,32 @@ void LLAgent::processControlRelease(LLMessageSystem *msg, void **)
 	}
 }
 */
+
+// Opensim avatar bake
+//-----------------------------------------------------------------------------
+// Legacy baking
+//-----------------------------------------------------------------------------
+void LLAgent::handleServerBakeRegionTransition(const LLUUID& region_id)
+{
+    LL_INFOS() << "called" << LL_ENDL;
+
+    // Old-style appearance entering a server-bake region.
+    if (isAgentAvatarValid() &&
+        !gAgentAvatarp->isUsingServerBakes() &&
+        (mRegionp->getCentralBakeVersion()>0))
+    {
+        LL_INFOS() << "update requested due to region transition" << LL_ENDL;
+        LLAppearanceMgr::instance().requestServerAppearanceUpdate();
+    }
+    // new-style appearance entering a non-bake region,
+    // need to check for existence of the baking service.
+    else if (isAgentAvatarValid() &&
+             gAgentAvatarp->isUsingServerBakes() &&
+             mRegionp->getCentralBakeVersion()==0)
+    {
+        gAgentAvatarp->checkForUnsupportedServerBakeAppearance();
+    }
+}
 
 //static
 void LLAgent::processAgentCachedTextureResponse(LLMessageSystem *mesgsys, void **user_data)

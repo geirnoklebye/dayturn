@@ -109,10 +109,12 @@ public:
 public:
 	virtual bool 	isSelf() const { return false; } // True if this avatar is for this viewer's agent
 	virtual bool	isValid() const;
+    virtual bool    isUsingServerBakes() const = 0;     // Opensim avatar bake
 	virtual bool	isUsingLocalAppearance() const = 0;
 	virtual bool	isEditingAppearance() const = 0;
 
 	bool isBuilt() const { return mIsBuilt; }
+
 
 	
 /**                    State

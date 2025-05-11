@@ -115,6 +115,7 @@ LLTexParamGlobalColor::~LLTexParamGlobalColor()
 	return new LLTexParamGlobalColor(*this);
 }
 
+// Opensim avatar bake
 void LLTexParamGlobalColor::onGlobalColorChanged(bool upload_bake)
 {
 	mAvatarAppearance->onGlobalColorChanged(mTexGlobalColor, upload_bake);

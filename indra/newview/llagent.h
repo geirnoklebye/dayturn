@@ -656,6 +656,9 @@ public:
 protected:
 	bool 			teleportCore(bool is_local = false); 					// Stuff for all teleports; returns true if the teleport can proceed
 
+    // Opensim avatar bake
+    void            handleServerBakeRegionTransition(const LLUUID& region_id);
+
 	//--------------------------------------------------------------------
 	// Teleport State
 	//--------------------------------------------------------------------

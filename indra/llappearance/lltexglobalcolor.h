@@ -77,7 +77,7 @@ public:
 	/*virtual*/ LLViewerVisualParam* cloneParam(LLWearable* wearable) const;
 protected:
 	LLTexParamGlobalColor(const LLTexParamGlobalColor& pOther);
-	/*virtual*/ void onGlobalColorChanged(bool upload_bake);
+	/*virtual*/ void onGlobalColorChanged(bool upload_bake); // Opensim avatar bake
 private:
 	LLTexGlobalColor*		mTexGlobalColor;
 };

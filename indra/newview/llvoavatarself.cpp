@@ -199,6 +199,16 @@ bool update_avatar_rez_metrics()
 	return false;
 }
 
+// Opensim avatar bake
+bool check_for_unsupported_baked_appearance()
+{
+    if (!isAgentAvatarValid())
+        return true;
+
+    gAgentAvatarp->checkForUnsupportedServerBakeAppearance();
+    return false;
+}
+
 void LLVOAvatarSelf::initInstance()
 {
 	bool status = true;
@@ -917,6 +927,10 @@ void LLVOAvatarSelf::removeMissingBakedTextures()
 			invalidateComposite(layerset, false);
 		}
 		updateMeshTextures();
+		if (getRegion() && !getRegion()->getCentralBakeVersion())
+		{
+			requestLayerSetUploads();
+		}
 	}
 }
 
@@ -1613,26 +1627,6 @@ bool LLVOAvatarSelf::isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex t
 		LL_WARNS() << "Wearable not found" << LL_ENDL;
 		return false;
 	}
-}
-
-bool LLVOAvatarSelf::areTexturesCurrent() const
-{
-	return gAgentWearables.areWearablesLoaded();
-}
-
-// Opensim avatar bake
-// virtual
-bool LLVOAvatarSelf::hasPendingBakedUploads() const
-{
-	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
-	{
-		LLViewerTexLayerSet* layerset = getTexLayerSet(i);
-		if (layerset && layerset->getViewerComposite() && layerset->getViewerComposite()->uploadPending())
-		{
-			return true;
-		}
-	}
-	return false;
 }
 
 void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, bool upload_result)
@@ -2577,6 +2571,7 @@ ETextureIndex LLVOAvatarSelf::getBakedTE( const LLViewerTexLayerSet* layerset ) 
 	return TEX_HEAD_BAKED;
 }
 
+
 void LLVOAvatarSelf::setNewBakedTexture(LLAvatarAppearanceDefines::EBakedTextureIndex i, const LLUUID &uuid)
 {
 	ETextureIndex index = LLAvatarAppearance::getDictionary()->bakedToLocalTextureIndex(i);
@@ -2728,34 +2723,6 @@ void LLVOAvatarSelf::reportAvatarRezTime() const
 	// TODO: report mDebugSelfLoadTimer.getElapsedTimeF32() somehow.
 }
 
-// SUNSHINE CLEANUP - not clear we need any of this, may be sufficient to request server appearance in llviewermenu.cpp:handle_rebake_textures()
-void LLVOAvatarSelf::forceBakeAllTextures(bool slam_for_debug)
-{
-	LL_INFOS() << "TAT: forced full rebake. " << LL_ENDL;
-
-	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
-	{
-		ETextureIndex baked_index = mBakedTextureDatas[i].mTextureIndex;
-		LLViewerTexLayerSet* layer_set = getLayerSet(baked_index);
-		if (layer_set)
-		{
-			if (slam_for_debug)
-			{
-				layer_set->setUpdatesEnabled(true);
-			}
-
-			invalidateComposite(layer_set, true);
-			add(LLStatViewer::TEX_REBAKES, 1);
-		}
-		else
-		{
-			LL_WARNS() << "TAT: NO LAYER SET FOR " << (S32)baked_index << LL_ENDL;
-		}
-	}
-
-	// Don't know if this is needed
-	updateMeshTextures();
-}
 
 //-----------------------------------------------------------------------------
 // requestLayerSetUpdate()
@@ -3030,6 +2997,49 @@ F32 LLVOAvatarSelf::getAvatarOffset() /*const*/
 // Opensim avatar baking
 //-----------------------------------------------------------------------------
 
+static void forceAppearanceUpdate()
+{
+	// Trying to rebake immediately after crossing region boundary
+	// seems to be failure prone; adding a delay factor. Yes, this
+	// fix is ad-hoc and not guaranteed to work in all cases.
+	doAfterInterval([](){ if (isAgentAvatarValid()) { gAgentAvatarp->forceBakeAllTextures(true); }}, 5.0);
+}
+
+void CheckAgentAppearanceService_httpSuccess( LLSD const &aData )
+{
+        LL_DEBUGS("Avatar") << "OK" << LL_ENDL;
+} 
+
+void CheckAgentAppearanceService_httpFailure( LLSD const &aData )
+{
+    if (isAgentAvatarValid())
+    {
+        LL_DEBUGS("Avatar") << "failed, will rebake " << aData << LL_ENDL;
+        forceAppearanceUpdate();
+    }
+}
+
+void LLVOAvatarSelf::checkForUnsupportedServerBakeAppearance()
+{
+    // Need to check only if we have a server baked appearance and are
+    // in a non-baking region.
+    if (!gAgentAvatarp->isUsingServerBakes())
+        return;
+    if (!gAgent.getRegion() || gAgent.getRegion()->getCentralBakeVersion()!=0)
+        return;
+
+    // if baked image service is unknown, need to refresh.
+    if (LLAppearanceMgr::instance().getAppearanceServiceURL().empty())
+    {
+        forceAppearanceUpdate();
+    }
+    // query baked image service to check status.
+    std::string image_url = gAgentAvatarp->getImageURL(TEX_HEAD_BAKED,
+                                                       getTE(TEX_HEAD_BAKED)->getID());
+
+    LLCoreHttpUtil::HttpCoroutineAdapter::callbackHttpGet( image_url, CheckAgentAppearanceService_httpSuccess, CheckAgentAppearanceService_httpFailure );
+}
+
 bool LLVOAvatarSelf::isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const
 {
     const LLViewerTexLayerSet *layerset = getLayerSet(index);
@@ -3037,6 +3047,49 @@ bool LLVOAvatarSelf::isBakedTextureFinal(const LLAvatarAppearanceDefines::EBaked
     const LLViewerTexLayerSetBuffer *layerset_buffer = layerset->getViewerComposite();
     if (!layerset_buffer) return false;
     return !layerset_buffer->uploadNeeded();
+}
+
+//-----------------------------------------------------------------------------
+// requestLayerSetUploads()
+//-----------------------------------------------------------------------------
+
+void LLVOAvatarSelf::requestLayerSetUploads()
+{
+	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
+	{
+		requestLayerSetUpload((EBakedTextureIndex)i);
+	}
+}
+
+void LLVOAvatarSelf::requestLayerSetUpload(LLAvatarAppearanceDefines::EBakedTextureIndex i)
+{
+	ETextureIndex tex_index = mBakedTextureDatas[i].mTextureIndex;
+	const bool layer_baked = isTextureDefined(tex_index, gAgentWearables.getWearableCount(tex_index));
+	LLViewerTexLayerSet *layerset = getLayerSet(i);
+	if (!layer_baked && layerset)
+	{
+		layerset->requestUpload();
+	}
+}
+
+bool LLVOAvatarSelf::areTexturesCurrent() const
+{
+	return !hasPendingBakedUploads() && gAgentWearables.areWearablesLoaded();
+}
+
+// Opensim avatar bake
+// virtual
+bool LLVOAvatarSelf::hasPendingBakedUploads() const
+{
+	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
+	{
+		LLViewerTexLayerSet* layerset = getTexLayerSet(i);
+		if (layerset && layerset->getViewerComposite() && layerset->getViewerComposite()->uploadPending())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -3059,4 +3112,80 @@ void LLVOAvatarSelf::setCachedBakedTexture( ETextureIndex te, const LLUUID& uuid
             layerset->cancelUpload();
         }
     }
+}
+
+// static
+void LLVOAvatarSelf::processRebakeAvatarTextures(LLMessageSystem* msg, void**)
+{
+	LLUUID texture_id;
+	msg->getUUID("TextureData", "TextureID", texture_id);
+	if (!isAgentAvatarValid()) return;
+
+	// If this is a texture corresponding to one of our baked entries, 
+	// just rebake that layer set.
+	bool found = false;
+
+	/* ETextureIndex baked_texture_indices[BAKED_NUM_INDICES] =
+			TEX_HEAD_BAKED,
+			TEX_UPPER_BAKED, */
+	for (LLAvatarAppearanceDictionary::Textures::const_iterator iter = LLAvatarAppearance::getDictionary()->getTextures().begin();
+		 iter != LLAvatarAppearance::getDictionary()->getTextures().end();
+		 ++iter)
+	{
+		const ETextureIndex index = iter->first;
+		const LLAvatarAppearanceDictionary::TextureEntry *texture_dict = iter->second;
+		if (texture_dict->mIsBakedTexture)
+		{
+			if (texture_id == gAgentAvatarp->getTEImage(index)->getID())
+			{
+				LLViewerTexLayerSet* layer_set = gAgentAvatarp->getLayerSet(index);
+				if (layer_set)
+				{
+					LL_INFOS() << "TAT: rebake - matched entry " << (S32)index << LL_ENDL;
+					gAgentAvatarp->invalidateComposite(layer_set, true);
+					found = true;
+				}
+			}
+		}
+	}
+
+	// If texture not found, rebake all entries.
+	if (!found)
+	{
+		gAgentAvatarp->forceBakeAllTextures();
+	}
+	else
+	{
+		// Not sure if this is necessary, but forceBakeAllTextures() does it.
+		gAgentAvatarp->updateMeshTextures();
+	}
+}
+
+// SUNSHINE CLEANUP - not clear we need any of this, may be sufficient to request server appearance in llviewermenu.cpp:handle_rebake_textures()
+void LLVOAvatarSelf::forceBakeAllTextures(bool slam_for_debug)
+{
+	LL_INFOS() << "TAT: forced full rebake. " << LL_ENDL;
+
+	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
+	{
+		ETextureIndex baked_index = mBakedTextureDatas[i].mTextureIndex;
+		LLViewerTexLayerSet* layer_set = getLayerSet(baked_index);
+		if (layer_set)
+		{
+			if (slam_for_debug)
+			{
+				layer_set->setUpdatesEnabled(true);
+			}
+
+			invalidateComposite(layer_set, true);
+			add(LLStatViewer::TEX_REBAKES, 1);
+		}
+		else
+		{
+			LL_WARNS() << "TAT: NO LAYER SET FOR " << (S32)baked_index << LL_ENDL;
+		}
+	}
+
+	// Don't know if this is needed
+	updateMeshTextures();
 }

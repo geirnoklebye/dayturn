@@ -153,7 +153,7 @@ bool LLTexLayerSetBuffer::renderTexLayerSet(LLRenderTarget* bound_target)
 									 getCompositeWidth(), getCompositeHeight(), bound_target );
 	gGL.flush();
 
-	midRenderTexLayerSet(success);
+	midRenderTexLayerSet(success, bound_target);
 
 	gAlphaMaskProgram.unbind();
 
