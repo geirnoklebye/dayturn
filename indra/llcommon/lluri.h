@@ -96,6 +96,7 @@ public:
   // for schemes that follow path like syntax (http, https, ftp)
   std::string authority() const;	// ex.: "host.com:80"
   std::string hostName() const;	// ex.: "host.com"
+  std::string hostNameAndPort() const;  // ex.: "host.com:80"
   std::string userName() const;
   std::string password() const;
   U16 hostPort() const;			// ex.: 80, will include implicit port
