@@ -738,6 +738,7 @@ LLVOAvatar::LLVOAvatar(const LLUUID& id,
 	mLastRezzedStatus(-1),
 	mIsEditingAppearance(false),
 	mUseLocalAppearance(false),
+	mUseServerBakes(false), // FIXME DRANO consider using boost::optional, defaulting to unknown.
 	mLastUpdateRequestCOFVersion(-1),
 	mLastUpdateReceivedCOFVersion(-1),
 	mCachedMuteListUpdateTime(0),
@@ -9655,6 +9656,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
     // of the COF that should be considered canonical. 
     mLastUpdateReceivedCOFVersion = thisAppearanceVersion;
 
+    setIsUsingServerBakes(appearance_version > 0);
     mLastProcessedAppearance = contents;
 
     bool slam_params = false;
@@ -10517,20 +10519,6 @@ void LLVOAvatar::cullAvatarsByPixelArea()
 	}
 }
 
-void LLVOAvatar::startAppearanceAnimation()
-{
-	if(!mAppearanceAnimating)
-	{
-		mAppearanceAnimating = true;
-		mAppearanceMorphTimer.reset();
-		mLastAppearanceBlendTime = 0.f;
-	}
-}
-
-// virtual
-void LLVOAvatar::removeMissingBakedTextures()
-{
-}
 
 //virtual
 void LLVOAvatar::updateRegion(LLViewerRegion *regionp)
@@ -11641,4 +11629,42 @@ bool LLVOAvatar::isBuddy() const
         mCachedInBuddyList = is_friend;
     }
     return is_friend;
+}
+
+
+void LLVOAvatar::startAppearanceAnimation()
+{
+	if(!mAppearanceAnimating)
+	{
+		mAppearanceAnimating = true;
+		mAppearanceMorphTimer.reset();
+		mLastAppearanceBlendTime = 0.f;
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Opensim avatar baking
+//-----------------------------------------------------------------------------
+
+// virtual
+void LLVOAvatar::bodySizeChanged()
+{
+    if (isSelf() && !LLAppearanceMgr::instance().isInUpdateAppearanceFromCOF())
+    {   // notify simulator of change in size
+        // but not if we are in the middle of updating appearance
+        gAgent.sendAgentSetAppearance();
+    }
+}
+
+void LLVOAvatar::setIsUsingServerBakes(bool newval)
+{
+    mUseServerBakes = newval;
+    LLVisualParam* appearance_version_param = getVisualParam(11000);
+    llassert(appearance_version_param);
+    appearance_version_param->setWeight(newval ? 1.0f : 0.0f, false);
+}
+
+// virtual
+void LLVOAvatar::removeMissingBakedTextures()
+{
 }

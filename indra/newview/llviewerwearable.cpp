@@ -40,6 +40,7 @@
 #include "llviewerwearable.h"
 #include "llviewercontrol.h"
 #include "llviewerregion.h"
+#include "llmd5.h" // Opensim avatar bake
 
 using namespace LLAvatarAppearanceDefines;
 
@@ -499,6 +500,13 @@ void LLViewerWearable::refreshName()
 	{
 		mName = item->getName();
 	}
+}
+
+// virtual
+void LLViewerWearable::addToBakedTextureHash(LLMD5& hash) const
+{
+	LLUUID asset_id = getAssetID();
+	hash.update((const unsigned char*)asset_id.mData, UUID_BYTES);
 }
 
 struct LLWearableSaveData

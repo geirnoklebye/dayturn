@@ -808,6 +808,7 @@ public:
     void 			hideHair();
 	void 			hideSkirt();
 	void			startAppearanceAnimation();
+    /*virtual*/ void bodySizeChanged();
 	
 	//--------------------------------------------------------------------
 	// Appearance morphing
@@ -820,7 +821,11 @@ public:
 	// editing or when waiting for a subsequent server rebake.
 	/*virtual*/ bool	isUsingLocalAppearance() const { return mUseLocalAppearance; }
 
-	// True if we are currently in appearance editing mode. Often but
+	// Opensim avatar baking
+    bool                isUsingServerBakes() const;
+    void                setIsUsingServerBakes(bool newval);
+    
+    	// True if we are currently in appearance editing mode. Often but
 	// not always the same as isUsingLocalAppearance().
 	/*virtual*/ bool	isEditingAppearance() const { return mIsEditingAppearance; }
 
@@ -832,6 +837,7 @@ private:
 	F32				mLastAppearanceBlendTime;
 	bool			mIsEditingAppearance; // flag for if we're actively in appearance editing mode
 	bool			mUseLocalAppearance; // flag for if we're using a local composite
+	bool			mUseServerBakes; // flag for if baked textures should be fetched from baking service (false if they're temporary uploads)
 
 	//--------------------------------------------------------------------
 	// Visibility

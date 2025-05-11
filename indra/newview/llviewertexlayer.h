@@ -47,6 +47,8 @@ public:
 	virtual ~LLViewerTexLayerSet();
 
 	/*virtual*/void				requestUpdate();
+	void						requestUpload();
+	void						cancelUpload();
 	bool						isLocalTextureDataAvailable() const;
 	bool						isLocalTextureDataFinal() const;
 	void						updateComposite();
@@ -113,6 +115,32 @@ protected:
 	virtual void			postRender(bool success) { postRenderTexLayerSet(success); }
 	virtual bool			render() { return renderTexLayerSet(mBoundTarget); }
 	
+	// Opensim avatar baking
+	//--------------------------------------------------------------------
+	// Uploads
+	//--------------------------------------------------------------------
+public:
+	void					requestUpload();
+	void					cancelUpload();
+	bool					uploadNeeded() const; 			// We need to upload a new texture
+	bool					uploadInProgress() const; 		// We have started uploading a new texture and are awaiting the result
+	bool					uploadPending() const; 			// We are expecting a new texture to be uploaded at some point
+	static void				onTextureUploadComplete(const LLUUID& uuid,
+													void* userdata,
+													S32 result, LLExtStat ext_status);
+protected:
+	bool					isReadyToUpload() const;
+	void					doUpload(); 					// Does a read back and upload.
+	void					conditionalRestartUploadTimer();
+private:
+	bool					mNeedsUpload; 					// Whether we need to send our baked textures to the server
+	U32						mNumLowresUploads; 				// Number of times we've sent a lowres version of our baked textures to the server
+	bool					mUploadPending; 				// Whether we have received back the new baked textures
+	LLUUID					mUploadID; 						// The current upload process (null if none).
+	LLFrameTimer    		mNeedsUploadTimer; 				// Tracks time since upload was requested and performed.
+	S32						mUploadFailCount;				// Number of consecutive upload failures
+	LLFrameTimer    		mUploadRetryTimer; 				// Tracks time since last upload failure.
+
 	//--------------------------------------------------------------------
 	// Updates
 	//--------------------------------------------------------------------

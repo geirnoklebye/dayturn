@@ -109,6 +109,15 @@ void LLViewerTexLayerSetBuffer::restartUpdateTimer()
 	mNeedsUpdateTimer.start();
 }
 
+// Opensim avatar baking
+void LLViewerTexLayerSetBuffer::cancelUpload()
+{
+	mNeedsUpload = false;
+	mUploadPending = false;
+	mNeedsUploadTimer.pause();
+	mUploadRetryTimer.reset();
+}
+
 // virtual
 bool LLViewerTexLayerSetBuffer::needsRender()
 {
@@ -133,6 +142,7 @@ bool LLViewerTexLayerSetBuffer::needsRender()
 	if (gAgentAvatarp->getBakedTE(getViewerTexLayerSet()) == LLAvatarAppearanceDefines::TEX_SKIRT_BAKED && 
 		!gAgentAvatarp->isWearingWearableType(LLWearableType::WT_SKIRT))
 	{
+		cancelUpload();
 		return false;
 	}
 
@@ -287,6 +297,20 @@ void LLViewerTexLayerSet::requestUpdate()
 	{
 		createComposite();
 		getViewerComposite()->requestUpdate(); 
+	}
+}
+
+void LLViewerTexLayerSet::requestUpload()
+{
+	createComposite();
+	getViewerComposite()->requestUpload();
+}
+
+void LLViewerTexLayerSet::cancelUpload()
+{
+	if(mComposite)
+	{
+		getViewerComposite()->cancelUpload();
 	}
 }
 

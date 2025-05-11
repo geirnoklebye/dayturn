@@ -94,6 +94,9 @@ public:
 	// not the wearable asset itself.
 	void				refreshName();
 
+	// Update the baked texture hash.
+	/*virtual*/void		addToBakedTextureHash(LLMD5& hash) const;
+
 protected:
 	LLAssetID			mAssetID;
 	LLTransactionID		mTransactionID;

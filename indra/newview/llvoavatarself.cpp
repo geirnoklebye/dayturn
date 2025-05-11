@@ -2934,3 +2934,38 @@ F32 LLVOAvatarSelf::getAvatarOffset() /*const*/
 
 	return LLAvatarAppearance::getAvatarOffset();
 }
+
+//-----------------------------------------------------------------------------
+// Opensim avatar baking
+//-----------------------------------------------------------------------------
+
+bool LLVOAvatarSelf::isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const
+{
+    const LLViewerTexLayerSet *layerset = getLayerSet(index);
+    if (!layerset) return false;
+    const LLViewerTexLayerSetBuffer *layerset_buffer = layerset->getViewerComposite();
+    if (!layerset_buffer) return false;
+    return !layerset_buffer->uploadNeeded();
+}
+
+//-----------------------------------------------------------------------------
+// setCachedBakedTexture()
+// A baked texture id was received from a cache query, make it active
+//-----------------------------------------------------------------------------
+void LLVOAvatarSelf::setCachedBakedTexture( ETextureIndex te, const LLUUID& uuid )
+{
+    setTETexture( te, uuid );
+
+    /* switch(te)
+        case TEX_HEAD_BAKED:
+            if( mHeadLayerSet )
+                mHeadLayerSet->cancelUpload(); */
+    for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
+    {
+        LLViewerTexLayerSet *layerset = getTexLayerSet(i);
+        if ( mBakedTextureDatas[i].mTextureIndex == te && layerset)
+        {
+            layerset->cancelUpload();
+        }
+    }
+}

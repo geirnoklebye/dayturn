@@ -191,6 +191,8 @@ public:
 	bool				areTexturesCurrent() const;
 	bool				isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const;
 	bool				isLocalTextureDataFinal(const LLViewerTexLayerSet* layerset) const;
+	// Opensim avatar bake
+    bool                isBakedTextureFinal(const LLAvatarAppearanceDefines::EBakedTextureIndex index) const;
 	// If you want to check all textures of a given type, pass gAgentWearables.getWearableCount() for index
 	/*virtual*/ bool    isTextureDefined(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;
 	/*virtual*/ bool	isTextureVisible(LLAvatarAppearanceDefines::ETextureIndex type, U32 index = 0) const;
@@ -227,6 +229,7 @@ public:
 	LLAvatarAppearanceDefines::ETextureIndex getBakedTE(const LLViewerTexLayerSet* layerset ) const;
 	// SUNSHINE CLEANUP - dead? or update to just call request appearance update?
 	void				forceBakeAllTextures(bool slam_for_debug = false);
+    void                setCachedBakedTexture(LLAvatarAppearanceDefines::ETextureIndex i, const LLUUID& uuid);
 protected:
 	/*virtual*/ void	removeMissingBakedTextures();
 
