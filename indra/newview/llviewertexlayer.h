@@ -115,7 +115,7 @@ protected:
 	virtual void			postRender(bool success) { postRenderTexLayerSet(success); }
 	virtual bool			render() { return renderTexLayerSet(mBoundTarget); }
 	
-	// Opensim avatar baking
+// Opensim avatar bake
 	//--------------------------------------------------------------------
 	// Uploads
 	//--------------------------------------------------------------------
@@ -130,7 +130,7 @@ public:
 													S32 result, LLExtStat ext_status);
 protected:
 	bool					isReadyToUpload() const;
-	void					doUpload(); 					// Does a read back and upload.
+	void					doUpload(LLRenderTarget* bound_target);  // Does a read back and upload.
 	void					conditionalRestartUploadTimer();
 private:
 	bool					mNeedsUpload; 					// Whether we need to send our baked textures to the server
@@ -156,6 +156,27 @@ private:
 	U32						mNumLowresUpdates; 				// Number of times we've locally updated with lowres version of our baked textures
 	LLFrameTimer    		mNeedsUpdateTimer; 				// Tracks time since update was requested and performed.
 };
+
+// Opensim avatar bake
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// LLBakedUploadData
+//
+// Used by LLTexLayerSetBuffer for a callback.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+struct LLBakedUploadData
+{
+	LLBakedUploadData(const LLVOAvatarSelf* avatar,
+					  LLViewerTexLayerSet* layerset, 
+					  const LLUUID& id,
+					  bool highest_res);
+	~LLBakedUploadData() {}
+	const LLUUID				mID;
+	const LLVOAvatarSelf*		mAvatar; // note: backlink only; don't LLPointer 
+	LLViewerTexLayerSet*		mTexLayerSet;
+   	const U64					mStartTime;	// for measuring baked texture upload time
+   	const bool					mIsHighestRes; // whether this is a "final" bake, or intermediate low res
+};
+
 
 #endif  // LL_VIEWER_TEXLAYER_H
 

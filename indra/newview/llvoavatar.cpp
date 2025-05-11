@@ -11646,6 +11646,34 @@ void LLVOAvatar::startAppearanceAnimation()
 // Opensim avatar baking
 //-----------------------------------------------------------------------------
 
+void LLVOAvatar::bakedTextureOriginCounts(S32 &sb_count, // server-bake, has origin URL.
+                                          S32 &host_count, // host-based bake, has host.
+                                          S32 &both_count, // error - both host and URL set.
+                                          S32 &neither_count) // error - neither set.
+{
+    sb_count = host_count = both_count = neither_count = 0;
+
+    std::set<LLUUID> baked_ids;
+    collectBakedTextureUUIDs(baked_ids);
+    for (std::set<LLUUID>::const_iterator it = baked_ids.begin(); it != baked_ids.end(); ++it)
+    {
+        LLViewerFetchedTexture *imagep = gTextureList.findImage(*it, TEX_LIST_STANDARD);
+        bool has_url = false, has_host = false;
+        if (!imagep->getUrl().empty())
+        {
+            has_url = true;
+        }
+        if (imagep->getTargetHost().isOk())
+        {
+            has_host = true;
+        }
+        if (has_url && !has_host) sb_count++;
+        else if (has_host && !has_url) host_count++;
+        else if (has_host && has_url) both_count++;
+        else if (!has_host && !has_url) neither_count++;
+    }
+}
+
 // virtual
 void LLVOAvatar::bodySizeChanged()
 {

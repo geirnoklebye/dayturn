@@ -187,6 +187,7 @@ public:
 	// Loading status
 	//--------------------------------------------------------------------
 public:
+	/*virtual*/ bool	hasPendingBakedUploads() const;
 	S32					getLocalDiscardLevel(LLAvatarAppearanceDefines::ETextureIndex type, U32 index) const;
 	bool				areTexturesCurrent() const;
 	bool				isLocalTextureDataAvailable(const LLViewerTexLayerSet* layerset) const;
@@ -228,8 +229,11 @@ private:
 public:
 	LLAvatarAppearanceDefines::ETextureIndex getBakedTE(const LLViewerTexLayerSet* layerset ) const;
 	// SUNSHINE CLEANUP - dead? or update to just call request appearance update?
-	void				forceBakeAllTextures(bool slam_for_debug = false);
+	void				setNewBakedTexture(LLAvatarAppearanceDefines::EBakedTextureIndex i, const LLUUID &uuid);
+	void				setNewBakedTexture(LLAvatarAppearanceDefines::ETextureIndex i, const LLUUID& uuid);
     void                setCachedBakedTexture(LLAvatarAppearanceDefines::ETextureIndex i, const LLUUID& uuid);
+	void				forceBakeAllTextures(bool slam_for_debug = false);
+	static void			processRebakeAvatarTextures(LLMessageSystem* msg, void**);
 protected:
 	/*virtual*/ void	removeMissingBakedTextures();
 
@@ -237,6 +241,8 @@ protected:
 	// Layers
 	//--------------------------------------------------------------------
 public:
+	void 				requestLayerSetUploads();
+	void				requestLayerSetUpload(LLAvatarAppearanceDefines::EBakedTextureIndex i);
 	void				requestLayerSetUpdate(LLAvatarAppearanceDefines::ETextureIndex i);
 	LLViewerTexLayerSet* getLayerSet(LLAvatarAppearanceDefines::EBakedTextureIndex baked_index) const;
 	LLViewerTexLayerSet* getLayerSet(LLAvatarAppearanceDefines::ETextureIndex index) const;

@@ -1620,6 +1620,21 @@ bool LLVOAvatarSelf::areTexturesCurrent() const
 	return gAgentWearables.areWearablesLoaded();
 }
 
+// Opensim avatar bake
+// virtual
+bool LLVOAvatarSelf::hasPendingBakedUploads() const
+{
+	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)
+	{
+		LLViewerTexLayerSet* layerset = getTexLayerSet(i);
+		if (layerset && layerset->getViewerComposite() && layerset->getViewerComposite()->uploadPending())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, bool upload_result)
 {
 	LLViewerTexLayerSet *layer_set = dynamic_cast<LLViewerTexLayerSet*>(layerset);
@@ -2561,6 +2576,82 @@ ETextureIndex LLVOAvatarSelf::getBakedTE( const LLViewerTexLayerSet* layerset ) 
 	llassert(0);
 	return TEX_HEAD_BAKED;
 }
+
+void LLVOAvatarSelf::setNewBakedTexture(LLAvatarAppearanceDefines::EBakedTextureIndex i, const LLUUID &uuid)
+{
+	ETextureIndex index = LLAvatarAppearance::getDictionary()->bakedToLocalTextureIndex(i);
+	setNewBakedTexture(index, uuid);
+}
+
+
+//-----------------------------------------------------------------------------
+// setNewBakedTexture()
+// A new baked texture has been successfully uploaded and we can start using it now.
+//-----------------------------------------------------------------------------
+void LLVOAvatarSelf::setNewBakedTexture( ETextureIndex te, const LLUUID& uuid )
+{
+	// Baked textures live on other sims.
+	LLHost target_host = getObjectHost();	
+	setTEImage( te, LLViewerTextureManager::getFetchedTextureFromHost( uuid, FTT_HOST_BAKE, target_host ) );
+	updateMeshTextures();
+	dirtyMesh();
+
+	LLVOAvatar::cullAvatarsByPixelArea();
+
+	/* switch(te)
+		case TEX_HEAD_BAKED:
+			LL_INFOS() << "New baked texture: HEAD" << LL_ENDL; */
+	const LLAvatarAppearanceDictionary::TextureEntry *texture_dict = LLAvatarAppearance::getDictionary()->getTexture(te);
+	if (texture_dict->mIsBakedTexture)
+	{
+		debugBakedTextureUpload(texture_dict->mBakedTextureIndex, true); // false for start of upload, true for finish.
+		LL_INFOS() << "New baked texture: " << texture_dict->mName << " UUID: " << uuid <<LL_ENDL;
+	}
+	else
+	{
+		LL_WARNS() << "New baked texture: unknown te " << te << LL_ENDL;
+	}
+	
+	//	dumpAvatarTEs( "setNewBakedTexture() send" );
+	// RN: throttle uploads
+	if (!hasPendingBakedUploads())
+	{
+		gAgent.sendAgentSetAppearance();
+
+		if (gSavedSettings.getbool("DebugAvatarRezTime"))
+		{
+			LLSD args;
+			args["EXISTENCE"] = llformat("%d",(U32)mDebugExistenceTimer.getElapsedTimeF32());
+			args["TIME"] = llformat("%d",(U32)mDebugSelfLoadTimer.getElapsedTimeF32());
+			if (isAllLocalTextureDataFinal())
+			{
+				LLNotificationsUtil::add("AvatarRezSelfBakedDoneNotification",args);
+				LL_DEBUGS("Avatar") << "REZTIME: [ " << (U32)mDebugExistenceTimer.getElapsedTimeF32()
+						<< "sec ]"
+						<< avString() 
+						<< "RuthTimer " << (U32)mRuthDebugTimer.getElapsedTimeF32()
+						<< " SelfLoadTimer " << (U32)mDebugSelfLoadTimer.getElapsedTimeF32()
+						<< " Notification " << "AvatarRezSelfBakedDoneNotification"
+						<< LL_ENDL;
+			}
+			else
+			{
+				args["STATUS"] = debugDumpAllLocalTextureDataInfo();
+				LLNotificationsUtil::add("AvatarRezSelfBakedUpdateNotification",args);
+				LL_DEBUGS("Avatar") << "REZTIME: [ " << (U32)mDebugExistenceTimer.getElapsedTimeF32()
+						<< "sec ]"
+						<< avString() 
+						<< "RuthTimer " << (U32)mRuthDebugTimer.getElapsedTimeF32()
+						<< " SelfLoadTimer " << (U32)mDebugSelfLoadTimer.getElapsedTimeF32()
+						<< " Notification " << "AvatarRezSelfBakedUpdateNotification"
+						<< LL_ENDL;
+			}
+		}
+
+		outputRezDiagnostics();
+	}
+}
+
 
 // FIXME: This is not called consistently. Something may be broken.
 void LLVOAvatarSelf::outputRezDiagnostics() const

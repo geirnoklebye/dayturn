@@ -489,12 +489,17 @@ void LLAvatarAppearance::computeBodySize()
 	// TODO: Measure the real depth and width
 	mPelvisToFoot = computePelvisToFoot();
 	F32 new_height = computeBodyHeight();
+
 	mBodySize.set(DEFAULT_AGENT_DEPTH, DEFAULT_AGENT_WIDTH, new_height);
 	F32 new_offset = getVisualParamWeight(AVATAR_HOVER);
 	mAvatarOffset.set(0, 0, new_offset);
 
 	if (mBodySize.mV[VZ] != old_height || new_offset != old_offset)
 	{
+
+        // Opensim avatar bake
+        bodySizeChanged();
+
         compareJointStateMaps(mLastBodySizeState, mCurrBodySizeState);
 	}
 }

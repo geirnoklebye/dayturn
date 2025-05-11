@@ -3142,6 +3142,8 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("UploadBakedTexture");
     capabilityNames.append("ViewerAsset");
 	capabilityNames.append("ViewerMetrics");
+	capabilityNames.append("ViewerBenefits");
+
 	
     
     // Capabilities unique to SecondLife
@@ -3176,7 +3178,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
         capabilityNames.append("TerrainNavMeshProperties");
     	capabilityNames.append("UploadAgentProfileImage");
         capabilityNames.append("UserInfo");
-		capabilityNames.append("ViewerBenefits");
 		capabilityNames.append("ViewerMetrics");
         capabilityNames.append("ViewerStartAuction");
         capabilityNames.append("ViewerStats");

@@ -161,7 +161,9 @@ protected:
 	static bool			parseSkeletonFile(const std::string& filename, LLXmlTree& skeleton_xml_tree);
 	virtual void		buildCharacter();
 	virtual bool		loadAvatar();
-	virtual F32 getAvatarOffset();
+	virtual F32 		getAvatarOffset();
+    // Opensim avatar bake
+    virtual void        bodySizeChanged() = 0;
 
 	bool				setupBone(const LLAvatarBoneInfo* info, LLJoint* parent, S32 &current_volume_num, S32 &current_joint_num);
 	bool				allocateCharacterJoints(U32 num);
