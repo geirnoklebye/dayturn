@@ -79,6 +79,8 @@
 #include <algorithm>
 #include <boost/algorithm/string/join.hpp>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 // Increment this if the inventory contents change in a non-backwards-compatible way.
 // For viewer 2, the addition of link items makes a pre-viewer-2 cache incorrect.
 const S32 LLInventoryModel::sCurrentInvCacheVersion = 2;

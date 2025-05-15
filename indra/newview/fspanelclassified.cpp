@@ -55,9 +55,8 @@
 #include "llviewertexture.h"
 #include "llpanelclassified.h"
 
-#ifdef OPENSIM
 #include "llviewernetwork.h"
-#endif // OPENSIM
+
 
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
@@ -848,12 +847,11 @@ void FSPanelClassifiedEdit::resetControls()
 S32 FSPanelClassifiedEdit::getClassifiedFee()
 {
 	S32 fee = MINIMUM_PRICE_FOR_LISTING;
-/* 
 	if (!gIsInSecondLife)
 	{
 		fee = LLGridManager::getInstance()->getClassifiedFee();
 	}
- */
+
 	return fee;
 }
 // </FS:CR>

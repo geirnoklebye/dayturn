@@ -649,6 +649,7 @@ LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host,
     }
 // </AW: opensim-limits>
 
+    LL_INFOS() << "Add region with handle: " << region_handle << " on host " << host << LL_ENDL;
 	LLViewerRegion *regionp = getRegionFromHandle(region_handle);
 	std::string seedUrl;
 	if (regionp)
@@ -751,6 +752,13 @@ LLViewerRegion* LLWorld::addRegion(const U64 &region_handle, const LLHost &host,
 	}
 
 	updateWaterObjects();
+
+// <AW: opensim-limits>
+    if(mLimitsNeedRefresh)
+    {
+        refreshLimits();
+    }
+// </AW: opensim-limits>
 
 	return regionp;
 }
@@ -925,11 +933,19 @@ LLVector3d	LLWorld::clipToVisibleRegions(const LLVector3d &start_pos, const LLVe
 
 LLViewerRegion* LLWorld::getRegionFromHandle(const U64 &handle)
 {
+	U32 x, y;
+	from_region_handle(handle, &x, &y);
+	
 	for (region_list_t::iterator iter = mRegionList.begin();
 		 iter != mRegionList.end(); ++iter)
 	{
 		LLViewerRegion* regionp = *iter;
-		if (regionp->getHandle() == handle)
+		U32 checkRegionX, checkRegionY;
+		F32 checkRegionWidth = regionp->getWidth();
+		from_region_handle(regionp->getHandle(), &checkRegionX, &checkRegionY);
+
+		if (x >= checkRegionX && x < (checkRegionX + checkRegionWidth) &&
+			y >= checkRegionY && y < (checkRegionY + checkRegionWidth))
 		{
 			return regionp;
 		}
@@ -1464,18 +1480,17 @@ void LLWorld::updateWaterObjects()
 	S32 max_y = 0;
 	U32 region_x, region_y;
 
-	S32 rwidth = 256;
-
 	// We only want to fill in water for stuff that's near us, say, within 256 or 512m
 	S32 range = LLViewerCamera::getInstance()->getFar() > 256.f ? 512 : 256;
 
 	LLViewerRegion* regionp = gAgent.getRegion();
 	from_region_handle(regionp->getHandle(), &region_x, &region_y);
+    S32 rwidth = (S32)regionp->getWidth();
 
 	min_x = (S32)region_x - range;
 	min_y = (S32)region_y - range;
-	max_x = (S32)region_x + range;
-	max_y = (S32)region_y + range;
+    max_x = (S32)region_x + (rwidth-256) + range;
+    max_y = (S32)region_y + (rwidth-256) + range;
 
 	for (region_list_t::iterator iter = mRegionList.begin();
 		 iter != mRegionList.end(); ++iter)
@@ -1501,19 +1516,30 @@ void LLWorld::updateWaterObjects()
 
 	// Now, get a list of the holes
 	S32 x, y;
-	for (x = min_x; x <= max_x; x += rwidth)
-	{
-		for (y = min_y; y <= max_y; y += rwidth)
+// <FS:CR> Fix water height on regions larger than 2048x2048
+    S32 step = 256;
+    //for (x = min_x; x <= max_x; x += rwidth)
+    for (x = min_x; x <= max_x; x += step)
+    {
+        //for (y = min_y; y <= max_y; y += rwidth)
+        for (y = min_y; y <= max_y; y += step)
+// </FS:CR> Fix water height on regions larger than 2048x2048
 		{
 			U64 region_handle = to_region_handle(x, y);
 			if (!getRegionFromHandle(region_handle))
 			{	// No region at that area, so make water
 				LLVOWater* waterp = (LLVOWater *)gObjectList.createObjectViewer(LLViewerObject::LL_VO_WATER, gAgent.getRegion());
 				waterp->setUseTexture(false);
-				waterp->setPositionGlobal(LLVector3d(x + rwidth/2,
-													 y + rwidth/2,
-													 256.f + water_height));
-				waterp->setScale(LLVector3((F32)rwidth, (F32)rwidth, 512.f));
+// <FS:CR> Fix water height on regions larger than 2048x2048
+                //waterp->setPositionGlobal(LLVector3d(x + rwidth/2,
+                //                                   y + rwidth/2,
+                //                                   256.f + water_height));
+                //waterp->setScale(LLVector3((F32)rwidth, (F32)rwidth, 512.f));
+                waterp->setPositionGlobal(LLVector3d(x + step/2,
+                                                     y + step/2,
+                                                     256.f + water_height));
+                waterp->setScale(LLVector3((F32)step, (F32)step, 512.f));
+// </FS:CR> Fix water height on regions larger than 2048x2048
 				gPipeline.createObject(waterp);
 				mHoleWaterObjects.push_back(waterp);
 			}
@@ -1523,14 +1549,22 @@ void LLWorld::updateWaterObjects()
 	// Update edge water objects
 	S32 wx, wy;
 	S32 center_x, center_y;
-	wx = (max_x - min_x) + rwidth;
-	wy = (max_y - min_y) + rwidth;
+// <FS:CR>Fix water height on regions larger than 2048x2048
+    //wx = (max_x - min_x) + rwidth;
+    //wy = (max_y - min_y) + rwidth;
+    wx = (max_x - min_x) + step;
+    wy = (max_y - min_y) + step;
+// </FS:CR> Fix water height on regions larger than 2048x2048
 	center_x = min_x + (wx >> 1);
 	center_y = min_y + (wy >> 1);
 
 	S32 add_boundary[4] = {
-		(S32)(512 - (max_x - region_x)),
-		(S32)(512 - (max_y - region_y)),
+// <FS:CR> Fix water height on regions larger than 2048x2048
+        //(S32)(512 - (max_x - region_x)),
+        //(S32)(512 - (max_y - region_y)),
+        (S32)(512 - (max_x - (rwidth - 256) - region_x)),
+        (S32)(512 - (max_y - (rwidth - 256) - region_y)),
+// </FS:CR> Fix water height on regions larger than 2048x2048
 		(S32)(512 - (region_x - min_x)),
 		(S32)(512 - (region_y - min_y)) };
 		
@@ -1678,11 +1712,9 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
   	LLHost sim(ip_u32, port);
 
       U32 region_size_x = 256;
-
       U32 region_size_y = 256;
 
-  #ifdef OPENSIM
-      if (LLGridManager::getInstance()->isInOpenSim())
+	if (!gIsInSecondLife)
       {
           msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeX, region_size_x);
           msg->getU32Fast(_PREHASH_SimulatorInfo, _PREHASH_RegionSizeY, region_size_y);
@@ -1692,17 +1724,14 @@ void process_enable_simulator(LLMessageSystem *msg, void **user_data)
               region_size_y = 256;
           }
        }
-  #endif
 
   	// Viewer trusts the simulator.
   	msg->enableCircuit(sim, true);
       LLWorld::getInstance()->addRegion(handle, sim, region_size_x, region_size_y);
 
   	// give the simulator a message it can use to get ip and port
-  	if (!gSavedSettings.getbool("KokuaSuppressPeriodicLogging"))
-  	{
-  		LL_INFOS() << "simulator_enable() Enabling " << sim << " with code " << msg->getOurCircuitCode() << LL_ENDL;
-  	}	
+  	LL_INFOS() << "simulator_enable() Enabling " << sim << " with code " << msg->getOurCircuitCode() << LL_ENDL;
+  	
   	msg->newMessageFast(_PREHASH_UseCircuitCode);
   	msg->nextBlockFast(_PREHASH_CircuitCode);
   	msg->addU32Fast(_PREHASH_Code, msg->getOurCircuitCode());
