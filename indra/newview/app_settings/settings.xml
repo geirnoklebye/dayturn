@@ -17584,7 +17584,7 @@
     <key>SearchURLDebug</key>
     <map>
       <key>Comment</key>
-      <string>Debug URL for Search website. Overrides any other search URL if DebugSearch is   true. Displayed in the Find floater</string>
+      <string>Debug URL for Search website. Overrides any other search URL if DebugSearch is true. Displayed in the Find floater</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

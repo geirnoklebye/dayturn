@@ -310,6 +310,49 @@ LLPanelObject::~LLPanelObject()
 	// Children all cleaned up by default view destructor.
 }
 
+// <AW: opensim-limits>
+void LLPanelObject::updateLimits(bool attachment)
+{
+    if (attachment)
+    {
+        mCtrlPosX->setMinValue(-MAX_ATTACHMENT_DIST);
+        mCtrlPosX->setMaxValue(MAX_ATTACHMENT_DIST);
+        mCtrlPosY->setMinValue(-MAX_ATTACHMENT_DIST);
+        mCtrlPosY->setMaxValue(MAX_ATTACHMENT_DIST);
+        mCtrlPosZ->setMinValue(-MAX_ATTACHMENT_DIST);
+        mCtrlPosZ->setMaxValue(MAX_ATTACHMENT_DIST);
+    }
+    else
+    {
+        mCtrlPosX->setMinValue(LLWorld::getInstance()->getMinPrimXPos());
+        mCtrlPosX->setMaxValue(LLWorld::getInstance()->getMaxPrimXPos());
+        mCtrlPosY->setMinValue(LLWorld::getInstance()->getMinPrimYPos());
+        mCtrlPosY->setMaxValue(LLWorld::getInstance()->getMaxPrimYPos());
+        mCtrlPosZ->setMinValue(LLWorld::getInstance()->getMinPrimZPos());
+        mCtrlPosZ->setMaxValue(LLWorld::getInstance()->getMaxPrimZPos());
+    }
+
+    mMinScale = LLWorld::getInstance()->getRegionMinPrimScale();
+    mMaxScale = LLWorld::getInstance()->getRegionMaxPrimScale();
+    mCtrlScaleX->setMinValue(mMinScale);
+    mCtrlScaleX->setMaxValue(mMaxScale);
+    mCtrlScaleY->setMinValue(mMinScale);
+    mCtrlScaleY->setMaxValue(mMaxScale);
+    mCtrlScaleZ->setMinValue(mMinScale);
+    mCtrlScaleZ->setMaxValue(mMaxScale);
+
+    mMaxHollowSize = LLWorld::getInstance()->getRegionMaxHollowSize();
+    mSpinHollow->setMaxValue(mMaxHollowSize);
+
+    mMinHoleSize = LLWorld::getInstance()->getRegionMinHoleSize();
+    mSpinScaleX->setMinValue(mMinHoleSize);
+    mSpinScaleY->setMinValue(mMinHoleSize);
+
+    mCheckPhysics->setEnabled(LLWorld::getInstance()->getAllowPhysicalPrims());
+
+}
+
+
 void LLPanelObject::getState( )
 {
 	LLViewerObject* objectp = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject();
@@ -1620,6 +1663,15 @@ void LLPanelObject::sendRotation(bool btn_down)
 	}
 }
 
+F32 llpanelobject_max_prim_scale()
+{
+// <AW: opensim-limits>
+//  if(gAgent.getRegion()->getCapability("GetMesh").empty())
+//      return DEFAULT_MAX_PRIM_SCALE;
+//  return 64.f;
+    return LLWorld::getInstance()->getRegionMaxPrimScale();
+// </AW: opensim-limits>
+}
 
 // BUG: Make work with multiple objects
 void LLPanelObject::sendScale(bool btn_down)
@@ -2232,9 +2284,14 @@ void LLPanelObject::onPasteSize()
 {
     if (!mHasClipboardSize) return;
 
-    mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], MIN_PRIM_SCALE, DEFAULT_MAX_PRIM_SCALE);
-    mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], MIN_PRIM_SCALE, DEFAULT_MAX_PRIM_SCALE);
-    mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], MIN_PRIM_SCALE, DEFAULT_MAX_PRIM_SCALE);
+    // <AW: opensim-limits>
+    //mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], MIN_PRIM_SCALE, DEFAULT_MAX_PRIM_SCALE);
+    //mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], MIN_PRIM_SCALE, DEFAULT_MAX_PRIM_SCALE);
+    //mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], MIN_PRIM_SCALE, DEFAULT_MAX_PRIM_SCALE);
+    mClipboardSize.mV[VX] = llclamp(mClipboardSize.mV[VX], mMinScale, llpanelobject_max_prim_scale());
+    mClipboardSize.mV[VY] = llclamp(mClipboardSize.mV[VY], mMinScale, llpanelobject_max_prim_scale());
+    mClipboardSize.mV[VZ] = llclamp(mClipboardSize.mV[VZ], mMinScale, llpanelobject_max_prim_scale());
+    // </AW: opensim-limits>
 
     mCtrlScaleX->set(mClipboardSize.mV[VX]);
     mCtrlScaleY->set(mClipboardSize.mV[VY]);
