@@ -334,6 +334,7 @@ private:
 	static void toggleSeeAvatars(void* userdata);
 
 private:
+	S32 getDirectoryFee();
 	LLCheckBoxCtrl*	mCheckEditObjects;
 	LLCheckBoxCtrl*	mCheckEditGroupObjects;
 	LLCheckBoxCtrl*	mCheckAllObjectEntry;

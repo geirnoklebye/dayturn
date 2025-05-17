@@ -2219,7 +2219,28 @@ void LLPanelLandOptions::refresh()
 				}
 			}
 		}
+		S32 fee = getDirectoryFee();
+		if (fee == 0)
+		{
+			mCheckShowDirectory->setLabel(getString("DirectoryFree"));
+		}
+		else
+		{
+			LLStringUtil::format_map_t map;
+			map["DIRECTORY_FEE"] = llformat("%d", fee);
+			mCheckShowDirectory->setLabel(getString("DirectoryFee", map));
+		}
 	}
+}
+S32 LLPanelLandOptions::getDirectoryFee()
+{
+	S32 fee = PARCEL_DIRECTORY_FEE;
+
+	if (!gIsInSecondLife)
+	{
+		fee = LLGridManager::getInstance()->getDirectoryFee();
+	}
+	return fee;
 }
 
 // virtual
