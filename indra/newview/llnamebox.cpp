@@ -37,6 +37,8 @@
 #include "llcachename.h"
 #include "llavatarnamecache.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 // statics
 std::set<LLNameBox*> LLNameBox::sInstances;
 
@@ -112,9 +114,27 @@ void LLNameBox::setName(const std::string& name, bool is_group)
 		std::string url;
 
 		if (is_group)
-			url = "[secondlife:///app/group/" + mNameID.asString() + "/about " + name + "]";
+		{
+			if (gIsInSecondLife)
+			{
+				url = "[secondlife:///app/group/" + mNameID.asString() + "/about " + name + "]";
+			}
+			else
+			{
+				url = "[hop:///app/group/" + mNameID.asString() + "/about " + name + "]";	
+			}
+		}	
 		else
-			url = "[secondlife:///app/agent/" + mNameID.asString() + "/about " + name + "]";
+		{
+			if (gIsInSecondLife)
+			{
+				url = "[secondlife:///app/agent/" + mNameID.asString() + "/about " + name + "]";
+			}
+			else
+			{
+				url = "[hop:///app/agent/" + mNameID.asString() + "/about " + name + "]";	
+			}
+		}	
 
 		setText(url);
 	}

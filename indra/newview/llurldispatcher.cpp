@@ -164,9 +164,28 @@ bool LLURLDispatcherImpl::dispatchApp(const LLSLURL& slurl,
 {
 	LL_INFOS() << "cmd: " << slurl.getAppCmd() << " path: " << slurl.getAppPath() << " query: " << slurl.getAppQuery() << LL_ENDL;
 	const LLSD& query_map = LLURI::queryMap(slurl.getAppQuery());
-	bool handled = LLCommandDispatcher::dispatch(
-			slurl.getAppCmd(), slurl.getAppPath(), query_map, slurl.getGrid(), web, nav_type, trusted_browser);
 
+// <FS:AW handle hop app teleports properly>
+//	bool handled = LLCommandDispatcher::dispatch(
+//			slurl.getAppCmd(), slurl.getAppPath(), query_map, slurl.getGrid(), web, nav_type, trusted_browser);
+	LLSD path;
+	if (!gIsInSecondLife && ("teleport" == slurl.getAppCmd()))
+	{
+		path = LLSD::emptyArray();
+		path.append(slurl.getGrid());
+		for(int i=0; slurl.getAppPath().size() > i; i++)
+		{
+			path.append(slurl.getAppPath()[i].asString());
+		}
+	}
+	else
+	{
+		path = slurl.getAppPath();
+	}		
+	
+	bool handled = LLCommandDispatcher::dispatch(
+			slurl.getAppCmd(), path, query_map, slurl.getGrid(), web, nav_type, trusted_browser);
+	
 	// alert if we didn't handle this secondlife:///app/ SLURL
 	// (but still return true because it is a valid app SLURL)
 	if (! handled)
@@ -195,9 +214,9 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 	}
 
 // <FS:AW hypergrid support >
-	//LLSLURL hyper = slurl;
-	//std::string region = hyper.getRegion();
-	//std::string dest = hyper.getSLURLString();
+	LLSLURL hyper = slurl;
+	std::string region = hyper.getRegion();
+	std::string dest = hyper.getSLURLString();
 
     if (!handleGrid(slurl))
     {
@@ -321,25 +340,66 @@ public:
 		// a global position, and teleport to it
 		if (tokens.size() < 1) return false;
 
-		LLVector3 coords(128, 128, 0);
-		if (tokens.size() <= 4)
+	 // <FS:AW optional opensim support>
+		if (!gIsInSecondLife) // OPENSIM
 		{
-			coords = LLVector3(tokens[1].asReal(), 
-							   tokens[2].asReal(), 
-							   tokens[3].asReal());
+			LLSLURL slurl(tokens, true);
+
+			std::string grid = slurl.getGrid();
+			std::string gatekeeper = LLGridManager::getInstance()->getGatekeeper(grid);
+			std::string region_name = slurl.getRegion();
+			std::string dest;
+			std::string current = LLGridManager::getInstance()->getGrid();
+			if((grid != current) && (!LLGridManager::getInstance()->isInOpenSim() || (!slurl.getHypergrid() && gatekeeper.empty())))
+			{
+				dest = slurl.getSLURLString();
+				if (!dest.empty())
+				{
+					LLSD args;
+					args["SLURL"] = dest;
+					args["GRID"] = grid;
+					args["CURRENT_GRID"] = current;
+					LLNotificationsUtil::add("CantTeleportToGrid", args);
+					return true;
+				}
+			}
+			else if(!gatekeeper.empty() && gatekeeper != LLGridManager::getInstance()->getGatekeeper())
+			{
+				region_name = gatekeeper + ":" + region_name;
+			}
+
+			dest = "hop://" + current + "/" + region_name;
+
+			for(int i=2; tokens.size() > i; i++)
+			{
+				dest.append("/" + tokens[i].asString());
+			}
+
+			LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region_name,
+				LLURLDispatcherImpl::regionHandleCallback,
+				LLSLURL(dest).getSLURLString(),
+				true);	// teleport
 		}
+		else // SecondLife
+		{
+			LLVector3 coords(128, 128, 0);
+			if (tokens.size() >= 4)
+			{
+				coords = LLVector3(tokens[1].asReal(), 
+								   tokens[2].asReal(), 
+								   tokens[3].asReal());
+			}
 
-		// Region names may be %20 escaped.
-		std::string region_name = LLURI::unescape(tokens[0]);
+			// Region names may be %20 escaped.
+			std::string region_name = LLURI::unescape(tokens[0]);
+			
+			LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region_name,
+				LLURLDispatcherImpl::regionHandleCallback,
+				LLSLURL(region_name, coords).getSLURLString(),
+				true);// teleport
+		}
+	// </FS:AW optional opensim support>
 
-		LLSD args;
-		args["LOCATION"] = region_name;
-
-		LLSD payload;
-		payload["region_name"] = region_name;
-		payload["callback_url"] = LLSLURL(grid, region_name, coords).getSLURLString();
-
-		LLNotificationsUtil::add("TeleportViaSLAPP", args, payload);
 		return true;
 	}
 

@@ -74,7 +74,7 @@ void downloadError( LLSD const &aData, LLGridManager* mOwner, GridEntry* mData, 
         args["REASON"] = reason_dialog;
         //[REASON] contact support of [GRID].
         LLNotificationsUtil::add("CantAddGrid", args);
-        LL_WARNS() << "No legacy login page. Giving up for " << mData->grid[GRID_VALUE] << LL_ENDL;
+        LL_WARNS("GridManager") << "No legacy login page. Giving up for " << mData->grid[GRID_VALUE] << LL_ENDL;
         mOwner->addGrid(mData, LLGridManager::FAIL);
     }
     else
@@ -120,7 +120,7 @@ void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mDat
 			//[REASON] contact support of [GRID].
 			LLNotificationsUtil::add("CantAddGrid", args);
 
-			LL_WARNS() << " Could not parse grid info xml from server."
+			LL_WARNS("GridManager") << " Could not parse grid info xml from server."
 				<< mData->grid[GRID_VALUE] << " skipping." << LL_ENDL;
 			mOwner->addGrid(mData, LLGridManager::FAIL);
 		}
@@ -142,6 +142,7 @@ void downloadComplete( LLSD const &aData, LLGridManager* mOwner, GridEntry* mDat
 
 const std::string  GRID_UPDATE_SERVICE_URL = "update_query_url_base";
 const std::string SL_UPDATE_QUERY_URL = "https://update.secondlife.com/update";
+
 const std::string MAIN_GRID_LOGIN_URI = "https://login.agni.lindenlab.com/cgi-bin/login.cgi";
 const char* DEFAULT_LOGIN_PAGE = "https://viewer-splash.secondlife.com";
 
@@ -150,6 +151,7 @@ const char* MAIN_GRID_SLURL_BASE = "http://maps.secondlife.com/secondlife/";
 const char* SYSTEM_GRID_APP_SLURL_BASE = "secondlife:///app";
 
 const char* DEFAULT_HOP_BASE = "hop://%s/";
+const char* DEFAULT_SLURL_BASE = "http://%s/region/";
 const char* DEFAULT_APP_SLURL_BASE = "x-grid-location-info://%s/app";
 
 
@@ -221,14 +223,17 @@ void LLGridManager::initGridList(std::string grid_file, AddState state)
 	llifstream llsd_xml;
 	if (grid_file.empty())
 	{
+		LL_WARNS("GridManager")<<"Grid configuration is empty '"<<grid_file<<"'"<<LL_ENDL;
 		return;
 	}
 
 	if(!gDirUtilp->fileExists(grid_file))
 	{
+		LL_WARNS("GridManager")<<"Failed to open grid configuration '"<<grid_file<<"'"<<LL_ENDL;
 		return;
 	}
 
+	LL_INFOS("GridManager")<<"Grid configuration file '"<<grid_file<<"'"<<LL_ENDL;
 	llsd_xml.open( grid_file.c_str(), std::ios::in | std::ios::binary );
 
 	/// parse through the gridfile
@@ -925,12 +930,12 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
 }
 
 void LLGridManager::addSystemGrid(const std::string& label,
-															  const std::string& name,
-															  const std::string& login_uri,
-															  const std::string& helper,
-															  const std::string& login_page,
-															  const std::string& update_url_base,
-															  const std::string& login_id)
+								  const std::string& name,
+								  const std::string& login_uri,
+								  const std::string& helper,
+								  const std::string& login_page,
+								  const std::string& update_url_base,
+								  const std::string& login_id)
 {
 	LLSD grid = LLSD::emptyMap();
 	grid[GRID_VALUE] = name;
