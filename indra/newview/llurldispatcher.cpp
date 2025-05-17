@@ -214,9 +214,11 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 	}
 
 // <FS:AW hypergrid support >
-	LLSLURL hyper = slurl;
-	std::string region = hyper.getRegion();
-	std::string dest = hyper.getSLURLString();
+/* 
+	LLSLURL hyperSlurl = slurl;
+	std::string region = hyperSlurl.getRegion();
+	std::string dest = hyperSlurl.getSLURLString();
+ */
 
     if (!handleGrid(slurl))
     {
