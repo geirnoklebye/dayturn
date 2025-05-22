@@ -39,7 +39,6 @@
 #include "llregionhandle.h"
 #include "llslurl.h"
 #include "llstartup.h"			// gStartupState
-#include "llweb.h"
 #include "llworldmapmessage.h"
 #include "llurldispatcherlistener.h"
 #include "llviewernetwork.h"
@@ -213,7 +212,16 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 		return true;
 	}
 
+// <FS:AW hypergrid support >
+// 	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(slurl.getRegion(),
+// 
+// 									  LLURLDispatcherImpl::regionNameCallback,
+// 									  slurl.getSLURLString(),
+
 	LLSLURL hyper = slurl;
+	std::string region = hyper.getRegion();
+	std::string dest = hyper.getSLURLString();
+	
 // <FS:AW hypergrid support >
 	if (!gIsInSecondLife)
 	{
@@ -221,10 +229,8 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 		std::string current_grid = LLGridManager::getInstance()->getGrid();
 		std::string gatekeeper = LLGridManager::getInstance()->getGatekeeper(grid);
 
-		if ((grid != current_grid)
-			&& (!LLGridManager::getInstance()->isInOpenSim() || (!slurl.getHypergrid() && gatekeeper.empty())))
+        if((grid != current_grid ) && (!gIsInSecondLife || (!slurl.getHypergrid() && gatekeeper.empty())))
 		{
-			std::string dest = hyper.getSLURLString();
 			if (!dest.empty())
 			{
 				LLSD args;
@@ -238,15 +244,30 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 		else if(!gatekeeper.empty())
 		{
 			hyper = LLSLURL(gatekeeper + ":" + slurl.getRegion(), slurl.getPosition(), true);
-		}	
-	}
-	
+		}
 
+        // Trim the grid uri if we're talking a local region here. <FS:CR>
+        if (grid == current_grid)
+        {
+            std::size_t pos;
+            pos = region.find(current_grid);
+            if (pos != std::string::npos)
+            {
+                region.erase(pos, pos + current_grid.length() + 1);
+            }
+        
+            pos = dest.find(current_grid);
+            if (pos != std::string::npos)
+            {
+                dest.erase(pos, pos + current_grid.length() + 1);
+            }
+        }
+	} //Opensim
 
 	// Request a region handle by name
-	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(hyper.getRegion(),
+	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region,
 									  LLURLDispatcherImpl::regionNameCallback,
-									  hyper.getSLURLString(),
+									  dest,
 									  LLUI::getInstance()->mSettingGroups["config"]->getbool("SLURLTeleportDirectly"));	// don't teleport
 	return true;
 }
