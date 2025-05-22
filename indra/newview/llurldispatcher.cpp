@@ -218,9 +218,9 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 // 									  LLURLDispatcherImpl::regionNameCallback,
 // 									  slurl.getSLURLString(),
 
-	LLSLURL hyper = slurl;
-	std::string region = hyper.getRegion();
-	std::string dest = hyper.getSLURLString();
+	LLSLURL hyperSlurl = slurl;
+	std::string region = hyperSlurl.getRegion();
+	std::string dest = hyperSlurl.getSLURLString();
 	
 // <FS:AW hypergrid support >
 	if (!gIsInSecondLife)
@@ -243,7 +243,7 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 		}
 		else if(!gatekeeper.empty())
 		{
-			hyper = LLSLURL(gatekeeper + ":" + slurl.getRegion(), slurl.getPosition(), true);
+			hyperSlurl = LLSLURL(gatekeeper + ":" + slurl.getRegion(), slurl.getPosition(), true);
 		}
 
         // Trim the grid uri if we're talking a local region here. <FS:CR>
