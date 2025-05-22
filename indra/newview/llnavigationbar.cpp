@@ -67,6 +67,10 @@
 
 #include <boost/regex.hpp>
 
+#include "llviewernetwork.h" // <FS:AW hypergrid support >
+#include "llnotificationsutil.h"// <FS:AW hypergrid support >
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 //-- LLTeleportHistoryMenuItem -----------------------------------------------
 
 /**
@@ -491,39 +495,86 @@ void LLNavigationBar::onLocationSelection()
 	LLSLURL slurl = LLSLURL(typed_location);
 	if (slurl.getType() == LLSLURL::LOCATION)
 	{
-	  region_name = slurl.getRegion();
-	  local_coords = slurl.getPosition();
+		LL_DEBUGS( "SLURL") << "LLSLURL::LOCATION" << LL_ENDL;	  
+		region_name = slurl.getRegion();
+	  	local_coords = slurl.getPosition();
 	}
 	else if(!slurl.isValid())
 	{
-	  // we have to do this check after previous, because LLUrlRegistry contains handlers for slurl too  
-	  // but we need to know whether typed_location is a simple http url.
-	  if (LLUrlRegistry::instance().isUrl(typed_location)) 
+	  	LL_DEBUGS( "SLURL") << "!slurl.isValid()" << LL_ENDL;
+	  	// we have to do this check after previous, because LLUrlRegistry contains handlers for slurl too  
+	  	// but we need to know whether typed_location is a simple http url.
+	  	if (LLUrlRegistry::instance().isUrl(typed_location)) 
 	    {
-		// display http:// URLs in the media browser, or
-		// anything else is sent to the search floater
-		LLWeb::loadURL(typed_location);
-		return;
-	  }
-	  else
-	  {
-	      // assume that an user has typed the {region name} or possible {region_name, parcel}
-	      region_name  = typed_location.substr(0,typed_location.find(','));
+			LL_DEBUGS( "SLURL") << "isUrl" << LL_ENDL;
+			// display http:// URLs in the media browser, or
+			// anything else is sent to the search floater
+			LLWeb::loadURL(typed_location);
+			return;
+	  	}
+	  	else
+	  	{
+	      	LL_DEBUGS( "SLURL") << "assume user has typed region name" << LL_ENDL;
+	      	// assume that an user has typed the {region name} or possible {region_name, parcel}
+	      	region_name  = typed_location.substr(0,typed_location.find(','));
 	    }
 	}
 	else
 	{
-	  // was an app slurl, home, whatever.  Bail
-	  return;
+	  	LL_DEBUGS( "SLURL") << "was an app slurl, home, whatever.  Bail" << LL_ENDL;
+	  	// was an app slurl, home, whatever.  Bail
+	 	return;
 	}
+
+// <FS:AW hypergrid support >
+	if (!gIsInSecondLife)
+	{
+		std::string grid = slurl.getGrid();
+		std::string current_grid = LLGridManager::getInstance()->getGrid();
+		std::string gatekeeper = LLGridManager::getInstance()->getGatekeeper(grid);
 	
+		std::string current = LLGridManager::getInstance()->getGrid();
+		if((grid != current ) 
+			&& (!LLGridManager::getInstance()->isInOpenSim()
+				|| (!slurl.getHypergrid() && gatekeeper.empty() )
+			   )
+		  )
+		{
+			std::string dest = slurl.getSLURLString();
+			if (!dest.empty())
+			{
+				LLSD args;
+				args["SLURL"] = dest;
+				args["GRID"] = slurl.getGrid();
+				args["CURRENT_GRID"] = current_grid;
+				LLNotificationsUtil::add("CantTeleportToGrid", args);
+				return;
+			}
+		}
+		else if(!gatekeeper.empty())
+		{
+			region_name = gatekeeper + ":" + region_name;
+		}
+		
 	// Resolve the region name to its global coordinates.
 	// If resolution succeeds we'll teleport.
 	LLWorldMapMessage::url_callback_t cb = boost::bind(
 			&LLNavigationBar::onRegionNameResponse, this,
 			typed_location, region_name, local_coords, _1, _2, _3, _4);
 	mSaveToLocationHistory = true;
-	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region_name, cb, std::string("unused"), false);
+	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region_name, cb, std::string("unused"), false);	
+	}
+// </FS:AW hypergrid support >
+	else 
+	{
+		// Resolve the region name to its global coordinates.
+		// If resolution succeeds we'll teleport.
+		LLWorldMapMessage::url_callback_t cb = boost::bind(
+				&LLNavigationBar::onRegionNameResponse, this,
+				typed_location, region_name, local_coords, _1, _2, _3, _4);
+		mSaveToLocationHistory = true;
+		LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region_name, cb, std::string("unused"), false);	
+	}
 }
 
 void LLNavigationBar::onTeleportFailed()
