@@ -559,6 +559,11 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
         state = FAIL;
     }
 
+	if (grid_entry->grid.has("USER_DELETED") || grid_entry->grid.has("DEPRECATED"))
+	{
+		state = REMOVE;
+	}
+
     if ((FETCH == state) ||(FETCHTEMP == state) || (SYSTEM == state))
     {
         std::string grid = utf8str_tolower(grid_entry->grid[GRID_VALUE]);
@@ -576,8 +581,6 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
         }
         else if (!grid.empty() && grid.find_first_not_of("abcdefghijklmnopqrstuvwxyz1234567890-_.:/@% ") != std::string::npos)
         {
-            /// grid should be in the form of a dns address
-            /// but also support localhost:9000 or localhost:9000/login
             LLSD args;
             args["GRID"] = grid;
             LLNotificationsUtil::add("InvalidGrid", args);
@@ -596,8 +599,7 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
             }
         }
         
-        /// trim region from hypergrid uris
-        
+        /// trim region from hypergrid uris   
         std::string  grid_trimmed = trimHypergrid(grid);
         if (grid_trimmed != grid)
         {
@@ -612,59 +614,6 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
             state = FETCH;
         }
     }
-
-	if ((FETCH == state) ||(FETCHTEMP == state) || (SYSTEM == state))
-	{
-		std::string grid = utf8str_tolower(grid_entry->grid[GRID_VALUE]);
-		/// grid should be in the form of a dns address
-		/// but also support localhost:9000 or localhost:9000/login
-		bool is_special_entry = (grid.find("<") == 0 
-					&& grid.rfind(">") == grid.length() -1);
-		if (is_special_entry)
-			{
-			LLSD override;
-			grid_entry->grid = override;
-			grid_entry->grid[GRID_VALUE] = grid;
-			grid_entry->grid["FLAG_TEMPORARY"] = "TRUE";
-			state = FINISH;
-		}
-		else if (!grid.empty() && grid.find_first_not_of("abcdefghijklmnopqrstuvwxyz1234567890-_.:/@% ") != std::string::npos)
-		{
-		 /// grid should be in the form of a dns address
-		 /// but also support localhost:9000 or localhost:9000/login
-			LLSD args;
-			args["GRID"] = grid;
-			LLNotificationsUtil::add("InvalidGrid", args);
-			state = FAIL;
-		}
-
-		/// trim last slash
-		size_t pos = grid.find_last_of("/");
-		if ( (grid.length()-1) == pos )
-		{
-			if (!mGridList.has(grid))/// deal with hand edited entries *sigh*
-			{
-			grid.erase(pos);
-			grid_entry->grid[GRID_VALUE]  = grid;
-			}
-		}
-
- 		/// trim region from hypergrid uris
-		std::string  grid_trimmed = trimHypergrid(grid);
- 		if (grid_trimmed != grid)
-		{
-			grid = grid_trimmed;
-			grid_entry->grid[GRID_VALUE]  = grid;
-			grid_entry->grid["HG"] = "TRUE";
-		}
-
-		if (FETCHTEMP == state)
-		{
-			grid_entry->grid["FLAG_TEMPORARY"] = "TRUE";
-			state = FETCH;
-		}
-
-	}
 
 	if ((FETCH == state) || (RETRY == state))
 	{
@@ -771,30 +720,30 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
 		/// generate them from the grid
 
 		if (!grid_entry->grid.has(GRID_LOGIN_URI_VALUE))
-				{
+		{
 			grid_entry->grid[GRID_LOGIN_URI_VALUE] = LLSD::emptyArray();
 			grid_entry->grid[GRID_LOGIN_URI_VALUE].append(std::string("https://") + grid + "/cgi-bin/login.cgi");
 			LL_WARNS() << "Adding Legacy Login Service at:" << grid_entry->grid[GRID_LOGIN_URI_VALUE].asString() << LL_ENDL;
-				}
+		}
 
 		/// Populate to the default values
 		if (!grid_entry->grid.has(GRID_LOGIN_PAGE_VALUE)) 
-				{
+		{
 			grid_entry->grid[GRID_LOGIN_PAGE_VALUE] = std::string("http://") + grid + "/app/login/";
 			LL_WARNS() << "Adding Legacy Login Screen at:" << grid_entry->grid[GRID_LOGIN_PAGE_VALUE].asString() << LL_ENDL;
-				}
+		}
 		if (!grid_entry->grid.has(GRID_HELPER_URI_VALUE)) 
-				{
+		{
 			LL_WARNS() << "Adding Legacy Economy at:" << grid_entry->grid[GRID_HELPER_URI_VALUE].asString() << LL_ENDL;
 			grid_entry->grid[GRID_HELPER_URI_VALUE] = std::string("https://") + grid + "/helpers/";
-				}
-
+		}
 	}
 
 	if(FAIL != state)
 	{
-	LL_DEBUGS() << "GRID_VALUE:" << grid_entry->grid[GRID_VALUE] << LL_ENDL;
-    std::string grid = utf8str_tolower(grid_entry->grid[GRID_VALUE]);
+		LL_DEBUGS() << "GRID_VALUE:" << grid_entry->grid[GRID_VALUE] << LL_ENDL;
+    	std::string grid = utf8str_tolower(grid_entry->grid[GRID_VALUE]);
+
 		if(grid.empty())
  		{
 			state = FAIL;
@@ -802,14 +751,6 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
 		else
 		{
 			bool list_changed = false;
-
-			LLURI login_uri(grid_entry->grid[GRID_LOGIN_URI_VALUE].get(0).asString());
-
-			if (login_uri.authority() != grid && !grid_entry->grid.has("USER_DELETED"))
-			{
-				grid = login_uri.authority();
-				grid_entry->grid[GRID_VALUE] = grid;
-			}
 
 			if (!grid_entry->grid.has(GRID_LOGIN_IDENTIFIER_TYPES) &&!grid_entry->grid.has("USER_DELETED"))
 				{
@@ -820,28 +761,36 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
 					grid_entry->grid[GRID_LOGIN_IDENTIFIER_TYPES].append(CRED_IDENTIFIER_TYPE_ACCOUNT);
 				}
 	
-		bool is_current = grid_entry->set_current;
-		grid_entry->set_current = false;
-	
+			bool is_current = grid_entry->set_current;
+			grid_entry->set_current = false;
 	
 			if (!mGridList.has(grid)) ///new grid
 			{
-
+				LL_DEBUGS("GridManager") << "new grid" << LL_ENDL;
 				if (!grid_entry->grid.has("USER_DELETED")
 					&& !grid_entry->grid.has("DEPRECATED"))
 				{
-				///finally add the grid
-				mGridList[grid] = grid_entry->grid;
+					///finally add the grid
+					mGridList[grid] = grid_entry->grid;
 					list_changed = true;
-				LL_DEBUGS("GridManager") << "Adding new entry: " << grid << LL_ENDL;
-			}
-			else
-			{
+					LL_DEBUGS("GridManager") << "Adding new entry: " << grid << LL_ENDL;
+				}
+				else if (grid_entry->grid.has("DEPRECATED"))
+				{
+					//add the deprecated entry but hide it
+					//so it doesn't get used from the user list
+					mGridList[grid] = grid_entry->grid;
+					LL_DEBUGS("GridManager") << "Marking entry as deprecated : " << grid << LL_ENDL;				
+				}
+				else
+				{
 					LL_DEBUGS("GridManager") << "Removing entry marked for deletion: " << grid << LL_ENDL;
 				}
 			}
 			else
 			{
+				LL_DEBUGS("GridManager") << "existing grid" << LL_ENDL;
+
 				LLSD existing_grid = mGridList[grid];
 				if (existing_grid.has("DEPRECATED"))
 				{
@@ -926,7 +875,7 @@ void LLGridManager::addGrid(GridEntry* grid_entry,  AddState state)
 	{
 		delete grid_entry;
 		grid_entry = NULL;
-			}
+	}
 }
 
 void LLGridManager::addSystemGrid(const std::string& label,
@@ -937,6 +886,8 @@ void LLGridManager::addSystemGrid(const std::string& label,
 								  const std::string& update_url_base,
 								  const std::string& login_id)
 {
+	GridEntry* grid_entry = new GridEntry;
+	grid_entry->set_current = false;
 	LLSD grid = LLSD::emptyMap();
 	grid[GRID_VALUE] = name;
 	grid[GRID_LABEL_VALUE] = label;
@@ -950,6 +901,7 @@ void LLGridManager::addSystemGrid(const std::string& label,
 	grid[GRID_LOGIN_IDENTIFIER_TYPES].append(CRED_IDENTIFIER_TYPE_AGENT);
 
 	grid[GRID_APP_SLURL_BASE] = SYSTEM_GRID_APP_SLURL_BASE;
+
 	if (login_id.empty())
 	{
 			grid[GRID_ID_VALUE] = name;

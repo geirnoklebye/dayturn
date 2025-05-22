@@ -103,10 +103,6 @@ public:
     std::string asString() const ;
 
 protected:
-	static const std::string typeName[NUM_SLURL_TYPES];
-	/// Get a human-readable version of the type for logging
-	static std::string getTypeString(SLURL_TYPE type);	
-	
 	SLURL_TYPE mType;
 	
 	// used for Apps and Help

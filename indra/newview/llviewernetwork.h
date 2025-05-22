@@ -177,6 +177,7 @@ public:
     /// however we already have that in GRID_VALUE
     std::string getLoginPage(const std::string& grid) { return mGridList[grid][GRID_LOGIN_PAGE_VALUE]; }
     void        getLoginIdentifierTypes(LLSD& idTypes) { idTypes = mGridList[mGrid][GRID_LOGIN_IDENTIFIER_TYPES]; }
+
     std::string trimHypergrid(const std::string& trim);
     /** ================================================================
      * @name Update Related Properties
