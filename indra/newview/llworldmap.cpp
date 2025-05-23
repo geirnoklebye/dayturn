@@ -591,9 +591,7 @@ bool LLWorldMap::insertItem(U32 x_world, U32 y_world, std::string& name, LLUUID&
 		case MAP_ITEM_AGENT_LOCATIONS: // agent locations
 		{
 // 				LL_INFOS("WorldMap") << "New Location " << new_item.mName << LL_ENDL;
-			// <FS:Ansariel> Map fails to clear agent from a map position if it's the last one
-			//if (extra > 0)
-			// </FS:Ansariel>
+			if (extra > 0)
 			{
 				new_item.setCount(extra);
 				siminfo->insertAgentLocation(new_item);

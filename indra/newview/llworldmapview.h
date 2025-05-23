@@ -83,6 +83,7 @@ public:
 	void translatePan( S32 delta_x, S32 delta_y );
     void setPan( S32 x, S32 y, bool snap = true );
     void setPanWithInterpTime(S32 x, S32 y, bool snap, F32 interp_time);
+
 	// Return true if the current scale level is above the threshold for accessing region info
 	bool		showRegionInfo();
 

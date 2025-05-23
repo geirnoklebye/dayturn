@@ -2929,7 +2929,7 @@ void LLViewerRegion::unpackRegionHandshake()
 		mProductName = productName;
 	}
 
-	if (LLGridManager::getInstance()->isInSecondLife())
+	if (gIsInSecondLife)
 	{
 		mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
 	}
@@ -2938,7 +2938,6 @@ void LLViewerRegion::unpackRegionHandshake()
 		mCentralBakeVersion = region_protocols & 0; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
 	}
 
-	//mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
 	LLVLComposition *compp = getComposition();
 	if (compp)
 	{
@@ -3071,7 +3070,6 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
 	capabilityNames.append("DispatchRegionInfo");
     
 	capabilityNames.append("EnvironmentSettings");
-	capabilityNames.append("DispatchOpenRegionSettings");
 	//capabilityNames.append("DispatchWindLightSettings"); // now using EnvironmentSettings for windlight settings
 	capabilityNames.append("EstateAccess");
 	capabilityNames.append("EstateChangeInfo");
@@ -3187,7 +3185,8 @@ void LLViewerRegionImpl::buildCapabilityNames(LLSD& capabilityNames)
     // Capabilities unique to OpenSim
     if(!gIsInSecondLife)
     {
-        capabilityNames.append("OpenSimExtras");
+        capabilityNames.append("DispatchOpenRegionSettings");
+		capabilityNames.append("OpenSimExtras");
     }
 
 	// Please add new capabilities alphabetically to reduce
