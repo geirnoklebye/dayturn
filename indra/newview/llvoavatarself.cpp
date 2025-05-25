@@ -1642,6 +1642,18 @@ void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, bool upload_r
 	layer_set->invalidateMorphMasks();
 }
 
+#if 0 // SUNSHINE CLEANUP
+	if( upload_result  && (getRegion() && !getRegion()->getCentralBakeVersion()))
+	{
+		llassert(isSelf());
+
+		ETextureIndex baked_te = getBakedTE( layer_set );
+		setTEImage( baked_te, LLViewerTextureManager::getFetchedTexture(IMG_DEFAULT_AVATAR) );
+		layer_set->requestUpload();
+		updateMeshTextures();
+	}
+#endif
+
 void LLVOAvatarSelf::invalidateAll()
 {
 	for (U32 i = 0; i < mBakedTextureDatas.size(); i++)

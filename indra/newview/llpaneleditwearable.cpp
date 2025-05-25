@@ -1104,7 +1104,7 @@ void LLPanelEditWearable::saveChanges(bool force_save_as)
         {
 			// the name of the wearable has changed, re-save wearable with new name
 			LLAppearanceMgr::instance().removeCOFItemLinks(mWearablePtr->getItemID(),gAgentAvatarp->mEndCustomizeCallback);
-			gAgentWearables.saveWearableAs(mWearablePtr->getType(), index, new_name, description, FALSE);
+			gAgentWearables.saveWearableAs(mWearablePtr->getType(), index, new_name, description, false);
 			mNameEditor->setText(mWearableItem->getName());
         }
         else
@@ -1127,7 +1127,7 @@ void LLPanelEditWearable::saveChanges(bool force_save_as)
 				// Remove old link
 				remove_inventory_item(link_item->getUUID(), gAgentAvatarp->mEndCustomizeCallback);
 			}
-			gAgentWearables.saveWearable(mWearablePtr->getType(), index, new_name);
+			gAgentWearables.saveWearable(mWearablePtr->getType(), index, true, new_name);
         }
 
 	

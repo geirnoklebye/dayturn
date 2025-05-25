@@ -1510,6 +1510,12 @@ bool idle_startup()
 		// We should have an agent id by this point.
 		llassert(!(gAgentID == LLUUID::null));
 
+		if (gIsInSecondLife)
+		{
+			gMenuBarView->getChild<LLMenuItemGL>("HTTP Textures")->setVisible(false);
+			gMenuBarView->getChild<LLMenuItemGL>("HTTP Inventory")->setVisible(false);		
+		}
+		
 		// Finish agent initialization.  (Requires gSavedSettings, builds camera)
 		gAgent.init();
 		display_startup();

@@ -72,6 +72,8 @@
 #include "llhttpretrypolicy.h"
 #include "llsettingsvo.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 // do-nothing ops for use in callbacks.
 void no_op_inventory_func(const LLUUID&) {} 
 void no_op_llsd_func(const LLSD&) {}
@@ -482,7 +484,7 @@ void LLViewerInventoryItem::fetchFromServer(void) const
             LLCore::HttpHandler::ptr_t handler(new LLInventoryModel::FetchItemHttpHandler(body));
 			gInventory.requestPost(true, url, body, handler, "Inventory Item");
 		}
-		else
+		else if (!gIsInSecondLife) // opensim no cap
 		{
 			LLMessageSystem* msg = gMessageSystem;
 			msg->newMessage("FetchInventory");
@@ -1453,7 +1455,7 @@ void remove_inventory_item(
 				gInventory.onObjectDeletedFromServer(item_id);
 			}
 		}
-		else // no cap
+		else if (!gIsInSecondLife) // no cap
 		{
 			LLMessageSystem* msg = gMessageSystem;
 			msg->newMessageFast(_PREHASH_RemoveInventoryItem);
@@ -1472,6 +1474,10 @@ void remove_inventory_item(
 				cb->fire(item_id);
 			}
 		}
+        else
+        {
+            LL_WARNS(LOG_INV) << "Tried to use inventory without AIS API" << LL_ENDL;
+        }
 	}
 	else
 	{
@@ -1600,7 +1606,7 @@ void purge_descendents_of(const LLUUID& id, LLPointer<LLInventoryCallback> cb)
 			AISAPI::completion_t cr = (cb) ? boost::bind(&doInventoryCb, cb, _1) : AISAPI::completion_t();
 			AISAPI::PurgeDescendents(id, cr);
 		}
-		else // no cap
+		else if (!gIsInSecondLife) // no cap
 		{
 			// Fast purge
 			LL_DEBUGS(LOG_INV) << "purge_descendents_of fast case " << cat->getName() << LL_ENDL;
@@ -1622,6 +1628,10 @@ void purge_descendents_of(const LLUUID& id, LLPointer<LLInventoryCallback> cb)
 				cb->fire(id);
 			}
 		}
+        else
+        {
+            LL_WARNS(LOG_INV) << "Tried to use inventory without AIS API" << LL_ENDL;
+        }
 	}
 }
 
