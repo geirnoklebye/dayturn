@@ -353,7 +353,13 @@ static bool parse_lure_bucket(const std::string& bucket,
     LLVector3& look_at,
     U8& region_access)
 {
-    // tokenize the bucket
+	// tokenize the bucket
+  
+	if (!gIsInSecondLife)
+	{
+	    return false;  // TODO make sure the bucket contains data when coming from OS. Empty bucket leads to a viewer crash on OS X. 
+	}
+    
     typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
     boost::char_separator<char> sep("|", "", boost::keep_empty_tokens);
     tokenizer tokens(bucket, sep);
