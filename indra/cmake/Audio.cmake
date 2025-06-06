@@ -15,17 +15,17 @@ else (USESYSTEMLIBS)
 
   if (WINDOWS)
     set(OGG_LIBRARIES
-        optimized ogg_static
-        debug ogg_static_d)
+        optimized libogg
+        debug libogg)
     set(VORBIS_LIBRARIES
-        optimized vorbis_static
-        debug vorbis_static_d)
+        optimized libvorbis
+        debug libvorbis)
     set(VORBISENC_LIBRARIES
-        optimized vorbisenc_static
-        debug vorbisenc_static_d)
+        optimized libvorbisenc
+        debug libvorbisenc)
     set(VORBISFILE_LIBRARIES
-        optimized vorbisfile_static
-        debug vorbisfile_static_d)
+        optimized libvorbisfile
+        debug libvorbisfile)
   else (WINDOWS)
     set(OGG_LIBRARIES ogg)
     set(VORBIS_LIBRARIES vorbis)
