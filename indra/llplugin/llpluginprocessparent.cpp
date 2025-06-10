@@ -599,7 +599,7 @@ void LLPluginProcessParent::idle(void)
 						    params.args.add("-e");
 						    params.args.add("tell application \"Terminal\"");
 						    params.args.add("-e");
-						    params.args.add(STRINGIZE("set win to do script \"gdb -pid "
+						    params.args.add(STRINGIZE("set win to do script \"gdb -p "
 												      << mProcess->getProcessID() << "\""));
 						    params.args.add("-e");
 						    params.args.add("do script \"continue\" in win");
