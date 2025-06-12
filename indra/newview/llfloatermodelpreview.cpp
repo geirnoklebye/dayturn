@@ -250,24 +250,28 @@ bool LLFloaterModelPreview::postBuild()
 	std::string current_grid = LLGridManager::getInstance()->getGridNick();
 	std::transform(current_grid.begin(),current_grid.end(),current_grid.begin(),::tolower);
 	std::string validate_url;
-	if (current_grid == "agni")
+	if (LLGridManager::getInstance()->isInSLMain())
 	{
 		validate_url = "http://secondlife.com/my/account/mesh.php";
 	}
-	else if (current_grid == "damballah")
+	else if (LLGridManager::getInstance()->isInSLBeta())
 	{
 		// Staging grid has its own naming scheme.
-		validate_url = "http://secondlife-staging.com/my/account/mesh.php";
+		validate_url = llformat("http://secondlife.%s.lindenlab.com/my/account/mesh.php",current_grid.c_str());
 	}
 	else
 	{
-		validate_url = llformat("http://secondlife.%s.lindenlab.com/my/account/mesh.php",current_grid.c_str());
+		// TODO: Opensim: Set it to something reasonable
+		validate_url = LLGridManager::getInstance()->getLoginPage();
 	}
-// <FS:CR> Show an alert dialog if Havok not included in this build as functionality will be limited
+// <FS:CR> If on Secondlife show an alert dialog if Havok not included in this build as functionality will be limited
 #ifndef HAVOK_TPV
-	LLSD args;
-	args["FEATURE"] = getString("no_havok");
-	LLNotificationsUtil::add("NoHavok", args);
+	if (gIsInSecondLife)
+	{
+		LLSD args;
+		args["FEATURE"] = getString("no_havok");
+		LLNotificationsUtil::add("NoHavok", args);	
+	}
 #endif
 // </FS:CR>
 	getChild<LLTextBox>("warning_message")->setTextArg("[VURL]", validate_url);

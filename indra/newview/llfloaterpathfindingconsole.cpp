@@ -63,6 +63,8 @@
 #endif // OPENSIM
 // </FS:CR>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 #define XUI_RENDER_HEATMAP_NONE 0
 #define XUI_RENDER_HEATMAP_A 1
 #define XUI_RENDER_HEATMAP_B 2
@@ -252,9 +254,12 @@ void LLFloaterPathfindingConsole::onOpen(const LLSD& pKey)
 	}
 // <FS:CR> Show an alert dialog if Havok not included as functionality will be limited
 #ifndef HAVOK_TPV
-	LLSD args;
-	args["FEATURE"] = getString("no_havok");
-	LLNotificationsUtil::add("NoHavok", args);
+	if (gIsInSecondLife)
+	{
+		LLSD args;
+		args["FEATURE"] = getString("no_havok");
+		LLNotificationsUtil::add("NoHavok", args);	
+	}
 #endif // OPENSIM
 // </FS:CR>
 }
