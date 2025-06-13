@@ -40,6 +40,8 @@
 #include "llcorehttputil.h"
 #include "lleventfilter.h"
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 namespace LLEventPolling
 {
 namespace Details
@@ -68,6 +70,7 @@ namespace Details
         bool                            mDone;
         LLCore::HttpRequest::ptr_t      mHttpRequest;
         LLCore::HttpRequest::policy_t   mHttpPolicy;
+        LLCore::HttpOptions::ptr_t      mHttpOptions; // <FS:Ansariel> Restore pre-coro behavior (60s timeout, no retries)
         std::string                     mSenderIp;
         int                             mCounter;
         LLCoreHttpUtil::HttpCoroutineAdapter::wptr_t mAdapter;
@@ -87,6 +90,7 @@ namespace Details
         mDone(false),
         mHttpRequest(),
         mHttpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID),
+        mHttpOptions(), // <FS:Ansariel> Restore pre-coro behavior (60s timeout, no retries)
         mSenderIp(),
         mCounter(sNextCounter++)
 
@@ -95,6 +99,13 @@ namespace Details
 
         mHttpRequest = LLCore::HttpRequest::ptr_t(new LLCore::HttpRequest);
         mHttpPolicy = app_core_http.getPolicy(LLAppCoreHttp::AP_LONG_POLL);
+         // <FS:Ansariel> Restore pre-coro behavior (60s timeout, no retries)
+        mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+       if (!gIsInSecondLife)
+        {
+            mHttpOptions->setRetries(0);
+            mHttpOptions->setTransferTimeout(60);
+        }
         mSenderIp = sender.getIPandPort();
     }
 
@@ -188,6 +199,14 @@ namespace Details
                 if (status == LLCore::HttpStatus(LLCore::HttpStatus::EXT_CURL_EASY, CURLE_OPERATION_TIMEDOUT))
                 {   // A standard timeout response we get this when there are no events.
                     LL_DEBUGS("LLEventPollImpl") << "All is very quiet on target server. It may have gone idle?" << LL_ENDL;
+                    errorCount = 0;
+                    continue;
+                }
+                else if (status == LLCore::HttpStatus(HTTP_BAD_GATEWAY) && !gIsInSecondLife)
+                {
+                	// Pre-coro says this is the default answer for timeouts and it can happen
+                    // frequently on OpenSim - assume this is normal and issue a new request immediately
+                    LL_DEBUGS("LLEventPollImpl") << "Received HTTP 502 - start new request." << LL_ENDL;
                     errorCount = 0;
                     continue;
                 }
