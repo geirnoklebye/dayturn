@@ -372,6 +372,7 @@ public:
 	friend std::ostream& operator<<(std::ostream &s, const LLViewerRegion &region);
     /// implements LLCapabilityProvider
     virtual std::string getDescription() const;
+    std::string getHttpUrl() const { return mHttpUrl; } // <FS:Ansariel> [UDP Assets]
     std::string getViewerAssetUrl() const { return mViewerAssetUrl; }
 
 	U32 getNumOfVisibleGroups() const;
@@ -562,6 +563,7 @@ private:
 	std::string mColoName;
 	std::string mProductSKU;
 	std::string mProductName;
+    std::string mHttpUrl; // <FS:Ansariel> [UDP Assets]
 	std::string mViewerAssetUrl ;
 	
 	// Maps local ids to cache entries.

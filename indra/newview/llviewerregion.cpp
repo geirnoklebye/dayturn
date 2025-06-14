@@ -632,6 +632,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mColoName("unknown"),
 	mProductSKU("unknown"),
 	mProductName("unknown"),
+    mHttpUrl(""), // <FS:Ansariel> [UDP Assets]
 	mViewerAssetUrl(""),
 	mCacheLoaded(false),
 	mCacheDirty(false),
@@ -3273,6 +3274,12 @@ void LLViewerRegion::setCapability(const std::string& name, const std::string& u
 			/*==============================================================*/
 			mViewerAssetUrl = url;
 		}
+		// <FS:Ansariel> [UDP Assets]
+		else if (name == "GetTexure")
+		{
+			mHttpUrl = url;
+		}
+		// </FS:Ansariel> [UDP Assets]
 	}
 }
 
@@ -3297,6 +3304,12 @@ void LLViewerRegion::setCapabilityDebug(const std::string& name, const std::stri
 			/*==============================================================*/
 			mViewerAssetUrl = url;
 		}
+		// <FS:Ansariel> [UDP Assets]
+		else if (name == "GetTexure")
+		{
+			mHttpUrl = url;
+		}
+		// </FS:Ansariel> [UDP Assets]
 	}
 }
 

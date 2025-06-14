@@ -396,9 +396,11 @@ void LLViewerAssetStorage::queueRequestHttp(
     if (!duplicate)
     {
         LLCoprocedureManager* manager = LLCoprocedureManager::getInstance();
+/* 		UDP assets for Opensim
         bool with_http = true;
         bool is_temp = false;
         LLViewerAssetStatsFF::record_enqueue(atype, with_http, is_temp);
+ */
         manager->enqueueCoprocedure(
             VIEWER_ASSET_STORAGE_CORO_POOL,
             "LLViewerAssetStorage::assetRequestCoro",
@@ -495,12 +497,46 @@ void LLViewerAssetStorage::assetRequestCoro(
     }
     if (mViewerAssetUrl.empty())
     {
-        LL_WARNS_ONCE("ViewerAsset") << "asset request fails: caps received but no viewer asset cap found" << LL_ENDL;
-        result_code = LL_ERR_ASSET_REQUEST_FAILED;
-        ext_status = LLExtStat::NONE;
-        removeAndCallbackPendingDownloads(uuid, atype, uuid, atype, result_code, ext_status);
+        // <FS:Ansariel> [UDP Assets]
+        if (!gIsInSecondLife && mUpstreamHost.isOk())
+        {
+            req->mWithHTTP = false;
+
+            // send request message to our upstream data provider
+            // Create a new asset transfer.
+            LLTransferSourceParamsAsset spa;
+            spa.setAsset(uuid, atype);
+
+            // Set our destination file, and the completion callback.
+            LLTransferTargetParamsVFile tpvf;
+            tpvf.setAsset(uuid, atype);
+            tpvf.setCallback(downloadCompleteCallback, *req);
+
+            LL_DEBUGS("AssetStorage") << "Starting transfer for " << uuid << LL_ENDL;
+            LLTransferTargetChannel *ttcp = gTransferManager.getTargetChannel(mUpstreamHost, LLTCT_ASSET);
+            ttcp->requestTransfer(spa, tpvf, 100.f + (req->mIsPriority ? 1.f : 0.f));
+
+            bool with_http = false;
+            bool is_temp = false;
+            LLViewerAssetStatsFF::record_enqueue(atype, with_http, is_temp);
+        }
+        else
+        {
+        	// <FS:Ansariel> [UDP Assets]
+        	LL_WARNS_ONCE("ViewerAsset") << "asset request fails: caps received but no viewer asset cap found" << LL_ENDL;
+        	result_code = LL_ERR_ASSET_REQUEST_FAILED;
+        	ext_status = LLExtStat::NONE;
+        	removeAndCallbackPendingDownloads(uuid, atype, uuid, atype, result_code, ext_status);
+        }
 		return;
     }
+    
+    // <FS:Ansariel> [UDP Assets]
+    bool with_http = false;
+    bool is_temp = false;
+    LLViewerAssetStatsFF::record_enqueue(atype, with_http, is_temp);
+    // </FS:Ansariel> [UDP Assets]
+
     std::string url = getAssetURL(mViewerAssetUrl, uuid,atype);
     LL_DEBUGS("ViewerAsset") << "request url: " << url << LL_ENDL;
 
