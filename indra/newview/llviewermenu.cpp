@@ -162,6 +162,7 @@
 #include "fscommon.h"
 #include "fspose.h"
 #include "llmodel.h"
+#include "lleconomy.h"  //Opensim economy support
 
 extern bool gIsInSecondLife; //Opensim or SecondLife
 
@@ -560,13 +561,30 @@ void init_menus()
     gViewerWindow->setMenuBackgroundColor(false, 
         LLGridManager::getInstance()->isInSLBeta());
 
-	// *TODO:Also fix cost in llfolderview.cpp for Inventory menus
-	const std::string texture_upload_cost_str = std::to_string(LLAgentBenefitsMgr::current().getTextureUploadCost());
-	const std::string sound_upload_cost_str = std::to_string(LLAgentBenefitsMgr::current().getSoundUploadCost());
-	const std::string animation_upload_cost_str = std::to_string(LLAgentBenefitsMgr::current().getAnimationUploadCost());
-	gMenuHolder->childSetLabelArg("Upload Image", "[COST]", texture_upload_cost_str);
-	gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", sound_upload_cost_str);
-	gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", animation_upload_cost_str);
+	S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+	std::string upload_cost;
+
+    // <FS:AW opensim support>
+	if (!gIsInSecondLife)
+	{
+		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : LLTrans::getString("free");
+		
+		gMenuHolder->childSetLabelArg("Upload Image", "[COST]", upload_cost);
+		gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", upload_cost);
+		gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", upload_cost);
+		gMenuHolder->childSetLabelArg("Bulk Upload", "[COST]", upload_cost);
+	}
+	else
+    // <FS:AW optional opensim support>
+	{
+		// *TODO:Also fix cost in llfolderview.cpp for Inventory menus
+		const std::string texture_upload_cost_str = std::to_string(LLAgentBenefitsMgr::current().getTextureUploadCost());
+		const std::string sound_upload_cost_str = std::to_string(LLAgentBenefitsMgr::current().getSoundUploadCost());
+		const std::string animation_upload_cost_str = std::to_string(LLAgentBenefitsMgr::current().getAnimationUploadCost());
+		gMenuHolder->childSetLabelArg("Upload Image", "[COST]", texture_upload_cost_str);
+		gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", sound_upload_cost_str);
+		gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", animation_upload_cost_str);
+	}
 	
 	gAttachSubMenu = gMenuBarView->findChildMenuByName("Attach Object", true);
 	gDetachSubMenu = gMenuBarView->findChildMenuByName("Detach Object", true);
@@ -7147,11 +7165,106 @@ class LLShowHelp : public view_listener_t
 	bool handleEvent(const LLSD& userdata)
 	{
 		std::string help_topic = userdata.asString();
+		if (!gIsInSecondLife)
+		{
+			if (help_topic.find("grid_") != std::string::npos)
+			{
+				help_topic.erase(0,5);
+	
+				std::string url;
+				LLSD grid_info;
+				LLGridManager::getInstance()->getGridData(grid_info);
+				if (grid_info.has(help_topic))
+				{
+					url = grid_info[help_topic].asString();
+				}
+	
+				if(!url.empty())
+				{
+					LLWeb::loadURLInternal(url);
+				}
+				LL_DEBUGS() << "grid_help " <<  help_topic << " url " << url << LL_ENDL;
+	
+				return true;
+			}
+		}
 		LLViewerHelp* vhelp = LLViewerHelp::getInstance();
 		vhelp->showTopic(help_topic);
+
 		return true;
 	}
 };
+
+// <AW: OpenSim>
+bool update_grid_help()
+{
+    if (!gMenuHolder) //defend crash on shutdown
+    {
+        return false;
+    }
+
+	bool needs_seperator = false;
+
+	if (!gIsInSecondLife)
+	{
+		LLSD grid_info;
+		LLGridManager::getInstance()->getGridData(grid_info);
+		std::string grid_label = LLGridManager::getInstance()->getGridLabel();
+
+		if (grid_info.has("help"))
+		{
+			needs_seperator = true;
+			gMenuHolder->childSetVisible("current_grid_help",true);
+			gMenuHolder->childSetLabelArg("current_grid_help", "[CURRENT_GRID]", grid_label);
+			gMenuHolder->childSetVisible("current_grid_help_login",true);
+			gMenuHolder->childSetLabelArg("current_grid_help_login", "[CURRENT_GRID]", grid_label);
+		}
+		if (grid_info.has("about"))
+		{
+			needs_seperator = true;
+			gMenuHolder->childSetVisible("current_grid_about",true);
+			gMenuHolder->childSetLabelArg("current_grid_about", "[CURRENT_GRID]", grid_label);
+			gMenuHolder->childSetVisible("current_grid_about_login",true);
+			gMenuHolder->childSetLabelArg("current_grid_about_login", "[CURRENT_GRID]", grid_label);		
+		}
+	}
+	else
+	{
+		gMenuHolder->childSetVisible("current_grid_help",false);
+		gMenuHolder->childSetVisible("current_grid_help_login",false);
+		gMenuHolder->childSetVisible("current_grid_about",false);
+		gMenuHolder->childSetVisible("current_grid_about_login",false);
+	}
+
+	//FIXME: this does nothing
+	gMenuHolder->childSetVisible("grid_help_seperator",needs_seperator);
+	gMenuHolder->childSetVisible("grid_help_seperator_login",needs_seperator);
+
+// <FS:AW  opensim destinations and avatar picker>
+    // <FS:AW opensim support>
+	if (!gIsInSecondLife)
+	{
+		if (!LLLoginInstance::getInstance()->hasResponse("destination_guide_url") 
+		||LLLoginInstance::getInstance()->getResponse("destination_guide_url").asString().empty())
+		{
+			LL_WARNS() << "Destinations Guide Off" << LL_ENDL;
+			gMenuHolder->childSetVisible("Destinations", false);
+		}
+	
+		if (!LLLoginInstance::getInstance()->hasResponse("avatar_picker_url") 
+		||LLLoginInstance::getInstance()->getResponse("avatar_picker_url").asString().empty())
+			LL_WARNS() << "Avatar Picker Off" << LL_ENDL;
+			gMenuHolder->childSetVisible("Avatar Picker", false);
+		{
+
+		}
+	}
+    // <FS:AW opensim support>
+// </FS:AW  opensim destinations and avatar picker>
+
+	return true;
+}
+// </AW: OpenSim>
 
 class LLToggleHelp : public view_listener_t
 {
