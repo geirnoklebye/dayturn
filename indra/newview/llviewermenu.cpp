@@ -540,15 +540,8 @@ void init_menus()
 	{
 		color = LLUIColorTable::instance().getColor( "MenuNonProductionBgColor" );
 	}
-	std::string kokuamainmenu = "menu_viewer_dayturn.xml";
-	std::string kokualoginmenu = "menu_login_dayturn.xml";
-	if (gSavedSettings.getbool("KokuaClassicMainMenu"))
-	{
-	    kokuamainmenu="menu_viewer_kokua.xml";
-	    kokualoginmenu="menu_login_dayturn.xml";
-	}
 	
-	gMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>(kokuamainmenu, gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
+	gMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_viewer_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 //kokua we could add a legacy menu here
 
 	LLView* menu_bar_holder = gViewerWindow->getRootView()->getChildView("menu_bar_holder");
@@ -603,9 +596,7 @@ void init_menus()
 
 	// Let land based option enable when parcel changes
 	gMenuParcelObserver = new LLMenuParcelObserver();
-
-	gLoginMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>(kokualoginmenu, gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-//kokua we could add a legacy menu here
+	gLoginMenuBarView = LLUICtrlFactory::getInstance()->createFromFile<LLMenuBarGL>("menu_login_dayturn.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 
 	gLoginMenuBarView->arrangeAndClear();
 	LLRect menuBarRect = gLoginMenuBarView->getRect();
@@ -6412,16 +6403,6 @@ void print_agent_nvpairs(void*)
 	}
 
 	LL_INFOS() << "Camera at " << gAgentCamera.getCameraPositionGlobal() << LL_ENDL;
-}
-
-void kokua_menus()
-{
-    bool kokuaclassic = gSavedSettings.getbool("KokuaClassicMainMenu");
-		gMenuBarView->setItemEnabled("Kokua Classic Menus", kokuaclassic);	
-			LLSD args;
-			args["MESSAGE"] = 
-			llformat("Restart the viewer to apply the new main menu layout" );
-			LLNotificationsUtil::add("GenericAlert", args);	
 }
 
 void show_debug_menus()

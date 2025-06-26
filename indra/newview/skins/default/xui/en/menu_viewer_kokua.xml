@@ -3312,16 +3312,6 @@
              function="ToggleControl"
              parameter="QAMode" />
         </menu_item_check>
-        <menu_item_check
-         label="Classic Kokua Menus"
-         name="Classic Kokua Menus">
-            <menu_item_check.on_check
-             function="CheckControl"
-             parameter="KokuaClassicMainMenu" />
-            <menu_item_check.on_click
-             function="ToggleControl"
-             parameter="KokuaClassicMainMenu" />
-        </menu_item_check>    
     </menu>
 <!-- END OF ADVANCED MENU -->     
     
