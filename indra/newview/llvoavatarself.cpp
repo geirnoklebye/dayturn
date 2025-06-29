@@ -77,6 +77,8 @@
 
 #include <boost/lexical_cast.hpp>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 LLPointer<LLVOAvatarSelf> gAgentAvatarp = NULL;
 
 bool isAgentAvatarValid()
@@ -260,6 +262,10 @@ void LLVOAvatarSelf::setHoverIfRegionEnabled()
 			F32 hover_z = gSavedPerAccountSettings.getF32("AvatarHoverOffsetZ");
 			setHoverOffset(LLVector3(0.0, 0.0, llclamp(hover_z,MIN_HOVER_Z,MAX_HOVER_Z)));
 			LL_INFOS("Avatar") << avString() << " set hover height from debug setting " << hover_z << LL_ENDL;
+		}
+		else if (!isUsingServerBakes())
+		{
+			computeBodySize();
 		}
 		else 
 		{
@@ -785,6 +791,14 @@ bool LLVOAvatarSelf::setParamWeight(const LLViewerVisualParam *param, F32 weight
 	{
 		return false;
 	}
+
+#if 0
+	// FIXME DRANO - kludgy way to avoid overwriting avatar state from wearables.
+	if (isUsingServerBakes() && !isUsingLocalAppearance())
+	{
+		return false;
+	}
+#endif
 
 	if (param->getCrossWearable())
 	{
@@ -1640,9 +1654,7 @@ void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, bool upload_r
 
 	layer_set->requestUpdate();
 	layer_set->invalidateMorphMasks();
-}
 
-#if 0 // SUNSHINE CLEANUP
 	if( upload_result  && (getRegion() && !getRegion()->getCentralBakeVersion()))
 	{
 		llassert(isSelf());
@@ -1652,7 +1664,7 @@ void LLVOAvatarSelf::invalidateComposite( LLTexLayerSet* layerset, bool upload_r
 		layer_set->requestUpload();
 		updateMeshTextures();
 	}
-#endif
+}
 
 void LLVOAvatarSelf::invalidateAll()
 {
@@ -2779,7 +2791,10 @@ LLViewerTexLayerSet* LLVOAvatarSelf::getLayerSet(EBakedTextureIndex baked_index)
                case TEX_HEAD_BAKED:
                case TEX_HEAD_BODYPAINT:
                        return mHeadLayerSet; */
-       if (baked_index >= 0 && baked_index < BAKED_NUM_INDICES)
+	// <FS:Beq> BOM fallback support for OpenSim legacy
+    //    if (baked_index >= 0 && baked_index < BAKED_NUM_INDICES)
+       if (baked_index >= 0 && baked_index < LLVOAvatar::sMaxBakes)
+	//</FS:Beq>
        {
 		   return  getTexLayerSet(baked_index);
        }
@@ -2821,6 +2836,12 @@ void LLVOAvatarSelf::onCustomizeEnd(bool disable_camera_switch)
 	if (isAgentAvatarValid())
 	{
 		gAgentAvatarp->mIsEditingAppearance = false;
+		if (gAgentAvatarp->getRegion() && !gAgentAvatarp->getRegion()->getCentralBakeVersion())
+		{
+			// FIXME DRANO - move to sendAgentSetAppearance, make conditional on upload complete.
+			gAgentAvatarp->mUseLocalAppearance = false;
+		}
+		
 		gAgentAvatarp->invalidateAll();
 
         if (gSavedSettings.getbool("AppearanceCameraMovement") && !disable_camera_switch)
@@ -3001,7 +3022,10 @@ void LLVOAvatarSelf::dumpWearableInfo(LLAPRFile& outfile)
 }
 F32 LLVOAvatarSelf::getAvatarOffset() /*const*/
 {
-
+	if (!gIsInSecondLife)
+	{
+		return (isUsingServerBakes()) ? LLAvatarAppearance::getAvatarOffset() : gSavedPerAccountSettings.getF32("AvatarHoverOffsetZ");
+	}
 	return LLAvatarAppearance::getAvatarOffset();
 }
 

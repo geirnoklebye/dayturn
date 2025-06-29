@@ -35,6 +35,7 @@
 #include "llsidepanelappearance.h"
 #include "lltextureentry.h"
 #include "llviewertexlayer.h"
+#include "llvoavatar.h"
 #include "llvoavatarself.h"
 #include "llavatarappearancedefines.h"
 #include "llviewerwearable.h"
@@ -50,7 +51,10 @@ class LLOverrideBakedTextureUpdate
 public:
 	LLOverrideBakedTextureUpdate(bool temp_state)
 	{
-		U32 num_bakes = (U32) LLAvatarAppearanceDefines::BAKED_NUM_INDICES;
+		//<FS:Beq> OpenSim BOM fallback
+		// U32 num_bakes = (U32) LLAvatarAppearanceDefines::BAKED_NUM_INDICES;
+		U32 num_bakes = (U32) LLVOAvatar::sMaxBakes;
+		//</FS:Beq>
 		for( U32 index = 0; index < num_bakes; ++index )
 		{
 			composite_enabled[index] = gAgentAvatarp->isCompositeUpdateEnabled(index);
@@ -60,7 +64,10 @@ public:
 
 	~LLOverrideBakedTextureUpdate()
 	{
-		U32 num_bakes = (U32)LLAvatarAppearanceDefines::BAKED_NUM_INDICES;		
+		//<FS:Beq> OpenSim BOM fallback
+		// U32 num_bakes = (U32) LLAvatarAppearanceDefines::BAKED_NUM_INDICES;
+		U32 num_bakes = (U32) LLVOAvatar::sMaxBakes;
+		//</FS:Beq>
 		for( U32 index = 0; index < num_bakes; ++index )
 		{
 			gAgentAvatarp->setCompositeUpdatesEnabled(index, composite_enabled[index]);
@@ -327,6 +334,15 @@ void LLViewerWearable::writeToAvatar(LLAvatarAppearance *avatarp)
 
 	LLWearable::writeToAvatar(avatarp);
 
+#if 0
+	// FIXME DRANO - kludgy way to avoid overwriting avatar state from wearables.
+	// Ideally would avoid calling this func in the first place.
+	if (viewer_avatar->isUsingServerBakes() &&
+		!viewer_avatar->isUsingLocalAppearance())
+	{
+		return;
+	}
+#endif
 
 	// Pull texture entries
 	for( S32 te = 0; te < TEX_NUM_INDICES; te++ )
@@ -461,6 +477,13 @@ void LLViewerWearable::setItemID(const LLUUID& item_id)
 
 void LLViewerWearable::revertValues()
 {
+#if 0
+	// DRANO avoid overwrite when not in local appearance
+	if (isAgentAvatarValid() && gAgentAvatarp->isUsingServerBakes() && !gAgentAvatarp->isUsingLocalAppearance())
+	{
+		return;
+	}
+#endif
 	LLWearable::revertValues();
 
 	LLSidepanelAppearance *panel = dynamic_cast<LLSidepanelAppearance*>(LLFloaterSidePanelContainer::findPanel("appearance"));

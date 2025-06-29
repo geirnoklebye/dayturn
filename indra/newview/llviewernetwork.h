@@ -72,13 +72,15 @@ extern const char* DEFAULT_LOGIN_PAGE;
 */
 #define GRID_SLURL_BASE "slurl_base"
 #define GRID_APP_SLURL_BASE "app_slurl_base"
+
 class GridInfoRequestResponder;
+
 struct GridEntry
 {
-LLSD grid;
-LLXMLNodePtr info_root;
-bool set_current;
-std::string last_http_error;
+	LLSD grid;
+	LLXMLNodePtr info_root;
+	bool set_current;
+	std::string last_http_error;
 };
 
 /// Exception thrown when a grid is not valid
@@ -133,9 +135,10 @@ public:
     void initCmdLineGrids();
     void resetGrids();
     /// grid list management
+    bool isReadyToLogin()   {return mReadyToLogin;}
+
     /// add a grid to the list of grids
     void addGrid(const std::string& loginuri);
-    bool isReadyToLogin()   {return mReadyToLogin;}
     void removeGrid(const std::string& grid);
     void reFetchGrid() { reFetchGrid(mGrid, true); }
     void reFetchGrid(const std::string& grid, bool set_current = false);
@@ -151,6 +154,7 @@ public:
     std::map<std::string, std::string> getKnownGrids();
     /// Return the name of a grid, given either its name or its id
     std::string getGrid( const std::string &grid );
+
     /// this was getGridInfo - renamed to avoid ambiguity with the OpenSim grid_info
     void getGridData(const std::string& grid, LLSD &grid_info);
     void getGridData(LLSD &grid_info) { getGridData(mGrid, grid_info); }
@@ -169,9 +173,9 @@ public:
     std::string getLoginURI(const std::string& grid);
     /// get the Login URIs of the current grid
 	void getLoginURIs(std::vector<std::string>& uris);
+
     std::string getHelperURI();
 	std::string getLoginPage();
-
     std::string getGridLoginID() { return mGridList[mGrid][GRID_VALUE]; }
     /// was ://    std::string getGridLoginID() { return mGridList[mGrid][GRID_ID_VALUE]; }
     /// however we already have that in GRID_VALUE
@@ -179,6 +183,7 @@ public:
     void        getLoginIdentifierTypes(LLSD& idTypes) { idTypes = mGridList[mGrid][GRID_LOGIN_IDENTIFIER_TYPES]; }
 
     std::string trimHypergrid(const std::string& trim);
+
     /** ================================================================
      * @name Update Related Properties
      * ================================================================
@@ -197,6 +202,7 @@ public:
  
     /// tell if we got this from a Hypergrid SLURL
     bool isHyperGrid(const std::string& grid) { return mGridList[grid].has("HG"); }
+
     /// tell if we know how to acess this grid via Hypergrid
     std::string getGatekeeper() { return getGatekeeper(mGrid); }
     std::string getGatekeeper(const std::string& grid) { return mGridList[grid].has("gatekeeper") ? mGridList[grid]["gatekeeper"].asString() : std::string(); }
@@ -205,6 +211,7 @@ public:
     std::string getGridByGridNick( const std::string &grid_nick, bool case_sensitive = false);
     std::string getGridByHostName( const std::string &host_name, bool case_sensitive = false);
     std::string getGridByAttribute(const std::string &attribute, const std::string &attribute_value, bool case_sensitive );
+
     bool isSystemGrid(const std::string& grid)
     {
         return mGridList.has(grid) &&

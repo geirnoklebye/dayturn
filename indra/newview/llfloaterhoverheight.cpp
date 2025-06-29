@@ -106,7 +106,14 @@ void LLFloaterHoverHeight::onSliderMoved(LLUICtrl* ctrl, void* userData)
         F32 value = sldrCtrl->getValueF32();
         LLVector3 offset(0.0, 0.0, llclamp(value, MIN_HOVER_Z, MAX_HOVER_Z));
         LL_INFOS("Avatar") << "setting hover from slider moved" << offset[2] << LL_ENDL;
-        gAgentAvatarp->setHoverOffset(offset, false);
+		if (gAgent.getRegion() && gAgent.getRegion()->avatarHoverHeightEnabled())
+		{
+			gAgentAvatarp->setHoverOffset(offset, false);
+		}
+		else if (!gAgentAvatarp->isUsingServerBakes())
+		{
+			gSavedPerAccountSettings.setF32("AvatarHoverOffsetZ", value);
+		}
     }
 }
 
@@ -144,6 +151,10 @@ void LLFloaterHoverHeight::onSimulatorFeaturesReceived(const LLUUID &region_id)
 void LLFloaterHoverHeight::updateEditEnabled()
 {
 	bool enabled = gAgent.getRegion() && gAgent.getRegion()->avatarHoverHeightEnabled();
+	if (!enabled && isAgentAvatarValid() && !gAgentAvatarp->isUsingServerBakes())
+	{
+		enabled = true;
+	}
 	LLSliderCtrl* sldrCtrl = getChild<LLSliderCtrl>("HoverHeightSlider");
 	sldrCtrl->setEnabled(enabled);
 	if (enabled)

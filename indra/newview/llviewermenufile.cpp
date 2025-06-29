@@ -79,6 +79,8 @@
 // system libraries
 #include <boost/tokenizer.hpp>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 class LLFileEnableUpload : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)

@@ -1096,6 +1096,7 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	// server.
 	if (mRegionp->capabilitiesReceived())
 	{
+		LL_INFOS("Avatar bake") << "Capability for Region bake support received" << LL_ENDL;
 		handleServerBakeRegionTransition(mRegionp->getRegionID());
 	}
 	else
@@ -3985,14 +3986,14 @@ void LLAgent::processControlRelease(LLMessageSystem *msg, void **)
 //-----------------------------------------------------------------------------
 void LLAgent::handleServerBakeRegionTransition(const LLUUID& region_id)
 {
-    LL_INFOS() << "called" << LL_ENDL;
+    LL_INFOS("Avatar bake") << "called" << LL_ENDL;
 
     // Old-style appearance entering a server-bake region.
     if (isAgentAvatarValid() &&
         !gAgentAvatarp->isUsingServerBakes() &&
         (mRegionp->getCentralBakeVersion()>0))
     {
-        LL_INFOS() << "update requested due to region transition" << LL_ENDL;
+        LL_INFOS("Avatar bake") << "update requested due to region transition" << LL_ENDL;
         LLAppearanceMgr::instance().requestServerAppearanceUpdate();
     }
     // new-style appearance entering a non-bake region,
@@ -4924,7 +4925,10 @@ void LLAgent::sendAgentSetAppearance()
 		return;
 	}
 
-	if (!isAgentAvatarValid() || gAgentAvatarp->isEditingAppearance() || (getRegion() && getRegion()->getCentralBakeVersion())) return;
+	if (!isAgentAvatarValid() || gAgentAvatarp->isEditingAppearance() || (getRegion() && getRegion()->getCentralBakeVersion())) 
+	{
+		return;
+	}
 
 	// At this point we have a complete appearance to send and are in a non-baking region.
 	// DRANO FIXME
@@ -4933,7 +4937,7 @@ void LLAgent::sendAgentSetAppearance()
 	gAgentAvatarp->bakedTextureOriginCounts(sb_count, host_count, both_count, neither_count);
 	if (both_count != 0 || neither_count != 0)
 	{
-        LL_WARNS() << "bad bake texture state " << sb_count << "," << host_count << "," << both_count << "," << neither_count << LL_ENDL;
+        LL_WARNS("Avatar bake") << "bad bake texture state " << sb_count << "," << host_count << "," << both_count << "," << neither_count << LL_ENDL;
 	}
 	if (sb_count != 0 && host_count == 0)
 	{
@@ -4945,7 +4949,7 @@ void LLAgent::sendAgentSetAppearance()
 	}
 	else if (sb_count + host_count > 0)
 	{
-        LL_WARNS() << "unclear baked texture state, not sending appearance" << LL_ENDL;
+        LL_WARNS("Avatar bake") << "unclear baked texture state, not sending appearance" << LL_ENDL;
 		return;
 	}
 	
@@ -4978,7 +4982,10 @@ void LLAgent::sendAgentSetAppearance()
 	// KLW - TAT this will probably need to check the local queue.
 	bool textures_current = gAgentAvatarp->areTexturesCurrent();
 
-	for(U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
+	//<FS:Beq> BOM fallback legacy opensim
+	// for(U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++ )
+	for(U8 baked_index = 0; baked_index < LLVOAvatar::sMaxBakes; baked_index++ )
+	//</FS:Beq>
 	{
         const ETextureIndex texture_index = LLAvatarAppearance::getDictionary()->bakedToLocalTextureIndex((EBakedTextureIndex)baked_index);
 
@@ -4991,7 +4998,7 @@ void LLAgent::sendAgentSetAppearance()
 		// IMG_DEFAULT_AVATAR means not baked. 0 index should be ignored for baked textures
 		if (!gAgentAvatarp->isTextureDefined(texture_index, 0))
 		{
-            LL_DEBUGS("Avatar") << "texture not current for baked " << (S32)baked_index << " local " << (S32)texture_index << LL_ENDL;
+            LL_DEBUGS("Avatar bake") << "texture not current for baked " << (S32)baked_index << " local " << (S32)texture_index << LL_ENDL;
 			textures_current = false;
 			break;
 		}
@@ -5004,20 +5011,23 @@ void LLAgent::sendAgentSetAppearance()
 	// composites to false, and update mesh textures.
 	if (textures_current)
 	{
-		bool enable_verbose_dumps = gSavedSettings.getBOOL("DebugAvatarAppearanceMessage");
+		bool enable_verbose_dumps = gSavedSettings.getbool("DebugAvatarAppearanceMessage");
 		std::string dump_prefix = gAgentAvatarp->getFullname() + "_sent_appearance";
 		if (enable_verbose_dumps)
 		{
 			dumpSentAppearance(dump_prefix);
 		}
 		LL_DEBUGS("Avatar") << gAgentAvatarp->avString() << "TAT: Sending cached texture data" << LL_ENDL;
-		for (U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++)
+		//<FS:Beq> BOM fallback for legacy opensim
+		// for (U8 baked_index = 0; baked_index < BAKED_NUM_INDICES; baked_index++)
+		for (U8 baked_index = 0; baked_index < LLVOAvatar::sMaxBakes; baked_index++)
+		//</FS:Beq>
 		{
 			bool generate_valid_hash = true;
 			if (isAgentAvatarValid() && !gAgentAvatarp->isBakedTextureFinal((LLAvatarAppearanceDefines::EBakedTextureIndex)baked_index))
 			{
 				generate_valid_hash = false;
-				LL_DEBUGS("Avatar") << gAgentAvatarp->avString() << "Not caching baked texture upload for " << (U32)baked_index << " due to being uploaded at low resolution." << LL_ENDL;
+				LL_DEBUGS("Avatar bake") << gAgentAvatarp->avString() << "Not caching baked texture upload for " << (U32)baked_index << " due to being uploaded at low resolution." << LL_ENDL;
 			}
 
 			const LLUUID hash = gAgentWearables.computeBakedTextureHash((EBakedTextureIndex) baked_index, generate_valid_hash);
@@ -5367,7 +5377,10 @@ LLAgentQueryManager::LLAgentQueryManager() :
 	mNumPendingQueries(0),
 	mUpdateSerialNum(0)
 {
-	for (U32 i = 0; i < BAKED_NUM_INDICES; i++)
+	//<FS:Beq> BOM fallback legacy opensim
+	// for (U32 i = 0; i < BAKED_NUM_INDICES; i++)
+	for (U32 i = 0; i < LLVOAvatar::sMaxBakes; i++)
+	// </FS:Beq
 	{
 		// SUNSHINE CLEANUP
 		mActiveCacheQueries[i] = 0;
