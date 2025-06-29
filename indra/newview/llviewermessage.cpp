@@ -32,6 +32,7 @@
 #include "llaudioengine.h" 
 #include "llavataractions.h"
 #include "llavatarnamecache.h"		// IDEVO HACK
+#include "lleconomy.h"				// Opensim currency support>
 #include "lleventtimer.h"
 #include "llfloatercreatelandmark.h"
 #include "llfloaterreg.h"
@@ -121,7 +122,8 @@
 #include "llviewerregion.h"
 #include "llfloaterregionrestarting.h"
 
-#include "llnotificationmanager.h" //
+#include "llnotificationmanager.h"
+#include "tea.h" 					// Opensim currency support>
 #include "llexperiencecache.h"
 #include "llexperiencecache.h"
 #include "lluiusage.h"
@@ -5645,7 +5647,29 @@ void process_frozen_message(LLMessageSystem *msgsystem, void **user_data)
 // do some extra stuff once we get our economy data
 void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 {
-	LL_DEBUGS("Benefits") << "Received economy data, not currently used" << LL_ENDL;
+    // <FS:AW opensim support>
+	if (!gIsInSecondLife)
+	{
+		LLGlobalEconomy::processEconomyData(msg, LLGlobalEconomy::getInstance());
+
+		S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+		std::string upload_cost;
+
+		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : LLTrans::getString("free");
+		
+		LL_INFOS_ONCE("Economy") << Tea::wrapCurrency("EconomyData message arrived; upload cost is L$") << upload_cost << LL_ENDL;
+
+		gMenuHolder->getChild<LLUICtrl>("Upload Image")->setLabelArg("[COST]",  upload_cost);
+		gMenuHolder->getChild<LLUICtrl>("Upload Sound")->setLabelArg("[COST]",  upload_cost);
+		gMenuHolder->getChild<LLUICtrl>("Upload Animation")->setLabelArg("[COST]", upload_cost);
+		gMenuHolder->getChild<LLUICtrl>("Bulk Upload")->setLabelArg("[COST]", upload_cost);
+
+	}
+	else
+    // <FS:AW opensim support>
+	{
+		LL_DEBUGS("Benefits") << "Received economy data, not currently used" << LL_ENDL;
+	}
 }
 
 void notify_cautioned_script_question(const LLSD& notification, const LLSD& response, S32 orig_questions, bool granted)

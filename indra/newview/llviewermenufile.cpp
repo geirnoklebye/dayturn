@@ -67,6 +67,7 @@
 #include "llviewerassetupload.h"
 
 // linden libraries
+#include "lleconomy.h"
 #include "llnotificationsutil.h"
 #include "llsdserialize.h"
 #include "llsdutil.h"
@@ -85,7 +86,8 @@ class LLFileEnableUpload : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-        return true;
+		bool new_value = gStatusBar && LLGlobalEconomy::getInstance() && (gStatusBar->getBalance() >= LLGlobalEconomy::getInstance()->getPriceUpload());
+		return new_value;
 	}
 };
 

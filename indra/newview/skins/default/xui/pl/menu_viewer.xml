@@ -22,7 +22,6 @@
 			<menu_item_check name="Do Not Disturb" label="Zajęty lub Niedostępny" />
 		</menu>
 		<menu_item_call label="Kup L$..." name="Buy and Sell L$" />
-		<menu_item_call label="Skrzynka nadawcza kupca..." name="MerchantOutbox" />
 		<menu_item_call label="Zarządzaj kontem..." name="Manage My Account" />
 		<menu_item_call label="Ustawienia..." name="Preferences" />
 		<menu_item_call label="Przyciski na paskach..." name="Toolbars" />

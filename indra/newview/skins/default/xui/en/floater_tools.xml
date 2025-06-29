@@ -1213,7 +1213,7 @@
              layout="topleft"
              name="checkbox for sale"
              left="7"
-             width="97"
+             width="75"
              tool_tip="Lets people buy this object, its content or it copy inworld for specified price." />
   <!-- NEW PRICE SPINNER
 Objects are allowed to be for sale for L$0 to invoke buy UI behavior
@@ -1226,11 +1226,11 @@ even though the user gets a free copy.
       left_pad="0"
       name="Edit Cost"
       label="L$"
-      label_width="15"
+      label_width="30"
       valign="center"
-      width="85"
+      width="105"
       min_val="0"
-      height="20"
+      height="23"
       max_val="999999999"
       tool_tip="Object cost." />
   <!-- NEW SALE TYPE COMBO BOX -->
@@ -1466,6 +1466,7 @@ even though the user gets a free copy.
          height="25"
          width="290">
       <text
+         only_in_sl="true"
          type="string"
          follows="left|top"
          name="pathfinding_attributes_label"
@@ -1475,6 +1476,7 @@ even though the user gets a free copy.
         Pathfinding attributes:
       </text>
       <text
+         only_in_sl="true"
          type="string"
          follows="left|top"
          text_color="EmphasisColor"

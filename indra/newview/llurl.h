@@ -77,8 +77,6 @@ public:
 
 	virtual const char *updateRelativePath(const LLURL &url);
 
-	virtual BOOL  isExtension(const char *compare) {return (!strcmp(mExtension,compare));};
-
 public:	
 	
 	char        mURI[LL_MAX_PATH];		/* Flawfinder: ignore */
