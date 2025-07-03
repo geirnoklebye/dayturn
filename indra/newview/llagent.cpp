@@ -1096,7 +1096,7 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	// server.
 	if (mRegionp->capabilitiesReceived())
 	{
-		LL_INFOS("Avatar bake") << "Capability for Region bake support received" << LL_ENDL;
+		LL_INFOS("Avatarbake") << "Capability for Region bake support received" << LL_ENDL;
 		handleServerBakeRegionTransition(mRegionp->getRegionID());
 	}
 	else
@@ -3986,14 +3986,14 @@ void LLAgent::processControlRelease(LLMessageSystem *msg, void **)
 //-----------------------------------------------------------------------------
 void LLAgent::handleServerBakeRegionTransition(const LLUUID& region_id)
 {
-    LL_INFOS("Avatar bake") << "called" << LL_ENDL;
+    LL_INFOS("Avatarbake") << "called" << LL_ENDL;
 
     // Old-style appearance entering a server-bake region.
     if (isAgentAvatarValid() &&
         !gAgentAvatarp->isUsingServerBakes() &&
         (mRegionp->getCentralBakeVersion()>0))
     {
-        LL_INFOS("Avatar bake") << "update requested due to region transition" << LL_ENDL;
+        LL_INFOS("Avatarbake") << "update requested due to region transition" << LL_ENDL;
         LLAppearanceMgr::instance().requestServerAppearanceUpdate();
     }
     // new-style appearance entering a non-bake region,
@@ -4937,7 +4937,7 @@ void LLAgent::sendAgentSetAppearance()
 	gAgentAvatarp->bakedTextureOriginCounts(sb_count, host_count, both_count, neither_count);
 	if (both_count != 0 || neither_count != 0)
 	{
-        LL_WARNS("Avatar bake") << "bad bake texture state " << sb_count << "," << host_count << "," << both_count << "," << neither_count << LL_ENDL;
+        LL_WARNS("Avatarbake") << "bad bake texture state " << sb_count << "," << host_count << "," << both_count << "," << neither_count << LL_ENDL;
 	}
 	if (sb_count != 0 && host_count == 0)
 	{
@@ -4949,7 +4949,7 @@ void LLAgent::sendAgentSetAppearance()
 	}
 	else if (sb_count + host_count > 0)
 	{
-        LL_WARNS("Avatar bake") << "unclear baked texture state, not sending appearance" << LL_ENDL;
+        LL_WARNS("Avatarbake") << "unclear baked texture state, not sending appearance" << LL_ENDL;
 		return;
 	}
 	
@@ -4998,7 +4998,7 @@ void LLAgent::sendAgentSetAppearance()
 		// IMG_DEFAULT_AVATAR means not baked. 0 index should be ignored for baked textures
 		if (!gAgentAvatarp->isTextureDefined(texture_index, 0))
 		{
-            LL_DEBUGS("Avatar bake") << "texture not current for baked " << (S32)baked_index << " local " << (S32)texture_index << LL_ENDL;
+            LL_DEBUGS("Avatarbake") << "texture not current for baked " << (S32)baked_index << " local " << (S32)texture_index << LL_ENDL;
 			textures_current = false;
 			break;
 		}
@@ -5027,7 +5027,7 @@ void LLAgent::sendAgentSetAppearance()
 			if (isAgentAvatarValid() && !gAgentAvatarp->isBakedTextureFinal((LLAvatarAppearanceDefines::EBakedTextureIndex)baked_index))
 			{
 				generate_valid_hash = false;
-				LL_DEBUGS("Avatar bake") << gAgentAvatarp->avString() << "Not caching baked texture upload for " << (U32)baked_index << " due to being uploaded at low resolution." << LL_ENDL;
+				LL_DEBUGS("Avatarbake") << gAgentAvatarp->avString() << "Not caching baked texture upload for " << (U32)baked_index << " due to being uploaded at low resolution." << LL_ENDL;
 			}
 
 			const LLUUID hash = gAgentWearables.computeBakedTextureHash((EBakedTextureIndex) baked_index, generate_valid_hash);
