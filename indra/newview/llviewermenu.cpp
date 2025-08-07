@@ -1,4 +1,4 @@
-/** 
+/**
  * @file llviewermenu.cpp
  * @brief Builds menus out of items.
  *
@@ -6648,7 +6648,7 @@ void handle_look_at_selection(const LLSD& param)
 	}
 }
 
-void handle_zoom_to_object(LLUUID object_id)
+bool handle_zoom_to_object(LLUUID object_id)
 {
 	const F32 PADDING_FACTOR = 2.f;
 
@@ -6666,12 +6666,14 @@ void handle_zoom_to_object(LLUUID object_id)
 		obj_to_cam.normVec();
 
 
-			LLVector3d object_center_global = gAgent.getPosGlobalFromAgent(bbox.getCenterAgent());
+		LLVector3d object_center_global = gAgent.getPosGlobalFromAgent(bbox.getCenterAgent());
 
-			gAgentCamera.setCameraPosAndFocusGlobal(object_center_global + LLVector3d(obj_to_cam * distance), 
+		gAgentCamera.setCameraPosAndFocusGlobal(object_center_global + LLVector3d(obj_to_cam * distance), 
 											object_center_global, 
 											object_id );
+        return true;
 	}
+    return false;
 }
 
 class LLAvatarInviteToGroup : public view_listener_t

@@ -2226,6 +2226,7 @@ void LLTextBase::createUrlContextMenu(S32 x, S32 y, const std::string &in_url)
 	registrar.add("Url.Teleport", boost::bind(&LLUrlAction::teleportToLocation, url));
 	registrar.add("Url.ShowProfile", boost::bind(&LLUrlAction::showProfile, url));
 	registrar.add("Url.SendIM", boost::bind(&LLUrlAction::sendIM, url));
+    registrar.add("Url.ZoomInObject", boost::bind(&LLUrlAction::zoomInObject, url));
 	registrar.add("Url.AddFriend", boost::bind(&LLUrlAction::addFriend, url));
 	registrar.add("Url.RemoveFriend", boost::bind(&LLUrlAction::removeFriend, url));
     registrar.add("Url.ReportAbuse", boost::bind(&LLUrlAction::reportAbuse, url));

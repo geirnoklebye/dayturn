@@ -213,6 +213,14 @@ public:
 			std::string url = "secondlife://" + mObjectData["slurl"].asString();
 			LLUrlAction::teleportToLocation(url);
 		}
+        else if (level == "obj_zoom_in")
+        {
+            LLUUID obj_id = mObjectData["object_id"];
+            if (obj_id.notNull())
+            {
+                handle_zoom_to_object(obj_id);
+            }
+        }
 		else if (level == "report_abuse")
 		{
 			LLFloaterReporter::showFromObject(mObjectData["object_id"]);
@@ -231,7 +239,16 @@ public:
 		{
 			return !LLMuteList::getInstance()->isMuted(getAvatarId(), mFrom, LLMute::flagTextChat);
 		}
-		return false;
+        else if (level == "obj_zoom_in")
+        {
+            LLUUID obj_id = mObjectData["object_id"];
+            if (obj_id.notNull())
+            {
+                return nullptr != gObjectList.findObject(mAvatarID);
+            }
+            return false;
+        }
+        return false;
 	}
 
 	void banGroupMember(const LLUUID& participant_uuid)
