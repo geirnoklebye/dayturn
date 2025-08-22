@@ -98,7 +98,6 @@ bool isCGCursorVisible();
 void hideNSCursorTillMove(bool hide);
 void requestUserAttention();
 long showAlert(std::string title, std::string text, int type);
-void setResizeMode(bool oldresize, void* glview);
 void setTitleCocoa(NSWindowRef window, const std::string &title);	// <FS:CR> Set Window title
 
 NSWindowRef createNSWindow(int x, int y, int width, int height);

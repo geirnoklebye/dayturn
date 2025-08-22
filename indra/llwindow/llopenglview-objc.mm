@@ -115,16 +115,6 @@ attributedStringInfo getSegments(NSAttributedString *str)
 
 @implementation LLOpenGLView
 
-// Force a high quality update after live resizing
-- (void) viewDidEndLiveResize
-{
-    if (mOldResize)  //Maint-3135
-    {
-        NSSize size = [self frame].size;
-        callResize(size.width, size.height);
-    }
-}
-
 - (unsigned long)getVramSize
 {
     CGLRendererInfoObj info = 0;
@@ -174,18 +164,10 @@ attributedStringInfo getSegments(NSAttributedString *str)
     }
 }
 
-- (void)setOldResize:(bool)oldresize
-{
-    mOldResize = oldresize;
-}
-
 - (void)windowResized:(NSNotification *)notification;
 {
-    if (!mOldResize)  //Maint-3288
-    {
-        NSSize dev_sz = gRetinaSupport ? [self convertSizeToBacking:[self frame].size] : [self frame].size;
-        callResize(dev_sz.width, dev_sz.height);
-    }
+    NSSize dev_sz = [self convertSizeToBacking:[self frame].size];
+    callResize(dev_sz.width, dev_sz.height);
 }
 
 - (void)windowWillMiniaturize:(NSNotification *)notification;
@@ -224,7 +206,6 @@ attributedStringInfo getSegments(NSAttributedString *str)
     if(self != nil)
     {
         [self registerForDraggedTypes:@[NSPasteboardTypeURL]];
-        mOldResize = false;
         
         // Initialize with a default "safe" pixel format that will work with versions dating back to OS X 10.6.
         // Any specialized pixel formats, i.e. a core profile pixel format, should be initialized through rebuildContextWithFormat.

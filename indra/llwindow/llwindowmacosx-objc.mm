@@ -210,11 +210,6 @@ GLViewRef createOpenGLView(NSWindowRef window, unsigned int samples, bool vsync)
 	return (GLViewRef)CFBridgingRetain(glview);
 }
 
-void setResizeMode(bool oldresize, void* glview)
-{
-    [(__bridge LLOpenGLView *)glview setOldResize:oldresize];
-}
-
 void glSwapBuffers(void* context)
 {
 	[(__bridge NSOpenGLContext*)context flushBuffer]; // NSOpenGLContext deprecated since macOS 10.12
