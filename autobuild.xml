@@ -1316,7 +1316,7 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://www.dayturn.com/viewerlibs/ogg_vorbis-1.3.5-1.3.7.10218872737-darwin64-10218872737.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/ogg_vorbis-1.3.5-1.3.7.10218872737-darwin64-10218872737.tar.bz2</string>
             </map>
             <key>name</key>
             <string>darwin</string>
@@ -1330,7 +1330,7 @@ Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors</string>
               <key>hash_algorithm</key>
               <string>md5</string>
               <key>url</key>
-              <string>https://www.dayturn.com/viewerlibs/ogg_vorbis-1.3.5-1.3.7.10218872737-windows64-10218872737.tar.bz2</string>
+              <string>https://bitbucket.org/dayturn/dayturn-viewer-libs/downloads/ogg_vorbis-1.3.5-1.3.7.10218872737-windows64-10218872737.tar.bz2</string>
             </map>
             <key>name</key>
             <string>windows</string>
