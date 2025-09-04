@@ -255,7 +255,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
         if (vsync)
         {
 		    GLint value = 1;
-		    [glContext setValues:&value forParameter:NSOpenGLCPSwapInterval];
+		    [glContext setValues:&value forParameter:NSOpenGLContextParameterSwapInterval];
         } 
         else
         {
@@ -263,7 +263,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
             // error: null passed to a callee that requires a non-null argument [-Werror,-Wnonnull]
             // Tried using ObjC 'nonnull' keyword as per SO article but didn't build
             GLint swapInterval=0;
-            [glContext setValues:&swapInterval forParameter:NSOpenGLCPSwapInterval];
+            [glContext setValues:&swapInterval forParameter:NSOpenGLContextParameterSwapInterval];
         }
     }
     return self;
@@ -611,7 +611,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
         };
         
         NSUInteger string_length = [aString length];
-        unichar text[string_length];
+        unichar* text = (unichar*)malloc(sizeof(unichar) *  string_length);
         attributedStringInfo segments = attributedStringInfo();
         // I used 'respondsToSelector:@selector(string)'
         // to judge aString is an attributed string or not.
@@ -629,6 +629,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
             segments.seg_standouts.push_back(true);
         }
         setMarkedText(text, selected, replacement, string_length, segments);
+		free(text);
         if (string_length > 0)
         {
             mHasMarkedText = true;
