@@ -46,7 +46,6 @@
 #include "llpanel.h"
 #include "llpathfindingnavmeshzone.h"
 #include "llpathfindingpathtool.h"
-#include "llpathinglib.h"
 #include "llsliderctrl.h"
 #include "llsd.h"
 #include "lltabcontainer.h"

@@ -1064,6 +1064,7 @@ bool LLAppViewer::init()
 		return 0;
 	}
 
+#if defined(LL_X86) || defined(LL_X86_64)
 	// Without SSE2 support we will crash almost immediately, warn here.
 	if (!gSysCPU.hasSSE2())
 	{
@@ -1075,6 +1076,7 @@ bool LLAppViewer::init()
 			OSMB_OK);
 		return 0;
 	}
+#endif
 
 	// alert the user if they are using unsupported hardware
 	if(!gSavedSettings.getbool("AlertedUnsupportedHardware"))

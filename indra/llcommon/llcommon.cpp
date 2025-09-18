@@ -35,18 +35,14 @@
 
 thread_local bool gProfilerEnabled = false;
 
-#if (TRACY_ENABLE)
+#if LL_PROFILER_CONFIGURATION >= LL_PROFILER_CONFIG_TRACY && TRACY_ENABLE
 // Override new/delete for tracy memory profiling
 void *operator new(size_t size)
 {
-    void* ptr;
-    if (gProfilerEnabled)
+    void* ptr = (malloc)(size);
+    if (!ptr)
     {
-        ptr = (malloc)(size);
-    }
-    else
-    {
-        ptr = (malloc)(size);
+        throw std::bad_alloc();
     }
     if (!ptr)
     {
