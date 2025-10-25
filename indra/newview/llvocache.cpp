@@ -1237,7 +1237,8 @@ void LLVOCache::removeFromCache(HeaderEntryInfo* entry)
 
 	std::string filename;
 	getObjectCacheFilename(entry->mHandle, filename);
-	LLAPRFile::remove(filename, mLocalAPRFilePoolp);
+    LL_WARNS("VOCache") << "Removing object cache for handle " << entry->mHandle << "Filename: " << filename << LL_ENDL;
+    LLFile::remove(filename);
 	entry->mTime = INVALID_TIME ;
 	updateEntry(entry) ; //update the head file.
 }
@@ -1254,7 +1255,7 @@ void LLVOCache::readCacheHeader()
 	clearCacheInMemory();	
 
 	bool success = true ;
-	if (LLAPRFile::isExist(mHeaderFileName, mLocalAPRFilePoolp))
+    if (LLFile::isfile(mHeaderFileName))
 	{
 		LLAPRFile apr_file(mHeaderFileName, APR_READ|APR_BINARY, mLocalAPRFilePoolp);		
 		
