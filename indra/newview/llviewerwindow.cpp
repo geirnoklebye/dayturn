@@ -3157,8 +3157,9 @@ bool LLViewerWindow::handleKey(KEY key, MASK mask)
 	{
 		if ((focusedFloaterName == "nearby_chat") || (focusedFloaterName == "im_container") || (focusedFloaterName == "impanel") || focusedFloaterName == "kokua_chatbar" || focusedFloaterName == "kc_chat_editor")
 		{
-			if (gSavedSettings.getbool("ArrowKeysAlwaysMove"))
-			{
+            static LLCachedControl<bool> key_move(gSavedSettings, "ArrowKeysAlwaysMove");
+            if (key_move())			
+            {
 				// let Control-Up and Control-Down through for chat line history,
 				if (!(key == KEY_UP && mask == MASK_CONTROL)
 					&& !(key == KEY_DOWN && mask == MASK_CONTROL)
@@ -3452,7 +3453,7 @@ void LLViewerWindow::clearPopups()
 void LLViewerWindow::moveCursorToCenter()
 {
     bool mouse_warp = false;
-    LLCachedControl<S32> mouse_warp_mode(gSavedSettings, "MouseWarpMode", 1);
+    static LLCachedControl<S32> mouse_warp_mode(gSavedSettings, "MouseWarpMode", 1);
 
     switch (mouse_warp_mode())
     {
