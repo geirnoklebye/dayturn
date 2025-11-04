@@ -50,8 +50,8 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const std::string& name, const ESpeakerTy
 	mStatus(LLSpeaker::STATUS_TEXT_ONLY),
 	mLastSpokeTime(0.f), 
 	mSpeechVolume(0.f), 
-	mHasSpoken(FALSE),
-	mHasLeftCurrentCall(FALSE),
+	mHasSpoken(false),
+	mHasLeftCurrentCall(false),
 	mDotColor(LLColor4::white),
 	mID(id),
 	mTyping(false),
@@ -76,7 +76,7 @@ void LLSpeaker::lookupName()
 {
 	if (mDisplayName.empty())
 	{
-		LLAvatarNameCache::get(mID, boost::bind(&LLSpeaker::onNameCache, this, _1, _2)); // todo: can be group???
+        mAvatarNameCacheConnection = LLAvatarNameCache::get(mID, boost::bind(&LLSpeaker::onNameCache, this, _1, _2)); // todo: can be group???
 	}
 }
 
@@ -404,7 +404,7 @@ void LLSpeakerMgr::update(bool resort_ok)
 				if (speakerp->mStatus != LLSpeaker::STATUS_SPEAKING)
 				{
 					speakerp->mLastSpokeTime = mSpeechTimer.getElapsedTimeF32();
-					speakerp->mHasSpoken = TRUE;
+					speakerp->mHasSpoken = true;
 					fireEvent(new LLSpeakerUpdateSpeakerEvent(speakerp), "update_speaker");
 				}
 				speakerp->mStatus = LLSpeaker::STATUS_SPEAKING;
@@ -646,7 +646,7 @@ void LLSpeakerMgr::speakerChatted(const LLUUID& speaker_id)
 	if (speakerp.notNull())
 	{
 		speakerp->mLastSpokeTime = mSpeechTimer.getElapsedTimeF32();
-		speakerp->mHasSpoken = TRUE;
+		speakerp->mHasSpoken = true;
 		fireEvent(new LLSpeakerUpdateSpeakerEvent(speakerp), "update_speaker");
 	}
 }
