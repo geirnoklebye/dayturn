@@ -783,11 +783,11 @@ bool LLAppViewer::init()
 			// things to only do on a full purge, followed by those we do always
 		
 			//[ADD - Clear Usersettings : SJ] - Delete directories beams, beamsColors, windlight in usersettings
-			LLFile::rmdir(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "beams") );
-			LLFile::rmdir(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight" + delem + "water") );
-			LLFile::rmdir(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight" + delem + "days") );
-			LLFile::rmdir(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight" + delem + "skies") );
-			LLFile::rmdir(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight") );		
+			LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "beams") );
+			LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight" + delem + "water") );
+			LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight" + delem + "days") );
+			LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight" + delem + "skies") );
+			LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "windlight") );		
 
 			// We don't delete the entire folder to avoid data loss of config files unrelated to the current binary. -AO
 			//gDirUtilp->deleteFilesInDir(user_dir, "*.*");
@@ -814,8 +814,8 @@ bool LLAppViewer::init()
 			// Remove misc OS user app dirs
 			std::string base_dir = gDirUtilp->getOSUserAppDir() + delem;
 		
-			LLFile::rmdir(base_dir + "browser_profile");
-			LLFile::rmdir(base_dir + "data");
+			LLFile::remove(base_dir + "browser_profile");
+			LLFile::remove(base_dir + "data");
 		
 			// Delete per-user files below
 			LLDirIterator dir_it(base_dir, "*");
@@ -839,12 +839,12 @@ bool LLAppViewer::init()
 					LLFile::remove(per_user_dir_glob + "typed_locations.txt");
 					LLFile::remove(per_user_dir_glob + "url_history.xml");
 					LLFile::remove(per_user_dir_glob + "volume_settings.xml");
-					LLFile::rmdir(per_user_dir_glob + "browser_profile");
+					LLFile::remove(per_user_dir_glob + "browser_profile");
 				}
 			}
 		}
 		// now the things we always clear, ie colours
-		LLFile::rmdir(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "beamsColors") );
+		LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "beamsColors") );
 		LLFile::remove(gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "colors.xml"));
 	}
 // </FS>
@@ -3216,13 +3216,11 @@ void LLAppViewer::initStrings()
 		}
 		else
 		{
-			llstat st;
-			int rc = LLFile::stat(strings_path_full, &st);
-			if (rc != 0)
+            if (!LLFile::exists(strings_path_full))
 			{
-                crash_reason = "The file '" + strings_path_full + "' failed to get status. Error code: " + std::to_string(rc);
+                crash_reason = "The file '" + strings_path_full + "' doesn't seem to exist";
 			}
-			else if (S_ISDIR(st.st_mode))
+            else if (LLFile::isdir(strings_path_full))
 			{
                 crash_reason = "The filename '" + strings_path_full + "' is a directory name";
 			}
@@ -4481,7 +4479,7 @@ void LLAppViewer::migrateCacheDirectory()
 				LLFile::remove(ds_store);
 			}
 #endif
-			if (LLFile::rmdir(old_cache_dir) != 0)
+            if (LLFile::remove(old_cache_dir) != 0)
 			{
 				LL_WARNS() << "could not delete old cache directory " << old_cache_dir << LL_ENDL;
 			}
