@@ -38,6 +38,7 @@ set(test_SOURCE_FILES
     llbuffer_tut.cpp
     lldoubledispatch_tut.cpp
     llevents_tut.cpp
+    llfile_tut.cpp
     llhttpdate_tut.cpp
     llhttpnode_tut.cpp
     lliohttpserver_tut.cpp
