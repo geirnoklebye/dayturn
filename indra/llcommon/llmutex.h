@@ -29,7 +29,6 @@
 
 #include "stdtypes.h"
 #include "llthread.h"
-#include <boost/noncopyable.hpp>
 
 #include "mutex.h"
 #include <shared_mutex>
@@ -208,7 +207,7 @@ private:
 * The constructor handles the lock, and the destructor handles
 * the unlock. Instances of this class are <b>not</b> thread safe.
 */
-class LL_COMMON_API LLScopedLock : private boost::noncopyable
+class LL_COMMON_API LLScopedLock
 {
 public:
     /**
@@ -223,6 +222,12 @@ public:
     * @brief Destructor which unlocks the mutex if still locked.
     */
     ~LLScopedLock();
+
+    /*
+    * @brief Non-copyable constructor and operator
+    */
+    LLScopedLock(const LLScopedLock&) = delete;
+    LLScopedLock& operator=(const LLScopedLock&) = delete;
 
     /**
     * @brief Check lock.

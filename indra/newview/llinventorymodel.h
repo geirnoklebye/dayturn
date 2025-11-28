@@ -123,8 +123,8 @@ public:
 		virtual ~FetchItemHttpHandler();
 
 	protected:
-		FetchItemHttpHandler(const FetchItemHttpHandler &);				// Not defined
-		void operator=(const FetchItemHttpHandler &);					// Not defined
+        FetchItemHttpHandler(const FetchItemHttpHandler&) = delete;
+        FetchItemHttpHandler& operator=(const FetchItemHttpHandler&) = delete;
 
 	public:
 		virtual void onCompleted(LLCore::HttpHandle handle, LLCore::HttpResponse * response);

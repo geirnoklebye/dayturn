@@ -190,7 +190,6 @@
 #include "linden_common.h"		// Modifies curl/curl.h interfaces
 #include "llsd.h"
 #include "boost/function.hpp"
-#include "boost/noncopyable.hpp"
 #include <string>
 #include <curl/curl.h>
 
