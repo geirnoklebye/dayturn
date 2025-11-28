@@ -848,7 +848,7 @@ void collectChildren( LLMenuGL *aMenu, ll::statusbar::SearchableItemPtr aParentM
 	{
 		LLMenuItemGL *pMenu = aMenu->getItem( i );
 
-		ll::statusbar::SearchableItemPtr pItem( new ll::statusbar::SearchableItem );
+        ll::statusbar::SearchableItemPtr pItem = std::make_shared<ll::statusbar::SearchableItem>();
 		pItem->mCtrl = pMenu;
 		pItem->mMenu = pMenu;
 		pItem->mLabel = utf8str_to_wstring( pMenu->ll::ui::SearchableControl::getSearchText() );
@@ -864,8 +864,8 @@ void collectChildren( LLMenuGL *aMenu, ll::statusbar::SearchableItemPtr aParentM
 
 void LLStatusBar::collectSearchableItems()
 {
-	mSearchData.reset( new ll::statusbar::SearchData );
-	ll::statusbar::SearchableItemPtr pItem( new ll::statusbar::SearchableItem );
+    mSearchData = std::make_unique<ll::statusbar::SearchData>();
+    ll::statusbar::SearchableItemPtr pItem = std::make_shared<ll::statusbar::SearchableItem>();
 	mSearchData->mRootMenu = pItem;
 	collectChildren( gMenuBarView, pItem );
 }

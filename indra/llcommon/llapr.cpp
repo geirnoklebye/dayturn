@@ -148,7 +148,7 @@ LLVolatileAPRPool::LLVolatileAPRPool(bool is_local, apr_pool_t *parent, apr_size
 	//create mutex
 	if(!is_local) //not a local apr_pool, that is: shared by multiple threads.
 	{
-		mMutexp.reset(new std::mutex());
+        mMutexp = std::make_unique<std::mutex>();
 	}
 }
 

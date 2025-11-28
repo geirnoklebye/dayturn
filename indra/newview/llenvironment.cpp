@@ -2029,8 +2029,8 @@ void LLEnvironment::coroRequestEnvironment(S32 parcel_id, LLEnvironment::environ
 {
     LLCore::HttpRequest::policy_t httpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID);
     LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t
-        httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter("ResetEnvironment", httpPolicy));
-    LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
+        httpAdapter = std::make_shared<LLCoreHttpUtil::HttpCoroutineAdapter>("ResetEnvironment", httpPolicy);
+    LLCore::HttpRequest::ptr_t httpRequest = std::make_shared<LLCore::HttpRequest>();
 
     std::string url = gAgent.getRegionCapability("ExtEnvironment");
     if (url.empty())
@@ -2075,8 +2075,8 @@ void LLEnvironment::coroUpdateEnvironment(S32 parcel_id, S32 track_no, UpdateInf
 {
     LLCore::HttpRequest::policy_t httpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID);
     LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t
-        httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter("ResetEnvironment", httpPolicy));
-    LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
+        httpAdapter = std::make_shared<LLCoreHttpUtil::HttpCoroutineAdapter>("ResetEnvironment", httpPolicy);
+    LLCore::HttpRequest::ptr_t httpRequest = std::make_shared<LLCore::HttpRequest>();
 
     std::string url = gAgent.getRegionCapability("ExtEnvironment");
     if (url.empty())
@@ -2181,8 +2181,8 @@ void LLEnvironment::coroResetEnvironment(S32 parcel_id, S32 track_no, environmen
 {
     LLCore::HttpRequest::policy_t httpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID);
     LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t
-        httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter("ResetEnvironment", httpPolicy));
-    LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
+        httpAdapter = std::make_shared<LLCoreHttpUtil::HttpCoroutineAdapter>("ResetEnvironment", httpPolicy);
+    LLCore::HttpRequest::ptr_t httpRequest = std::make_shared<LLCore::HttpRequest>();
 
     std::string url = gAgent.getRegionCapability("ExtEnvironment");
     if (url.empty())
@@ -3410,8 +3410,8 @@ namespace
     {
         LLCore::HttpRequest::policy_t httpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID);
         LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t
-            httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter("testExperiencesOnParcelCoro", httpPolicy));
-        LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
+            httpAdapter = std::make_shared<LLCoreHttpUtil::HttpCoroutineAdapter>("testExperiencesOnParcelCoro", httpPolicy);
+        LLCore::HttpRequest::ptr_t httpRequest = std::make_shared<LLCore::HttpRequest>();
         std::string url = gAgent.getRegionCapability("ExperienceQuery");
 
         if (url.empty())

@@ -859,13 +859,13 @@ LLMeshRepoThread::LLMeshRepoThread()
 	mHeaderMutex = new LLMutex();
 	mSignal = new LLCondition();
 	mHttpRequest = new LLCore::HttpRequest;
-	mHttpOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+    mHttpOptions = std::make_shared<LLCore::HttpOptions>();
 	mHttpOptions->setTransferTimeout(SMALL_MESH_XFER_TIMEOUT);
 	mHttpOptions->setUseRetryAfter(gSavedSettings.getbool("MeshUseHttpRetryAfter"));
-	mHttpLargeOptions = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+    mHttpLargeOptions = std::make_shared<LLCore::HttpOptions>();
 	mHttpLargeOptions->setTransferTimeout(LARGE_MESH_XFER_TIMEOUT);
 	mHttpLargeOptions->setUseRetryAfter(gSavedSettings.getbool("MeshUseHttpRetryAfter"));
-	mHttpHeaders = LLCore::HttpHeaders::ptr_t(new LLCore::HttpHeaders);
+    mHttpHeaders = std::make_shared<LLCore::HttpHeaders>();
 	mHttpHeaders->append(HTTP_OUT_HEADER_ACCEPT, HTTP_CONTENT_VND_LL_MESH);
 	mHttpPolicyClass = app_core_http.getPolicy(LLAppCoreHttp::AP_MESH2);
     mHttpLegacyPolicyClass = app_core_http.getPolicy(LLAppCoreHttp::AP_MESH1); // <FS:Ansariel> [UDP Assets]

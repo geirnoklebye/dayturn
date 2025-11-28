@@ -455,7 +455,7 @@ LLNotificationTemplate::LLNotificationTemplate(const LLNotificationTemplate::Par
 		mTags.push_back(tag.value);
 	}
 
-	mForm = LLNotificationFormPtr(new LLNotificationForm(p.name, p.form_ref.form));
+    mForm = std::make_shared<LLNotificationForm>(p.name, p.form_ref.form);
 }
 
 LLNotificationVisibilityRule::LLNotificationVisibilityRule(const LLNotificationVisibilityRule::Rule &p)
@@ -873,7 +873,7 @@ void LLNotification::init(const std::string& template_name, const LLSD& form_ele
 	// TODO: something like this so that a missing alert is sensible:
 	//mSubstitutions["_ARGS"] = get_all_arguments_as_text(mSubstitutions);
 
-	mForm = LLNotificationFormPtr(new LLNotificationForm(*mTemplatep->mForm));
+    mForm = std::make_shared<LLNotificationForm>(*mTemplatep->mForm);
     mForm->append(form_elements);
 
 	// apply substitution to form labels
@@ -1247,7 +1247,7 @@ LLNotifications::LLNotifications()
 :	LLNotificationChannelBase(LLNotificationFilters::includeEverything),
 	mIgnoreAllNotifications(false)
 {
-        mListener.reset(new LLNotificationsListener(*this));
+    mListener = std::make_unique<LLNotificationsListener>(*this);
 	LLUICtrl::CommitCallbackRegistry::currentRegistrar().add("Notification.Show", boost::bind(&LLNotifications::addFromCallback, this, _2));
 
 	// touch the instance tracker for notification channels, so that it will still be around in our destructor
@@ -1468,7 +1468,7 @@ bool LLNotifications::templateExists(const std::string& name)
 
 void LLNotifications::forceResponse(const LLNotification::Params& params, S32 option)
 {
-	LLNotificationPtr temp_notify(new LLNotification(params));
+    LLNotificationPtr temp_notify = std::make_shared<LLNotification>(params);
 
     if (!temp_notify->getForm())
     {
@@ -1634,7 +1634,7 @@ bool LLNotifications::loadTemplates()
 				replaceFormText(notification.form_ref.form, "$ignoretext", notification.form_ref.form_template.ignore_text);
 			}
 		}
-		mTemplates[notification.name] = LLNotificationTemplatePtr(new LLNotificationTemplate(notification));
+        mTemplates[notification.name] = std::make_shared<LLNotificationTemplate>(notification);
 	}
 
 	LL_INFOS("Notifications") << "...done" << LL_ENDL;
@@ -1664,7 +1664,7 @@ bool LLNotifications::loadVisibilityRules()
 
 	for (const LLNotificationVisibilityRule::Rule& rule : params.rules)
 	{
-		mVisibilityRules.push_back(LLNotificationVisibilityRulePtr(new LLNotificationVisibilityRule(rule)));
+        mVisibilityRules.push_back(std::make_shared<LLNotificationVisibilityRule>(rule));
 	}
 
 	return true;
@@ -1707,7 +1707,7 @@ LLNotificationPtr LLNotifications::add(const std::string& name, const LLSD& subs
 // generalized add function that takes a parameter block object for more complex instantiations
 LLNotificationPtr LLNotifications::add(const LLNotification::Params& p)
 {
-	LLNotificationPtr pNotif(new LLNotification(p));
+    LLNotificationPtr pNotif = std::make_shared<LLNotification>(p);
 	add(pNotif);
 	return pNotif;
 }
@@ -1815,7 +1815,7 @@ void LLNotifications::update(const LLNotificationPtr pNotif)
 
 LLNotificationPtr LLNotifications::find(LLUUID uuid)
 {
-	LLNotificationPtr target = LLNotificationPtr(new LLNotification(LLNotification::Params().id(uuid)));
+    LLNotificationPtr target = std::make_shared<LLNotification>(LLNotification::Params().id(uuid));
 	LLNotificationSet::iterator it=mItems.find(target);
 	if (it == mItems.end())
 	{

@@ -1016,14 +1016,14 @@ void LLFloaterBvhPreview::onBtnOK(void* userdata)
 				std::string desc = floaterp->getChild<LLUICtrl>("description_form")->getValue().asString();
 				S32 expected_upload_cost = LLAgentBenefitsMgr::current().getAnimationUploadCost();
 
-                LLResourceUploadInfo::ptr_t assetUploadInfo(new LLResourceUploadInfo(
+                LLResourceUploadInfo::ptr_t assetUploadInfo = std::make_shared<LLResourceUploadInfo>(
                     floaterp->mTransactionID, LLAssetType::AT_ANIMATION,
                     name, desc, 0,
                     LLFolderType::FT_NONE, LLInventoryType::IT_ANIMATION,
                     LLFloaterPerms::getNextOwnerPerms("Uploads"),
 					LLFloaterPerms::getGroupPerms("Uploads"),
 					LLFloaterPerms::getEveryonePerms("Uploads"),
-                    expected_upload_cost));
+                    expected_upload_cost);
 
                 upload_new_resource(assetUploadInfo);
 			}

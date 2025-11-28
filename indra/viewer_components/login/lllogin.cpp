@@ -339,7 +339,7 @@ void LLLogin::Impl::disconnect()
 //*********************
 // LLLogin
 LLLogin::LLLogin() :
-	mImpl(new LLLogin::Impl())
+    mImpl(std::make_unique<LLLogin::Impl>())
 {
 }
 
