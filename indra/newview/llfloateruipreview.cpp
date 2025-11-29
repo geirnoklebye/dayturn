@@ -489,7 +489,7 @@ bool LLFloaterUIPreview::postBuild()
 		if((found = iter.next(language_directory)))							// get next directory
 		{
 			std::string full_path = gDirUtilp->add(xui_dir, language_directory);
-			if(LLFile::isfile(full_path.c_str()))																	// if it's not a directory, skip it
+			if(!LLFile::isdir(full_path.c_str()))																	// if it's not a directory, skip it
 			{
 				continue;
 			}
@@ -889,7 +889,7 @@ void LLFloaterUIPreview::displayFloater(bool click, S32 ID)
 	// Add localization to title so user knows whether it's localized or defaulted to en
 	std::string full_path = getLocalizedDirectory() + path;
 	std::string floater_lang = "EN";
-    if (LLFile::isfile(full_path.c_str()))    // if the file does not exist
+    if (LLFile::isfile(full_path.c_str()))    // use localized language if the file exists
 	{
 		floater_lang = getLocStr(ID);
 	}
@@ -962,7 +962,7 @@ void LLFloaterUIPreview::onClickEditFloater()
 		}
 		file_path = getLocalizedDirectory() + file_name;
 
-        // does it exist? (some localized versions may not have it there are no diffs, and then we try to open an nonexistent file
+        // Does it exist? (Some localized versions may not have it when there are no diffs, and then we try to open a nonexistent file)
         if(!LLFile::isfile(file_path.c_str()))                             // if the file does not exist
 		{
 			popupAndPrintWarning("No file for this floater exists in the selected localization.  Opening the EN version instead.");
@@ -1119,7 +1119,7 @@ void LLFloaterUIPreview::onClickToggleDiffHighlighting()
 			error = true;
 		}
 
-        if (!LLFile::isfile(path_in_textfield.c_str()) && !error)       // check if the file exists (empty check is reduntant but useful for the informative error message)
+        if (!LLFile::isfile(path_in_textfield.c_str()) && !error)       // check if the file exists (empty check is redundant but useful for the informative error message)
 		{
 			std::string warning = std::string("Unable to highlight differences because an invalid path to a difference file was provided:\"") + path_in_textfield + "\"";
 			popupAndPrintWarning(warning);
