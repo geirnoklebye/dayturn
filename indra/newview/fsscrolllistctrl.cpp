@@ -37,7 +37,7 @@ FSScrollListCtrl::FSScrollListCtrl(const Params& p)
 	mContextMenu(nullptr),
 	mDesiredLineHeight(p.desired_line_height),
 	mContentType(p.content_type),
-	mHandleDaDCallback(NULL)
+	mHandleDaDCallback(0)
 {
 }
 
