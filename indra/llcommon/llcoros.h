@@ -36,7 +36,7 @@
 #include "mutex.h"
 #include "llsingleton.h"
 #include "llinstancetracker.h"
-#include <boost/function.hpp>
+#include <functional>
 #include <string>
 #include <exception>
 #include <queue>
@@ -101,7 +101,7 @@ public:
     /// stuck with the term "coroutine."
     typedef boost::fibers::fiber coro;
     /// Canonical callable type
-    typedef boost::function<void()> callable_t;
+    typedef std::function<void()> callable_t;
 
     /**
      * Create and start running a new coroutine with specified name. The name

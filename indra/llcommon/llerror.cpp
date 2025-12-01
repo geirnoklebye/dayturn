@@ -519,7 +519,7 @@ namespace
         mFileLevelMap(),
         mTagLevelMap(),
         mUniqueLogMessages(),
-        mCrashFunction(NULL),
+        mCrashFunction(nullptr),
         mTimeFunction(nullptr),
         mRecorders(),
         mRecorderMutex(),
@@ -1218,7 +1218,7 @@ namespace
             
 			std::ostringstream message_stream;
 
-			if (r->wantsTime() && s->mTimeFunction != NULL)
+			if (r->wantsTime() && s->mTimeFunction != nullptr)
 			{
 				message_stream << s->mTimeFunction();
 			}
