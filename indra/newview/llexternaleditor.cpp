@@ -44,19 +44,18 @@ LLExternalEditor::EErrorCode LLExternalEditor::setCommand(const std::string& env
 	std::string cmd = findCommand(env_var, override);
 	if (cmd.empty())
 	{
-		LL_WARNS() << "Editor command is empty or not set" << LL_ENDL;
+        LL_INFOS() << "Editor command is empty or not set, falling back to OS open handler" << LL_ENDL;
 #if LL_WINDOWS
-		std::string comspec(getenv("COMSPEC"));
-		comspec.append(" /C START \"%s\"");
-		cmd = findCommand("", comspec);
+        static const std::string os_cmd = "%SystemRoot%\\explorer.exe \"%s\"";
 #elif LL_DARWIN
-		cmd = findCommand("", "/usr/bin/open \"%s\"");
+        static const std::string os_cmd = "/usr/bin/open \"%s\"";
 #endif
-		if (cmd.empty())
-		{
-			LL_WARNS() << "Failed to find generic open handler: " << cmd << LL_ENDL;
-			return EC_NOT_SPECIFIED;
-		}
+        cmd = findCommand("", os_cmd);
+        if (cmd.empty())
+        {
+            LL_WARNS() << "Failed to find OS open handler \"" << cmd << "\"" << LL_ENDL;
+            return EC_NOT_SPECIFIED;
+        }
 	}
 
 	string_vec_t tokens;
