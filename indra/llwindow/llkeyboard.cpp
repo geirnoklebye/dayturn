@@ -30,6 +30,9 @@
 
 #include "llwindowcallbacks.h"
 
+#include "llstl.h"
+
+
 //
 // Globals
 //

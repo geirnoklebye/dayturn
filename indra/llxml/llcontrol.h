@@ -28,12 +28,13 @@
 #define LL_LLCONTROL_H
 
 #include "llboost.h"
-#include "llevent.h"
 #include "llstring.h"
+#include "llpointer.h"
 #include "llrect.h"
 #include "llrefcount.h"
 #include "llinstancetracker.h"
 
+#include <functional>
 #include <vector>
 
 // *NOTE: boost::visit_each<> generates warning 4675 on .net 2003
@@ -45,7 +46,6 @@
 # endif
 #endif
 
-#include <boost/bind.hpp>
 
 #if LL_WINDOWS
 	#pragma warning (push)
@@ -407,7 +407,7 @@ private:
 		// Add a listener to the controls signal...
 		// NOTE: All listeners connected to 0 group, for guaranty that variable handlers (gSavedSettings) call last
 		mConnection = controlp->getSignal()->connect(0,
-			boost::bind(&LLControlCache<T>::handleValueChange, this, _2)
+            std::bind(&LLControlCache<T>::handleValueChange, this, std::placeholders::_2)
 			);
 		mType = controlp->type();
 	}
@@ -469,7 +469,7 @@ public:
 	}
 
 	operator const T&() const { return mCachedControlPtr->getValue(); }
-	operator boost::function<const T&()> () const { return boost::function<const T&()>(*this); }
+	operator std::function<const T&()> () const { return std::function<const T&()>(*this); }
 	const T& operator()() { return mCachedControlPtr->getValue(); }
 
 private:
