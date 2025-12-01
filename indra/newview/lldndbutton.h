@@ -47,8 +47,8 @@ public:
 
 	LLDragAndDropButton(const Params& params);
 
-	typedef boost::function<bool (
-		S32 /*x*/, S32 /*y*/, MASK /*mask*/, BOOL /*drop*/,
+	typedef std::function<bool (
+		S32 /*x*/, S32 /*y*/, MASK /*mask*/, bool /*drop*/,
 		EDragAndDropType /*cargo_type*/,
 		void* /*cargo_data*/,
 		EAcceptance* /*accept*/,

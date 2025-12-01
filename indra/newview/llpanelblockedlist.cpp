@@ -257,7 +257,7 @@
 // Constructor/Destructor
 LLFloaterGetBlockedObjectName::LLFloaterGetBlockedObjectName(const LLSD& key)
 : LLFloater(key)
-, mGetObjectNameCallback(NULL)
+, mGetObjectNameCallback(nullptr)
 {
 }
 

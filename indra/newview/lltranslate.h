@@ -28,9 +28,9 @@
 #define LL_LLTRANSLATE_H
 
 #include "llbufferstream.h"
-#include <boost/function.hpp>
-
 #include "llsingleton.h"
+
+#include <functional>
 
 namespace Json
 {
@@ -64,9 +64,9 @@ public :
 		SERVICE_DEEPL,
 	} EService;
 
-    typedef boost::function<void(EService, bool, S32)> KeyVerificationResult_fn;
-    typedef boost::function<void(std::string , std::string )> TranslationSuccess_fn;
-    typedef boost::function<void(int, std::string)> TranslationFailure_fn;
+    typedef std::function<void(EService, bool, S32)> KeyVerificationResult_fn;
+    typedef std::function<void(std::string , std::string )> TranslationSuccess_fn;
+    typedef std::function<void(int, std::string)> TranslationFailure_fn;
 
 	/**
 	 * Translate given text.

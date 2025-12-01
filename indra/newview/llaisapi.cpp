@@ -481,7 +481,7 @@ void AISAPI::InvokeAISCommandCoro(LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t ht
 	LL_DEBUGS("Inventory") << result << LL_ENDL;
     gInventory.onAISUpdateReceived("AISCommand", result);
 
-    if (callback && !callback.empty())
+    if (callback != nullptr)
     {   
         LLUUID id(LLUUID::null);
 

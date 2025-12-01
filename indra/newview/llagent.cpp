@@ -435,8 +435,8 @@ LLAgent::LLAgent() :
 	mAutoPilotTargetDist(0.f),
 	mAutoPilotNoProgressFrameCount(0),
 	mAutoPilotRotationThreshold(0.f),
-	mAutoPilotFinishedCallback(NULL),
-	mAutoPilotCallbackData(NULL),
+	mAutoPilotFinishedCallback(nullptr),
+	mAutoPilotCallbackData(nullptr),
 	
 	mMovementKeysLocked(false),
 
@@ -454,8 +454,8 @@ LLAgent::LLAgent() :
 	mVoiceConnected(false),
 	mAppearanceSerialNum(0),
 
-	mMouselookModeInSignal(NULL),
-	mMouselookModeOutSignal(NULL),
+	mMouselookModeInSignal(nullptr),
+	mMouselookModeOutSignal(nullptr),
 
 	restoreToWorld(false),
 	restoreToWorldGroup(NULL),

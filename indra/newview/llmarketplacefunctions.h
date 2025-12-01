@@ -30,13 +30,10 @@
 
 
 #include <llsd.h>
-#include <boost/function.hpp>
-#include <boost/signals2.hpp>
-
 #include "llsingleton.h"
 #include "llstring.h"
 
-
+#include <boost/signals2.hpp>
 
 namespace MarketplaceErrorCodes
 {

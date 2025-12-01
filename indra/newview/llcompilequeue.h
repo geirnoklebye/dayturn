@@ -134,7 +134,7 @@ protected:
   U32 mLSLCount;
   U32 mRunningCount; // we don't need a not running count - it's (mono+lsl) minus running
 
-    typedef boost::function<bool(const LLPointer<LLViewerObject> &, LLInventoryObject*, LLEventPump &)>   fnQueueAction_t;
+    typedef std::function<bool(const LLPointer<LLViewerObject> &, LLInventoryObject*, LLEventPump &)>   fnQueueAction_t;
     static void objectScriptProcessingQueueCoro(std::string action, LLHandle<LLFloaterScriptQueue> hfloater, object_data_list_t objectList, fnQueueAction_t func);
 
 };

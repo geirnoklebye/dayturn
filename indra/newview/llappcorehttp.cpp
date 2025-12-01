@@ -145,8 +145,8 @@ LLAppCoreHttp::~LLAppCoreHttp()
 void LLAppCoreHttp::init()
 {
     LLCoreHttpUtil::setPropertyMethods(
-        boost::bind(&LLControlGroup::getbool, boost::ref(gSavedSettings), _1),
-        boost::bind(&LLControlGroup::declarebool, boost::ref(gSavedSettings), _1, _2, _3, LLControlVariable::PERSIST_NONDFT));
+        std::bind(&LLControlGroup::getbool, std::ref(gSavedSettings), std::placeholders::_1),
+        std::bind(&LLControlGroup::declarebool, std::ref(gSavedSettings), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, LLControlVariable::PERSIST_NONDFT));
 
     LLCore::LLHttp::initialize();
 

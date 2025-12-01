@@ -37,6 +37,7 @@
 #include "llinventorymodel.h"
 #include "llscrollcontainer.h"
 #include "lluictrlfactory.h"
+#include <functional>
 #include <set>
 
 class LLInvFVBridge;
@@ -179,7 +180,7 @@ public:
 	// Call this method to set the selection.
 	void openAllFolders();
 	void setSelection(const LLUUID& obj_id, bool take_keyboard_focus);
-	void setSelectCallback(const boost::function<void (const std::deque<LLFolderViewItem*>& items, bool user_action)>& cb);
+	void setSelectCallback(const std::function<void (const std::deque<LLFolderViewItem*>& items, bool user_action)>& cb);
 	void clearSelection();
     selected_items_t getSelectedItems() const;
 

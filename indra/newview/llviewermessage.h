@@ -36,11 +36,12 @@
 #include "llnotifications.h"
 #include "llextendedstatus.h"
 
-#include <boost/function.hpp>
 #include <boost/signals2.hpp>
 
 #include "llinventorymodel.h" // <FS:Ansariel> For LLOpenAgentOffer
 #include "llinventoryobserver.h" // <FS:Ansariel> For LLOpenAgentOffer
+
+#include <functional>
 
 //
 // Forward declarations
@@ -220,7 +221,7 @@ class LLViewerMessage : public  LLSingleton<LLViewerMessage>
 {
 	LLSINGLETON_EMPTY_CTOR(LLViewerMessage);
 public:
-	typedef boost::function<void()> teleport_started_callback_t;
+	typedef std::function<void()> teleport_started_callback_t;
 	typedef boost::signals2::signal<void()> teleport_started_signal_t;
 	boost::signals2::connection setTeleportStartedCallback(teleport_started_callback_t cb);
 
@@ -268,7 +269,7 @@ private:
 	std::string getSanitizedDescription();
 	void sendReceiveResponse(bool accept, const LLUUID &destination_folder_id);
 
-	typedef boost::function<bool (const LLSD&, const LLSD&)> respond_function_t;
+	typedef std::function<bool (const LLSD&, const LLSD&)> respond_function_t;
 	typedef std::map<std::string, respond_function_t> respond_function_map_t;
 
 	respond_function_map_t mRespondFunctions;

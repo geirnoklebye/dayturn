@@ -77,9 +77,9 @@ LLViewerPart::LLViewerPart() :
 	mLastUpdateTime(0.f),
 	mSkipOffset(0.f),
 	mVPCallback(nullptr),
-	mImagep(NULL)
+	mImagep(nullptr)
 {
-	mPartSourcep = NULL;
+	mPartSourcep = nullptr;
 	mParent = nullptr;
 	mChild = nullptr;
 	++LLViewerPartSim::sParticleCount2 ;

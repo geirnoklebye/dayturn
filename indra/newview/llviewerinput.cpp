@@ -63,13 +63,13 @@ const LLKeyData agent_control_lbutton(CLICK_LEFT, KEY_NONE, MASK_NONE, true);
 
 struct LLKeybindFunctionData
 {
-    LLKeybindFunctionData(boost::function<bool(EKeystate keystate)> function, bool global)
+    LLKeybindFunctionData(std::function<bool(EKeystate keystate)> function, bool global)
         :
         mFunction(function),
         mIsGlobal(global)
     {
     }
-    boost::function<bool(EKeystate keystate)> mFunction;
+    std::function<bool(EKeystate keystate)> mFunction;
     // todo: might be good idea to make this into enum, like: global/inworld/menu
     bool mIsGlobal;
 };
@@ -1192,9 +1192,9 @@ bool LLViewerInput::handleGlobalBindsMouse(EMouseClickType clicktype, MASK mask,
 
 bool LLViewerInput::bindKey(const S32 mode, const KEY key, const MASK mask, const std::string& function_name)
 {
-	S32 index;
-	typedef boost::function<bool(EKeystate)> function_t;
-	function_t function = NULL;
+	size_t index;
+	typedef std::function<bool(EKeystate)> function_t;
+	function_t function = nullptr;
 	std::string name;
 
 	// Allow remapping of F2-F12
@@ -1282,9 +1282,9 @@ bool LLViewerInput::bindKey(const S32 mode, const KEY key, const MASK mask, cons
 
 bool LLViewerInput::bindMouse(const S32 mode, const EMouseClickType mouse, const MASK mask, const std::string& function_name)
 {
-    S32 index;
-    typedef boost::function<bool(EKeystate)> function_t;
-    function_t function = NULL;
+    size_t index;
+    typedef std::function<bool(EKeystate)> function_t;
+    function_t function = nullptr;
 
     if (mouse == CLICK_LEFT
         && mask == MASK_NONE
