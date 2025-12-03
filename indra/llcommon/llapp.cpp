@@ -36,6 +36,8 @@
 #include <sys/sysctl.h>
 #endif
 
+#include "apr_signal.h"    // apr_signal_description_get(), was reached via llapr.h
+
 #include "llcommon.h"
 #include "llapr.h"
 #include "llerrorcontrol.h"
