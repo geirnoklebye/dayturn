@@ -95,11 +95,11 @@ bool LLFileSystem::getExists(const LLUUID& file_id, const LLAssetType::EType fil
 }
 
 // static
-bool LLFileSystem::removeFile(const LLUUID& file_id, const LLAssetType::EType file_type, int suppress_error /*= 0*/)
+bool LLFileSystem::removeFile(const LLUUID& file_id, const LLAssetType::EType file_type, int suppress_warning /*= 0*/)
 {
     const std::string filename = LLDiskCache::metaDataToFilepath(file_id, file_type);
 
-    LLFile::remove(filename.c_str(), suppress_error);
+    LLFile::remove(filename.c_str(), suppress_warning);
 
     return true;
 }
