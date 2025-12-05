@@ -1297,6 +1297,13 @@ bool LLFavoritesBarCtrl::enableSelected(const LLSD& userdata)
     {
         return !LLAgentPicksInfo::getInstance()->isPickLimitReached();
     }
+    else if (param == "copy_slurl"
+             || param == "show_on_map")
+    {
+        LLVector3d posGlobal;
+        LLLandmarkActions::getLandmarkGlobalPos(mSelectedItemID, posGlobal);
+        return !posGlobal.isExactlyZero();
+    }
 
     return false;
 }
