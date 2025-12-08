@@ -160,36 +160,36 @@ void LLPathfindingLinksetList::determinePossibleStates(bool &pCanBeWalkable, boo
 
 		if (linkset->isTerrain())
 		{
-			pCanBeWalkable = TRUE;
+			pCanBeWalkable = true;
 		}
 		else
 		{
 			if (linkset->isModifiable())
 			{
-				pCanBeWalkable = TRUE;
-				pCanBeStaticObstacle = TRUE;
-				pCanBeDynamicObstacle = TRUE;
-				pCanBeDynamicPhantom = TRUE;
+				pCanBeWalkable = true;
+				pCanBeStaticObstacle = true;
+				pCanBeDynamicObstacle = true;
+				pCanBeDynamicPhantom = true;
 				if (linkset->canBeVolume())
 				{
-					pCanBeMaterialVolume = TRUE;
-					pCanBeExclusionVolume = TRUE;
+					pCanBeMaterialVolume = true;
+					pCanBeExclusionVolume = true;
 				}
 			}
 			else if (linkset->isPhantom())
 			{
-				pCanBeDynamicPhantom = TRUE;
+				pCanBeDynamicPhantom = true;
 				if (linkset->canBeVolume())
 				{
-					pCanBeMaterialVolume = TRUE;
-					pCanBeExclusionVolume = TRUE;
+					pCanBeMaterialVolume = true;
+					pCanBeExclusionVolume = true;
 				}
 			}
 			else
 			{
-				pCanBeWalkable = TRUE;
-				pCanBeStaticObstacle = TRUE;
-				pCanBeDynamicObstacle = TRUE;
+				pCanBeWalkable = true;
+				pCanBeStaticObstacle = true;
+				pCanBeDynamicObstacle = true;
 			}
 		}
 	}
