@@ -653,7 +653,8 @@ bool LLMessageSystem::checkMessages(LockMessageChecker&, S64 frame_count )
 
 			// UseCircuitCode is allowed in even from an invalid circuit, so that
 			// we can toss circuits around.
-            else if (
+            if (
+				valid_packet &&
 				!cdp && 
 				(mTemplateMessageReader->getMessageName() !=
 				 _PREHASH_UseCircuitCode))
