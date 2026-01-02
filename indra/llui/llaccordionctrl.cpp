@@ -926,3 +926,19 @@ S32 LLAccordionCtrl::calcExpandedTabHeight(S32 tab_index /* = 0 */, S32 availabl
 	expanded_tab_height /= num_expanded;
 	return expanded_tab_height;
 }
+
+
+void LLAccordionCtrl::collapseAllTabs()
+{
+    if (mAccordionTabs.size() > 0)
+    {
+        for (LLAccordionCtrlTab* tab : mAccordionTabs)
+        {
+            if (tab->getDisplayChildren())
+            {
+                tab->setDisplayChildren(false);
+            }
+        }
+        arrange();
+    }
+}
