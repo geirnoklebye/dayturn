@@ -33,8 +33,41 @@
 #include "httprequest.h"
 #include "httpheaders.h"
 #include "httpoptions.h"
+#include <boost/container_hash/hash.hpp>
 
 class LLViewerRegion;
+
+// struct for TE-specific material ID query
+class TEMaterialPair
+{
+public:
+    U32          te;
+    LLMaterialID materialID;
+
+    bool operator==(const TEMaterialPair& b) const { return (materialID == b.materialID) && (te == b.te); }
+};
+
+inline bool operator<(const TEMaterialPair& lhs, const TEMaterialPair& rhs)
+{
+    return (lhs.te < rhs.te) ? true : (lhs.materialID < rhs.materialID);
+}
+
+// std::hash implementation for TEMaterialPair
+namespace std
+{
+    template<>
+    struct hash<TEMaterialPair>
+    {
+        inline size_t operator()(const TEMaterialPair& p) const noexcept
+        {
+            // Utilize boost::hash_combine to generate a good hash
+            size_t seed = 0;
+            boost::hash_combine(seed, p.te + 1);
+            boost::hash_combine(seed, p.materialID);
+            return seed;
+        }
+    };
+} // namespace std
 
 class LLMaterialMgr : public LLSingleton<LLMaterialMgr>
 {
@@ -82,27 +115,7 @@ private:
 	void onPutResponse(bool success, const LLSD& content);
 	void onRegionRemoved(LLViewerRegion* regionp);
 
-public:
-	// struct for TE-specific material ID query
-	class TEMaterialPair
-	{
-	public:
-
-		U32 te;
-		LLMaterialID materialID;
-
-		bool operator==(const TEMaterialPair& b) const { return (materialID == b.materialID) && (te == b.te); }
-	};
-
 private:
-	friend inline bool operator<(
-		const LLMaterialMgr::TEMaterialPair& lhs,
-		const LLMaterialMgr::TEMaterialPair& rhs)
-	{
-		return (lhs.te	< rhs.te) ? true :
-			(lhs.materialID < rhs.materialID);
-	}
-
 	typedef std::set<LLMaterialID> material_queue_t;
 	typedef std::map<LLUUID, material_queue_t> get_queue_t;
 	typedef std::pair<const LLUUID, LLMaterialID> pending_material_t;
@@ -110,7 +123,7 @@ private:
 	typedef std::map<LLMaterialID, get_callback_t*> get_callback_map_t;
 
 
-	typedef boost::unordered_map<TEMaterialPair, get_callback_te_t*> get_callback_te_map_t;
+	typedef std::unordered_map<TEMaterialPair, get_callback_te_t*> get_callback_te_map_t;
 	typedef std::set<LLUUID> getall_queue_t;
 	typedef std::map<LLUUID, F64> getall_pending_map_t;
 	typedef std::map<LLUUID, getall_callback_t*> getall_callback_map_t;
@@ -139,24 +152,6 @@ private:
 
 	U32 getMaxEntries(const LLViewerRegion* regionp);
 };
-
-// std::hash implementation for TEMaterialPair
-namespace std
-{
-	template<> struct hash<LLMaterialMgr::TEMaterialPair>
-	{
-		inline size_t operator()(const LLMaterialMgr::TEMaterialPair& p) const noexcept
-		{
-			return size_t((p.te + 1) * p.materialID.getDigest64());
-		}
-	};
-}
-
-// For use with boost containers.
-inline size_t hash_value(const LLMaterialMgr::TEMaterialPair& p) noexcept
-{
-	return size_t((p.te + 1) * p.materialID.getDigest64());
-}
 
 #endif // LL_LLMATERIALMGR_H
 

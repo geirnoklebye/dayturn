@@ -38,9 +38,9 @@
 #include "llsingleton.h"
 #include <boost/call_traits.hpp>
 #include <boost/utility/value_init.hpp>
-#include <unordered_map>
 #include <boost/signals2/signal.hpp>
 
+#include <unordered_map>
 #include <type_traits>
 
 // Forward declare the user template, since we want to be able to point to it

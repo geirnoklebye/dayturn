@@ -31,6 +31,7 @@
 
 #include <functional>
 #include <string>
+#include <unordered_map>
 #include <list>
 
 #include "llerror.h"
@@ -245,8 +246,6 @@ void clear_glerror();
 	if the existing GL state does not match the expected GL state.
 
 */
-
-#include <unordered_map>
 
 class LLGLState
 {
