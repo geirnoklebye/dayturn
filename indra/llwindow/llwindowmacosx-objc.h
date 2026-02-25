@@ -77,6 +77,8 @@ void initMainLoop();
 void cleanupViewer();
 void handleUrl(const char* url);
 void dispatchUrl(std::string url);
+void startWatchdog(std::string_view state);
+void stopWatchdog();
 
 /* Defined in llwindowmacosx-objc.mm: */
 void setupCocoa();

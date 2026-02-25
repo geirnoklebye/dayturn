@@ -134,6 +134,16 @@ void cleanupViewer()
 	gViewerAppPtr = nullptr;
 }
 
+
+void startWatchdog(std::string_view state)
+{
+    gViewerAppPtr->resumeMainloopTimeout(state);
+}
+void stopWatchdog()
+{
+    gViewerAppPtr->pauseMainloopTimeout();
+}
+
 void clearDumpLogsDir()
 {
     if (!LLAppViewer::instance()->isSecondInstance())
