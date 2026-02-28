@@ -2047,15 +2047,23 @@ void LLAppearanceMgr::purgeBaseOutfitLink(const LLUUID& category, LLPointer<LLIn
 // Keep the last N wearables of each type.  For viewer 2.0, N is 1 for
 // both body parts and clothing items.
 void LLAppearanceMgr::filterWearableItems(
-	LLInventoryModel::item_array_t& items, S32 max_per_type, S32 max_total)
+    LLInventoryModel::item_array_t& items, S32 max_per_type, S32 max_total, bool skip_bodyparts)
 {
     // Restrict by max total items first.
     if ((max_total > 0) && (items.size() > max_total))
     {
-        LLInventoryModel::item_array_t items_to_keep;
-        for (S32 i=0; i<max_total; i++)
+        LLInventoryModel::item_array_t items_to_keep; size_t non_body_kept = 0;
+        for (const auto& item : items)
         {
-            items_to_keep.push_back(items[i]);
+            if (skip_bodyparts && item.get() && item.get()->getType() == LLAssetType::AT_BODYPART)
+            {
+                items_to_keep.push_back(item);
+            }
+            else if (non_body_kept < max_total)
+            {
+                items_to_keep.push_back(item);
+                non_body_kept++;
+            }
         }
         items = items_to_keep;
     }
@@ -2130,7 +2138,7 @@ void LLAppearanceMgr::updateCOF(const LLUUID& category, bool append)
 	getDescendentsOfAssetType(category, wear_items, LLAssetType::AT_CLOTHING);
 	// Reduce wearables to max of one per type.
 	removeDuplicateItems(wear_items);
-	filterWearableItems(wear_items, 0, LLAgentWearables::MAX_CLOTHING_LAYERS);
+    filterWearableItems(wear_items, 0, LLAgentWearables::MAX_CLOTHING_LAYERS, true);
 
 	// - Attachments: include COF contents only if appending.
 	LLInventoryModel::item_array_t obj_items;
