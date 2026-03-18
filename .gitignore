@@ -18,6 +18,7 @@ ca_*.sh
 *.zip
 *.dll
 *.diff
+.vscode
 
 # Specific folders (use leading / to reference from .gitignore's location)
 /build-*
