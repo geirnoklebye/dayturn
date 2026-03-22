@@ -1,14 +1,8 @@
 # ** Dayturn macOS Build Instructions **
 
-This [repository](https://bitbucket.org/dayturn/dayturn-viewer) is dedicated to build a macOS version of the Dayturn viewer for OpenSim grids and standalone installations.
-
-At this time there also exist [repository](https://bitbucket.org/dayturn/dayturn-viewer-windows) for a Windows version of the Dayturn viewer.
-
-The Linux version is currently not developed, but people who want develop such a version are referred to the Dayturn Linux [repository](https://bitbucket.org/dayturn/dayturn-viewer-linux/src/dayturn-mkrlv/) as the starting point.
-
-As of version 2.3.1 the repositories have been converted to Git, from which development will continue.
+This [repository](https://github.com/geirnoklebye/dayturn.git) is dedicated to build a macOS version of the Dayturn viewer for OpenSim grids and standalone installations.
  
-There is one active branch; 64-bit-clean.  
+There is one active branch; dayturn-norlv.  
 
 
 **Development system:**
@@ -49,7 +43,7 @@ If you have a newer versions of Xcode installed then you also need to run xcode-
 
 Pip Install auto build python dependencies by typing:
 
-sudo pip install ‘hg+http://dayturn.com:5000/autobuild-1.0#egg=autobuild'
+sudo pip install ‘hg+http://dayturn.com:5005/autobuild-1.0#egg=autobuild'
 
 If everything goes well it should be installed in /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/autobuild
 
@@ -65,21 +59,26 @@ Then source your .bash_profile
 
 To build Dayturn first download the Dayturn source code with the following command in terminal:
 
-git clone https://dayturn@bitbucket.org/dayturn/dayturn-viewer.git
+git clone https://github.com/geirnoklebye/dayturn.git
 
 Change directory to the location where you cloned the repository, i.e Dayturn-viewer 
 
 Check your git branches with git branch -a
 
-Change to the 64-bit-clean branch with git checkout 64-bit-clean
+Change to the main branch with git checkout dayturn-norlv
 
 You can configure the build with:
 
-autobuild configure -c RelWithDebInfoOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DUSE_KDU:BOOL=FALSE  -DFMODEX:BOOL=TRUE -DLL_TESTS:BOOL=FALSE -DOPENAL:BOOL=FALSE -DPACKAGE=ON -DVIEWER_CHANNEL="\"Release\""
+autobuild configure -c RelWithDebInfoOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DUSE_KDU:BOOL=FALSE  -DFMODSTUDIO:BOOL=TRUE -DLL_TESTS:BOOL=FALSE -DOPENAL:BOOL=FALSE -DPACKAGE=ON -DVIEWER_CHANNEL="Release"
 
 or 
 
-autobuild configure -c ReleaseOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DUSE_KDU:BOOL=FALSE  -DFMODEX:BOOL=TRUE -DLL_TESTS:BOOL=FALSE -DOPENAL:BOOL=FALSE -DPACKAGE=ON -DVIEWER_CHANNEL="\"Release\""
+autobuild configure -c ReleaseOS -- -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DUSE_KDU:BOOL=FALSE  -DFMODSTUDIO:BOOL=TRUE -DLL_TESTS:BOOL=FALSE -DOPENAL:BOOL=FALSE -DPACKAGE=ON -DVIEWER_CHANNEL="Release"
+
+Build with the command
+
+autobuild build -c ReleaseOS or autobuild build -c RelWithDebInfoOS respectively
+
 
 **NOTE:** It is recommended you use RelWithDebInfoOS because that will generate proper crash reports in the event the application should crash. It provides significantly better information if the user submits the crash report. 
 
