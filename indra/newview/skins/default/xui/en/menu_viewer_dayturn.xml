@@ -286,16 +286,6 @@
                  name="ManageMyAccount_url"
                  parameter="WebLaunchJoinNow,http://secondlife.com/account/" />
        </menu_item_call>
-      <menu_item_call
-           label="[Membership]"
-           name="Membership"
-		   only_in_sl="true">
-            <menu_item_call.on_click
-             function="Advanced.ShowURL"
-             parameter="https://secondlife.com/my/account/membership.php"/>
-            <menu_item_call.on_visible
-                 function="Membership.UpdateLabel"/>
-      </menu_item_call>
        <menu_item_call
            label="Choose an avatar..."
            name="Avatar Picker"
@@ -752,15 +742,8 @@
        parameter="about_land" />
     </menu_item_call>
     <menu_item_call
-         label="My Linden Home..."
-         name="Linden Home"
-         only_in_sl="true">
-            <menu_item_call.on_click
-             function="World.LindenHome"/>
-        </menu_item_call>
-        <menu_item_call
-             label="My land holdings..."
-             name="My Land">
+         label="My land holdings..."
+         name="My Land">
       <menu_item_call.on_click
              function="Floater.Show"
        parameter="land_holdings" />
