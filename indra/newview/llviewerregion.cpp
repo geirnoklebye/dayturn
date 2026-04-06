@@ -3750,3 +3750,15 @@ U32 LLViewerRegion::getWhisperRange() const
     }
     return range;
 }
+
+bool LLViewerRegion::getRegionAllowsExport() const
+{
+    bool exportSupported = false;
+    if (mSimulatorFeatures.has("OpenSimExtras")
+        && mSimulatorFeatures["OpenSimExtras"].has("ExportSupported"))
+    {
+        exportSupported = mSimulatorFeatures["OpenSimExtras"]["ExportSupported"].asBoolean();
+        LL_DEBUGS("export") << "region allows export" << LL_ENDL;
+    }
+    return exportSupported;
+}
