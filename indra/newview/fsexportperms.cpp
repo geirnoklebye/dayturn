@@ -64,7 +64,7 @@ bool FSExportPermsCheck::canExportNode(LLSelectNode* node, bool dae)
             }
         }
     }
-    else //we are in Opensim
+    else if (!gIsInSecondLife)//we are in Opensim
     {
         if(gAgent.getRegion() -> getRegionAllowsExport())
         {
@@ -168,8 +168,8 @@ bool FSExportPermsCheck::canExportNode(LLSelectNode* node, bool dae)
                 exportable = true;
             }
         }
-        return exportable;
     }
+    return exportable;
 }
 #if !FOLLOW_PERMS
 #error "You didn't think it would be that easy, did you? :P"
@@ -192,17 +192,18 @@ bool FSExportPermsCheck::canExportAsset(LLUUID asset_id, std::string* name, std:
 		// use the name of the first match
 		(*name) = items[0]->getName();
 		(*description) = items[0]->getDescription();
-		
-		for (S32 i = 0; i < items.size(); ++i)
+
+        for (S32 i = 0; i < items.size() && !exportable; ++i)
 		{
-			if (!exportable)
+            LLPermissions perms = items[i]->getPermissions();
+			if (!gIsInSecondLife)
 			{
-				LLPermissions perms = items[i]->getPermissions();
-				if (perms.getCreator() == gAgentID)
-				{
-					exportable = true;
-				}
-			}
+                exportable = true;
+            }
+			else
+            {
+                exportable = (perms.getMaskBase() & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED;
+            }
 		}
 	}
 	
