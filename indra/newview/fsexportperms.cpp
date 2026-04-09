@@ -29,11 +29,14 @@
 #include "llinventoryfunctions.h"
 #include "llmeshrepository.h"
 #include "llviewernetwork.h"
+#include "llviewerregion.h"
 #include "llvovolume.h"
 #include "llworld.h"
 #include "xform.h"
 
 #define FOLLOW_PERMS 1
+
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 bool FSExportPermsCheck::canExportNode(LLSelectNode* node, bool dae)
 {
@@ -45,19 +48,35 @@ bool FSExportPermsCheck::canExportNode(LLSelectNode* node, bool dae)
 	bool exportable = false;
 	
 	LLViewerObject* object = node->getObject();
-	LLUUID creator(node->mPermissions->getCreator());
-	exportable = (object->permYouOwner() && gAgentID == creator);
-	if (!exportable)
-	{
-		// Megaprim check
-		F32 max_object_size = DEFAULT_MAX_PRIM_SCALE;
-		LLVector3 vec = object->getScale();
-		if (vec.mV[VX] > max_object_size || vec.mV[VY] > max_object_size || vec.mV[VZ] > max_object_size)
-		{
-			exportable = (creator == LLUUID("7ffd02d0-12f4-48b4-9640-695708fd4ae4") // Zwagoth Klaar
-				|| creator == gAgentID);
-		}
-	}
+    if (gIsInSecondLife)
+    {
+        LLUUID creator(node->mPermissions->getCreator());
+        exportable = (object->permYouOwner() && gAgentID == creator);
+        if (!exportable)
+        {
+            // Megaprim check
+            F32 max_object_size = LLWorld::getInstance()->getRegionMaxPrimScale();
+            LLVector3 vec = object->getScale();
+            if (vec.mV[VX] > max_object_size || vec.mV[VY] > max_object_size || vec.mV[VZ] > max_object_size)
+            {
+                exportable = (creator == LLUUID("7ffd02d0-12f4-48b4-9640-695708fd4ae4") // Zwagoth Klaar
+                              || creator == gAgentID);
+            }
+        }
+    }
+    else //we are in Opensim
+    {
+        if(gAgent.getRegion() -> getRegionAllowsExport())
+        {
+            LL_INFOS("export") << "region allows export" << LL_ENDL;
+            exportable = (object->permYouOwner() && gAgentID == node->mPermissions->getCreator());
+        }
+        else
+        {
+            LL_INFOS("export") << "region does not allow export" << LL_ENDL;
+            exportable = (object->permYouOwner() && object->permModify() && object->permCopy() && object->permTransfer());
+        }
+    }
 
 	// We've got perms on the object itself, let's check for sculptmaps and meshes!
 	if (exportable)
@@ -73,60 +92,85 @@ bool FSExportPermsCheck::canExportNode(LLSelectNode* node, bool dae)
 		if (volobjp && volobjp->isSculpted())
 		{
 			const LLSculptParams* sculpt_params = (const LLSculptParams *)object->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
-			if (volobjp->isMesh())
-			{
-				if (dae)
-				{
-					exportable = gMeshRepo.getCreatorFromHeader(sculpt_params->getSculptTexture()) == gAgentID;
-				}
-				else
-				{
-					// can not export mesh to oxp
-					LL_INFOS("export") << "Mesh can not be exported to oxp." << LL_ENDL;
-					return false;
-				}
-			}
-			else if (sculpt_params)
-			{
-				LLViewerFetchedTexture* imagep = LLViewerTextureManager::getFetchedTexture(sculpt_params->getSculptTexture());
-				if (imagep->mComment.find("a") != imagep->mComment.end())
-				{
-					exportable = (LLUUID(imagep->mComment["a"]) == gAgentID);
-				}
-
-				if (!exportable)
-				{
-					LLUUID asset_id = sculpt_params->getSculptTexture();
-					LLViewerInventoryCategory::cat_array_t cats;
-					LLViewerInventoryItem::item_array_t items;
-					LLAssetIDMatches asset_id_matches(asset_id);
-					gInventory.collectDescendentsIf(LLUUID::null, cats, items,
-													LLInventoryModel::INCLUDE_TRASH,
-													asset_id_matches);
-						
-					for (S32 i = 0; i < items.size() && !exportable; ++i)
-					{
-						const LLPermissions perms = items[i]->getPermissions();
-						exportable = perms.getCreator() == gAgentID;
-					}
-				}
-
-				if (!exportable)
-				{
-					LL_INFOS("export") << "Sculpt map has failed permissions check." << LL_ENDL;
-				}
-			}
-		}
-		else
-		{
-			// No sculpt or mesh
-			exportable = true;
-		}
-	}
-
-	return exportable;
+            if (gIsInSecondLife)
+            {
+                if (volobjp->isMesh())
+                {
+                    if (dae)
+                    {
+                        exportable = gMeshRepo.getCreatorFromHeader(sculpt_params->getSculptTexture()) == gAgentID;
+                    }
+                    else
+                    {
+                        // can not export mesh to oxp
+                        LL_INFOS("export") << "Mesh can not be exported to oxp." << LL_ENDL;
+                        return false;
+                    }
+                }
+                else if (sculpt_params)
+                {
+                    LLViewerFetchedTexture* imagep = LLViewerTextureManager::getFetchedTexture(sculpt_params->getSculptTexture());
+                    if (imagep->mComment.find("a") != imagep->mComment.end())
+                    {
+                        exportable = (LLUUID(imagep->mComment["a"]) == gAgentID);
+                    }
+    
+                    if (!exportable)
+                    {
+                        LLUUID asset_id = sculpt_params->getSculptTexture();
+                        LLViewerInventoryCategory::cat_array_t cats;
+                        LLViewerInventoryItem::item_array_t items;
+                        LLAssetIDMatches asset_id_matches(asset_id);
+                        gInventory.collectDescendentsIf(LLUUID::null, cats, items,
+                                                        LLInventoryModel::INCLUDE_TRASH,
+                                                        asset_id_matches);
+                            
+                        for (S32 i = 0; i < items.size() && !exportable; ++i)
+                        {
+                            const LLPermissions perms = items[i]->getPermissions();
+                            exportable = perms.getCreator() == gAgentID;
+                        }
+                    }
+    
+                    if (!exportable)
+                    {
+                        LL_INFOS("export") << "Sculpt map has failed permissions check." << LL_ENDL;
+                    }
+                }
+            }
+            else if (!gIsInSecondLife)  // we are in OpenSim
+            {
+                if (sculpt_params && !volobjp->isMesh())
+                {
+                    LLUUID asset_id = sculpt_params->getSculptTexture();
+                    LLViewerInventoryCategory::cat_array_t cats;
+                    LLViewerInventoryItem::item_array_t items;
+                    LLAssetIDMatches asset_id_matches(asset_id);
+                    gInventory.collectDescendentsIf(LLUUID::null, cats, items,
+                                                    LLInventoryModel::INCLUDE_TRASH,
+                                                    asset_id_matches);
+                    
+                    for (S32 i = 0; i < items.size() && !exportable; ++i)
+                    {
+                        const LLPermissions perms = items[i]->getPermissions();
+                        exportable = (perms.getMaskOwner() & PERM_EXPORT) == PERM_EXPORT;
+                    }
+                    
+                    if (!exportable)
+                    {
+                        LL_INFOS("export") << "Sculpt map has failed permissions check." << LL_ENDL;
+                    }
+                }
+            }
+            else
+            {
+                // No sculpt or mesh
+                exportable = true;
+            }
+        }
+        return exportable;
+    }
 }
-
 #if !FOLLOW_PERMS
 #error "You didn't think it would be that easy, did you? :P"
 #endif

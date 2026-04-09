@@ -333,6 +333,14 @@ public:
 
 	bool avatarHoverHeightEnabled() const;
 
+	// Opensim export permissions support, including for objects set to export
+	typedef enum
+	{
+		EXPORT_UNDEFINED = 0,
+		EXPORT_ALLOWED,
+		EXPORT_DENIED
+	} ExportSupport;
+
 	typedef enum
 	{
 		CACHE_MISS_TYPE_FULL = 0,
