@@ -450,7 +450,7 @@ public:
             if (mTime > 0) // have frame time
             {
                 time_t current_time = time_corrected();
-                time_t message_time = current_time - LLFrameTimer::getElapsedSeconds() + mTime;
+                time_t message_time = (time_t)(current_time - LLFrameTimer::getElapsedSeconds() + mTime);
 
                 time_string = "[" + LLTrans::getString("TimeMonth") + "]/["
                     + LLTrans::getString("TimeDay") + "]/["
@@ -942,7 +942,7 @@ public:
             mNeedsTimeBox = false;
             user_name->setValue(mFrom);
             updateMinUserNameWidth();
-            LLColor4 sep_color = LLUIColorTable::instance().getColor("ChatTeleportSeparatorColor");
+            LLUIColor sep_color = LLUIColorTable::instance().getColor("ChatTeleportSeparatorColor");
             setTransparentColor(sep_color);
             mTimeBoxTextBox->setVisible(false);
         }
@@ -997,8 +997,8 @@ public:
 //ca
 		{
 			//if it's an avatar name with a username add formatting
-			S32 username_start = chat.mFromName.rfind(" (");
-			S32 username_end = chat.mFromName.rfind(')');
+			auto username_start = chat.mFromName.rfind(" (");
+			auto username_end = chat.mFromName.rfind(')');
 
 			if (username_start != std::string::npos &&
 				username_end == (chat.mFromName.length() - 1))
@@ -1011,7 +1011,7 @@ public:
 					std::string username = chat.mFromName.substr(username_start + 2);
 					username = username.substr(0, username.length() - 1);
 					LLStyle::Params style_params_name;
-					LLColor4 userNameColor = LLUIColorTable::instance().getColor("EmphasisColor");
+					LLUIColor userNameColor = LLUIColorTable::instance().getColor("EmphasisColor");
 					style_params_name.color(userNameColor);
 					style_params_name.font.name("SansSerifSmall");
 					style_params_name.font.style("NORMAL");
@@ -1426,7 +1426,7 @@ private:
 			!av_name.isDisplayNameDefault())
 		{
 			LLStyle::Params style_params_name;
-			LLColor4 userNameColor = LLUIColorTable::instance().getColor("EmphasisColor");
+			LLUIColor userNameColor = LLUIColorTable::instance().getColor("EmphasisColor");
 			style_params_name.color(userNameColor);
 			style_params_name.font.name("SansSerifSmall");
 			style_params_name.font.style("NORMAL");
@@ -1727,7 +1727,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 		{
 			if (!message_from_log)
 			{
-				LLColor4 timestamp_color = LLUIColorTable::instance().getColor("ChatTimestampColor");
+				LLUIColor timestamp_color = LLUIColorTable::instance().getColor("ChatTimestampColor");
 				timestamp_style.color(timestamp_color);
 				timestamp_style.readonly_color(timestamp_color);
 			}
@@ -1754,7 +1754,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 				// set the link for the object name to be the objectim SLapp
 				// (don't let object names with hyperlinks override our objectim Url)
 				LLStyle::Params link_params(body_message_params);
-				LLColor4 link_color = LLUIColorTable::instance().getColor("HTMLLinkColor");
+				LLUIColor link_color = LLUIColorTable::instance().getColor("HTMLLinkColor");
 				link_params.color = link_color;
 				link_params.readonly_color = link_color;
 				link_params.is_link = true;
