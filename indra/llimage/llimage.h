@@ -173,13 +173,6 @@ private:
 
 	bool mBadBufferAllocation ;
 	bool mAllowOverSize ;
-public:
-	// <FS:ND> Report amount of failed buffer allocations
-	static void addAllocationError();
-	static U32 getAllocationErrors();
-private:
-	static U32 mAllocationErrors;
-	// </FS:ND>
 };
 
 // Raw representation of an image (used for textures, and other uncompressed formats

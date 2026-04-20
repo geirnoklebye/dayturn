@@ -101,7 +101,6 @@ LLImageDecodeThread::ImageRequest::ImageRequest(handle_t handle, LLImageFormatte
 	  mNeedsAux(needs_aux),
 	  mDecodedRaw(false),
 	  mDecodedAux(false),
-	  mDecodedImageRawValid(false),
 	  mResponder(responder)
 {
 }
@@ -167,7 +166,6 @@ bool LLImageDecodeThread::ImageRequest::processRequest()
 		mDecodedAux = done && mDecodedImageAux->getData();
 	}
 
- 	mDecodedImageRawValid = true;
 	return done;
 }
 
@@ -175,7 +173,7 @@ void LLImageDecodeThread::ImageRequest::finishRequest(bool completed)
 {
 	if (mResponder.notNull())
 	{
-		bool success = completed && mDecodedRaw && (!mNeedsAux || mDecodedAux) && mDecodedImageRawValid;
+		bool success = completed && mDecodedRaw && (!mNeedsAux || mDecodedAux);
 		mResponder->completed(success, mDecodedImageRaw, mDecodedImageAux);
 	}
 	// Will automatically be deleted

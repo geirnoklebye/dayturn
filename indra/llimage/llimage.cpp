@@ -583,21 +583,6 @@ static void bilinear_scale(const U8 *src, U32 srcW, U32 srcH, U32 srcCh, U32 src
 // LLImage
 //---------------------------------------------------------------------------
 
-// <FS:ND> Report amount of failed buffer allocations
-
-U32 LLImageBase::mAllocationErrors;
-
-void LLImageBase::addAllocationError()
-{
-	++mAllocationErrors;
-}
-
-U32 LLImageBase::getAllocationErrors()
-{
-	return mAllocationErrors;
-}
-//</FS:ND>
-
 //static
 std::string LLImage::sLastErrorMessage;
 LLMutex* LLImage::sMutex = nullptr;
@@ -740,9 +725,8 @@ U8* LLImageBase::allocateData(S32 size)
 		if (mData)
 		{
 			deleteData(); // virtual
-		mData = nullptr;
-			addAllocationError();
-	}
+			mData = nullptr;
+		}
 	}
 	mDataSize = size;
 
@@ -1488,11 +1472,6 @@ bool LLImageRaw::scale( S32 new_width, S32 new_height, bool scale_image_data )
             return false;
         }
         
-		// <FS:ND> Handle out of memory situations a bit more graceful than a crash
-		if( !new_buffer )
-			return false;
-		// </FS:ND>
-
         for( S32 row = 0; row <	new_height;	row++ )
         {
             if (row	< old_height)
@@ -2186,14 +2165,8 @@ bool LLImageFormatted::load(const std::string &filename, int load_size)
 
 	S32 file_size = 0;
 	LLAPRFile infile ;
-	infile.open(filename, LL_APR_RB, NULL, &file_size);
-
-	// <FS:ND> Remove LLVolatileAPRPool/apr_file_t and use FILE* instead
-	// apr_file_t* apr_file = infile.getFileHandle();
-	LLAPRFile::tFiletype* apr_file = infile.getFileHandle();
-	// </FS:ND>
-
-	if (!apr_file)
+    infile.open(filename, LL_APR_RB, NULL, &file_size);
+    apr_file_t* apr_file = infile.getFileHandle();
 	{
 		setLastError("Unable to open file for reading", filename);
 		return false;
