@@ -231,6 +231,7 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 
         if((grid != current_grid ) && (!gIsInSecondLife || (!slurl.getHypergrid() && gatekeeper.empty())))
 		{
+			std::string dest = hyperSlurl.getSLURLString();
 			if (!dest.empty())
 			{
 				LLSD args;
@@ -265,9 +266,9 @@ bool LLURLDispatcherImpl::dispatchRegion(const LLSLURL& slurl, const std::string
 	} //Opensim
 
 	// Request a region handle by name
-	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(region,
+	LLWorldMapMessage::getInstance()->sendNamedRegionRequest(hyperSlurl.getRegion(),
 									  LLURLDispatcherImpl::regionNameCallback,
-									  dest,
+									  hyperSlurl.getSLURLString(),
 									  LLUI::getInstance()->mSettingGroups["config"]->getbool("SLURLTeleportDirectly"));	// don't teleport
 	return true;
 }
@@ -317,6 +318,17 @@ void LLURLDispatcherImpl::regionHandleCallback(U64 region_handle, const LLSLURL&
         	// we can't teleport cross grid at this point
         	return;
     	}
+	}
+	else
+	{
+		if (LLGridManager::getInstance()->getGrid(slurl.getGrid()) != LLGridManager::getInstance()->getGrid())
+		{
+			LLSD args;
+			args["SLURL"] = slurl.getLocationString();
+        	args["CURRENT_GRID"] = LLGridManager::getInstance()->getGridLabel();
+			LLNotificationsUtil::add("CantTeleportToGrid", args);
+		return;
+		}	
 	}
 
 	LLVector3d global_pos = from_region_handle(region_handle);
