@@ -135,8 +135,6 @@
 #include "animationexplorer.h"		// <FS:Zi> Animation Explorer
 #include "NACLfloaterexploresounds.h" // KKA-796 adding Block to Sound Explorer
 
-extern bool gIsInSecondLife; //Opensim or SecondLife
-
 extern void on_new_message(const LLSD& msg);
 
 //
@@ -151,6 +149,7 @@ static const F32 LLREQUEST_PERMISSION_THROTTLE_INTERVAL	= 10.0f; // seconds
 
 extern bool gDebugClicks;
 extern bool gShiftFrame;
+extern bool gIsInSecondLife; //Opensim or SecondLife
 
 // function prototypes
 bool check_offer_throttle(const std::string& from_name, bool check_only);
@@ -1354,7 +1353,7 @@ protected:
 };
 
 
-//Returns TRUE if we are OK, FALSE if we are throttled
+//Returns true if we are OK, false if we are throttled
 //Set check_only true if you want to know the throttle status 
 //without registering a hit
 bool check_offer_throttle(const std::string& from_name, bool check_only)
@@ -3123,7 +3122,19 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	
 	std::string version_channel;
 	msg->getString("SimData", "ChannelVersion", version_channel);
+	//! gSimulatorType is set first in Grid Manager
+	//! if not a second life grid we extract first word of the Channel Version 
+	if (!(gSimulatorType == "SecondLife"))
+	{
+		const std::string delims (" ");
+		int begIdx, endIdx;
+		std::string simString =  version_channel;
+		begIdx = simString.find_first_not_of (delims);
+		endIdx = simString.find_first_of (delims, begIdx);
+		gSimulatorType = simString.substr (begIdx, endIdx - begIdx);
+	}
 
+	LL_INFOS("GridManager") << "Simulator Type : " << gSimulatorType << " Global isInSecondLife is: " << gIsInSecondLife << LL_ENDL;
 	if (!isAgentAvatarValid())
 	{
 		// Could happen if you were immediately god-teleported away on login,
@@ -4118,7 +4129,10 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 		}
 		else
 		{
-			LL_WARNS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
+			if (gIsInSecondLife)
+			{
+				LL_WARNS() << "Unknown sim stat identifier: " << stat_id << LL_ENDL;
+			}
 		}
 	}
 
