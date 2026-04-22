@@ -41,6 +41,7 @@
 #include "llagentcamera.h"
 #include "llappviewer.h"
 #include "llavatarrenderinfoaccountant.h"
+#include "llavatarappearancedefines.h"
 #include "llcallingcard.h"
 #include "llcommandhandler.h"
 #include "lldir.h"
@@ -647,7 +648,13 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mInvisibilityCheckHistory(-1),
 	mPaused(false),
 	mRegionCacheHitCount(0),
-	mRegionCacheMissCount(0)
+	mRegionCacheMissCount(0),
+    mMaxBakes(gIsInSecondLife?
+        LLAvatarAppearanceDefines::EBakedTextureIndex::BAKED_NUM_INDICES:
+        LLAvatarAppearanceDefines::EBakedTextureIndex::BAKED_LEFT_ARM),
+    mMaxTEs(gIsInSecondLife?
+        LLAvatarAppearanceDefines::ETextureIndex::TEX_NUM_INDICES:
+        LLAvatarAppearanceDefines::ETextureIndex::TEX_HEAD_UNIVERSAL_TATTOO)
 {
 	mImpl->mOriginGlobal = from_region_handle(handle); 
 	updateRenderMatrix();
@@ -2911,6 +2918,19 @@ void LLViewerRegion::unpackRegionHandshake()
 	std::string productSKU;
 	std::string productName;
 
+	mCentralBakeVersion = region_protocols & 1;
+	constexpr U64 REGION_SUPPORTS_BOM{ 1ULL << 63 };
+    if(region_protocols & REGION_SUPPORTS_BOM) // OS sets bit 63 when BOM supported
+    {
+        mMaxBakes = LLAvatarAppearanceDefines::EBakedTextureIndex::BAKED_NUM_INDICES;
+        mMaxTEs   = LLAvatarAppearanceDefines::ETextureIndex::TEX_NUM_INDICES;
+    }
+    else
+    {
+        mMaxBakes = LLAvatarAppearanceDefines::EBakedTextureIndex::BAKED_LEFT_ARM;
+        mMaxTEs   = LLAvatarAppearanceDefines::ETextureIndex::TEX_HEAD_UNIVERSAL_TATTOO;
+    }
+	
 	// the only reasonable way to decide if we actually have any data is to
 	// check to see if any of these fields have positive sizes
 	if (msg->getSize("RegionInfo3", "ColoName") > 0 ||

@@ -534,6 +534,8 @@ private:
 	U64			mHandle;
 	F32			mTimeDilation;	// time dilation of physics simulation on simulator
 	S32         mLastUpdate; //last time called idleUpdate()
+    S32         mMaxBakes; // <FS:Beq/> store max bakes on the region
+    S32         mMaxTEs; // <FS:Beq/> store max texture entries on the region
 
 	// simulator name
 	std::string mName;
