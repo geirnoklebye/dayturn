@@ -63,6 +63,8 @@
 #include <boost/regex.hpp>
 #include <sstream>
 
+extern bool gIsInSecondLife; //Opensim or SecondLife
+
 const S32 LOGIN_MAX_RETRIES = 0; // Viewer should not autmatically retry login
 const F32 LOGIN_SRV_TIMEOUT_MIN = 10;
 const F32 LOGIN_SRV_TIMEOUT_MAX = 120;
@@ -201,8 +203,18 @@ void LLLoginInstance::constructAuthParams(LLPointer<LLCredential> user_credentia
 		requested_options.append("god-connect");
 	}
 
-	LLSD request_params;
+	//TODO: make this more flexible
+	if (!gIsInSecondLife)
+	{
+		requested_options.append("currency");
+		requested_options.append("max_groups");
+		requested_options.append("profile-server-url");
+		requested_options.append("search");
+		requested_options.append("web-profile-url");
+	}
 
+	LLSD request_params;
+	
     unsigned char hashed_unique_id_string[MD5HEX_STR_SIZE];
     if ( ! llHashedUniqueID(hashed_unique_id_string) )
     {
