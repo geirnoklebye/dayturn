@@ -1177,7 +1177,7 @@ std::string LLGridManager::getLoginPage()
 
 std::string LLGridManager::getUpdateServiceURL()
 {
-	std::string update_url_base = gSavedSettings.getString("CmdLineUpdateService");
+	std::string update_url_base =  "https://bitbucket.org/dayturn/dayturn/downloads/";
 		LL_INFOS("UpdaterService","GridManager")
 			<< "Update URL base overridden from command line: " << update_url_base
 			<< LL_ENDL;
