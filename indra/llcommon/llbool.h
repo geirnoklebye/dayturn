@@ -24,7 +24,7 @@
 #ifndef LL_BOOL_H
 #define LL_BOOL_H
 
-typedef S32				BOOL;
+typedef signed int		BOOL;
 // definition moved from stdtypes.h
 
 #ifndef TRUE
