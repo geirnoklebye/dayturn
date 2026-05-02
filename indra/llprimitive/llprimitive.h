@@ -231,8 +231,8 @@ protected:
 	F32			mWindSensitivity;	// interacts with tension, air friction, and gravity
 	F32			mTension;			//interacts in complex ways with other parameters
 	LLVector3	mUserForce;			// custom user-defined force vector
-	//BOOL		mUsingCollisionSphere;
-	//BOOL		mRenderingCollisionSphere;
+	//bool		mUsingCollisionSphere;
+	//bool		mRenderingCollisionSphere;
 
 public:
 	void		setSimulateLOD(S32 lod)			{ mSimulateLOD = llclamp(lod, (S32)FLEXIBLE_OBJECT_MIN_SECTIONS, (S32)FLEXIBLE_OBJECT_MAX_SECTIONS); }
@@ -331,7 +331,7 @@ public:
 
 // This code is not naming-standards compliant. Leaving it like this for
 // now to make the connection to code in
-// 	BOOL packTEMessage(LLDataPacker &dp) const;
+// 	bool packTEMessage(LLDataPacker &dp) const;
 // more obvious. This should be refactored to remove the duplication, at which
 // point we can fix the names as well.
 // - Vir
