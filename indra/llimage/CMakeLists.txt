@@ -10,7 +10,6 @@ include(LLFileSystem)
 include(LLImageJ2COJ)
 include(ZLIBNG)
 include(LLAddBuildTest)
-include(bugsplat)
 include(Tut)
 
 include_directories(

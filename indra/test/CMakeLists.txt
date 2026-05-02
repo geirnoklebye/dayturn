@@ -13,7 +13,6 @@ include(LLXML)
 include(Linking)
 include(Tut)
 include(LLAddBuildTest)
-include(bugsplat)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}

@@ -8,7 +8,6 @@ include(00-Common)
 include(Linking)
 
 include(Boost)
-include(bugsplat)
 include(BuildPackagesInfo)
 include(BuildVersion)
 include(CMakeCopyIfDifferent)
