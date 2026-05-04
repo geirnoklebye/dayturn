@@ -347,8 +347,6 @@ void LLSpatialPartition::rebuildGeom(LLSpatialGroup* group)
 		group->mLastUpdateViewAngle = group->mViewAngle;
 	}
 	
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_SPATIAL;
-
 	group->clearDrawMap();
 	
 	//get geometry count
@@ -505,8 +503,6 @@ public:
 
 void LLSpatialGroup::setState(U32 state, S32 mode) 
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_SPATIAL
-
 	llassert(state <= LLSpatialGroup::STATE_MASK);
 	
 	if (mode > STATE_MODE_SINGLE)
@@ -554,8 +550,6 @@ public:
 
 void LLSpatialGroup::clearState(U32 state, S32 mode)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_SPATIAL
-
 	llassert(state <= LLSpatialGroup::STATE_MASK);
 
 	if (mode > STATE_MODE_SINGLE)
@@ -638,8 +632,6 @@ void LLSpatialGroup::updateDistance(LLCamera &camera)
 
 F32 LLSpatialPartition::calcDistance(LLSpatialGroup* group, LLCamera& camera)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_SPATIAL
-
 	LLVector4a eye;
 	LLVector4a origin;
 	origin.load3(camera.getOrigin().mV);
@@ -817,8 +809,6 @@ void LLSpatialGroup::handleDestruction(const TreeNode* node)
 
 void LLSpatialGroup::handleChildAddition(const OctreeNode* parent, OctreeNode* child) 
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_SPATIAL
-
 	if (child->getListenerCount() == 0)
 	{
 		new LLSpatialGroup(child, getSpatialPartition());
@@ -1473,7 +1463,6 @@ S32 LLSpatialPartition::cull(LLCamera &camera, std::vector<LLDrawable *>* result
 	
 S32 LLSpatialPartition::cull(LLCamera &camera, bool do_occlusion)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_SPATIAL;
 #if LL_OCTREE_PARANOIA_CHECK
 	((LLSpatialGroup*)mOctree->getListener(0))->checkStates();
 #endif

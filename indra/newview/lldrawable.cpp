@@ -102,8 +102,6 @@ LLDrawable::LLDrawable(LLViewerObject *vobj, bool new_entry)
 
 void LLDrawable::init(bool new_entry)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_DRAWABLE
-
 	// mXform
 	mParent = NULL;
 	mRenderType = 0;

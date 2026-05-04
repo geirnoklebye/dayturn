@@ -161,7 +161,6 @@ void LLVOSurfacePatch::updateGL()
 {
 	if (mPatchp)
 	{
-		LL_PROFILE_ZONE_SCOPED
 		mPatchp->updateGL();
 	}
 }

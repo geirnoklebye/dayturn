@@ -933,7 +933,6 @@ LLAudioSource * LLAudioEngine::findAudioSource(const LLUUID &source_id)
 
 LLAudioData * LLAudioEngine::getAudioData(const LLUUID &audio_uuid)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA;
 	data_map::iterator iter;
 	iter = mAllData.find(audio_uuid);
 	if (iter == mAllData.end())

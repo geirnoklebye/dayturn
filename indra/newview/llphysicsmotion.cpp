@@ -453,7 +453,6 @@ F32 LLPhysicsMotion::calculateAcceleration_local(const F32 velocity_local, const
 
 bool LLPhysicsMotionController::onUpdate(F32 time, U8* joint_mask)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_AVATAR;
         // Skip if disabled globally.
         if (!gSavedSettings.getbool("AvatarPhysics"))
         {

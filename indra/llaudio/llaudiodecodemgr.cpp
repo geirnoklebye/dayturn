@@ -649,8 +649,6 @@ void LLAudioDecodeMgr::Impl::startMoreDecodes()
 
 LLPointer<LLVorbisDecodeState> beginDecodingAndWritingAudio(const LLUUID &decode_id)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_MEDIA;
-
     LL_DEBUGS() << "Decoding " << decode_id << " from audio queue!" << LL_ENDL;
 
     std::string                    d_path       = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, decode_id.asString()) + ".dsf";

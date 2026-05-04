@@ -1227,7 +1227,6 @@ void LLPipeline::releaseShadowTargets()
 
 void LLPipeline::createGLBuffers()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
     stop_glerror();
 	assertInitialized();
 
@@ -1507,7 +1506,6 @@ public:
 // Called when a texture changes # of channels (causes faces to move to alpha pool)
 void LLPipeline::dirtyPoolObjectTextures(const std::set<LLViewerFetchedTexture*>& textures)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	assertInitialized();
 
 	// *TODO: This is inefficient and causes frame spikes; need a better way to do this
@@ -1996,8 +1994,6 @@ void LLPipeline::updateMovedList(LLDrawable::drawable_vector_t& moved_list)
 
 void LLPipeline::updateMove()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
 	if (FreezeTime)
 	{
 		return;
@@ -2098,7 +2094,6 @@ void LLPipeline::grabReferences(LLCullResult& result)
 
 void LLPipeline::clearReferences()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	sCull = NULL;
 	mGroupSaveQ1.clear();
 }
@@ -2352,7 +2347,7 @@ void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, LLPlane* pla
 	static bool can_use_occlusion = LLFeatureManager::getInstance()->isFeatureAvailable("UseOcclusion") 
 									&& gGLManager.mHasOcclusionQuery;
 
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE; //LL_RECORD_BLOCK_TIME(FTM_CULL);
+    //LL_RECORD_BLOCK_TIME(FTM_CULL);
 
     if (planep != nullptr)
     {
@@ -2640,7 +2635,6 @@ void LLPipeline::doOcclusion(LLCamera& camera, LLRenderTarget& source, LLRenderT
 
 void LLPipeline::doOcclusion(LLCamera& camera)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
     if (LLPipeline::sUseOcclusion > 1 && !LLSpatialPartition::sTeleportRequested &&
 		(sCull->hasOcclusionGroups() || LLVOCachePartition::sNeedsOcclusionCheck))
 	{
@@ -2727,16 +2721,15 @@ bool LLPipeline::updateDrawableGeom(LLDrawable* drawablep, bool priority)
 
 void LLPipeline::updateGL()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
+
+	while (!LLGLUpdate::sGLQ.empty())
 	{
-		while (!LLGLUpdate::sGLQ.empty())
-		{
-			LLGLUpdate* glu = LLGLUpdate::sGLQ.front();
-			glu->updateGL();
-			glu->mInQ = false;
-			LLGLUpdate::sGLQ.pop_front();
-		}
+		LLGLUpdate* glu = LLGLUpdate::sGLQ.front();
+		glu->updateGL();
+		glu->mInQ = false;
+		LLGLUpdate::sGLQ.pop_front();
 	}
+
 
 	{ //seed VBO Pools
 		LLVertexBuffer::seedPools();
@@ -2745,7 +2738,6 @@ void LLPipeline::updateGL()
 
 void LLPipeline::clearRebuildGroups()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	LLSpatialGroup::sg_vector_t	hudGroups;
 
 	mGroupQ1Locked = true;
@@ -2850,7 +2842,6 @@ void LLPipeline::clearRebuildDrawables()
 
 void LLPipeline::rebuildPriorityGroups()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	LLTimer update_timer;
 	assertInitialized();
 
@@ -2879,7 +2870,6 @@ void LLPipeline::rebuildGroups()
 		return;
 	}
 
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	mGroupQ2Locked = true;
 	// Iterate through some drawables on the non-priority build queue
 	S32 size = (S32) mGroupQ2.size();
@@ -3127,7 +3117,6 @@ void LLPipeline::markShift(LLDrawable *drawablep)
 
 void LLPipeline::shiftObjects(const LLVector3 &offset)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	assertInitialized();
 
 	glClear(GL_DEPTH_BUFFER_BIT);
@@ -3198,8 +3187,6 @@ void LLPipeline::markPartitionMove(LLDrawable* drawable)
 
 void LLPipeline::processPartitionQ()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
 	// <FS:ND> A vector is much better suited for the use case of mPartitionQ
 	// for (LLDrawable::drawable_list_t::iterator iter = mPartitionQ.begin(); iter != mPartitionQ.end(); ++iter)
 	for (LLDrawable::drawable_vector_t::iterator iter = mPartitionQ.begin(); iter != mPartitionQ.end(); ++iter)
@@ -3303,8 +3290,6 @@ void LLPipeline::markRebuild(LLDrawable *drawablep, LLDrawable::EDrawableFlags f
 
 void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
 	if (hasAnyRenderType(LLPipeline::RENDER_TYPE_AVATAR,
 					  LLPipeline::RENDER_TYPE_CONTROL_AV,
 					  LLPipeline::RENDER_TYPE_GROUND,
@@ -3403,7 +3388,7 @@ void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 	}
 	
 	{
-		LL_PROFILE_ZONE_NAMED_CATEGORY_DRAWABLE("stateSort"); // LL_RECORD_BLOCK_TIME(FTM_STATESORT_DRAWABLE);
+		// LL_RECORD_BLOCK_TIME(FTM_STATESORT_DRAWABLE);
 		for (LLCullResult::drawable_iterator iter = sCull->beginVisibleList();
 			 iter != sCull->endVisibleList(); ++iter)
 		{
@@ -3755,7 +3740,6 @@ void LLPipeline::touchTexture(LLViewerTexture* tex, F32 vsize)
 }
 void LLPipeline::touchTextures(LLDrawInfo* info)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
     for (int i = 0; i < info->mTextureList.size(); ++i)
     {
         touchTexture(info->mTextureList[i], info->mTextureListVSize[i]);
@@ -3768,8 +3752,6 @@ void LLPipeline::touchTextures(LLDrawInfo* info)
 
 void LLPipeline::postSort(LLCamera& camera)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
 	assertInitialized();
 
 	LL_PUSH_CALLSTACKS();
@@ -4012,7 +3994,7 @@ void LLPipeline::postSort(LLCamera& camera)
 
 void render_hud_elements()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_UI; //LL_RECORD_BLOCK_TIME(FTM_RENDER_UI);
+    //LL_RECORD_BLOCK_TIME(FTM_RENDER_UI);
 	gPipeline.disableLights();
 	
 	LLGLDisable fog(GL_FOG);
@@ -4291,7 +4273,7 @@ U32 LLPipeline::sCurRenderPoolType = 0 ;
 
 void LLPipeline::renderGeom(LLCamera& camera, bool forceVBOUpdate)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE; //LL_RECORD_BLOCK_TIME(FTM_RENDER_GEOMETRY);
+	//LL_RECORD_BLOCK_TIME(FTM_RENDER_GEOMETRY);
 
 	assertInitialized();
 
@@ -4377,7 +4359,7 @@ void LLPipeline::renderGeom(LLCamera& camera, bool forceVBOUpdate)
 	}
 
 	{
-		LL_PROFILE_ZONE_NAMED_CATEGORY_DRAWPOOL("pools"); //LL_RECORD_BLOCK_TIME(FTM_POOLS);
+		//LL_RECORD_BLOCK_TIME(FTM_POOLS);
 		
 		// HACK: don't calculate local lights if we're rendering the HUD!
 		//    Removing this check will cause bad flickering when there are 
@@ -4413,7 +4395,7 @@ void LLPipeline::renderGeom(LLCamera& camera, bool forceVBOUpdate)
 			pool_set_t::iterator iter2 = iter1;
 			if (hasRenderType(poolp->getType()) && poolp->getNumPasses() > 0)
 			{
-				LL_PROFILE_ZONE_NAMED_CATEGORY_DRAWPOOL("pool render"); //LL_RECORD_BLOCK_TIME(FTM_POOLRENDER);
+				//LL_RECORD_BLOCK_TIME(FTM_POOLRENDER);
 
 				gGLLastMatrix = NULL;
 				gGL.loadMatrix(gGLModelView);
@@ -4543,14 +4525,14 @@ void LLPipeline::renderGeomDeferred(LLCamera& camera)
 {
 	LLAppViewer::instance()->pingMainloopTimeout("Pipeline:RenderGeomDeferred");
 
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_DRAWPOOL; //LL_RECORD_BLOCK_TIME(FTM_RENDER_GEOMETRY);
+	//LL_RECORD_BLOCK_TIME(FTM_RENDER_GEOMETRY);
 	{
 		// SL-15709 -- NOTE: Tracy only allows one ZoneScoped per function.
 		// Solutions are:
 		// 1. Use a new scope
 		// 2. Use named zones
 		// 3. Use transient zones
-		LL_PROFILE_ZONE_NAMED_CATEGORY_DRAWPOOL("deferred pools"); //LL_RECORD_BLOCK_TIME(FTM_DEFERRED_POOLS);
+		//LL_RECORD_BLOCK_TIME(FTM_DEFERRED_POOLS);
 
 		LLGLEnable cull(GL_CULL_FACE);
 
@@ -4585,7 +4567,7 @@ void LLPipeline::renderGeomDeferred(LLCamera& camera)
 			pool_set_t::iterator iter2 = iter1;
 			if (hasRenderType(poolp->getType()) && poolp->getNumDeferredPasses() > 0)
 			{
-				LL_PROFILE_ZONE_NAMED_CATEGORY_DRAWPOOL("deferred pool render"); //LL_RECORD_BLOCK_TIME(FTM_DEFERRED_POOLRENDER);
+				//LL_RECORD_BLOCK_TIME(FTM_DEFERRED_POOLRENDER);
 
 				gGLLastMatrix = NULL;
 				gGL.loadMatrix(gGLModelView);
@@ -4640,7 +4622,7 @@ void LLPipeline::renderGeomDeferred(LLCamera& camera)
 
 void LLPipeline::renderGeomPostDeferred(LLCamera& camera, bool do_occlusion)
 {
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_DRAWPOOL; //LL_RECORD_BLOCK_TIME(FTM_POST_DEFERRED_POOLS);
+	//LL_RECORD_BLOCK_TIME(FTM_POST_DEFERRED_POOLS);
 	U32 cur_type = 0;
 
 	LLGLEnable cull(GL_CULL_FACE);
@@ -4674,7 +4656,7 @@ void LLPipeline::renderGeomPostDeferred(LLCamera& camera, bool do_occlusion)
 		pool_set_t::iterator iter2 = iter1;
 		if (hasRenderType(poolp->getType()) && poolp->getNumPostDeferredPasses() > 0)
 		{
-			LL_PROFILE_ZONE_NAMED_CATEGORY_DRAWPOOL("deferred poolrender"); //LL_RECORD_BLOCK_TIME(FTM_POST_DEFERRED_POOLRENDER);
+			//LL_RECORD_BLOCK_TIME(FTM_POST_DEFERRED_POOLRENDER);
 
 			gGLLastMatrix = NULL;
 			gGL.loadMatrix(gGLModelView);
@@ -4735,7 +4717,6 @@ void LLPipeline::renderGeomPostDeferred(LLCamera& camera, bool do_occlusion)
 
 void LLPipeline::renderGeomShadow(LLCamera& camera)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
     U32 cur_type = 0;
 	
 	LLGLEnable cull(GL_CULL_FACE);
@@ -4801,7 +4782,6 @@ void LLPipeline::renderGeomShadow(LLCamera& camera)
 
 void LLPipeline::addTrianglesDrawn(S32 index_count, U32 render_type)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	assertInitialized();
 	S32 count = 0;
 	if (render_type == LLRender::TRIANGLE_STRIP)
@@ -5855,7 +5835,6 @@ void LLPipeline::removeFromQuickLookup( LLDrawPool* poolp )
 
 void LLPipeline::resetDrawOrders()
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	assertInitialized();
 	// Iterate through all of the draw pools and rebuild them.
 	for (pool_set_t::iterator iter = mPools.begin(); iter != mPools.end(); ++iter)
@@ -7262,7 +7241,6 @@ void LLPipeline::doResetVertexBuffers(bool forced)
 		}
 	}
 
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	mResetVertexBuffers = false;
 
 	mCubeVB = NULL;
@@ -7353,7 +7331,6 @@ void LLPipeline::renderObjects(U32 type, U32 mask, bool texture, bool batch_text
 
 void LLPipeline::renderAlphaObjects(U32 mask, bool texture, bool batch_texture, bool rigged)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
     assertInitialized();
     gGL.loadMatrix(gGLModelView);
     gGLLastMatrix = NULL;
@@ -8082,8 +8059,6 @@ void LLPipeline::renderFinalize()
 
 void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* light_target)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
     LLRenderTarget* deferred_target       = &mDeferredScreen;
     LLRenderTarget* deferred_depth_target = &mDeferredDepth;
     LLRenderTarget* deferred_light_target = &mDeferredLight;
@@ -8344,7 +8319,6 @@ LLVector4 pow4fsrgb(LLVector4 v, F32 f)
 
 void LLPipeline::renderDeferredLighting(LLRenderTarget *screen_target)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
     if (!sCull)
     {
         return;
@@ -8355,7 +8329,7 @@ void LLPipeline::renderDeferredLighting(LLRenderTarget *screen_target)
     LLRenderTarget *deferred_light_target = &mDeferredLight;
 
     {
-        LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("deferred"); //LL_RECORD_BLOCK_TIME(FTM_RENDER_DEFERRED);
+        //LL_RECORD_BLOCK_TIME(FTM_RENDER_DEFERRED);
         LLViewerCamera *camera = LLViewerCamera::getInstance();
         {
             LLGLDepthTest depth(GL_TRUE);
@@ -9156,8 +9130,6 @@ inline float sgn(float a)
 
 void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
-
     if (!assertInitialized())
     {
         return;
@@ -9567,7 +9539,7 @@ static LLTrace::BlockTimerStatHandle FTM_SHADOW_FULLBRIGHT_ALPHA_MASKED("Fullbri
 
 void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera& shadow_cam, LLCullResult& result, bool use_shader, bool use_occlusion, U32 target_width)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE; //LL_RECORD_BLOCK_TIME(FTM_SHADOW_RENDER);
+    //LL_RECORD_BLOCK_TIME(FTM_SHADOW_RENDER);
 
     //disable occlusion culling for shadow passes (save setting to restore later)
     S32 occlude = LLPipeline::sUseOcclusion;
@@ -9654,7 +9626,7 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
             gGL.setColorMask(false, false);
         }
 
-        LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow simple"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_SIMPLE);
+        //LL_RECORD_BLOCK_TIME(FTM_SHADOW_SIMPLE);
 
         gGL.getTexUnit(0)->disable();
         for (U32 i = 0; i < sizeof(types) / sizeof(U32); ++i)
@@ -9672,7 +9644,7 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
 
     if (use_shader)
     {
-        LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow geom"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_GEOM);
+       //LL_RECORD_BLOCK_TIME(FTM_SHADOW_GEOM);
 
         gDeferredShadowProgram.unbind();
         renderGeomShadow(shadow_cam);
@@ -9681,13 +9653,13 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
     }
     else
     {
-        LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow geom"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_GEOM);
+        //LL_RECORD_BLOCK_TIME(FTM_SHADOW_GEOM);
 
         renderGeomShadow(shadow_cam);
     }
 
     {
-        LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow alpha"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA);
+        //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA);
 
         for (int i = 0; i < 2; ++i)
         {
@@ -9703,19 +9675,19 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
                 LLVertexBuffer::MAP_TEXTURE_INDEX;
 
             {
-                LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow alpha masked"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA_MASKED);
+                //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA_MASKED);
                 renderMaskedObjects(LLRenderPass::PASS_ALPHA_MASK, mask, true, true, rigged);
             }
 
             {
-                LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow alpha blend"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA_BLEND);
+                //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA_BLEND);
                 LLGLSLShader::sCurBoundShaderPtr->setMinimumAlpha(0.598f);
                 renderAlphaObjects(mask, true, true, rigged);
             }
 
 
             {
-                LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow fullbright alpha masked"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_FULLBRIGHT_ALPHA_MASKED);
+                //LL_RECORD_BLOCK_TIME(FTM_SHADOW_FULLBRIGHT_ALPHA_MASKED);
                 gDeferredShadowFullbrightAlphaMaskProgram.bind(rigged);
                 LLGLSLShader::sCurBoundShaderPtr->uniform1f(LLShaderMgr::DEFERRED_SHADOW_TARGET_WIDTH, (float)target_width);
                 LLGLSLShader::sCurBoundShaderPtr->uniform1i(LLShaderMgr::SUN_UP_FACTOR, environment.getIsSunUp() ? 1 : 0);
@@ -9724,7 +9696,7 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
 
 
             {
-                LL_PROFILE_ZONE_NAMED_CATEGORY_PIPELINE("shadow alpha grass"); //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA_GRASS);
+                //LL_RECORD_BLOCK_TIME(FTM_SHADOW_ALPHA_GRASS);
                 gDeferredTreeShadowProgram.bind(rigged);
                 if (i == 0)
                 {
@@ -9770,7 +9742,6 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
 
 bool LLPipeline::getVisiblePointCloud(LLCamera& camera, LLVector3& min, LLVector3& max, std::vector<LLVector3>& fp, LLVector3 light_dir)
 {
-    LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE;
 	//get point cloud of intersection of frust and min, max
 
 	if (getVisibleExtents(camera, min, max))
@@ -10029,7 +10000,7 @@ void LLPipeline::generateSunShadow(LLCamera& camera)
 		return;
 	}
 
-	LL_PROFILE_ZONE_SCOPED_CATEGORY_PIPELINE; //LL_RECORD_BLOCK_TIME(FTM_GEN_SUN_SHADOW);
+	//LL_RECORD_BLOCK_TIME(FTM_GEN_SUN_SHADOW);
 
 	bool skip_avatar_update = false;
 	if (!isAgentAvatarValid() || gAgentCamera.getCameraAnimating() || gAgentCamera.getCameraMode() != CAMERA_MODE_MOUSELOOK || !LLVOAvatar::sVisibleInFirstPerson)
