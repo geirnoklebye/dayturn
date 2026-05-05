@@ -116,6 +116,13 @@ void LLWearableData::pushWearable(const LLWearableType::EType type,
 void LLWearableData::wearableUpdated(LLWearable *wearable, bool removed)
 {
 	wearable->setUpdated();
+	// FIXME DRANO avoid updating params via wearables when rendering server-baked appearance.
+#if 0
+	if (mAvatarAppearance->isUsingServerBakes() && !mAvatarAppearance->isUsingLocalAppearance())
+	{
+		return;
+	}
+#endif
 	if (!removed)
 	{
 		pullCrossWearableValues(wearable->getType());

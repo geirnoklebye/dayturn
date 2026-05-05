@@ -96,7 +96,7 @@ LLTexLayer* LLLocalTextureObject::getTexLayer(U32 index) const
 
 LLTexLayer* LLLocalTextureObject::getTexLayer(const std::string &name)
 {
-	for(LLTexLayer* layer : mTexLayers)
+	for(auto layer : mTexLayers)
 	{
 		if (layer->getName().compare(name) == 0)
 		{

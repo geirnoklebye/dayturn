@@ -53,7 +53,7 @@ bool LLPolySkeletalDistortionInfo::parseXml(LLXmlTreeNode* node)
 
         LLXmlTreeNode* skeletalParam = node->getChildByName("param_skeleton");
 
-        if (NULL == skeletalParam)
+        if (nullptr == skeletalParam)
         {
                 LL_WARNS() << "Failed to getChildByName(\"param_skeleton\")"
                         << LL_ENDL;
@@ -157,7 +157,7 @@ bool LLPolySkeletalDistortion::setInfo(LLPolySkeletalDistortionInfo *info)
         mJointScales[joint] = bone_info.mScaleDeformation;
 
         // apply to children that need to inherit it
-        for (LLJoint* joint : joint->mChildren)
+        for (auto joint : joint->mChildren)
         {
             LLAvatarJoint* child_joint = (LLAvatarJoint*)joint;
             if (child_joint->inheritScale())
@@ -190,7 +190,7 @@ void LLPolySkeletalDistortion::apply( ESex avatar_sex )
 
     LLJoint* joint;
 
-    for (joint_vec_map_t::value_type& scale_pair : mJointScales)
+    for (auto& scale_pair : mJointScales)
     {
         joint = scale_pair.first;
         LLVector3 newScale = joint->getScale();
@@ -204,7 +204,7 @@ void LLPolySkeletalDistortion::apply( ESex avatar_sex )
         joint->setScale(newScale, true);
     }
 
-    for (joint_vec_map_t::value_type& offset_pair : mJointOffsets)
+    for (auto& offset_pair : mJointOffsets)
     {
         joint = offset_pair.first;
         LLVector3 newPosition = joint->getPosition();

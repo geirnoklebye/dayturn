@@ -102,7 +102,7 @@ void LLDriverParamInfo::toStream(std::ostream &out)
 	LLViewerVisualParamInfo::toStream(out);
 	out << "driver" << "\t";
 	out << mDrivenInfoList.size() << "\t";
-	for (LLDrivenEntryInfo& driven : mDrivenInfoList)
+	for (auto& driven : mDrivenInfoList)
 	{
 		out << driven.mDrivenID << "\t";
 	}
@@ -120,7 +120,7 @@ void LLDriverParamInfo::toStream(std::ostream &out)
 	if(mDriverParam && mDriverParam->getAvatarAppearance()->isSelf() &&
 		mDriverParam->getAvatarAppearance()->isValid())
 	{
-		for (LLDrivenEntryInfo& driven : mDrivenInfoList)
+		for (auto& driven : mDrivenInfoList)
 		{
 			LLViewerVisualParam *param = 
 				(LLViewerVisualParam*)mDriverParam->getAvatarAppearance()->getVisualParam(driven.mDrivenID);
@@ -230,7 +230,7 @@ void LLDriverParam::setWeight(F32 weight, bool upload_bake)
 	//-------|----|-------|----|-------> driver
 	//  | min1   max1    max2  min2
 
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		LLDrivenEntry* drivenp = &driven;
 		LLDrivenEntryInfo* info = drivenp->mInfo;
@@ -303,7 +303,7 @@ void LLDriverParam::setWeight(F32 weight, bool upload_bake)
 F32	LLDriverParam::getTotalDistortion()
 {
 	F32 sum = 0.f;
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		sum += driven.mParam->getTotalDistortion();
 	}
@@ -317,7 +317,7 @@ const LLVector4a	&LLDriverParam::getAvgDistortion()
 	LLVector4a sum;
 	sum.clear();
 	S32 count = 0;
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		sum.add(driven.mParam->getAvgDistortion());
 		count++;
@@ -331,7 +331,7 @@ const LLVector4a	&LLDriverParam::getAvgDistortion()
 F32	LLDriverParam::getMaxDistortion() 
 {
 	F32 max = 0.f;
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		F32 param_max = driven.mParam->getMaxDistortion();
 		if( param_max > max )
@@ -348,7 +348,7 @@ LLVector4a	LLDriverParam::getVertexDistortion(S32 index, LLPolyMesh *poly_mesh)
 {
 	LLVector4a sum;
 	sum.clear();
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		sum.add(driven.mParam->getVertexDistortion(index, poly_mesh));
 	}
@@ -359,7 +359,7 @@ const LLVector4a*	LLDriverParam::getFirstDistortion(U32 *index, LLPolyMesh **pol
 {
 	mCurrentDistortionParam = nullptr;
 	const LLVector4a* v = nullptr;
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		v = driven.mParam->getFirstDistortion(index, poly_mesh);
 		if( v )
@@ -441,7 +441,7 @@ void LLDriverParam::setAnimationTarget( F32 target_value, bool upload_bake)
 {
 	LLVisualParam::setAnimationTarget(target_value, upload_bake);
 
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		LLDrivenEntry* drivenp = &driven;
 		F32 driven_weight = getDrivenWeight(drivenp, mTargetWeight);
@@ -459,7 +459,7 @@ void LLDriverParam::stopAnimating(bool upload_bake)
 {
 	LLVisualParam::stopAnimating(upload_bake);
 
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		driven.mParam->setAnimating(false);
 	}
@@ -469,7 +469,7 @@ void LLDriverParam::stopAnimating(bool upload_bake)
 bool LLDriverParam::linkDrivenParams(visual_param_mapper mapper, bool only_cross_params)
 {
 	bool success = true;
-	for (LLDrivenEntryInfo& driven_info : getInfo()->mDrivenInfoList)
+	for (auto& driven_info : getInfo()->mDrivenInfoList)
 	{
 		S32 driven_id = driven_info.mDrivenID;
 
@@ -513,7 +513,7 @@ void LLDriverParam::updateCrossDrivenParams(LLWearableType::EType driven_type)
 	bool needs_update = (getWearableType()==driven_type);
 
 	// if the driver has a driven entry for the passed-in wearable type, we need to refresh the value
-	for(LLDrivenEntry& driven : mDriven)
+	for(auto& driven : mDriven)
 	{
 		if (driven.mParam && driven.mParam->getCrossWearable() && driven.mParam->getWearableType() == driven_type)
 		{
