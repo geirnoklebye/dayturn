@@ -281,7 +281,7 @@ void callRightMouseDown(float *pos, MASK mask)
 	LLCoordGL		outCoords;
 	outCoords.mX = ll_round(pos[0]);
 	outCoords.mY = ll_round(pos[1]);
-	gWindowImplementation->getCallbacks()->handleRightMouseDown(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+	gWindowImplementation->getCallbacks()->handleRightMouseDown(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 }
 
 void callRightMouseUp(float *pos, MASK mask)
@@ -294,7 +294,7 @@ void callRightMouseUp(float *pos, MASK mask)
 	LLCoordGL		outCoords;
 	outCoords.mX = ll_round(pos[0]);
 	outCoords.mY = ll_round(pos[1]);
-	gWindowImplementation->getCallbacks()->handleRightMouseUp(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+	gWindowImplementation->getCallbacks()->handleRightMouseUp(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 }
 
 void callLeftMouseDown(float *pos, MASK mask)
@@ -307,7 +307,7 @@ void callLeftMouseDown(float *pos, MASK mask)
 	LLCoordGL		outCoords;
 	outCoords.mX = ll_round(pos[0]);
 	outCoords.mY = ll_round(pos[1]);
-	gWindowImplementation->getCallbacks()->handleMouseDown(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+	gWindowImplementation->getCallbacks()->handleMouseDown(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 }
 
 void callLeftMouseUp(float *pos, MASK mask)
@@ -320,7 +320,7 @@ void callLeftMouseUp(float *pos, MASK mask)
 	LLCoordGL		outCoords;
 	outCoords.mX = ll_round(pos[0]);
 	outCoords.mY = ll_round(pos[1]);
-	gWindowImplementation->getCallbacks()->handleMouseUp(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+	gWindowImplementation->getCallbacks()->handleMouseUp(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 	
 }
 
@@ -334,7 +334,7 @@ void callDoubleClick(float *pos, MASK mask)
 	LLCoordGL	outCoords;
 	outCoords.mX = ll_round(pos[0]);
 	outCoords.mY = ll_round(pos[1]);
-	gWindowImplementation->getCallbacks()->handleDoubleClick(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+	gWindowImplementation->getCallbacks()->handleDoubleClick(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 }
 
 void callResize(unsigned int width, unsigned int height)
@@ -354,7 +354,7 @@ void callMouseMoved(float *pos, MASK mask)
 	gWindowImplementation->getMouseDeltas(deltas);
 	outCoords.mX += deltas[0];
 	outCoords.mY += deltas[1];
-	gWindowImplementation->getCallbacks()->handleMouseMove(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+	gWindowImplementation->getCallbacks()->handleMouseMove(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 	//gWindowImplementation->getCallbacks()->handleScrollWheel(gWindowImplementation, 0);
 }
 
@@ -367,7 +367,7 @@ void callMouseDragged(float *pos, MASK mask)
     gWindowImplementation->getMouseDeltas(deltas);
     outCoords.mX += deltas[0];
     outCoords.mY += deltas[1];
-    gWindowImplementation->getCallbacks()->handleMouseDragged(gWindowImplementation, outCoords, gKeyboard->currentMask(TRUE));
+    gWindowImplementation->getCallbacks()->handleMouseDragged(gWindowImplementation, outCoords, gKeyboard->currentMask(true));
 }
 
 void callScrollMoved(float deltaX, float deltaY)
