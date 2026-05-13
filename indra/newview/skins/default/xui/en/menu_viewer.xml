@@ -968,7 +968,7 @@
                  parameter="my_environs" />
 	     	</menu_item_call>
 	     	
-<menu_item_call
+		<menu_item_call
 	     	 	 label="Personal Lighting..."
 	     	 	 name="adjustment_tool">
 	     	 	 	<menu_item_call.on_click
@@ -987,6 +987,15 @@
 	     	 	 	parameter="pause_clouds" />
 	     	 	</menu_item_check>
 	     	</menu>
+        <menu_item_check
+          label="Mute/unmute sound"
+          name="toggle_sound"
+          shortcut="control|alt|shift|M">
+          <menu_item_check.on_click
+           function="World.ToggleMasterAudio"/>
+          <menu_item_check.on_check
+           function="World.IsMasterAudioMuted"/>
+        </menu_item_check>
 	     	
 <!--   
 	    <menu
