@@ -142,7 +142,7 @@
    min_val="0.75"
    name="ui_scale_slider"
    top_pad="-14"
-   width="250" />
+   width="250" />  
   <text
   type="string"
   length="1"
@@ -296,18 +296,6 @@
      name="show_develop_menu_check"
      top_pad="5"
      width="237"/>
-    <button
-     follows="top|left"
-     layout="topleft"
-     label="Remembered Usernames"
-     name="remembered_usernames"
-     height="20"
-     left="30"
-     top_pad="5"
-     width="200">
-    <button.commit_callback
-     function="Pref.RememberedUsernames" />
-  </button>
     <check_box
      top_pad="5"
      follows="left|top"
@@ -332,7 +320,6 @@
      width="350"
      control_name="IgnoreSimulatorCameraConstraints"
      tool_tip="Ignores the 'push' the simulator applies to your camera to keep it out of objects."/>
-
     <text
      name="ignorecameraconstraints_requires_restart"
      follows="left|top"
@@ -344,4 +331,16 @@
      text_color="White_25">
         (requires restart)
     </text>
+        <button
+     follows="top|left"
+     layout="topleft"
+     label="Remembered Usernames"
+     name="remembered_usernames"
+     height="20"
+     left="30"
+     top_pad="5"
+     width="200">
+    <button.commit_callback
+     function="Pref.RememberedUsernames" />
+  </button>
 </panel>
