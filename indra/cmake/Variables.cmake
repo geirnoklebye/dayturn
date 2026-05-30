@@ -60,7 +60,7 @@ set(TEMPLATE_VERIFIER_OPTIONS "" CACHE STRING "Options for scripts/template_veri
 set(TEMPLATE_VERIFIER_MASTER_URL "https://github.com/secondlife/master-message-template/raw/master/message_template.msg" CACHE STRING "Location of the master message template")
 
 if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
+  set(CMAKE_BUILD_TYPE Release CACHE STRING
       "Build type.  One of: Debug Release RelWithDebInfo" FORCE)
 endif (NOT CMAKE_BUILD_TYPE)
 
