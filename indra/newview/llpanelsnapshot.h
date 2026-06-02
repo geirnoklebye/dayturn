@@ -60,7 +60,7 @@ public:
     virtual LLSnapshotModel::ESnapshotFormat getImageFormat() const;
 	virtual LLSnapshotModel::ESnapshotType getSnapshotType();
 	virtual void updateControls(const LLSD& info) = 0; ///< Update controls from saved settings
-	void enableControls(BOOL enable);
+	void enableControls(bool enable);
 
 protected:
 	LLSideTrayPanelContainer* getParentContainer();

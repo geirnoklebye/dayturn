@@ -179,7 +179,7 @@ public:
 									  std::string& tooltip_msg) override;
 	/*virtual*/ bool handleToolTip(S32 x, S32 y, MASK mask) override;
 
-	void setAllowCallingCardDrop(BOOL b) { mAllowCallingCardDrop = b; }
+	void setAllowCallingCardDrop(bool b) { mAllowCallingCardDrop = b; }
 
 	void sortByName(bool ascending);
 
@@ -194,7 +194,7 @@ private:
 private:
 	S32    			mNameColumnIndex;
 	std::string		mNameColumn;
-	BOOL			mAllowCallingCardDrop;
+	bool			mAllowCallingCardDrop;
 	bool			mShortNames;  // display name only, no SLID
 	typedef std::map<LLUUID, boost::signals2::connection> avatar_name_cache_connection_map_t;
 	avatar_name_cache_connection_map_t mAvatarNameCacheConnections;

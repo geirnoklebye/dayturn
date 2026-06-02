@@ -189,7 +189,7 @@ void LLDrawPoolTree::endShadowPass(S32 pass)
 
 bool LLDrawPoolTree::verify() const
 {
-/*	BOOL ok = TRUE;
+/*	bool ok = true;
 
 	if (!ok)
 	{

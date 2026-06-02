@@ -79,7 +79,7 @@
 #include "llagent.h"                // for agent location
 #include "llviewerregion.h"
 #include "llvoavatarself.h"         // for agent name
-namespace Kokua
+namespace Dayturn
 {
     std::wstring LogfileIn;
     std::wstring LogfileOut;
@@ -128,8 +128,8 @@ namespace
             __wchar_t aBuffer[1024] = {};
             sBugSplatSender->getMinidumpPath(aBuffer, _countof(aBuffer));
             std::wstring strPath{ (wchar_t*)aBuffer };
-            ::CopyFileW(strPath.c_str(), Kokua::DumpFile.c_str(), FALSE);
-            ::CopyFileW(Kokua::LogfileIn.c_str(), Kokua::LogfileOut.c_str(), FALSE);
+            ::CopyFileW(strPath.c_str(), Dayturn::DumpFile.c_str(), false);
+            ::CopyFileW(Dayturn::LogfileIn.c_str(), Dayturn::LogfileOut.c_str(), false);
             // </FS:ND>
 
             // send the main viewer log file
@@ -259,7 +259,7 @@ bool create_app_mutex()
 	bool result = true;
 	LPCWSTR unique_mutex_name = L"DayturnAppMutex";
 	HANDLE hMutex;
-	hMutex = CreateMutex(NULL, TRUE, unique_mutex_name); 
+	hMutex = CreateMutex(NULL, true, unique_mutex_name); 
 	if(GetLastError() == ERROR_ALREADY_EXISTS) 
 	{     
 		result = false;
@@ -606,7 +606,7 @@ void LLAppViewerWin32::disableWinErrorReporting()
 {
 	std::string executable_name = gDirUtilp->getExecutableFilename();
 
-    if( S_OK == WerAddExcludedApplication(ll_convert<std::wstring>(executable_name).c_str(), FALSE ) )
+    if( S_OK == WerAddExcludedApplication(ll_convert<std::wstring>(executable_name).c_str(), false ) )
 	{
 		LL_INFOS() << "WerAddExcludedApplication() succeeded for " << executable_name << LL_ENDL;
 	}
@@ -773,9 +773,9 @@ bool LLAppViewerWin32::init()
 	checkTemp(); // Always do and log this, no matter if using Bugsplat or not
 
 	// Save those early so we don't have to deal with the dynamic memory during in process crash handling.
-	Kokua::LogfileIn = ll_convert_string_to_wide(gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "Dayturn.log"));
-	Kokua::LogfileOut = ll_convert_string_to_wide(gDirUtilp->getExpandedFilename(LL_PATH_DUMP, "Dayturn.log"));
-	Kokua::DumpFile = ll_convert_string_to_wide(gDirUtilp->getExpandedFilename(LL_PATH_DUMP, "Dayturn.dmp"));
+	Dayturn::LogfileIn = ll_convert_string_to_wide(gDirUtilp->getExpandedFilename(LL_PATH_LOGS, "Dayturn.log"));
+	Dayturn::LogfileOut = ll_convert_string_to_wide(gDirUtilp->getExpandedFilename(LL_PATH_DUMP, "Dayturn.log"));
+	Dayturn::DumpFile = ll_convert_string_to_wide(gDirUtilp->getExpandedFilename(LL_PATH_DUMP, "Dayturn.dmp"));
 
 	S32 nCrashSubmitBehavior = gCrashSettings.getS32("CrashSubmitBehavior");
 	// Don't ever send? bail out!
@@ -960,7 +960,7 @@ bool LLAppViewerWin32::initHardwareTest()
 	// Do driver verification and initialization based on DirectX
 	// hardware polling and driver versions
 	//
-	if (/*TRUE == gSavedSettings.getBOOL("ProbeHardwareOnStartup") &&*/ false == gSavedSettings.getbool("NoHardwareProbe")) // <FS:Ansariel> FIRE-20378 / FIRE-20382: Breaks memory detection an 4K monitor workaround
+	if (/*true == gSavedSettings.getBOOL("ProbeHardwareOnStartup") &&*/ false == gSavedSettings.getbool("NoHardwareProbe")) // <FS:Ansariel> FIRE-20378 / FIRE-20382: Breaks memory detection an 4K monitor workaround
 	{
 		// per DEV-11631 - disable hardware probing for everything
 		// but vram.

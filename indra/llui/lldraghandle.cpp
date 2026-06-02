@@ -158,7 +158,7 @@ void LLDragHandleTop::draw()
 
 		LLRect title_rect = mTitleBox->getRect();
 		S32 title_right = title_rect.mLeft + mTitleWidth;
-		BOOL show_right_side = title_right < getRect().getWidth();
+		bool show_right_side = title_right < getRect().getWidth();
 
 		for( S32 i=0; i<4; i++ )
 		{

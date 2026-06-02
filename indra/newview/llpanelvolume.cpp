@@ -1280,7 +1280,7 @@ void LLPanelVolume::onCommitAnimatedMeshCheckbox(LLUICtrl *, void*)
 		return;
     }
 	LLVOVolume *volobjp = (LLVOVolume *)objectp;
-	BOOL animated_mesh = getChild<LLUICtrl>("Animated Mesh Checkbox Ctrl")->getValue();
+	bool animated_mesh = getChild<LLUICtrl>("Animated Mesh Checkbox Ctrl")->getValue();
     U32 flags = volobjp->getExtendedMeshFlags();
     U32 new_flags = flags;
     if (animated_mesh)
@@ -1339,6 +1339,6 @@ void LLPanelVolume::handleResponseChangeToFlexible(const LLSD &pNotification, co
 	}
 	else
 	{
-		getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->setValue(FALSE);
+		getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->setValue(false);
 	}
 }

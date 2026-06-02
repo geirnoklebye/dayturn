@@ -139,7 +139,7 @@ void LLMultiFloater::growToFit(S32 content_width, S32 content_height)
 }
 
 /**
-  void addFloater(LLFloater* floaterp, BOOL select_added_floater)
+  void addFloater(LLFloater* floaterp, bool select_added_floater)
 
   Adds the LLFloater pointed to by floaterp to this.
   If floaterp is already hosted by this, then it is re-added to get
@@ -244,7 +244,7 @@ void LLMultiFloater::updateFloaterTitle(LLFloater* floaterp)
 
 
 /**
-	BOOL selectFloater(LLFloater* floaterp)
+	bool selectFloater(LLFloater* floaterp)
 
 	If the LLFloater pointed to by floaterp is hosted by this,
 	then its tab is selected and returns true.  Otherwise returns false.
@@ -396,7 +396,7 @@ S32	LLMultiFloater::getFloaterCount()
 }
 
 /**
-	BOOL isFloaterFlashing(LLFloater* floaterp)
+	bool isFloaterFlashing(LLFloater* floaterp)
 
 	Returns true if the LLFloater pointed to by floaterp
 	is currently in a flashing state and is hosted by this.
@@ -413,7 +413,7 @@ bool LLMultiFloater::isFloaterFlashing(LLFloater* floaterp)
 }
 
 /**
-	BOOL setFloaterFlashing(LLFloater* floaterp, BOOL flashing)
+	bool setFloaterFlashing(LLFloater* floaterp, bool flashing)
 
 	Sets the current flashing state of the LLFloater pointed
 	to by floaterp to be the BOOL flashing if the LLFloater pointed

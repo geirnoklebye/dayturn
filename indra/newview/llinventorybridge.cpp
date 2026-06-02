@@ -3220,7 +3220,7 @@ void LLInventoryCopyAndWearObserver::changed(U32 mask)
 			{
 				if ((*id_it) == mCatID)
 				{
-					mFolderAdded = TRUE;
+					mFolderAdded = true;
 					break;
 				}
 			}
@@ -4945,7 +4945,7 @@ static bool can_move_to_my_outfits(LLInventoryModel* model, LLInventoryCategory*
     return true;
 }
 
-// Returns TRUE if item is a landmark or a link to a landmark
+// Returns true if item is a landmark or a link to a landmark
 // and can be moved to Favorites or Landmarks folder.
 static bool can_move_to_landmarks(LLInventoryItem* inv_item)
 {

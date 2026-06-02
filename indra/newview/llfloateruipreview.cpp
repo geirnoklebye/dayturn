@@ -1030,7 +1030,7 @@ void LLFloaterUIPreview::getExecutablePath(const std::vector<std::string>& filen
 #if LL_DARWIN
 	// on Mac, if it's an application bundle, figure out the actual path from the Info.plist file
 	CFStringRef path_cfstr = CFStringCreateWithCString(kCFAllocatorDefault, chosen_path.c_str(), kCFStringEncodingMacRoman);		// get path as a CFStringRef
-	CFURLRef path_url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, path_cfstr, kCFURLPOSIXPathStyle, TRUE);			// turn it into a CFURLRef
+	CFURLRef path_url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, path_cfstr, kCFURLPOSIXPathStyle, true);			// turn it into a CFURLRef
 	CFBundleRef chosen_bundle = CFBundleCreate(kCFAllocatorDefault, path_url);												// get a handle for the bundle
 	if(NULL != chosen_bundle)
 	{

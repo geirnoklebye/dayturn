@@ -63,7 +63,7 @@ public:
 	void reset();
 
 	// returns true if the clipboard has something pasteable in it.
-	BOOL hasContents() const;
+	bool hasContents() const;
 	bool isCutMode() const { return mCutMode; }
 
 protected:

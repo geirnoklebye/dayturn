@@ -190,7 +190,7 @@ F32 LLFloaterMove::getYawRate( F32 time )
 
 
 // static 
-void LLFloaterMove::setFlyingMode(BOOL fly)
+void LLFloaterMove::setFlyingMode(bool fly)
 {
 	LLFloaterMove* instance = LLFloaterReg::findTypedInstance<LLFloaterMove>("moveview");
 	if (instance)
@@ -222,7 +222,7 @@ void LLFloaterMove::setAlwaysRunMode(bool run)
 	}
 }
 
-void LLFloaterMove::setFlyingModeImpl(BOOL fly)
+void LLFloaterMove::setFlyingModeImpl(bool fly)
 {
 	updateButtonsWithMovementMode(fly ? MM_FLY : (gAgent.getAlwaysRun() ? MM_RUN : MM_WALK));
 }
@@ -236,7 +236,7 @@ void LLFloaterMove::setAlwaysRunModeImpl(bool run)
 }
 
 //static
-void LLFloaterMove::setSittingMode(BOOL bSitting)
+void LLFloaterMove::setSittingMode(bool bSitting)
 {
 	if (bSitting)
 	{
@@ -466,7 +466,7 @@ void LLFloaterMove::enableInstance()
 	{
 		if (gAgent.getFlying())
 		{
-			instance->showModeButtons(FALSE);
+			instance->showModeButtons(false);
 		}
 		else
 		{
@@ -479,14 +479,14 @@ void LLFloaterMove::onOpen(const LLSD& key)
 {
 	if (gAgent.getFlying())
 	{
-		setFlyingMode(TRUE);
-		showModeButtons(FALSE);
+		setFlyingMode(true);
+		showModeButtons(false);
 	}
 
 	if (isAgentAvatarValid() && gAgentAvatarp->isSitting())
 	{
-		setSittingMode(TRUE);
-		showModeButtons(FALSE);
+		setSittingMode(true);
+		showModeButtons(false);
 	}
 
 	sUpdateFlyingStatus();

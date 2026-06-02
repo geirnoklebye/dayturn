@@ -364,7 +364,7 @@ LLVector3 LLManip::getPivotPoint()
 	static LLCachedControl<F32> sPivotY(gSavedSettings, "BuildPrefs_PivotY", 50.0f);
 	static LLCachedControl<F32> sPivotZ(gSavedSettings, "BuildPrefs_PivotZ", 50.0f);
 	
-	const BOOL children_ok = TRUE;
+	const bool children_ok = true;
 	if (mObjectSelection->getFirstRootObject(children_ok) && (mObjectSelection->getObjectCount() == 1 || sActualRoot) && mObjectSelection->getSelectType() != SELECT_TYPE_HUD)
 	{
 		pos = mObjectSelection->getFirstRootObject(children_ok)->getPivotPositionAgent();
@@ -530,7 +530,7 @@ void LLManip::renderTickText(const LLVector3& pos, const std::string& text, cons
 {
 	const LLFontGL* big_fontp = LLFontGL::getFontSansSerif();
 
-	BOOL hud_selection = mObjectSelection->getSelectType() == SELECT_TYPE_HUD;
+	bool hud_selection = mObjectSelection->getSelectType() == SELECT_TYPE_HUD;
 	gGL.matrixMode(LLRender::MM_MODELVIEW);
 	gGL.pushMatrix();
 	LLVector3 render_pos = pos;

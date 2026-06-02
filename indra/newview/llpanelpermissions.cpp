@@ -241,13 +241,13 @@ void LLPanelPermissions::disableAll()
 	getChild<LLUICtrl>("Object Description")->setValue(LLStringUtil::null);
 	getChildView("Object Description")->setEnabled(false);
 		
-	getChild<LLUICtrl>("checkbox share with group")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox share with group")->setValue(false);
 	getChildView("checkbox share with group")->setEnabled(false);
 	getChildView("button deed")->setEnabled(false);
 
-	getChild<LLUICtrl>("checkbox allow everyone move")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox allow everyone move")->setValue(false);
 	getChildView("checkbox allow everyone move")->setEnabled(false);
-	getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(false);
 	getChildView("checkbox allow everyone copy")->setEnabled(false);
 	
 	// <FS:CR> OpenSim export permissions //left in case LL adds functionally
@@ -257,19 +257,19 @@ void LLPanelPermissions::disableAll()
 
 	//Next owner can:
 	getChildView("Next owner can:")->setEnabled(false);
-	getChild<LLUICtrl>("checkbox next owner can modify")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox next owner can modify")->setValue(false);
 	getChildView("checkbox next owner can modify")->setEnabled(false);
-	getChild<LLUICtrl>("checkbox next owner can copy")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox next owner can copy")->setValue(false);
 	getChildView("checkbox next owner can copy")->setEnabled(false);
-	getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(false);
 	getChildView("checkbox next owner can transfer")->setEnabled(false);
 
 	//checkbox for sale
-	getChild<LLUICtrl>("checkbox for sale")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox for sale")->setValue(false);
 	getChildView("checkbox for sale")->setEnabled(false);
 
 	//checkbox include in search
-	getChild<LLUICtrl>("search_check")->setValue(FALSE);
+	getChild<LLUICtrl>("search_check")->setValue(false);
 	getChildView("search_check")->setEnabled(false);
 		
 	LLComboBox*	combo_sale_type = getChild<LLComboBox>("sale type");
@@ -834,19 +834,19 @@ void LLPanelPermissions::refresh()
 	{
 		if ((group_mask_on & PERM_COPY) && (group_mask_on & PERM_MODIFY) && (group_mask_on & PERM_MOVE))
 		{
-			getChild<LLUICtrl>("checkbox share with group")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox share with group")->setValue(true);
 			getChild<LLUICtrl>("checkbox share with group")->setTentative(false);
 			getChildView("button deed")->setEnabled(gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (owner_mask_on & PERM_TRANSFER) && !group_owned && can_transfer);
 		}
 		else if ((group_mask_off & PERM_COPY) && (group_mask_off & PERM_MODIFY) && (group_mask_off & PERM_MOVE))
 		{
-			getChild<LLUICtrl>("checkbox share with group")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox share with group")->setValue(false);
 			getChild<LLUICtrl>("checkbox share with group")->setTentative(false);
 			getChildView("button deed")->setEnabled(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox share with group")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox share with group")->setValue(true);
 			getChild<LLUICtrl>("checkbox share with group")->setTentative(!has_change_perm_ability);
 			getChildView("button deed")->setEnabled(gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (group_mask_on & PERM_MOVE) && (owner_mask_on & PERM_TRANSFER) && !group_owned && can_transfer);
 		}
@@ -857,51 +857,51 @@ void LLPanelPermissions::refresh()
 		// Move
 		if (everyone_mask_on & PERM_MOVE)
 		{
-			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(true);
 			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative(false);
 		}
 		else if (everyone_mask_off & PERM_MOVE)
 		{
-			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(false);
 			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox allow everyone move")->setValue(true);
 			getChild<LLUICtrl>("checkbox allow everyone move")->setTentative(true);
 		}
 
 		// Copy == everyone can't copy
 		if (everyone_mask_on & PERM_COPY)
 		{
-			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(true);
 			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative( 	!can_copy || !can_transfer);
 		}
 		else if (everyone_mask_off & PERM_COPY)
 		{
-			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(false);
 			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox allow everyone copy")->setValue(true);
 			getChild<LLUICtrl>("checkbox allow everyone copy")->setTentative(true);
 		}
 		
 		// <FS:CR> OpenSim export permissions
 		if (everyone_mask_on & PERM_EXPORT)
 		{
-			getChild<LLUICtrl>("checkbox allow export")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox allow export")->setValue(true);
 			getChild<LLUICtrl>("checkbox allow export")->setTentative(false);
 		}
 		else if (everyone_mask_off & PERM_COPY)
 		{
-			getChild<LLUICtrl>("checkbox allow export")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox allow export")->setValue(false);
 			getChild<LLUICtrl>("checkbox allow export")->setTentative(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox allow export")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox allow export")->setValue(true);
 			getChild<LLUICtrl>("checkbox allow export")->setTentative(true);
 		}
 	}
@@ -911,51 +911,51 @@ void LLPanelPermissions::refresh()
 		// Modify == next owner canot modify
 		if (next_owner_mask_on & PERM_MODIFY)
 		{
-			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(true);
 			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(false);
 		}
 		else if (next_owner_mask_off & PERM_MODIFY)
 		{
-			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(false);
 			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox next owner can modify")->setValue(true);
 			getChild<LLUICtrl>("checkbox next owner can modify")->setTentative(true);
 		}
 
 		// Copy == next owner cannot copy
 		if (next_owner_mask_on & PERM_COPY)
 		{			
-			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(true);
 			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(!can_copy);
 		}
 		else if (next_owner_mask_off & PERM_COPY)
 		{
-			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(false);
 			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox next owner can copy")->setValue(true);
 			getChild<LLUICtrl>("checkbox next owner can copy")->setTentative(true);
 		}
 
 		// Transfer == next owner cannot transfer
 		if (next_owner_mask_on & PERM_TRANSFER)
 		{
-			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(true);
 			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative(!can_transfer);
 		}
 		else if (next_owner_mask_off & PERM_TRANSFER)
 		{
-			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(FALSE);
+			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(false);
 			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative(false);
 		}
 		else
 		{
-			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(TRUE);
+			getChild<LLUICtrl>("checkbox next owner can transfer")->setValue(true);
 			getChild<LLUICtrl>("checkbox next owner can transfer")->setTentative(true);
 		}
 	}

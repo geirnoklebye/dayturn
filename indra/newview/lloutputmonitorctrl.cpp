@@ -325,7 +325,7 @@ void LLOutputMonitorCtrl::onChangeDetailed(const LLMute& mute)
 // virtual
 void LLOutputMonitorCtrl::switchIndicator(bool switch_on)
 {
-    if ((mChannelState != INACTIVE_CHANNEL) && (getVisible() != (BOOL)switch_on))
+    if ((mChannelState != INACTIVE_CHANNEL) && (getVisible() != (bool)switch_on))
     {
         setVisible(switch_on);
         

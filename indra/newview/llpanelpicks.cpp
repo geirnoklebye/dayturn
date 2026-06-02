@@ -91,7 +91,7 @@ public:
 			return true;
 		}
 
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnablePicks"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnablePicks"))
 		{
 			LLNotificationsUtil::add("NoPicks", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
@@ -112,7 +112,7 @@ public:
 
 		// get the ID for the pick_id
 		LLUUID pick_id;
-		if (!pick_id.set(params[0], FALSE))
+		if (!pick_id.set(params[0], false))
 		{
 			return false;
 		}
@@ -209,7 +209,7 @@ public:
 			return true;
 		}
 
-		if (!LLUI::getInstance()->mSettingGroups["config"]->getBOOL("EnableClassifieds"))
+		if (!LLUI::getInstance()->mSettingGroups["config"]->getbool("EnableClassifieds"))
 		{
 			LLNotificationsUtil::add("NoClassifieds", LLSD(), LLSD(), std::string("SwitchToStandardSkinAndQuit"));
 			return true;
@@ -230,7 +230,7 @@ public:
 
 		// get the ID for the classified
 		LLUUID classified_id;
-		if (!classified_id.set(params[0], FALSE))
+		if (!classified_id.set(params[0], false))
 		{
 			return false;
 		}

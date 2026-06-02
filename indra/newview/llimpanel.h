@@ -68,8 +68,8 @@ public:
 	void onVisibilityChange(const LLSD& new_visibility);
 
 	// add target ids to the session. 
-	// Return TRUE if successful, otherwise FALSE.
-	BOOL inviteToSession(const std::vector<LLUUID>& agent_ids);
+	// Return true if successful, otherwise false.
+	bool inviteToSession(const std::vector<LLUUID>& agent_ids);
 
 	void addHistoryLine(const std::string &utf8msg, 
 						const LLColor4& color = LLColor4::white, 
@@ -77,7 +77,7 @@ public:
 						const LLUUID& source = LLUUID::null,
 						const std::string& name = LLStringUtil::null);
 
-	void setInputFocus( BOOL b );
+	void setInputFocus( bool b );
 
 	void selectAll();
 	void selectNone();
@@ -134,7 +134,7 @@ private:
 
 	// Called whenever the user starts or stops typing.
 	// Sends the typing state to the other user if necessary.
-	void setTyping(BOOL typing);
+	void setTyping(bool typing);
 
 	// Add the "User is typing..." indicator.
 	void addTypingIndicator(const std::string &name);
@@ -157,7 +157,7 @@ private:
 
 	std::string mSessionLabel;
 
-	BOOL mSessionInitialized;
+	bool mSessionInitialized;
 	LLSD mQueuedMsgsForInit;
 
 	// The value mOtherParticipantUUID depends on how the IM session was started:
@@ -188,11 +188,11 @@ private:
 
 	bool mSentTypingState;
 
-	BOOL mShowSpeakersOnConnect;
+	bool mShowSpeakersOnConnect;
 
-	BOOL mTextIMPossible;
-	BOOL mProfileButtonEnabled;
-	BOOL mCallBackEnabled;
+	bool mTextIMPossible;
+	bool mProfileButtonEnabled;
+	bool mCallBackEnabled;
 
 	LLPanelActiveSpeakers* mSpeakerPanel;
 	

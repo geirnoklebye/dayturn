@@ -178,7 +178,7 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		}
 /*		if ( body.has("SetTeenMode") )
 		{
-			BOOL setteen = body["SetTeenMode"].asInteger() == 1 ? TRUE : FALSE;
+			bool setteen = body["SetTeenMode"].asInteger() == 1 ? true : false;
 			gAgent.setTeen(setteen);
 			LLFloaterWorldMap::reloadIcons(NULL);
 			regionlimits->setEnableTeenMode(setteen);

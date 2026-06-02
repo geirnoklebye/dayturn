@@ -55,7 +55,7 @@ private:
 
 	F32  mCPUTime;
 
-	BOOL mIsHorizontal;
+	bool mIsHorizontal;
 	F32  mLength;
 	F32  mRadius;
 };

@@ -203,7 +203,7 @@ void LLManipRotate::render()
 				{
 					gGL.color4f( 0.7f, 0.7f, 0.7f, 0.3f );
 					gGL.diffuseColor4f(0.7f, 0.7f, 0.7f, 0.3f);
-					gl_circle_2d( 0, 0,  mRadiusMeters, CIRCLE_STEPS, TRUE );
+					gl_circle_2d( 0, 0,  mRadiusMeters, CIRCLE_STEPS, true );
 				}
 				
 				gGL.flush();

@@ -106,7 +106,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& session_label,
 	mHistoryEditor(NULL),
 	mSessionUUID(session_id),
 	mSessionLabel(session_label),
-	mSessionInitialized(FALSE),
+	mSessionInitialized(false),
 	mSessionStartMsgPos(0),
 	mOtherParticipantUUID(other_participant_id),
 	mDialog(dialog),
@@ -116,10 +116,10 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& session_label,
 	mTypingLineStartIndex(0),
 	mSentTypingState(true),
 	mNumUnreadMessages(0),
-	mShowSpeakersOnConnect(TRUE),
-	mTextIMPossible(TRUE),
-	mProfileButtonEnabled(TRUE),
-	mCallBackEnabled(TRUE),
+	mShowSpeakersOnConnect(true),
+	mTextIMPossible(true),
+	mProfileButtonEnabled(true),
+	mCallBackEnabled(true),
 	mSpeakerPanel(NULL),
 	mFirstKeystrokeTimer(),
 	mLastKeystrokeTimer()
@@ -232,12 +232,12 @@ bool LLFloaterIMPanel::postBuild()
 
 	if ( IM_SESSION_GROUP_START == mDialog )
 	{
-		childSetEnabled("profile_btn", FALSE);
+		childSetEnabled("profile_btn", false);
 	}
 	
 	if(!mProfileButtonEnabled)
 	{
-		childSetEnabled("profile_callee_btn", FALSE);
+		childSetEnabled("profile_callee_btn", false);
 	}
 
 	sTitleString = getString("title_string");
@@ -263,7 +263,7 @@ void* LLFloaterIMPanel::createSpeakersPanel(void* data)
 {
 	LLFloaterIMPanel* floaterp = (LLFloaterIMPanel*)data;
 	LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(floaterp->mSessionUUID);
-	floaterp->mSpeakerPanel = new LLPanelActiveSpeakers(speaker_mgr, TRUE);
+	floaterp->mSpeakerPanel = new LLPanelActiveSpeakers(speaker_mgr, true);
 	return floaterp->mSpeakerPanel;
 }
 
@@ -303,7 +303,7 @@ void LLFloaterIMPanel::draw()
 {	
 	LLViewerRegion* region = gAgent.getRegion();
 	
-	BOOL enable_connect = (region && region->getCapability("ChatSessionRequest") != "")
+	bool enable_connect = (region && region->getCapability("ChatSessionRequest") != "")
 					  && mSessionInitialized
 					  && LLVoiceClient::getInstance()->voiceEnabled()
 					  && mCallBackEnabled;
@@ -344,7 +344,7 @@ void LLFloaterIMPanel::draw()
 	if (mShowSpeakersOnConnect && voice_channel->isActive())
 	{
 		childSetVisible("active_speakers_panel", true);
-		mShowSpeakersOnConnect = FALSE;
+		mShowSpeakersOnConnect = false;
 	}
 	childSetValue("toggle_active_speakers_btn", childIsVisible("active_speakers_panel"));
 
@@ -353,7 +353,7 @@ void LLFloaterIMPanel::draw()
 		// Time out if user hasn't typed for a while.
 		if (mLastKeystrokeTimer.getElapsedTimeF32() > LLAgent::TYPING_TIMEOUT_SECS)
 		{
-			setTyping(FALSE);
+			setTyping(false);
 		}
 
 		// If we are typing, and it's been a little while, send the
@@ -406,12 +406,12 @@ private:
 	LLUUID mSessionID;
 };
 
-BOOL LLFloaterIMPanel::inviteToSession(const std::vector<LLUUID>& ids)
+bool LLFloaterIMPanel::inviteToSession(const std::vector<LLUUID>& ids)
 {
 	LLViewerRegion* region = gAgent.getRegion();
 	if (!region)
 	{
-		return FALSE;
+		return false;
 	}
 	
 	S32 count = ids.size();
@@ -447,7 +447,7 @@ BOOL LLFloaterIMPanel::inviteToSession(const std::vector<LLUUID>& ids)
 		// was added.
 	}
 
-	return TRUE;
+	return true;
 }
 
 void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4& color, bool log_to_file, const LLUUID& source, const std::string& name)
@@ -505,7 +505,7 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 }
 
 
-void LLFloaterIMPanel::setInputFocus( BOOL b )
+void LLFloaterIMPanel::setInputFocus( bool b )
 {
 	mInputEditor->setFocus( b );
 }
@@ -641,7 +641,7 @@ bool LLFloaterIMPanel::isInviteAllowed() const
 void LLFloaterIMPanel::onTabClick(void* userdata)
 {
 	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	self->setInputFocus(TRUE);
+	self->setInputFocus(true);
 }
 
 
@@ -726,7 +726,7 @@ void LLFloaterIMPanel::onInputEditorFocusReceived( LLFocusableElement* caller, v
 void LLFloaterIMPanel::onInputEditorFocusLost(LLFocusableElement* caller, void* userdata)
 {
 	LLFloaterIMPanel* self = (LLFloaterIMPanel*) userdata;
-	self->setTyping(FALSE);
+	self->setTyping(false);
 }
 
 // static
@@ -736,19 +736,19 @@ void LLFloaterIMPanel::onInputEditorKeystroke(LLLineEditor* caller, void* userda
 	std::string text = self->mInputEditor->getText();
 	if (!text.empty())
 	{
-		self->setTyping(TRUE);
+		self->setTyping(true);
 	}
 	else
 	{
 		// Deleting all text counts as stopping typing.
-		self->setTyping(FALSE);
+		self->setTyping(false);
 	}
 }
 
 // virtual
 void LLFloaterIMPanel::onClose(bool app_quitting)
 {
-	setTyping(FALSE);
+	setTyping(false);
 
 	gIMMgr->leaveSession(mSessionUUID);
 
@@ -827,7 +827,7 @@ void LLFloaterIMPanel::processSessionUpdate(const LLSD& session_update)
 		session_update.has("moderated_mode") &&
 		session_update["moderated_mode"].has("voice") )
 	{
-		BOOL voice_moderated = session_update["moderated_mode"]["voice"];
+		bool voice_moderated = session_update["moderated_mode"]["voice"];
 
 		if (voice_moderated)
 		{
@@ -850,7 +850,7 @@ void LLFloaterIMPanel::processSessionUpdate(const LLSD& session_update)
 void LLFloaterIMPanel::sessionInitReplyReceived(const LLUUID& session_id)
 {
 	mSessionUUID = session_id;
-	mSessionInitialized = TRUE;
+	mSessionInitialized = true;
 
 	//we assume the history editor hasn't moved at all since
 	//we added the starting session message
@@ -873,7 +873,7 @@ void LLFloaterIMPanel::sessionInitReplyReceived(const LLUUID& session_id)
 	}
 }
 
-void LLFloaterIMPanel::setTyping(BOOL typing)
+void LLFloaterIMPanel::setTyping(bool typing)
 {
 	LLIMSpeakerMgr* speaker_mgr = LLIMModel::getInstance()->getSpeakerManager(mSessionUUID);
 	if (typing)

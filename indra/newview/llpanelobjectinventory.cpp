@@ -234,9 +234,9 @@ const std::string& LLTaskInvFVBridge::getDisplayName() const
 		}
 
 		const LLPermissions& perm(item->getPermissions());
-		BOOL copy = gAgent.allowOperation(PERM_COPY, perm, GP_OBJECT_MANIPULATE);
-		BOOL mod  = gAgent.allowOperation(PERM_MODIFY, perm, GP_OBJECT_MANIPULATE);
-		BOOL xfer = gAgent.allowOperation(PERM_TRANSFER, perm, GP_OBJECT_MANIPULATE);
+		bool copy = gAgent.allowOperation(PERM_COPY, perm, GP_OBJECT_MANIPULATE);
+		bool mod  = gAgent.allowOperation(PERM_MODIFY, perm, GP_OBJECT_MANIPULATE);
+		bool xfer = gAgent.allowOperation(PERM_TRANSFER, perm, GP_OBJECT_MANIPULATE);
 
 		if(!copy)
 		{
@@ -328,9 +328,9 @@ bool LLTaskInvFVBridge::isItemMovable() const
 	//LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	//if(object && (object->permModify() || gAgent.isGodlike()))
 	//{
-	//	return TRUE;
+	//	return true;
 	//}
-	//return FALSE;
+	//return false;
 	return true;
 }
 
@@ -660,8 +660,8 @@ void LLTaskCategoryBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 bool LLTaskCategoryBridge::hasChildren() const
 {
-	// return TRUE if we have or do know know if we have children.
-	// *FIX: For now, return FALSE - we will know for sure soon enough.
+	// return true if we have or do know know if we have children.
+	// *FIX: For now, return false - we will know for sure soon enough.
 	return false;
 }
 
@@ -929,7 +929,7 @@ public:
 					   const std::string& name) :
 		LLTaskInvFVBridge(panel, uuid, name) {}
 
-	//static BOOL enableIfCopyable( void* userdata );
+	//static bool enableIfCopyable( void* userdata );
 	virtual void performAction(LLInventoryModel* model, std::string action);
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
 };
@@ -1079,7 +1079,7 @@ void LLTaskNotecardBridge::openItem()
 
 	// Note: even if we are not allowed to modify copyable notecard, we should be able to view it
 	LLInventoryItem *item = dynamic_cast<LLInventoryItem*>(object->getInventoryObject(mUUID));
-	BOOL item_copy = item && gAgent.allowOperation(PERM_COPY, item->getPermissions(), GP_OBJECT_MANIPULATE);
+	bool item_copy = item && gAgent.allowOperation(PERM_COPY, item->getPermissions(), GP_OBJECT_MANIPULATE);
 	if( item_copy
 		|| object->permModify()
 		|| gAgent.isGodlike())
@@ -1191,7 +1191,7 @@ public:
 
 LLUIImagePtr LLTaskWearableBridge::getIcon() const
 {
-	return LLInventoryIcon::getIcon(mAssetType, mInventoryType, mFlags, FALSE );
+	return LLInventoryIcon::getIcon(mAssetType, mInventoryType, mFlags, false );
 }
 
 ///----------------------------------------------------------------------------
@@ -1213,7 +1213,7 @@ public:
 
 LLUIImagePtr LLTaskSettingsBridge::getIcon() const
 {
-    return LLInventoryIcon::getIcon(mAssetType, mInventoryType, mFlags, FALSE);
+    return LLInventoryIcon::getIcon(mAssetType, mInventoryType, mFlags, false);
 }
 
 LLSettingsType::type_e LLTaskSettingsBridge::getSettingsType() const 

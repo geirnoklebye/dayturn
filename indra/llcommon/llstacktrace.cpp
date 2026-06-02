@@ -53,8 +53,8 @@ bool ll_get_stack_trace(std::vector<std::string>& lines)
 	const S32 MAX_STACK_DEPTH = 32;
 	const S32 STRING_NAME_LENGTH = 200;
 	const S32 FRAME_SKIP = 2;
-	static BOOL symbolsLoaded = false;
-	static BOOL firstCall = true;
+	static bool symbolsLoaded = false;
+	static bool firstCall = true;
 
 	HANDLE hProc = GetCurrentProcess();
 

@@ -106,7 +106,7 @@ LLSnapshotModel::ESnapshotFormat LLPanelSnapshot::getImageFormat() const
 	return LLSnapshotModel::SNAPSHOT_FORMAT_JPEG;
 }
 
-void LLPanelSnapshot::enableControls(BOOL enable)
+void LLPanelSnapshot::enableControls(bool enable)
 {
 	setCtrlsEnabled(enable);
 }

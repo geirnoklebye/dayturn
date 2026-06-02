@@ -104,7 +104,7 @@ bool LLPreviewNotecard::postBuild()
 	if (item)
 	{
 		getChild<LLUICtrl>("desc")->setValue(item->getDescription());
-		BOOL source_library = mObjectUUID.isNull() && gInventory.isObjectDescendentOf(item->getUUID(), gInventory.getLibraryRootFolderID());
+		bool source_library = mObjectUUID.isNull() && gInventory.isObjectDescendentOf(item->getUUID(), gInventory.getLibraryRootFolderID());
 		getChildView("Delete")->setEnabled(!source_library);
 	}
 	getChild<LLLineEditor>("desc")->setPrevalidate(&LLTextValidate::validateASCIIPrintableNoPipe);
@@ -264,10 +264,10 @@ void LLPreviewNotecard::loadAsset()
 	if(item)
 	{
 		LLPermissions perm(item->getPermissions());
-		BOOL is_owner = gAgent.allowOperation(PERM_OWNER, perm, GP_OBJECT_MANIPULATE);
-		BOOL allow_copy = gAgent.allowOperation(PERM_COPY, perm, GP_OBJECT_MANIPULATE);
-		BOOL allow_modify = canModify(mObjectUUID, item);
-		BOOL source_library = mObjectUUID.isNull() && gInventory.isObjectDescendentOf(mItemUUID, gInventory.getLibraryRootFolderID());
+		bool is_owner = gAgent.allowOperation(PERM_OWNER, perm, GP_OBJECT_MANIPULATE);
+		bool allow_copy = gAgent.allowOperation(PERM_COPY, perm, GP_OBJECT_MANIPULATE);
+		bool allow_modify = canModify(mObjectUUID, item);
+		bool source_library = mObjectUUID.isNull() && gInventory.isObjectDescendentOf(mItemUUID, gInventory.getLibraryRootFolderID());
 
 		if (allow_copy || gAgent.isGodlike())
 		{

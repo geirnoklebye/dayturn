@@ -187,8 +187,8 @@ private:
 	// Populate the menu with items like "New Skin", "New Pants", etc.
 	static void populateCreateWearableSubmenus(LLMenuGL* menu)
 	{
-		LLView* menu_clothes	= gMenuHolder->getChildView("COF.Gear.New_Clothes", FALSE);
-		LLView* menu_bp			= gMenuHolder->getChildView("COF.Gear.New_Body_Parts", FALSE);
+		LLView* menu_clothes	= gMenuHolder->getChildView("COF.Gear.New_Clothes", false);
+		LLView* menu_bp			= gMenuHolder->getChildView("COF.Gear.New_Body_Parts", false);
 		LLWearableType * wearable_type_inst = LLWearableType::getInstance();
 
 		for (U8 i = LLWearableType::WT_SHAPE; i != (U8) LLWearableType::WT_COUNT; ++i)
@@ -595,7 +595,7 @@ void LLPanelOutfitEdit::moveWearable(bool closer_to_body)
 
 void LLPanelOutfitEdit::toggleAddWearablesPanel()
 {
-	BOOL current_visibility = mAddWearablesPanel->getVisible();
+	bool current_visibility = mAddWearablesPanel->getVisible();
 	showAddWearablesPanel(!current_visibility);
 }
 

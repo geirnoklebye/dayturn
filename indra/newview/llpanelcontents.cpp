@@ -132,7 +132,7 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 
 void LLPanelContents::refresh()
 {
-	const BOOL children_ok = TRUE;
+	const bool children_ok = true;
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(children_ok);
 
 	getState(object);
@@ -158,7 +158,7 @@ void LLPanelContents::clearContents()
 // static
 void LLPanelContents::onClickNewScript(void *userdata)
 {
-	const BOOL children_ok = TRUE;
+	const bool children_ok = true;
 	LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getFirstRootObject(children_ok);
 	if(object)
 	{
