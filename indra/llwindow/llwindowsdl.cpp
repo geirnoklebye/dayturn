@@ -1755,7 +1755,7 @@ void LLWindowSDL::gatherInput()
                 LLCoordWindow winCoord(event.button.x, event.button.y);
                 LLCoordGL openGlCoord;
                 convertCoords(winCoord, &openGlCoord);
-		MASK mask = gKeyboard->currentMask(TRUE);
+		MASK mask = gKeyboard->currentMask(true);
 
                 if (event.button.button == SDL_BUTTON_LEFT)  // left
 			mCallbacks->handleMouseUp(this, openGlCoord, mask);

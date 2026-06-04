@@ -104,7 +104,7 @@ public:
 class LLDroppableItem : public LLInventoryCollectFunctor
 {
 public:
-	LLDroppableItem(BOOL is_transfer) :
+	LLDroppableItem(bool is_transfer) :
 		mCountLosing(0), mIsTransfer(is_transfer) {}
 	virtual ~LLDroppableItem() {}
 	virtual bool operator()(LLInventoryCategory* cat,
@@ -113,7 +113,7 @@ public:
 
 protected:
 	S32 mCountLosing;
-	BOOL mIsTransfer;
+	bool mIsTransfer;
 };
 
 bool LLDroppableItem::operator()(LLInventoryCategory* cat,
@@ -535,7 +535,7 @@ ECursorType LLToolDragAndDrop::acceptanceToCursor( EAcceptance acceptance )
 	case ACCEPT_POSTPONED:
 		break;
 	default:
-		llassert( FALSE );
+		llassert( false );
 	}
 
 	return mCursor;
@@ -790,12 +790,12 @@ void LLToolDragAndDrop::dragOrDrop3D( S32 x, S32 y, MASK mask, bool drop, EAccep
 	if (mDrop)
 	{
 		// don't allow drag and drop onto rigged or transparent objects
-		pick(gViewerWindow->pickImmediate(x, y, FALSE, FALSE));
+		pick(gViewerWindow->pickImmediate(x, y, false, false));
 	}
 	else
 	{
 		// don't allow drag and drop onto transparent objects
-		gViewerWindow->pickAsync(x, y, mask, pickCallback, FALSE, FALSE);
+		gViewerWindow->pickAsync(x, y, mask, pickCallback, false, false);
 	}
 
 	*acceptance = mLastAccept;
@@ -878,7 +878,7 @@ void LLToolDragAndDrop::pick(const LLPickInfo& pick_info)
 			(U32)mLastAccept,
 			(U32)callMemberFunction(*this, 
 									LLDragAndDropDictionary::instance().get(dad_type, target))
-				(hit_obj, hit_face, pick_info.mKeyMask, FALSE));
+				(hit_obj, hit_face, pick_info.mKeyMask, false));
 	}
 
 	if (mDrop && ((U32)mLastAccept >= ACCEPT_YES_COPY_SINGLE))
@@ -893,7 +893,7 @@ void LLToolDragAndDrop::pick(const LLPickInfo& pick_info)
 				const EDragAndDropType dad_type = mCargoTypes[item_index];
 				// Call the right implementation function
 				callMemberFunction(*this, LLDragAndDropDictionary::instance().get(dad_type, target))
-					(hit_obj, hit_face, pick_info.mKeyMask, TRUE);
+					(hit_obj, hit_face, pick_info.mKeyMask, true);
 			}
 		}
 		else
@@ -1511,7 +1511,7 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 	//BOOL copy = (perm.allowCopyBy(gAgent.getID(),
 	//							  gAgent.getGroupID())
 	//			 && (obj->mPermModify || obj->mFlagAllowInventoryAdd));
-	BOOL worn = FALSE;
+	bool worn = false;
 	LLVOAvatarSelf* my_avatar = NULL;
 	switch(item->getType())
 	{
@@ -1519,14 +1519,14 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 		my_avatar = gAgentAvatarp;
 		if(my_avatar && my_avatar->isWearingAttachment(item->getUUID()))
 		{
-				worn = TRUE;
+				worn = true;
 		}
 		break;
 	case LLAssetType::AT_BODYPART:
 	case LLAssetType::AT_CLOTHING:
 		if(gAgentWearables.isWearingItem(item->getUUID()))
 		{
-			worn = TRUE;
+			worn = true;
 		}
 		break;
 	case LLAssetType::AT_CALLINGCARD:
@@ -1537,16 +1537,16 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 			break;
 	}
 	const LLPermissions& perm = item->getPermissions();
-	BOOL modify = (obj->permModify() || obj->flagAllowInventoryAdd());
-	BOOL transfer = FALSE;
+	bool modify = (obj->permModify() || obj->flagAllowInventoryAdd());
+	bool transfer = false;
 	if((obj->permYouOwner() && (perm.getOwner() == gAgent.getID()))
 	   || perm.allowOperationBy(PERM_TRANSFER, gAgent.getID()))
 	{
-		transfer = TRUE;
+		transfer = true;
 	}
-	BOOL volume = (LL_PCODE_VOLUME == obj->getPCode());
+	bool volume = (LL_PCODE_VOLUME == obj->getPCode());
 	bool attached = obj->isAttachment();
-	BOOL unrestricted = ((perm.getMaskBase() & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED) ? TRUE : FALSE;
+	bool unrestricted = ((perm.getMaskBase() & PERM_ITEM_UNRESTRICTED) == PERM_ITEM_UNRESTRICTED) ? true : false;
 	if(attached && !unrestricted)
 	{
 		return ACCEPT_NO_LOCKED;
@@ -1579,7 +1579,7 @@ static void give_inventory_cb(const LLSD& notification, const LLSD& response)
 	LLViewerInventoryCategory * inv_cat =  gInventory.getCategory(payload["item_id"]);
 	if (NULL == inv_item && NULL == inv_cat)
 	{
-		llassert( FALSE );
+		llassert( false );
 		return;
 	}
 	bool successfully_shared;
@@ -1725,14 +1725,14 @@ bool LLToolDragAndDrop::handleGiveDragAndDrop(LLUUID dest_agent, LLUUID session_
 ///
 
 EAcceptance LLToolDragAndDrop::dad3dNULL(
-	LLViewerObject*, S32, MASK, BOOL)
+	LLViewerObject*, S32, MASK, bool)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dNULL()" << LL_ENDL;
 	return ACCEPT_NO;
 }
 
 EAcceptance LLToolDragAndDrop::dad3dRezAttachmentFromInv(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dRezAttachmentFromInv()" << LL_ENDL;
 	// must be in the user's inventory
@@ -1803,7 +1803,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezAttachmentFromInv(
 
 
 EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	if (mSource == SOURCE_WORLD)
 	{
@@ -1864,7 +1864,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dRezObjectOnObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	// handle objects coming from object inventory
 	if (mSource == SOURCE_WORLD)
@@ -1942,7 +1942,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnObject(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dRezScript(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dRezScript()" << LL_ENDL;
 
@@ -1980,7 +1980,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezScript(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dApplyToObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop, EDragAndDropType cargo_type)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop, EDragAndDropType cargo_type)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dApplyToObject()" << LL_ENDL;
 
@@ -2050,13 +2050,13 @@ EAcceptance LLToolDragAndDrop::dad3dApplyToObject(
 
 
 EAcceptance LLToolDragAndDrop::dad3dTextureObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	return dad3dApplyToObject(obj, face, mask, drop, DAD_TEXTURE);
 }
 
 EAcceptance LLToolDragAndDrop::dad3dMeshObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	return dad3dApplyToObject(obj, face, mask, drop, DAD_MESH);
 }
@@ -2064,7 +2064,7 @@ EAcceptance LLToolDragAndDrop::dad3dMeshObject(
 
 /*
 EAcceptance LLToolDragAndDrop::dad3dTextureSelf(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dTextureAvatar()" << LL_ENDL;
 	if(drop)
@@ -2079,7 +2079,7 @@ EAcceptance LLToolDragAndDrop::dad3dTextureSelf(
 */
 
 EAcceptance LLToolDragAndDrop::dad3dWearItem(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dWearItem()" << LL_ENDL;
 	LLViewerInventoryItem* item;
@@ -2112,7 +2112,7 @@ EAcceptance LLToolDragAndDrop::dad3dWearItem(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dActivateGesture(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dActivateGesture()" << LL_ENDL;
 	LLViewerInventoryItem* item;
@@ -2161,7 +2161,7 @@ EAcceptance LLToolDragAndDrop::dad3dActivateGesture(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dWearCategory(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dWearCategory()" << LL_ENDL;
 	LLViewerInventoryItem* item;
@@ -2208,7 +2208,7 @@ EAcceptance LLToolDragAndDrop::dad3dWearCategory(
 
 		if(drop)
 		{
-			BOOL append = ( (mask & MASK_SHIFT) ? TRUE : FALSE );
+			bool append = ( (mask & MASK_SHIFT) ? true : false );
 			LLAppearanceMgr::instance().wearInventoryCategory(category, false, append);
 		}
 		return ACCEPT_YES_MULTI;
@@ -2230,7 +2230,7 @@ EAcceptance LLToolDragAndDrop::dad3dWearCategory(
 
 
 EAcceptance LLToolDragAndDrop::dad3dUpdateInventory(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dadUpdateInventory()" << LL_ENDL;
 
@@ -2270,7 +2270,7 @@ bool LLToolDragAndDrop::dadUpdateInventory(LLViewerObject* obj, bool drop)
 }
 
 EAcceptance LLToolDragAndDrop::dad3dUpdateInventoryCategory(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dUpdateInventoryCategory()" << LL_ENDL;
 	if (obj == NULL)
@@ -2386,7 +2386,7 @@ EAcceptance LLToolDragAndDrop::dad3dUpdateInventoryCategory(
 
 
 EAcceptance LLToolDragAndDrop::dad3dRezCategoryOnObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	if ((mask & MASK_CONTROL))
 	{
@@ -2407,7 +2407,7 @@ bool LLToolDragAndDrop::dadUpdateInventoryCategory(LLViewerObject* obj,
 }
 
 EAcceptance LLToolDragAndDrop::dad3dGiveInventoryObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dGiveInventoryObject()" << LL_ENDL;
 
@@ -2445,7 +2445,7 @@ EAcceptance LLToolDragAndDrop::dad3dGiveInventoryObject(
 
 
 EAcceptance LLToolDragAndDrop::dad3dGiveInventory(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dGiveInventory()" << LL_ENDL;
 	// item has to be in agent inventory.
@@ -2468,7 +2468,7 @@ EAcceptance LLToolDragAndDrop::dad3dGiveInventory(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dGiveInventoryCategory(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dGiveInventoryCategory()" << LL_ENDL;
 	if(drop && obj)
@@ -2486,7 +2486,7 @@ EAcceptance LLToolDragAndDrop::dad3dGiveInventoryCategory(
 
 
 EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnLand(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dRezFromObjectOnLand()" << LL_ENDL;
 	LLViewerInventoryItem* item = NULL;
@@ -2507,7 +2507,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnLand(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnObject(
-	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject* obj, S32 face, MASK mask, bool drop)
 {
 	LL_DEBUGS() << "LLToolDragAndDrop::dad3dRezFromObjectOnObject()" << LL_ENDL;
 	LLViewerInventoryItem* item;
@@ -2542,7 +2542,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezFromObjectOnObject(
 }
 
 EAcceptance LLToolDragAndDrop::dad3dCategoryOnLand(
-	LLViewerObject *obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject *obj, S32 face, MASK mask, bool drop)
 {
 	return ACCEPT_NO;
 	/*
@@ -2580,7 +2580,7 @@ EAcceptance LLToolDragAndDrop::dad3dCategoryOnLand(
 // This shortcuts alot of steps to make a basic object
 // w/ an inventory and a special permissions set
 EAcceptance LLToolDragAndDrop::dad3dAssetOnLand(
-	LLViewerObject *obj, S32 face, MASK mask, BOOL drop)
+	LLViewerObject *obj, S32 face, MASK mask, bool drop)
 {
 	return ACCEPT_NO;
 	/*

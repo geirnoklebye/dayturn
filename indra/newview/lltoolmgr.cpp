@@ -102,12 +102,12 @@ LLToolMgr::LLToolMgr()
 
 void LLToolMgr::initTools()
 {
-	static BOOL initialized = FALSE;
+	static bool initialized = false;
 	if(initialized)
 	{
 		return;
 	}
-	initialized = TRUE;
+	initialized = true;
 	gBasicToolset->addTool( LLToolPie::getInstance() );
 	gBasicToolset->addTool( LLToolCamera::getInstance() );
 	gCameraToolset->addTool( LLToolCamera::getInstance() );
@@ -188,7 +188,7 @@ void LLToolMgr::setCurrentTool( LLTool* tool )
 
 LLTool* LLToolMgr::getCurrentTool()
 {
-	MASK override_mask = gKeyboard ? gKeyboard->currentMask(TRUE) : 0;
+	MASK override_mask = gKeyboard ? gKeyboard->currentMask(true) : 0;
 
 	LLTool* cur_tool = NULL;
 	// always use transient tools if available

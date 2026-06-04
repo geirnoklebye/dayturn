@@ -787,7 +787,7 @@ bool LLToolCompGun::handleRightMouseDown(S32 x, S32 y, MASK mask)
 
 	// This should return FALSE, meaning the context menu will
 	// be shown.
-	return FALSE;
+	return false;
 	*/
 
 	// Returning true will suppress the context menu

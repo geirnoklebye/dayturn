@@ -112,10 +112,10 @@ protected:
 
 protected:
 	// dragOrDrop3dImpl points to a member of LLToolDragAndDrop that
-	// takes parameters (LLViewerObject* obj, S32 face, MASK, BOOL
-	// drop) and returns a BOOL if drop is ok
+	// takes parameters (LLViewerObject* obj, S32 face, MASK, bool
+	// drop) and returns a bool if drop is ok
 	typedef EAcceptance (LLToolDragAndDrop::*dragOrDrop3dImpl)
-		(LLViewerObject*, S32, MASK, BOOL);
+		(LLViewerObject*, S32, MASK, bool);
 
 	void dragOrDrop(S32 x, S32 y, MASK mask, bool drop,
 					EAcceptance* acceptance);
@@ -157,53 +157,53 @@ protected:
 	// 3d drop functions. these call down into the static functions
 	// named drop<ThingToDrop> if drop is TRUE and permissions allow
 	// that behavior.
-	EAcceptance dad3dNULL(LLViewerObject*, S32, MASK, BOOL);
+	EAcceptance dad3dNULL(LLViewerObject*, S32, MASK, bool);
 	EAcceptance dad3dRezObjectOnLand(LLViewerObject* obj, S32 face,
-									 MASK mask, BOOL drop);
+									 MASK mask, bool drop);
 	EAcceptance dad3dRezObjectOnObject(LLViewerObject* obj, S32 face,
-									   MASK mask, BOOL drop);
+									   MASK mask, bool drop);
 	EAcceptance dad3dRezCategoryOnObject(LLViewerObject* obj, S32 face,
-										 MASK mask, BOOL drop);
+										 MASK mask, bool drop);
 	EAcceptance dad3dRezScript(LLViewerObject* obj, S32 face,
-							   MASK mask, BOOL drop);
+							   MASK mask, bool drop);
 	EAcceptance dad3dTextureObject(LLViewerObject* obj, S32 face,
-								   MASK mask, BOOL drop);
+								   MASK mask, bool drop);
 	EAcceptance dad3dMeshObject(LLViewerObject* obj, S32 face,
-								   MASK mask, BOOL drop);
+								   MASK mask, bool drop);
 //	EAcceptance dad3dTextureSelf(LLViewerObject* obj, S32 face,
-//								 MASK mask, BOOL drop);
+//								 MASK mask, bool drop);
 	EAcceptance dad3dWearItem(LLViewerObject* obj, S32 face,
-								 MASK mask, BOOL drop);
+								 MASK mask, bool drop);
 	EAcceptance dad3dWearCategory(LLViewerObject* obj, S32 face,
-								 MASK mask, BOOL drop);
+								 MASK mask, bool drop);
 	EAcceptance dad3dUpdateInventory(LLViewerObject* obj, S32 face,
-									 MASK mask, BOOL drop);
+									 MASK mask, bool drop);
 	EAcceptance dad3dUpdateInventoryCategory(LLViewerObject* obj,
 											 S32 face,
 											 MASK mask,
-											 BOOL drop);
+											 bool drop);
 	EAcceptance dad3dGiveInventoryObject(LLViewerObject* obj, S32 face,
-								   MASK mask, BOOL drop);
+								   MASK mask, bool drop);
 	EAcceptance dad3dGiveInventory(LLViewerObject* obj, S32 face,
-								   MASK mask, BOOL drop);
+								   MASK mask, bool drop);
 	EAcceptance dad3dGiveInventoryCategory(LLViewerObject* obj, S32 face,
-										   MASK mask, BOOL drop);
+										   MASK mask, bool drop);
 	EAcceptance dad3dRezFromObjectOnLand(LLViewerObject* obj, S32 face,
-										 MASK mask, BOOL drop);
+										 MASK mask, bool drop);
 	EAcceptance dad3dRezFromObjectOnObject(LLViewerObject* obj, S32 face,
-										   MASK mask, BOOL drop);
+										   MASK mask, bool drop);
 	EAcceptance dad3dRezAttachmentFromInv(LLViewerObject* obj, S32 face,
-										  MASK mask, BOOL drop);
+										  MASK mask, bool drop);
 	EAcceptance dad3dCategoryOnLand(LLViewerObject *obj, S32 face,
-									MASK mask, BOOL drop);
+									MASK mask, bool drop);
 	EAcceptance dad3dAssetOnLand(LLViewerObject *obj, S32 face,
-								 MASK mask, BOOL drop);
+								 MASK mask, bool drop);
 	EAcceptance dad3dActivateGesture(LLViewerObject *obj, S32 face,
-								 MASK mask, BOOL drop);
+								 MASK mask, bool drop);
 
 	// helper called by methods above to handle "application" of an item
 	// to an object (texture applied to face, mesh applied to shape, etc.)
-	EAcceptance dad3dApplyToObject(LLViewerObject* obj, S32 face, MASK mask, BOOL drop, EDragAndDropType cargo_type);
+	EAcceptance dad3dApplyToObject(LLViewerObject* obj, S32 face, MASK mask, bool drop, EDragAndDropType cargo_type);
 		
 	
 	// set the LLToolDragAndDrop's cursor based on the given acceptance

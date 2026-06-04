@@ -67,7 +67,7 @@ bool LLSpatialPartition::sTeleportRequested = false;
 
 //static counter for frame to switch LOD on
 
-void sg_assert(BOOL expr)
+void sg_assert(bool expr)
 {
 #if LL_OCTREE_PARANOIA_CHECK
 	if (!expr)
@@ -1872,7 +1872,7 @@ void renderVisibility(LLSpatialGroup* group, LLCamera* camera)
 	LLGLEnable cull(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);*/
 
-	/*BOOL render_objects = (!LLPipeline::sUseOcclusion || !group->isOcclusionState(LLSpatialGroup::OCCLUDED)) && group->isVisible() &&
+	/*bool render_objects = (!LLPipeline::sUseOcclusion || !group->isOcclusionState(LLSpatialGroup::OCCLUDED)) && group->isVisible() &&
 							!group->isEmpty();
 
 

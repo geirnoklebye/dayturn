@@ -2466,7 +2466,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 		needs_refresh = needs_refresh || child->mUserSelected;
 	}
 
-    static LLCachedControl<bool> allow_select_avatar(gSavedSettings, "AllowSelectAvatar", FALSE);
+    static LLCachedControl<bool> allow_select_avatar(gSavedSettings, "AllowSelectAvatar", false);
 	if (needs_refresh)
 	{
 		LLSelectMgr::getInstance()->updateSelectionCenter();
@@ -6552,14 +6552,14 @@ void LLViewerObject::updateFlags(bool physics_changed)
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, getLocalID() );
-	gMessageSystem->addBOOLFast(_PREHASH_UsePhysics, flagUsePhysics() );
-	gMessageSystem->addBOOL("IsTemporary", flagTemporaryOnRez() );
-	gMessageSystem->addBOOL("IsPhantom", flagPhantom() );
+	gMessageSystem->addboolFast(_PREHASH_UsePhysics, flagUsePhysics() );
+	gMessageSystem->addbool("IsTemporary", flagTemporaryOnRez() );
+	gMessageSystem->addbool("IsPhantom", flagPhantom() );
 
 	// stinson 02/28/2012 : This CastsShadows bool is no longer used in either the viewer or the simulator
 	// The simulator code does not even unpack this value when the message is received.
 	// This could be potentially hijacked in the future for another use should the urgent need arise.
-	gMessageSystem->addBOOL("CastsShadows", FALSE );
+	gMessageSystem->addbool("CastsShadows", false );
 
 	if (physics_changed)
 	{

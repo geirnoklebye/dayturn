@@ -2317,7 +2317,7 @@ void send_do_not_disturb_message (LLMessageSystem* msg, const LLUUID& from_id, c
 		pack_instant_message(
 			msg,
 			gAgent.getID(),
-			FALSE,
+			false,
 			gAgent.getSessionID(),
 			from_id,
 			my_name,
@@ -4651,11 +4651,11 @@ void process_user_list_reply(LLMessageSystem *msg, void **user_data)
 
 		if (status & 0x01)
 		{
-			dialog_friends_add_friend(buffer, TRUE);
+			dialog_friends_add_friend(buffer, true);
 		}
 		else
 		{
-			dialog_friends_add_friend(buffer, FALSE);
+			dialog_friends_add_friend(buffer, false);
 		}
 	}
 
@@ -6588,7 +6588,7 @@ void send_improved_im(const LLUUID& to_id,
 	pack_instant_message(
 		gMessageSystem,
 		gAgent.getID(),
-		FALSE,
+		false,
 		gAgent.getSessionID(),
 		to_id,
 		name,

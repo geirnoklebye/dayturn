@@ -516,7 +516,7 @@ bool LLLocationInputCtrl::handleKeyHere(KEY key, MASK mask)
 void LLLocationInputCtrl::onTextEntry(LLLineEditor* line_editor)
 {
 	KEY key = gKeyboard->currentKey();
-	MASK mask = gKeyboard->currentMask(TRUE);
+	MASK mask = gKeyboard->currentMask(true);
 
 	// Typing? (moving cursor should not affect showing the list)
 	bool typing = mask != MASK_CONTROL && key != KEY_LEFT && key != KEY_RIGHT && key != KEY_HOME && key != KEY_END;

@@ -104,7 +104,7 @@ void LLToolCamera::handleDeselect()
 //	gAgent.setLookingAtAvatar(FALSE);
 
 	// Make sure that temporary selection won't pass anywhere except pie tool.
-	MASK override_mask = gKeyboard ? gKeyboard->currentMask(TRUE) : 0;
+	MASK override_mask = gKeyboard ? gKeyboard->currentMask(true) : 0;
 	if (!mValidSelection && (override_mask != MASK_NONE || (gFloaterTools && gFloaterTools->getVisible())))
 	{
 		LLMenuGL::sMenuContainer->hideMenus();

@@ -2479,7 +2479,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
                     // Even if LLWindowCallbacks::handleUnicodeChar(llwchar, BOOL) returned FALSE,
                     // we *did* processed the event, so I believe we should not pass it to DefWindowProc...
-                    window_imp->handleUnicodeUTF16((U16)w_param, gKeyboard->currentMask(FALSE));
+                    window_imp->handleUnicodeUTF16((U16)w_param, gKeyboard->currentMask(false));
                 });
             return 0;
         }
@@ -2508,7 +2508,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                             window_imp->interruptLanguageTextInput();
                         }
                         
-                        MASK mask = gKeyboard->currentMask(TRUE);
+                        MASK mask = gKeyboard->currentMask(true);
                         auto gl_coord = window_imp->mCursorPosition.convert();
                         window_imp->mCallbacks->handleMouseMove(window_imp, gl_coord, mask);
                         window_imp->mCallbacks->handleMouseDown(window_imp, gl_coord, mask);
@@ -2530,7 +2530,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                         sHandleDoubleClick = true;
                         return;
                     }
-                    MASK mask = gKeyboard->currentMask(TRUE);
+                    MASK mask = gKeyboard->currentMask(true);
 
                     // generate move event to update mouse coordinates
                     window_imp->mCursorPosition = window_coord;
@@ -2553,7 +2553,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                         sHandleDoubleClick = true;
 
                         
-                        MASK mask = gKeyboard->currentMask(TRUE);
+                        MASK mask = gKeyboard->currentMask(true);
                         // generate move event to update mouse coordinates
                         window_imp->mCursorPosition = window_coord;
                         window_imp->mCallbacks->handleMouseUp(window_imp, window_imp->mCursorPosition.convert(), mask);
@@ -2573,7 +2573,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                             WINDOW_IMP_POST(window_imp->interruptLanguageTextInput());
                         }
 
-                        MASK mask = gKeyboard->currentMask(TRUE);
+                        MASK mask = gKeyboard->currentMask(true);
                         // generate move event to update mouse coordinates
                         auto gl_coord = window_imp->mCursorPosition.convert();
                         window_imp->mCallbacks->handleMouseMove(window_imp, gl_coord, mask);
@@ -2590,7 +2590,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                 LL_RECORD_BLOCK_TIME(FTM_MOUSEHANDLER);
                 window_imp->postMouseButtonEvent([=]()
                     {
-                        MASK mask = gKeyboard->currentMask(TRUE);
+                        MASK mask = gKeyboard->currentMask(true);
                         window_imp->mCallbacks->handleRightMouseUp(window_imp, window_imp->mCursorPosition.convert(), mask);
                     });
             }
@@ -2609,7 +2609,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                             window_imp->interruptLanguageTextInput();
                         }
 
-                        MASK mask = gKeyboard->currentMask(TRUE);
+                        MASK mask = gKeyboard->currentMask(true);
                         window_imp->mCallbacks->handleMiddleMouseDown(window_imp, window_imp->mCursorPosition.convert(), mask);
                     });
             }
@@ -2622,7 +2622,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                 LL_RECORD_BLOCK_TIME(FTM_MOUSEHANDLER);
                 window_imp->postMouseButtonEvent([=]()
                     {
-                        MASK mask = gKeyboard->currentMask(TRUE);
+                        MASK mask = gKeyboard->currentMask(true);
                         window_imp->mCallbacks->handleMiddleMouseUp(window_imp, window_imp->mCursorPosition.convert(), mask);
                     });
             }
@@ -2639,7 +2639,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                         window_imp->interruptLanguageTextInput();
                     }
 
-                    MASK mask = gKeyboard->currentMask(TRUE);
+                    MASK mask = gKeyboard->currentMask(true);
                     // Windows uses numbers 1 and 2 for buttons, remap to 4, 5
                     window_imp->mCallbacks->handleOtherMouseDown(window_imp, window_imp->mCursorPosition.convert(), mask, button + 3);
                 });
@@ -2654,7 +2654,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                     LL_RECORD_BLOCK_TIME(FTM_MOUSEHANDLER);
 
                     S32 button = GET_XBUTTON_WPARAM(w_param);
-                    MASK mask = gKeyboard->currentMask(TRUE);
+                    MASK mask = gKeyboard->currentMask(true);
                     // Windows uses numbers 1 and 2 for buttons, remap to 4, 5
                     window_imp->mCallbacks->handleOtherMouseUp(window_imp, window_imp->mCursorPosition.convert(), mask, button + 3);
                 });
@@ -2759,7 +2759,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             // when button events are handled
             WINDOW_IMP_POST(
                 {
-                    MASK mask = gKeyboard->currentMask(TRUE);
+                    MASK mask = gKeyboard->currentMask(true);
                     window_imp->mMouseMask = mask;
                     window_imp->mCursorPosition = window_coord;
                 });

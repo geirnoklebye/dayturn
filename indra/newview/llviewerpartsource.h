@@ -58,7 +58,7 @@ public:
 
 	LLViewerPartSource(const U32 type);
 
-	virtual void update(const F32 dt); // Return FALSE if this source is dead...
+	virtual void update(const F32 dt); // Return false if this source is dead...
 
 	virtual void setDead();
 	bool isDead() const				{ return mIsDead; }
@@ -112,7 +112,7 @@ public:
 
 	/*virtual*/ void setDead();
 
-	BOOL updateFromMesg();
+	bool updateFromMesg();
 
 	// Returns a new particle source to attach to an object...
 	static LLPointer<LLViewerPartSourceScript> unpackPSS(LLViewerObject *source_objp, LLPointer<LLViewerPartSourceScript> pssp, const S32 block_num);

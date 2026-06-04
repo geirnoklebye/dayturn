@@ -228,7 +228,7 @@ void LLFloaterTexturePicker::setImageID(const LLUUID& image_id, bool set_selecti
 				if (itemp && !itemp->getPermissions().allowCopyBy(gAgent.getID()))
 				{
 					// no copy texture
-					getChild<LLUICtrl>("apply_immediate_check")->setValue(FALSE);
+					getChild<LLUICtrl>("apply_immediate_check")->setValue(false);
 					mNoCopyTextureSelected = true;
 				}
 			}
@@ -258,7 +258,7 @@ void LLFloaterTexturePicker::setCanApplyImmediately(bool b)
 	mCanApplyImmediately = b;
 	if (!mCanApplyImmediately)
 	{
-		getChild<LLUICtrl>("apply_immediate_check")->setValue(FALSE);
+		getChild<LLUICtrl>("apply_immediate_check")->setValue(false);
 	}
 	updateFilterPermMask();
 }
@@ -849,7 +849,7 @@ void LLFloaterTexturePicker::onModeSelect(LLUICtrl* ctrl, void *userdata)
 	self->getChild<LLScrollListCtrl>("l_name_list")->setVisible(index == 1);
 
 	self->getChild<LLComboBox>("l_bake_use_texture_combo_box")->setVisible(index == 2);
-	self->getChild<LLCheckBoxCtrl>("hide_base_mesh_region")->setVisible(false);// index == 2 ? TRUE : FALSE);
+	self->getChild<LLCheckBoxCtrl>("hide_base_mesh_region")->setVisible(false);// index == 2 ? true : false);
 
 	if (index == 2)
 	{

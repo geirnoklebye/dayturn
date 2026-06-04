@@ -442,7 +442,7 @@ void LLOutfitsList::resetItemSelection(LLWearableItemsList* list, const LLUUID& 
 
 void LLOutfitsList::onChangeOutfitSelection(LLWearableItemsList* list, const LLUUID& category_id)
 {
-	MASK mask = gKeyboard->currentMask(TRUE);
+	MASK mask = gKeyboard->currentMask(true);
 
 	// Reset selection in all previously selected tabs except for the current
 	// if new selection is started.

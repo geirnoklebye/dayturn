@@ -356,7 +356,7 @@ void LLToolBrushLand::brush( void )
 		spot.mdV[VX] = floor( spot.mdV[VX] + 0.5 );
 		spot.mdV[VY] = floor( spot.mdV[VY] + 0.5 );
 
-		modifyLandAtPointGlobal(spot, gKeyboard->currentMask(TRUE));
+		modifyLandAtPointGlobal(spot, gKeyboard->currentMask(true));
 	}
 }
 

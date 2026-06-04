@@ -2791,7 +2791,7 @@ bool LLViewerMediaImpl::handleUnicodeCharHere(llwchar uni_char)
 		{
 			LLSD native_key_data = gViewerWindow->getWindow()->getNativeKeyData();
 
-			mMediaSource->textInput(wstring_to_utf8str(LLWString(1, uni_char)), gKeyboard->currentMask(FALSE), native_key_data);
+			mMediaSource->textInput(wstring_to_utf8str(LLWString(1, uni_char)), gKeyboard->currentMask(false), native_key_data);
 		}
 	}
 
@@ -2801,7 +2801,7 @@ bool LLViewerMediaImpl::handleUnicodeCharHere(llwchar uni_char)
 //////////////////////////////////////////////////////////////////////////////////////////
 bool LLViewerMediaImpl::canNavigateForward()
 {
-	BOOL result = FALSE;
+	bool result = false;
 	if (mMediaSource)
 	{
 		result = mMediaSource->getHistoryForwardAvailable();
@@ -2812,7 +2812,7 @@ bool LLViewerMediaImpl::canNavigateForward()
 //////////////////////////////////////////////////////////////////////////////////////////
 bool LLViewerMediaImpl::canNavigateBack()
 {
-	BOOL result = FALSE;
+	bool result = false;
 	if (mMediaSource)
 	{
 		result = mMediaSource->getHistoryBackAvailable();

@@ -153,7 +153,7 @@ void LLToolView::draw()
 		 iter != mContainList.end(); ++iter)
 	{
 		LLToolContainer* contain = *iter;
-		BOOL state = (contain->mTool == selected);
+		bool state = (contain->mTool == selected);
 		contain->mButton->setToggleState( state );
 		if (contain->mPanel)
 		{

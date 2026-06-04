@@ -300,7 +300,7 @@ public:
 		mEditor.localPointToScreen(x, y, &screen_x, &screen_y);
 		mContextMenu->show(screen_x, screen_y);
 
-		return TRUE;
+		return true;
 	}
 
 	void onOpen()

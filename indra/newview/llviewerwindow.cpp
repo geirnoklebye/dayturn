@@ -1739,7 +1739,7 @@ bool LLViewerWindow::handlePaint(LLWindow *window,  S32 x,  S32 y, S32 width,  S
 		len = temp_str.length();
 		TextOutA(hdc, 0, 25, temp_str.c_str(), len); 
 
-		TextOutA(hdc, 0, 50, "Set \"HeadlessClient FALSE\" in settings.ini file to reenable", 61);
+		TextOutA(hdc, 0, 50, "Set \"HeadlessClient false\" in settings.ini file to reenable", 61);
 		EndPaint(window_handle, &ps); 
 		return true;
 	}
@@ -6576,7 +6576,7 @@ bool LLViewerWindow::changeDisplaySettings(LLCoordScreen size, bool disable_vsyn
 			// we are stuck...try once again with a minimal resolution?
 			send_agent_resume();
 			mIgnoreActivate = false;
-			return FALSE;
+			return false;
 		}
 	}
 	send_agent_resume();

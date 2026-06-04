@@ -115,7 +115,7 @@ void LLToolGrabBase::handleDeselect()
 	}
 
 	// Make sure that temporary(invalid) selection won't pass anywhere except pie tool.
-	MASK override_mask = gKeyboard ? gKeyboard->currentMask(TRUE) : 0;
+	MASK override_mask = gKeyboard ? gKeyboard->currentMask(true) : 0;
 	if (!mValidSelection && (override_mask != MASK_NONE || (gFloaterTools && gFloaterTools->getVisible())))
 	{
 		LLMenuGL::sMenuContainer->hideMenus();
@@ -147,7 +147,7 @@ bool LLToolGrabBase::handleMouseDown(S32 x, S32 y, MASK mask)
 	if (!gAgent.leftButtonGrabbed() || ((mask & DEFAULT_GRAB_MASK) != 0 && !gAgentCamera.cameraMouselook()))
 	{
 		// can grab transparent objects (how touch event propagates, scripters rely on this)
-		gViewerWindow->pickAsync(x, y, mask, pickCallback, /*BOOL pick_transparent*/ TRUE);
+		gViewerWindow->pickAsync(x, y, mask, pickCallback, /*bool pick_transparent*/ true);
 	}
 	mClickedInMouselook = gAgentCamera.cameraMouselook();
 
@@ -208,7 +208,7 @@ bool LLToolGrabBase::handleObjectHit(const LLPickInfo& info)
 
 	if (NULL == objectp) // unexpected
 	{
-		LL_WARNS() << "objectp was NULL; returning FALSE" << LL_ENDL;
+		LL_WARNS() << "objectp was NULL; returning false" << LL_ENDL;
 		return false;
 	}
 
@@ -228,7 +228,7 @@ bool LLToolGrabBase::handleObjectHit(const LLPickInfo& info)
 	// objectp = (LLViewerObject *)objectp->getRoot();
 
 	LLViewerObject* parent = objectp->getRootEdit();
-	BOOL script_touch = (objectp->flagHandleTouch()) || (parent && parent->flagHandleTouch());
+	bool script_touch = (objectp->flagHandleTouch()) || (parent && parent->flagHandleTouch());
 
 	// Clicks on scripted or physical objects are temporary grabs, so
 	// not "Build mode"
@@ -628,7 +628,7 @@ void LLToolGrabBase::handleHoverActive(S32 x, S32 y, MASK mask)
 
 			/* Snap to grid disabled for grab tool - very confusing
 			// Handle snapping to grid, but only when the tool is formally selected.
-			BOOL snap_on = gSavedSettings.getBOOL("SnapEnabled");
+			bool snap_on = gSavedSettings.getbool("SnapEnabled");
 			if (snap_on && !gGrabTransientTool)
 			{
 				F64	snap_size = gSavedSettings.getF32("GridResolution");

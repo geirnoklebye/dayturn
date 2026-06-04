@@ -92,8 +92,8 @@ void LLRegionInfoModel::sendRegionTerrain(const LLUUID& invoice) const
 	// strings[8] = from estate, float sun_hour
 
 	// *NOTE: this resets estate sun info.
-	BOOL estate_global_time = true;
-	BOOL estate_fixed_sun = false;
+	bool estate_global_time = true;
+	bool estate_fixed_sun = false;
 	F32 estate_sun_hour = 0.f;
 
 	buffer = llformat("%f", mWaterHeight);
@@ -154,7 +154,7 @@ void LLRegionInfoModel::update(LLMessageSystem* msg)
 	msg->getS32Fast(_PREHASH_RegionInfo, _PREHASH_RedirectGridX, mRedirectGridX);
 	msg->getS32Fast(_PREHASH_RegionInfo, _PREHASH_RedirectGridY, mRedirectGridY);
 
-	msg->getBOOL(_PREHASH_RegionInfo, _PREHASH_UseEstateSun, mUseEstateSun);
+	msg->getbool(_PREHASH_RegionInfo, _PREHASH_UseEstateSun, mUseEstateSun);
 
 	// actually the "last set" sun hour, not the current sun hour. JC
 	msg->getF32(_PREHASH_RegionInfo, _PREHASH_SunHour, mSunHour);

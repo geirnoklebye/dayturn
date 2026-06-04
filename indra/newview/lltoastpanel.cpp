@@ -250,7 +250,7 @@ bool LLCheckBoxToastPanel::setCheckBox(const std::string& check_title,
 
 void LLCheckBoxToastPanel::onCommitCheckbox(LLUICtrl* ctrl)
 {
-    BOOL check = ctrl->getValue().asBoolean();
+    bool check = ctrl->getValue().asBoolean();
     if (mNotification->getForm()->getIgnoreType() == LLNotificationForm::IGNORE_SHOW_AGAIN)
     {
         // question was "show again" so invert value to get "ignore"

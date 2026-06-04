@@ -299,7 +299,7 @@ public:
 			return false;
 		}
 		LLUUID inventory_id;
-		if (!inventory_id.set(params[0], FALSE))
+		if (!inventory_id.set(params[0], false))
 		{
 			return false;
 		}
@@ -769,7 +769,7 @@ bool LLViewerInventoryCategory::acceptItem(LLInventoryItem* inv_item)
 void LLViewerInventoryCategory::determineFolderType()
 {
 	/* Do NOT uncomment this code.  This is for future 2.1 support of ensembles.
-	llassert(FALSE);
+	llassert(false);
 	LLFolderType::EType original_type = getPreferredType();
 	if (LLFolderType::lookupIsProtectedType(original_type))
 		return;
@@ -813,7 +813,7 @@ void LLViewerInventoryCategory::determineFolderType()
 	{
 		changeType(LLFolderType::FT_NONE);
 	}
-	llassert(FALSE);
+	llassert(false);
 	*/
 }
 
@@ -1809,7 +1809,7 @@ void menu_create_inventory_item(LLInventoryPanel* panel, LLFolderBridge *bridge,
 
 		LLUUID category = gInventory.createNewCategory(parent_id, preferred_type, LLStringUtil::null);
 		gInventory.notifyObservers();
-		panel->setSelectionByID(category, TRUE);
+		panel->setSelectionByID(category, true);
 	}
 	else if ("lsl" == type_name)
 	{
@@ -2070,7 +2070,7 @@ U32 LLViewerInventoryItem::getCRC32() const
 
 // *TODO: mantipov: should be removed with LMSortPrefix patch in llinventorymodel.cpp, EXT-3985
 static char getSeparator() { return '@'; }
-BOOL LLViewerInventoryItem::extractSortFieldAndDisplayName(const std::string& name, S32* sortField, std::string* displayName)
+bool LLViewerInventoryItem::extractSortFieldAndDisplayName(const std::string& name, S32* sortField, std::string* displayName)
 {
 	using std::string;
 	using std::stringstream;
@@ -2078,7 +2078,7 @@ BOOL LLViewerInventoryItem::extractSortFieldAndDisplayName(const std::string& na
 	const char separator = getSeparator();
 	const string::size_type separatorPos = name.find(separator, 0);
 
-	BOOL result = FALSE;
+	bool result = false;
 
 	if (separatorPos < string::npos)
 	{
@@ -2099,7 +2099,7 @@ BOOL LLViewerInventoryItem::extractSortFieldAndDisplayName(const std::string& na
 			*displayName = name.substr(separatorPos + 1, string::npos);
 		}
 
-		result = TRUE;
+		result = true;
 	}
 
 	return result;
@@ -2164,9 +2164,9 @@ PermissionMask LLViewerInventoryItem::getPermissionMask() const
 {
 	const LLPermissions& permissions = getPermissions();
 
-	BOOL copy = permissions.allowCopyBy(gAgent.getID());
-	BOOL mod = permissions.allowModifyBy(gAgent.getID());
-	BOOL xfer = permissions.allowOperationBy(PERM_TRANSFER, gAgent.getID());
+	bool copy = permissions.allowCopyBy(gAgent.getID());
+	bool mod = permissions.allowModifyBy(gAgent.getID());
+	bool xfer = permissions.allowOperationBy(PERM_TRANSFER, gAgent.getID());
 	PermissionMask perm_mask = 0;
 	if (copy) perm_mask |= PERM_COPY;
 	if (mod)  perm_mask |= PERM_MODIFY;

@@ -216,10 +216,10 @@ void LLSelectMgr::cleanupGlobals()
 // LLSelectMgr()
 //-----------------------------------------------------------------------------
 LLSelectMgr::LLSelectMgr()
- : mHideSelectedObjects(LLCachedControl<bool>(gSavedSettings, "HideSelectedObjects", FALSE)),
-   mRenderHighlightSelections(LLCachedControl<bool>(gSavedSettings, "RenderHighlightSelections", TRUE)),
-   mAllowSelectAvatar( LLCachedControl<bool>(gSavedSettings, "AllowSelectAvatar", FALSE)),
-   mDebugSelectMgr(LLCachedControl<bool>(gSavedSettings, "DebugSelectMgr", FALSE))
+ : mHideSelectedObjects(LLCachedControl<bool>(gSavedSettings, "HideSelectedObjects", false)),
+   mRenderHighlightSelections(LLCachedControl<bool>(gSavedSettings, "RenderHighlightSelections", true)),
+   mAllowSelectAvatar( LLCachedControl<bool>(gSavedSettings, "AllowSelectAvatar", false)),
+   mDebugSelectMgr(LLCachedControl<bool>(gSavedSettings, "DebugSelectMgr", false))
 {
 	mTEMode = false;
 	mTextureChannel = LLRender::DIFFUSE_MAP;
@@ -1011,7 +1011,7 @@ void LLSelectMgr::addAsFamily(std::vector<LLViewerObject*>& objects, bool add_to
 
 			if (objectp->getNumTEs() > 0)
 			{
-				nodep->selectAllTEs(TRUE);
+				nodep->selectAllTEs(true);
 				objectp->setAllTESelected(true);
 			}
 			else
@@ -1831,7 +1831,7 @@ void LLSelectMgr::selectionSetImage(const LLUUID& imageid)
 				// Texture picker defaults aren't inventory items
 				// * Don't need to worry about permissions for them
 				// * Can just apply the texture and be done with it.
-				objectp->setTEImage(te, LLViewerTextureManager::getFetchedTexture(mImageID, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
+				objectp->setTEImage(te, LLViewerTextureManager::getFetchedTexture(mImageID, FTT_DEFAULT, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
 			}
 
 			return true;
@@ -2032,7 +2032,7 @@ bool LLSelectMgr::selectionRevertTextures()
 					}
 					else
 					{
-						object->setTEImage(te, LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
+						object->setTEImage(te, LLViewerTextureManager::getFetchedTexture(id, FTT_DEFAULT, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE));
 
 					}
 				}
@@ -3894,7 +3894,7 @@ void LLSelectMgr::selectForceDelete()
 		packDeleteHeader,
 		packObjectLocalID,
         logNoOp,
-		(void*)TRUE,
+		(void*)true,
 		SEND_ONLY_ROOTS);
 }
 
@@ -5991,7 +5991,7 @@ void LLSelectMgr::updateSilhouettes()
 		num_sils_genned	= 0;
 
 		// render silhouettes for highlighted objects
-		//BOOL subtracting_from_selection = (gKeyboard->currentMask(TRUE) == MASK_CONTROL);
+		//BOOL subtracting_from_selection = (gKeyboard->currentMask(true) == MASK_CONTROL);
 		for (S32 pass = 0; pass < 2; pass++)
 		{
 			for (LLObjectSelection::iterator iter = mHighlightedObjects->begin();
@@ -7012,7 +7012,7 @@ void LLSelectMgr::updateSelectionCenter()
 
 		// Initialize the bounding box to the root prim, so the BBox orientation 
 		// matches the root prim's (affecting the orientation of the manipulators). 
-		bbox.addBBoxAgent( (mSelectedObjects->getFirstRootObject(TRUE))->getBoundingBoxAgent() ); 
+		bbox.addBBoxAgent( (mSelectedObjects->getFirstRootObject(true))->getBoundingBoxAgent() ); 
 	                 
 		for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
 			 iter != mSelectedObjects->end(); iter++)
@@ -7263,7 +7263,7 @@ bool LLSelectMgr::canDuplicate() const
 void LLSelectMgr::duplicate()
 {
 	LLVector3 offset(0.5f, 0.5f, 0.f);
-	selectDuplicate(offset, TRUE);
+	selectDuplicate(offset, true);
 }
 
 ESelectType LLSelectMgr::getSelectTypeForObject(LLViewerObject* object)
@@ -7335,7 +7335,7 @@ bool LLSelectMgr::canSelectObject(LLViewerObject* object, bool ignore_select_own
 	if (object->getPCode() == LLViewerObject::LL_VO_SURFACE_PATCH) return false;
 
 	ESelectType selection_type = getSelectTypeForObject(object);
-	if (mSelectedObjects->getObjectCount() > 0 && mSelectedObjects->mSelectType != selection_type) return FALSE;
+	if (mSelectedObjects->getObjectCount() > 0 && mSelectedObjects->mSelectType != selection_type) return false;
 
 	return true;
 }

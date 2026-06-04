@@ -3287,7 +3287,7 @@ class LLLandBuyPass : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		LLPanelLandGeneral::onClickBuyPass((void *)FALSE);
+		LLPanelLandGeneral::onClickBuyPass((void *)false);
 		return true;
 	}
 };
@@ -4363,15 +4363,15 @@ public:
 	virtual ~LLHaveCallingcard() {}
 	virtual bool operator()(LLInventoryCategory* cat,
 							LLInventoryItem* item);
-	BOOL isThere() const { return mIsThere;}
+	bool isThere() const { return mIsThere;}
 protected:
 	LLUUID mID;
-	BOOL mIsThere;
+	bool mIsThere;
 };
 
 LLHaveCallingcard::LLHaveCallingcard(const LLUUID& agent_id) :
 	mID(agent_id),
-	mIsThere(FALSE)
+	mIsThere(false)
 {
 }
 
@@ -4383,10 +4383,10 @@ bool LLHaveCallingcard::operator()(LLInventoryCategory* cat,
 		if((item->getType() == LLAssetType::AT_CALLINGCARD)
 		   && (item->getCreatorUUID() == mID))
 		{
-			mIsThere = TRUE;
+			mIsThere = true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 */
 
@@ -5769,7 +5769,7 @@ class LLToolsSnapObjectXY : public view_listener_t
 					pos_global.mdV[VY] += snap_size;
 				}
 
-				obj->setPositionGlobal(pos_global, FALSE);
+				obj->setPositionGlobal(pos_global, false);
 			}
 		}
 		LLSelectMgr::getInstance()->sendMultipleUpdate(UPD_POSITION);
@@ -8435,7 +8435,7 @@ void handle_dump_attachments(void*)
 			 ++attachment_iter)
 		{
 			LLViewerObject *attached_object = attachment_iter->get();
-			BOOL visible = (attached_object != NULL &&
+			bool visible = (attached_object != NULL &&
 							attached_object->mDrawable.notNull() && 
 							!attached_object->mDrawable->isRenderType(0));
 			LLVector3 pos;

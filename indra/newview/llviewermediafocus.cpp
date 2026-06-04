@@ -372,7 +372,7 @@ bool LLViewerMediaFocus::handleScrollWheel(const LLVector2& texture_coords, S32 
     LLViewerMediaImpl* media_impl = getFocusedMediaImpl();
     if (media_impl && media_impl->hasMedia())
     {
-        media_impl->scrollWheel(texture_coords, clicks_x, clicks_y, gKeyboard->currentMask(TRUE));
+        media_impl->scrollWheel(texture_coords, clicks_x, clicks_y, gKeyboard->currentMask(true));
         retval = true;
     }
     return retval;
@@ -384,7 +384,7 @@ bool LLViewerMediaFocus::handleScrollWheel(S32 x, S32 y, S32 clicks_x, S32 click
 	LLViewerMediaImpl* media_impl = getFocusedMediaImpl();
 	if(media_impl && media_impl->hasMedia())
 	{
-		media_impl->scrollWheel(x, y, clicks_x, clicks_y, gKeyboard->currentMask(TRUE));
+		media_impl->scrollWheel(x, y, clicks_x, clicks_y, gKeyboard->currentMask(true));
 		retval = true;
 	}
 	return retval;

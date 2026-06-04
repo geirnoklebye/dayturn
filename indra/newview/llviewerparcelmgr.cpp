@@ -1135,8 +1135,8 @@ public:
 	LLUUID	mSession;
 	LLUUID	mGroup;
 	bool	mIsGroupOwned;
-	BOOL	mRemoveContribution;
-	BOOL	mIsClaim;
+	bool	mRemoveContribution;
+	bool	mIsClaim;
 	LLHost	mHost;
 	
 	// for parcel buys
@@ -1233,13 +1233,13 @@ void LLViewerParcelMgr::sendParcelBuy(ParcelBuyInfo* info)
 	msg->addUUID("SessionID", info->mSession);
 	msg->nextBlock("Data");
 	msg->addUUID("GroupID", info->mGroup);
-	msg->addBOOL("IsGroupOwned", info->mIsGroupOwned);
+	msg->addbool("IsGroupOwned", info->mIsGroupOwned);
 	if (!info->mIsClaim)
 	{
-		msg->addBOOL("RemoveContribution", info->mRemoveContribution);
+		msg->addbool("RemoveContribution", info->mRemoveContribution);
 		msg->addS32("LocalID", info->mParcelID);
 	}
-	msg->addBOOL("Final", TRUE);	// don't allow escrow buys
+	msg->addbool("Final", true);	// don't allow escrow buys
 	if (info->mIsClaim)
 	{
 		msg->nextBlock("ParcelData");
@@ -1495,7 +1495,7 @@ void LLViewerParcelMgr::setHoverParcel(const LLVector3d& pos)
 		msg->addF32Fast(_PREHASH_South, south);
 		msg->addF32Fast(_PREHASH_East, east);
 		msg->addF32Fast(_PREHASH_North, north);
-		msg->addBOOL("SnapSelection", FALSE);
+		msg->addbool("SnapSelection", false);
 		msg->sendReliable(region->getHost());
 
 		mHoverRequestResult = PARCEL_RESULT_NO_DATA;
@@ -2200,8 +2200,8 @@ void LLViewerParcelMgr::sendParcelAccessListUpdate(U32 flags, const LLAccessEntr
 	S32 count = entries.size();
 	S32 num_sections = (S32) ceil(count/PARCEL_MAX_ENTRIES_PER_PACKET);
 	S32 sequence_id = 1;
-	BOOL start_message = TRUE;
-	BOOL initial = TRUE;
+	bool start_message = true;
+	bool initial = true;
 
 	LLUUID transactionUUID;
 	transactionUUID.generate();
@@ -2225,7 +2225,7 @@ void LLViewerParcelMgr::sendParcelAccessListUpdate(U32 flags, const LLAccessEntr
 			msg->addUUIDFast(_PREHASH_TransactionID, transactionUUID);
 			msg->addS32Fast(_PREHASH_SequenceID, sequence_id);
 			msg->addS32Fast(_PREHASH_Sections, num_sections);
-			start_message = FALSE;
+			start_message = false;
 
 			if (initial && (cit == end))
 			{
@@ -2236,7 +2236,7 @@ void LLViewerParcelMgr::sendParcelAccessListUpdate(U32 flags, const LLAccessEntr
 				msg->addU32Fast(_PREHASH_Flags,	0 );
 			}
 
-			initial = FALSE;
+			initial = false;
 			sequence_id++;
 
 		}
@@ -2252,7 +2252,7 @@ void LLViewerParcelMgr::sendParcelAccessListUpdate(U32 flags, const LLAccessEntr
 			++cit;
 		}
 
-		start_message = TRUE;
+		start_message = true;
 		msg->sendReliable( region->getHost() );
 	}
 }
