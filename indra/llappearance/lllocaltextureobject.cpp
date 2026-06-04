@@ -46,8 +46,8 @@ LLLocalTextureObject::LLLocalTextureObject(LLGLTexture* image, const LLUUID& id)
 	mIsBakedReady(false),
 	mDiscard(MAX_DISCARD_LEVEL+1)
 {
+	gGL.getTexUnit(0)->bind(image);
 	mImage = image;
-	gGL.getTexUnit(0)->bind(mImage);
 	mID = id;
 }
 
