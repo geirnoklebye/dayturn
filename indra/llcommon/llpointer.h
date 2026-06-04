@@ -386,16 +386,6 @@ public:
 		mStayUnique(false)
 	{}
 
-	LLCopyOnWritePointer(LLPointer<Type>& ptr)
-	:	LLPointer<Type>(ptr),
-		mStayUnique(false)
-	{
-		if (ptr.mStayUnique)
-		{
-			makeUnique();
-		}
-	}
-
 	Type* write()
 	{
 		makeUnique();

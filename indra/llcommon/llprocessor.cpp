@@ -661,12 +661,12 @@ private:
 		{ 
 			if ( size == sizeof( uint64_t ) ) 
 				; 
-			else if ( size == sizeof( uint32_t ) ) 
-				value = (uint64_t)(( uint32_t *)&value); 
-			else if ( size == sizeof( uint16_t ) ) 
-				value =  (uint64_t)(( uint16_t *)&value); 
-			else if ( size == sizeof( uint8_t ) ) 
-				value =  (uint64_t)(( uint8_t *)&value); 
+			else if ( size == sizeof( uint32_t ) )
+				value = (uint64_t)(*( uint32_t *)&value);
+			else if ( size == sizeof( uint16_t ) )
+				value =  (uint64_t)(*( uint16_t *)&value);
+			else if ( size == sizeof( uint8_t ) )
+				value =  (uint64_t)(*( uint8_t *)&value);
 			else
 			{
 				LL_WARNS() << "Unknown type returned from sysctl" << LL_ENDL;

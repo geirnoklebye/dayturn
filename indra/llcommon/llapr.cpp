@@ -266,6 +266,10 @@ public:
             LL_ERRS() << "LLAPRFilePoolScope is not supposed to be initialized twice" << LL_ENDL;
         }
         mInitialized = true;
+        if (!pPool)
+        {
+            LL_ERRS() << "LLAPRFilePoolScope: pool is NULL (APR not initialized?)" << LL_ENDL;
+        }
         return pPool->getVolatileAPRPool();
     }
     void reset()
