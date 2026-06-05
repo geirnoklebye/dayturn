@@ -550,10 +550,8 @@ void LLAssetStorage::getAssetData(const LLUUID uuid,
         bool duplicate = false;
         
         // check to see if there's a pending download of this uuid already
-        for (request_list_t::iterator iter = mPendingDownloads.begin();
-             iter != mPendingDownloads.end(); ++iter )
+        for (auto tmp : mPendingDownloads)
         {
-            LLAssetRequest  *tmp = *iter;
             if ((type == tmp->getType()) && (uuid == tmp->getUUID()))
             {
                 if (callback == tmp->mDownCallback && user_data == tmp->mUserData)

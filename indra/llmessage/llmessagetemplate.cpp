@@ -117,10 +117,9 @@ std::ostream& operator<<(std::ostream& s, LLMessageBlock &msg)
 	}
 
 
-	for (LLMessageBlock::message_variable_map_t::iterator iter = msg.mMemberVariables.begin();
-		 iter != msg.mMemberVariables.end(); iter++)
+	for (auto & mMemberVariable : msg.mMemberVariables)
 	{
-		LLMessageVariable& ci = *(*iter);
+		LLMessageVariable& ci = *mMemberVariable;
 		s << ci;
 	}
 
@@ -161,10 +160,8 @@ std::ostream& operator<<(std::ostream& s, LLMessageTemplate &msg)
 		s << ")\n";
 	}
 	
-	for (LLMessageTemplate::message_block_map_t::iterator iter = msg.mMemberBlocks.begin();
-		 iter != msg.mMemberBlocks.end(); iter++)
+	for (auto ci : msg.mMemberBlocks)
 	{
-		LLMessageBlock* ci = *iter;
 		s << *ci;
 	}
 

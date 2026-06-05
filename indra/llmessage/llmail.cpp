@@ -280,9 +280,9 @@ bool LLMail::send(
 
 	// convert all "\n" into "\r\n"
 	std::ostringstream rfc2822_msg;
-	for(U32 i = 0; i < message.size(); ++i)
+	for(char i : message)
 	{
-		switch(message[i])
+		switch(i)
 		{
 		case '\0':
 			break;
@@ -291,7 +291,7 @@ bool LLMail::send(
 			rfc2822_msg << "\r\n";
 			break;
 		default:
-			rfc2822_msg << message[i];
+			rfc2822_msg << i;
 			break;
 		}
 	}
