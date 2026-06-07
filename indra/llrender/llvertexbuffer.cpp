@@ -1479,7 +1479,7 @@ U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, bool map_ran
 				waitFence();
 				if (gGLManager.mHasMapBufferRange)
 				{
-					if (map_range)
+					if (map_range) // NOLINT(bugprone-branch-clone) -- branches differ under GL_ARB_map_buffer_range
 					{
 #ifdef GL_ARB_map_buffer_range
 						S32 offset = mOffsets[type] + sTypeSize[type]*index;
@@ -1519,12 +1519,8 @@ U8* LLVertexBuffer::mapVertexBuffer(S32 type, S32 index, S32 count, bool map_ran
 						glBufferParameteriAPPLE(GL_ARRAY_BUFFER_ARB, GL_BUFFER_SERIALIZED_MODIFY_APPLE, GL_FALSE);
 						glBufferParameteriAPPLE(GL_ARRAY_BUFFER_ARB, GL_BUFFER_FLUSHING_UNMAP_APPLE, GL_FALSE);
 #endif
-						src = (U8*) glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 					}
-					else
-					{
-						src = (U8*) glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
-					}
+					src = (U8*) glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 				}
 				else
 				{
@@ -1663,7 +1659,7 @@ U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range)
 				waitFence();
 				if (gGLManager.mHasMapBufferRange)
 				{
-					if (map_range)
+					if (map_range) // NOLINT(bugprone-branch-clone) -- branches differ under GL_ARB_map_buffer_range
 					{
 #ifdef GL_ARB_map_buffer_range
 						S32 offset = sizeof(U16)*index;
@@ -1691,12 +1687,8 @@ U8* LLVertexBuffer::mapIndexBuffer(S32 index, S32 count, bool map_range)
 						glBufferParameteriAPPLE(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_BUFFER_SERIALIZED_MODIFY_APPLE, GL_FALSE);
 						glBufferParameteriAPPLE(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_BUFFER_FLUSHING_UNMAP_APPLE, GL_FALSE);
 #endif
-						src = (U8*) glMapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 					}
-					else
-					{
-						src = (U8*) glMapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
-					}
+					src = (U8*) glMapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 				}
 				else
 				{

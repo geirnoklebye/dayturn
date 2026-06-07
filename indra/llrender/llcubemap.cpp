@@ -318,7 +318,7 @@ bool LLCubeMap::project(F32& v_val, F32& h_val, bool& outside,
 	const U8 j_coef = (i_coef + 1) % 3;
 
 	outside = true;
-	if (side_dir * dir.mV[curr_coef] < 0)
+	if ((F32)side_dir * dir.mV[curr_coef] < 0)
 		return false;
 
 	LLVector3 ray;
@@ -419,9 +419,9 @@ void LLCubeMap::paintIn(LLVector3 dir[4], const LLColor4U& col)
 		U8 *td = mRawImages[side]->getData();
 		
 		U16 v_minu = (U16) v_min;
-		U16 v_maxu = (U16) (ceil(v_max) + 0.5);
+		U16 v_maxu = (U16) ceil(v_max);
 		U16 h_minu = (U16) h_min;
-		U16 h_maxu = (U16) (ceil(h_max) + 0.5);
+		U16 h_maxu = (U16) ceil(h_max);
 
 		for (U16 v = v_minu; v < v_maxu; ++v)
 			for (U16 h = h_minu; h < h_maxu; ++h)

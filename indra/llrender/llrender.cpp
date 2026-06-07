@@ -649,7 +649,7 @@ void LLTexUnit::setTextureColorSpace(eTextureColorSpace space)
     mTexColorSpace = space;
 
 #if USE_SRGB_DECODE
-    if (gGLManager.mHasTexturesRGBDecode)
+    (gGLManager.mHasTexturesRGBDecode && mCurrTexType != TT_NONE)
     {
         if (space == TCS_SRGB)
         {

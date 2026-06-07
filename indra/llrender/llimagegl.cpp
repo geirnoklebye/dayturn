@@ -811,7 +811,7 @@ bool LLImageGL::setImage(const U8* data_in, bool data_hasmips /* = false */, S32
 		{
 			// NOTE: data_in points to largest image; smaller images
 			// are stored BEFORE the largest image
-			for (S32 d=mCurrentDiscardLevel; d<=mMaxDiscardLevel; d++)
+			for (S32 d=(S32)mCurrentDiscardLevel; d<=(S32)mMaxDiscardLevel; d++) // NOLINT(bugprone-signed-char-misuse)
 			{
 				
 				S32 w = getWidth(d);
@@ -1077,7 +1077,7 @@ bool LLImageGL::preAddToAtlas(S32 discard_level, const LLImageRaw* raw_image)
 	if (discard_level < 0)
 	{
 		llassert(mCurrentDiscardLevel >= 0);
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	
 	// Actual image width/height = raw image width/height * 2^discard_level
@@ -1528,7 +1528,7 @@ bool LLImageGL::createGLTexture(S32 discard_level, const LLImageRaw* imageraw, S
 	if (discard_level < 0)
 	{
 		llassert(mCurrentDiscardLevel >= 0);
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	
 	// Actual image width/height = raw image width/height * 2^discard_level
@@ -1641,7 +1641,7 @@ bool LLImageGL::createGLTexture(S32 discard_level, const U8* data_in, bool data_
     if (discard_level < 0)
     {
         llassert(mCurrentDiscardLevel >= 0);
-        discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
     }
     discard_level = llclamp(discard_level, 0, (S32)mMaxDiscardLevel);
 
@@ -1839,7 +1839,7 @@ bool LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 	
 	if (discard_level < 0)
 	{
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	
 	if (mTexName == 0 || discard_level < mCurrentDiscardLevel || discard_level > mMaxDiscardLevel )
@@ -2030,7 +2030,7 @@ S32 LLImageGL::getHeight(S32 discard_level) const
 {
 	if (discard_level < 0)
 	{
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	S32 height = mHeight >> discard_level;
 	if (height < 1) height = 1;
@@ -2041,7 +2041,7 @@ S32 LLImageGL::getWidth(S32 discard_level) const
 {
 	if (discard_level < 0)
 	{
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	S32 width = mWidth >> discard_level;
 	if (width < 1) width = 1;
@@ -2052,7 +2052,7 @@ S32 LLImageGL::getBytes(S32 discard_level) const
 {
 	if (discard_level < 0)
 	{
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	S32 w = mWidth>>discard_level;
 	S32 h = mHeight>>discard_level;
@@ -2065,7 +2065,7 @@ S32 LLImageGL::getMipBytes(S32 discard_level) const
 {
 	if (discard_level < 0)
 	{
-		discard_level = mCurrentDiscardLevel;
+		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
 	S32 w = mWidth>>discard_level;
 	S32 h = mHeight>>discard_level;
@@ -2148,8 +2148,6 @@ void LLImageGL::calcAlphaChannelOffsetAndStride()
         return; //no alpha channel.
     case GL_RGBA:
     case GL_SRGB_ALPHA:
-        mAlphaStride = 4;
-        break;
     case GL_BGRA_EXT:
         mAlphaStride = 4;
         break;

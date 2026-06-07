@@ -112,17 +112,8 @@ public:
 		MappedRegion(S32 type, S32 index, S32 count);
 	};
 
-	LLVertexBuffer(const LLVertexBuffer& rhs)
-	:	mUsage(rhs.mUsage)
-	{
-		*this = rhs;
-	}
-
-	const LLVertexBuffer& operator=(const LLVertexBuffer& rhs)
-	{
-		LL_ERRS() << "Illegal operation!" << LL_ENDL;
-		return *this;
-	}
+	LLVertexBuffer(const LLVertexBuffer& rhs) = delete;
+	const LLVertexBuffer& operator=(const LLVertexBuffer& rhs) = delete;
 
 	static LLVBOPool sStreamVBOPool;
 	static LLVBOPool sDynamicVBOPool;

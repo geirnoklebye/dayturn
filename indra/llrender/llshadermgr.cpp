@@ -963,8 +963,6 @@ GLhandleARB LLShaderMgr::loadShaderFile(const std::string& filename, S32 & shade
 		{
 			shader_code_count += extra_code_count;
 		}
-
-		extra_code_count = 0;
 	}
 
 	fclose(file);

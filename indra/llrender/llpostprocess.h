@@ -37,7 +37,7 @@ class LLPostProcess
 {
 public:
 
-	typedef enum _QuadType {
+	typedef enum {
 		QUAD_NORMAL,
 		QUAD_NOISE,
 		QUAD_BLOOM_EXTRACT,
