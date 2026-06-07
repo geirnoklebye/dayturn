@@ -210,11 +210,8 @@ bool LLKeyboard::translateKey(const U16 os_key, KEY *out_key)
 		*out_key = 0;
 		return false;
 	}
-	else
-	{
-		*out_key = iter->second;
-		return true;
-	}
+	*out_key = iter->second;
+	return true;
 }
 
 
@@ -226,10 +223,7 @@ U16 LLKeyboard::inverseTranslateKey(const KEY translated_key)
 	{
 		return 0;
 	}
-	else
-	{
-		return iter->second;
-	}
+	return iter->second;
 }
 
 
@@ -359,7 +353,7 @@ std::string LLKeyboard::stringFromKey(KEY key, bool translate)
 
 	if (translate)
 	{
-		LLKeyStringTranslatorFunc *trans = gKeyboard->mStringTranslator;
+	LLKeyStringTranslatorFunc *trans = LLKeyboard::mStringTranslator;
 		if (trans != nullptr)
 		{
             res = trans(res);
@@ -399,7 +393,7 @@ std::string LLKeyboard::stringFromMouse(EMouseClickType click, bool translate)
 
     if (translate && !res.empty())
     {
-        LLKeyStringTranslatorFunc* trans = gKeyboard->mStringTranslator;
+	LLKeyStringTranslatorFunc *trans = LLKeyboard::mStringTranslator;
         if (trans != nullptr)
         {
             res = trans(res);
@@ -413,7 +407,7 @@ std::string LLKeyboard::stringFromAccelerator(MASK accel_mask)
 {
     std::string res;
 
-    LLKeyStringTranslatorFunc *trans = gKeyboard->mStringTranslator;
+	LLKeyStringTranslatorFunc *trans = LLKeyboard::mStringTranslator;
 
     if (trans == nullptr)
     {
@@ -437,16 +431,26 @@ std::string LLKeyboard::stringFromAccelerator(MASK accel_mask)
         }
     }
     if (accel_mask & MASK_ALT)
+    {
         res.append(trans("accel-mac-option"));		// Symbol would be "\xE2\x8C\xA5"
-    if (accel_mask & MASK_SHIFT)
-        res.append(trans("accel-mac-shift"));		// Symbol would be "\xE2\x8C\xA7"
+	}        
+	if( accel_mask & MASK_SHIFT ) 
+	{
+		res.append(trans("accel-mac-shift"));		// Symbol would be "\xE2\x8C\xA7"
+	}
 #else
     if (accel_mask & MASK_CONTROL)
+    {
         res.append(trans("accel-win-control"));
+    }
     if (accel_mask & MASK_ALT)
+    {
         res.append(trans("accel-win-alt"));
+    }
     if (accel_mask & MASK_SHIFT)
+    {
         res.append(trans("accel-win-shift"));
+    }
 #endif
     return res;
 }
@@ -497,7 +501,7 @@ bool LLKeyboard::maskFromString(const std::string& str, MASK *mask)
 		*mask = MASK_NONE;
 		return true;
 	}
-	else if (instring == "SHIFT")
+	if (instring == "SHIFT")
 	{
 		*mask = MASK_SHIFT;
 		return true;

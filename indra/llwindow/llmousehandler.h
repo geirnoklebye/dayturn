@@ -38,14 +38,14 @@
 class LLMouseHandler
 {
 public:
-	LLMouseHandler() {}
-	virtual ~LLMouseHandler() {}
+	LLMouseHandler() = default;
+	virtual ~LLMouseHandler() = default;
 
-	typedef enum {
+	using EShowToolTip = enum {
 		SHOW_NEVER,
 		SHOW_IF_NOT_BLOCKED,
 		SHOW_ALWAYS,
-	} EShowToolTip;
+	};
 
 	virtual bool	handleAnyMouseClick(S32 x, S32 y, MASK mask, EMouseClickType clicktype, bool down);
 	virtual bool	handleMouseDown(S32 x, S32 y, MASK mask) = 0;

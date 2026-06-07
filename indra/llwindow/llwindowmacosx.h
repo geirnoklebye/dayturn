@@ -136,7 +136,7 @@ public:
 	void updateMouseDeltas(float* deltas);
 	void getMouseDeltas(float* delta);
 	
-	void handleDragNDrop(std::string url, LLWindowCallbacks::DragNDropAction action);
+	void handleDragNDrop(const std::string& url, LLWindowCallbacks::DragNDropAction action);
     
     bool allowsLanguageInput() { return mLanguageTextInputAllowed; }
 

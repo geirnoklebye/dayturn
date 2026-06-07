@@ -42,14 +42,14 @@ class LLKeyboardMacOSX : public LLKeyboard
 {
 public:
 	LLKeyboardMacOSX();
-	/*virtual*/ ~LLKeyboardMacOSX() {};
+	/*virtual*/ ~LLKeyboardMacOSX() override = default;
 	
-	/*virtual*/ bool	handleKeyUp(const U16 key, MASK mask);
-	/*virtual*/ bool	handleKeyDown(const U16 key, MASK mask);
-	/*virtual*/ void	resetMaskKeys();
-	/*virtual*/ MASK	currentMask(bool for_mouse_event);
-	/*virtual*/ void	scanKeyboard();
-	/*virtual*/ void	handleModifier(MASK mask);
+	/*virtual*/ bool	handleKeyUp(const U16 key, MASK mask) override;
+	/*virtual*/ bool	handleKeyDown(const U16 key, MASK mask) override;
+	/*virtual*/ void	resetMaskKeys() override;
+	/*virtual*/ MASK	currentMask(bool for_mouse_event) override;
+	/*virtual*/ void	scanKeyboard() override;
+	/*virtual*/ void	handleModifier(MASK mask) override;
 	
 protected:
 	MASK	updateModifiers(const U32 mask);

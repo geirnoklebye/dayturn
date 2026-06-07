@@ -36,15 +36,15 @@
 //for CGSize
 #include <CoreGraphics/CGGeometry.h>
 
-typedef std::vector<std::pair<int, bool> > segment_t;
+using segment_t = std::vector<std::pair<int, bool>>;
 
-typedef std::vector<int> segment_lengths;
-typedef std::vector<int> segment_standouts;
+using segment_lengths = std::vector<int>;
+using segment_standouts = std::vector<int>;
 
 // This will actually hold an NSCursor*, but that type is only available in objective C.
-typedef void *CursorRef;
-typedef void *NSWindowRef;
-typedef void *GLViewRef;
+using CursorRef = void *;
+using NSWindowRef = void *;
+using GLViewRef = void *;
 
 struct attributedStringInfo {
 	segment_lengths seg_lengths;
@@ -68,7 +68,7 @@ struct NativeKeyEventData {
     bool        mEventRepeat = false;
 };
 
-typedef const NativeKeyEventData * NSKeyEventRef;
+using NSKeyEventRef = const NativeKeyEventData *;
 
 // These are defined in llappviewermacosx.cpp.
 void handleQuit();
@@ -158,10 +158,10 @@ void callModifier(unsigned int mask);
 void callQuitHandler();
 void commitCurrentPreedit(GLViewRef glView);
 
-void callHandleDragEntered(std::string url);
-void callHandleDragExited(std::string url);
-void callHandleDragUpdated(std::string url);
-void callHandleDragDropped(std::string url);
+void callHandleDragEntered(const std::string& url);
+void callHandleDragExited(const std::string& url);
+void callHandleDragUpdated(const std::string& url);
+void callHandleDragDropped(const std::string& url);
 
 // LLPreeditor C bindings.
 std::basic_string<wchar_t> getPreeditString();
@@ -172,7 +172,7 @@ void updatePreeditor(unsigned short *str);
 void setPreeditMarkedRange(int position, int length);
 void resetPreedit();
 int wstring_length(const std::basic_string<wchar_t> & wstr, const int woffset, const int utf16_length, int *unaligned);
-void setMarkedText(unsigned short *text, unsigned int *selectedRange, unsigned int *replacementRange, long text_len, attributedStringInfo segments);
+void setMarkedText(unsigned short *text, unsigned int *selectedRange, unsigned int *replacementRange, long text_len, const attributedStringInfo& segments);
 void getPreeditLocation(float *location, unsigned int length);
 void allowDirectMarkedTextInput(bool allow, GLViewRef glView);
 

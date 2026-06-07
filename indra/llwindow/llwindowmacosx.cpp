@@ -85,10 +85,7 @@ bool check_for_card(const char* RENDERER, const char* bad_card)
 		{
 			return false;
 		}
-		else
-		{
-			return true;
-		}
+		return true;
 	}
 
 	return false;
@@ -132,8 +129,8 @@ LLWindowMacOSX::LLWindowMacOSX(LLWindowCallbacks* callbacks,
 
 	// Ignore use_gl for now, only used for drones on PC
 	mWindow = nullptr;
-	mContext = NULL;
-	mPixelFormat = NULL;
+	mContext = nullptr;
+	mPixelFormat = nullptr;
 	mDisplay = CGMainDisplayID();
 	mSimulatedRightClick = false;
 	mLastModifiers = 0;
@@ -244,8 +241,8 @@ bool callUnicodeCallback(wchar_t character, unsigned int mask)
     eventData.mEventType = 0;
     eventData.mEventModifiers = mask;
     eventData.mEventKeyCode = 0;
-    eventData.mEventChars = character;
-    eventData.mEventUnmodChars = character;
+    eventData.mEventChars = static_cast<uint32_t>(character);       // NOLINT(bugprone-signed-char-misuse)
+    eventData.mEventUnmodChars = static_cast<uint32_t>(character);  // NOLINT(bugprone-signed-char-misuse)
     eventData.mEventRepeat = false;
     
     mRawKeyEvent = &eventData;
@@ -479,22 +476,22 @@ void callModifier(MASK mask)
 	gKeyboard->handleModifier(mask);
 }
 
-void callHandleDragEntered(std::string url)
+void callHandleDragEntered(const std::string& url)
 {
 	gWindowImplementation->handleDragNDrop(url, LLWindowCallbacks::DNDA_START_TRACKING);
 }
 
-void callHandleDragExited(std::string url)
+void callHandleDragExited(const std::string& url)
 {
 	gWindowImplementation->handleDragNDrop(url, LLWindowCallbacks::DNDA_STOP_TRACKING);
 }
 
-void callHandleDragUpdated(std::string url)
+void callHandleDragUpdated(const std::string& url)
 {
 	gWindowImplementation->handleDragNDrop(url, LLWindowCallbacks::DNDA_TRACK);
 }
 
-void callHandleDragDropped(std::string url)
+void callHandleDragDropped(const std::string& url)
 {
 	gWindowImplementation->handleDragNDrop(url, LLWindowCallbacks::DNDA_DROPPED);
 }
@@ -555,7 +552,7 @@ void resetPreedit()
 
 // For reasons of convenience, handle IME updates here.
 // This largely mirrors the old implementation, only sans the carbon parameters.
-void setMarkedText(unsigned short *unitext, unsigned int *selectedRange, unsigned int *replacementRange, long text_len, attributedStringInfo segments)
+void setMarkedText(unsigned short *unitext, unsigned int *selectedRange, unsigned int *replacementRange, long text_len, const attributedStringInfo& segments)
 {
 	if (gWindowImplementation->getPreeditor())
 	{
@@ -587,7 +584,7 @@ void getPreeditLocation(float *location, unsigned int length)
 		LLCoordScreen screen;
 		LLRect rect;
 		
-		preeditor->getPreeditLocation(length, &coord, &rect, NULL);
+		preeditor->getPreeditLocation(length, &coord, &rect, nullptr);
 		
 		float c[4] = {float(coord.mX), float(coord.mY), 0, 0};
 		
@@ -632,7 +629,7 @@ bool LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 		mWindow = getMainAppWindow();
 	}
 
-	if(mContext == NULL)
+	if(mContext == nullptr)
 	{
 		// Our OpenGL view is already defined within Dayturn.xib.
 		// Get the view instead.
@@ -646,21 +643,19 @@ bool LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 	
 	// Hook up the context to a drawable
 
-	if(mContext != NULL)
+	if(mContext != nullptr)
 	{
-		
-		
 		U32 err = CGLSetCurrentContext(mContext);
 		if (err != kCGLNoError)
 		{
 			setupFailure("Can't activate GL rendering context", "Error", OSMB_OK);
 			return false;
 		}
+
+		// Disable vertical sync for swap
+    	toggleVSync(enable_vsync);
 	}
-
-	// Disable vertical sync for swap
-    toggleVSync(enable_vsync);
-
+	
 	makeFirstResponder(mWindow, mGLView);
     
 	return true;
@@ -682,24 +677,24 @@ void LLWindowMacOSX::destroyContext()
 		return;
 	}
 	// Unhook the GL context from any drawable it may have
-	if(mContext != NULL)
+	if(mContext != nullptr)
 	{
 		LL_DEBUGS("Window") << "destroyContext: unhooking drawable " << LL_ENDL;
-		CGLSetCurrentContext(NULL);
+		CGLSetCurrentContext(nullptr);
 	}
 
 	// Clean up remaining GL state before blowing away window
 	gGLManager.shutdownGL();
 
 	// Clean up the pixel format
-	if(mPixelFormat != NULL)
+	if(mPixelFormat != nullptr)
 	{
 		CGLDestroyPixelFormat(mPixelFormat);
-		mPixelFormat = NULL;
+		mPixelFormat = nullptr;
 	}
 
 	// Clean up the GL context
-	if(mContext != NULL)
+	if(mContext != nullptr)
 	{
 		CGLDestroyContext(mContext);
 	}
@@ -1123,7 +1118,9 @@ bool LLWindowMacOSX::getCursorPosition(LLCoordWindow *position)
 	LLCoordScreen screen_pos;
 
 	if(mWindow == nullptr)
+	{
 		return false;
+	}
 	
 	getCursorPos(mWindow, cursor_point);
 
@@ -1183,18 +1180,15 @@ F32 LLWindowMacOSX::getNativeAspectRatio()
 	{
 		return (F32)mFullscreenWidth / (F32)mFullscreenHeight;
 	}
-	else
+	// The constructor for this class grabs the aspect ratio of the monitor before doing any resolution
+	// switching, and stashes it in mOriginalAspectRatio.  Here, we just return it.
+
+	if (mOverrideAspectRatio > 0.f)
 	{
-		// The constructor for this class grabs the aspect ratio of the monitor before doing any resolution
-		// switching, and stashes it in mOriginalAspectRatio.  Here, we just return it.
-
-		if (mOverrideAspectRatio > 0.f)
-		{
-			return mOverrideAspectRatio;
-		}
-
-		return mOriginalAspectRatio;
+		return mOverrideAspectRatio;
 	}
+
+	return mOriginalAspectRatio;
 }
 
 F32 LLWindowMacOSX::getPixelAspectRatio()
@@ -1270,7 +1264,7 @@ LLWindow::LLWindowResolution* LLWindowMacOSX::getSupportedResolutions(S32 &num_r
 	{
 		CFArrayRef modes = CGDisplayCopyAllDisplayModes(mDisplay, nullptr);
 
-		if(modes != NULL)
+		if(modes != nullptr)
 		{
 			CFIndex index, cnt;
 
@@ -1692,12 +1686,10 @@ void LLWindowMacOSX::setTitle(const std::string title)
 //
 LLSplashScreenMacOSX::LLSplashScreenMacOSX()
 {
-	mWindow = NULL;
+	mWindow = nullptr;
 }
 
-LLSplashScreenMacOSX::~LLSplashScreenMacOSX()
-{
-}
+LLSplashScreenMacOSX::~LLSplashScreenMacOSX() = default;
 
 void LLSplashScreenMacOSX::showImpl()
 {
@@ -1706,14 +1698,19 @@ void LLSplashScreenMacOSX::showImpl()
 
 void LLSplashScreenMacOSX::updateImpl(const std::string& mesg)
 {
+	if(mWindow != nullptr)
+	{
+		CFStringCreateWithCString(nullptr, mesg.c_str(), kCFStringEncodingUTF8);
+	}
+
 }
 
 
 void LLSplashScreenMacOSX::hideImpl()
 {
-	if(mWindow != NULL)
+	if(mWindow != nullptr)
 	{
-		mWindow = NULL;
+		mWindow = nullptr;
 	}
 }
 
@@ -1746,16 +1743,16 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url, bool async)
 	}
 
 	S32 result = 0;
-	CFURLRef urlRef = NULL;
+	CFURLRef urlRef = nullptr;
 
 	LL_INFOS() << "Opening URL " << escaped_url << LL_ENDL;
 
-	CFStringRef	stringRef = CFStringCreateWithCString(NULL, escaped_url.c_str(), kCFStringEncodingUTF8);
+	CFStringRef	stringRef = CFStringCreateWithCString(nullptr, escaped_url.c_str(), kCFStringEncodingUTF8);
 	if (stringRef)
 	{
 		// This will succeed if the string is a full URL, including the http://
 		// Note that URLs specified this way need to be properly percent-escaped.
-		urlRef = CFURLCreateWithString(NULL, stringRef, NULL);
+		urlRef = CFURLCreateWithString(nullptr, stringRef, nullptr);
 
 		// Don't use CRURLCreateWithFileSystemPath -- only want valid URLs
 
@@ -1764,7 +1761,7 @@ void LLWindowMacOSX::spawnWebBrowser(const std::string& escaped_url, bool async)
 
 	if (urlRef)
 	{
-		result = LSOpenCFURLRef(urlRef, NULL);
+		result = LSOpenCFURLRef(urlRef, nullptr);
 
 		if (result != noErr)
 		{
@@ -2261,13 +2258,13 @@ bool LLWindowMacOSX::getInputDevices(U32 device_type_filter,
 
 void LLWindowMacOSX::openFile(const std::string& file_name )
 {
-        LL_INFOS() << "Opening file " << file_name << LL_ENDL;
+    LL_INFOS() << "Opening file " << file_name << LL_ENDL;
 	FSRef appRef;
 	OSStatus os_result = FSPathMakeRef((UInt8*)file_name.c_str(),
-					   &appRef,NULL);
+					   &appRef, nullptr);
 	if(os_result >= 0)
 	{
-		os_result = LSOpenFSRef(&appRef, NULL);
+		LSOpenFSRef(&appRef, nullptr);
 	}
 }
 
@@ -2520,7 +2517,7 @@ OSErr LLWindowMacOSX::dragReceiveHandler(WindowRef theWindow, void * handlerRefC
 
 }
 */
-void LLWindowMacOSX::handleDragNDrop(std::string url, LLWindowCallbacks::DragNDropAction action)
+void LLWindowMacOSX::handleDragNDrop(const std::string& url, LLWindowCallbacks::DragNDropAction action)
 {
 	MASK mask = LLWindowMacOSX::modifiersToMask(getModifiers());
 
