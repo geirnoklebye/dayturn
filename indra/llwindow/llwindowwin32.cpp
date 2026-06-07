@@ -1232,7 +1232,7 @@ bool LLWindowWin32::switchContext(bool fullscreen, const LLCoordScreen& size, bo
 		close();
 		OSMessageBox(mCallbacks->translateString("MBDevContextErr"),
 			mCallbacks->translateString("MBError"), OSMB_OK);
-		return FALSE;
+		return false;
 	}
 
 	LL_INFOS("Window") << "Device context retrieved." << LL_ENDL ;
@@ -2207,7 +2207,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
         // pass along extended flag in mask
         MASK mask = (l_param >> 16 & KF_EXTENDED) ? MASK_EXTENDED : 0x0;
-        BOOL eat_keystroke = TRUE;
+        bool eat_keystroke = true;
 
         switch (u_msg)
         {
@@ -2278,7 +2278,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             window_imp->post([=]()
                 {
                     // This message should be sent whenever the app gains or loses focus.
-                    BOOL activating = (BOOL)w_param;
+                    bool activating = (w_param != 0);
 
                     if (window_imp->mFullscreen)
                     {
@@ -2310,7 +2310,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             window_imp->post([=]()
                 {
                     // Can be one of WA_ACTIVE, WA_CLICKACTIVE, or WA_INACTIVE
-                    BOOL activating = (LOWORD(w_param) != WA_INACTIVE);
+                    bool activating = (LOWORD(w_param) != WA_INACTIVE);
 
                     if (!activating && LLWinImm::isAvailable() && window_imp->mPreeditor)
                     {
@@ -2373,7 +2373,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
         case WM_SYSKEYDOWN:
         {
             // allow system keys, such as ALT-F4 to be processed by Windows
-            eat_keystroke = FALSE;
+            eat_keystroke = false;
             // intentional fall-through here
             [[fallthrough]];
         }
@@ -2394,7 +2394,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             break;
         }
         case WM_SYSKEYUP:
-            eat_keystroke = FALSE;
+            eat_keystroke = false;
             // intentional fall-through here
             [[fallthrough]];
         case WM_KEYUP:
