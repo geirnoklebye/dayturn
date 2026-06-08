@@ -2860,7 +2860,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             {
                 // received a URL
                 PCOPYDATASTRUCT myCDS = (PCOPYDATASTRUCT)l_param;
-                void* data = new U8[myCDS->cbData];
+                U8* data = new U8[myCDS->cbData];
                 memcpy(data, myCDS->lpData, myCDS->cbData);
                 auto myType = myCDS->dwData;
 
@@ -3615,7 +3615,7 @@ void LLWindowWin32::openFile(const std::string& file_name )
 	sei.fMask = SEE_MASK_FLAG_DDEWAIT;
 	sei.nShow = SW_SHOWNORMAL;
 	sei.lpVerb = L"open";
-	sei.lpFile = url_utf16.c_str();
+	sei.lpFile = reinterpret_cast<LPCWSTR>(url_utf16.c_str());
 	ShellExecuteEx( &sei );
 }
 void LLWindowWin32::spawnWebBrowser(const std::string& escaped_url, bool async)
@@ -3655,7 +3655,7 @@ void LLWindowWin32::spawnWebBrowser(const std::string& escaped_url, bool async)
 	}
 	sei.nShow = SW_SHOWNORMAL;
 	sei.lpVerb = L"open";
-	sei.lpFile = url_utf16.c_str();
+	sei.lpFile = reinterpret_cast<LPCWSTR>(url_utf16.c_str());
 	ShellExecuteEx( &sei );
 }
 

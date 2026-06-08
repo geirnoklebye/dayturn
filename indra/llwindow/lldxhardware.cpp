@@ -1,4 +1,4 @@
-/** 
+﻿/** 
  * @file lldxhardware.cpp
  * @brief LLDXHardware implementation
  *
@@ -441,7 +441,7 @@ std::string LLDXHardware::getDriverVersionWMI(EGPUVendor vendor)
 	return mDriverVersion;
 }
 
-void get_wstring(IDxDiagContainer* containerp, WCHAR* wszPropName, WCHAR* wszPropValue, int outputSize)
+void get_wstring(IDxDiagContainer* containerp, const WCHAR* wszPropName, WCHAR* wszPropValue, int outputSize)
 {
 	HRESULT hr;
 	VARIANT var;
@@ -454,13 +454,13 @@ void get_wstring(IDxDiagContainer* containerp, WCHAR* wszPropName, WCHAR* wszPro
 		switch( var.vt )
 		{
 			case VT_UI4:
-				swprintf( wszPropValue, L"%d", var.ulVal );	/* Flawfinder: ignore */
+				swprintf_s( wszPropValue, outputSize, L"%d", var.ulVal );
 				break;
 			case VT_I4:
-				swprintf( wszPropValue, L"%d", var.lVal );	/* Flawfinder: ignore */
+				swprintf_s( wszPropValue, outputSize, L"%d", var.lVal );
 				break;
 			case VT_BOOL:
-				wcscpy( wszPropValue, (var.boolVal) ? L"true" : L"false" );	/* Flawfinder: ignore */
+				wcscpy_s( wszPropValue, outputSize, (var.boolVal) ? L"true" : L"false" );
 				break;
 			case VT_BSTR:
 				wcsncpy( wszPropValue, var.bstrVal, outputSize-1 );	/* Flawfinder: ignore */
@@ -472,7 +472,7 @@ void get_wstring(IDxDiagContainer* containerp, WCHAR* wszPropName, WCHAR* wszPro
 	VariantClear( &var );
 }
 
-std::string get_string(IDxDiagContainer *containerp, WCHAR *wszPropName)
+std::string get_string(IDxDiagContainer *containerp, const WCHAR *wszPropName)
 {
     WCHAR wszPropValue[256];
 	get_wstring(containerp, wszPropName, wszPropValue, 256);
@@ -876,7 +876,7 @@ bool LLDXHardware::getInfo(bool vram_only, bool disable_wmi)
 
 			tokenizer::iterator iter = tokens.begin();
 			S32 count = 0;
-			BOOL valid = TRUE;
+			bool valid = true;
 			for (;(iter != tokens.end()) && (count < 3);++iter)
 			{
 				switch (count)
@@ -884,7 +884,7 @@ bool LLDXHardware::getInfo(bool vram_only, bool disable_wmi)
 				case 0:
 					if (strcmp(iter->c_str(), "PCI"))
 					{
-						valid = FALSE;
+						valid = false;
 					}
 					break;
 				case 1:
@@ -1066,7 +1066,7 @@ LLSD LLDXHardware::getDisplayInfo()
 
 		// Dump the string as an int into the structure
 		char *stopstring;
-		ret["VRAM"] = strtol(ram_str.c_str(), &stopstring, 10);
+		ret["VRAM"] = (LLSD::Integer)strtol(ram_str.c_str(), &stopstring, 10);
 		std::string device_name = get_string(device_containerp, L"szDescription");
 		ret["DeviceName"] = device_name;
 		std::string device_driver=  get_string(device_containerp, L"szDriverVersion");
