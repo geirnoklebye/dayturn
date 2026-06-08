@@ -718,8 +718,8 @@ void LLFontFreetype::setSubImageLuminanceAlpha(U32 x, U32 y, U32 bitmap_num, U32
 		stride = width;
 
 	U32 i, j;
-	U32 to_offset;
-	U32 from_offset;
+	U32 to_offset = 0;
+	U32 from_offset = 0;
 	U32 target_width = image_raw->getWidth();
 	for (i = 0; i < height; i++)
 	{

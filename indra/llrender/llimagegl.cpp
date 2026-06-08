@@ -1530,7 +1530,8 @@ bool LLImageGL::createGLTexture(S32 discard_level, const LLImageRaw* imageraw, S
 		llassert(mCurrentDiscardLevel >= 0);
 		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
-	
+	if (discard_level < 0) discard_level = 0;
+
 	// Actual image width/height = raw image width/height * 2^discard_level
 	S32 raw_w = imageraw->getWidth() ;
 	S32 raw_h = imageraw->getHeight() ;
@@ -2043,6 +2044,7 @@ S32 LLImageGL::getWidth(S32 discard_level) const
 	{
 		discard_level = (S32)mCurrentDiscardLevel; // NOLINT(bugprone-signed-char-misuse)
 	}
+	if (discard_level < 0) discard_level = 0;
 	S32 width = mWidth >> discard_level;
 	if (width < 1) width = 1;
 	return width;

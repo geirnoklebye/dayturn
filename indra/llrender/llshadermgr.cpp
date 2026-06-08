@@ -1064,7 +1064,6 @@ bool LLShaderMgr::linkProgramObject(GLhandleARB obj, bool suppress_errors)
 	{
 		LL_SHADER_LOADING_WARNS() << "GLSL Linker: Running in Software:" << LL_ENDL;
 		success = GL_FALSE;
-		suppress_errors = false;
 	}
 	return success;
 }
