@@ -1233,8 +1233,10 @@ void LLFloaterModelPreview::initDecompControls()
 					}
 					else
 					{
-						for(float value = min; value <= max; value += delta)
+						S32 steps = llround((max - min) / delta);
+						for (S32 step = 0; step <= steps; step++)
 						{
+							float value = min + step * delta;
 							std::string label = llformat("%.1f", value);
 							combo_box->add(label, value, ADD_BOTTOM, true);
 						}
@@ -1318,17 +1320,15 @@ void LLFloaterModelPreview::initDecompControls()
 void LLFloaterModelPreview::createSmoothComboBox(LLComboBox* combo_box, float min, float max)
 {
 	float delta = (max - min) / SMOOTH_VALUES_NUMBER;
-	int ilabel = 0;
 
 	combo_box->add("0 (none)", ADD_BOTTOM, true);
 
-	for(float value = min + delta; value < max; value += delta)
+	for (S32 i = 1; i <= SMOOTH_VALUES_NUMBER; i++)
 	{
-		std::string label = (++ilabel == SMOOTH_VALUES_NUMBER) ? "10 (max)" : llformat("%.1d", ilabel);
+		float value = min + i * delta;
+		std::string label = (i == SMOOTH_VALUES_NUMBER) ? "10 (max)" : llformat("%.1d", i);
 		combo_box->add(label, value, ADD_BOTTOM, true);
 	}
-
-
 }
 
 //-----------------------------------------------------------------------------

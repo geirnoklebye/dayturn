@@ -1589,11 +1589,14 @@ void LLManipTranslate::renderGrid(F32 x, F32 y, F32 size, F32 r, F32 g, F32 b, F
 {
 	F32 d = size*0.5f;
 
-	for (F32 xx = -size-d; xx < size+d; xx += d)
+	S32 steps = llround(2.f * (size + d) / d);
+	for (S32 ix = 0; ix < steps; ix++)
 	{
+		F32 xx = -size - d + ix * d;
 		gGL.begin(LLRender::TRIANGLE_STRIP);
-		for (F32 yy = -size-d; yy < size+d; yy += d)
+		for (S32 iy = 0; iy < steps; iy++)
 		{
+			F32 yy = -size - d + iy * d;
 			float dx, dy, da;
 
 			dx = xx; dy = yy;

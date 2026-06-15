@@ -5400,17 +5400,15 @@ void LLPipeline::renderDebug()
 	if (mRenderDebugMask & RENDER_DEBUG_COMPOSITION)
 	{
 		// Debug composition layers
-		F32 x, y;
-
 		gGL.getTexUnit(0)->unbind(LLTexUnit::TT_TEXTURE);
 
 		if (gAgent.getRegion())
 		{
 			gGL.begin(LLRender::POINTS);
 			// Draw the composition layer for the region that I'm in.
-			for (x = 0; x <= 260; x++)
+			for (S32 x = 0; x <= 260; x++)
 			{
-				for (y = 0; y <= 260; y++)
+				for (S32 y = 0; y <= 260; y++)
 				{
 					if ((x > 255) || (y > 255))
 					{
@@ -5420,10 +5418,10 @@ void LLPipeline::renderDebug()
 					{
 						gGL.color4f(0.f, 0.f, 1.f, 1.f);
 					}
-					F32 z = gAgent.getRegion()->getCompositionXY((S32)x, (S32)y);
+					F32 z = gAgent.getRegion()->getCompositionXY(x, y);
 					z *= 5.f;
 					z += 50.f;
-					gGL.vertex3f(x, y, z);
+					gGL.vertex3f((F32)x, (F32)y, z);
 				}
 			}
 			gGL.end();

@@ -1017,12 +1017,12 @@ void LLSurfacePatch::updateCompositionStats()
 	min = vlp->getValueScaled(x, y);
 	max= min;
 	U32 count = 0;
-	F32 i, j;
-	for (j = 0; j < height; j += mpg)
+	S32 grids = mSurfacep->getGridsPerPatchEdge() + 1;
+	for (S32 j = 0; j < grids; j++)
 	{
-		for (i = 0; i < width; i += mpg)
+		for (S32 i = 0; i < grids; i++)
 		{
-			F32 comp = vlp->getValueScaled(x + i, y + j);
+			F32 comp = vlp->getValueScaled(x + i * mpg, y + j * mpg);
 			mean += comp;
 			min = llmin(min, comp);
 			max = llmax(max, comp);
