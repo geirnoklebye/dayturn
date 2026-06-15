@@ -2655,7 +2655,7 @@ void LLPipeline::doOcclusion(LLCamera& camera)
 		LLGLDisable cull(GL_CULL_FACE);
 
 		
-		bool bind_shader = (LLGLSLShader::sCurBoundShader == nullptr);
+		bool bind_shader = (LLGLSLShader::sCurBoundShader == 0);
 		if (bind_shader)
 		{
 			if (LLPipeline::sShadowRender)
