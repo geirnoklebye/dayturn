@@ -1346,7 +1346,7 @@ void LLPanelRequestTools::sendRequest(const LLHost& host)
 								  host,
 								  false,
 								  terrain_download_done,
-								  NULL);
+								  nullptr);
 	}
 	else
 	{

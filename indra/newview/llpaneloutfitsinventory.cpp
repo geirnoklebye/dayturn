@@ -54,10 +54,10 @@ static const std::string SAVE_BTN("save_btn");
 static LLPanelInjector<LLPanelOutfitsInventory> t_inventory("panel_outfits_inventory");
 
 LLPanelOutfitsInventory::LLPanelOutfitsInventory() :
-	mMyOutfitsPanel(NULL),
-	mCurrentOutfitPanel(NULL),
-	mActivePanel(NULL),
-	mAppearanceTabs(NULL),
+	mMyOutfitsPanel(nullptr),
+	mCurrentOutfitPanel(nullptr),
+	mActivePanel(nullptr),
+	mAppearanceTabs(nullptr),
 	mInitialized(false)
 {
 	gAgentWearables.addLoadedCallback(boost::bind(&LLPanelOutfitsInventory::onWearablesLoaded, this));

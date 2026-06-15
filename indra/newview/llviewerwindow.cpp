@@ -232,15 +232,15 @@ extern bool gDisplaySwapBuffers;
 extern bool gDepthDirty;
 extern bool gResizeScreenTexture;
 
-LLViewerWindow	*gViewerWindow = NULL;
+LLViewerWindow	*gViewerWindow = nullptr;
 
 LLFrameTimer	gAwayTimer;
 LLFrameTimer	gAwayTriggerTimer;
 
 bool			gShowOverlayTitle = false;
 
-LLViewerObject*  gDebugRaycastObject = NULL;
-LLVOPartGroup* gDebugRaycastParticle = NULL;
+LLViewerObject*  gDebugRaycastObject = nullptr;
+LLVOPartGroup* gDebugRaycastParticle = nullptr;
 LLVector4a       gDebugRaycastIntersection;
 LLVector4a		gDebugRaycastParticleIntersection;
 LLVector2        gDebugRaycastTexCoord;
@@ -954,7 +954,7 @@ public:
         static LLCachedControl<bool> debug_show_texture_info(gSavedSettings, "DebugShowTextureInfo", false);
         if (debug_show_texture_info())
 		{
-			LLViewerObject* objectp = NULL ;
+			LLViewerObject* objectp = nullptr ;
 			
 			LLSelectNode* nodep = LLSelectMgr::instance().getHoverNode();
 			if (nodep)
@@ -1394,7 +1394,7 @@ LLWindowCallbacks::DragNDropResult LLViewerWindow::handleDragNDrop( LLWindow *wi
 							else 
 							{
 								// Check the whitelist, if there's media (otherwise just show it)
-								if (te->getMediaData() == NULL || te->getMediaData()->checkCandidateUrl(url))
+								if (te->getMediaData() == nullptr || te->getMediaData()->checkCandidateUrl(url))
 								{
 									if ( obj != mDragHoveredObject)
 									{
@@ -1575,7 +1575,7 @@ void LLViewerWindow::handleFocusLost(LLWindow *window)
 	gFocusMgr.setAppHasFocus(false);
 	//LLModalDialog::onAppFocusLost();
 	LLToolMgr::getInstance()->onAppFocusLost();
-	gFocusMgr.setMouseCapture( NULL );
+	gFocusMgr.setMouseCapture( nullptr );
 
 	if (gMenuBarView)
 	{
@@ -1776,7 +1776,7 @@ void LLViewerWindow::handleDataCopy(LLWindow *window, S32 data_type, void *data)
 	case SLURL_MESSAGE_TYPE:
 		// received URL
 		std::string url = (const char*)data;
-		LLMediaCtrl* web = NULL;
+		LLMediaCtrl* web = nullptr;
 		const bool trusted_browser = false;
 		// don't treat slapps coming from external browsers as "clicks" as this would bypass throttling
 		if (LLURLDispatcher::dispatch(url, LLCommandHandler::NAV_TYPE_EXTERNAL, web, trusted_browser))
@@ -1875,7 +1875,7 @@ std::string LLViewerWindow::translateString(const char* tag,
 // Classes
 //
 LLViewerWindow::LLViewerWindow(const Params& p)
-:	mWindow(NULL),
+:	mWindow(nullptr),
 	mActive(true),
 	mUIVisible(true),
 	mWindowRectRaw(0, p.height, p.width, 0),
@@ -1936,7 +1936,7 @@ LLViewerWindow::LLViewerWindow(const Params& p)
 		p.ignore_pixel_depth,
 		gSavedSettings.getbool("RenderDeferred") ? 0 : gSavedSettings.getU32("RenderFSAASamples")); //don't use window level anti-aliasing if FBOs are enabled
 
-	if (NULL == mWindow)
+	if (nullptr == mWindow)
 	{
 		LLSplashScreen::update(LLTrans::getString("StartupRequireDriverUpdate"));
 	
@@ -2325,7 +2325,7 @@ void LLViewerWindow::initWorldUI()
 		topinfo_bar->setVisible(false);
 	}
 
-	if ( gHUDView == NULL )
+	if ( gHUDView == nullptr )
 	{
 		LLRect hud_rect = full_window;
 		hud_rect.mBottom += 50;
@@ -2457,16 +2457,16 @@ void LLViewerWindow::shutdownViews()
 	LL_INFOS() << "Warning logger is cleaned." << LL_ENDL ;
 
 	gFocusMgr.unlockFocus();
-	gFocusMgr.setMouseCapture(NULL);
-	gFocusMgr.setKeyboardFocus(NULL);
-	gFocusMgr.setTopCtrl(NULL);
+	gFocusMgr.setMouseCapture(nullptr);
+	gFocusMgr.setKeyboardFocus(nullptr);
+	gFocusMgr.setTopCtrl(nullptr);
 	if (mWindow)
 	{
-		mWindow->allowLanguageTextInput(NULL, false);
+		mWindow->allowLanguageTextInput(nullptr, false);
 	}
 
 	delete mDebugText;
-	mDebugText = NULL;
+	mDebugText = nullptr;
 	
 	LL_INFOS() << "DebugText deleted." << LL_ENDL ;
 
@@ -2499,26 +2499,26 @@ void LLViewerWindow::shutdownViews()
 	LL_INFOS() << "view listeners destroyed." << LL_ENDL ;
 
 	// Clean up pointers that are going to be invalid. (todo: check sMenuContainer)
-	mProgressView = NULL;
-	mPopupView = NULL;
+	mProgressView = nullptr;
+	mPopupView = nullptr;
 
 	// Delete all child views.
 	delete mRootView;
-	mRootView = NULL;
+	mRootView = nullptr;
 	LL_INFOS() << "RootView deleted." << LL_ENDL ;
 	
 	LLMenuOptionPathfindingRebakeNavmesh::getInstance()->quit();
 
 	// Automatically deleted as children of mRootView.  Fix the globals.
-	gStatusBar = NULL;
-	gIMMgr = NULL;
-	gToolTipView = NULL;
+	gStatusBar = nullptr;
+	gIMMgr = nullptr;
+	gToolTipView = nullptr;
 
-	gToolBarView = NULL;
-	gFloaterView = NULL;
-	gMorphView = NULL;
+	gToolBarView = nullptr;
+	gFloaterView = nullptr;
+	gMorphView = nullptr;
 
-	gHUDView = NULL;
+	gHUDView = nullptr;
 }
 
 void LLViewerWindow::shutdownGL()
@@ -2575,7 +2575,7 @@ LLViewerWindow::~LLViewerWindow()
 	destroyWindow();
 
 	delete mDebugText;
-	mDebugText = NULL;
+	mDebugText = nullptr;
 
 	if (LLViewerShaderMgr::sInitialized)
 	{
@@ -2968,7 +2968,7 @@ bool LLViewerWindow::handleKeyUp(KEY key, MASK mask)
         else if (key < 0x80)
 		{
 			// Not a special key, so likely (we hope) to generate a character.  Let it fall through to character handler first.
-			return (gFocusMgr.getKeyboardFocus() != NULL);
+			return (gFocusMgr.getKeyboardFocus() != nullptr);
 		}
 	}
 
@@ -3123,7 +3123,7 @@ bool LLViewerWindow::handleKey(KEY key, MASK mask)
 	// give floaters first chance to handle TAB key
 	// so frontmost floater gets focus
 	// if nothing has focus, go to first or last UI element as appropriate
-    if (key == KEY_TAB && (mask & MASK_CONTROL || keyboard_focus == NULL))
+    if (key == KEY_TAB && (mask & MASK_CONTROL || keyboard_focus == nullptr))
 	{
 		LL_WARNS() << "LLviewerWindow::handleKey give floaters first chance at tab key " << LL_ENDL;
 		if (gMenuHolder) gMenuHolder->hideMenus();
@@ -3370,7 +3370,7 @@ void LLViewerWindow::handleScrollWheel(S32 clicks)
 
 	// Zoom the camera in and out behavior
 
-	if(top_ctrl == 0 
+	if(top_ctrl == nullptr 
 		&& getWorldViewRectScaled().pointInRect(mCurrentMousePoint.mX, mCurrentMousePoint.mY) 
 		&& gAgentCamera.isInitialized())
 		gAgentCamera.handleScrollWheel(clicks);
@@ -3567,7 +3567,7 @@ void LLViewerWindow::updateUI()
 	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_RAYCAST))
 	{
 		gDebugRaycastFaceHit = -1;
-		gDebugRaycastObject = cursorIntersect(-1, -1, 512.f, NULL, -1, false, false,
+		gDebugRaycastObject = cursorIntersect(-1, -1, 512.f, nullptr, -1, false, false,
 											  &gDebugRaycastFaceHit,
 											  &gDebugRaycastIntersection,
 											  &gDebugRaycastTexCoord,
@@ -4077,7 +4077,7 @@ void LLViewerWindow::updateKeyboardFocus()
 {
 	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 	{
-		gFocusMgr.setKeyboardFocus(NULL);
+		gFocusMgr.setKeyboardFocus(nullptr);
 	}
 
 	// clean up current focus
@@ -5223,7 +5223,7 @@ LLViewerObject* LLViewerWindow::cursorIntersect(S32 mouse_x, S32 mouse_y, F32 de
 		*end = mw_end;
 	}
 
-	LLViewerObject* found = NULL;
+	LLViewerObject* found = nullptr;
 
 	if (this_object)  // check only this object
 	{
@@ -5732,7 +5732,7 @@ bool LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	//check if there is enough memory for the snapshot image
 	if(image_width * image_height > (1 << 22)) //if snapshot image is larger than 2K by 2K
 	{
-		if(!LLMemory::tryToAlloc(NULL, image_width * image_height * 3))
+		if(!LLMemory::tryToAlloc(nullptr, image_width * image_height * 3))
 		{
 			LL_WARNS() << "No enough memory to take the snapshot with size (w : h): " << image_width << " : " << image_height << LL_ENDL ;
 			return false ; //there is no enough memory for taking this snapshot.
@@ -6149,7 +6149,7 @@ void LLViewerWindow::destroyWindow()
 	{
 		LLWindowManager::destroyWindow(mWindow);
 	}
-	mWindow = NULL;
+	mWindow = nullptr;
 }
 
 
@@ -6789,7 +6789,7 @@ LLPickInfo::LLPickInfo(const LLCoordGL& mouse_pos,
 	  mNormal(),
 	  mTangent(),
 	  mBinormal(),
-	  mHUDIcon(NULL),
+	  mHUDIcon(nullptr),
 	  mPickTransparent(pick_transparent),
 	  mPickRigged(pick_rigged),
 	  mPickParticle(pick_particle),
@@ -6910,7 +6910,7 @@ void LLPickInfo::fetchResults()
 	{ //search for closest particle to click origin out to intersection point
 		S32 part_face = -1;
 
-		LLVOPartGroup* group = gPipeline.lineSegmentIntersectParticle(start, particle_end, NULL, &part_face);
+		LLVOPartGroup* group = gPipeline.lineSegmentIntersectParticle(start, particle_end, nullptr, &part_face);
 		if (group)
 		{
 			mParticleOwnerID = group->getPartOwner(part_face);

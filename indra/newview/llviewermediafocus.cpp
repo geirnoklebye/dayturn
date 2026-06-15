@@ -143,13 +143,13 @@ void LLViewerMediaFocus::setFocusFace(LLPointer<LLViewerObject> objectp, S32 fac
 	{
 		if(hasFocus())
 		{
-			gFocusMgr.setKeyboardFocus(NULL);
+			gFocusMgr.setKeyboardFocus(nullptr);
 		}
 
 		LLViewerMediaImpl* impl = getFocusedMediaImpl();
 		if (LLEditMenuHandler::gEditMenuHandler == impl)
 		{
-			LLEditMenuHandler::gEditMenuHandler = NULL;
+			LLEditMenuHandler::gEditMenuHandler = nullptr;
 		}
 
 		

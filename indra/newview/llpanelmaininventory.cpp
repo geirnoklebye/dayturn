@@ -121,12 +121,12 @@ private:
 
 LLPanelMainInventory::LLPanelMainInventory(const LLPanel::Params& p)
 	: LLPanel(p),
-	  mActivePanel(NULL),
-	  mWornItemsPanel(NULL),
-	  mSavedFolderState(NULL),
+	  mActivePanel(nullptr),
+	  mWornItemsPanel(nullptr),
+	  mSavedFolderState(nullptr),
 	  mFilterText(""),
-	  mMenuGearDefault(NULL),
-	  mMenuVisibility(NULL),
+	  mMenuGearDefault(nullptr),
+	  mMenuVisibility(nullptr),
 	  mMenuAddHandle(),
 	  mNeedUploadCost(true)
 {
@@ -359,7 +359,7 @@ void LLPanelMainInventory::startSearch()
 
 bool LLPanelMainInventory::handleKeyHere(KEY key, MASK mask)
 {
-	LLFolderView* root_folder = mActivePanel ? mActivePanel->getRootFolder() : NULL;
+	LLFolderView* root_folder = mActivePanel ? mActivePanel->getRootFolder() : nullptr;
 	if (root_folder)
 	{
 		// first check for user accepting current search results
@@ -412,7 +412,7 @@ void LLPanelMainInventory::newWindow()
 void LLPanelMainInventory::doCreate(const LLSD& userdata)
 {
 	reset_inventory_filter();
-	menu_create_inventory_item(getPanel(), NULL, userdata);
+	menu_create_inventory_item(getPanel(), nullptr, userdata);
 }
 
 void LLPanelMainInventory::resetFilters()
@@ -542,7 +542,7 @@ bool LLPanelMainInventory::filtersVisible(void* user_data)
 	LLPanelMainInventory* self = (LLPanelMainInventory*)user_data;
 	if(!self) return false;
 
-	return self->getFinder() != NULL;
+	return self->getFinder() != nullptr;
 }
 
 void LLPanelMainInventory::onClearSearch()
@@ -654,7 +654,7 @@ void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
  //static
  bool LLPanelMainInventory::incrementalFind(LLFolderViewItem* first_item, const char *find_text, bool backward)
  {
- 	LLPanelMainInventory* active_view = NULL;
+ 	LLPanelMainInventory* active_view = nullptr;
 	
 	LLFloaterReg::const_instance_list_t& inst_list = LLFloaterReg::getFloaterList("inventory");
 	for (LLFloaterReg::const_instance_list_t::const_iterator iter = inst_list.begin(); iter != inst_list.end(); ++iter)

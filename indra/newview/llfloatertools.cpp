@@ -97,7 +97,7 @@
 #include "llviewermenu.h"
 
 // Globals
-LLFloaterTools *gFloaterTools = NULL;
+LLFloaterTools *gFloaterTools = nullptr;
 bool LLFloaterTools::sShowObjectCost = true;
 bool LLFloaterTools::sPreviousFocusOnAvatar = false;
 
@@ -480,7 +480,7 @@ LLFloaterTools::LLFloaterTools(const LLSD& key)
 LLFloaterTools::~LLFloaterTools()
 {
 	// children automatically deleted
-	gFloaterTools = NULL;
+	gFloaterTools = nullptr;
 
 	LLViewerParcelMgr::getInstance()->removeObserver(mLandImpactsObserver);
 	delete mLandImpactsObserver;
@@ -1296,7 +1296,7 @@ void commit_select_component(void *data)
 	//forfeit focus
 	if (gFocusMgr.childHasKeyboardFocus(floaterp))
 	{
-		gFocusMgr.setKeyboardFocus(NULL);
+		gFocusMgr.setKeyboardFocus(nullptr);
 	}
 
 	bool select_individuals = floaterp->mCheckSelectIndividual->get();

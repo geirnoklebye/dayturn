@@ -313,7 +313,7 @@ const LLSD* LLAutoReplaceSettings::getListEntries(std::string listName)
 {
 	const LLSD* returnedEntries = nullptr;
 	for( LLSD::array_const_iterator list = mLists.beginArray(), endList = mLists.endArray();
-		 returnedEntries == NULL && list != endList;
+		 returnedEntries == nullptr && list != endList;
 		 list++
 		)
 	{
@@ -445,7 +445,7 @@ const LLSD* LLAutoReplaceSettings::exportList(std::string listName)
 {
 	const LLSD* exportedList = nullptr;
 	for ( LLSD::array_const_iterator list = mLists.beginArray(), listEnd = mLists.endArray();
-		  exportedList == NULL && list != listEnd;
+		  exportedList == nullptr && list != listEnd;
 		  list++
 		 )
 	{

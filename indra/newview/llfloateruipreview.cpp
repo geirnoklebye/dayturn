@@ -1032,10 +1032,10 @@ void LLFloaterUIPreview::getExecutablePath(const std::vector<std::string>& filen
 	CFStringRef path_cfstr = CFStringCreateWithCString(kCFAllocatorDefault, chosen_path.c_str(), kCFStringEncodingMacRoman);		// get path as a CFStringRef
 	CFURLRef path_url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, path_cfstr, kCFURLPOSIXPathStyle, true);			// turn it into a CFURLRef
 	CFBundleRef chosen_bundle = CFBundleCreate(kCFAllocatorDefault, path_url);												// get a handle for the bundle
-	if(NULL != chosen_bundle)
+	if(nullptr != chosen_bundle)
 	{
 		CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(chosen_bundle);												// get the bundle's dictionary
-		if(NULL != bundleInfoDict)
+		if(nullptr != bundleInfoDict)
 		{
 			CFStringRef executable_cfstr = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleExecutable"));	// get the name of the actual executable (e.g. TextEdit or firefox-bin)
 			int max_file_length = 256;																						// (max file name length is 255 in OSX)
@@ -1263,7 +1263,7 @@ void LLFloaterUIPreview::highlightChangedElements()
 			element = element->findChild<LLView>(*token_iter,false);	// try to find element: don't recur, and don't create if missing
 
 			// if we still didn't find it...
-			if(NULL == element)												
+			if(nullptr == element)												
 			{
 				LL_INFOS() << "Unable to find element in XuiDelta file named \"" << *iter << "\" in file \"" << mLiveFile->mFileName <<
 							"\". The element may no longer exist, the path may be incorrect, or it may not be a non-displayable element (not an LLView) such as a \"string\" type." << LL_ENDL;

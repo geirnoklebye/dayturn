@@ -682,9 +682,9 @@ bool LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 			}
 		}
 
-		LLViewerObject* root_object = (object == NULL) ? NULL : object->getRootEdit();
+		LLViewerObject* root_object = (object == nullptr) ? nullptr : object->getRootEdit();
 		if (object->permMove() && !object->isPermanentEnforced() &&
-			((root_object == NULL) || !root_object->isPermanentEnforced()))
+			((root_object == nullptr) || !root_object->isPermanentEnforced()))
 		{
 			// handle attachments in local space
 			if (object->isAttachment() && object->mDrawable.notNull())

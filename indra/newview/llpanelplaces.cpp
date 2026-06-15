@@ -235,14 +235,14 @@ static LLPanelInjector<LLPanelPlaces> t_places("panel_places");
 
 LLPanelPlaces::LLPanelPlaces()
 	:	LLPanel(),
-		mActivePanel(NULL),
-		mFilterEditor(NULL),
-		mPlaceProfile(NULL),
-		mLandmarkInfo(NULL),
-		mPickPanel(NULL),
+		mActivePanel(nullptr),
+		mFilterEditor(nullptr),
+		mPlaceProfile(nullptr),
+		mLandmarkInfo(nullptr),
+		mPickPanel(nullptr),
 		mItem(NULL),
-		mPlaceMenu(NULL),
-		mLandmarkMenu(NULL),
+		mPlaceMenu(nullptr),
+		mLandmarkMenu(nullptr),
 		mPosGlobal(),
 		isLandmarkEditModeOn(false),
 		mTabsCreated(false)
@@ -871,7 +871,7 @@ void LLPanelPlaces::onOverflowButtonClicked()
 
 	if ((is_agent_place_info_visible ||
 		 mPlaceInfoType == REMOTE_PLACE_INFO_TYPE ||
-		 mPlaceInfoType == TELEPORT_HISTORY_INFO_TYPE) && mPlaceMenu != NULL)
+		 mPlaceInfoType == TELEPORT_HISTORY_INFO_TYPE) && mPlaceMenu != nullptr)
 	{
 		menu = mPlaceMenu;
 
@@ -896,7 +896,7 @@ void LLPanelPlaces::onOverflowButtonClicked()
 		menu->setItemVisible("landmark", mPlaceInfoType != TELEPORT_HISTORY_INFO_TYPE);
 		menu->arrangeAndClear();
 	}
-	else if (mPlaceInfoType == LANDMARK_INFO_TYPE && mLandmarkMenu != NULL)
+	else if (mPlaceInfoType == LANDMARK_INFO_TYPE && mLandmarkMenu != nullptr)
 	{
 		menu = mLandmarkMenu;
 
@@ -953,7 +953,7 @@ void LLPanelPlaces::onOverflowMenuItemClicked(const LLSD& param)
 	}
 	else if (item == "pick")
 	{
-		if (mPickPanel == NULL)
+		if (mPickPanel == nullptr)
 		{
 			mPickPanel = LLPanelPickEdit::create();
 			addChild(mPickPanel);
@@ -1366,7 +1366,7 @@ LLPanelPlaceInfo* LLPanelPlaces::getCurrentInfoPanel()
 		return mLandmarkInfo;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 static bool is_agent_in_selected_parcel(LLParcel* parcel)

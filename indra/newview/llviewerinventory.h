@@ -331,7 +331,7 @@ private:
 	static void destroyClass();
 
 public:
-	static bool is_instantiated() { return sInstance != NULL; }
+	static bool is_instantiated() { return sInstance != nullptr; }
 };
 extern LLInventoryCallbackManager gInventoryCallbacks;
 

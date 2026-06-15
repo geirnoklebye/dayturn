@@ -560,7 +560,7 @@ void LLNotificationSeparator::getItems(std::vector<LLNotificationListItem*>& ite
     {
         getItemsFromList(items, *lists_it);
     }
-    if (mUnTaggedList != NULL)
+    if (mUnTaggedList != nullptr)
     {
         getItemsFromList(items, mUnTaggedList);
     }
@@ -568,7 +568,7 @@ void LLNotificationSeparator::getItems(std::vector<LLNotificationListItem*>& ite
 
 //---------------------------------------------------------------------------------
 LLNotificationSeparator::LLNotificationSeparator()
-    : mUnTaggedList(NULL)
+    : mUnTaggedList(nullptr)
 {}
 
 //---------------------------------------------------------------------------------

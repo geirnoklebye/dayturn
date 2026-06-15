@@ -73,9 +73,9 @@ private:
 LLSidepanelAppearance::LLSidepanelAppearance() :
 	LLPanel(),
 	mFilterSubString(LLStringUtil::null),
-	mFilterEditor(NULL),
-	mOutfitEdit(NULL),
-	mCurrOutfitPanel(NULL),
+	mFilterEditor(nullptr),
+	mOutfitEdit(nullptr),
+	mCurrOutfitPanel(nullptr),
 	mOpened(false)
 {
 	LLOutfitObserver& outfit_observer =  LLOutfitObserver::instance();
@@ -200,7 +200,7 @@ void LLSidepanelAppearance::updateToVisibility(const LLSD &new_visibility)
 
 		if (is_outfit_edit_visible || is_wearable_edit_visible)
 		{
-			const LLViewerWearable *wearable_ptr = mEditWearable ? mEditWearable->getWearable() : NULL;
+			const LLViewerWearable *wearable_ptr = mEditWearable ? mEditWearable->getWearable() : nullptr;
 			if (!wearable_ptr)
 			{
 				LL_WARNS() << "Visibility change to invalid wearable" << LL_ENDL;
@@ -426,7 +426,7 @@ void LLSidepanelAppearance::toggleWearableEditPanel(bool visible, LLViewerWearab
 	{
 		// Save changes if closing.
 		mEditWearable->saveChanges();
-		mEditWearable->setWearable(NULL);
+		mEditWearable->setWearable(nullptr);
 		LLAppearanceMgr::getInstance()->updateIsDirty();
 		if (change_state)
 		{

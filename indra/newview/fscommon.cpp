@@ -141,7 +141,7 @@ LLPanelPeople* getPeoplePanel()
 	{
 		return dynamic_cast<LLPanelPeople*>(panel_people);
 	}
-	return NULL;
+	return nullptr;
 }
 
 long long int FSCommon::secondsSinceEpochFromString(const std::string& format, const std::string& str)

@@ -1494,7 +1494,7 @@ void LLVOCache::writeToCache(U64 handle, const LLUUID& id, const LLVOCacheEntry:
 
 		entry = new HeaderEntryInfo();
 		entry->mHandle = handle ;
-		entry->mTime = time(NULL) ;
+		entry->mTime = time(nullptr) ;
 		entry->mIndex = mNumEntries++;
 		mHeaderEntryQueue.insert(entry) ;
 		mHandleEntryMap[handle] = entry ;
@@ -1507,7 +1507,7 @@ void LLVOCache::writeToCache(U64 handle, const LLUUID& id, const LLVOCacheEntry:
 		//resort
 		mHeaderEntryQueue.erase(entry) ;
 		
-		entry->mTime = time(NULL) ;
+		entry->mTime = time(nullptr) ;
 		mHeaderEntryQueue.insert(entry) ;
 	}
 

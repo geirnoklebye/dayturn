@@ -598,7 +598,7 @@ struct LLFoundData
 	LLFoundData() :
 		mAssetType(LLAssetType::AT_NONE),
 		mWearableType(LLWearableType::WT_INVALID),
-		mWearable(NULL) {}
+		mWearable(nullptr) {}
 
 	LLFoundData(const LLUUID& item_id,
 				const LLUUID& asset_id,
@@ -613,7 +613,7 @@ struct LLFoundData
 		mAssetType(asset_type),
 		mWearableType(wearable_type),
 		mIsReplacement(is_replacement),
-		mWearable( NULL ) {}
+		mWearable( nullptr ) {}
 	
 	LLUUID mItemID;
 	LLUUID mAssetID;
@@ -969,7 +969,7 @@ void recovered_item_link_cb(const LLUUID& item_id, LLWearableType::EType type, L
 	holder->eraseTypeToLink(type);
 	// Add wearable to FoundData for actual wearing
 	LLViewerInventoryItem *item = gInventory.getItem(item_id);
-	LLViewerInventoryItem *linked_item = item ? item->getLinkedItem() : NULL;
+	LLViewerInventoryItem *linked_item = item ? item->getLinkedItem() : nullptr;
 
 	if (linked_item)
 	{
@@ -1375,14 +1375,14 @@ const LLViewerInventoryItem* LLAppearanceMgr::getBaseOutfitLink()
 			const LLUUID parent_id = cat->getParentUUID();
 			LLViewerInventoryCategory*  parent_cat =  gInventory.getCategory(parent_id);
 			// if base outfit moved to trash it means that we don't have base outfit
-			if (parent_cat != NULL && parent_cat->getPreferredType() == LLFolderType::FT_TRASH)
+			if (parent_cat != nullptr && parent_cat->getPreferredType() == LLFolderType::FT_TRASH)
 			{
-				return NULL;
+				return nullptr;
 			}
 			return item;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool LLAppearanceMgr::getBaseOutfitName(std::string& name)
@@ -1534,7 +1534,7 @@ void LLAppearanceMgr::wearItemsOnAvatar(const uuid_vec_t& item_ids_to_wear,
                 
             case LLAssetType::AT_OBJECT:
             {
-                rez_attachment(item_to_wear, NULL, replace);
+                rez_attachment(item_to_wear, nullptr, replace);
             }
             break;
 
@@ -2410,7 +2410,7 @@ void get_sorted_base_and_cof_items(LLInventoryModel::item_array_t& cof_item_arra
 		for (U32 i = 0; i < outfit_item_array.size(); ++i)
 		{
 			LLViewerInventoryItem* linked_item = outfit_item_array.at(i)->getLinkedItem();
-			if (linked_item != NULL && linked_item->getActualType() == LLAssetType::AT_TEXTURE)
+			if (linked_item != nullptr && linked_item->getActualType() == LLAssetType::AT_TEXTURE)
 			{
 				outfit_item_array.erase(outfit_item_array.begin() + i);
 				break;
@@ -2563,7 +2563,7 @@ void LLAppearanceMgr::updateAppearanceFromCOF(bool enforce_item_restrictions,
 	for(S32 i = 0; i  < wear_items.size(); ++i)
 	{
 		LLViewerInventoryItem *item = wear_items.at(i);
-		LLViewerInventoryItem *linked_item = item ? item->getLinkedItem() : NULL;
+		LLViewerInventoryItem *linked_item = item ? item->getLinkedItem() : nullptr;
 
 		// Fault injection: use debug setting to test asset 
 		// fetch failures (should be replaced by new defaults in
@@ -2748,7 +2748,7 @@ void LLAppearanceMgr::wearCategoryFinal(LLUUID& cat_id, bool copy_items, bool ap
 		{
 			name = cat->getName();
 		}
-		LLViewerInventoryItem* item = NULL;
+		LLViewerInventoryItem* item = nullptr;
 		LLInventoryModel::item_array_t::const_iterator it = items->begin();
 		LLInventoryModel::item_array_t::const_iterator end = items->end();
 		LLUUID pid;
@@ -2837,7 +2837,7 @@ void LLAppearanceMgr::wearOutfitByName(const std::string& name)
 									LLInventoryModel::EXCLUDE_TRASH,
 									has_name);
 	bool copy_items = false;
-	LLInventoryCategory* cat = NULL;
+	LLInventoryCategory* cat = nullptr;
 	if (cat_array.size() > 0)
 	{
 		// Just wear the first one that matches
@@ -3145,7 +3145,7 @@ void LLAppearanceMgr::updateIsDirty()
 
 	// find base outfit link 
 	const LLViewerInventoryItem* base_outfit_item = getBaseOutfitLink();
-	LLViewerInventoryCategory* catp = NULL;
+	LLViewerInventoryCategory* catp = nullptr;
 	if (base_outfit_item && base_outfit_item->getIsLinkType())
 	{
 		catp = base_outfit_item->getLinkedCategory();
@@ -3176,7 +3176,7 @@ void LLAppearanceMgr::updateIsDirty()
 		for (U32 i = 0; i < outfit_items.size(); ++i)
 		{
 			LLViewerInventoryItem* linked_item = outfit_items.at(i)->getLinkedItem();
-			if (linked_item != NULL && linked_item->getActualType() == LLAssetType::AT_TEXTURE)
+			if (linked_item != nullptr && linked_item->getActualType() == LLAssetType::AT_TEXTURE)
 			{
 				outfit_items.erase(outfit_items.begin() + i);
 				break;
@@ -3422,7 +3422,7 @@ void update_base_outfit_after_ordering()
         for (U32 i = 0; i < outfit_item_array.size(); ++i)
         {
             LLViewerInventoryItem* linked_item = outfit_item_array.at(i)->getLinkedItem();
-            if (linked_item != NULL && linked_item->getActualType() == LLAssetType::AT_TEXTURE)
+            if (linked_item != nullptr && linked_item->getActualType() == LLAssetType::AT_TEXTURE)
             {
                 outfit_item_array.erase(outfit_item_array.begin() + i);
                 break;
@@ -3662,7 +3662,7 @@ LLSD LLAppearanceMgr::dumpCOF() const
 		if (LLAssetType::AT_LINK == inv_item->getActualType())
 		{
 			const LLViewerInventoryItem* linked_item = inv_item->getLinkedItem();
-			if (NULL == linked_item)
+			if (nullptr == linked_item)
 			{
 				LL_WARNS() << "Broken link for item '" << inv_item->getName()
 						<< "' (" << inv_item->getUUID()
@@ -4374,7 +4374,7 @@ void LLAppearanceMgr::dumpItemArray(const LLInventoryModel::item_array_t& items,
 	for (S32 i=0; i<items.size(); i++)
 	{
 		LLViewerInventoryItem *item = items.at(i);
-		LLViewerInventoryItem *linked_item = item ? item->getLinkedItem() : NULL;
+		LLViewerInventoryItem *linked_item = item ? item->getLinkedItem() : nullptr;
 		LLUUID asset_id;
 		if (linked_item)
 		{

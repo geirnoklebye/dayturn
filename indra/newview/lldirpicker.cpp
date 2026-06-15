@@ -155,7 +155,7 @@ std::string LLDirPicker::getDirName()
 #elif LL_DARWIN
 
 LLDirPicker::LLDirPicker() :
-mFileName(NULL),
+mFileName(nullptr),
 mLocked(false)
 {
 	mFilePicker = new LLFilePicker();

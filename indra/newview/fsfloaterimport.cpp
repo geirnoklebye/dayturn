@@ -1602,7 +1602,7 @@ void FSFloaterImport::onAssetUploadComplete(const LLUUID& uuid, void* userdata, 
 						msg->addU8Fast(_PREHASH_AggregatePermNextOwner, (U8)LLAggregatePermissions::AP_EMPTY);
 						msg->addU8Fast(_PREHASH_AggregatePermInventory, (U8)LLAggregatePermissions::AP_EMPTY);
 						msg->addS32Fast(_PREHASH_TransactionType, TRANS_UPLOAD_CHARGE);
-						msg->addStringFast(_PREHASH_Description, NULL);
+						msg->addStringFast(_PREHASH_Description, nullptr);
 						msg->sendReliable(region->getHost());
 					}
 				}

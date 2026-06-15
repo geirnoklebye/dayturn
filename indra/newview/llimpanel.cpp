@@ -102,8 +102,8 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& session_label,
 								   const std::vector<LLUUID>& ids,
 								   EInstantMessage dialog)
 :	LLFloater(session_id),
-	mInputEditor(NULL),
-	mHistoryEditor(NULL),
+	mInputEditor(nullptr),
+	mHistoryEditor(nullptr),
 	mSessionUUID(session_id),
 	mSessionLabel(session_label),
 	mSessionInitialized(false),
@@ -467,7 +467,7 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 	// Now we're adding the actual line of text, so erase the 
 	// "Foo is typing..." text segment, and the optional timestamp
 	// if it was present. JC
-	removeTypingIndicator(NULL);
+	removeTypingIndicator(nullptr);
 
 	// Actually add the line
 	std::string timestring;
@@ -533,7 +533,7 @@ bool LLFloaterIMPanel::handleKeyHere( KEY key, MASK mask )
 	else if ( KEY_ESCAPE == key )
 	{
 		handled = true;
-		gFocusMgr.setKeyboardFocus(NULL);
+		gFocusMgr.setKeyboardFocus(nullptr);
 	}
 
 	// May need to call base class LLPanel::handleKeyHere if not handled

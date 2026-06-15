@@ -78,14 +78,14 @@ LLPanelPickInfo::LLPanelPickInfo()
  , LLAvatarPropertiesObserver()
  , LLRemoteParcelInfoObserver()
  , mAvatarId(LLUUID::null)
- , mSnapshotCtrl(NULL)
+ , mSnapshotCtrl(nullptr)
  , mPickId(LLUUID::null)
  , mParcelId(LLUUID::null)
  , mRequestedId(LLUUID::null)
  , mScrollingPanelMinHeight(0)
  , mScrollingPanelWidth(0)
- , mScrollingPanel(NULL)
- , mScrollContainer(NULL)
+ , mScrollingPanel(nullptr)
+ , mScrollContainer(nullptr)
 {
 }
 

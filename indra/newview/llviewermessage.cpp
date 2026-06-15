@@ -728,7 +728,7 @@ void process_places_reply(LLMessageSystem* msg, void** data)
 
 void send_sound_trigger(const LLUUID& sound_id, F32 gain)
 {
-	if (sound_id.isNull() || gAgent.getRegion() == NULL)
+	if (sound_id.isNull() || gAgent.getRegion() == nullptr)
 	{
 		// disconnected agent or zero guids don't get sent (no sound)
 		return;
@@ -952,7 +952,7 @@ bool join_group_response(const LLSD& notification, const LLSD& response)
 
 static void highlight_inventory_objects_in_panel(const std::vector<LLUUID>& items, LLInventoryPanel *inventory_panel)
 {
-	if (NULL == inventory_panel) return;
+	if (nullptr == inventory_panel) return;
 
 	for (std::vector<LLUUID>::const_iterator item_iter = items.begin();
 		item_iter != items.end();
@@ -1097,7 +1097,7 @@ private:
 	{	
 		LLInventoryPanel* active_panel = LLInventoryPanel::getActiveInventoryPanel();
 
-		if (NULL == active_panel)
+		if (nullptr == active_panel)
 		{
 			return true;
 		}
@@ -1144,7 +1144,7 @@ private:
 	LLUUID mMoveIntoFolderID;
 };
 
-LLViewerInventoryMoveFromWorldObserver* gInventoryMoveObserver = NULL;
+LLViewerInventoryMoveFromWorldObserver* gInventoryMoveObserver = nullptr;
 
 void set_dad_inventory_item(LLInventoryItem* inv_item, const LLUUID& into_folder_uuid)
 {
@@ -1188,7 +1188,7 @@ void LLViewerInventoryMoveObserver::changed(U32 mask)
 {
 	LLInventoryPanel* active_panel = dynamic_cast<LLInventoryPanel*>(mActivePanel.get());
 
-	if (NULL == active_panel)
+	if (nullptr == active_panel)
 	{
 		gInventory.removeObserver(this);
 		return;
@@ -1286,7 +1286,7 @@ protected:
 };
 
 //one global instance to bind them
-LLOpenTaskOffer* gNewInventoryObserver=NULL;
+LLOpenTaskOffer* gNewInventoryObserver=nullptr;
 class LLNewInventoryHintObserver : public LLInventoryAddedObserver
 {
 protected:
@@ -1296,7 +1296,7 @@ protected:
 	}
 };
 
-LLNewInventoryHintObserver* gNewInventoryHintObserver=NULL;
+LLNewInventoryHintObserver* gNewInventoryHintObserver=nullptr;
 
 void start_new_inventory_observer()
 {
@@ -3237,7 +3237,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 		}
 	}
 
-	if ( LLTracker::isTracking(NULL) )
+	if ( LLTracker::isTracking(nullptr) )
 	{
 		// Check distance to beacon, if < 5m, remove beacon
 		LLVector3d beacon_pos = LLTracker::getTrackedPositionGlobal();
@@ -3385,7 +3385,7 @@ void send_agent_update(bool force_send, bool send_reliable)
 	}
 
 	// no region to send update to
-	if(gAgent.getRegion() == NULL)
+	if(gAgent.getRegion() == nullptr)
 	{
 		return;
 	}
@@ -3813,7 +3813,7 @@ void process_kill_object(LLMessageSystem *mesgsys, void **user_data)
 
 	U32 ip = mesgsys->getSenderIP();
 	U32 port = mesgsys->getSenderPort();
-	LLViewerRegion* regionp = NULL;
+	LLViewerRegion* regionp = nullptr;
 	{
 		LLHost host(ip, port);
 		regionp = LLWorld::getInstance()->getRegion(host);
@@ -4083,7 +4083,7 @@ void process_attached_sound_gain_change(LLMessageSystem *mesgsys, void **user_da
 {
 	F32 gain = 0;
 	LLUUID object_guid;
-	LLViewerObject *objectp = NULL;
+	LLViewerObject *objectp = nullptr;
 
 	mesgsys->getUUIDFast(_PREHASH_DataBlock, _PREHASH_ObjectID, object_guid);
 
@@ -4176,7 +4176,7 @@ void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
 	LLUUID	animation_id;
 	LLUUID	uuid;
 	S32		anim_sequence_id;
-	LLVOAvatar *avatarp = NULL;
+	LLVOAvatar *avatarp = nullptr;
 	
 	mesgsys->getUUIDFast(_PREHASH_Sender, _PREHASH_ID, uuid);
 

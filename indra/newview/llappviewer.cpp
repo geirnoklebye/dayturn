@@ -310,7 +310,7 @@ LLSD gDebugInfo;
 
 U32	gFrameCount = 0;
 U32 gForegroundFrameCount = 0; // number of frames that app window was in foreground
-LLPumpIO* gServicePump = NULL;
+LLPumpIO* gServicePump = nullptr;
 
 U64MicrosecondsImplicit gFrameTime = 0;
 F32SecondsImplicit gFrameTimeSeconds = 0.f;
@@ -1867,7 +1867,7 @@ bool LLAppViewer::cleanup()
 
 	release_start_screen(); // just in case
 
-	LLError::logToFixedBuffer(NULL); // stop the fixed buffer recorder
+	LLError::logToFixedBuffer(nullptr); // stop the fixed buffer recorder
 
 	LL_INFOS() << "Cleaning Up" << LL_ENDL;
 
@@ -1936,7 +1936,7 @@ bool LLAppViewer::cleanup()
 	}
 
 	delete gAssetStorage;
-	gAssetStorage = NULL;
+	gAssetStorage = nullptr;
 
 	LLPolyMesh::freeAllMeshes();
 
@@ -1962,13 +1962,13 @@ bool LLAppViewer::cleanup()
         // shut down the streaming audio sub-subsystem first, in case it relies on not outliving the general audio subsystem.
         LLStreamingAudioInterface *sai = gAudiop->getStreamingAudioImpl();
 		delete sai;
-		gAudiop->setStreamingAudioImpl(NULL);
+		gAudiop->setStreamingAudioImpl(nullptr);
 
         // shut down the audio subsystem
         gAudiop->shutdown();
 
 		delete gAudiop;
-		gAudiop = NULL;
+		gAudiop = nullptr;
 	}
 
 	// Note: this is where LLFeatureManager::getInstance()-> used to be deleted.
@@ -2024,7 +2024,7 @@ bool LLAppViewer::cleanup()
 		// This may generate window reshape and activation events.
 		// Therefore must do this before destroying the message system.
 		delete gViewerWindow;
-		gViewerWindow = NULL;
+		gViewerWindow = nullptr;
 		LL_INFOS() << "ViewerWindow deleted" << LL_ENDL;
 	}
 
@@ -2032,7 +2032,7 @@ bool LLAppViewer::cleanup()
 
 	// viewer UI relies on keyboard so keep it aound until viewer UI isa gone
 	delete gKeyboard;
-	gKeyboard = NULL;
+	gKeyboard = nullptr;
 
     if (LLViewerJoystick::instanceExists())
     {
@@ -2395,7 +2395,7 @@ void errorCallback(LLError::ELevel level, const std::string &error_string)
         LLAppViewer::instance()->writeDebugInfo();
 
         std::string error_marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, ERROR_MARKER_FILE_NAME);
-        if (!LLAPRFile::isExist(error_marker_file, NULL, LL_APR_RB))
+        if (!LLAPRFile::isExist(error_marker_file, nullptr, LL_APR_RB))
         {
             // If marker doesn't exist, create a marker with llerror code for next launch
             // otherwise don't override existing file
@@ -3769,7 +3769,7 @@ std::string LLAppViewer::getViewerInfoString(bool default_string) const
 
 	// SLT timestamp
 	LLSD substitution;
-	substitution["datetime"] = (S32)time(NULL);//(S32)time_corrected();
+	substitution["datetime"] = (S32)time(nullptr);//(S32)time_corrected();
 	support << "\n" << LLTrans::getString("AboutTime", substitution, default_string);
 
 	return support.str();
@@ -3792,7 +3792,7 @@ void LLAppViewer::cleanupSavedSettings()
 
 	// save window position if not maximized
 	// as we don't track it in callbacks
-	if(NULL != gViewerWindow)
+	if(nullptr != gViewerWindow)
 	{
 		bool maximized = gViewerWindow->getWindow()->getMaximized();
 		if (!maximized)
@@ -4114,7 +4114,7 @@ void LLAppViewer::processMarkerFiles()
 	bool marker_is_same_version = true;
 	// first, look for the marker created at startup and deleted on a clean exit
 	mMarkerFileName = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,MARKER_FILE_NAME);
-	if (LLAPRFile::isExist(mMarkerFileName, NULL, LL_APR_RB))
+	if (LLAPRFile::isExist(mMarkerFileName, nullptr, LL_APR_RB))
 	{
 		// File exists...
 		// first, read it to see if it was created by the same version (we need this later)
@@ -4201,7 +4201,7 @@ void LLAppViewer::processMarkerFiles()
 	// check for any last exec event report based on whether or not it happened during logout
 	// (the logout marker is created when logout begins)
 	std::string logout_marker_file =  gDirUtilp->getExpandedFilename(LL_PATH_LOGS, LOGOUT_MARKER_FILE_NAME);
-	if(LLAPRFile::isExist(logout_marker_file, NULL, LL_APR_RB))
+	if(LLAPRFile::isExist(logout_marker_file, nullptr, LL_APR_RB))
 	{
 		if (markerIsSameVersion(logout_marker_file))
 		{
@@ -4216,7 +4216,7 @@ void LLAppViewer::processMarkerFiles()
 	}
 	// and last refine based on whether or not a marker created during a non-llerr crash is found
 	std::string error_marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, ERROR_MARKER_FILE_NAME);
-	if(LLAPRFile::isExist(error_marker_file, NULL, LL_APR_RB))
+	if(LLAPRFile::isExist(error_marker_file, nullptr, LL_APR_RB))
 	{
         S32 marker_code = getMarkerErrorCode(error_marker_file);
         if (marker_code >= 0)
@@ -5854,7 +5854,7 @@ void LLAppViewer::forceErrorBreakpoint()
 void LLAppViewer::forceErrorBadMemoryAccess()
 {
    	LL_WARNS() << "Forcing a deliberate bad memory access" << LL_ENDL;
-    S32* crash = NULL;
+    S32* crash = nullptr;
     *crash = 0xDEADBEEF;
     return;
 }
@@ -5894,7 +5894,7 @@ void LLAppViewer::forceErrorOSSpecificException()
 void LLAppViewer::forceErrorDriverCrash()
 {
    	LL_WARNS() << "Forcing a deliberate driver crash" << LL_ENDL;
-	glDeleteTextures(1, NULL);
+	glDeleteTextures(1, nullptr);
 }
 
 void LLAppViewer::forceErrorCoroutineCrash()

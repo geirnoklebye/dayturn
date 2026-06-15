@@ -962,7 +962,7 @@ void LLIMSpeakerMgr::forceVoiceModeratedMode(bool should_be_muted)
 // LLActiveSpeakerMgr
 //
 
-LLActiveSpeakerMgr::LLActiveSpeakerMgr() : LLSpeakerMgr(NULL)
+LLActiveSpeakerMgr::LLActiveSpeakerMgr() : LLSpeakerMgr(nullptr)
 {
 }
 

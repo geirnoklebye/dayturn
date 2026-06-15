@@ -245,12 +245,12 @@ void LLPanelVolume::getState( )
 		}
 	}
 
-	LLVOVolume *volobjp = NULL;
+	LLVOVolume *volobjp = nullptr;
 	if ( objectp && (objectp->getPCode() == LL_PCODE_VOLUME))
 	{
 		volobjp = (LLVOVolume *)objectp;
 	}
-	LLVOVolume *root_volobjp = NULL;
+	LLVOVolume *root_volobjp = nullptr;
     if (root_objectp && (root_objectp->getPCode() == LL_PCODE_VOLUME))
     {
         root_volobjp  = (LLVOVolume *)root_objectp;
@@ -261,7 +261,7 @@ void LLPanelVolume::getState( )
 		//forfeit focus
 		if (gFocusMgr.childHasKeyboardFocus(this))
 		{
-			gFocusMgr.setKeyboardFocus(NULL);
+			gFocusMgr.setKeyboardFocus(nullptr);
 		}
 
 		// Disable all text input fields
@@ -565,7 +565,7 @@ void LLPanelVolume::getState( )
 
 	mComboPhysicsShapeType->add(getString("Convex Hull"), LLSD(2));	
 	mComboPhysicsShapeType->setValue(LLSD(objectp->getPhysicsShapeType()));
-	mComboPhysicsShapeType->setEnabled(editable && !objectp->isPermanentEnforced() && ((root_objectp == NULL) || !root_objectp->isPermanentEnforced()));
+	mComboPhysicsShapeType->setEnabled(editable && !objectp->isPermanentEnforced() && ((root_objectp == nullptr) || !root_objectp->isPermanentEnforced()));
 
 	mObject = objectp;
 	mRootObject = root_objectp;

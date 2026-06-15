@@ -1025,7 +1025,7 @@ void LLLocalBitmapMgr::delUnit(LLUUID tracking_id)
 			LLLocalBitmap* unit = *del_iter;
 			mBitmapList.remove(unit);
 			delete unit;
-			unit = NULL;
+			unit = nullptr;
 		}
 	}
 }

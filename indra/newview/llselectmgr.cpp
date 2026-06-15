@@ -676,7 +676,7 @@ LLObjectSelectionHandle LLSelectMgr::selectObjectAndFamily(const std::vector<LLV
 bool LLSelectMgr::removeObjectFromSelections(const LLUUID &id)
 {
 	bool object_found = false;
-	LLTool *tool = NULL;
+	LLTool *tool = nullptr;
 
 	tool = LLToolMgr::getInstance()->getCurrentTool();
 
@@ -836,9 +836,9 @@ bool LLSelectMgr::enableLinkObjects()
 			{
 				virtual bool apply(LLViewerObject* object)
 				{
-					LLViewerObject *root_object = (object == NULL) ? NULL : object->getRootEdit();
+					LLViewerObject *root_object = (object == nullptr) ? nullptr : object->getRootEdit();
 					return object->permModify() && !object->isPermanentEnforced() &&
-						((root_object == NULL) || !root_object->isPermanentEnforced());
+						((root_object == nullptr) || !root_object->isPermanentEnforced());
 				}
 			} func;
 			const bool firstonly = true;
@@ -855,7 +855,7 @@ bool LLSelectMgr::enableLinkObjects()
 bool LLSelectMgr::enableUnlinkObjects()
 {
 	LLViewerObject* first_editable_object = LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject();
-	LLViewerObject *root_object = (first_editable_object == NULL) ? NULL : first_editable_object->getRootEdit();
+	LLViewerObject *root_object = (first_editable_object == nullptr) ? nullptr : first_editable_object->getRootEdit();
 
 	bool new_value = LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
 		first_editable_object &&
@@ -931,7 +931,7 @@ void LLSelectMgr::deselectObjectAndFamily(LLViewerObject* object, bool send_to_s
 		objects[i]->setAngularVelocity( 0,0,0 );
 		objects[i]->setVelocity( 0,0,0 );
 
-		if(msg->isSendFull(NULL) || select_count >= MAX_OBJECTS_PER_PACKET)
+		if(msg->isSendFull(nullptr) || select_count >= MAX_OBJECTS_PER_PACKET)
 		{
 			msg->sendReliable(regionp->getHost() );
 			select_count = 0;
@@ -1502,7 +1502,7 @@ void LLSelectMgr::remove(std::vector<LLViewerObject*>& objects)
 		{
 			objectp->setSelected(false);
 			mSelectedObjects->removeNode(nodep);
-			nodep = NULL;
+			nodep = nullptr;
 		}
 	}
 	updateSelectionCenter();
@@ -1527,7 +1527,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, bool undoable)
 	{
 		// Remove all faces (or the object doesn't have faces) so remove the node
 		mSelectedObjects->removeNode(nodep);
-		nodep = NULL;
+		nodep = nullptr;
 		objectp->setSelected(false);
 	}
 	else if (0 <= te && te < SELECT_MAX_TES)
@@ -1555,7 +1555,7 @@ void LLSelectMgr::remove(LLViewerObject *objectp, S32 te, bool undoable)
 		if (!found)
 		{
 			mSelectedObjects->removeNode(nodep);
-			nodep = NULL;
+			nodep = nullptr;
 			objectp->setSelected(false);
 			// *FIXME: Doesn't update simulator that object is no longer selected
 		}
@@ -2216,7 +2216,7 @@ void LLSelectMgr::selectionSetMedia(U8 media_type, const LLSD &media_data)
 					llassert(mMediaData.isMap());
 					const LLTextureEntry *texture_entry = object->getTE(te);
 					if (!mMediaData.isMap() ||
-						((NULL != texture_entry) && !texture_entry->hasMedia() && !mMediaData.has(LLMediaEntry::HOME_URL_KEY)))
+						((nullptr != texture_entry) && !texture_entry->hasMedia() && !mMediaData.has(LLMediaEntry::HOME_URL_KEY)))
 					{
 						// skip adding/updating media
 					}
@@ -2225,7 +2225,7 @@ void LLSelectMgr::selectionSetMedia(U8 media_type, const LLSD &media_data)
 						object->setTEMediaFlags(te, mMediaFlags);
 						LLVOVolume *vo = dynamic_cast<LLVOVolume*>(object);
 						llassert(NULL != vo);
-						if (NULL != vo) 
+						if (nullptr != vo) 
 						{
 							vo->syncMediaData(te, mMediaData, true/*merge*/, true/*ignore_agent*/);
 						}
@@ -2254,7 +2254,7 @@ void LLSelectMgr::selectionSetMedia(U8 media_type, const LLSD &media_data)
 				// It's okay to skip this object if hasMedia() is false...
 				// the sendTEUpdate() above would remove all media data if it were
 				// there.
-                if (NULL != vo && vo->hasMedia())
+                if (nullptr != vo && vo->hasMedia())
                 {
                     // Send updated media data FOR THE ENTIRE OBJECT
                     vo->sendMediaDataUpdate();
@@ -2388,7 +2388,7 @@ LLPermissions* LLSelectMgr::findObjectPermissions(const LLViewerObject* object)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -2580,7 +2580,7 @@ bool LLSelectMgr::selectionGetIncludeInSearch(bool* include_in_search_out)
 
 void LLSelectMgr::selectionSetIncludeInSearch(bool include_in_search)
 {
-	LLViewerObject* object = NULL;
+	LLViewerObject* object = nullptr;
 	for (LLObjectSelection::root_iterator iter = getSelection()->root_begin();
 		 iter != getSelection()->root_end(); iter++)
 	{
@@ -3919,7 +3919,7 @@ bool LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
         LLViewerObject *root_object = object->getRootEdit();
         bool this_object_movable = false;
         if (object->permMove() && !object->isPermanentEnforced() &&
-            ((root_object == NULL) || !root_object->isPermanentEnforced()) &&
+            ((root_object == nullptr) || !root_object->isPermanentEnforced()) &&
             (object->permModify() || selecting_linked_set))
         {
             this_object_movable = true;
@@ -4731,7 +4731,7 @@ void LLSelectMgr::sendAttach(LLObjectSelectionHandle selection_handle, U8 attach
 	bool build_mode = LLToolMgr::getInstance()->inEdit();
 	// Special case: Attach to default location for this object.
 	if (0 == attachment_point ||
-		get_if_there(gAgentAvatarp->mAttachmentPoints, (S32)attachment_point, (LLViewerJointAttachment*)NULL))
+		get_if_there(gAgentAvatarp->mAttachmentPoints, (S32)attachment_point, (LLViewerJointAttachment*)nullptr))
 	{
 		if (!replace || attachment_point != 0)
 		{
@@ -5324,7 +5324,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 									ESendType send_type)
 {
 	LLSelectNode* node;
-	LLSelectNode* linkset_root = NULL;
+	LLSelectNode* linkset_root = nullptr;
 	LLViewerRegion*	last_region;
 	LLViewerRegion*	current_region;
 
@@ -5440,7 +5440,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 	(*pack_header)(user_data);
 
 	// For each object
-	while (node != NULL)
+	while (node != nullptr)
 	{
 		// remember the last region, look up the current one
 		last_region = current_region;
@@ -5451,7 +5451,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 			&& (! gMessageSystem->isSendFull(NULL))
 			&& (objects_in_this_packet < MAX_OBJECTS_PER_PACKET))
 		{
-			if (link_operation && linkset_root == NULL)
+			if (link_operation && linkset_root == nullptr)
 			{
 				// linksets over 254 will be split into multiple messages,
 				// but we need to provide same root for all messages or we will get separate linksets
@@ -5467,7 +5467,7 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 			// and on to the next object
 			if(nodes_to_send.empty())
 			{
-				node = NULL;
+				node = nullptr;
 			}
 			else
 			{
@@ -5485,12 +5485,12 @@ void LLSelectMgr::sendListToRegions(LLObjectSelectionHandle selected_handle,
 			gMessageSystem->newMessage(message_name.c_str());
 			(*pack_header)(user_data);
 
-			if (linkset_root != NULL)
+			if (linkset_root != nullptr)
 			{
 				if (current_region != last_region)
 				{
 					// root should be in one region with the child, reset it
-					linkset_root = NULL;
+					linkset_root = nullptr;
 				}
 				else
 				{
@@ -6461,7 +6461,7 @@ LLSelectNode::~LLSelectNode()
 
 
 	delete mPermissions;
-	mPermissions = NULL;
+	mPermissions = nullptr;
 }
 
 void LLSelectNode::selectAllTEs(bool b)
@@ -6514,7 +6514,7 @@ LLViewerObject* LLSelectNode::getObject() const
 {
 	if (!mObject)
 	{
-		return NULL;
+		return nullptr;
 	}
 	else if (mObject->isDead())
 	{
@@ -7070,7 +7070,7 @@ void LLSelectMgr::updateSelectionCenter()
 	// give up edit menu if no objects selected
 	if (gEditMenuHandler == this && mSelectedObjects->getObjectCount() == 0)
 	{
-		gEditMenuHandler = NULL;
+		gEditMenuHandler = nullptr;
 	}
 
     pauseAssociatedAvatars();
@@ -7097,7 +7097,7 @@ void LLSelectMgr::pauseAssociatedAvatars()
 			
         mSelectedObjects->mSelectType = getSelectTypeForObject(object);
 
-        LLVOAvatar* parent_av = NULL;
+        LLVOAvatar* parent_av = nullptr;
         if (mSelectedObjects->mSelectType == SELECT_TYPE_ATTACHMENT)
         {
             // Selection can be obsolete, confirm that this is an attachment
@@ -7215,7 +7215,7 @@ bool LLSelectMgr::canDoDelete() const
 	LLSelectMgr* self = const_cast<LLSelectMgr*>(this);
 	LLViewerObject* obj = self->mSelectedObjects->getFirstDeleteableObject();
 	// Note: Can only delete root objects (see getFirstDeleteableObject() for more info)
-	if (obj!= NULL)
+	if (obj!= nullptr)
 	{
 		// all the faces needs to be selected
 		if(self->mSelectedObjects->contains(obj,SELECT_ALL_TES ))
@@ -7373,19 +7373,19 @@ void LLSelectMgr::setAgentHUDZoom(F32 target_zoom, F32 current_zoom)
 bool LLObjectSelection::is_root::operator()(LLSelectNode *node)
 {
 	LLViewerObject* object = node->getObject();
-	return (object != NULL) && !node->mIndividualSelection && (object->isRootEdit());
+	return (object != nullptr) && !node->mIndividualSelection && (object->isRootEdit());
 }
 
 bool LLObjectSelection::is_valid_root::operator()(LLSelectNode *node)
 {
 	LLViewerObject* object = node->getObject();
-	return (object != NULL) && node->mValid && !node->mIndividualSelection && (object->isRootEdit());
+	return (object != nullptr) && node->mValid && !node->mIndividualSelection && (object->isRootEdit());
 }
 
 bool LLObjectSelection::is_root_object::operator()(LLSelectNode *node)
 {
 	LLViewerObject* object = node->getObject();
-	return (object != NULL) && (object->isRootEdit());
+	return (object != nullptr) && (object->isRootEdit());
 }
 
 LLObjectSelection::LLObjectSelection() : 
@@ -7405,7 +7405,7 @@ void LLObjectSelection::cleanupNodes()
 	{
 		list_t::iterator curiter = iter++;
 		LLSelectNode* node = *curiter;
-		if (node->getObject() == NULL || node->getObject()->isDead())
+		if (node->getObject() == nullptr || node->getObject()->isDead())
 		{
 			mList.erase(curiter);
 			delete node;
@@ -7449,7 +7449,7 @@ void LLObjectSelection::removeNode(LLSelectNode *nodep)
 	{
 		mPrimaryObject = NULL;
 	}
-	nodep->setObject(NULL); // Will get erased in cleanupNodes()
+	nodep->setObject(nullptr); // Will get erased in cleanupNodes()
 	mList.remove(nodep);
 }
 
@@ -7468,7 +7468,7 @@ LLSelectNode* LLObjectSelection::findNode(LLViewerObject* objectp)
 	{
 		return found_it->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -7892,7 +7892,7 @@ bool LLObjectSelection::isMultipleTESelected()
 //-----------------------------------------------------------------------------
 bool LLObjectSelection::contains(LLViewerObject* object)
 {
-	return findNode(object) != NULL;
+	return findNode(object) != nullptr;
 }
 
 
@@ -7975,12 +7975,12 @@ LLSelectNode* LLObjectSelection::getFirstNode(LLSelectedNodeFunctor* func)
 	for (iterator iter = begin(); iter != end(); ++iter)
 	{
 		LLSelectNode* node = *iter;
-		if (func == NULL || func->apply(node))
+		if (func == nullptr || func->apply(node))
 		{
 			return node;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLSelectNode* LLObjectSelection::getFirstRootNode(LLSelectedNodeFunctor* func, bool non_root_ok)
@@ -7988,7 +7988,7 @@ LLSelectNode* LLObjectSelection::getFirstRootNode(LLSelectedNodeFunctor* func, b
 	for (root_iterator iter = root_begin(); iter != root_end(); ++iter)
 	{
 		LLSelectNode* node = *iter;
-		if (func == NULL || func->apply(node))
+		if (func == nullptr || func->apply(node))
 		{
 			return node;
 		}
@@ -7998,7 +7998,7 @@ LLSelectNode* LLObjectSelection::getFirstRootNode(LLSelectedNodeFunctor* func, b
 		// Get non root
 		return getFirstNode(func);
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -8016,7 +8016,7 @@ LLViewerObject* LLObjectSelection::getFirstSelectedObject(LLSelectedNodeFunctor*
 	{
 		return res->getObject();
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -8024,8 +8024,8 @@ LLViewerObject* LLObjectSelection::getFirstSelectedObject(LLSelectedNodeFunctor*
 //-----------------------------------------------------------------------------
 LLViewerObject* LLObjectSelection::getFirstObject()
 {
-	LLSelectNode* res = getFirstNode(NULL);
-	return res ? res->getObject() : NULL;
+	LLSelectNode* res = getFirstNode(nullptr);
+	return res ? res->getObject() : nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -8033,8 +8033,8 @@ LLViewerObject* LLObjectSelection::getFirstObject()
 //-----------------------------------------------------------------------------
 LLViewerObject* LLObjectSelection::getFirstRootObject(bool non_root_ok)
 {
-	LLSelectNode* res = getFirstRootNode(NULL, non_root_ok);
-	return res ? res->getObject() : NULL;
+	LLSelectNode* res = getFirstRootNode(nullptr, non_root_ok);
+	return res ? res->getObject() : nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -8099,7 +8099,7 @@ LLViewerObject* LLObjectSelection::getFirstDeleteableObject()
 		}
 	} func;
 	LLSelectNode* node = getFirstNode(&func);
-	return node ? node->getObject() : NULL;
+	return node ? node->getObject() : nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -8286,7 +8286,7 @@ bool LLSelectMgr::selectionMove(const LLVector3& displ,
 void LLSelectMgr::sendSelectionMove()
 {
 	LLSelectNode *node = mSelectedObjects->getFirstRootNode();
-	if (node == NULL)
+	if (node == nullptr)
 	{
 		return;
 	}
@@ -8308,7 +8308,7 @@ void LLSelectMgr::sendSelectionMove()
 	gMessageSystem->newMessage("MultipleObjectUpdate");
 	packAgentAndSessionID(&update_type);
 
-	LLViewerObject *obj = NULL;
+	LLViewerObject *obj = nullptr;
 	for (LLObjectSelection::root_iterator it = getSelection()->root_begin();
 		 it != getSelection()->root_end(); ++it)
 	{

@@ -57,7 +57,7 @@ class LLWearingGearMenu
 {
 public:
 	LLWearingGearMenu(LLPanelWearing* panel_wearing)
-	:	mMenu(NULL), mPanelWearing(panel_wearing)
+	:	mMenu(nullptr), mPanelWearing(panel_wearing)
 	{
 		LLUICtrl::CommitCallbackRegistry::ScopedRegistrar registrar;
 		LLUICtrl::EnableCallbackRegistry::ScopedRegistrar enable_registrar;
@@ -214,7 +214,7 @@ static LLPanelInjector<LLPanelWearing> t_panel_wearing("panel_wearing");
 
 LLPanelWearing::LLPanelWearing()
 	:	LLPanelAppearanceTab()
-	,	mCOFItemsList(NULL)
+	,	mCOFItemsList(nullptr)
 	,	mIsInitialized(false)
 	,	mAttachmentsChangedConnection()
 {
@@ -598,7 +598,7 @@ void LLPanelWearing::copyToClipboard()
 		LLViewerInventoryItem* item = gInventory.getItem(uuid);
 
 		iter++;
-		if (item != NULL)
+		if (item != nullptr)
 		{
 			// Append a newline to all but the last line
 			text += iter != data.end() ? item->getName() + "\n" : item->getName();

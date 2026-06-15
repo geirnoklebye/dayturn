@@ -50,8 +50,8 @@ S32 BUTTON_WIDTH = 90;
 
 
 //static
-const LLFontGL* LLToastNotifyPanel::sFont = NULL;
-const LLFontGL* LLToastNotifyPanel::sFontSmall = NULL;
+const LLFontGL* LLToastNotifyPanel::sFont = nullptr;
+const LLFontGL* LLToastNotifyPanel::sFontSmall = nullptr;
 
 LLToastNotifyPanel::button_click_signal_t LLToastNotifyPanel::sButtonClickSignal;
 
@@ -149,8 +149,8 @@ void LLToastNotifyPanel::updateButtonsLayout(const std::vector<index_button_pair
 	//reserve place for ignore button
 	S32 bottom_offset = mIsScriptDialog ? (BTN_HEIGHT + IGNORE_BTN_TOP_DELTA + BOTTOM_PAD) : BOTTOM_PAD;
 	S32 max_width = mControlPanel->getRect().getWidth();
-	LLButton* ignore_btn = NULL;
-	LLButton* mute_btn = NULL;
+	LLButton* ignore_btn = nullptr;
+	LLButton* mute_btn = nullptr;
 	for (std::vector<index_button_pair_t>::const_iterator it = buttons.begin(); it != buttons.end(); it++)
 	{
 		if (-2 == it->first)
@@ -189,7 +189,7 @@ void LLToastNotifyPanel::updateButtonsLayout(const std::vector<index_button_pair
 
 	U32 ignore_btn_width = 0;
 	U32 mute_btn_pad = 0;
-	if (mIsScriptDialog && ignore_btn != NULL)
+	if (mIsScriptDialog && ignore_btn != nullptr)
 	{
 		LLRect ignore_btn_rect(ignore_btn->getRect());
 		S32 ignore_btn_left = max_width - ignore_btn_rect.getWidth();
@@ -264,9 +264,9 @@ void LLToastNotifyPanel::init( LLRect rect, bool show_images )
 {
     deleteAllChildren();
 
-    mTextBox = NULL;
-    mInfoPanel = NULL;
-    mControlPanel = NULL;
+    mTextBox = nullptr;
+    mInfoPanel = nullptr;
+    mControlPanel = nullptr;
     mNumOptions = 0;
     mNumButtons = 0;
     mAddedDefaultBtn = false;
@@ -525,7 +525,7 @@ void LLIMToastNotifyPanel::compactButtons()
 	for (child_list_t::const_reverse_iterator it = children->rbegin(); it != children->rend(); it++)
 	{
 		LLButton * button = dynamic_cast<LLButton*> (*it);
-		if (button != NULL)
+		if (button != nullptr)
 		{
 			button->setOrigin( offset,button->getRect().mBottom);
 			button->setLeftHPad(2 * HPAD);

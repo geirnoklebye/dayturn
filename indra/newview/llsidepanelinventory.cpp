@@ -119,11 +119,11 @@ private:
 
 LLSidepanelInventory::LLSidepanelInventory()
 	: LLPanel()
-	, mItemPanel(NULL)
-	, mPanelMainInventory(NULL)
+	, mItemPanel(nullptr)
+	, mPanelMainInventory(nullptr)
 	, mInboxEnabled(false)
-	, mCategoriesObserver(NULL)
-	, mInboxAddedObserver(NULL)
+	, mCategoriesObserver(nullptr)
+	, mInboxAddedObserver(nullptr)
 {
 	//buildFromFile( "panel_inventory.xml"); // Called from LLRegisterPanelClass::defaultPanelClassBuilder()
 }
@@ -308,7 +308,7 @@ void LLSidepanelInventory::observeInboxCreation()
 	// Set up observer to track inbox folder creation
 	//
 	
-	if (mInboxAddedObserver == NULL)
+	if (mInboxAddedObserver == nullptr)
 	{
 		mInboxAddedObserver = new LLInboxAddedObserver(this);
 		
@@ -338,7 +338,7 @@ void LLSidepanelInventory::observeInboxModifications(const LLUUID& inboxID)
 		return;
 	}
 
-	if (mCategoriesObserver == NULL)
+	if (mCategoriesObserver == nullptr)
 	{
 		mCategoriesObserver = new LLInventoryCategoriesObserver();
 		gInventory.addObserver(mCategoriesObserver);
@@ -713,7 +713,7 @@ LLInventoryItem *LLSidepanelInventory::getSelectedItem()
 
 		if (!current_item)
 		{
-			return NULL;
+			return nullptr;
 		}
 	}
 	const LLUUID &item_id = static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->getUUID();
@@ -742,13 +742,13 @@ LLInventoryPanel *LLSidepanelInventory::getActivePanel()
 {
 	if (!getVisible())
 	{
-		return NULL;
+		return nullptr;
 	}
 	if (mInventoryPanel->getVisible())
 	{
 		return mPanelMainInventory->getActivePanel();
 	}
-	return NULL;
+	return nullptr;
 }
 
 void LLSidepanelInventory::selectAllItemsPanel()

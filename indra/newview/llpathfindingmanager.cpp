@@ -191,7 +191,7 @@ bool LLPathfindingManager::isPathfindingEnabledForRegion(LLViewerRegion *pRegion
 bool LLPathfindingManager::isAllowViewTerrainProperties() const
 {
 	LLViewerRegion* region = getCurrentRegion();
-	return (gAgent.isGodlike() || ((region != NULL) && region->canManageEstate()));
+	return (gAgent.isGodlike() || ((region != nullptr) && region->canManageEstate()));
 }
 
 LLPathfindingNavMesh::navmesh_slot_t LLPathfindingManager::registerNavMeshListenerForRegion(LLViewerRegion *pRegion, LLPathfindingNavMesh::navmesh_callback_t pNavMeshCallback)
@@ -204,7 +204,7 @@ void LLPathfindingManager::requestGetNavMeshForRegion(LLViewerRegion *pRegion, b
 {
 	LLPathfindingNavMeshPtr navMeshPtr = getNavMeshForRegion(pRegion);
 
-	if (pRegion == NULL)
+	if (pRegion == nullptr)
 	{
 		navMeshPtr->handleNavMeshNotEnabled();
 	}
@@ -234,7 +234,7 @@ void LLPathfindingManager::requestGetLinksets(request_id_t pRequestId, object_re
 	LLPathfindingObjectListPtr emptyLinksetListPtr;
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if (currentRegion == NULL)
+	if (currentRegion == nullptr)
 	{
 		pLinksetsCallback(pRequestId, kRequestNotEnabled, emptyLinksetListPtr);
 	}
@@ -326,7 +326,7 @@ void LLPathfindingManager::requestGetCharacters(request_id_t pRequestId, object_
 
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if (currentRegion == NULL)
+	if (currentRegion == nullptr)
 	{
 		pCharactersCallback(pRequestId, kRequestNotEnabled, emptyCharacterListPtr);
 	}
@@ -361,7 +361,7 @@ void LLPathfindingManager::requestGetAgentState()
 {
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if (currentRegion == NULL)
+	if (currentRegion == nullptr)
 	{
 		mAgentStateSignal(false);
 	}
@@ -390,7 +390,7 @@ void LLPathfindingManager::requestRebakeNavMesh(rebake_navmesh_callback_t pRebak
 {
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if (currentRegion == NULL)
+	if (currentRegion == nullptr)
 	{
 		pRebakeNavMeshCallback(false);
 	}
@@ -412,7 +412,7 @@ void LLPathfindingManager::handleDeferredGetAgentStateForRegion(const LLUUID &pR
 {
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if ((currentRegion != NULL) && (currentRegion->getRegionID() == pRegionUUID))
+	if ((currentRegion != nullptr) && (currentRegion->getRegionID() == pRegionUUID))
 	{
 		requestGetAgentState();
 	}
@@ -422,7 +422,7 @@ void LLPathfindingManager::handleDeferredGetNavMeshForRegion(const LLUUID &pRegi
 {
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if ((currentRegion != NULL) && (currentRegion->getRegionID() == pRegionUUID))
+	if ((currentRegion != nullptr) && (currentRegion->getRegionID() == pRegionUUID))
 	{
 		requestGetNavMeshForRegion(currentRegion, pIsGetStatusOnly);
 	}
@@ -432,7 +432,7 @@ void LLPathfindingManager::handleDeferredGetLinksetsForRegion(const LLUUID &pReg
 {
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if ((currentRegion != NULL) && (currentRegion->getRegionID() == pRegionUUID))
+	if ((currentRegion != nullptr) && (currentRegion->getRegionID() == pRegionUUID))
 	{
 		requestGetLinksets(pRequestId, pLinksetsCallback);
 	}
@@ -442,7 +442,7 @@ void LLPathfindingManager::handleDeferredGetCharactersForRegion(const LLUUID &pR
 {
 	LLViewerRegion *currentRegion = getCurrentRegion();
 
-	if ((currentRegion != NULL) && (currentRegion->getRegionID() == pRegionUUID))
+	if ((currentRegion != nullptr) && (currentRegion->getRegionID() == pRegionUUID))
 	{
 		requestGetCharacters(pRequestId, pCharactersCallback);
 	}
@@ -733,7 +733,7 @@ LLPathfindingNavMeshPtr LLPathfindingManager::getNavMeshForRegion(const LLUUID &
 LLPathfindingNavMeshPtr LLPathfindingManager::getNavMeshForRegion(LLViewerRegion *pRegion)
 {
 	LLUUID regionUUID;
-	if (pRegion != NULL)
+	if (pRegion != nullptr)
 	{
 		regionUUID = pRegion->getRegionID();
 	}
@@ -790,7 +790,7 @@ std::string LLPathfindingManager::getCapabilityURLForRegion(LLViewerRegion *pReg
 {
 	std::string capabilityURL("");
 
-	if (pRegion != NULL)
+	if (pRegion != nullptr)
 	{
 		capabilityURL = pRegion->getCapability(pCapabilityName);
 	}
@@ -798,7 +798,7 @@ std::string LLPathfindingManager::getCapabilityURLForRegion(LLViewerRegion *pReg
 	if (capabilityURL.empty())
 	{
 		LL_WARNS() << "cannot find capability '" << pCapabilityName << "' for current region '"
-			<< ((pRegion != NULL) ? pRegion->getName() : "<null>") << "'" << LL_ENDL;
+			<< ((pRegion != nullptr) ? pRegion->getName() : "<null>") << "'" << LL_ENDL;
 	}
 
 	return capabilityURL;

@@ -54,7 +54,7 @@
 #include "lluictrlfactory.h"
 #include "llpanellogin.h"
 
-LLProgressView* LLProgressView::sInstance = NULL;
+LLProgressView* LLProgressView::sInstance = nullptr;
 
 S32 gStartImageWidth = 1;
 S32 gStartImageHeight = 1;
@@ -66,7 +66,7 @@ static LLPanelInjector<LLProgressView> r("progress_view");
 LLProgressView::LLProgressView() 
 :	LLPanel(),
 	mPercentDone( 0.f ),
-	mMediaCtrl( NULL ),
+	mMediaCtrl( nullptr ),
 	mMouseDownInActiveArea( false ),
 	mUpdateEvents("LLProgressView"),
 	mFadeToWorldTimer(),
@@ -116,7 +116,7 @@ LLProgressView::~LLProgressView()
 
 	gFocusMgr.releaseFocusIfNeeded( this );
 
-	sInstance = NULL;
+	sInstance = nullptr;
 }
 
 bool LLProgressView::handleHover(S32 x, S32 y, MASK mask)
@@ -558,7 +558,7 @@ void LLProgressView::onCancelButtonClicked(void*)
 void LLProgressView::onClickMessage(void* data)
 {
 	LLProgressView* viewp = (LLProgressView*)data;
-	if ( viewp != NULL && ! viewp->mMessage.empty() )
+	if ( viewp != nullptr && ! viewp->mMessage.empty() )
 	{
 		std::string url_to_open( "" );
 

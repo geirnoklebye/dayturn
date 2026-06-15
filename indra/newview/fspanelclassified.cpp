@@ -100,8 +100,8 @@ static FSDispatchClassifiedClickThrough sClassifiedClickThrough;
 FSPanelClassifiedInfo::FSPanelClassifiedInfo()
  : LLPanel()
  , mInfoLoaded(false)
- , mScrollingPanel(NULL)
- , mScrollContainer(NULL)
+ , mScrollingPanel(nullptr)
+ , mScrollContainer(nullptr)
  , mScrollingPanelMinHeight(0)
  , mScrollingPanelWidth(0)
  , mSnapshotStreched(false)
@@ -111,7 +111,7 @@ FSPanelClassifiedInfo::FSPanelClassifiedInfo()
  , mTeleportClicksNew(0)
  , mMapClicksNew(0)
  , mProfileClicksNew(0)
- , mSnapshotCtrl(NULL)
+ , mSnapshotCtrl(nullptr)
 {
 	sAllPanels.push_back(this);
 }
@@ -598,7 +598,7 @@ FSPanelClassifiedEdit::FSPanelClassifiedEdit()
  , mIsNew(false)
  , mIsNewWithErrors(false)
  , mCanClose(false)
- , mPublishFloater(NULL)
+ , mPublishFloater(nullptr)
 {
 }
 

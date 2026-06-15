@@ -604,7 +604,7 @@ bool LLAvatarList::handleMouseUp( S32 x, S32 y, MASK mask )
 {
 	if(hasMouseCapture())
 	{
-		gFocusMgr.setMouseCapture(NULL);
+		gFocusMgr.setMouseCapture(nullptr);
 	}
 
 	return LLFlatListViewEx::handleMouseUp(x, y, mask);

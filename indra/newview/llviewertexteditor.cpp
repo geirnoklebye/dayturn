@@ -148,7 +148,7 @@ class LLEmbeddedNotecardOpener : public LLInventoryCallback
 
 public:
 	LLEmbeddedNotecardOpener()
-		: mTextEditor(NULL)
+		: mTextEditor(nullptr)
 	{
 	}
 

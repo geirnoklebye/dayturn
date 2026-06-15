@@ -186,7 +186,7 @@ LLInventoryObject* LLTaskInvFVBridge::findInvObject() const
 	{
 		return object->getInventoryObject(mUUID);
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -307,7 +307,7 @@ bool LLTaskInvFVBridge::renameItem(const std::string& new_name)
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 	if(object)
 	{
-		LLViewerInventoryItem* item = NULL;
+		LLViewerInventoryItem* item = nullptr;
 		item = (LLViewerInventoryItem*)object->getInventoryObject(mUUID);
 		if(item && (gAgent.allowOperation(PERM_MODIFY, item->getPermissions(),
 										GP_OBJECT_MANIPULATE, GOD_LIKE)))
@@ -479,7 +479,7 @@ bool LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 		LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
 		if(object)
 		{
-			LLInventoryItem* inv = NULL;
+			LLInventoryItem* inv = nullptr;
 			if((inv = (LLInventoryItem*)object->getInventoryObject(mUUID)))
 			{
 				const LLPermissions& perm = inv->getPermissions();
@@ -1228,9 +1228,9 @@ LLSettingsType::type_e LLTaskSettingsBridge::getSettingsType() const
 LLTaskInvFVBridge* LLTaskInvFVBridge::createObjectBridge(LLPanelObjectInventory* panel,
 														 LLInventoryObject* object)
 {
-	LLTaskInvFVBridge* new_bridge = NULL;
+	LLTaskInvFVBridge* new_bridge = nullptr;
 	const LLInventoryItem* item = dynamic_cast<LLInventoryItem*>(object);
-	const U32 itemflags = ( NULL == item ? 0 : item->getFlags() );
+	const U32 itemflags = ( nullptr == item ? 0 : item->getFlags() );
 	LLAssetType::EType type = object ? object->getType() : LLAssetType::AT_CATEGORY;
 	LLUUID object_id = object ? object->getUUID() : LLUUID::null;
 	std::string object_name = object ? object->getName() : std::string();
@@ -1330,8 +1330,8 @@ void do_nothing()
 // Default constructor
 LLPanelObjectInventory::LLPanelObjectInventory(const LLPanelObjectInventory::Params& p) :
 	LLPanel(p),
-	mScroller(NULL),
-	mFolders(NULL),
+	mScroller(nullptr),
+	mFolders(nullptr),
 	mHaveInventory(false),
 	mIsInventoryEmpty(true),
 	mInventoryNeedsUpdate(false),
@@ -1390,8 +1390,8 @@ void LLPanelObjectInventory::clearContents()
 		// removes mFolders
 		removeChild( mScroller ); //*TODO: Really shouldn't do this during draw()/refresh()
 		mScroller->die();
-		mScroller = NULL;
-		mFolders = NULL;
+		mScroller = nullptr;
+		mFolders = nullptr;
 	}
 }
 
@@ -1412,7 +1412,7 @@ void LLPanelObjectInventory::reset()
 	p.title = "task inventory";
 	p.parent_panel = this;
 	p.tool_tip= LLTrans::getString("PanelContentsTooltip");
-	p.listener = LLTaskInvFVBridge::createObjectBridge(this, NULL);
+	p.listener = LLTaskInvFVBridge::createObjectBridge(this, nullptr);
 	p.folder_indentation = -14; // subtract space normally reserved for folder expanders
 	p.view_model = &mInventoryViewModel;
 	p.root = NULL;
@@ -1572,7 +1572,7 @@ void LLPanelObjectInventory::createFolderViews(LLInventoryObject* inventory_root
 		return;
 	}
 	// Create a visible root category.
-	LLTaskInvFVBridge* bridge = NULL;
+	LLTaskInvFVBridge* bridge = nullptr;
 	bridge = LLTaskInvFVBridge::createObjectBridge(this, inventory_root);
 	if(bridge)
 	{
@@ -1796,8 +1796,8 @@ void LLPanelObjectInventory::draw()
 
 void LLPanelObjectInventory::deleteAllChildren()
 {
-	mScroller = NULL;
-	mFolders = NULL;
+	mScroller = nullptr;
+	mFolders = nullptr;
 	LLView::deleteAllChildren();
 }
 
@@ -1850,7 +1850,7 @@ void LLPanelObjectInventory::onFocusLost()
 	// inventory no longer handles cut/copy/paste/delete
 	if (LLEditMenuHandler::gEditMenuHandler == mFolders)
 	{
-		LLEditMenuHandler::gEditMenuHandler = NULL;
+		LLEditMenuHandler::gEditMenuHandler = nullptr;
 	}
 	
 	LLPanel::onFocusLost();
@@ -1874,7 +1874,7 @@ LLFolderViewItem* LLPanelObjectInventory::getItemByID( const LLUUID& id )
 		return map_it->second;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void LLPanelObjectInventory::removeItemID( const LLUUID& id )

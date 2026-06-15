@@ -227,8 +227,8 @@ LLInventoryModel::LLInventoryModel()
 	mModifyMask(LLInventoryObserver::ALL),
 	mChangedItemIDs(),
 	mObservers(),
-	mHttpRequestFG(NULL),
-	mHttpRequestBG(NULL),
+	mHttpRequestFG(nullptr),
+	mHttpRequestBG(nullptr),
 	mHttpOptions(),
 	mHttpHeaders(),
 	mHttpPolicyClass(LLCore::HttpRequest::DEFAULT_POLICY_ID),
@@ -301,7 +301,7 @@ const LLViewerInventoryCategory *LLInventoryModel::getFirstNondefaultParent(cons
 	if(!obj)
 	{
 		LL_WARNS(LOG_INV) << "Non-existent object [ id: " << obj_id << " ] " << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	// Search up the parent chain until we get to root or an acceptable folder.
 	// This assumes there are no cycles in the tree else we'll get a hang.
@@ -319,7 +319,7 @@ const LLViewerInventoryCategory *LLInventoryModel::getFirstNondefaultParent(cons
 		}
 		parent_id = cat->getParentUUID();
 	}
-	return NULL;
+	return nullptr;
 }
 
 //
@@ -329,17 +329,17 @@ const LLViewerInventoryCategory* LLInventoryModel::getFirstDescendantOf(const LL
 {
 	if (master_parent_id == obj_id)
 	{
-		return NULL;
+		return nullptr;
 	}
 
 	const LLViewerInventoryCategory* current_cat = getCategory(obj_id);
 
-	if (current_cat == NULL)
+	if (current_cat == nullptr)
 	{
 		current_cat = getCategory(getObject(obj_id)->getParentUUID());
 	}
 	
-	while (current_cat != NULL)
+	while (current_cat != nullptr)
 	{
 		const LLUUID& current_parent_id = current_cat->getParentUUID();
 		
@@ -351,7 +351,7 @@ const LLViewerInventoryCategory* LLInventoryModel::getFirstDescendantOf(const LL
 		current_cat = getCategory(current_parent_id);
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 LLInventoryModel::EAnscestorResult LLInventoryModel::getObjectTopmostAncestor(const LLUUID& object_id, LLUUID& result) const
@@ -441,13 +441,13 @@ LLInventoryObject* LLInventoryModel::getObject(const LLUUID& id) const
 	{
 		return item;
 	}
-	return NULL;
+	return nullptr;
 }
 
 // Get the item by id. Returns NULL if not found.
 LLViewerInventoryItem* LLInventoryModel::getItem(const LLUUID& id) const
 {
-	LLViewerInventoryItem* item = NULL;
+	LLViewerInventoryItem* item = nullptr;
 	if(mLastItem.notNull() && mLastItem->getUUID() == id)
 	{
 		item = mLastItem;
@@ -467,7 +467,7 @@ LLViewerInventoryItem* LLInventoryModel::getItem(const LLUUID& id) const
 // Get the category by id. Returns NULL if not found
 LLViewerInventoryCategory* LLInventoryModel::getCategory(const LLUUID& id) const
 {
-	LLViewerInventoryCategory* category = NULL;
+	LLViewerInventoryCategory* category = nullptr;
 	cat_map_t::const_iterator iter = mCategoryMap.find(id);
 	if (iter != mCategoryMap.end())
 	{
@@ -625,7 +625,7 @@ const LLUUID LLInventoryModel::findCategoryUUIDForTypeInRoot(
 	}
 	else if (root_id.notNull())
 	{
-		cat_array_t* cats = NULL;
+		cat_array_t* cats = nullptr;
 		cats = get_ptr_in_map(mParentChildCategoryTree, root_id);
 		if(cats)
 		{
@@ -719,7 +719,7 @@ LLUUID LLInventoryModel::findCategoryByName(std::string name)
 	LLUUID root_id = gInventory.getRootFolderID();
 	if(root_id.notNull())
 	{
-		cat_array_t* cats = NULL;
+		cat_array_t* cats = nullptr;
 		cats = get_ptr_in_map(mParentChildCategoryTree, root_id);
 		if(cats)
 		{
@@ -997,7 +997,7 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 		for(S32 i = 0; i < count; ++i)
 		{
 			LLViewerInventoryCategory* cat = cat_array->at(i);
-			if(add(cat,NULL))
+			if(add(cat,nullptr))
 			{
 				cats.push_back(cat);
 			}
@@ -1005,7 +1005,7 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 		}
 	}
 
-	LLViewerInventoryItem* item = NULL;
+	LLViewerInventoryItem* item = nullptr;
 	item_array_t* item_array = get_ptr_in_map(mParentChildItemTree, id);
 
 	// Move onto items
@@ -1015,7 +1015,7 @@ void LLInventoryModel::collectDescendentsIf(const LLUUID& id,
 		for(S32 i = 0; i < count; ++i)
 		{
 			item = item_array->at(i);
-			if(add(NULL, item))
+			if(add(nullptr, item))
 			{
 				items.push_back(item);
 			}
@@ -1054,7 +1054,7 @@ const LLUUID& LLInventoryModel::getLinkedItemID(const LLUUID& object_id) const
 
 LLViewerInventoryItem* LLInventoryModel::getLinkedItem(const LLUUID& object_id) const
 {
-	return object_id.notNull() ? getItem(getLinkedItemID(object_id)) : NULL;
+	return object_id.notNull() ? getItem(getLinkedItemID(object_id)) : nullptr;
 }
 
 LLInventoryModel::item_array_t LLInventoryModel::collectLinksTo(const LLUUID& id)
@@ -2029,7 +2029,7 @@ void LLInventoryModel::cache(
 	item_array_t items;
 
 	LLCanCache can_cache(this);
-	can_cache(root_cat, NULL);
+	can_cache(root_cat, nullptr);
 	collectDescendentsIf(
 		parent_folder_id,
 		categories,
@@ -2365,7 +2365,7 @@ bool LLInventoryModel::loadSkeleton(
 		if(fp)
 		{
 			fclose(fp);
-			fp = NULL;
+			fp = nullptr;
 			if(gunzip_file(gzip_filename, inventory_filename))
 			{
 				// we only want to remove the inventory file if it was
@@ -2789,8 +2789,8 @@ void LLInventoryModel::buildParentChildMap()
 			msg->nextBlockFast(_PREHASH_InventoryData);
 			msg->addUUIDFast(_PREHASH_ItemID, (*it));
 			msg->addUUIDFast(_PREHASH_FolderID, lnf);
-			msg->addString("NewName", NULL);
-			if(msg->isSendFull(NULL))
+			msg->addString("NewName", nullptr);
+			if(msg->isSendFull(nullptr))
 			{
 				start_new_message = true;
 				gAgent.sendReliableMessage();
@@ -4699,7 +4699,7 @@ std::string LLInventoryModel::getFullPath(const LLInventoryObject *obj) const
 {
 	std::vector<std::string> path_elts;
 	std::map<LLUUID,bool> visited;
-	while (obj != NULL && !visited[obj->getUUID()])
+	while (obj != nullptr && !visited[obj->getUUID()])
 	{
 		path_elts.push_back(obj->getName());
 		// avoid infinite loop in the unlikely event of a cycle

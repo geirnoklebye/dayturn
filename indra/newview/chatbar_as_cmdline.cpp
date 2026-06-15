@@ -153,7 +153,7 @@ public:
     }
     bool tick()
     {
-        zdrop = NULL;
+        zdrop = nullptr;
         return true;
     }
 };
@@ -296,7 +296,7 @@ public:
     {
         ztake->mRunning = true;
         delete ztake;
-        ztake = NULL;
+        ztake = nullptr;
         return true;
     }
 };
@@ -761,7 +761,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                 {
                     if (setting == "on")
                     {
-                        if (zdrop != NULL)
+                        if (zdrop != nullptr)
                         {
                             report_to_nearby_chat("Zdrop is already active.");
                         }
@@ -776,7 +776,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                                 {
                                     report_to_nearby_chat("UUID entered is of an invalid length! (Hint: use the \"copy key\" button in the build menu.)");
                                 }
-                                else if (gObjectList.findObject(LLUUID(loldest)) == 0) 
+                                else if (gObjectList.findObject(LLUUID(loldest)) == nullptr) 
                                 {
                                     report_to_nearby_chat("Unable to locate object.  Please verify the object is rezzed and in view, and that the UUID is correct.");
                                 }
@@ -835,7 +835,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                     }
                     else if (setting == "off")
                     {
-                        if (zdrop == NULL)
+                        if (zdrop == nullptr)
                         {
                             report_to_nearby_chat("Zdrop is already deactivated.");
                         }
@@ -843,7 +843,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                         {
                             zdrop ->mRunning = true;
                             delete zdrop;
-                            zdrop = NULL;
+                            zdrop = nullptr;
                         }
                     }
                     else
@@ -865,7 +865,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                 {
                     if (setting == "on")
                     {
-                        if (ztake != NULL)
+                        if (ztake != nullptr)
                         {
                             report_to_nearby_chat("Ztake is already active.");
                         }
@@ -902,7 +902,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                     }
                     else if (setting == "off")
                     {
-                        if (ztake == NULL)
+                        if (ztake == nullptr)
                         {
                             report_to_nearby_chat("Ztake is already deactivated.");
                         }
@@ -910,7 +910,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                         {
                             ztake->mRunning = true;
                             delete ztake;
-                            ztake = NULL;
+                            ztake = nullptr;
                         }
                     }
                     else
@@ -936,7 +936,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                     {
                         report_to_nearby_chat("UUID entered is of an invalid length! (Hint: use the \"copy key\" button in the build menu.)");
                     }
-                    else if (gObjectList.findObject(LLUUID(loldest)) == 0) 
+                    else if (gObjectList.findObject(LLUUID(loldest)) == nullptr) 
                     {
                         report_to_nearby_chat("Unable to locate object.  Please verify the object is rezzed, in view, and that the UUID is correct.");
                     }
@@ -982,7 +982,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                 {
                     if (setting == "on")
                     {
-                        if (mtake != NULL)
+                        if (mtake != nullptr)
                         {
                             report_to_nearby_chat("Mtake is already active.");
                         }
@@ -1019,7 +1019,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                     }
                     else if (setting == "off")
                     {
-                        if (mtake == NULL)
+                        if (mtake == nullptr)
                         {
                             report_to_nearby_chat("Mtake is already deactivated.");
                         }
@@ -1027,7 +1027,7 @@ bool cmd_line_chat(std::string revised_text, EChatType type, bool from_gesture)
                         {
                             mtake->mRunning = true;
                             delete mtake;
-                            mtake = NULL;
+                            mtake = nullptr;
                         }
                     }
                     else

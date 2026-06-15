@@ -124,7 +124,7 @@ class LLChatHistoryHeader : public LLPanel
 public:
 	LLChatHistoryHeader()
 		: LLPanel(),
-		mInfoCtrl(NULL),
+		mInfoCtrl(nullptr),
 		mPopupMenuHandleAvatar(),
 		mPopupMenuHandleObject(),
 		mAvatarID(),
@@ -137,9 +137,9 @@ public:
 		mSessionID(),
         mCreationTime(time_corrected()),
 		mMinUserNameWidth(0),
-		mUserNameFont(NULL),
-		mUserNameTextBox(NULL),
-		mTimeBoxTextBox(NULL),
+		mUserNameFont(nullptr),
+		mUserNameTextBox(nullptr),
+		mTimeBoxTextBox(nullptr),
 		mNeedsTimeBox(true),
 		mAvatarNameCacheConnection()
 	{}
@@ -603,7 +603,7 @@ public:
 				if (speaker_mgr)
 				{
 					const LLSpeaker * speakerp = speaker_mgr->findSpeaker(getAvatarId());
-					if (NULL != speakerp)
+					if (nullptr != speakerp)
 					{
 						return !speakerp->mModeratorMutedText;
 					}
@@ -1300,7 +1300,7 @@ protected:
 				menu->setItemEnabled("Request Teleport", LLAvatarActions::canOfferTeleport(mAvatarID));
 				menu->setItemEnabled("Voice Call", LLAvatarActions::canCall());
 
-				const bool is_friend = (LLAvatarTracker::instance().getBuddyInfo(mAvatarID) != NULL);
+				const bool is_friend = (LLAvatarTracker::instance().getBuddyInfo(mAvatarID) != nullptr);
 				menu->setItemVisible("Add Friend", !is_friend);
 				menu->setItemVisible("Remove Friend", is_friend);
 				menu->setItemVisible("Permissions", is_friend);
@@ -1335,7 +1335,7 @@ protected:
 		LLMenuGL *menu = (LLMenuGL*)mPopupMenuHandleAudioStream.get();
 
 		if (menu) {
-			LLStreamingAudioInterface *stream = NULL;
+			LLStreamingAudioInterface *stream = nullptr;
 
 			static LLCachedControl<bool> audio_streaming_music(gSavedSettings, "AudioStreamingMusic", true);
 
@@ -1344,8 +1344,8 @@ protected:
 					stream = gAudiop->getStreamingAudioImpl();
 				}
 
-				menu->setItemVisible("start_stream", stream == NULL);
-				menu->setItemEnabled("start_stream", stream == NULL);
+				menu->setItemVisible("start_stream", stream == nullptr);
+				menu->setItemEnabled("start_stream", stream == nullptr);
 			}
 			else {
 				menu->setItemVisible("start_stream", true);
@@ -1354,11 +1354,11 @@ protected:
 			menu->setItemEnabled("Offer Teleport", LLAvatarActions::canOfferTeleport(mAvatarID));
 			menu->setItemEnabled("Voice Call", LLAvatarActions::canCall());
 
-			menu->setItemVisible("stop_stream", stream != NULL);
-			menu->setItemEnabled("stop_stream", stream != NULL);
+			menu->setItemVisible("stop_stream", stream != nullptr);
+			menu->setItemEnabled("stop_stream", stream != nullptr);
 			menu->setItemEnabled("copy_track_name", stream && (!stream->getCurrentArtist().empty() || !stream->getCurrentTitle().empty()));
 			menu->setItemEnabled("copy_stream_name", stream && !stream->getCurrentStreamName().empty());
-			menu->setItemEnabled("copy_stream_address", stream != NULL);
+			menu->setItemEnabled("copy_stream_address", stream != nullptr);
 			menu->setItemEnabled("visit_stream_website", stream && !stream->getCurrentStreamLocation().empty());
 
 			menu->setItemEnabled("Chat History", LLLogChat::isTranscriptExist(mAvatarID));
@@ -1808,7 +1808,7 @@ void LLChatHistory::appendMessage(const LLChat& chat, const LLSD &args, const LL
 	else // showing timestamp and name in the expanded mode
 	{
 		prependNewLineState = false;
-		LLView* view = NULL;
+		LLView* view = nullptr;
 		LLInlineViewSegment::Params p;
 		p.force_newline = true;
 		p.left_pad = mLeftWidgetPad;

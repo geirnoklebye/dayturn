@@ -492,7 +492,7 @@ const LLViewerObject *LLViewerJointAttachment::getAttachedObject(const LLUUID &o
 			return attached_object;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLViewerObject *LLViewerJointAttachment::getAttachedObject(const LLUUID &object_id)
@@ -507,5 +507,5 @@ LLViewerObject *LLViewerJointAttachment::getAttachedObject(const LLUUID &object_
 			return attached_object;
 		}
 	}
-	return NULL;
+	return nullptr;
 }

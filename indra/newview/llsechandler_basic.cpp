@@ -1119,7 +1119,7 @@ void LLBasicCertificateStore::validate(int validation_policy,
 			}
             else
             {
-                validation_date = LLDate(time(NULL)); // current time
+                validation_date = LLDate(time(nullptr)); // current time
             }
 			
 			if((validation_date < cache_entry->second.first) ||

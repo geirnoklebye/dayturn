@@ -203,7 +203,7 @@ void LLLandmarksPanel::onSearchEdit(const std::string& string)
 // virtual
 void LLLandmarksPanel::onShowOnMap()
 {
-	if (NULL == mCurrentSelectedList)
+	if (nullptr == mCurrentSelectedList)
 	{
 		LL_WARNS() << "There are no selected list. No actions are performed." << LL_ENDL;
 		return;
@@ -272,7 +272,7 @@ bool LLLandmarksPanel::isSingleItemSelected()
 {
 	bool result = false;
 
-	if (mCurrentSelectedList != NULL)
+	if (mCurrentSelectedList != nullptr)
 	{
 		LLFolderView* root_view = mCurrentSelectedList->getRootFolder();
 
@@ -378,7 +378,7 @@ LLFolderViewModelItemInventory* LLLandmarksPanel::getCurSelectedViewModelItem() 
 	{
 		return 	static_cast<LLFolderViewModelItemInventory*>(cur_item->getViewModelItem());
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -566,7 +566,7 @@ void LLLandmarksPanel::onAddAction(const LLSD& userdata) const
 	{
 		if (item && mCurrentSelectedList == mLandmarksInventoryPanel)
 		{
-			LLFolderViewModelItem* folder_bridge = NULL;
+			LLFolderViewModelItem* folder_bridge = nullptr;
 
 			if (view_model->getInventoryType()
 					== LLInventoryType::IT_LANDMARK)
@@ -1057,7 +1057,7 @@ void LLLandmarksPanel::onPickPanelExit( LLPanelPickEdit* pick_panel, LLView* own
 	LLRemoteParcelInfoProcessor::getInstance()->removeObserver(params["parcel_id"].asUUID(), this);
 
 	delete pick_panel;
-	pick_panel = NULL;
+	pick_panel = nullptr;
 }
 
 bool LLLandmarksPanel::handleDragAndDropToTrash(bool drop, EDragAndDropType cargo_type, void* cargo_data , EAcceptance* accept)
@@ -1131,7 +1131,7 @@ void LLLandmarksPanel::doProcessParcelInfo(LLLandmark* landmark,
 	landmark->getGlobalPos(landmark_global_pos);
 
 	// let's toggle pick panel into  panel places
-	LLPanel* panel_places = NULL;
+	LLPanel* panel_places = nullptr;
 	LLFloaterSidePanelContainer* floaterp = LLFloaterReg::getTypedInstance<LLFloaterSidePanelContainer>("places");
 	if (floaterp)
 	{

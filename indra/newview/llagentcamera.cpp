@@ -241,7 +241,7 @@ void LLAgentCamera::cleanup()
 		mPointAt->markDead() ;
 		mPointAt = NULL;
 	}
-	setFocusObject(NULL);
+	setFocusObject(nullptr);
 }
 
 void LLAgentCamera::setAvatarObject(LLVOAvatarSelf* avatar)
@@ -307,7 +307,7 @@ void LLAgentCamera::resetView(bool reset_camera, bool change_camera, bool moveme
 		LLSelectMgr::getInstance()->deselectAll();
 	}
 
-	if (gMenuHolder != NULL)
+	if (gMenuHolder != nullptr)
 	{
 		// Hide all popup menus
 		gMenuHolder->hideMenus();
@@ -1490,7 +1490,7 @@ void LLAgentCamera::updateCamera()
 	// follow camera when in customize mode
 	if (cameraCustomizeAvatar())	
 	{
-		setLookAt(LOOKAT_TARGET_FOCUS, NULL, mCameraPositionAgent);
+		setLookAt(LOOKAT_TARGET_FOCUS, nullptr, mCameraPositionAgent);
 	}
 
 	// update the travel distance stat
@@ -2198,7 +2198,7 @@ void LLAgentCamera::changeCameraToMouselook(bool animate)
 
 	if (mCameraMode != CAMERA_MODE_MOUSELOOK)
 	{
-		gFocusMgr.setKeyboardFocus(NULL);
+		gFocusMgr.setKeyboardFocus(nullptr);
 		
 		updateLastCamera();
 		mCameraMode = CAMERA_MODE_MOUSELOOK;
@@ -2406,8 +2406,8 @@ void LLAgentCamera::changeCameraToCustomizeAvatar()
 		mCameraMode = CAMERA_MODE_CUSTOMIZE_AVATAR;
 		gAgent.clearControlFlags(AGENT_CONTROL_MOUSELOOK);
 
-		gFocusMgr.setKeyboardFocus( NULL );
-		gFocusMgr.setMouseCapture( NULL );
+		gFocusMgr.setKeyboardFocus( nullptr );
+		gFocusMgr.setMouseCapture( nullptr );
 		if( gMorphView )
 		{
 			gMorphView->setVisible(true);
@@ -2510,7 +2510,7 @@ void LLAgentCamera::clearFocusObject()
 	{
 		startCameraAnimation();
 
-		setFocusObject(NULL);
+		setFocusObject(nullptr);
 		mFocusObjectOffset.clearVec();
 	}
 }
@@ -2590,7 +2590,7 @@ void LLAgentCamera::setFocusGlobal(const LLVector3d& focus, const LLUUID &object
 			}
 			else
 			{
-				setLookAt(LOOKAT_TARGET_FOCUS, NULL, gAgent.getPosAgentFromGlobal(mFocusTargetGlobal));
+				setLookAt(LOOKAT_TARGET_FOCUS, nullptr, gAgent.getPosAgentFromGlobal(mFocusTargetGlobal));
 			}
 		}
 	}
@@ -2660,7 +2660,7 @@ void LLAgentCamera::setCameraPosAndFocusGlobal(const LLVector3d& camera_pos, con
 	}
 	else
 	{
-		setLookAt(LOOKAT_TARGET_FOCUS, NULL, gAgent.getPosAgentFromGlobal(mFocusTargetGlobal));
+		setLookAt(LOOKAT_TARGET_FOCUS, nullptr, gAgent.getPosAgentFromGlobal(mFocusTargetGlobal));
 	}
 
 	if (mCameraAnimating)

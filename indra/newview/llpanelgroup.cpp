@@ -90,7 +90,7 @@ LLPanelGroup::LLPanelGroup()
 :	LLPanel(),
 	LLGroupMgrObserver( LLUUID() ),
 	mSkipRefresh(false),
-	mButtonJoin(NULL)
+	mButtonJoin(nullptr)
 {
 	// Set up the factory callbacks.
 	// Roles sub tabs

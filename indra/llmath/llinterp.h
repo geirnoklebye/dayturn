@@ -363,7 +363,7 @@ template <class Type>
 LLInterpFunc<Type>::LLInterpFunc() : LLInterp<Type>()
 {
 	mFunc = NULL;
-	mData = NULL;
+	mData = nullptr;
 }
 
 template <class Type>

@@ -112,7 +112,7 @@ void LLUploadDialog::setMessage( const std::string& msg)
 		S32 cur_width = S32(font->getWidth(tokstr) + 0.99f) + TEXT_PAD;
 		max_msg_width = llmax( max_msg_width, cur_width );
 		msg_lines.push_back( tokstr );
-		token = strtok( NULL, "\n" );
+		token = strtok( nullptr, "\n" );
 	}
 
 	S32 line_height = font->getLineHeight();

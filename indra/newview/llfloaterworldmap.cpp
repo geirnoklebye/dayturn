@@ -281,7 +281,7 @@ public:
 };	
 LLMapTrackAvatarHandler gMapTrackAvatar;
 
-LLFloaterWorldMap* gFloaterWorldMap = NULL;
+LLFloaterWorldMap* gFloaterWorldMap = nullptr;
 
 class LLMapInventoryObserver : public LLInventoryObserver
 {
@@ -375,9 +375,9 @@ const LLUUID LLFloaterWorldMap::sHomeID( "10000000-0000-0000-0000-000000000001" 
 
 LLFloaterWorldMap::LLFloaterWorldMap(const LLSD& key)
 :	LLFloater(key),
-	mInventory(NULL),
-	mInventoryObserver(NULL),
-	mFriendObserver(NULL),
+	mInventory(nullptr),
+	mInventoryObserver(nullptr),
+	mFriendObserver(nullptr),
 	mCompletingRegionName(),
 	mCompletingRegionPos(),
 	mWaitingForTracker(false),
@@ -1128,8 +1128,8 @@ void LLFloaterWorldMap::observeInventory(LLInventoryModel* model)
 	{
 		mInventory->removeObserver(mInventoryObserver);
 		delete mInventoryObserver;
-		mInventory = NULL;
-		mInventoryObserver = NULL;
+		mInventory = nullptr;
+		mInventoryObserver = nullptr;
 	}
 	if(model)
 	{

@@ -489,7 +489,7 @@ private:
 		bool isDescendentOfInventoryFriends(const LLUUID& invItemID)
 		{
 			LLViewerInventoryItem * item = gInventory.getItem(invItemID);
-			if (NULL == item)
+			if (nullptr == item)
 				return false;
 
 			return LLFriendCardsManager::instance().isItemInAnyFriendsList(item);
@@ -1035,7 +1035,7 @@ void LLPanelPeople::updateNearbyList()
 		// Handle new entries
 		else 
 		{
-			av->setFirstSeen(time(NULL));
+			av->setFirstSeen(time(nullptr));
 
 			if ( 1 )
 			{
@@ -1123,7 +1123,7 @@ void LLPanelPeople::updateNearbyList()
 		}
 		else 
 		{
-			rf.lastRegion = LLUUID(0);
+			rf.lastRegion = LLUUID(nullptr);
 		}
 		
 		rf.firstSeen = av->getFirstSeen();
@@ -1238,7 +1238,7 @@ void LLPanelPeople::updateButtons()
 		if (item_selected)
 		{
 			selected_id = selected_uuids.front();
-			is_friend = LLAvatarTracker::instance().getBuddyInfo(selected_id) != NULL;
+			is_friend = LLAvatarTracker::instance().getBuddyInfo(selected_id) != nullptr;
 			is_self = gAgent.getID() == selected_id;
 		}
 

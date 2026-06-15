@@ -1297,7 +1297,7 @@ void LLPanelGroupMembersSubTab::handleRoleCheck(const LLUUID& role_id,
 				//the current member now has no role changes
 				//so erase the role change and erase the member's entry
 				delete role_change_datap;
-                role_change_datap = NULL;
+                role_change_datap = nullptr;
 
 				mMemberRoleChangeData.erase(member_id);
 			}

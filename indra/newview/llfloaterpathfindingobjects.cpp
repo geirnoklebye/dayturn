@@ -150,7 +150,7 @@ void LLFloaterPathfindingObjects::draw()
 				const LLScrollListItem *selectedItem = *selectedItemIter;
 
 				LLViewerObject *viewerObject = gObjectList.findObject(selectedItem->getUUID());
-				if (viewerObject != NULL)
+				if (viewerObject != nullptr)
 				{
 					const std::string &objectName = selectedItem->getColumn(nameColumnIndex)->getValue().asString();
 					gObjectList.addDebugBeacon(viewerObject->getPositionAgent(), objectName, beaconColor, beaconTextColor, beaconWidth);
@@ -846,7 +846,7 @@ void LLFloaterPathfindingObjects::selectScrollListItemsInWorld()
 			const LLScrollListItem *selectedItem = *selectedItemIter;
 
 			LLViewerObject *viewerObject = gObjectList.findObject(selectedItem->getUUID());
-			if (viewerObject != NULL)
+			if (viewerObject != nullptr)
 			{
 				viewerObjects.push_back(viewerObject);
 			}

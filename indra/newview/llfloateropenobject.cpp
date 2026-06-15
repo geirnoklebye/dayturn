@@ -52,7 +52,7 @@
 
 LLFloaterOpenObject::LLFloaterOpenObject(const LLSD& key)
 :	LLFloater(key),
-	mPanelInventoryObject(NULL),
+	mPanelInventoryObject(nullptr),
 	mDirty(true)
 {
 	mCommitCallbackRegistrar.add("OpenObject.MoveToInventory",	boost::bind(&LLFloaterOpenObject::onClickMoveToInventory, this));
@@ -187,7 +187,7 @@ void LLFloaterOpenObject::moveToInventory(bool wear, bool replace)
 		if (!success)
 		{
 			delete data;
-			data = NULL;
+			data = nullptr;
 
 			LLNotificationsUtil::add("OpenObjectCannotCopy");
 		}
@@ -212,7 +212,7 @@ void LLFloaterOpenObject::callbackCreateInventoryCategory(const LLUUID& category
 	if (!success)
 	{
 		delete wear_data;
-		wear_data = NULL;
+		wear_data = nullptr;
 		
 		LLNotificationsUtil::add("OpenObjectCannotCopy");
 	}

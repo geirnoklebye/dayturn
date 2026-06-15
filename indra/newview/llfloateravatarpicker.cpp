@@ -73,7 +73,7 @@ LLFloaterAvatarPicker* LLFloaterAvatarPicker::show(select_callback_t callback,
 	if (!floater)
 	{
 		LL_WARNS() << "Cannot instantiate avatar picker" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	
 	floater->mSelectionCallback = callback;
@@ -224,7 +224,7 @@ void LLFloaterAvatarPicker::onBtnSelect()
 	if(mSelectionCallback)
 	{
 		std::string acvtive_panel_name;
-		LLScrollListCtrl* list =  NULL;
+		LLScrollListCtrl* list =  nullptr;
 		LLPanel* active_panel = getChild<LLTabContainer>("ResidentChooserTabs")->getCurrentPanel();
 		if(active_panel)
 		{
@@ -519,7 +519,7 @@ void LLFloaterAvatarPicker::setAllowMultiple(bool allow_multiple)
 LLScrollListCtrl* LLFloaterAvatarPicker::getActiveList()
 {
 	std::string acvtive_panel_name;
-	LLScrollListCtrl* list = NULL;
+	LLScrollListCtrl* list = nullptr;
 	LLPanel* active_panel = getChild<LLTabContainer>("ResidentChooserTabs")->getCurrentPanel();
 	if(active_panel)
 	{
@@ -582,7 +582,7 @@ bool LLFloaterAvatarPicker::handleDragAndDrop(S32 x, S32 y, MASK mask,
 void LLFloaterAvatarPicker::openFriendsTab()
 {
 	LLTabContainer* tab_container = getChild<LLTabContainer>("ResidentChooserTabs");
-	if (tab_container == NULL)
+	if (tab_container == nullptr)
 	{
 		llassert(tab_container != NULL);
 		return;
@@ -609,7 +609,7 @@ void LLFloaterAvatarPicker::processAvatarPickerReply(LLMessageSystem* msg, void*
 	LLFloaterAvatarPicker* floater = LLFloaterReg::findTypedInstance<LLFloaterAvatarPicker>("avatar_picker");
 
 	// floater is closed or these are not results from our last request
-	if (NULL == floater || query_id != floater->mQueryID)
+	if (nullptr == floater || query_id != floater->mQueryID)
 	{
 		return;
 	}
@@ -778,7 +778,7 @@ bool LLFloaterAvatarPicker::isSelectBtnEnabled()
 	if ( ret_val && !isMinimized())
 	{
 		std::string acvtive_panel_name;
-		LLScrollListCtrl* list =  NULL;
+		LLScrollListCtrl* list =  nullptr;
 		LLPanel* active_panel = getChild<LLTabContainer>("ResidentChooserTabs")->getCurrentPanel();
 
 		if(active_panel)

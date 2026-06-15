@@ -79,7 +79,7 @@ const F32 PARCEL_COLLISION_DRAW_SECS_ON_PROXIMITY = 1.f;
 
 // Globals
 
-U8* LLViewerParcelMgr::sPackedOverlay = NULL;
+U8* LLViewerParcelMgr::sPackedOverlay = nullptr;
 S32 LLViewerParcelMgr::PARCEL_BAN_LINES_HIDE = 0;
 S32 LLViewerParcelMgr::PARCEL_BAN_LINES_ON_COLLISION = 1;
 S32 LLViewerParcelMgr::PARCEL_BAN_LINES_ON_PROXIMITY = 2;
@@ -132,7 +132,7 @@ LLViewerParcelMgr::LLViewerParcelMgr()
 	mCollisionBanned(0),
 	mCollisionTimer(),
 	mCollisionRegionHandle(0),
-	mCollisionUpdateSignal(NULL),
+	mCollisionUpdateSignal(nullptr),
 	mMediaParcelId(0),
 	mMediaRegionId(0)
 {
@@ -192,28 +192,28 @@ LLViewerParcelMgr::~LLViewerParcelMgr()
 	mFloatingParcelSelection = NULL;
 
 	delete mCurrentParcel;
-	mCurrentParcel = NULL;
+	mCurrentParcel = nullptr;
 
 	delete mAgentParcel;
-	mAgentParcel = NULL;
+	mAgentParcel = nullptr;
 
 	delete mCollisionParcel;
-	mCollisionParcel = NULL;
+	mCollisionParcel = nullptr;
 
 	delete mHoverParcel;
-	mHoverParcel = NULL;
+	mHoverParcel = nullptr;
 
 	delete[] mHighlightSegments;
-	mHighlightSegments = NULL;
+	mHighlightSegments = nullptr;
 
 	delete[] mCollisionSegments;
-	mCollisionSegments = NULL;
+	mCollisionSegments = nullptr;
 
 	delete[] sPackedOverlay;
-	sPackedOverlay = NULL;
+	sPackedOverlay = nullptr;
 
 	delete[] mAgentParcelOverlay;
-	mAgentParcelOverlay = NULL;
+	mAgentParcelOverlay = nullptr;
 
 	sBlockedImage = NULL;
 	sPassImage = NULL;
@@ -876,7 +876,7 @@ LLParcel* LLViewerParcelMgr::getHoverParcel() const
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -889,7 +889,7 @@ LLParcel* LLViewerParcelMgr::getCollisionParcel() const
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -1162,14 +1162,14 @@ LLViewerParcelMgr::ParcelBuyInfo* LLViewerParcelMgr::setupParcelBuy(
 	if (!mSelected || !mCurrentParcel)
 	{
 		LLNotificationsUtil::add("CannotBuyLandNothingSelected");
-		return NULL;
+		return nullptr;
 	}
 
 	LLViewerRegion *region = LLWorld::getInstance()->getRegionFromPosGlobal( mWestSouth );
 	if (!region)
 	{
 		LLNotificationsUtil::add("CannotBuyLandNoRegion");
-		return NULL;
+		return nullptr;
 	}
 	
 	if (is_claim)
@@ -1187,7 +1187,7 @@ LLViewerParcelMgr::ParcelBuyInfo* LLViewerParcelMgr::setupParcelBuy(
 		if (region != region2)
 		{
 			LLNotificationsUtil::add("CantBuyLandAcrossMultipleRegions");
-			return NULL;
+			return nullptr;
 		}
 	}
 	
@@ -1261,7 +1261,7 @@ void LLViewerParcelMgr::deleteParcelBuy(ParcelBuyInfo* *info)
 {
 	// Must be here because ParcelBuyInfo is local to this .cpp file
 	delete *info;
-	*info = NULL;
+	*info = nullptr;
 }
 
 void LLViewerParcelMgr::sendParcelDeed(const LLUUID& group_id)
@@ -1859,7 +1859,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 				parcel_mgr.writeSegmentsFromBitmap( bitmap, parcel_mgr.mHighlightSegments );
 
 				delete[] bitmap;
-				bitmap = NULL;
+				bitmap = nullptr;
 
 				parcel_mgr.mCurrentParcelSelection->mWholeParcelSelected = true;
 			}

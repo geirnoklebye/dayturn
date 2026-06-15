@@ -1315,7 +1315,7 @@ void LLTextureCache::updateEntryTimeStamp(S32 idx, Entry& entry)
 	{
 		if (!mReadOnly)
 		{
-			entry.mTime = time(NULL);			
+			entry.mTime = time(nullptr);			
 			mUpdatedEntryMap[idx] = entry ;
 		}
 	}
@@ -1353,7 +1353,7 @@ bool LLTextureCache::updateEntry(S32& idx, Entry& entry, S32 new_image_size, S32
 			mTexturesSizeTotal -= entry.mBodySize ;
 			mTexturesSizeTotal += new_body_size ;
 		}
-		entry.mTime = time(NULL);
+		entry.mTime = time(nullptr);
 		entry.mImageSize = new_image_size ; 
 		entry.mBodySize = new_body_size ;
 		
@@ -1384,7 +1384,7 @@ U32 LLTextureCache::openAndReadEntries(std::vector<Entry>& entries)
 	mFreeList.clear();
 	mTexturesSizeTotal = 0;
 
-	LLAPRFile* aprfile = NULL; 
+	LLAPRFile* aprfile = nullptr; 
 	if(mUpdatedEntryMap.empty())
 	{
 		aprfile = openHeaderEntriesFile(true, (S32)sizeof(EntriesInfo));
@@ -1873,7 +1873,7 @@ void LLTextureCache::purgeTextures(bool validate)
 // call lockWorkers() first!
 LLTextureCacheWorker* LLTextureCache::getReader(handle_t handle)
 {
-	LLTextureCacheWorker* res = NULL;
+	LLTextureCacheWorker* res = nullptr;
 	handle_map_t::iterator iter = mReaders.find(handle);
 	if (iter != mReaders.end())
 	{
@@ -1884,7 +1884,7 @@ LLTextureCacheWorker* LLTextureCache::getReader(handle_t handle)
 
 LLTextureCacheWorker* LLTextureCache::getWriter(handle_t handle)
 {
-	LLTextureCacheWorker* res = NULL;
+	LLTextureCacheWorker* res = nullptr;
 	handle_map_t::iterator iter = mWriters.find(handle);
 	if (iter != mWriters.end())
 	{
@@ -1976,7 +1976,7 @@ bool LLTextureCache::readComplete(handle_t handle, bool abort)
 {
 	lockWorkers();
 	handle_map_t::iterator iter = mReaders.find(handle);
-	LLTextureCacheWorker* worker = NULL;
+	LLTextureCacheWorker* worker = nullptr;
 	bool complete = false;
 	if (iter != mReaders.end())
 	{
@@ -2205,7 +2205,7 @@ void LLTextureCache::closeFastCache(bool forced)
 	}
 
 	delete mFastCachep;
-	mFastCachep = NULL;
+	mFastCachep = nullptr;
 	return;
 }
 	

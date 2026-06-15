@@ -63,7 +63,7 @@ private:
 	LLPanelTopInfoBar* mTopInfoBar;
 };
 
-LLPanelTopInfoBar::LLPanelTopInfoBar(): mParcelChangedObserver(0)
+LLPanelTopInfoBar::LLPanelTopInfoBar(): mParcelChangedObserver(nullptr)
 {
 	buildFromFile( "panel_topinfo_bar.xml");
 }
@@ -455,7 +455,7 @@ void LLPanelTopInfoBar::onContextMenuItemClicked(const LLSD::String& item)
 	{
 		LLViewerInventoryItem* landmark = LLLandmarkActions::findLandmarkForAgentPos();
 
-		if(landmark == NULL)
+		if(landmark == nullptr)
 		{
 			LLFloaterReg::showInstance("add_landmark");
 		}

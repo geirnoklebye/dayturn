@@ -152,7 +152,7 @@ public:
 	{
 		typedef	boost::date_time::local_adjustor<ptime, -8, no_dst> pst;
 		typedef boost::date_time::local_adjustor<ptime, -7, no_dst> pdt;
-		time_t t_time = time(NULL);
+		time_t t_time = time(nullptr);
 		ptime p_time = LLStringOps::getPacificDaylightTime()
 			? pdt::utc_to_local(from_time_t(t_time))
 			: pst::utc_to_local(from_time_t(t_time));
@@ -689,7 +689,7 @@ void LLLogChat::getListOfTranscriptBackupFiles(std::vector<std::string>& list_of
 
 boost::signals2::connection LLLogChat::setSaveHistorySignal(const save_history_signal_t::slot_type& cb)
 {
-	if (NULL == mSaveHistorySignal)
+	if (nullptr == mSaveHistorySignal)
 	{
 		mSaveHistorySignal = new save_history_signal_t();
 	}
@@ -1061,7 +1061,7 @@ LLDeleteHistoryThread::~LLDeleteHistoryThread()
 }
 void LLDeleteHistoryThread::run()
 {
-	if (mLoadThread != NULL)
+	if (mLoadThread != nullptr)
 	{
 		mLoadThread->waitFinished();
 	}
@@ -1113,7 +1113,7 @@ LLLoadHistoryThread::LLLoadHistoryThread(const std::string& file_name, std::list
 	mFileName(file_name),
 	mLoadParams(load_params),
 	mNewLoad(true),
-	mLoadEndSignal(NULL)
+	mLoadEndSignal(nullptr)
 {
 }
 
@@ -1232,7 +1232,7 @@ void LLLoadHistoryThread::loadHistory(const std::string& file_name, std::list<LL
 	
 boost::signals2::connection LLLoadHistoryThread::setLoadEndSignal(const load_end_signal_t::slot_type& cb)
 {
-	if (NULL == mLoadEndSignal)
+	if (nullptr == mLoadEndSignal)
 	{
 		mLoadEndSignal = new load_end_signal_t();
 	}
@@ -1242,10 +1242,10 @@ boost::signals2::connection LLLoadHistoryThread::setLoadEndSignal(const load_end
 
 void LLLoadHistoryThread::removeLoadEndSignal(const load_end_signal_t::slot_type& cb)
 {
-	if (NULL != mLoadEndSignal)
+	if (nullptr != mLoadEndSignal)
 	{
 		mLoadEndSignal->disconnect_all_slots();
 		delete mLoadEndSignal;
 	}
-	mLoadEndSignal = NULL;
+	mLoadEndSignal = nullptr;
 }

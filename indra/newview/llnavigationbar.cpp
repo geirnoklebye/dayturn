@@ -127,7 +127,7 @@ static LLDefaultChildRegistry::Register<LLTeleportHistoryMenuItem> r("teleport_h
 
 LLTeleportHistoryMenuItem::LLTeleportHistoryMenuItem(const Params& p)
 :	LLMenuItemCallGL(p),
-	mArrowIcon(NULL)
+	mArrowIcon(nullptr)
 {
 	// Set appearance depending on the item type.
 	if (p.item_type == TYPE_BACKWARD)
@@ -268,14 +268,14 @@ TODO:
 */
 
 LLNavigationBar::LLNavigationBar()
-:	mTeleportHistoryMenu(NULL),
-	mBtnBack(NULL),
-	mBtnForward(NULL),
-	mBtnHome(NULL),
-	mCmbLocation(NULL),
+:	mTeleportHistoryMenu(nullptr),
+	mBtnBack(nullptr),
+	mBtnForward(nullptr),
+	mBtnHome(nullptr),
+	mCmbLocation(nullptr),
 	mSaveToLocationHistory(false),
-	mNavigationPanel(NULL),
-	mFavoritePanel(NULL),
+	mNavigationPanel(nullptr),
+	mFavoritePanel(nullptr),
 	mNavPanWidth(0)
 {
 	buildFromFile( "panel_navigation_bar.xml");
@@ -702,7 +702,7 @@ void	LLNavigationBar::showTeleportHistoryMenu(LLUICtrl* btn_ctrl)
 	
 	rebuildTeleportHistoryMenu();
 
-	if (mTeleportHistoryMenu == NULL)
+	if (mTeleportHistoryMenu == nullptr)
 		return;
 	
 	mTeleportHistoryMenu->updateParent(LLMenuGL::sMenuContainer);
@@ -738,7 +738,7 @@ void LLNavigationBar::onNavigationButtonHeldUp(LLButton* nav_button)
 	{
 		// we had passed mouseCapture in  showTeleportHistoryMenu()
 		// now we MUST release mouseCapture to continue a proper mouseevent workflow. 
-		gFocusMgr.setMouseCapture(NULL);
+		gFocusMgr.setMouseCapture(nullptr);
 	}
 	//gMenuHolder is using to display bunch of menus. Disconnect signal to avoid unnecessary calls.    
 	mHistoryMenuConnection.disconnect();

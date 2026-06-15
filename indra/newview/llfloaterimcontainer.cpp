@@ -68,8 +68,8 @@ const F32 EVENTS_PER_IDLE_LOOP_MIN_PERCENTAGE = 0.01f; // process a minimum of 1
 //
 LLFloaterIMContainer::LLFloaterIMContainer(const LLSD& seed, const Params& params /*= getDefaultParams()*/)
 :	LLMultiFloater(seed, params),
-	mExpandCollapseBtn(NULL),
-	mConversationsRoot(NULL),
+	mExpandCollapseBtn(nullptr),
+	mConversationsRoot(nullptr),
 	mConversationsEventStream("ConversationsEvents"),
 	mInitialized(false),
 	mIsFirstLaunch(true),
@@ -692,7 +692,7 @@ void LLFloaterIMContainer::tabClose()
 void LLFloaterIMContainer::showStub(bool stub_is_visible)
 {
     S32 tabCount = 0;
-    LLPanel * tabPanel = NULL;
+    LLPanel * tabPanel = nullptr;
 
     if(stub_is_visible)
     {
@@ -755,14 +755,14 @@ void LLFloaterIMContainer::setVisible(bool visible)
 	{
 		// Make sure we have the Nearby Chat present when showing the conversation container
 		nearby_chat = LLFloaterReg::findTypedInstance<LLFloaterIMNearbyChat>("nearby_chat");
-		if ((nearby_chat == NULL) || mIsFirstOpen)
+		if ((nearby_chat == nullptr) || mIsFirstOpen)
 		{
 			 mIsFirstOpen = false;
 			// If not found, force the creation of the nearby chat conversation panel
 			// *TODO: find a way to move this to XML as a default panel or something like that
 			LLSD name("nearby_chat");
 			LLFloaterReg::toggleInstanceOrBringToFront(name);
-            selectConversationPair(LLUUID(NULL), false, false);
+            selectConversationPair(LLUUID(nullptr), false, false);
 		}
 
 		flashConversationItemWidget(mSelectedSession,false);
@@ -1177,7 +1177,7 @@ void LLFloaterIMContainer::getSelectedUUIDs(uuid_vec_t& selected_uuids, bool par
 
 const LLConversationItem * LLFloaterIMContainer::getCurSelectedViewModelItem()
 {
-    LLConversationItem * conversation_item = NULL;
+    LLConversationItem * conversation_item = nullptr;
 
     if(mConversationsRoot && 
         mConversationsRoot->getCurSelectedItem() && 
@@ -1202,7 +1202,7 @@ void LLFloaterIMContainer::getParticipantUUIDs(uuid_vec_t& selected_uuids)
     //Find the conversation floater associated with the selected id
     const LLConversationItem * conversation_item = getCurSelectedViewModelItem();
 
-	if (NULL == conversation_item)
+	if (nullptr == conversation_item)
 	{
 		return;
 	}
@@ -1391,7 +1391,7 @@ void LLFloaterIMContainer::doToSelected(const LLSD& userdata)
     const LLConversationItem * conversationItem = getCurSelectedViewModelItem();
     uuid_vec_t selected_uuids;
 
-    if(conversationItem != NULL)
+    if(conversationItem != nullptr)
     {
     	getParticipantUUIDs(selected_uuids);
 		
@@ -1652,7 +1652,7 @@ bool LLFloaterIMContainer::checkContextMenuItem(const std::string& item, uuid_ve
 		{
 			const LLSpeaker * speakerp = getSpeakerOfSelectedParticipant(getSpeakerMgrForSelectedParticipant());
 
-			if (NULL != speakerp)
+			if (nullptr != speakerp)
 			{
 				return !speakerp->mModeratorMutedText;
 			}
@@ -1751,7 +1751,7 @@ bool LLFloaterIMContainer::selectConversationPair(const LLUUID& session_id, bool
 
     /* floater processing */
 
-	if (NULL != session_floater && !session_floater->isDead())
+	if (nullptr != session_floater && !session_floater->isDead())
 	{
 		if (session_id != getSelectedSession())
 		{
@@ -1845,7 +1845,7 @@ LLConversationItem* LLFloaterIMContainer::addConversationListItem(const LLUUID& 
 	}
 
 	// Create a conversation session model
-	LLConversationItemSession* item = NULL;
+	LLConversationItemSession* item = nullptr;
 	LLSpeakerMgr* speaker_manager = (is_nearby_chat ? (LLSpeakerMgr*)(LLLocalSpeakerMgr::getInstance()) : LLIMModel::getInstance()->getSpeakerManager(uuid));
 	if (speaker_manager)
 	{
@@ -1854,10 +1854,10 @@ LLConversationItem* LLFloaterIMContainer::addConversationListItem(const LLUUID& 
 	if (!item)
 	{
 		LL_WARNS() << "Couldn't create conversation session item : " << display_name << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	item->renameItem(display_name);
-	item->updateName(NULL);
+	item->updateName(nullptr);
 	
 	mConversationsItems[uuid] = item;
 
@@ -1919,7 +1919,7 @@ bool LLFloaterIMContainer::removeConversationListItem(const LLUUID& uuid, bool c
 	// Note : since the mConversationsItems is also the listener to the widget, deleting 
 	// the widget will also delete its listener
 	bool is_widget_selected = false;
-	LLFolderViewItem* new_selection = NULL;
+	LLFolderViewItem* new_selection = nullptr;
 	LLFolderViewItem* widget = get_ptr_in_map(mConversationsWidgets,uuid);
 	if (widget)
 	{
@@ -1952,7 +1952,7 @@ bool LLFloaterIMContainer::removeConversationListItem(const LLUUID& uuid, bool c
 			if (mConversationsWidgets.size() == 1)
 			{
 				// If only one widget is left, it has to be the Nearby Chat. Select it directly.
-				selectConversationPair(LLUUID(NULL), true);
+				selectConversationPair(LLUUID(nullptr), true);
 			}
 			else
 			{
@@ -2017,7 +2017,7 @@ bool LLFloaterIMContainer::enableModerateContextMenuItem(const std::string& user
 	}
 
 	LLSpeaker * speakerp = getSpeakerOfSelectedParticipant(getSpeakerMgrForSelectedParticipant());
-	if (NULL == speakerp)
+	if (nullptr == speakerp)
 	{
 		return false;
 	}
@@ -2044,7 +2044,7 @@ bool LLFloaterIMContainer::enableModerateContextMenuItem(const std::string& user
 bool LLFloaterIMContainer::isGroupModerator()
 {
 	LLSpeakerMgr * speaker_manager = getSpeakerMgrForSelectedParticipant();
-	if (NULL == speaker_manager)
+	if (nullptr == speaker_manager)
 	{
 		LL_WARNS() << "Speaker manager is missing" << LL_ENDL;
 		return false;
@@ -2065,7 +2065,7 @@ bool LLFloaterIMContainer::isGroupModerator()
 bool LLFloaterIMContainer::haveAbilityToBan()
 {
 	LLSpeakerMgr * speaker_manager = getSpeakerMgrForSelectedParticipant();
-	if (NULL == speaker_manager)
+	if (nullptr == speaker_manager)
 	{
 		LL_WARNS() << "Speaker manager is missing" << LL_ENDL;
 		return false;
@@ -2078,7 +2078,7 @@ bool LLFloaterIMContainer::haveAbilityToBan()
 bool LLFloaterIMContainer::canBanSelectedMember(const LLUUID& participant_uuid)
 {
 	LLSpeakerMgr * speaker_manager = getSpeakerMgrForSelectedParticipant();
-	if (NULL == speaker_manager)
+	if (nullptr == speaker_manager)
 	{
 		LL_WARNS() << "Speaker manager is missing" << LL_ENDL;
 		return false;
@@ -2125,7 +2125,7 @@ bool LLFloaterIMContainer::canBanSelectedMember(const LLUUID& participant_uuid)
 void LLFloaterIMContainer::banSelectedMember(const LLUUID& participant_uuid)
 {
 	LLSpeakerMgr * speaker_manager = getSpeakerMgrForSelectedParticipant();
-	if (NULL == speaker_manager)
+	if (nullptr == speaker_manager)
 	{
 		LL_WARNS() << "Speaker manager is missing" << LL_ENDL;
 		return;
@@ -2160,14 +2160,14 @@ void LLFloaterIMContainer::moderateVoice(const std::string& command, const LLUUI
 bool LLFloaterIMContainer::isMuted(const LLUUID& avatar_id)
 {
 	const LLSpeaker * speakerp = getSpeakerOfSelectedParticipant(getSpeakerMgrForSelectedParticipant());
-	return NULL == speakerp ? true : speakerp->mStatus == LLSpeaker::STATUS_MUTED;
+	return nullptr == speakerp ? true : speakerp->mStatus == LLSpeaker::STATUS_MUTED;
 }
 
 void LLFloaterIMContainer::moderateVoiceAllParticipants(bool unmute)
 {
 	LLIMSpeakerMgr * speaker_managerp = dynamic_cast<LLIMSpeakerMgr*>(getSpeakerMgrForSelectedParticipant());
 
-	if (NULL != speaker_managerp)
+	if (nullptr != speaker_managerp)
 	{
 		if (!unmute)
 		{
@@ -2208,7 +2208,7 @@ void LLFloaterIMContainer::moderateVoiceParticipant(const LLUUID& avatar_id, boo
 {
 	LLIMSpeakerMgr * speaker_managerp = dynamic_cast<LLIMSpeakerMgr *>(getSpeakerMgrForSelectedParticipant());
 
-	if (NULL != speaker_managerp)
+	if (nullptr != speaker_managerp)
 	{
 		speaker_managerp->moderateVoiceParticipant(avatar_id, unmute);
 	}
@@ -2217,15 +2217,15 @@ void LLFloaterIMContainer::moderateVoiceParticipant(const LLUUID& avatar_id, boo
 LLSpeakerMgr * LLFloaterIMContainer::getSpeakerMgrForSelectedParticipant()
 {
 	LLFolderViewItem *selectedItem = mConversationsRoot->getCurSelectedItem();
-	if (NULL == selectedItem)
+	if (nullptr == selectedItem)
 	{
 		LL_WARNS() << "Current selected item is null" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	conversations_widgets_map::const_iterator iter = mConversationsWidgets.begin();
 	conversations_widgets_map::const_iterator end = mConversationsWidgets.end();
-	const LLUUID * conversation_uuidp = NULL;
+	const LLUUID * conversation_uuidp = nullptr;
 	while(iter != end)
 	{
 		if (iter->second == selectedItem || iter->second == selectedItem->getParentFolder())
@@ -2235,10 +2235,10 @@ LLSpeakerMgr * LLFloaterIMContainer::getSpeakerMgrForSelectedParticipant()
 		}
 		++iter;
 	}
-	if (NULL == conversation_uuidp)
+	if (nullptr == conversation_uuidp)
 	{
 		LL_WARNS() << "Cannot find conversation item widget" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	return conversation_uuidp->isNull() ? (LLSpeakerMgr *)LLLocalSpeakerMgr::getInstance()
@@ -2247,17 +2247,17 @@ LLSpeakerMgr * LLFloaterIMContainer::getSpeakerMgrForSelectedParticipant()
 
 LLSpeaker * LLFloaterIMContainer::getSpeakerOfSelectedParticipant(LLSpeakerMgr * speaker_managerp)
 {
-	if (NULL == speaker_managerp)
+	if (nullptr == speaker_managerp)
 	{
 		LL_WARNS() << "Speaker manager is missing" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	const LLConversationItem * participant_itemp = getCurSelectedViewModelItem();
-	if (NULL == participant_itemp)
+	if (nullptr == participant_itemp)
 	{
 		LL_WARNS() << "Cannot evaluate current selected view model item" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	return speaker_managerp->findSpeaker(participant_itemp->getUUID());
@@ -2266,7 +2266,7 @@ LLSpeaker * LLFloaterIMContainer::getSpeakerOfSelectedParticipant(LLSpeakerMgr *
 void LLFloaterIMContainer::toggleAllowTextChat(const LLUUID& participant_uuid)
 {
 	LLIMSpeakerMgr * speaker_managerp = dynamic_cast<LLIMSpeakerMgr*>(getSpeakerMgrForSelectedParticipant());
-	if (NULL != speaker_managerp)
+	if (nullptr != speaker_managerp)
 	{
 		speaker_managerp->toggleAllowTextChat(participant_uuid);
 	}
@@ -2346,7 +2346,7 @@ bool LLFloaterIMContainer::isScrolledOutOfSight(LLConversationViewSession* conve
 	llassert(conversation_item_widget != NULL);
 
 	// make sure the widget is actually in the right spot first
-	mConversationsRoot->arrange(NULL, NULL);
+	mConversationsRoot->arrange(nullptr, nullptr);
 
 	// check whether the widget is in the visible portion of the scroll container
 	LLRect widget_rect;
@@ -2396,7 +2396,7 @@ bool LLFloaterIMContainer::selectNextorPreviousConversation(bool select_next, bo
 {
 	if (mConversationsWidgets.size() > 1)
 	{
-		LLFolderViewItem* new_selection = NULL;
+		LLFolderViewItem* new_selection = nullptr;
 		LLFolderViewItem* widget = get_ptr_in_map(mConversationsWidgets,getSelectedSession());
 		if (widget)
 		{

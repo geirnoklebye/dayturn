@@ -52,7 +52,7 @@
 static LLPanelInjector<LLPanelMarketplaceListings> t_panel_status("llpanelmarketplacelistings");
 
 LLPanelMarketplaceListings::LLPanelMarketplaceListings()
-: mRootFolder(NULL)
+: mRootFolder(nullptr)
 , mSortOrder(LLInventoryFilter::SO_FOLDERS_BY_NAME)
 , mFilterListingFoldersOnly(false)
 {
@@ -81,7 +81,7 @@ bool LLPanelMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, bool
                        std::string& tooltip_msg)
 {
     LLView * handled_view = childrenHandleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
-    bool handled = (handled_view != NULL);
+    bool handled = (handled_view != nullptr);
     // Special case the drop zone
     if (handled && (handled_view->getName() == "marketplace_drop_zone"))
     {
@@ -350,15 +350,15 @@ private:
 
 LLFloaterMarketplaceListings::LLFloaterMarketplaceListings(const LLSD& key)
 : LLFloater(key)
-, mCategoriesObserver(NULL)
-, mCategoryAddedObserver(NULL)
+, mCategoriesObserver(nullptr)
+, mCategoryAddedObserver(nullptr)
 , mRootFolderId(LLUUID::null)
-, mInventoryStatus(NULL)
-, mInventoryInitializationInProgress(NULL)
-, mInventoryPlaceholder(NULL)
-, mInventoryText(NULL)
-, mInventoryTitle(NULL)
-, mPanelListings(NULL)
+, mInventoryStatus(nullptr)
+, mInventoryInitializationInProgress(nullptr)
+, mInventoryPlaceholder(nullptr)
+, mInventoryText(nullptr)
+, mInventoryTitle(nullptr)
+, mPanelListings(nullptr)
 , mPanelListingsSet(false)
 {
 }
@@ -460,7 +460,7 @@ void LLFloaterMarketplaceListings::setRootFolder()
 	{
 		gInventory.removeObserver(mCategoryAddedObserver);
 		delete mCategoryAddedObserver;
-		mCategoryAddedObserver = NULL;
+		mCategoryAddedObserver = nullptr;
 	}
 	llassert(!mCategoryAddedObserver);
     
@@ -655,7 +655,7 @@ bool LLFloaterMarketplaceListings::handleDragAndDrop(S32 x, S32 y, MASK mask, bo
     
     // Pass to the children
 	LLView * handled_view = childrenHandleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
-	bool handled = (handled_view != NULL);
+	bool handled = (handled_view != nullptr);
     
 	// If no one handled it or it was not accepted and we drop on an empty panel, we try to accept it at the floater level
     // as if it was dropped on the marketplace listings root folder
@@ -807,7 +807,7 @@ void LLFloaterAssociateListing::cancel()
 
 LLFloaterMarketplaceValidation::LLFloaterMarketplaceValidation(const LLSD& key)
 :	LLFloater(key),
-mEditor(NULL)
+mEditor(nullptr)
 {
 }
 

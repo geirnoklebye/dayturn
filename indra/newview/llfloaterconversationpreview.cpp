@@ -40,7 +40,7 @@ const std::string LL_FCP_ACCOUNT_NAME("user_name");
 
 LLFloaterConversationPreview::LLFloaterConversationPreview(const LLSD& session_id)
 :	LLFloater(session_id),
-	mChatHistory(NULL),
+	mChatHistory(nullptr),
 	mSessionID(session_id.asUUID()),
 	mCurrentPage(0),
 	mPageSize(gSavedSettings.getS32("ConversationHistoryPageSize")),

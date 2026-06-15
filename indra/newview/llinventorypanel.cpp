@@ -143,9 +143,9 @@ void LLInvPanelComplObserver::done()
 
 LLInventoryPanel::LLInventoryPanel(const LLInventoryPanel::Params& p) :	
 	LLPanel(p),
-	mInventoryObserver(NULL),
-	mCompletionObserver(NULL),
-	mScroller(NULL),
+	mInventoryObserver(nullptr),
+	mCompletionObserver(nullptr),
+	mScroller(nullptr),
 	mSortOrderSetting(p.sort_order_setting),
 	mInventory(p.inventory), //inventory("", &gInventory)
 	mAcceptsDragAndDrop(p.accepts_drag_and_drop),
@@ -157,7 +157,7 @@ LLInventoryPanel::LLInventoryPanel(const LLInventoryPanel::Params& p) :
 	mSuppressOpenItemAction(false),
 	mBuildViewsOnInit(p.preinitialize_views),
 	mViewsInitialized(VIEWS_UNINITIALIZED),
-	mInvFVBridgeBuilder(NULL),
+	mInvFVBridgeBuilder(nullptr),
 	mInventoryViewModel(p.name),
 	mGroupedItemBridge(new LLFolderViewGroupedItemBridge),
 	mFocusSelection(false)
@@ -983,7 +983,7 @@ LLFolderViewItem* LLInventoryPanel::buildNewViews(const LLUUID& id, LLInventoryO
 {
     if (!objectp)
     {
-        return NULL;
+        return nullptr;
     }
     if (!typedViewsFilter(id, objectp))
     {
@@ -1036,7 +1036,7 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
         {
             // We insert an extra level that's seen by the UI but has no influence on the model
             parent_folder = dynamic_cast<LLFolderViewFolder*>(folder_view_item);
-            folder_view_item = NULL;
+            folder_view_item = nullptr;
             allow_drop = mParams.allow_drop_on_root;
             create_root = true;
         }
@@ -1049,7 +1049,7 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
 				LL_WARNS() << "LLInventoryPanel::buildViewsTree called with invalid objectp->mType : "
 					<< ((S32)objectp->getType()) << " name " << objectp->getName() << " UUID " << objectp->getUUID()
 					<< LL_ENDL;
-				return NULL;
+				return nullptr;
 			}
 			
 			if (objectp->getType() >= LLAssetType::AT_COUNT)
@@ -1334,7 +1334,7 @@ void LLInventoryPanel::onFocusLost()
 	// inventory no longer handles cut/copy/paste/delete
 	if (LLEditMenuHandler::gEditMenuHandler == mFolderRoot.get())
 	{
-		LLEditMenuHandler::gEditMenuHandler = NULL;
+		LLEditMenuHandler::gEditMenuHandler = nullptr;
 	}
 
 	LLPanel::onFocusLost();
@@ -1690,7 +1690,7 @@ bool LLInventoryPanel::attachObject(const LLSD& userdata)
 	// Attach selected items.
 	LLViewerAttachMenu::attachObjects(items, userdata.asString());
 
-	gFocusMgr.setKeyboardFocus(NULL);
+	gFocusMgr.setKeyboardFocus(nullptr);
 
 	return true;
 }
@@ -1751,8 +1751,8 @@ bool is_inventorysp_active()
 LLInventoryPanel* LLInventoryPanel::getActiveInventoryPanel(bool auto_open)
 {
 	S32 z_min = S32_MAX;
-	LLInventoryPanel* res = NULL;
-	LLFloater* active_inv_floaterp = NULL;
+	LLInventoryPanel* res = nullptr;
+	LLFloater* active_inv_floaterp = nullptr;
 
 	LLFloater* floater_inventory = LLFloaterReg::getInstance("inventory");
 	if (!floater_inventory)
@@ -1909,7 +1909,7 @@ LLFolderViewItem* LLInventoryPanel::getItemByID(const LLUUID& id)
 		return map_it->second;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 LLFolderViewFolder* LLInventoryPanel::getFolderByID(const LLUUID& id)

@@ -81,11 +81,11 @@ LLSurface::LLSurface(U32 type, LLViewerRegion *regionp) :
 	mRegionp(regionp)
 {
 	// Surface data
-	mSurfaceZ = NULL;
-	mNorm = NULL;
+	mSurfaceZ = nullptr;
+	mNorm = nullptr;
 
 	// Patch data
-	mPatchList = NULL;
+	mPatchList = nullptr;
 
 	// One of each for each camera
 	mVisiblePatchCount = 0;
@@ -102,7 +102,7 @@ LLSurface::LLSurface(U32 type, LLViewerRegion *regionp) :
 
 	for (S32 i = 0; i < 8; i++)
 	{
-		mNeighbors[i] = NULL;
+		mNeighbors[i] = nullptr;
 	}
 }
 
@@ -110,7 +110,7 @@ LLSurface::LLSurface(U32 type, LLViewerRegion *regionp) :
 LLSurface::~LLSurface()
 {
 	delete [] mSurfaceZ;
-	mSurfaceZ = NULL;
+	mSurfaceZ = nullptr;
 
 	delete [] mNorm;
 
@@ -350,7 +350,7 @@ void LLSurface::getNeighboringRegions( std::vector<LLViewerRegion*>& uniqueRegio
 	S32 i;
 	for (i = 0; i < 8; i++)
 	{
-		if ( mNeighbors[i] != NULL )
+		if ( mNeighbors[i] != nullptr )
 		{
 			uniqueRegions.push_back( mNeighbors[i]->getRegion() );
 		}
@@ -363,7 +363,7 @@ void LLSurface::getNeighboringRegionsStatus( std::vector<S32>& regions )
 	S32 i;
 	for (i = 0; i < 8; i++)
 	{
-		if ( mNeighbors[i] != NULL )
+		if ( mNeighbors[i] != nullptr )
 		{
 			regions.push_back( i );
 		}
@@ -597,7 +597,7 @@ void LLSurface::disconnectNeighbor(LLSurface *surfacep)
 	{
 		if (surfacep == mNeighbors[i])
 		{
-			mNeighbors[i] = NULL;
+			mNeighbors[i] = nullptr;
 		}
 	}
 
@@ -617,7 +617,7 @@ void LLSurface::disconnectAllNeighbors()
 		if (mNeighbors[i])
 		{
 			mNeighbors[i]->disconnectNeighbor(this);
-			mNeighbors[i] = NULL;
+			mNeighbors[i] = nullptr;
 		}
 	}
 }
@@ -1005,7 +1005,7 @@ LLSurfacePatch *LLSurface::resolvePatchRegion(const F32 x, const F32 y) const
 		if(0 == mNumberOfPatches)
 		{
 			LL_WARNS() << "No patches for current region!" << LL_ENDL;
-			return NULL;
+			return nullptr;
 		}
 		S32 old_index = index;
 		index = llclamp(old_index, 0, (mNumberOfPatches - 1));
@@ -1091,7 +1091,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(EAST, NULL);
+				patchp->setNeighborPatch(EAST, nullptr);
 			}
 
 			if (j < mPatchesPerEdge-1)  
@@ -1100,7 +1100,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(NORTH, NULL);
+				patchp->setNeighborPatch(NORTH, nullptr);
 			}
 
 			if (i > 0) 
@@ -1109,7 +1109,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(WEST, NULL);
+				patchp->setNeighborPatch(WEST, nullptr);
 			}
 
 			if (j > 0)  
@@ -1118,7 +1118,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(SOUTH, NULL);
+				patchp->setNeighborPatch(SOUTH, nullptr);
 			}
 
 			if (i < (mPatchesPerEdge-1)  &&  j < (mPatchesPerEdge-1)) 
@@ -1127,7 +1127,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(NORTHEAST, NULL);		
+				patchp->setNeighborPatch(NORTHEAST, nullptr);		
 			}
 
 			if (i > 0  &&  j < (mPatchesPerEdge-1)) 
@@ -1136,7 +1136,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(NORTHWEST, NULL);
+				patchp->setNeighborPatch(NORTHWEST, nullptr);
 			}
 
 			if (i > 0  &&  j > 0) 
@@ -1145,7 +1145,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(SOUTHWEST, NULL);
+				patchp->setNeighborPatch(SOUTHWEST, nullptr);
 			}
 
 			if (i < (mPatchesPerEdge-1)  &&  j > 0) 
@@ -1154,7 +1154,7 @@ void LLSurface::createPatchData()
 			}
 			else 
 			{
-				patchp->setNeighborPatch(SOUTHEAST, NULL);
+				patchp->setNeighborPatch(SOUTHEAST, nullptr);
 			}
 
 			LLVector3d origin_global;
@@ -1172,7 +1172,7 @@ void LLSurface::destroyPatchData()
 	// Delete all of the cached patch data for these patches.
 
 	delete [] mPatchList;
-	mPatchList = NULL;
+	mPatchList = nullptr;
 	mVisiblePatchCount = 0;
 }
 
@@ -1200,12 +1200,12 @@ LLSurfacePatch *LLSurface::getPatch(const S32 x, const S32 y) const
 	if ((x < 0) || (x >= mPatchesPerEdge))
 	{
 		LL_ERRS() << "Asking for patch out of bounds" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	if ((y < 0) || (y >= mPatchesPerEdge))
 	{
 		LL_ERRS() << "Asking for patch out of bounds" << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	return mPatchList + x + y*mPatchesPerEdge;

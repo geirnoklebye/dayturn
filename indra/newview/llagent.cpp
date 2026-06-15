@@ -298,7 +298,7 @@ bool LLAgent::isActionAllowed(const LLSD& sdname)
 	{
         bool allow_agent_voice = false;
         LLVoiceChannel* channel = LLVoiceChannel::getCurrentVoiceChannel();
-        if (channel != NULL)
+        if (channel != nullptr)
         {
             if (channel->getSessionName().empty() && channel->getSessionID().isNull())
             {
@@ -402,7 +402,7 @@ LLAgent::LLAgent() :
 	mLastKnownResponseMaturity(SIM_ACCESS_MIN),
 	mHttpPolicy(LLCore::HttpRequest::DEFAULT_POLICY_ID),
 	mTeleportState(TELEPORT_NONE),
-	mRegionp(NULL),
+	mRegionp(nullptr),
 
 	mAgentOriginGlobal(),
 	mPositionGlobal(),
@@ -459,8 +459,8 @@ LLAgent::LLAgent() :
 	mMouselookModeOutSignal(nullptr),
 
 	restoreToWorld(false),
-	restoreToWorldGroup(NULL),
-	restoreToWorldItem(NULL)
+	restoreToWorldGroup(nullptr),
+	restoreToWorldItem(nullptr)
 {
 	for (U32 i = 0; i < TOTAL_CONTROLS; i++)
 	{
@@ -523,7 +523,7 @@ void LLAgent::init()
 //-----------------------------------------------------------------------------
 void LLAgent::cleanup()
 {
-	mRegionp = NULL;
+	mRegionp = nullptr;
     mTeleportRequest = NULL;
     mTeleportCanceled = NULL;
 	if (mTeleportFinishedSlot.connected())
@@ -544,16 +544,16 @@ LLAgent::~LLAgent()
 	cleanup();
 
 	delete mMouselookModeInSignal;
-	mMouselookModeInSignal = NULL;
+	mMouselookModeInSignal = nullptr;
 	delete mMouselookModeOutSignal;
-	mMouselookModeOutSignal = NULL;
+	mMouselookModeOutSignal = nullptr;
 
 	delete mAgentAccess;
-	mAgentAccess = NULL;
+	mAgentAccess = nullptr;
 	delete mEffectColor;
-	mEffectColor = NULL;
+	mEffectColor = nullptr;
 	delete mTeleportSourceSLURL;
-	mTeleportSourceSLURL = NULL;
+	mTeleportSourceSLURL = nullptr;
 }
 
 // Handle any actions that need to be performed when the main app gains focus
@@ -1805,9 +1805,9 @@ void LLAgent::startFollowPilot(const LLUUID &leader_id, bool allow_flying, F32 s
 
 	startAutoPilotGlobal(object->getPositionGlobal(), 
 						 std::string(),	// behavior_name
-						 NULL,			// target_rotation
-						 NULL,			// finish_callback
-						 NULL,			// callback_data
+						 nullptr,			// target_rotation
+						 nullptr,			// finish_callback
+						 nullptr,			// callback_data
 						 stop_distance,
 						 0.03f,			// rotation_threshold
 						 allow_flying);
@@ -1837,7 +1837,7 @@ void LLAgent::stopAutoPilot(bool user_cancel)
 		if (mAutoPilotFinishedCallback)
 		{
 			mAutoPilotFinishedCallback(!user_cancel && dist_vec(gAgent.getPositionGlobal(), mAutoPilotTargetGlobal) < mAutoPilotStopDistance, mAutoPilotCallbackData);
-			mAutoPilotFinishedCallback = NULL;
+			mAutoPilotFinishedCallback = nullptr;
 		}
 		mLeaderID = LLUUID::null;
 
@@ -2424,7 +2424,7 @@ void LLAgent::endAnimationUpdateUI()
 		gAgentCamera.clearCameraLag();
 
 		// JC - Added for always chat in third person option
-		gFocusMgr.setKeyboardFocus(NULL);
+		gFocusMgr.setKeyboardFocus(nullptr);
 
 		LLToolMgr::getInstance()->setCurrentToolset(gMouselookToolset);
 
@@ -2946,7 +2946,7 @@ void LLAgent::sendMaturityPreferenceToServer(U8 pPreferredMaturity)
 		mLastKnownRequestMaturity = pPreferredMaturity;
 
 		// If we don't have a region, report it as an error
-		if (getRegion() == NULL)
+		if (getRegion() == nullptr)
 		{
 			LL_WARNS("Agent") << "Region is not defined, can not change Maturity setting." << LL_ENDL;
 			return;
@@ -3293,7 +3293,7 @@ void LLAgent::sendAnimationRequests(const std::vector<LLUUID> &anim_ids, EAnimRe
 	}
 
 	msg->nextBlockFast(_PREHASH_PhysicalAvatarEventList);
-	msg->addBinaryDataFast(_PREHASH_TypeData, NULL, 0);
+	msg->addBinaryDataFast(_PREHASH_TypeData, nullptr, 0);
 	if (num_valid_anims)
 	{
 		sendReliableMessage();
@@ -3326,7 +3326,7 @@ void LLAgent::sendAnimationRequest(const LLUUID &anim_id, EAnimRequest request)
 	msg->addBOOLFast(_PREHASH_StartAnim, (request == ANIM_REQUEST_START) ? TRUE : FALSE);
 
 	msg->nextBlockFast(_PREHASH_PhysicalAvatarEventList);
-	msg->addBinaryDataFast(_PREHASH_TypeData, NULL, 0);
+	msg->addBinaryDataFast(_PREHASH_TypeData, nullptr, 0);
 	sendReliableMessage();
 }
 
@@ -3350,7 +3350,7 @@ void LLAgent::sendAnimationStateReset()
 	msg->addBOOLFast(_PREHASH_StartAnim, FALSE);
 
 	msg->nextBlockFast(_PREHASH_PhysicalAvatarEventList);
-	msg->addBinaryDataFast(_PREHASH_TypeData, NULL, 0);
+	msg->addBinaryDataFast(_PREHASH_TypeData, nullptr, 0);
 	sendReliableMessage();
 }
 
@@ -5286,7 +5286,7 @@ void LLAgent::parseTeleportMessages(const std::string& xml_filename)
 	}
 
 	for (LLXMLNode* message_set = root->getFirstChild();
-		 message_set != NULL;
+		 message_set != nullptr;
 		 message_set = message_set->getNextSibling())
 	{
 		if ( !message_set->hasName("message_set") ) continue;
@@ -5312,7 +5312,7 @@ void LLAgent::parseTeleportMessages(const std::string& xml_filename)
 
 		std::string message_name;
 		for (LLXMLNode* message_node = message_set->getFirstChild();
-			 message_node != NULL;
+			 message_node != nullptr;
 			 message_node = message_node->getNextSibling())
 		{
 			if ( message_node->hasName("message") && 

@@ -90,7 +90,7 @@ bool LLToolPlacer::raycastForNewObjPos( S32 x, S32 y, LLViewerObject** hit_obj, 
 	// representations (if any) are NOT the same as their viewer representation.
 	if (pick.mPickType == LLPickInfo::PICK_FLORA)
 	{
-		*hit_obj = NULL;
+		*hit_obj = nullptr;
 		*hit_face = -1;
 	}
 	else
@@ -163,10 +163,10 @@ bool LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 {
 	LLVector3 ray_start_region;
 	LLVector3 ray_end_region;
-	LLViewerRegion* regionp = NULL;
+	LLViewerRegion* regionp = nullptr;
 	S32 b_hit_land = 0;
 	S32 hit_face = -1;
-	LLViewerObject* hit_obj = NULL;
+	LLViewerObject* hit_obj = nullptr;
 	U8 state = 0;
 	bool success = raycastForNewObjPos( x, y, &hit_obj, &hit_face, &b_hit_land, &ray_start_region, &ray_end_region, &regionp );
 	if( !success )
@@ -180,7 +180,7 @@ bool LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 		return false;
 	}
 
-	if (NULL == regionp)
+	if (nullptr == regionp)
 	{
 		LL_WARNS() << "regionp was NULL; aborting function." << LL_ENDL;
 		return false;
@@ -478,10 +478,10 @@ bool LLToolPlacer::addDuplicate(S32 x, S32 y)
 {
 	LLVector3 ray_start_region;
 	LLVector3 ray_end_region;
-	LLViewerRegion* regionp = NULL;
+	LLViewerRegion* regionp = nullptr;
 	S32 b_hit_land = 0;
 	S32 hit_face = -1;
-	LLViewerObject* hit_obj = NULL;
+	LLViewerObject* hit_obj = nullptr;
 	bool success = raycastForNewObjPos( x, y, &hit_obj, &hit_face, &b_hit_land, &ray_start_region, &ray_end_region, &regionp );
 	if( !success )
 	{

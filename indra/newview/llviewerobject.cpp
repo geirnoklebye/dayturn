@@ -216,13 +216,13 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	case LL_PCODE_LEGACY_PART_SYS:
 // 	  LL_WARNS() << "Creating old part sys!" << LL_ENDL;
 // 	  res = new LLVOPart(id, pcode, regionp); break;
-	  res = NULL; break;
+	  res = nullptr; break;
 	case LL_PCODE_LEGACY_TREE:
 	  res = new LLVOTree(id, pcode, regionp); break;
 	case LL_PCODE_TREE_NEW:
 // 	  LL_WARNS() << "Creating new tree!" << LL_ENDL;
 // 	  res = new LLVOTree(id, pcode, regionp); break;
-	  res = NULL; break;
+	  res = nullptr; break;
 	case LL_VO_SURFACE_PATCH:
 	  res = new LLVOSurfacePatch(id, pcode, regionp); break;
 	case LL_VO_SKY:
@@ -241,7 +241,7 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	  res = new LLVOWLSky(id, pcode, regionp); break;
 	default:
 	  LL_WARNS() << "Unknown object pcode " << (S32)pcode << LL_ENDL;
-	  res = NULL; break;
+	  res = nullptr; break;
 	}
 	return res;
 }
@@ -253,9 +253,9 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mLocalID(0),
 	mTotalCRC(0),
 	mListIndex(-1),
-	mTEImages(NULL),
-	mTENormalMaps(NULL),
-	mTESpecularMaps(NULL),
+	mTEImages(nullptr),
+	mTENormalMaps(nullptr),
+	mTESpecularMaps(nullptr),
 	mGLName(0),
 	mbCanSelect(true),
 	mFlags(0),
@@ -276,13 +276,13 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mLastMessageUpdateSecs(0.f),
 	mLatestRecvPacketID(0),
 	mRegionCrossExpire(0),
-	mData(NULL),
-	mAudioSourcep(NULL),
+	mData(nullptr),
+	mAudioSourcep(nullptr),
 	mAudioGain(1.f),
 	mSoundCutOffRadius(0.f),
 	mAppAngle(0.f),
 	mPixelArea(1024.f),
-	mInventory(NULL),
+	mInventory(nullptr),
 	mInventorySerialNum(0),
 	mExpectedInventorySerialNum(0),
 	mInvRequestState(INVENTORY_REQUEST_STOPPED),
@@ -301,7 +301,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mAngularVelocityRot(),
 	mPreviousRotation(),
 	mAttachmentState(0),
-	mMedia(NULL),
+	mMedia(nullptr),
 	mClickAction(0),
 	mObjectCost(0),
 	mLinksetCost(0),
@@ -345,7 +345,7 @@ LLViewerObject::~LLViewerObject()
 	{
 		mInventory->clear();  // will deref and delete entries
 		delete mInventory;
-		mInventory = NULL;
+		mInventory = nullptr;
 	}
 
 	if (mPartSourcep)
@@ -377,10 +377,10 @@ LLViewerObject::~LLViewerObject()
 	mNameValuePairs.clear();
 	
 	delete[] mData;
-	mData = NULL;
+	mData = nullptr;
 
 	delete mMedia;
-	mMedia = NULL;
+	mMedia = nullptr;
 
 	sNumObjects--;
 	sNumZombieObjects--;
@@ -393,18 +393,18 @@ LLViewerObject::~LLViewerObject()
 void LLViewerObject::deleteTEImages()
 {
 	delete[] mTEImages;
-	mTEImages = NULL;
+	mTEImages = nullptr;
 	
-	if (mTENormalMaps != NULL)
+	if (mTENormalMaps != nullptr)
 	{
 		delete[] mTENormalMaps;
-		mTENormalMaps = NULL;
+		mTENormalMaps = nullptr;
 	}
 	
-	if (mTESpecularMaps != NULL)
+	if (mTESpecularMaps != nullptr)
 	{
 		delete[] mTESpecularMaps;
-		mTESpecularMaps = NULL;
+		mTESpecularMaps = nullptr;
 	}	
 }
 
@@ -448,16 +448,16 @@ void LLViewerObject::markDead()
 			if (childp->getPCode() != LL_PCODE_LEGACY_AVATAR)
 			{
 				//LL_INFOS() << "Marking child " << childp->getLocalID() << " as dead." << LL_ENDL;
-				childp->setParent(NULL); // LLViewerObject::markDead 1
+				childp->setParent(nullptr); // LLViewerObject::markDead 1
 				childp->markDead();
 			}
 			else
 			{
 				// make sure avatar is no longer parented, 
 				// so we can properly set it's position
-				childp->setDrawableParent(NULL);
+				childp->setDrawableParent(nullptr);
 				((LLVOAvatar*)childp)->getOffObject();
-				childp->setParent(NULL); // LLViewerObject::markDead 2
+				childp->setParent(nullptr); // LLViewerObject::markDead 2
 			}
 			mChildList.pop_back();
 		}
@@ -494,7 +494,7 @@ void LLViewerObject::markDead()
 			{
 				gAudiop->cleanupAudioSource(mAudioSourcep);
 			}
-			mAudioSourcep = NULL;
+			mAudioSourcep = nullptr;
 		}
 
 		if (flagAnimSource())
@@ -948,7 +948,7 @@ void LLViewerObject::removeChild(LLViewerObject *childp)
 
 			if(childp->getParent() == this)
 			{
-				childp->setParent(NULL);			
+				childp->setParent(nullptr);			
 			}
 
 			if (childp->isAvatar())
@@ -1097,7 +1097,7 @@ U32 LLViewerObject::checkMediaURL(const std::string &media_url)
         {
             retval |= MEDIA_URL_REMOVED;
             delete mMedia;
-            mMedia = NULL;
+            mMedia = nullptr;
         }
         else if (mMedia->mMediaURL != media_url) // <-- This is an optimization.  If they are equal don't bother with below's test.
         {
@@ -1157,7 +1157,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	// Coordinates of objects on simulators are region-local.
 	U64 region_handle = 0;	
 	
-	if(mesgsys != NULL)
+	if(mesgsys != nullptr)
 	{
 		mesgsys->getU64Fast(_PREHASH_RegionData, _PREHASH_RegionHandle, region_handle);
 		LLViewerRegion* regionp = LLWorld::getInstance()->getRegionFromHandle(region_handle);
@@ -1197,7 +1197,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	}
 
 	F32 time_dilation = 1.f;
-	if(mesgsys != NULL)
+	if(mesgsys != nullptr)
 	{
         U16 time_dilation16;
         mesgsys->getU16Fast(_PREHASH_RegionData, _PREHASH_TimeDilation, time_dilation16);
@@ -1488,7 +1488,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				S32 data_size = mesgsys->getSizeFast(_PREHASH_ObjectData, block_num, _PREHASH_Data);
 				if (data_size <= 0)
 				{
-					mData = NULL;
+					mData = nullptr;
 				}
 				else
 				{
@@ -1885,7 +1885,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				}
 				else
 				{
-					mData = NULL;
+					mData = nullptr;
 				}
 
 				// Setup object text
@@ -1994,7 +1994,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				// Preload these five flags for every object.
 				// Finer shades require the object to be selected, and the selection manager
 				// stores the extended permission info.
-				if(mesgsys != NULL)
+				if(mesgsys != nullptr)
 				{
 				U32 flags;
 				mesgsys->getU32Fast(_PREHASH_ObjectData, _PREHASH_UpdateFlags, flags, block_num);
@@ -2028,7 +2028,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				// No parent now, new parent in message -> attach to that parent if possible
 				LLUUID parent_uuid;
 
-				if(mesgsys != NULL)
+				if(mesgsys != nullptr)
 				{
                     gObjectList.getUUIDFromLocal(parent_uuid,
 														parent_id,
@@ -2053,7 +2053,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					// Try to recover if we attempt to attach a parent to its child
 					LL_WARNS() << "Attempt to attach a parent to it's child: " << this->getID() << " to " << sent_parentp->getID() << LL_ENDL;
 					this->removeChild(sent_parentp);
-					sent_parentp->setDrawableParent(NULL);
+					sent_parentp->setDrawableParent(nullptr);
 				}
 				
 				if (sent_parentp && (sent_parentp != this) && !sent_parentp->isDead())
@@ -2088,8 +2088,8 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 								LL_WARNS() << "Attempting to recover from parenting cycle!" << LL_ENDL;
 								LL_WARNS() << "Killing " << sent_parentp->getID() << " and " << getID() << LL_ENDL;
 								LL_WARNS() << "Adding to cache miss list" << LL_ENDL;
-								setParent(NULL);
-								sent_parentp->setParent(NULL);
+								setParent(nullptr);
+								sent_parentp->setParent(nullptr);
 								getRegion()->addCacheMissFull(getLocalID());
 								getRegion()->addCacheMissFull(sent_parentp->getLocalID());
 								gObjectList.killObject(sent_parentp);
@@ -2124,7 +2124,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					//parent_id
 					U32 ip, port; 
 					
-					if(mesgsys != NULL)
+					if(mesgsys != nullptr)
 					{
 						ip = mesgsys->getSenderIP();
 						port = mesgsys->getSenderPort();
@@ -2166,13 +2166,13 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					//
 					// This object is no longer parented, we sent in a zero parent ID.
 					//
-					sent_parentp = NULL;
+					sent_parentp = nullptr;
 				}
 				else
 				{
 					LLUUID parent_uuid;
 
-					if(mesgsys != NULL)
+					if(mesgsys != nullptr)
 					{
                         gObjectList.getUUIDFromLocal(parent_uuid,
 														parent_id,
@@ -2208,7 +2208,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						//
 						U32 ip, port; 
 					
-						if(mesgsys != NULL)
+						if(mesgsys != nullptr)
 						{
 							ip = mesgsys->getSenderIP();
 							port = mesgsys->getSenderPort();
@@ -2239,8 +2239,8 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 							LL_WARNS() << "Attempting to recover from parenting cycle!" << LL_ENDL;
 							LL_WARNS() << "Killing " << sent_parentp->getID() << " and " << getID() << LL_ENDL;
 							LL_WARNS() << "Adding to cache miss list" << LL_ENDL;
-							setParent(NULL);
-							sent_parentp->setParent(NULL);
+							setParent(nullptr);
+							sent_parentp->setParent(nullptr);
 							getRegion()->addCacheMissFull(getLocalID());
 							getRegion()->addCacheMissFull(sent_parentp->getLocalID());
 							gObjectList.killObject(sent_parentp);
@@ -2281,7 +2281,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						if (mDrawable.notNull())
 						{
 							// clear parent to removeChild can put the drawable on the damped list
-							setDrawableParent(NULL); // LLViewerObject::processUpdateMessage 3
+							setDrawableParent(nullptr); // LLViewerObject::processUpdateMessage 3
 						}
 
 						cur_parentp->removeChild(this);
@@ -2301,7 +2301,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 	new_rot.normQuat();
 
-	if (sPingInterpolate && mesgsys != NULL)
+	if (sPingInterpolate && mesgsys != nullptr)
 	{ 
 		LLCircuitData *cdp = gMessageSystem->mCircuitInfo.findCircuit(mesgsys->getSender());
 		if (cdp)
@@ -2326,7 +2326,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 	// If we're going to skip this message, why are we 
 	// doing all the parenting, etc above?
-	if(mesgsys != NULL)
+	if(mesgsys != nullptr)
 	{
 	U32 packet_id = mesgsys->getCurrentRecvPacketID(); 
 	if (packet_id < mLatestRecvPacketID && 
@@ -2784,7 +2784,7 @@ void LLViewerObject::doUpdateInventory(
 	U8 key,
 	bool is_new)
 {
-	LLViewerInventoryItem* old_item = NULL;
+	LLViewerInventoryItem* old_item = nullptr;
 	if(TASK_INVENTORY_ITEM_KEY == key)
 	{
 		old_item = (LLViewerInventoryItem*)getInventoryObject(item->getUUID());
@@ -2803,7 +2803,7 @@ void LLViewerObject::doUpdateInventory(
 		new_owner = old_item->getPermissions().getOwner();
 		new_group = old_item->getPermissions().getGroup();
 		group_owned = old_item->getPermissions().isGroupOwned();
-		old_item = NULL;
+		old_item = nullptr;
 	}
 	else
 	{
@@ -2940,7 +2940,7 @@ void LLViewerObject::dirtyInventory()
 	{
 		mInventory->clear(); // will deref and delete entries
 		delete mInventory;
-		mInventory = NULL;
+		mInventory = nullptr;
 	}
 	mInventoryDirty = true;
 }
@@ -2955,7 +2955,7 @@ void LLViewerObject::registerInventoryListener(LLVOInventoryListener* listener, 
 
 void LLViewerObject::removeInventoryListener(LLVOInventoryListener* listener)
 {
-	if (listener == NULL)
+	if (listener == nullptr)
 		return;
 	for (callback_list_t::iterator iter = mInventoryCallbacks.begin();
 		 iter != mInventoryCallbacks.end(); )
@@ -2993,7 +2993,7 @@ void LLViewerObject::requestInventory()
 	{
 		mInventory->clear(); // will deref and delete entries
 		delete mInventory;
-		mInventory = NULL;
+		mInventory = nullptr;
 	}
 
 	if(mInventory)
@@ -3017,7 +3017,7 @@ void LLViewerObject::fetchInventoryFromServer()
 	if (!isInventoryPending())
 	{
 		delete mInventory;
-		mInventory = NULL;
+		mInventory = nullptr;
 
 		// Results in processTaskInv
 		LLMessageSystem* msg = gMessageSystem;
@@ -3328,7 +3328,7 @@ void LLViewerObject::processTaskInv(LLMessageSystem* msg, void** user_data)
 void LLViewerObject::processTaskInvFile(void** user_data, S32 error_code, LLExtStat ext_status)
 {
 	LLFilenameAndTask* ft = (LLFilenameAndTask*)user_data;
-	LLViewerObject* object = NULL;
+	LLViewerObject* object = nullptr;
 
 	if (ft
 		&& (0 == error_code)
@@ -3457,7 +3457,7 @@ void LLViewerObject::doInventoryCallback()
 	{
 		callback_list_t::iterator curiter = iter++;
 		LLInventoryCallbackInfo* info = *curiter;
-		if (info->mListener != NULL)
+		if (info->mListener != nullptr)
 		{
 			info->mListener->inventoryChanged(this,
 								 mInventory,
@@ -3505,7 +3505,7 @@ bool LLViewerObject::isTextureInInventory(LLViewerInventoryItem* item)
 		std::list<LLUUID>::iterator end = mPendingInventoryItemsIDs.end();
 
 		bool is_fetching = std::find(begin, end, item->getAssetUUID()) != end;
-		bool is_fetched = getInventoryItemByAsset(item->getAssetUUID()) != NULL;
+		bool is_fetched = getInventoryItemByAsset(item->getAssetUUID()) != nullptr;
 
 		result = is_fetched || is_fetching;
 	}
@@ -3572,7 +3572,7 @@ void LLViewerObject::updateInventoryLocal(LLInventoryItem* item, U8 key)
 
 LLInventoryObject* LLViewerObject::getInventoryObject(const LLUUID& item_id)
 {
-	LLInventoryObject* rv = NULL;
+	LLInventoryObject* rv = nullptr;
 	if(mInventory)
 	{
 		LLInventoryObject::object_list_t::iterator it = mInventory->begin();
@@ -3609,7 +3609,7 @@ LLInventoryObject* LLViewerObject::getInventoryRoot()
 {
 	if (!mInventory || !mInventory->size())
 	{
-		return NULL;
+		return nullptr;
 	}
 	return mInventory->back();
 }
@@ -3619,10 +3619,10 @@ LLViewerInventoryItem* LLViewerObject::getInventoryItemByAsset(const LLUUID& ass
 	if (mInventoryDirty)
 		LL_WARNS() << "Peforming inventory lookup for object " << mID << " that has dirty inventory!" << LL_ENDL;
 
-	LLViewerInventoryItem* rv = NULL;
+	LLViewerInventoryItem* rv = nullptr;
 	if(mInventory)
 	{
-		LLViewerInventoryItem* item = NULL;
+		LLViewerInventoryItem* item = nullptr;
 
 		LLInventoryObject::object_list_t::iterator it = mInventory->begin();
 		LLInventoryObject::object_list_t::iterator end = mInventory->end();
@@ -3723,7 +3723,7 @@ void LLViewerObject::updateFaceSize(S32 idx)
 
 LLDrawable* LLViewerObject::createDrawable(LLPipeline *pipeline)
 {
-	return NULL;
+	return nullptr;
 }
 
 void LLViewerObject::setScale(const LLVector3 &scale, bool damped)
@@ -4210,7 +4210,7 @@ LLNameValue *LLViewerObject::getNVPair(const std::string& name) const
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -4812,7 +4812,7 @@ void LLViewerObject::sendTEUpdate() const
 	}
 	else
 	{
-		msg->addString("MediaURL", NULL);
+		msg->addString("MediaURL", nullptr);
 	}
 
 	// TODO send media type
@@ -4827,7 +4827,7 @@ LLViewerTexture* LLViewerObject::getBakedTextureForMagicId(const LLUUID& id)
 {
 	if (!LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary::isBakedImageId(id))
 	{
-		return NULL;
+		return nullptr;
 	}
 
 	LLViewerObject *root = getRootEdit();
@@ -4841,7 +4841,7 @@ LLViewerTexture* LLViewerObject::getBakedTextureForMagicId(const LLUUID& id)
 	{
 		LLAvatarAppearanceDefines::EBakedTextureIndex texIndex = LLAvatarAppearanceDefines::LLAvatarAppearanceDictionary::assetIdToBakedTextureIndex(id);
 		LLViewerTexture* bakedTexture = avatar->getBakedTexture(texIndex);
-		if (bakedTexture == NULL || bakedTexture->isMissingAsset())
+		if (bakedTexture == nullptr || bakedTexture->isMissingAsset())
 		{
 			return LLViewerTextureManager::getFetchedTexture(IMG_DEFAULT, FTT_DEFAULT, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE);
 		}
@@ -4967,7 +4967,7 @@ S32 LLViewerObject::setTENormalMapCore(const U8 te, LLViewerTexture *image)
 		uuid == LLUUID::null)
 	{
 		LLTextureEntry* tep = getTE(te);
-		LLMaterial* mat = NULL;
+		LLMaterial* mat = nullptr;
 		if (tep)
 		{
 		   mat = tep->getMaterialParams();
@@ -4990,7 +4990,7 @@ S32 LLViewerObject::setTESpecularMapCore(const U8 te, LLViewerTexture *image)
 		uuid == LLUUID::null)
 	{
 		LLTextureEntry* tep = getTE(te);
-		LLMaterial* mat = NULL;
+		LLMaterial* mat = nullptr;
 		if (tep)
 		{
 			mat = tep->getMaterialParams();
@@ -5045,14 +5045,14 @@ S32 LLViewerObject::setTETexture(const U8 te, const LLUUID& uuid)
 
 S32 LLViewerObject::setTENormalMap(const U8 te, const LLUUID& uuid)
 {
-	LLViewerFetchedTexture *image = (uuid == LLUUID::null) ? NULL : LLViewerTextureManager::getFetchedTexture(
+	LLViewerFetchedTexture *image = (uuid == LLUUID::null) ? nullptr : LLViewerTextureManager::getFetchedTexture(
 		uuid, FTT_DEFAULT, true, LLGLTexture::BOOST_ALM, LLViewerTexture::LOD_TEXTURE, 0, 0, LLHost());
 	return setTENormalMapCore(te, image);
 }
 
 S32 LLViewerObject::setTESpecularMap(const U8 te, const LLUUID& uuid)
 {
-	LLViewerFetchedTexture *image = (uuid == LLUUID::null) ? NULL : LLViewerTextureManager::getFetchedTexture(
+	LLViewerFetchedTexture *image = (uuid == LLUUID::null) ? nullptr : LLViewerTextureManager::getFetchedTexture(
 		uuid, FTT_DEFAULT, true, LLGLTexture::BOOST_ALM, LLViewerTexture::LOD_TEXTURE, 0, 0, LLHost());
 	return setTESpecularMapCore(te, image);
 }
@@ -5366,7 +5366,7 @@ LLViewerTexture *LLViewerObject::getTEImage(const U8 face) const
 
 	LL_ERRS() << llformat("Requested Image from invalid face: %d/%d",face,getNumTEs()) << LL_ENDL;
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -5413,7 +5413,7 @@ LLViewerTexture *LLViewerObject::getTENormalMap(const U8 face) const
 	
 	LL_ERRS() << llformat("Requested Image from invalid face: %d/%d",face,getNumTEs()) << LL_ENDL;
 	
-	return NULL;
+	return nullptr;
 }
 
 LLViewerTexture *LLViewerObject::getTESpecularMap(const U8 face) const
@@ -5435,7 +5435,7 @@ LLViewerTexture *LLViewerObject::getTESpecularMap(const U8 face) const
 	
 	LL_ERRS() << llformat("Requested Image from invalid face: %d/%d",face,getNumTEs()) << LL_ENDL;
 	
-	return NULL;
+	return nullptr;
 }
 
 void LLViewerObject::fitFaceTexture(const U8 face)
@@ -5689,7 +5689,7 @@ bool LLViewerObject::isOwnerInMuteList(LLUUID id)
 
 LLVOAvatar* LLViewerObject::asAvatar()
 {
-	return NULL;
+	return nullptr;
 }
 
 // If this object is directly or indirectly parented by an avatar,
@@ -5711,7 +5711,7 @@ LLVOAvatar* LLViewerObject::getAvatarAncestor()
 		}
 		pobj =  (LLViewerObject*) pobj->getParent();
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool LLViewerObject::isParticleSource() const
@@ -5907,7 +5907,7 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 			// object rezzes in on non-looping sounds.
 			//LL_INFOS() << "Clearing attached sound " << mAudioSourcep->getCurrentData()->getID() << LL_ENDL;
 			gAudiop->cleanupAudioSource(mAudioSourcep);
-			mAudioSourcep = NULL;
+			mAudioSourcep = nullptr;
 		}
 		else if (flags & LL_SOUND_FLAG_STOP)
         {
@@ -5928,7 +5928,7 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 	if ( mAudioSourcep && mAudioSourcep->isDone() ) 
 	{
 		gAudiop->cleanupAudioSource(mAudioSourcep);
-		mAudioSourcep = NULL;
+		mAudioSourcep = nullptr;
 	}
 
 	if (mAudioSourcep && mAudioSourcep->isMuted() &&
@@ -6016,7 +6016,7 @@ bool LLViewerObject::unpackParameterEntry(U16 param_type, LLDataPacker *dp)
 
 LLViewerObject::ExtraParameter* LLViewerObject::createNewParameterEntry(U16 param_type)
 {
-	LLNetworkData* new_block = NULL;
+	LLNetworkData* new_block = nullptr;
 	switch (param_type)
 	{
 	  case LLNetworkData::PARAMS_FLEXIBLE:
@@ -6059,7 +6059,7 @@ LLViewerObject::ExtraParameter* LLViewerObject::createNewParameterEntry(U16 para
 		mExtraParameterList[param_type] = new_entry;
 		return new_entry;
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLViewerObject::ExtraParameter* LLViewerObject::getExtraParameterEntry(U16 param_type) const
@@ -6069,7 +6069,7 @@ LLViewerObject::ExtraParameter* LLViewerObject::getExtraParameterEntry(U16 param
 	{
 		return itor->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLViewerObject::ExtraParameter* LLViewerObject::getExtraParameterEntryCreate(U16 param_type)
@@ -6091,7 +6091,7 @@ LLNetworkData* LLViewerObject::getParameterEntry(U16 param_type) const
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -6982,7 +6982,7 @@ LLVOAvatar* LLViewerObject::getAvatar() const
 		return (LLVOAvatar*) vobj;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 

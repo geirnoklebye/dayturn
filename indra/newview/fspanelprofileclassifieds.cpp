@@ -167,7 +167,7 @@ FSClassifiedItem* FSPanelClassifieds::getSelectedClassifiedItem()
 	LLPanel* selected_item = mClassifiedsList->getSelectedItem();
 	if (!selected_item) 
 	{
-		return NULL;
+		return nullptr;
 	}
 	return dynamic_cast<FSClassifiedItem*>(selected_item);
 }
@@ -388,7 +388,7 @@ void FSPanelClassifieds::updateButtons()
 
 void FSPanelClassifieds::createNewClassified()
 {
-	FSPanelClassifiedEdit* panel = NULL;
+	FSPanelClassifiedEdit* panel = nullptr;
 	createClassifiedEditPanel(&panel);
 
 	// getProfilePanel()->openPanel(panel, LLSD());
@@ -556,7 +556,7 @@ FSClassifiedItem *FSPanelClassifieds::findClassifiedById(const LLUUID& classifie
 	// HACK - find item by classified id.  Should be a better way.
 	std::vector<LLPanel*> items;
 	mClassifiedsList->getItems(items);
-	FSClassifiedItem* c_item = NULL;
+	FSClassifiedItem* c_item = nullptr;
 	for(std::vector<LLPanel*>::iterator it = items.begin(); it != items.end(); ++it)
 	{
 		FSClassifiedItem *test_item = dynamic_cast<FSClassifiedItem*>(*it);

@@ -749,9 +749,9 @@ void rez_attachment(LLViewerInventoryItem* item,
 bool move_inv_category_world_to_agent(const LLUUID& object_id,
 									  const LLUUID& category_id,
 									  bool drop,
-									  void (*callback)(S32, void*) = NULL,
-									  void* user_data = NULL,
-									  LLInventoryFilter* filter = NULL);
+									  void (*callback)(S32, void*) = nullptr,
+									  void* user_data = nullptr,
+									  LLInventoryFilter* filter = nullptr);
 
 // Utility function to hide all entries except those in the list
 // Can be called multiple times on the same menu (e.g. if multiple items

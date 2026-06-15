@@ -121,7 +121,7 @@ class LLMeshUploadVisible : public view_listener_t
 	}
 };
 
-LLMutex* LLFilePickerThread::sMutex = NULL;
+LLMutex* LLFilePickerThread::sMutex = nullptr;
 std::queue<LLFilePickerThread*> LLFilePickerThread::sDeadQ;
 
 void LLFilePickerThread::getFile()
@@ -185,7 +185,7 @@ void LLFilePickerThread::cleanupClass()
 	clearDead();
 	
 	delete sMutex;
-	sMutex = NULL;
+	sMutex = nullptr;
 }
 
 //static
@@ -638,7 +638,7 @@ class LLFileEnableCloseWindow : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		bool frontmost_fl_exists = (NULL != gFloaterView->getFrontmostClosableFloater());
+		bool frontmost_fl_exists = (nullptr != gFloaterView->getFrontmostClosableFloater());
 		bool frontmost_snapshot_fl_exists = (NULL != gSnapshotFloaterView->getFrontmostClosableFloater());
 
 		return !LLNotificationsUI::LLToast::isAlertToastShown() && (frontmost_fl_exists || frontmost_snapshot_fl_exists);
@@ -649,13 +649,13 @@ class LLFileCloseWindow : public view_listener_t
 {
 	bool handleEvent(const LLSD& userdata)
 	{
-		bool frontmost_fl_exists = (NULL != gFloaterView->getFrontmostClosableFloater());
+		bool frontmost_fl_exists = (nullptr != gFloaterView->getFrontmostClosableFloater());
 		LLFloater* snapshot_floater = gSnapshotFloaterView->getFrontmostClosableFloater();
 
 		if(snapshot_floater && (!frontmost_fl_exists || snapshot_floater->hasFocus()))
 		{
 			snapshot_floater->closeFloater();
-			if (gFocusMgr.getKeyboardFocus() == NULL)
+			if (gFocusMgr.getKeyboardFocus() == nullptr)
 			{
 				gFloaterView->focusFrontFloater();
 			}
@@ -964,7 +964,7 @@ void upload_done_callback(
 					msg->addU8Fast(_PREHASH_AggregatePermNextOwner, (U8)LLAggregatePermissions::AP_EMPTY);
 					msg->addU8Fast(_PREHASH_AggregatePermInventory, (U8)LLAggregatePermissions::AP_EMPTY);
 					msg->addS32Fast(_PREHASH_TransactionType, TRANS_UPLOAD_CHARGE);
-					msg->addStringFast(_PREHASH_Description, NULL);
+					msg->addStringFast(_PREHASH_Description, nullptr);
 					msg->sendReliable(region->getHost());
 				}
 			}
@@ -1002,7 +1002,7 @@ void upload_done_callback(
 		}
 
 		delete data;
-		data = NULL;
+		data = nullptr;
 	}
 
 	LLUploadDialog::modalUploadFinished();

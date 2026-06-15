@@ -60,25 +60,25 @@
 
 
 // Used when app not active to avoid processing hover.
-LLTool*			gToolNull	= NULL;
+LLTool*			gToolNull	= nullptr;
 
-LLToolset*		gBasicToolset		= NULL;
-LLToolset*		gCameraToolset		= NULL;
+LLToolset*		gBasicToolset		= nullptr;
+LLToolset*		gCameraToolset		= nullptr;
 //LLToolset*		gLandToolset		= NULL;
-LLToolset*		gMouselookToolset	= NULL;
-LLToolset*		gFaceEditToolset	= NULL;
+LLToolset*		gMouselookToolset	= nullptr;
+LLToolset*		gFaceEditToolset	= nullptr;
 
 /////////////////////////////////////////////////////
 // LLToolMgr
 
 LLToolMgr::LLToolMgr()
 	:
-	mBaseTool(NULL), 
-	mSavedTool(NULL),
-	mTransientTool( NULL ),
-	mOverrideTool( NULL ),
-	mSelectedTool( NULL ),
-	mCurrentToolset( NULL )
+	mBaseTool(nullptr), 
+	mSavedTool(nullptr),
+	mTransientTool( nullptr ),
+	mOverrideTool( nullptr ),
+	mSelectedTool( nullptr ),
+	mCurrentToolset( nullptr )
 {
 	// Not a panel, register these callbacks globally.
 	LLUICtrl::EnableCallbackRegistry::currentRegistrar().add("Build.Active", boost::bind(&LLToolMgr::inEdit, this));
@@ -128,19 +128,19 @@ void LLToolMgr::initTools()
 LLToolMgr::~LLToolMgr()
 {
 	delete gBasicToolset;
-	gBasicToolset = NULL;
+	gBasicToolset = nullptr;
 
 	delete gMouselookToolset;
-	gMouselookToolset = NULL;
+	gMouselookToolset = nullptr;
 
 	delete gFaceEditToolset;
-	gFaceEditToolset = NULL;
+	gFaceEditToolset = nullptr;
 
 	delete gCameraToolset;
-	gCameraToolset = NULL;
+	gCameraToolset = nullptr;
 	
 	delete gToolNull;
-	gToolNull = NULL;
+	gToolNull = nullptr;
 }
 
 bool LLToolMgr::usingTransientTool()
@@ -204,7 +204,7 @@ LLTool* LLToolMgr::getCurrentTool()
 	}
 	else
 	{
-		mOverrideTool = mBaseTool ? mBaseTool->getOverrideTool(override_mask) : NULL;
+		mOverrideTool = mBaseTool ? mBaseTool->getOverrideTool(override_mask) : nullptr;
 
 		// use override tool if available otherwise drop back to base tool
 		cur_tool = mOverrideTool ? mOverrideTool : mBaseTool;
@@ -380,7 +380,7 @@ void LLToolMgr::setTransientTool(LLTool* tool)
 	{
 		if (mTransientTool)
 		{
-			mTransientTool = NULL;
+			mTransientTool = nullptr;
 		}
 
 		mTransientTool = tool;
@@ -393,7 +393,7 @@ void LLToolMgr::clearTransientTool()
 {
 	if (mTransientTool)
 	{
-		mTransientTool = NULL;
+		mTransientTool = nullptr;
 		if (!mBaseTool)
 		{
 			LL_WARNS() << "mBaseTool is NULL" << LL_ENDL;
@@ -426,7 +426,7 @@ void LLToolMgr::onAppFocusGained()
 
 void LLToolMgr::clearSavedTool()
 {
-	mSavedTool = NULL;
+	mSavedTool = nullptr;
 }
 
 /////////////////////////////////////////////////////
@@ -475,7 +475,7 @@ void LLToolset::selectFirstTool()
 
 void LLToolset::selectNextTool()
 {
-	LLTool* next = NULL;
+	LLTool* next = nullptr;
 	for( tool_list_t::iterator iter = mToolList.begin();
 		 iter != mToolList.end(); )
 	{
@@ -500,7 +500,7 @@ void LLToolset::selectNextTool()
 
 void LLToolset::selectPrevTool()
 {
-	LLTool* prev = NULL;
+	LLTool* prev = nullptr;
 	for( tool_list_t::reverse_iterator iter = mToolList.rbegin();
 		 iter != mToolList.rend(); )
 	{

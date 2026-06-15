@@ -130,7 +130,7 @@ LLFloater* LLFloaterSellLand::buildFloater(const LLSD& key)
 LLFloaterSellLandUI::LLFloaterSellLandUI(const LLSD& key)
 :	LLFloater(key),
 	mParcelSelectionObserver(this),
-	mRegion(0),
+	mRegion(nullptr),
 	mAvatarNameCacheConnection()
 {
 	LLViewerParcelMgr::getInstance()->addObserver(&mParcelSelectionObserver);

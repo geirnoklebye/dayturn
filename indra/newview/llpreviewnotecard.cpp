@@ -70,7 +70,7 @@
 // Default constructor
 LLPreviewNotecard::LLPreviewNotecard(const LLSD& key) //const LLUUID& item_id, 
 	: LLPreview( key ),
-	mLiveFile(NULL)
+	mLiveFile(nullptr)
 {
 	const LLInventoryItem *item = getItem();
 	if (item)
@@ -696,7 +696,7 @@ void LLPreviewNotecard::onSaveComplete(const LLUUID& asset_uuid, void* user_data
 		else
 		{
 			LLViewerObject* object = gObjectList.findObject(info->mObjectUUID);
-			LLViewerInventoryItem* item = NULL;
+			LLViewerInventoryItem* item = nullptr;
 			if(object)
 			{
 				item = (LLViewerInventoryItem*)object->getInventoryObject(info->mItemUUID);
@@ -785,7 +785,7 @@ bool LLPreviewNotecard::handleConfirmDeleteDialog(const LLSD& notification, cons
 	{
 		// move item from agent's inventory into trash
 		LLViewerInventoryItem* item = gInventory.getItem(mItemUUID);
-		if (item != NULL)
+		if (item != nullptr)
 		{
 			const LLUUID trash_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_TRASH);
 			gInventory.changeItemParent(item, trash_id, false);
@@ -798,7 +798,7 @@ bool LLPreviewNotecard::handleConfirmDeleteDialog(const LLSD& notification, cons
 		if(object)
 		{
 			LLViewerInventoryItem* item = dynamic_cast<LLViewerInventoryItem*>(object->getInventoryObject(mItemUUID));
-			if (item != NULL)
+			if (item != nullptr)
 			{
 				object->removeInventory(mItemUUID);
 			}
@@ -863,7 +863,7 @@ bool LLPreviewNotecard::onExternalChange(const std::string& filename)
     }
 
     // Disable sync to avoid recursive load->save->load calls.
-    saveIfNeeded(NULL, false);
+    saveIfNeeded(nullptr, false);
     return true;
 }
 

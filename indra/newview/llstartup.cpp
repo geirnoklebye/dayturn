@@ -478,7 +478,7 @@ void set_flags_and_update_appearance()
 // true when all initialization done.
 bool idle_startup()
 {
-	if (gViewerWindow == NULL)
+	if (gViewerWindow == nullptr)
 	{
 		// We expect window to be initialized
 		LL_WARNS_ONCE() << "gViewerWindow is not initialized" << LL_ENDL;
@@ -629,7 +629,7 @@ bool idle_startup()
 
 		std::string message_template_path = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"message_template.msg");
 
-		LLFILE* found_template = NULL;
+		LLFILE* found_template = nullptr;
 		found_template = LLFile::fopen(message_template_path, "r");		/* Flawfinder: ignore */
 		
 		#if LL_WINDOWS
@@ -669,7 +669,7 @@ bool idle_startup()
 			const F32 circuit_heartbeat_interval = 5;
 			const F32 circuit_timeout = 100;
 
-			const LLUseCircuitCodeResponder* responder = NULL;
+			const LLUseCircuitCodeResponder* responder = nullptr;
 			bool failure_is_fatal = true;
 			
 			if(!start_messaging_system(
@@ -720,10 +720,10 @@ bool idle_startup()
 			LLMessageSystem* msg = gMessageSystem;
 			msg->setExceptionFunc(MX_UNREGISTERED_MESSAGE,
 								  invalid_message_callback,
-								  NULL);
+								  nullptr);
 			msg->setExceptionFunc(MX_PACKET_TOO_SHORT,
 								  invalid_message_callback,
-								  NULL);
+								  nullptr);
 
 			// running off end of a packet is now valid in the case
 			// when a reader has a newer message template than
@@ -733,7 +733,7 @@ bool idle_startup()
 								  NULL);*/
 			msg->setExceptionFunc(MX_WROTE_PAST_BUFFER_SIZE,
 								  invalid_message_callback,
-								  NULL);
+								  nullptr);
 
 			if (gSavedSettings.getbool("LogMessages"))
 			{
@@ -819,7 +819,7 @@ bool idle_startup()
 		if (false == gSavedSettings.getbool("NoAudio"))
 		{
 			delete gAudiop;
-			gAudiop = NULL;
+			gAudiop = nullptr;
 
 #ifdef LL_FMODSTUDIO
 #if !LL_WINDOWS
@@ -857,13 +857,13 @@ bool idle_startup()
 				{
 					LL_WARNS("AppInit") << "Unable to initialize audio engine" << LL_ENDL;
 					delete gAudiop;
-					gAudiop = NULL;
+					gAudiop = nullptr;
 				}
 
 				if (gAudiop)
 				{
 					// if the audio engine hasn't set up its own preferred handler for streaming audio then set up the generic streaming audio implementation which uses media plugins
-					if (NULL == gAudiop->getStreamingAudioImpl())
+					if (nullptr == gAudiop->getStreamingAudioImpl())
 					{
 						LL_INFOS("AppInit") << "Using media plugins to render streaming audio" << LL_ENDL;
 						gAudiop->setStreamingAudioImpl(new LLStreamingAudio_MediaPlugins());
@@ -989,7 +989,7 @@ bool idle_startup()
 
 		// Login screen needs menus for preferences, but we can enter
 		// this startup phase more than once.
-		if (gLoginMenuBarView == NULL)
+		if (gLoginMenuBarView == nullptr)
 		{
 			LL_DEBUGS("AppInit") << "initializing menu bar" << LL_ENDL;
 			initialize_spellcheck_menu();
@@ -1701,7 +1701,7 @@ bool idle_startup()
 		update_texture_fetch();
 		display_startup();
 
-		if ( gViewerWindow != NULL)
+		if ( gViewerWindow != nullptr)
 		{	// This isn't the first logon attempt, so show the UI
 			gViewerWindow->setNormalControlsVisible(true);
 		}	
@@ -2643,7 +2643,7 @@ bool idle_startup()
 		LL_INFOS("AppInit") << "Done first audio_update_volume." << LL_ENDL;
 
 		// reset keyboard focus to sane state of pointing at world
-		gFocusMgr.setKeyboardFocus(NULL);
+		gFocusMgr.setKeyboardFocus(nullptr);
 
 		LLAppViewer::instance()->handleLoginComplete();
 
@@ -2884,18 +2884,18 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 	msg->setHandlerFunc("RegionInfo", LLViewerRegion::processRegionInfo);
 
 	msg->setHandlerFuncFast(_PREHASH_ChatFromSimulator,		process_chat_from_simulator);
-	msg->setHandlerFuncFast(_PREHASH_KillObject,				process_kill_object,	NULL);
-	msg->setHandlerFuncFast(_PREHASH_SimulatorViewerTimeMessage,	process_time_synch,		NULL);
+	msg->setHandlerFuncFast(_PREHASH_KillObject,				process_kill_object,	nullptr);
+	msg->setHandlerFuncFast(_PREHASH_SimulatorViewerTimeMessage,	process_time_synch,		nullptr);
 	msg->setHandlerFuncFast(_PREHASH_EnableSimulator,			process_enable_simulator);
 	msg->setHandlerFuncFast(_PREHASH_DisableSimulator,			process_disable_simulator);
-	msg->setHandlerFuncFast(_PREHASH_KickUser,					process_kick_user,		NULL);
+	msg->setHandlerFuncFast(_PREHASH_KickUser,					process_kick_user,		nullptr);
 
 	msg->setHandlerFunc("CrossedRegion", process_crossed_region);
 	msg->setHandlerFuncFast(_PREHASH_TeleportFinish, process_teleport_finish);
 
 	msg->setHandlerFuncFast(_PREHASH_AlertMessage,             process_alert_message);
 	msg->setHandlerFunc("AgentAlertMessage", process_agent_alert_message);
-	msg->setHandlerFuncFast(_PREHASH_MeanCollisionAlert,             process_mean_collision_alert_message,  NULL);
+	msg->setHandlerFuncFast(_PREHASH_MeanCollisionAlert,             process_mean_collision_alert_message,  nullptr);
 	msg->setHandlerFunc("ViewerFrozenMessage",             process_frozen_message);
 
 	msg->setHandlerFuncFast(_PREHASH_NameValuePair,			process_name_value);
@@ -3001,14 +3001,14 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 	msg->setHandlerFuncFast(_PREHASH_UserInfoReply,
 		process_user_info_reply);
 
-	msg->setHandlerFunc("RegionHandshake", process_region_handshake, NULL);
+	msg->setHandlerFunc("RegionHandshake", process_region_handshake, nullptr);
 
 	msg->setHandlerFunc("TeleportStart", process_teleport_start );
 	msg->setHandlerFunc("TeleportProgress", process_teleport_progress);
-	msg->setHandlerFunc("TeleportFailed", process_teleport_failed, NULL);
-	msg->setHandlerFunc("TeleportLocal", process_teleport_local, NULL);
+	msg->setHandlerFunc("TeleportFailed", process_teleport_failed, nullptr);
+	msg->setHandlerFunc("TeleportLocal", process_teleport_local, nullptr);
 
-	msg->setHandlerFunc("ImageNotInDatabase", LLViewerTextureList::processImageNotInDatabase, NULL);
+	msg->setHandlerFunc("ImageNotInDatabase", LLViewerTextureList::processImageNotInDatabase, nullptr);
 
 	msg->setHandlerFuncFast(_PREHASH_GroupMembersReply,
 						LLGroupMgr::processGroupMembersReply);
@@ -3357,7 +3357,7 @@ void LLStartUp::initExperiences()
 void LLStartUp::cleanupNameCache()
 {
 	delete gCacheName;
-	gCacheName = NULL;
+	gCacheName = nullptr;
 }
 
 bool LLStartUp::dispatchURL()
@@ -3934,10 +3934,10 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 	text = response["seconds_since_epoch"].asString();
 	if(!text.empty())
 	{
-		U32 server_utc_time = strtoul(text.c_str(), NULL, 10);
+		U32 server_utc_time = strtoul(text.c_str(), nullptr, 10);
 		if(server_utc_time)
 		{
-			time_t now = time(NULL);
+			time_t now = time(nullptr);
 			gUTCOffset = (server_utc_time - now);
 
 			// Print server timestamp

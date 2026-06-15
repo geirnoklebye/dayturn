@@ -61,7 +61,7 @@ static const std::string breast_param_names_driven[N_PARAMS] =
 
 LLBreastMotion::LLBreastMotion(const LLUUID &id) : 
 	LLMotion(id),
-	mCharacter(NULL)
+	mCharacter(nullptr)
 {
 	mName = "breast_motion";
 	mChestState = new LLJointState;
@@ -76,8 +76,8 @@ LLBreastMotion::LLBreastMotion(const LLUUID &id) :
 	mBreastDampingParam = LLVector3((F32)0.3, (F32)0.0, (F32)0.3);
 	mBreastMaxVelocityParam = LLVector3((F32)10.0, (F32)0.0, (F32)10.0);
 
-	mBreastParamsUser[0] = mBreastParamsUser[1] = mBreastParamsUser[2] = NULL;
-	mBreastParamsDriven[0] = mBreastParamsDriven[1] = mBreastParamsDriven[2] = NULL;
+	mBreastParamsUser[0] = mBreastParamsUser[1] = mBreastParamsUser[2] = nullptr;
+	mBreastParamsDriven[0] = mBreastParamsDriven[1] = mBreastParamsDriven[2] = nullptr;
 
 	mCharLastPosition_world_pt = LLVector3(0,0,0);
 	mCharLastVelocity_local_vec = LLVector3(0,0,0);
@@ -114,8 +114,8 @@ LLMotion::LLMotionInitStatus LLBreastMotion::onInitialize(LLCharacter *character
 	
 	for (U32 i=0; i < N_PARAMS; i++)
 	{
-		mBreastParamsUser[i] = NULL;
-		mBreastParamsDriven[i] = NULL;
+		mBreastParamsUser[i] = nullptr;
+		mBreastParamsDriven[i] = nullptr;
 		mBreastParamsMin[i] = 0;
 		mBreastParamsMax[i] = 0;
 		if (breast_param_names_user[i] != "" && breast_param_names_driven[i] != "")
@@ -241,7 +241,7 @@ bool LLBreastMotion::onUpdate(F32 time, U8* joint_mask)
 	LLVector3 breast_user_local_pt(0,0,0);
 	for (U32 i=0; i < N_PARAMS; i++)
 	{
-		if (mBreastParamsUser[i] != NULL)
+		if (mBreastParamsUser[i] != nullptr)
 		{
 			breast_user_local_pt[i] = mBreastParamsUser[i]->getWeight();
 		}

@@ -59,15 +59,15 @@ const F32 MAP_MINOR_DIR_THRESHOLD = 0.07f;
 
 LLFloaterMap::LLFloaterMap(const LLSD& key) 
 	: LLFloater(key),
-	  mTextBoxEast(NULL),
-	  mTextBoxNorth(NULL),
-	  mTextBoxWest(NULL),
-	  mTextBoxSouth(NULL),
-	  mTextBoxSouthEast(NULL),
-	  mTextBoxNorthEast(NULL),
-	  mTextBoxNorthWest(NULL),
-	  mTextBoxSouthWest(NULL),
-	  mMap(NULL)
+	  mTextBoxEast(nullptr),
+	  mTextBoxNorth(nullptr),
+	  mTextBoxWest(nullptr),
+	  mTextBoxSouth(nullptr),
+	  mTextBoxSouthEast(nullptr),
+	  mTextBoxNorthEast(nullptr),
+	  mTextBoxNorthWest(nullptr),
+	  mTextBoxSouthWest(nullptr),
+	  mMap(nullptr)
 {
 }
 
@@ -168,7 +168,7 @@ void LLFloaterMap::setDirectionPos( LLTextBox* text_box, F32 rotation )
 
 void LLFloaterMap::updateMinorDirections()
 {
-	if (mTextBoxNorthEast == NULL)
+	if (mTextBoxNorthEast == nullptr)
 	{
 		return;
 	}

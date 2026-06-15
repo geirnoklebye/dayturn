@@ -445,9 +445,9 @@ LLChicletPanel::Params::Params()
 
 LLChicletPanel::LLChicletPanel(const Params&p)
 : LLPanel(p)
-, mScrollArea(NULL)
-, mLeftScrollButton(NULL)
-, mRightScrollButton(NULL)
+, mScrollArea(nullptr)
+, mLeftScrollButton(nullptr)
+, mRightScrollButton(nullptr)
 , mChicletPadding(p.chiclet_padding)
 , mScrollingOffset(p.scrolling_offset)
 , mScrollButtonHPad(p.scroll_button_hpad)
@@ -497,7 +497,7 @@ void LLChicletPanel::objectChicletCallback(const LLSD& data)
 	for (iter = chiclets.begin(); iter != chiclets.end(); iter++)
 	{
 		LLIMChiclet* chiclet = dynamic_cast<LLIMChiclet*>(*iter);
-		if (chiclet != NULL)
+		if (chiclet != nullptr)
 		{
 			chiclet->setShowNewMessagesIcon(new_message);
 		}
@@ -1021,7 +1021,7 @@ bool LLChicletPanel::isAnyIMFloaterDoked()
 	{
 		LLFloaterIMSession* im_floater = LLFloaterReg::findTypedInstance<LLFloaterIMSession>(
 				"impanel", (*it)->getSessionId());
-		if (im_floater != NULL && im_floater->getVisible()
+		if (im_floater != nullptr && im_floater->getVisible()
 				&& !im_floater->isMinimized() && im_floater->isDocked())
 		{
 			res = true;
@@ -1083,7 +1083,7 @@ LLScriptChiclet::Params::Params()
 
 LLScriptChiclet::LLScriptChiclet(const Params&p)
  : LLIMChiclet(p)
- , mChicletIconCtrl(NULL)
+ , mChicletIconCtrl(nullptr)
 {
 	LLButton::Params button_params = p.chiclet_button;
 	mChicletButton = LLUICtrlFactory::create<LLButton>(button_params);
@@ -1160,7 +1160,7 @@ LLInvOfferChiclet::Params::Params()
 
 LLInvOfferChiclet::LLInvOfferChiclet(const Params&p)
  : LLIMChiclet(p)
- , mChicletIconCtrl(NULL)
+ , mChicletIconCtrl(nullptr)
 {
 	LLButton::Params button_params = p.chiclet_button;
 	mChicletButton = LLUICtrlFactory::create<LLButton>(button_params);

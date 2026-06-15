@@ -189,12 +189,12 @@ protected:
 		void onSearchBoxCommit();
 };
 
-LLFloaterScriptSearch* LLFloaterScriptSearch::sInstance = NULL;
+LLFloaterScriptSearch* LLFloaterScriptSearch::sInstance = nullptr;
 
 LLFloaterScriptSearch::LLFloaterScriptSearch(LLScriptEdCore* editor_core)
 :	LLFloater(LLSD()),
-	mSearchBox(NULL),
-	mReplaceBox(NULL),
+	mSearchBox(nullptr),
+	mReplaceBox(nullptr),
 	mEditorCore(editor_core)
 {
 	buildFromFile("floater_script_search.xml");
@@ -256,7 +256,7 @@ void LLFloaterScriptSearch::show(LLScriptEdCore* editor_core)
 
 LLFloaterScriptSearch::~LLFloaterScriptSearch()
 {
-	sInstance = NULL;
+	sInstance = nullptr;
 }
 
 // static 
@@ -389,16 +389,16 @@ LLScriptEdCore::LLScriptEdCore(
 	:
 	LLPanel(),
 	mSampleText(sample),
-	mEditor( NULL ),
+	mEditor( nullptr ),
 	mLoadCallback( load_callback ),
 	mSaveCallback( save_callback ),
 	mSearchReplaceCallback( search_replace_callback ),
 	mUserdata( userdata ),
 	mForceClose(false),
-	mLastHelpToken(NULL),
+	mLastHelpToken(nullptr),
 	mLiveHelpHistorySize(0),
 	mEnableSave(false),
-	mLiveFile(NULL),
+	mLiveFile(nullptr),
 	mLive(live),
 	mContainer(container),
 	mCurrentEditor(NULL),
@@ -410,7 +410,7 @@ LLScriptEdCore::LLScriptEdCore(
 	setBorderVisible(false);
 
 	setXMLFilename("panel_script_ed.xml");
-	llassert_always(mContainer != NULL);
+	llassert_always(mContainer != nullptr);
 }
 
 LLScriptEdCore::~LLScriptEdCore()
@@ -977,7 +977,7 @@ void LLScriptEdCore::onBtnDynamicHelp()
 		help_combo->sortByName();
 
 		// re-initialize help variables
-		mLastHelpToken = NULL;
+		mLastHelpToken = nullptr;
 		mLiveHelpHandle = live_help_floater->getHandle();
 		mLiveHelpHistorySize = 0;
 	}
@@ -1028,7 +1028,7 @@ void LLScriptEdCore::onCheckLock(LLUICtrl* ctrl, void* userdata)
 	// clear out token any time we lock the frame, so we will refresh web page immediately when unlocked
 	gSavedSettings.setbool("ScriptHelpFollowsCursor", ctrl->getValue().asBoolean());
 
-	corep->mLastHelpToken = NULL;
+	corep->mLastHelpToken = nullptr;
 }
 
 // static 
@@ -1506,7 +1506,7 @@ void LLLiveLSLEditor::receiveExperienceIds(LLSD result, LLHandle<LLLiveLSLEditor
 
 LLScriptEdContainer::LLScriptEdContainer(const LLSD& key) :
 	LLPreview(key)
-,	mScriptEd(NULL)
+,	mScriptEd(nullptr)
 {
 }
 
@@ -1607,7 +1607,7 @@ LLPreviewLSL::LLPreviewLSL(const LLSD& key )
 LLPreviewLSL::~LLPreviewLSL() 
 { 
     delete mItemObserver;
-    mItemObserver = NULL;
+    mItemObserver = nullptr;
 }
 
 // virtual
@@ -1930,7 +1930,7 @@ void LLPreviewLSL::onSaveComplete(const LLUUID& asset_uuid, void* user_data, S32
 void LLPreviewLSL::onSaveBytecodeComplete(const LLUUID& asset_uuid, void* user_data, S32 status, LLExtStat ext_status) // StoreAssetData callback (fixed)
 {
 	LLUUID* instance_uuid = (LLUUID*)user_data;
-	LLPreviewLSL* self = NULL;
+	LLPreviewLSL* self = nullptr;
 	if(instance_uuid)
 	{
 		self = LLFloaterReg::findTypedInstance<LLPreviewLSL>("preview_script", *instance_uuid);
@@ -2599,7 +2599,7 @@ void LLLiveLSLEditor::onSaveTextComplete(const LLUUID& asset_uuid, void* user_da
 		}
 	}
 	delete data;
-	data = NULL;
+	data = nullptr;
 }
 
 

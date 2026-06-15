@@ -307,7 +307,7 @@ LLTeleportHistoryFlatItemStorage::getFlatItemForPersistentItem (
 	const S32 cur_item_index,
 	const std::string &hl)
 {
-	LLTeleportHistoryFlatItem* item = NULL;
+	LLTeleportHistoryFlatItem* item = nullptr;
 	if ( cur_item_index < (S32) mItems.size() )
 	{
 		item = mItems[cur_item_index].get();
@@ -324,7 +324,7 @@ LLTeleportHistoryFlatItemStorage::getFlatItemForPersistentItem (
 		else
 		{
 			// Item already added to parent
-			item = NULL;
+			item = nullptr;
 		}
 	}
 
@@ -666,7 +666,7 @@ void LLTeleportHistoryPanel::refresh()
 	// That leads to call to getNextTab to get right tab_idx in first pass
 	LLDate tab_boundary_date =  LLDate::now();
 
-	LLFlatListView* curr_flat_view = NULL;
+	LLFlatListView* curr_flat_view = nullptr;
 	std::string filter_string = sFilterSubString;
 	LLStringUtil::toUpper(filter_string);
 
@@ -779,7 +779,7 @@ void LLTeleportHistoryPanel::onTeleportHistoryChange(S32 removed_index)
 void LLTeleportHistoryPanel::replaceItem(S32 removed_index)
 {
 	// Flat list for 'Today' (mItemContainers keeps accordion tabs in reverse order)
-	LLFlatListView* fv = NULL;
+	LLFlatListView* fv = nullptr;
 	
 	if (mItemContainers.size() > 0)
 	{
@@ -996,7 +996,7 @@ LLFlatListView* LLTeleportHistoryPanel::getFlatListViewFromTab(LLAccordionCtrlTa
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void LLTeleportHistoryPanel::gotSLURLCallback(const std::string& slurl)

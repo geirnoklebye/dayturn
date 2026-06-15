@@ -82,14 +82,14 @@ LLScreenChannelBase::LLScreenChannelBase(const Params& p)
 	mToastAlignment(p.toast_align),
 	mCanStoreToasts(true),
 	mHiddenToastsNum(0),
-	mHoveredToast(NULL),
+	mHoveredToast(nullptr),
 	mControlHovering(false),
 	mShowToasts(true),
 	mID(p.id),
 	mDisplayToastsAlways(p.display_toasts_always),
 	mChannelAlignment(p.channel_align),
-	mFloaterSnapRegion(NULL),
-	mChicletRegion(NULL)
+	mFloaterSnapRegion(nullptr),
+	mChicletRegion(nullptr)
 {
 	mID = p.id;
 
@@ -99,12 +99,12 @@ LLScreenChannelBase::LLScreenChannelBase(const Params& p)
 
 bool LLScreenChannelBase::postBuild()
 {
-	if (mFloaterSnapRegion == NULL)
+	if (mFloaterSnapRegion == nullptr)
 	{
         mFloaterSnapRegion = gViewerWindow->getFloaterSnapRegion();
 	}
 	
-	if (mChicletRegion == NULL)
+	if (mChicletRegion == nullptr)
 	{
         mChicletRegion = gViewerWindow->getChicletContainer();
 	}
@@ -182,7 +182,7 @@ void	LLScreenChannelBase::updateRect()
 //--------------------------------------------------------------------------
 LLScreenChannel::LLScreenChannel(const Params& p)
 :	LLScreenChannelBase(p),
-	mStartUpToastPanel(NULL)
+	mStartUpToastPanel(nullptr)
 {
 }
 
@@ -948,10 +948,10 @@ void LLScreenChannel::onStartUpToastHide()
 //--------------------------------------------------------------------------
 void LLScreenChannel::closeStartUpToast()
 {
-	if(mStartUpToastPanel != NULL)
+	if(mStartUpToastPanel != nullptr)
 	{
 		mStartUpToastPanel->setVisible(false);
-		mStartUpToastPanel = NULL;
+		mStartUpToastPanel = nullptr;
 	}
 }
 
@@ -1019,7 +1019,7 @@ void LLScreenChannel::closeHiddenToasts(const Matcher& matcher)
 	{
 		LLToast* toast = it->getToast();
 		// add to list valid toast that match to provided matcher criteria
-		if (toast != NULL && !toast->isDead() && toast->getNotification() != NULL
+		if (toast != nullptr && !toast->isDead() && toast->getNotification() != NULL
 				&& !toast->getVisible() && matcher.matches(toast->getNotification()))
 		{
 			toasts.push_back(toast);
@@ -1137,7 +1137,7 @@ LLToast* LLScreenChannel::getToastByNotificationID(LLUUID id)
 			mStoredToastList.end(), id);
 
 	if (it == mStoredToastList.end())
-		return NULL;
+		return nullptr;
 
 	return it->getToast();
 }

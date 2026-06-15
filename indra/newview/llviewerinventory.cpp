@@ -564,7 +564,7 @@ void LLViewerInventoryItem::updateParentOnServer(bool restamp) const
 	msg->nextBlockFast(_PREHASH_InventoryData);
 	msg->addUUIDFast(_PREHASH_ItemID, mUUID);
 	msg->addUUIDFast(_PREHASH_FolderID, mParentUUID);
-	msg->addString("NewName", NULL);
+	msg->addString("NewName", nullptr);
 	gAgent.sendReliableMessage();
 }
 
@@ -862,12 +862,12 @@ void LLViewerInventoryCategory::unpackMessage(LLMessageSystem* msg, const char* 
 /// Local function definitions
 ///----------------------------------------------------------------------------
 
-LLInventoryCallbackManager *LLInventoryCallbackManager::sInstance = NULL;
+LLInventoryCallbackManager *LLInventoryCallbackManager::sInstance = nullptr;
 
 LLInventoryCallbackManager::LLInventoryCallbackManager() :
 	mLastCallback(0)
 {
-	if( sInstance != NULL )
+	if( sInstance != nullptr )
 	{
 		LL_WARNS(LOG_INV) << "LLInventoryCallbackManager::LLInventoryCallbackManager: unexpected multiple instances" << LL_ENDL;
 		return;
@@ -882,7 +882,7 @@ LLInventoryCallbackManager::~LLInventoryCallbackManager()
 		LL_WARNS(LOG_INV) << "LLInventoryCallbackManager::~LLInventoryCallbackManager: unexpected multiple instances" << LL_ENDL;
 		return;
 	}
-	sInstance = NULL;
+	sInstance = nullptr;
 }
 
 //static 
@@ -1653,7 +1653,7 @@ void copy_inventory_from_notecard(const LLUUID& destination_id,
 								  const LLInventoryItem *src,
 								  U32 callback_id)
 {
-	if (NULL == src)
+	if (nullptr == src)
 	{
 		LL_WARNS(LOG_NOTECARD) << "Null pointer to item was passed for object_id "
 							   << object_id << " and notecard_inv_id "
@@ -1661,9 +1661,9 @@ void copy_inventory_from_notecard(const LLUUID& destination_id,
 		return;
 	}
 
-	LLViewerRegion* viewer_region = NULL;
-    LLViewerObject* vo = NULL;
-	if (object_id.notNull() && (vo = gObjectList.findObject(object_id)) != NULL)
+	LLViewerRegion* viewer_region = nullptr;
+    LLViewerObject* vo = nullptr;
+	if (object_id.notNull() && (vo = gObjectList.findObject(object_id)) != nullptr)
     {
         viewer_region = vo->getRegion();
 	}
@@ -2124,11 +2124,11 @@ LLViewerInventoryItem *LLViewerInventoryItem::getLinkedItem() const
 		if (linked_item && linked_item->getIsLinkType())
 		{
 			LL_WARNS(LOG_INV) << "Warning: Accessing link to link" << LL_ENDL;
-			return NULL;
+			return nullptr;
 		}
 		return linked_item;
 	}
-	return NULL;
+	return nullptr;
 }
 
 LLViewerInventoryCategory *LLViewerInventoryItem::getLinkedCategory() const
@@ -2138,7 +2138,7 @@ LLViewerInventoryCategory *LLViewerInventoryItem::getLinkedCategory() const
 		LLViewerInventoryCategory *linked_category = gInventory.getCategory(mAssetUUID);
 		return linked_category;
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool LLViewerInventoryItem::checkPermissionsSet(PermissionMask mask) const

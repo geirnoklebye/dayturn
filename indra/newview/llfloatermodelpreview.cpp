@@ -128,17 +128,17 @@ void LLMeshFilePicker::notify(const std::vector<std::string>& filenames)
 //-----------------------------------------------------------------------------
 LLFloaterModelPreview::LLFloaterModelPreview(const LLSD& key) :
 LLFloaterModelUploadBase(key),
-mUploadBtn(NULL),
-mCalculateBtn(NULL),
-mUploadLogText(NULL),
-mTabContainer(NULL),
+mUploadBtn(nullptr),
+mCalculateBtn(nullptr),
+mUploadLogText(nullptr),
+mTabContainer(nullptr),
 mAvatarTabIndex(0)
 {
 	sInstance = this;
 	mLastMouseX = 0;
 	mLastMouseY = 0;
 	mStatusLock = new LLMutex();
-	mModelPreview = NULL;
+	mModelPreview = nullptr;
 
 	mLODMode[LLModel::LOD_HIGH] = LLModelPreview::LOD_FROM_FILE;
 	for (U32 i = 0; i < LLModel::LOD_HIGH; i++)
@@ -330,7 +330,7 @@ LLFloaterModelPreview::~LLFloaterModelPreview()
 	}
 
 	delete mStatusLock;
-	mStatusLock = NULL;
+	mStatusLock = nullptr;
 }
 
 void LLFloaterModelPreview::initModelPreview()

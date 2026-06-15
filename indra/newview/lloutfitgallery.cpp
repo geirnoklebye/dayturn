@@ -512,7 +512,7 @@ void LLOutfitGallery::removeLastRow()
     }
     else
     {
-        mLastRowPanel = NULL;
+        mLastRowPanel = nullptr;
     }
 }
 
@@ -663,7 +663,7 @@ LLPanel* LLOutfitGallery::buildItemPanel(int left)
 {
     LLPanel::Params lpparams;
     int top = 0;
-    LLPanel* lpanel = NULL;
+    LLPanel* lpanel = nullptr;
     if(mUnusedItemPanels.empty())
     {
         lpanel = LLUICtrlFactory::create<LLPanel>(lpparams);
@@ -685,7 +685,7 @@ LLPanel* LLOutfitGallery::buildItemPanel(int left)
 LLPanel* LLOutfitGallery::buildRowPanel(int left, int bottom)
 {
     LLPanel::Params sparams;
-    LLPanel* stack = NULL;
+    LLPanel* stack = nullptr;
     if(mUnusedRowPanels.empty())
     {
         stack = LLUICtrlFactory::create<LLPanel>(sparams);
@@ -784,7 +784,7 @@ void LLOutfitGallery::updateAddedCategory(LLUUID cat_id)
     mOutfitMap.insert(LLOutfitGallery::outfit_map_value_t(cat_id, item));
     item->setRightMouseDownCallback(boost::bind(&LLOutfitListBase::outfitRightClickCallBack, this,
         _1, _2, _3, cat_id));
-    LLWearableItemsList* list = NULL;
+    LLWearableItemsList* list = nullptr;
     item->setFocusReceivedCallback(boost::bind(&LLOutfitListBase::ChangeOutfitSelection, this, list, cat_id));
     if (mGalleryCreated)
     {
@@ -795,7 +795,7 @@ void LLOutfitGallery::updateAddedCategory(LLUUID cat_id)
     if (!outfit_category)
         return;
 
-    if (mOutfitsObserver == NULL)
+    if (mOutfitsObserver == nullptr)
     {
         mOutfitsObserver = new LLInventoryCategoriesObserver();
         gInventory.addObserver(mOutfitsObserver);
@@ -831,7 +831,7 @@ void LLOutfitGallery::updateRemovedCategory(LLUUID cat_id)
         removeFromGalleryMiddle(item);
 
         // kill removed item
-        if (item != NULL)
+        if (item != nullptr)
         {
             item->die();
         }
@@ -1094,7 +1094,7 @@ bool LLOutfitGalleryItem::openOutfitsContent()
         {
             LLAccordionCtrl* accordion = panel->getChild<LLAccordionCtrl>("outfits_accordion");
             LLOutfitsList* outfit_list = dynamic_cast<LLOutfitsList*>(panel);
-            if (accordion != NULL && outfit_list != NULL)
+            if (accordion != nullptr && outfit_list != nullptr)
             {
                 outfit_list->setSelectedOutfitByUUID(mUUID);
                 LLAccordionCtrlTab* tab = accordion->getSelectedTab();
@@ -1328,7 +1328,7 @@ void LLOutfitGallery::loadPhotos()
     LLViewerInventoryCategory* textures_category = gInventory.getCategory(mSnapshotFolderID);
     if (!textures_category)
         return;
-    if (mTexturesObserver == NULL)
+    if (mTexturesObserver == nullptr)
     {
         mTexturesObserver = new LLInventoryCategoriesObserver();
         gInventory.addObserver(mTexturesObserver);
@@ -1444,7 +1444,7 @@ void LLOutfitGallery::refreshTextures(const LLUUID& category_id)
         is_texture);
 
     //Find texture which contain pending outfit ID string in name
-    LLViewerInventoryItem* photo_upload_item = NULL;
+    LLViewerInventoryItem* photo_upload_item = nullptr;
     for (LLViewerInventoryItem* item : item_array)
     {
         std::string name = item->getName();
@@ -1455,7 +1455,7 @@ void LLOutfitGallery::refreshTextures(const LLUUID& category_id)
         }
     }
 
-    if (photo_upload_item != NULL)
+    if (photo_upload_item != nullptr)
     {
         LLUUID photo_item_id = photo_upload_item->getUUID();
         LLInventoryObject* upload_object = gInventory.getObject(photo_item_id);

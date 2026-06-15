@@ -850,7 +850,7 @@ std::string LLVoiceClient::sipURIFromID(const LLUUID &id)
 
 LLVoiceEffectInterface* LLVoiceClient::getVoiceEffectInterface() const
 {
-	return getVoiceEffectEnabled() ? dynamic_cast<LLVoiceEffectInterface*>(mVoiceModule) : NULL;
+	return getVoiceEffectEnabled() ? dynamic_cast<LLVoiceEffectInterface*>(mVoiceModule) : nullptr;
 }
 
 ///////////////////

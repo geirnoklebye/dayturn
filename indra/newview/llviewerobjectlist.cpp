@@ -247,7 +247,7 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 										   bool just_created,
 										   bool from_cache)
 {
-	LLMessageSystem* msg = NULL;
+	LLMessageSystem* msg = nullptr;
 	
 	if(!from_cache)
 	{
@@ -279,14 +279,14 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 	// RN: this must be called after we have a drawable 
 	// (from gPipeline.addObject)
 	// so that the drawable parent is set properly
-	if(msg != NULL)
+	if(msg != nullptr)
 	{
 	findOrphans(objectp, msg->getSenderIP(), msg->getSenderPort());
 	}
 	else
 	{
 		LLViewerRegion* regionp = objectp->getRegion();
-		if(regionp != NULL)
+		if(regionp != nullptr)
 		{
 			findOrphans(objectp, regionp->getHost().getAddress(), regionp->getHost().getPort());
 		}
@@ -336,7 +336,7 @@ LLViewerObject* LLViewerObjectList::processObjectUpdateFromCache(LLVOCacheEntry*
 
 	if (!cached_dpp || gNonInteractive)
 	{
-		return NULL; //nothing cached.
+		return nullptr; //nothing cached.
 	}
 	
 	LLViewerObject *objectp;
@@ -357,7 +357,7 @@ LLViewerObject* LLViewerObjectList::processObjectUpdateFromCache(LLVOCacheEntry*
 
 	if( mDerenderList.end() != mDerenderList.find(fullid))
 	{
-		return NULL;
+		return nullptr;
 	}
 	// <FS:Ansariel> FIRE-20288: Option to render friends only
 	if (isNonFriendDerendered(fullid, pcode))
@@ -415,7 +415,7 @@ LLViewerObject* LLViewerObjectList::processObjectUpdateFromCache(LLVOCacheEntry*
 		{
 			LL_INFOS() << "createObject failure for object: " << fullid << LL_ENDL;
 			recorder.objectUpdateFailure(entry->getLocalID(), OUT_FULL_CACHED, 0);
-			return NULL;
+			return nullptr;
 		}
 		justCreated = true;
 		mNumNewObjects++;
@@ -426,7 +426,7 @@ LLViewerObject* LLViewerObjectList::processObjectUpdateFromCache(LLVOCacheEntry*
 		LL_WARNS() << "Dead object " << objectp->mID << " in UUID map 1!" << LL_ENDL;
 	}
 		
-	processUpdateCore(objectp, NULL, 0, OUT_FULL_CACHED, cached_dpp, justCreated, true);
+	processUpdateCore(objectp, nullptr, 0, OUT_FULL_CACHED, cached_dpp, justCreated, true);
 	objectp->loadFlags(entry->getUpdateFlags()); //just in case, reload update flags from cache.
 	
 	if(entry->getHitCount() > 0)
@@ -758,7 +758,7 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			{
 				objectp->mLocalID = local_id;
 			}
-			processUpdateCore(objectp, user_data, i, update_type, NULL, justCreated);
+			processUpdateCore(objectp, user_data, i, update_type, nullptr, justCreated);
 		}
 		recorder.objectUpdateEvent(local_id, update_type, objectp, msg_size);
 		objectp->setLastUpdateType(update_type);
@@ -959,7 +959,7 @@ void LLViewerObjectList::update(LLAgent &agent)
 
 	const F64 frame_time = LLFrameTimer::getElapsedSeconds();
 	
-	LLViewerObject *objectp = NULL;	
+	LLViewerObject *objectp = nullptr;	
 	
 	// Make a copy of the list in case something in idleUpdate() messes with it
 	static std::vector<LLViewerObject*> idle_list;
@@ -1537,7 +1537,7 @@ void LLViewerObjectList::cleanDeadObjects(bool use_timer)
 	{
 		// Scan for all of the dead objects and put them all on the end of the list with no ref count ops
 		objectp = *iter;
-		if (objectp == NULL)
+		if (objectp == nullptr)
 		{ //we caught up to the dead tail
 			break;
 		}
@@ -1986,7 +1986,7 @@ void LLViewerObjectList::generatePickList(LLCamera &camera)
 			if( !drawablep )
 				continue;
 
-			LLViewerObject* last_objectp = NULL;
+			LLViewerObject* last_objectp = nullptr;
 			for (S32 face_num = 0; face_num < drawablep->getNumFaces(); face_num++)
 			{
 				LLFace * facep = drawablep->getFace(face_num);
@@ -2086,7 +2086,7 @@ LLViewerObject *LLViewerObjectList::getSelectedObject(const U32 object_id)
 			return (*pick_it);
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void LLViewerObjectList::addDebugBeacon(const LLVector3 &pos_agent,
@@ -2119,7 +2119,7 @@ LLViewerObject *LLViewerObjectList::createObjectViewer(const LLPCode pcode, LLVi
 	if (!objectp)
 	{
 // 		LL_WARNS() << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	mUUIDObjectMap[fullid] = objectp;
@@ -2141,12 +2141,12 @@ LLViewerObject *LLViewerObjectList::createObjectFromCache(const LLPCode pcode, L
 	if (!objectp)
 	{
 // 		LL_WARNS() << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << " id:" << fullid << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 
 	if( mDerenderList.end() != mDerenderList.find(uuid))
 	{
-		return NULL;
+		return nullptr;
 	}
 
 	objectp->mLocalID = local_id;
@@ -2183,7 +2183,7 @@ LLViewerObject *LLViewerObjectList::createObject(const LLPCode pcode, LLViewerRe
 
 	if( mDerenderList.end() != mDerenderList.find(uuid))
 	{
-		return NULL;
+		return nullptr;
 	}
 
     LL_DEBUGS("ObjectUpdate") << "createObject creating " << fullid << LL_ENDL;
@@ -2192,7 +2192,7 @@ LLViewerObject *LLViewerObjectList::createObject(const LLPCode pcode, LLViewerRe
 	if (!objectp)
 	{
 // 		LL_WARNS() << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << " id:" << fullid << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	if(regionp)
 	{
@@ -2222,7 +2222,7 @@ LLViewerObject *LLViewerObjectList::replaceObject(const LLUUID &id, const LLPCod
 		
 		return createObject(pcode, regionp, id, old_instance->getLocalID(), LLHost());
 	}
-	return NULL;
+	return nullptr;
 }
 
 S32 LLViewerObjectList::findReferences(LLDrawable *drawablep) const

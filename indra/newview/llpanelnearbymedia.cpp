@@ -328,7 +328,7 @@ void LLPanelNearByMedia::updateListItem(LLScrollListItem* item, LLViewerMediaImp
 		
 		//			s += llformat("%g/", (float)impl->getCPUUsage());
 		//			s += llformat("%g/", (float)impl->getApproximateTextureInterest());
-		debug_str += llformat("%g/", (float)(NULL == impl->getSomeObject()) ? 0.0 : impl->getSomeObject()->getPixelArea());
+		debug_str += llformat("%g/", (float)(nullptr == impl->getSomeObject()) ? 0.0 : impl->getSomeObject()->getPixelArea());
 		
 		debug_str += LLPluginClassMedia::priorityToString(impl->getPriority());
 		
@@ -548,9 +548,9 @@ void LLPanelNearByMedia::refreshParcelItems()
 					   mParcelMediaName,
 					   tooltip,
 					   -2, // Proximity closer than anything else, before Parcel Audio
-					   impl == NULL || impl->isMediaDisabled(),
+					   impl == nullptr || impl->isMediaDisabled(),
 					   impl != NULL && !LLViewerParcelMedia::getInstance()->getURL().empty(),
-					   impl != NULL && impl->isMediaTimeBased() &&	impl->isMediaPlaying(),
+					   impl != nullptr && impl->isMediaTimeBased() &&	impl->isMediaPlaying(),
 					   MEDIA_CLASS_ALL,
 					   "parcel media");
 	}

@@ -383,8 +383,8 @@ LLFavoritesBarCtrl::LLFavoritesBarCtrl(const LLFavoritesBarCtrl::Params& p)
 	mContextMenuHandle(),
 	mImageDragIndication(p.image_drag_indication),
 	mShowDragMarker(false),
-	mLandingTab(NULL),
-	mLastTab(NULL),
+	mLandingTab(nullptr),
+	mLastTab(nullptr),
     mItemsListDirty(false),
 	mUpdateDropDownItems(true),
 	mRestoreOverflowMenu(false),
@@ -471,7 +471,7 @@ bool LLFavoritesBarCtrl::handleDragAndDrop(S32 x, S32 y, MASK mask, bool drop,
 				 * we need an additional check which excludes the case described previously
 				 * making sure that the mouse pointer is beyond the last tab.
 				 */
-				setLandingTab(NULL);
+				setLandingTab(nullptr);
 			}
 
 			// check if we are dragging an existing item from the favorites bar
@@ -584,7 +584,7 @@ void LLFavoritesBarCtrl::handleExistingFavoriteDragAndDrop(S32 x, S32 y)
 void LLFavoritesBarCtrl::handleNewFavoriteDragAndDrop(LLInventoryItem *item, const LLUUID& favorites_id, S32 x, S32 y)
 {
 	// Identify the button hovered and the side to drop
-	LLFavoriteLandmarkButton* dest = NULL;
+	LLFavoriteLandmarkButton* dest = nullptr;
 	bool insert_before = true;
 	if (!mItems.empty())
 	{
@@ -915,7 +915,7 @@ void LLFavoritesBarCtrl::updateButtons(bool force_update)
 			}
 		}
 		//last_right_edge is saving coordinates
-		LLButton* last_new_button = NULL;
+		LLButton* last_new_button = nullptr;
 		int j = first_changed_item_index;
 		for (; j < mItems.size(); j++)
 		{
@@ -991,19 +991,19 @@ LLButton* LLFavoritesBarCtrl::createButton(const LLPointer<LLViewerInventoryItem
 	 */
 	int required_width = mFont->getWidth(item->getName()) + 20;
 	int width = required_width > def_button_width? def_button_width : required_width;
-	LLFavoriteLandmarkButton* fav_btn = NULL;
+	LLFavoriteLandmarkButton* fav_btn = nullptr;
 
 	// do we have a place for next button + double buttonHGap + mMoreTextBox ?
 	if(curr_x + width + 2*button_x_delta +  mMoreTextBox->getRect().getWidth() > getRect().mRight )
 	{
-		return NULL;
+		return nullptr;
 	}
 	LLButton::Params fav_btn_params(button_params);
 	fav_btn = LLUICtrlFactory::create<LLFavoriteLandmarkButton>(fav_btn_params);
-	if (NULL == fav_btn)
+	if (nullptr == fav_btn)
 	{
 		LL_WARNS("FavoritesBar") << "Unable to create LLFavoriteLandmarkButton widget: " << item->getName() << LL_ENDL;
-		return NULL;
+		return nullptr;
 	}
 	
 	addChild(fav_btn);
@@ -1258,7 +1258,7 @@ void LLFavoritesBarCtrl::onButtonRightClick( LLUUID item_id,LLView* fav_button,S
 	
 	// Release mouse capture so hover events go to the popup menu
 	// because this is happening during a mouse down.
-	gFocusMgr.setMouseCapture(NULL);
+	gFocusMgr.setMouseCapture(nullptr);
 
 	menu->updateParent(LLMenuGL::sMenuContainer);
 	LLMenuGL::showPopup(fav_button, menu, x, y);
@@ -1480,7 +1480,7 @@ void LLFavoritesBarCtrl::pasteFromClipboard() const
 	LLInventoryModel* model = &gInventory;
 	if(model && isClipboardPasteable())
 	{
-		LLInventoryItem* item = NULL;
+		LLInventoryItem* item = nullptr;
 		std::vector<LLUUID> objects;
 		LLClipboard::instance().pasteFromClipboard(objects);
 		S32 count = objects.size();
@@ -1563,7 +1563,7 @@ bool LLFavoritesBarCtrl::handleHover(S32 x, S32 y, MASK mask)
 
 LLUICtrl* LLFavoritesBarCtrl::findChildByLocalCoords(S32 x, S32 y)
 {
-	LLUICtrl* ctrl = NULL;
+	LLUICtrl* ctrl = nullptr;
 	const child_list_t* list = getChildList();
 
 	for (child_list_const_iter_t i = list->begin(); i != list->end(); ++i)

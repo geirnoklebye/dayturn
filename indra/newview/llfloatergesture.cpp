@@ -184,7 +184,7 @@ LLFloaterGesture::~LLFloaterGesture()
 {
 	LLGestureMgr::instance().removeObserver(mObserver);
 	delete mObserver;
-	mObserver = NULL;
+	mObserver = nullptr;
 	gInventory.removeObserver(this);
 }
 
