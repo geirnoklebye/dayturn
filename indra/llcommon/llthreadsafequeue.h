@@ -358,7 +358,7 @@ template<typename T>
 bool LLThreadSafeQueue<ElementT, QueueT>::tryPush(T&& element)
 {
     return tryLock(
-        [this, element=std::move(element)](lock_t& lock)
+        [this, element=std::forward<T>(element)](lock_t& lock)
         {
             if (mClosed)
                 return false;

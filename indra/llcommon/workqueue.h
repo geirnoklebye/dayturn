@@ -495,7 +495,7 @@ namespace LL
     {
         return MakeReplyLambda<CALLABLE, FOLLOWUP,
                                decltype(std::forward<CALLABLE>(callable)())>()
-            (std::move(callable), std::move(callback));
+            (std::forward<CALLABLE>(callable), std::forward<FOLLOWUP>(callback));
     }
 
     template <typename CALLABLE, typename FOLLOWUP, typename... ARGS>

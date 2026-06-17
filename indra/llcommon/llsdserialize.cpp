@@ -2059,15 +2059,16 @@ std::streamsize deserialize_boolean(
 	//  * return LLSDParser::PARSE_FAILURE (-1)
 	//
 	int bytes_read = 0;
-	std::string::size_type ii = 0;
+	std::string::size_type ii = 1; // caller already matched compare[0]
 	char c = istr.peek();
-	while((++ii < compare.size())
-		  && (tolower(c) == (int)compare[ii])
+	while(ii < compare.size()
+		  && tolower(c) == (int)compare[ii]
 		  && istr.good())
 	{
 		istr.ignore();
 		++bytes_read;
 		c = istr.peek();
+		++ii;
 	}
 	if(compare.size() != ii)
 	{

@@ -704,7 +704,7 @@ private:
     if (hPsapi != NULL) FreeLibrary(hPsapi);
     if (tt2 != NULL) free(tt2);
     if (tt != NULL) free(tt);
-    if (hMods != NULL) free(hMods);
+    if (hMods != NULL) free((void*)hMods);
 
     return cnt != 0;
   }  // GetModuleListPSAPI

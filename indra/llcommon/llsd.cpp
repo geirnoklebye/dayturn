@@ -719,18 +719,24 @@ void LLSD::Impl::reset(Impl*& var, Impl* impl)
 	{
 		++impl->mUseCount;
 	}
-	if (var  &&  var->mUseCount != STATIC_USAGE_COUNT && --var->mUseCount == 0)
+	if (var && var->mUseCount != STATIC_USAGE_COUNT)
 	{
-		delete var;
+		if (--var->mUseCount == 0)
+		{
+			delete var;
+		}
 	}
 	var = impl;
 }
 
 void LLSD::Impl::move(Impl*& var, Impl*& impl)
 {
-    if (var && var->mUseCount != STATIC_USAGE_COUNT && --var->mUseCount == 0)
+    if (var && var->mUseCount != STATIC_USAGE_COUNT)
     {
-        delete var; // destroy var if usage falls to 0 and not static
+        if (--var->mUseCount == 0)
+        {
+            delete var; // destroy var if usage falls to 0 and not static
+        }
     }
     var = impl; // Steal impl to var without incrementing use since this is a move
     impl = nullptr; // null out old-impl pointer
