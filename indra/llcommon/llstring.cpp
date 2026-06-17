@@ -222,12 +222,12 @@ llutf16string wstring_to_utf16str(const llwchar* utf32str, size_t len)
 		U32 cur_char = utf32str[i];
 		if (cur_char > 0xFFFF)
 		{
-			out += (0xD7C0 + (cur_char >> 10));
-			out += (0xDC00 | (cur_char & 0x3FF));
+			out += (U16)(0xD7C0 + (cur_char >> 10));
+			out += (U16)(0xDC00 | (cur_char & 0x3FF));
 		}
 		else
 		{
-			out += cur_char;
+			out += (U16)cur_char;
 		}
 		i++;
 	}

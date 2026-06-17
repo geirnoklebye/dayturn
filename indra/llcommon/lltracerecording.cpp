@@ -262,7 +262,7 @@ F64Kilobytes Recording::getMean(const StatType<MemAccumulator>& stat)
         S32 div = accumulator.mSize.getSampleCount() + active_accumulator->mSize.getSampleCount();
         if (div > 0)
         {
-            t = active_accumulator->mSize.getSampleCount() / div;
+            t = (F32)active_accumulator->mSize.getSampleCount() / (F32)div;
         }
 		return F64Bytes(lerp(accumulator.mSize.getMean(), active_accumulator->mSize.getMean(), t));
 	}
@@ -437,7 +437,7 @@ F64 Recording::getMean( const StatType<SampleAccumulator>& stat )
         S32 div = accumulator.getSampleCount() + active_accumulator->getSampleCount();
         if (div > 0)
         {
-            t = active_accumulator->getSampleCount() / div;
+            t = (F32)active_accumulator->getSampleCount() / (F32)div;
         }
 		return lerp(accumulator.getMean(), active_accumulator->getMean(), t);
 	}
@@ -523,7 +523,7 @@ F64 Recording::getMean( const StatType<EventAccumulator>& stat )
         S32 div = accumulator.getSampleCount() + active_accumulator->getSampleCount();
         if (div > 0)
         {
-            t = active_accumulator->getSampleCount() / div;
+            t = (F32)active_accumulator->getSampleCount() / (F32)div;
         }
 		return lerp(accumulator.getMean(), active_accumulator->getMean(), t);
 	}

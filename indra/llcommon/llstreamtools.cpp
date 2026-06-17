@@ -224,12 +224,12 @@ bool get_word(std::string& output_string, std::istream& input_stream)
 {
 	skip_emptyspace(input_stream);
 	int c = input_stream.peek();
-	while ( !isspace(c) 
-			&& '\n' != c 
-			&& '\r' != c 
+	while ( !isspace(c)
+			&& '\n' != c
+			&& '\r' != c
 			&& input_stream.good() )
 	{
-		output_string += c;
+		output_string += (char)c;
 		input_stream.get();
 		c = input_stream.peek();
 	}
@@ -241,14 +241,14 @@ bool get_word(std::string& output_string, std::istream& input_stream, int n)
 	skip_emptyspace(input_stream);
 	int char_count = 0;
 	int c = input_stream.peek();
-	while (!isspace(c) 
-			&& '\n' != c 
-			&& '\r' != c 
-			&& input_stream.good() 
+	while (!isspace(c)
+			&& '\n' != c
+			&& '\r' != c
+			&& input_stream.good()
 			&& char_count < n)
 	{
 		char_count++;
-		output_string += c;
+		output_string += (char)c;
 		input_stream.get();
 		c = input_stream.peek();
 	}
@@ -262,7 +262,7 @@ bool get_line(std::string& output_string, std::istream& input_stream)
 	int c = input_stream.get();
 	while (input_stream.good())
 	{
-		output_string += c;
+		output_string += (char)c;
 		if ('\n' == c)
 		{
 			break;
@@ -283,7 +283,7 @@ bool get_line(std::string& output_string, std::istream& input_stream, int n)
 	while (input_stream.good() && char_count < n)
 	{
 		char_count++;
-		output_string += c;
+		output_string += (char)c;
 		if ('\n' == c)
 		{
 			break;

@@ -243,11 +243,14 @@ namespace {
             // (Note: you may need to restart Visual Studio to pick environment changes)
             char* val = nullptr;
             std::string s_ansi_error_code = "160";
-            if ((val = getenv("LL_ANSI_ERROR_COLOR_CODE")) != nullptr) s_ansi_error_code = std::string(val);
+            val = getenv("LL_ANSI_ERROR_COLOR_CODE");
+            if (val != nullptr) s_ansi_error_code = std::string(val);
             std::string s_ansi_warn_code = "33";
-            if ((val = getenv("LL_ANSI_WARN_COLOR_CODE")) != nullptr) s_ansi_warn_code = std::string(val);
+            val = getenv("LL_ANSI_WARN_COLOR_CODE");
+            if (val != nullptr) s_ansi_warn_code = std::string(val);
             std::string s_ansi_debug_code = "177";
-            if ((val = getenv("LL_ANSI_DEBUG_COLOR_CODE")) != nullptr) s_ansi_debug_code = std::string(val);
+            val = getenv("LL_ANSI_DEBUG_COLOR_CODE");
+            if (val != nullptr) s_ansi_debug_code = std::string(val);
 
             static std::string s_ansi_error = createANSI(s_ansi_error_code); // default is red
             static std::string s_ansi_warn  = createANSI(s_ansi_warn_code); // default is blue

@@ -397,7 +397,7 @@ LLFILE *	LLFile::_Fiopen(const std::string& filename,
 	if (valid[n] == 0)
 		return (0);	// no valid mode
     else if (norepflag && mode & (ios_base::out | ios_base::app)
-		&& (fp = LLFile::fopen(filename, "r")) != 0)	/* Flawfinder: ignore */
+		&& (fp = LLFile::fopen(filename, "r")) != 0)	/* Flawfinder: ignore */ // NOLINT(bugprone-assignment-in-if-condition)
 		{	// file must not exist, close and fail
 		fclose(fp);
 		return (0);
@@ -405,7 +405,7 @@ LLFILE *	LLFile::_Fiopen(const std::string& filename,
 	else if (fp != 0 && fclose(fp) != 0)
 		return (0);	// can't close after test open
 // should open with protection here, if other than default
-	else if ((fp = LLFile::fopen(filename, mods[n])) == 0)	/* Flawfinder: ignore */
+	else if ((fp = LLFile::fopen(filename, mods[n])) == 0)	/* Flawfinder: ignore */ // NOLINT(bugprone-assignment-in-if-condition)
 		return (0);	// open failed
 
 	if (!atendflag || fseek(fp, 0, SEEK_END) == 0)
