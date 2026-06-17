@@ -1177,8 +1177,7 @@ void LLStopWatchControlsMixinCommon::pause()
 	switch (mPlayState)
 	{
 	case STOPPED:
-		// stay stopped, don't go to pause
-		break;
+		[[fallthrough]]; // stay stopped, don't go to pause
 	case PAUSED:
 		break;
 	case STARTED:
@@ -1215,9 +1214,7 @@ void LLStopWatchControlsMixinCommon::resume()
 	switch (mPlayState)
 	{
 	case STOPPED:
-		handleStart();
-		mPlayState = STARTED;
-		break;
+		[[fallthrough]];
 	case PAUSED:
 		handleStart();
 		mPlayState = STARTED;
@@ -1235,10 +1232,7 @@ void LLStopWatchControlsMixinCommon::restart()
 	switch (mPlayState)
 	{
 	case STOPPED:
-		handleReset();
-		handleStart();
-		mPlayState = STARTED;
-		break;
+		[[fallthrough]];
 	case PAUSED:
 		handleReset();
 		handleStart();

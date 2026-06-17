@@ -349,32 +349,13 @@ bool LLUUID::validate(const std::string& in_string)
 			}
 		}
 
-		if ((in_string[cur_pos] >= '0') && (in_string[cur_pos] <= '9'))
-		{
-		}
-		else if ((in_string[cur_pos] >= 'a') && (in_string[cur_pos] <='f'))
-		{
-		}
-		else if ((in_string[cur_pos] >= 'A') && (in_string[cur_pos] <='F'))
-		{
-		}
-		else
+		if (!is_char_hex(in_string[cur_pos]))
 		{
 			return false;
 		}
-
 		cur_pos++;
 
-		if ((in_string[cur_pos] >= '0') && (in_string[cur_pos] <= '9'))
-		{
-		}
-		else if ((in_string[cur_pos] >= 'a') && (in_string[cur_pos] <='f'))
-		{
-		}
-		else if ((in_string[cur_pos] >= 'A') && (in_string[cur_pos] <='F'))
-		{
-		}
-		else
+		if (!is_char_hex(in_string[cur_pos]))
 		{
 			return false;
 		}

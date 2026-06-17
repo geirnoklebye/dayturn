@@ -52,19 +52,9 @@ std::string ll_safe_string(const char* in, S32 maxlen)
 
 bool is_char_hex(char hex)
 {
-	if((hex >= '0') && (hex <= '9'))
-	{
-		return true;
-	}
-	else if((hex >= 'a') && (hex <='f'))
-	{
-		return true;
-	}
-	else if((hex >= 'A') && (hex <='F'))
-	{
-		return true;
-	}
-	return false; // uh - oh, not hex any more...
+	return (hex >= '0' && hex <= '9')
+		|| (hex >= 'a' && hex <= 'f')
+		|| (hex >= 'A' && hex <= 'F');
 }
 
 U8 hex_as_nybble(char hex)
@@ -85,22 +75,11 @@ U8 hex_as_nybble(char hex)
 }
 
 bool iswindividual(llwchar elem)
-{   
+{
 	U32 cur_char = (U32)elem;
-	bool result = false;
-	if (0x2E80<= cur_char && cur_char <= 0x9FFF)
-	{
-		result = true;
-	}
-	else if (0xAC00<= cur_char && cur_char <= 0xD7A0 )
-	{
-		result = true;
-	}
-	else if (0xF900<= cur_char && cur_char <= 0xFA60 )
-	{
-		result = true;
-	}
-	return result;
+	return (0x2E80 <= cur_char && cur_char <= 0x9FFF)
+		|| (0xAC00 <= cur_char && cur_char <= 0xD7A0)
+		|| (0xF900 <= cur_char && cur_char <= 0xFA60);
 }
 
 bool _read_file_into_string(std::string& str, const std::string& filename)

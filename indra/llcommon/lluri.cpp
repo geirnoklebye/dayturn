@@ -363,25 +363,19 @@ void LLURI::parseAuthorityAndPathUsingOpaque()
 			mEscapedAuthority = mEscapedOpaque.substr(2);
 			mEscapedPath = "";
 		}
-		// path exist, no query
-		else if (delim_pos2 == std::string::npos)
-		{
-			mEscapedAuthority = mEscapedOpaque.substr(2,delim_pos-2);
-			mEscapedPath = mEscapedOpaque.substr(delim_pos);
-		}
-		// no path, only query
+		// no path, only query (or query appears before path)
 		else if (delim_pos == std::string::npos ||
-				 delim_pos2 < delim_pos)
+				 (delim_pos2 != std::string::npos && delim_pos2 < delim_pos))
 		{
 			mEscapedAuthority = mEscapedOpaque.substr(2,delim_pos2-2);
 			// query part will be broken out later
 			mEscapedPath = mEscapedOpaque.substr(delim_pos2);
 		}
-		// path and query
+		// path exists (with or without query after it)
 		else
 		{
 			mEscapedAuthority = mEscapedOpaque.substr(2,delim_pos-2);
-			// query part will be broken out later
+			// query part (if any) will be broken out later
 			mEscapedPath = mEscapedOpaque.substr(delim_pos);
 		}
 	}

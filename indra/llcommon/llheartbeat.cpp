@@ -122,7 +122,7 @@ LLHeartbeat::send(F32 timeout_sec)
 		}
 	}
 
-	if (result == -1) {
+	if (result == -1) { // NOLINT(bugprone-branch-clone): intentional stubs, only result==0 acts
 		// big failure.
 	} else if (result == 0) {
 		total_success = true;
