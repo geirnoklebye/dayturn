@@ -2583,7 +2583,7 @@ LLViewerFetchedTexture *LLVOAvatar::getBakedTextureImage(const U8 te, const LLUU
 
 		if (!url.empty())
 		{
-			LL_DEBUGS("Avatar bake") << avString() << "get server-bake image from URL " << url << LL_ENDL;
+			LL_DEBUGS("Avatar_bake") << avString() << "get server-bake image from URL " << url << LL_ENDL;
 			result = LLViewerTextureManager::getFetchedTextureFromUrl(
 				url, FTT_SERVER_BAKE, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE, 0, 0, uuid);
 			if (result->isMissingAsset())
@@ -2593,7 +2593,7 @@ LLViewerFetchedTexture *LLVOAvatar::getBakedTextureImage(const U8 te, const LLUU
 		}
 		else
 		{
-			LL_DEBUGS("Avatar bake") << avString() << "get old-bake image from host " << uuid << LL_ENDL;
+			LL_DEBUGS("Avatar_bake") << avString() << "get old-bake image from host " << uuid << LL_ENDL;
 			LLHost host = getObjectHost();
 			result = LLViewerTextureManager::getFetchedTexture(
 				uuid, FTT_HOST_BAKE, true, LLGLTexture::BOOST_NONE, LLViewerTexture::LOD_TEXTURE, 0, 0, host);
@@ -5816,7 +5816,7 @@ void LLVOAvatar::updateTextures()
 				&& !isUsingServerBakes() 
 				&& !imagep->getTargetHost().isOk())
 			{
-				LL_WARNS_ONCE("Avatar bake") << "LLVOAvatar::updateTextures No host for texture "
+				LL_WARNS_ONCE("Avatar_bake") << "LLVOAvatar::updateTextures No host for texture "
 										 << imagep->getID() << " for avatar "
 										 << (isSelf() ? "<myself>" : getID().asString()) 
 										 << " on host " << getRegion()->getHost() << LL_ENDL;
@@ -5985,7 +5985,7 @@ const std::string LLVOAvatar::getImageURL(const U8 te, const LLUUID &uuid)
 			// Probably a server-side issue if we get here:
      		if (gAgent.getRegion()->getCentralBakeVersion() ) //Doubly check for Server Bakes
 	    	{
-	    		LL_WARNS("Avatar bake") << "AgentAppearanceServiceURL not set - Baked texture requests will fail" << LL_ENDL;
+	    		LL_WARNS("Avatar_bake") << "AgentAppearanceServiceURL not set - Baked texture requests will fail" << LL_ENDL;
 		    }
 			return url;
 		}
@@ -5994,7 +5994,7 @@ const std::string LLVOAvatar::getImageURL(const U8 te, const LLUUID &uuid)
 		if (texture_entry != nullptr)
 		{
 			url = appearance_service_url + "texture/" + getID().asString() + "/" + texture_entry->mDefaultImageName + "/" + uuid.asString();
-			LL_DEBUGS("Avatar bake") << "baked texture url: " << url << LL_ENDL;
+			LL_DEBUGS("Avatar_bake") << "baked texture url: " << url << LL_ENDL;
 		}
    }
 	return url;
@@ -11725,7 +11725,7 @@ bool LLVOAvatar::isUsingServerBakes() const
     F32 expect_wt = mUseServerBakes ? 1.0f : 0.0f;
     if (!is_approx_equal(wt,expect_wt))
     {
-        LL_WARNS("Avatar bake") << "wt " << wt << " differs from expected " << expect_wt << LL_ENDL;
+        LL_WARNS("Avatar_bake") << "wt " << wt << " differs from expected " << expect_wt << LL_ENDL;
     }
 #endif
 
