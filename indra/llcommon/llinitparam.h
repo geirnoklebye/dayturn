@@ -707,6 +707,7 @@ namespace LLInitParam
 
 		LazyValue& operator = (const LazyValue& other)
 				{
+			if (this == &other) return *this;
 			if (!other.mPtr)
 			{
 				delete mPtr;

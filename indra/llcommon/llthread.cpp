@@ -187,7 +187,7 @@ LLThread::LLThread(const std::string& name, apr_pool_t *poolp) :
 }
 
 
-LLThread::~LLThread()
+LLThread::~LLThread() // NOLINT(bugprone-exception-escape): shutdown() does not throw in practice
 {
     shutdown();
 
@@ -434,8 +434,8 @@ LLThreadSafeRefCount::LLThreadSafeRefCount(const LLThreadSafeRefCount& src)
     mRef = 0;
 }
 
-LLThreadSafeRefCount::~LLThreadSafeRefCount()
-{ 
+LLThreadSafeRefCount::~LLThreadSafeRefCount() // NOLINT(bugprone-exception-escape): LL_ERRS terminates, does not throw
+{
     if (mRef != 0)
     {
 		LL_ERRS() << "deleting referenced object mRef = " << mRef << LL_ENDL;

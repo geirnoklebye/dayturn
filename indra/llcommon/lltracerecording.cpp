@@ -56,7 +56,7 @@ Recording::Recording(EPlayState state)
 	setPlayState(state);
 }
 
-Recording::Recording( const Recording& other )
+Recording::Recording( const Recording& other ) // NOLINT(bugprone-copy-constructor-init)
 :	mActiveBuffers(nullptr)
 {
 	claim_alloc(gTraceMemStat, this);
@@ -65,6 +65,7 @@ Recording::Recording( const Recording& other )
 
 Recording& Recording::operator = (const Recording& other)
 {
+	if (this == &other) return *this;
     	// this will allow us to seamlessly start without affecting any data we've acquired from other
 	setPlayState(PAUSED);
 

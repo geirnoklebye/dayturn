@@ -256,7 +256,7 @@ protected:
         add_(lock, key, ptr);
     }
 public:
-    virtual ~LLInstanceTracker()
+    virtual ~LLInstanceTracker() // NOLINT(bugprone-exception-escape): std::mutex::lock() theoretically throws std::system_error but won't in practice
     {
         LockStatic lock;
         remove_(lock);

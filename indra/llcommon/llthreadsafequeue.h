@@ -328,10 +328,15 @@ bool LLThreadSafeQueue<ElementT, QueueT>::pushIfOpen(T&& element)
         if (mClosed)
             return false;
 
-        if (push_(lock1, std::forward<T>(element)))
+        // Only forward element when we know push_ will consume it — forwarding
+        // in a loop would leave element in a moved-from state on retry.
+        if (mStorage.size() < mCapacity)
+        {
+            push_(lock1, std::forward<T>(element));
             return true;
+        }
 
-        // Storage Full. Wait for signal.
+        // Storage full. Wait for signal.
         mCapacityCond.wait(lock1);
     }
 }

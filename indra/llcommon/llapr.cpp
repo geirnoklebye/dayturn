@@ -272,7 +272,7 @@ public:
         }
         return pPool->getVolatileAPRPool();
     }
-    void reset()
+    void reset() noexcept
     {
         if (mInitialized)
         {
@@ -319,7 +319,7 @@ LLAPRFile::~LLAPRFile()
 	close() ;
 }
 
-apr_status_t LLAPRFile::close() 
+apr_status_t LLAPRFile::close() noexcept
 {
 	apr_status_t ret = APR_SUCCESS ;
 	if(mFile)

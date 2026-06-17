@@ -161,7 +161,7 @@ public:
 
 	apr_status_t open(const std::string& filename, apr_int32_t flags, LLVolatileAPRPool* pool = nullptr, S32* sizep = nullptr);
 	apr_status_t open(const std::string& filename, apr_int32_t flags, bool use_global_pool); //use gAPRPoolp.
-	apr_status_t close() ;
+	apr_status_t close() noexcept;
 
 	// Returns actual offset, -1 if seek fails
 	S32 seek(apr_seek_where_t where, S32 offset);

@@ -45,7 +45,7 @@ LLWorkerThread::LLWorkerThread(const std::string& name, bool threaded, bool shou
 	}
 }
 
-LLWorkerThread::~LLWorkerThread()
+LLWorkerThread::~LLWorkerThread() // NOLINT(bugprone-exception-escape): shutdown() does not throw in practice
 {
 	// Delete any workers in the delete queue (should be safe - had better be!)
 	if (!mDeleteList.empty())
@@ -210,7 +210,7 @@ LLWorkerClass::LLWorkerClass(LLWorkerThread* workerthread, const std::string& na
 	}
 }
 
-LLWorkerClass::~LLWorkerClass()
+LLWorkerClass::~LLWorkerClass() // NOLINT(bugprone-exception-escape): llassert_always/LL_ERRS terminate, do not throw
 {
 	llassert_always(!(mWorkFlags & WCF_WORKING));
 	llassert_always(mWorkFlags & WCF_DELETE_REQUESTED);

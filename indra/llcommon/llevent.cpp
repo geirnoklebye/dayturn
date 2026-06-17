@@ -61,7 +61,7 @@ LLObservable::LLObservable()
 }
 
 // virtual
-LLObservable::~LLObservable()
+LLObservable::~LLObservable() // NOLINT(bugprone-exception-escape): virtual disengage() does not throw in practice
 {
 	if (mDispatcher.notNull())
 	{

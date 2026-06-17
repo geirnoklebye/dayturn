@@ -96,7 +96,7 @@ ThreadRecorder::ThreadRecorder( ThreadRecorder& parent )
 }
 
 
-ThreadRecorder::~ThreadRecorder()
+ThreadRecorder::~ThreadRecorder() // NOLINT(bugprone-exception-escape): cleanup functions do not throw in practice
 {
 #if LL_TRACE_ENABLED
 	LLThreadLocalSingletonPointer<BlockTimerStackRecord>::setInstance(NULL);

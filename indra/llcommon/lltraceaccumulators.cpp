@@ -48,7 +48,7 @@ AccumulatorBufferGroup::AccumulatorBufferGroup()
 	claim_alloc(gTraceMemStat, mMemStats.capacity() * sizeof(MemAccumulator));
 }
 
-AccumulatorBufferGroup::AccumulatorBufferGroup(const AccumulatorBufferGroup& other)
+AccumulatorBufferGroup::AccumulatorBufferGroup(const AccumulatorBufferGroup& other) // NOLINT(bugprone-copy-constructor-init)
 :	mCounts(other.mCounts),
 	mSamples(other.mSamples),
 	mEvents(other.mEvents),

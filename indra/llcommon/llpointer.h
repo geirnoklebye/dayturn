@@ -119,11 +119,12 @@ public:
 
 	LLPointer<Type>& operator =(const LLPointer<Type>& ptr)
 	{
-		assign(ptr);
+		if (this != &ptr)
+			assign(ptr);
 		return *this;
 	}
 
-	LLPointer<Type>& operator =(LLPointer<Type>&& ptr)
+	LLPointer<Type>& operator =(LLPointer<Type>&& ptr) noexcept
 	{
 		if (mPointer != ptr.mPointer)
 		{
@@ -175,7 +176,7 @@ protected:
 		}
 	}
 
-	void unref()
+	void unref() noexcept
 	{
 		if (mPointer)
 		{
@@ -284,7 +285,7 @@ public:
 
 	LLConstPointer<Type>& operator =(const LLConstPointer<Type>& ptr)
 	{
-		if( mPointer != ptr.mPointer )
+		if (this != &ptr && mPointer != ptr.mPointer)
 		{
 			unref();
 			mPointer = ptr.mPointer;
@@ -293,7 +294,7 @@ public:
 		return *this;
 	}
 
-	LLConstPointer<Type>& operator =(LLConstPointer<Type>&& ptr)
+	LLConstPointer<Type>& operator =(LLConstPointer<Type>&& ptr) noexcept
 	{
 		if (mPointer != ptr.mPointer)
 		{

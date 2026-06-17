@@ -52,7 +52,7 @@ LLQueuedThread::LLQueuedThread(const std::string& name, bool threaded, bool shou
 }
 
 // MAIN THREAD
-LLQueuedThread::~LLQueuedThread()
+LLQueuedThread::~LLQueuedThread() // NOLINT(bugprone-exception-escape): shutdown() does not throw in practice
 {
 	if (!mThreaded)
 	{
@@ -544,7 +544,7 @@ LLQueuedThread::QueuedRequest::QueuedRequest(LLQueuedThread::handle_t handle, U3
 {
 }
 
-LLQueuedThread::QueuedRequest::~QueuedRequest()
+LLQueuedThread::QueuedRequest::~QueuedRequest() // NOLINT(bugprone-exception-escape): llassert_always calls LL_ERRS which terminates
 {
 	llassert_always(mStatus == STATUS_DELETE);
 }

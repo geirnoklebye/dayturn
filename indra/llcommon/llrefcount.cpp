@@ -48,7 +48,7 @@ LLRefCount::LLRefCount() :
 {
 }
 
-LLRefCount::~LLRefCount()
+LLRefCount::~LLRefCount() // NOLINT(bugprone-exception-escape): LL_ERRS terminates, does not throw
 {
 	if (mRef != LL_REFCOUNT_FREE && mRef != 0)
 	{
