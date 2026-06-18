@@ -1097,12 +1097,14 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	// server.
 	if (mRegionp->capabilitiesReceived())
 	{
-		LL_INFOS("Avatarbake") << "Capability for Region bake support received" << LL_ENDL;
+		LL_INFOS("Avatar_bake") << "Capability for Region bake support received" << LL_ENDL;
 		handleServerBakeRegionTransition(mRegionp->getRegionID());
+
 	}
 	else
 	{
 		// Need to handle via callback after caps arrive.
+		LL_INFOS("Avatar_bake") << "Using local baking" << LL_ENDL;	
 		mRegionp->setCapabilitiesReceivedCallback(boost::bind(&LLAgent::handleServerBakeRegionTransition,this,_1));
 	}
 
@@ -4003,6 +4005,7 @@ void LLAgent::handleServerBakeRegionTransition(const LLUUID& region_id)
              gAgentAvatarp->isUsingServerBakes() &&
              mRegionp->getCentralBakeVersion()==0)
     {
+		LL_INFOS("Avatar_bake") << "Checking for unsupported server bake appearance" << LL_ENDL;		
         gAgentAvatarp->checkForUnsupportedServerBakeAppearance();
     }
 }
