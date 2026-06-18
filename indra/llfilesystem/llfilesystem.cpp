@@ -127,7 +127,7 @@ S32 LLFileSystem::getFileSize(const LLUUID& file_id, const LLAssetType::EType fi
     if (file.is_open())
     {
         file.seekg(0, std::ios::end);
-        file_size = file.tellg();
+        file_size = static_cast<S32>(file.tellg());
     }
 
     return file_size;
@@ -144,7 +144,7 @@ bool LLFileSystem::read(U8* buffer, S32 bytes)
     {
         file.seekg(mPosition, std::ios::beg);
 
-        file.read((char*)buffer, bytes);
+        file.read(reinterpret_cast<char*>(buffer), bytes);
 
         if (file)
         {
@@ -152,7 +152,7 @@ bool LLFileSystem::read(U8* buffer, S32 bytes)
         }
         else
         {
-            mBytesRead = file.gcount();
+            mBytesRead = static_cast<S32>(file.gcount());
         }
 
         file.close();
@@ -188,9 +188,9 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
         llofstream ofs(filename, std::ios::app | std::ios::binary);
         if (ofs)
         {
-            ofs.write((const char*)buffer, bytes);
+            ofs.write(reinterpret_cast<const char*>(buffer), bytes);
 
-            mPosition = (S32)ofs.tellp();
+            mPosition = static_cast<S32>(ofs.tellp());
 
             success = true;
         }
@@ -202,7 +202,7 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
         if (ofs)
         {
             ofs.seekp(mPosition, std::ios::beg);
-            ofs.write((const char*)buffer, bytes);
+            ofs.write(reinterpret_cast<const char*>(buffer), bytes);
             mPosition += bytes;
             success = true;
         }
@@ -212,7 +212,7 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
             ofs.open(filename, std::ios::binary);
             if (ofs.is_open())
             {
-                ofs.write((const char*)buffer, bytes);
+                ofs.write(reinterpret_cast<const char*>(buffer), bytes);
                 mPosition += bytes;
                 success = true;
             }
@@ -223,7 +223,7 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
         llofstream ofs(filename, std::ios::binary);
         if (ofs)
         {
-            ofs.write((const char*)buffer, bytes);
+            ofs.write(reinterpret_cast<const char*>(buffer), bytes);
 
             mPosition += bytes;
 
@@ -308,7 +308,7 @@ void LLFileSystem::updateFileAccessTime(const std::string& file_path)
      *
      * Let's start with 1 hour in time_t units and see how that unfolds
      */
-    constexpr std::time_t time_threshold = 1 * 60 * 60;
+    constexpr std::time_t time_threshold = std::time_t(1) * 60 * 60;
 
     // current time
     const std::time_t cur_time = std::time(nullptr);

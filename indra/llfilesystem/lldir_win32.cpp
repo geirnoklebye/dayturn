@@ -233,7 +233,7 @@ LLDir_Win32::LLDir_Win32()
 	{
 		w_str[size] = '\0';
         mExecutablePathAndName = ll_convert<std::string>(std::wstring(w_str));
-		S32 path_end = mExecutablePathAndName.find_last_of('\\');
+		std::string::size_type path_end = mExecutablePathAndName.find_last_of('\\');
 		if (path_end != std::string::npos)
 		{
 			mExecutableDir = mExecutablePathAndName.substr(0, path_end);
@@ -340,17 +340,16 @@ void LLDir_Win32::initAppDirs(const std::string &app_name,
 
 U32 LLDir_Win32::countFilesInDir(const std::string &dirname, const std::string &mask)
 {
-	HANDLE count_search_h;
-	U32 file_count;
-
-	file_count = 0;
+	HANDLE count_search_h = INVALID_HANDLE_VALUE;
+	U32 file_count = 0;
 
 	WIN32_FIND_DATA FileData;
 
     std::wstring pathname = ll_convert<std::wstring>(dirname);
     pathname += ll_convert<std::wstring>(mask);
 	
-	if ((count_search_h = FindFirstFile(pathname.c_str(), &FileData)) != INVALID_HANDLE_VALUE)   
+	count_search_h = FindFirstFile(pathname.c_str(), &FileData);
+	if (count_search_h != INVALID_HANDLE_VALUE)
 	{
 		file_count++;
 
@@ -386,7 +385,8 @@ bool LLDir_Win32::getNextFileInDir(const std::string &dirname, const std::string
 
 		// and open new one
 		// Check error opening Directory structure
-		if ((mDirSearch_h = FindFirstFile(pathname.c_str(), &FileData)) != INVALID_HANDLE_VALUE)   
+		mDirSearch_h = FindFirstFile(pathname.c_str(), &FileData);
+		if (mDirSearch_h != INVALID_HANDLE_VALUE)
 		{
            fileFound = true;
 		}

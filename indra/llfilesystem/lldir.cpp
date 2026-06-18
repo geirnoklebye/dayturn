@@ -77,8 +77,8 @@ LLDir::LLDir()
 	mOSUserDir(""),
 	mOSUserAppDir(""),
 	mLindenUserDir(""),
-	mOSCacheDir(""),
 	mCAFile(""),
+	mOSCacheDir(""),
 	mTempDir(""),
 	mDirDelimiter("/"), // fallback to forward slash if not overridden
 	mLanguage("en"),
@@ -129,7 +129,7 @@ S32 LLDir::deleteFilesInDir(const std::string &dirname, const std::string &mask)
 	S32 count = 0;
 	std::string filename; 
 	std::string fullpath;
-	S32 result;
+	S32 result = 0;
 
 	// File masks starting with "/" will match nothing, so we consider them invalid.
 	if (LLStringUtil::startsWith(mask, getDirDelimiter()))
@@ -878,8 +878,8 @@ std::string LLDir::getScrubbedFileName(const std::string uncleanFileName)
 	// replace any illegal file chars with and underscore '_'
 	for( unsigned int i = 0; i < illegalChars.length(); i++ )
 	{
-		int j = -1;
-		while((j = name.find(illegalChars[i])) > -1)
+		std::string::size_type j;
+		while((j = name.find(illegalChars[i])) != std::string::npos)
 		{
 			name[j] = '_';
 		}

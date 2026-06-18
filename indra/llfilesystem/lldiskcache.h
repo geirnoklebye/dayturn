@@ -59,8 +59,8 @@
  * $/LicenseInfo$
  */
 
-#ifndef _LLDISKCACHE
-#define _LLDISKCACHE
+#ifndef LL_LLDISKCACHE_H
+#define LL_LLDISKCACHE_H
 
 #include "llsingleton.h"
 

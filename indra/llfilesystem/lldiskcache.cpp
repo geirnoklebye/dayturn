@@ -206,7 +206,7 @@ const std::string LLDiskCache::getCacheInfo()
 {
     std::ostringstream cache_info;
 
-    double max_in_mb = mMaxSizeBytes / (1024.0 * 1024.0);
+    double max_in_mb = static_cast<double>(mMaxSizeBytes) / (1024.0 * 1024.0);
     double percent_used = ((F32)dirFileSize(sCacheDir) / (F32)mMaxSizeBytes) * 100.0f;
 
     cache_info << std::fixed;

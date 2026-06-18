@@ -129,7 +129,7 @@ bool LLDirIterator::Impl::next(std::string &fname)
 	{
 		while (mIter != end_itr && !found)
 		{
-			boost::smatch match;
+			boost::smatch match{};
 			std::string name = mIter->path().filename().string();
 			found = ll_regex_match(name, match, mFilterExp);
 			if (found)
