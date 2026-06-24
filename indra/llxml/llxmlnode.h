@@ -170,7 +170,7 @@ public:
 
 
     // Getters
-    U32 getBoolValue(U32 expected_length, BOOL *array);
+    U32 getBoolValue(U32 expected_length, bool *array);
     U32 getByteValue(U32 expected_length, U8 *array, Encoding encoding = ENCODING_DEFAULT);
     U32 getIntValue(U32 expected_length, S32 *array, Encoding encoding = ENCODING_DEFAULT);
     U32 getUnsignedValue(U32 expected_length, U32 *array, Encoding encoding = ENCODING_DEFAULT);
@@ -183,11 +183,7 @@ public:
 
 	bool hasAttribute(const char* name );
 
-        // these are designed to be more generic versions of the functions
-    // rather than relying on LL-types
-    bool getAttribute_bool(const char* name, bool& value ); 
-
-	bool getAttributeBOOL(const char* name, BOOL& value );
+    bool getAttributeBOOL(const char* name, bool& value );
 	bool getAttributeU8(const char* name, U8& value );
 	bool getAttributeS8(const char* name, S8& value );
 	bool getAttributeU16(const char* name, U16& value );
@@ -242,7 +238,7 @@ public:
 
 	bool setAttributeString(const char* attr, const std::string& value);
 	
-	void setBoolValue(const BOOL value)	{ setBoolValue(1, &value); }
+	void setBoolValue(const bool value)	{ setBoolValue(1, &value); }
 	void setByteValue(const U8 value, Encoding encoding = ENCODING_DEFAULT) { setByteValue(1, &value, encoding); }
 	void setIntValue(const S32 value, Encoding encoding = ENCODING_DEFAULT) { setIntValue(1, &value, encoding); }
 	void setUnsignedValue(const U32 value, Encoding encoding = ENCODING_DEFAULT) { setUnsignedValue(1, &value, encoding); }
@@ -253,7 +249,7 @@ public:
 	void setUUIDValue(const LLUUID value) { setUUIDValue(1, &value); }
 	void setNodeRefValue(const LLXMLNode *value) { setNodeRefValue(1, &value); }
 
-	void setBoolValue(U32 length, const BOOL *array);
+	void setBoolValue(U32 length, const bool *array);
 	void setByteValue(U32 length, const U8 *array, Encoding encoding = ENCODING_DEFAULT);
 	void setIntValue(U32 length, const S32 *array, Encoding encoding = ENCODING_DEFAULT);
 	void setUnsignedValue(U32 length, const U32* array, Encoding encoding = ENCODING_DEFAULT);

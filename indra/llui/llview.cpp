@@ -659,7 +659,6 @@ void LLView::onVisibilityChange ( bool new_visibility )
 			// For now assume success and log at highest xui possible 
 			// NOTE we log actual state - which may differ if it somehow failed to set visibility
 			LL_DEBUGS() << "LLView::handleVisibilityChange	 - now: " << getVisible()  << " xui: " << viewp->getPathname() << " name: " << viewp->getName() << LL_ENDL;
-		
 		}
 	}
 }

@@ -1267,24 +1267,7 @@ bool LLXMLNode::hasAttribute(const char* name )
 	return getAttribute(name, node);
 }
 
-// the structure of these getAttribute_ functions is ugly, but it's because the
-// underlying system is based on BOOL and LLString; if we change
-// so that they're based on more generic mechanisms, these will be
-// simplified.
-bool LLXMLNode::getAttribute_bool(const char* name, bool& value )
-{
-	LLXMLNodePtr node;
-    if (!getAttribute(name, node))
-    {
-        return false;
-    }
-    S32 temp;
-	bool retval = node->getBoolValue(1, &temp);
-    value = temp;
-    return retval;
-}
-
-bool LLXMLNode::getAttributeBOOL(const char* name, BOOL& value )
+bool LLXMLNode::getAttributeBOOL(const char* name, bool& value )
 {
 	LLXMLNodePtr node;
 	return (getAttribute(name, node) && node->getBoolValue(1, &value));
@@ -1299,7 +1282,7 @@ bool LLXMLNode::getAttributeU8(const char* name, U8& value )
 bool LLXMLNode::getAttributeS8(const char* name, S8& value )
 {
 	LLXMLNodePtr node;
-	S32 val;
+	S32 val{};
 	if (!(getAttribute(name, node) && node->getIntValue(1, &val)))
 	{
 		return false;
@@ -1311,7 +1294,7 @@ bool LLXMLNode::getAttributeS8(const char* name, S8& value )
 bool LLXMLNode::getAttributeU16(const char* name, U16& value )
 {
 	LLXMLNodePtr node;
-	U32 val;
+	U32 val{};
 	if (!(getAttribute(name, node) && node->getUnsignedValue(1, &val)))
 	{
 		return false;
@@ -1323,7 +1306,7 @@ bool LLXMLNode::getAttributeU16(const char* name, U16& value )
 bool LLXMLNode::getAttributeS16(const char* name, S16& value )
 {
 	LLXMLNodePtr node;
-	S32 val;
+	S32 val{};
 	if (!(getAttribute(name, node) && node->getIntValue(1, &val)))
 	{
 		return false;
@@ -1700,7 +1683,7 @@ const char *LLXMLNode::parseFloat(const char *str, F64 *dest, U32 precision, Enc
 	return nullptr;
 }
 
-U32 LLXMLNode::getBoolValue(U32 expected_length, BOOL *array)
+U32 LLXMLNode::getBoolValue(U32 expected_length, bool *array)
 {
 	llassert(array);
 
@@ -1720,11 +1703,11 @@ U32 LLXMLNode::getBoolValue(U32 expected_length, BOOL *array)
 		LLStringUtil::toLower(str_array[i]);
 		if (str_array[i] == "false")
 		{
-			array[ret_length++] = 0;
+			array[ret_length++] = false;
 		}
 		else if (str_array[i] == "true")
 		{
-			array[ret_length++] = 1;
+			array[ret_length++] = true;
 		}
 	}
 
@@ -2185,7 +2168,7 @@ U32 LLXMLNode::getNodeRefValue(U32 expected_length, LLXMLNode **array)
 	return num_returned_refs;
 }
 
-void LLXMLNode::setBoolValue(U32 length, const BOOL *array)
+void LLXMLNode::setBoolValue(U32 length, const bool *array)
 {
 	if (length == 0) return;
 
@@ -2698,7 +2681,7 @@ U32 LLXMLNode::getChildCount() const
 { 
 	if (mChildren.notNull())
 	{
-		return mChildren->map.size(); 
+		return static_cast<U32>(mChildren->map.size());
 	}
 	return 0;
 }
@@ -2717,7 +2700,7 @@ LLXMLNode *get_rand_node(LLXMLNode *node)
 {
 	if (node->mChildren.notNull())
 	{
-		U32 num_children = node->mChildren->map.size();
+		U32 num_children = static_cast<U32>(node->mChildren->map.size());
 		if (get_rand(2) == 0)
 		{
 			while (true)
@@ -2805,7 +2788,7 @@ void LLXMLNode::createUnitTest(S32 max_num_children)
 			break;
 		case 1: // TYPE_BOOLEAN
 			{
-				BOOL random_bool_values[30];
+				bool random_bool_values[30];
 				for (U32 value=0; value<array_size; ++value)
 				{
 					random_bool_values[value] = get_rand(2);
@@ -2966,7 +2949,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 			break;
 		case TYPE_BOOLEAN:
 			{
-				BOOL bool_array[30];
+				bool bool_array[30];
 				if (node->getBoolValue(node->mLength, bool_array) < node->mLength)
 				{
 					error_buffer.append(llformat("ERROR Node %s: Could not read boolean array, child %s.\n", mName->mString, node->mName->mString));
@@ -3089,7 +3072,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 	// Compare checksums
 	{
 		U32 node_integer_checksum = 0;
-		if (!getAttribute("integer_checksum", checksum_node, FALSE) || 
+		if (!getAttribute("integer_checksum", checksum_node, false) || 
 			checksum_node->getUnsignedValue(1, &node_integer_checksum, ENCODING_HEX) != 1)
 		{
 			error_buffer.append(llformat("ERROR Node %s: Integer checksum missing.\n", mName->mString));
@@ -3104,7 +3087,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 
 	{
 		U64 node_long_checksum = 0;
-		if (!getAttribute("long_checksum", checksum_node, FALSE) || 
+		if (!getAttribute("long_checksum", checksum_node, false) || 
 			checksum_node->getLongValue(1, &node_long_checksum, ENCODING_HEX) != 1)
 		{
 			error_buffer.append(llformat("ERROR Node %s: Long Integer checksum missing.\n", mName->mString));
@@ -3121,7 +3104,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 
 	{
 		U32 node_bool_true_count = 0;
-		if (!getAttribute("bool_true_count", checksum_node, FALSE) || 
+		if (!getAttribute("bool_true_count", checksum_node, false) || 
 			checksum_node->getUnsignedValue(1, &node_bool_true_count, ENCODING_HEX) != 1)
 		{
 			error_buffer.append(llformat("ERROR Node %s: Boolean checksum missing.\n", mName->mString));
@@ -3136,7 +3119,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 
 	{
 		LLUUID node_uuid_checksum;
-		if (!getAttribute("uuid_checksum", checksum_node, FALSE) || 
+		if (!getAttribute("uuid_checksum", checksum_node, false) || 
 			checksum_node->getUUIDValue(1, &node_uuid_checksum) != 1)
 		{
 			error_buffer.append(llformat("ERROR Node %s: UUID checksum missing.\n", mName->mString));
@@ -3151,7 +3134,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 
 	{
 		U32 node_noderef_checksum = 0;
-		if (!getAttribute("noderef_checksum", checksum_node, FALSE) || 
+		if (!getAttribute("noderef_checksum", checksum_node, false) || 
 			checksum_node->getUnsignedValue(1, &node_noderef_checksum, ENCODING_HEX) != 1)
 		{
 			error_buffer.append(llformat("ERROR Node %s: Node Ref checksum missing.\n", mName->mString));
@@ -3166,7 +3149,7 @@ bool LLXMLNode::performUnitTest(std::string &error_buffer)
 
 	{
 		U32 node_float_checksum = 0;
-		if (!getAttribute("float_checksum", checksum_node, FALSE) || 
+		if (!getAttribute("float_checksum", checksum_node, false) || 
 			checksum_node->getUnsignedValue(1, &node_float_checksum, ENCODING_HEX) != 1)
 		{
 			error_buffer.append(llformat("ERROR Node %s: Float checksum missing.\n", mName->mString));
