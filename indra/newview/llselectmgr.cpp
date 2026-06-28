@@ -4289,10 +4289,10 @@ void LLSelectMgr::packDuplicateOnRayHead(void *user_data)
 	msg->addUUIDFast(_PREHASH_GroupID, group_id);
 	msg->addVector3Fast(_PREHASH_RayStart, data->mRayStartRegion );
 	msg->addVector3Fast(_PREHASH_RayEnd, data->mRayEndRegion );
-	msg->addBOOLFast(_PREHASH_BypassRaycast, data->mBypassRaycast );
-	msg->addBOOLFast(_PREHASH_RayEndIsIntersection, data->mRayEndIsIntersection );
-	msg->addBOOLFast(_PREHASH_CopyCenters, data->mCopyCenters );
-	msg->addBOOLFast(_PREHASH_CopyRotates, data->mCopyRotates );
+	msg->addboolFast(_PREHASH_BypassRaycast, data->mBypassRaycast );
+	msg->addboolFast(_PREHASH_RayEndIsIntersection, data->mRayEndIsIntersection );
+	msg->addboolFast(_PREHASH_CopyCenters, data->mCopyCenters );
+	msg->addboolFast(_PREHASH_CopyRotates, data->mCopyRotates );
 	msg->addUUIDFast(_PREHASH_RayTargetID, data->mRayTargetID );
 	msg->addU32Fast(_PREHASH_DuplicateFlags, data->mFlags );
 }
@@ -4394,7 +4394,7 @@ void LLSelectMgr::packOwnerHead(void *user_data)
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID() );
 	gMessageSystem->nextBlockFast(_PREHASH_HeaderData);
-	gMessageSystem->addBOOLFast(_PREHASH_Override, data->override);
+	gMessageSystem->addboolFast(_PREHASH_Override, data->override);
 	gMessageSystem->addUUIDFast(_PREHASH_OwnerID, data->owner_id);
 	gMessageSystem->addUUIDFast(_PREHASH_GroupID, data->group_id);
 }
@@ -4484,7 +4484,7 @@ void LLSelectMgr::packPermissionsHead(void* user_data)
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	gMessageSystem->nextBlockFast(_PREHASH_HeaderData);
-	gMessageSystem->addBOOLFast(_PREHASH_Override, data->mOverride);
+	gMessageSystem->addboolFast(_PREHASH_Override, data->mOverride);
 }	
 
 
@@ -5168,7 +5168,7 @@ void LLSelectMgr::packDeleteHeader(void* userdata)
 	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
 	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	gMessageSystem->addBOOLFast(_PREHASH_Force, force);
+	gMessageSystem->addboolFast(_PREHASH_Force, force);
 }
 
 // static
@@ -5299,7 +5299,7 @@ void LLSelectMgr::packPermissions(LLSelectNode* node, void *user_data)
 	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, node->getObject()->getLocalID());
 
 	gMessageSystem->addU8Fast(_PREHASH_Field,	data->mField);
-	gMessageSystem->addBOOLFast(_PREHASH_Set,		data->mSet);
+	gMessageSystem->addboolFast(_PREHASH_Set,		data->mSet);
 	gMessageSystem->addU32Fast(_PREHASH_Mask,		data->mMask);
 }
 

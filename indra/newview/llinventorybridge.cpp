@@ -493,7 +493,7 @@ void  LLInvFVBridge::removeBatchNoCheck(std::vector<LLFolderViewModelItem*>&  ba
 				msg->nextBlockFast(_PREHASH_AgentData);
 				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 				msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-				msg->addBOOLFast(_PREHASH_Stamp, TRUE);
+				msg->addboolFast(_PREHASH_Stamp, true);
 			}
 			msg->nextBlockFast(_PREHASH_InventoryData);
 			msg->addUUIDFast(_PREHASH_ItemID, item->getUUID());

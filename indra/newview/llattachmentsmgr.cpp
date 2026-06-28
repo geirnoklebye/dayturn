@@ -183,7 +183,7 @@ void LLAttachmentsMgr::requestAttachments(attachments_vec_t& attachment_requests
 			msg->nextBlockFast(_PREHASH_HeaderData);
 			msg->addUUIDFast(_PREHASH_CompoundMsgID, compound_msg_id );
 			msg->addU8Fast(_PREHASH_TotalObjects, obj_count );
-			msg->addBOOLFast(_PREHASH_FirstDetachAll, false );
+			msg->addboolFast(_PREHASH_FirstDetachAll, false );
 		}
 
 		const AttachmentsInfo& attachment = attachment_requests.front();

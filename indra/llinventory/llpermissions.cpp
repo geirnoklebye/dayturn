@@ -531,7 +531,7 @@ void LLPermissions::packMessage(LLMessageSystem* msg) const
 	msg->addU32Fast(_PREHASH_GroupMask,	mMaskGroup );
 	msg->addU32Fast(_PREHASH_EveryoneMask,	mMaskEveryone );
 	msg->addU32Fast(_PREHASH_NextOwnerMask, mMaskNextOwner );
-	msg->addBOOLFast(_PREHASH_GroupOwned, (bool)mIsGroupOwned);
+	msg->addboolFast(_PREHASH_GroupOwned, mIsGroupOwned);
 }
 
 void LLPermissions::unpackMessage(LLSD perms)

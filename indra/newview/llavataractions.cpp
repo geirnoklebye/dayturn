@@ -450,7 +450,7 @@ void LLAvatarActions::teleport_request_callback(const LLSD& notification, const 
 		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 
 		msg->nextBlockFast(_PREHASH_MessageBlock);
-		msg->addBOOLFast(_PREHASH_FromGroup, FALSE);
+		msg->addboolFast(_PREHASH_FromGroup, false);
 		msg->addUUIDFast(_PREHASH_ToAgentID, notification["substitutions"]["uuid"] );
 		msg->addU8Fast(_PREHASH_Offline, IM_ONLINE);
 		msg->addU8Fast(_PREHASH_Dialog, IM_TELEPORT_REQUEST);

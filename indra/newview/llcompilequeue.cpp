@@ -735,7 +735,7 @@ bool LLFloaterRunQueue::runObjectScripts(LLHandle<LLFloaterScriptQueue> hfloater
     msg->nextBlockFast(_PREHASH_Script);
     msg->addUUIDFast(_PREHASH_ObjectID, object->getID());
     msg->addUUIDFast(_PREHASH_ItemID, inventory->getUUID());
-    msg->addBOOLFast(_PREHASH_Running, TRUE);
+    msg->addboolFast(_PREHASH_Running, true);
     msg->sendReliable(object->getRegion()->getHost());
 
     return true;
@@ -792,7 +792,7 @@ bool LLFloaterNotRunQueue::stopObjectScripts(LLHandle<LLFloaterScriptQueue> hflo
     msg->nextBlockFast(_PREHASH_Script);
     msg->addUUIDFast(_PREHASH_ObjectID, object->getID());
     msg->addUUIDFast(_PREHASH_ItemID, inventory->getUUID());
-    msg->addBOOLFast(_PREHASH_Running, FALSE);
+    msg->addboolFast(_PREHASH_Running, false);
     msg->sendReliable(object->getRegion()->getHost());
 
     return true;

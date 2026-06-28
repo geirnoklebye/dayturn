@@ -1730,7 +1730,7 @@ void LLOfferInfo::sendReceiveResponse(bool accept, const LLUUID &destination_fol
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 	msg->nextBlockFast(_PREHASH_MessageBlock);
-	msg->addBOOLFast(_PREHASH_FromGroup, FALSE);
+	msg->addboolFast(_PREHASH_FromGroup, false);
 	msg->addUUIDFast(_PREHASH_ToAgentID, mFromID);
 	msg->addU8Fast(_PREHASH_Offline, IM_ONLINE);
 	msg->addUUIDFast(_PREHASH_ID, mTransactionID);

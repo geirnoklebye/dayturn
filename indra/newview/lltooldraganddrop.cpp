@@ -1350,9 +1350,9 @@ void LLToolDragAndDrop::dropObject(LLViewerObject* raycast_target,
 	msg->addVector3Fast(_PREHASH_RayStart, ray_start);
 	msg->addVector3Fast(_PREHASH_RayEnd, ray_end);
 	msg->addUUIDFast(_PREHASH_RayTargetID, ray_target_id );
-	msg->addBOOLFast(_PREHASH_RayEndIsIntersection, FALSE);
-	msg->addBOOLFast(_PREHASH_RezSelected, rez_selected);
-	msg->addBOOLFast(_PREHASH_RemoveItem, remove_from_inventory);
+	msg->addboolFast(_PREHASH_RayEndIsIntersection, false);
+	msg->addboolFast(_PREHASH_RezSelected, rez_selected);
+	msg->addboolFast(_PREHASH_RemoveItem, remove_from_inventory);
 
 	// deal with permissions slam logic
 	pack_permissions_slam(msg, item->getFlags(), item->getPermissions());

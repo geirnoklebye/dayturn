@@ -1996,7 +1996,7 @@ void session_starter_helper(
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 
 	msg->nextBlockFast(_PREHASH_MessageBlock);
-	msg->addBOOLFast(_PREHASH_FromGroup, FALSE);
+	msg->addboolFast(_PREHASH_FromGroup, false);
 	msg->addUUIDFast(_PREHASH_ToAgentID, other_participant_id);
 	msg->addU8Fast(_PREHASH_Offline, IM_ONLINE);
 	msg->addU8Fast(_PREHASH_Dialog, im_type);

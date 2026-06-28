@@ -2329,7 +2329,7 @@ void LLLiveLSLEditor::onRunningCheckboxClicked( LLUICtrl*, void* userdata )
 		msg->nextBlockFast(_PREHASH_Script);
 		msg->addUUIDFast(_PREHASH_ObjectID, self->mObjectUUID);
 		msg->addUUIDFast(_PREHASH_ItemID, self->mItemUUID);
-		msg->addBOOLFast(_PREHASH_Running, running);
+		msg->addboolFast(_PREHASH_Running, running);
 		msg->sendReliable(object->getRegion()->getHost());
 	}
 	else

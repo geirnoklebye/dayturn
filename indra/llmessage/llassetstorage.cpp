@@ -1006,7 +1006,7 @@ void LLAssetStorage::uploadCompleteCallback(
     gAssetStorage->mMessageSys->nextBlockFast(_PREHASH_AssetBlock);
     gAssetStorage->mMessageSys->addUUIDFast(_PREHASH_UUID, uuid);
     gAssetStorage->mMessageSys->addS8Fast(_PREHASH_Type, req->getType());
-    gAssetStorage->mMessageSys->addBOOLFast(_PREHASH_Success, success);
+    gAssetStorage->mMessageSys->addboolFast(_PREHASH_Success, success);
     gAssetStorage->mMessageSys->sendReliable(req->mHost);
 
     delete req;

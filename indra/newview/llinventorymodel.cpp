@@ -2784,7 +2784,7 @@ void LLInventoryModel::buildParentChildMap()
 				msg->nextBlockFast(_PREHASH_AgentData);
 				msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 				msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-				msg->addBOOLFast(_PREHASH_Stamp, FALSE);
+				msg->addboolFast(_PREHASH_Stamp, false);
 			}
 			msg->nextBlockFast(_PREHASH_InventoryData);
 			msg->addUUIDFast(_PREHASH_ItemID, (*it));

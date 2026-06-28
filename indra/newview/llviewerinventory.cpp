@@ -560,7 +560,7 @@ void LLViewerInventoryItem::updateParentOnServer(bool restamp) const
 	msg->nextBlockFast(_PREHASH_AgentData);
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
 	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-	msg->addBOOLFast(_PREHASH_Stamp, restamp);
+	msg->addboolFast(_PREHASH_Stamp, restamp);
 	msg->nextBlockFast(_PREHASH_InventoryData);
 	msg->addUUIDFast(_PREHASH_ItemID, mUUID);
 	msg->addUUIDFast(_PREHASH_FolderID, mParentUUID);
@@ -1333,7 +1333,7 @@ void move_inventory_item(
 	msg->nextBlockFast(_PREHASH_AgentData);
 	msg->addUUIDFast(_PREHASH_AgentID, agent_id);
 	msg->addUUIDFast(_PREHASH_SessionID, session_id);
-	msg->addBOOLFast(_PREHASH_Stamp, FALSE);
+	msg->addboolFast(_PREHASH_Stamp, FALSE);
 	msg->nextBlockFast(_PREHASH_InventoryData);
 	msg->addUUIDFast(_PREHASH_ItemID, item_id);
 	msg->addUUIDFast(_PREHASH_FolderID, parent_id);

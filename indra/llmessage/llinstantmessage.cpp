@@ -113,7 +113,7 @@ void pack_instant_message_block(
 	msg->addUUIDFast(_PREHASH_AgentID, from_id);
 	msg->addUUIDFast(_PREHASH_SessionID, session_id);
 	msg->nextBlockFast(_PREHASH_MessageBlock);
-	msg->addBOOLFast(_PREHASH_FromGroup, from_group);
+	msg->addboolFast(_PREHASH_FromGroup, from_group);
 	msg->addUUIDFast(_PREHASH_ToAgentID, to_id);
 	msg->addU32Fast(_PREHASH_ParentEstateID, parent_estate_id);
 	msg->addUUIDFast(_PREHASH_RegionID, region_id);

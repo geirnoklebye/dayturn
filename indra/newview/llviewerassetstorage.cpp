@@ -228,8 +228,8 @@ void LLViewerAssetStorage::storeAssetData(
             mMessageSys->nextBlockFast(_PREHASH_AssetBlock);
             mMessageSys->addUUIDFast(_PREHASH_TransactionID, tid);
             mMessageSys->addS8Fast(_PREHASH_Type, (S8)asset_type);
-            mMessageSys->addBOOLFast(_PREHASH_Tempfile, temp_file);
-            mMessageSys->addBOOLFast(_PREHASH_StoreLocal, store_local);
+            mMessageSys->addboolFast(_PREHASH_Tempfile, temp_file);
+            mMessageSys->addboolFast(_PREHASH_StoreLocal, store_local);
             mMessageSys->addBinaryDataFast( _PREHASH_AssetData, buffer, asset_size );
             mMessageSys->sendReliable(mUpstreamHost);
         }

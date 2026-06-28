@@ -2895,7 +2895,7 @@ void LLViewerObject::saveScript(
 	msg->nextBlockFast(_PREHASH_UpdateBlock);
 	msg->addU32Fast(_PREHASH_ObjectLocalID, (mLocalID));
 	U8 enabled = active;
-	msg->addBOOLFast(_PREHASH_Enabled, enabled);
+	msg->addboolFast(_PREHASH_Enabled, enabled);
 	msg->nextBlockFast(_PREHASH_InventoryBlock);
 	task_item->packMessage(msg);
 	msg->sendReliable(mRegionp->getHost());
@@ -6175,7 +6175,7 @@ void LLViewerObject::parameterChanged(U16 param_type, LLNetworkData* data, bool 
 			msg->addU32Fast(_PREHASH_ObjectLocalID, mLocalID );
 
 			msg->addU16Fast(_PREHASH_ParamType, param_type);
-			msg->addBOOLFast(_PREHASH_ParamInUse, in_use);
+			msg->addboolFast(_PREHASH_ParamInUse, in_use);
 
 			msg->addU32Fast(_PREHASH_ParamSize, datasize);
 			msg->addBinaryDataFast(_PREHASH_ParamData, tmp, datasize);
