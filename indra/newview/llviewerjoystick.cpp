@@ -118,7 +118,7 @@ std::ostream& operator<<(std::ostream& out, NDOF_Device* ptr)
 
 #if LL_WINDOWS && !LL_MESA_HEADLESS
 // this should reflect ndof and set axises, see ndofdev_win.cpp from ndof package
-bool CALLBACK EnumObjectsCallback(const DIDEVICEOBJECTINSTANCE* inst, VOID* user_data)
+BOOL CALLBACK EnumObjectsCallback(const DIDEVICEOBJECTINSTANCE* inst, VOID* user_data)
 {
     if (inst->dwType & DIDFT_AXIS)
     {
@@ -143,7 +143,7 @@ bool CALLBACK EnumObjectsCallback(const DIDEVICEOBJECTINSTANCE* inst, VOID* user
     return DIENUM_CONTINUE;
 }
 
-bool CALLBACK di8_devices_callback(LPCDIDEVICEINSTANCE device_instance_ptr, LPVOID pvRef)
+BOOL CALLBACK di8_devices_callback(LPCDIDEVICEINSTANCE device_instance_ptr, LPVOID pvRef)
 {
     // Note: If a single device can function as more than one DirectInput
     // device type, it is enumerated as each device type that it supports.
