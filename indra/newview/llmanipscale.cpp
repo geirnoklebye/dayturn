@@ -1180,7 +1180,7 @@ void LLManipScale::sendUpdates( bool send_position_update, bool send_scale_updat
 		if (send_position_update)	update_flags |= UPD_POSITION;
 		if (send_scale_update)		update_flags |= UPD_SCALE;
 
-// 		BOOL send_type = SEND_INDIVIDUALS;
+// 		bool send_type = SEND_INDIVIDUALS;
 		if (corner)
 		{
 			update_flags |= UPD_UNIFORM;

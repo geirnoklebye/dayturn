@@ -516,7 +516,7 @@ void LLFloaterTexturePicker::draw()
 	getChildView("Pipette")->setEnabled(mActive);
 	getChild<LLUICtrl>("Pipette")->setValue(LLToolMgr::getInstance()->getCurrentTool() == LLToolPipette::getInstance());
 
-	//BOOL allow_copy = FALSE;
+	//bool allow_copy = FALSE;
 	if( mOwner ) 
 	{
 		mTexturep = NULL;

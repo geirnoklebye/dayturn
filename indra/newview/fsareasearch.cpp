@@ -723,7 +723,7 @@ void FSAreaSearch::processObjectProperties(LLMessageSystem* msg)
 			details.permissions.init(details.creator_id, details.owner_id, details.last_owner_id, details.group_id);
 			details.permissions.initMasks(details.base_mask, details.owner_mask, details.everyone_mask, details.group_mask, details.next_owner_mask);
 
-			// Sets the group owned BOOL and real owner id, group or owner depending if object is group owned.
+			// Sets the group owned bool and real owner id, group or owner depending if object is group owned.
 			details.permissions.getOwnership(details.ownership_id, details.group_owned);
 			
 			LL_DEBUGS("FSAreaSearch_spammy") << "Got properties for object: " << object_id << LL_ENDL;

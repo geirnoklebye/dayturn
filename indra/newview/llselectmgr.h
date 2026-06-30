@@ -86,7 +86,7 @@ const S32 SELECT_ALL_TES = -1;
 const S32 SELECT_MAX_TES = 32;
 
 // Do something to all objects in the selection manager.
-// The BOOL return value can be used to indicate if all
+// The bool return value can be used to indicate if all
 // objects are identical (gathering information) or if
 // the operation was successful.
 struct LLSelectedObjectFunctor
@@ -96,7 +96,7 @@ struct LLSelectedObjectFunctor
 };
 
 // Do something to all select nodes in the selection manager.
-// The BOOL return value can be used to indicate if all
+// The bool return value can be used to indicate if all
 // objects are identical (gathering information) or if
 // the operation was successful.
 struct LLSelectedNodeFunctor

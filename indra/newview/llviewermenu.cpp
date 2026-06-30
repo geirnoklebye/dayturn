@@ -4803,7 +4803,7 @@ void handle_deed_object_to_group(void*)
 	LLViewerStats::getInstance()->incStat(LLViewerStats::ST_RELEASE_COUNT);
 }
 
-BOOL enable_deed_object_to_group(void*)
+bool enable_deed_object_to_group(void*)
 {
 	if(LLSelectMgr::getInstance()->getSelection()->isEmpty()) return FALSE;
 	LLPermissions perm;
@@ -5007,7 +5007,7 @@ static bool get_derezzable_objects(
 			LL_WARNS() << "Attempt to derez deprecated AssetContainer object type not supported." << LL_ENDL;
 			/*
 			object->requestInventory(container_inventory_arrived, 
-				(void *)(BOOL)(DRD_TAKE_INTO_AGENT_INVENTORY == dest));
+				(void *)(bool)(DRD_TAKE_INTO_AGENT_INVENTORY == dest));
 			*/
 			continue;
 		}

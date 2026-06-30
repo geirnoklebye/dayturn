@@ -684,12 +684,12 @@ void LLFloaterWorldMap::draw()
 	}
 	
 	// <FS:Ansariel> Performance improvement
-//	getChildView("Teleport")->setEnabled((BOOL)tracking_status);
-//	//	getChildView("Clear")->setEnabled((BOOL)tracking_status);
-//	getChildView("Show Destination")->setEnabled((BOOL)tracking_status || LLWorldMap::getInstance()->isTracking());
+//	getChildView("Teleport")->setEnabled(tracking_status);
+//	//	getChildView("Clear")->setEnabled(tracking_status);
+//	getChildView("Show Destination")->setEnabled(tracking_status || LLWorldMap::getInstance()->isTracking());
 //	getChildView("copy_slurl")->setEnabled((mSLURL.isValid()) );
 	teleport_btn->setEnabled(tracking_status);
-	//clear_btn->setEnabled((BOOL)tracking_status);
+	//clear_btn->setEnabled(tracking_status);
 	show_destination_btn->setEnabled(tracking_status || LLWorldMap::getInstance()->isTracking());
 	copy_slurl_btn->setEnabled((mSLURL.isValid()) );
 	// </FS:Ansariel> Performance improvement

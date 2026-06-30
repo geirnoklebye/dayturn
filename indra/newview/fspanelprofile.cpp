@@ -555,7 +555,7 @@ void FSPanelProfileSecondLife::fillCommonData(const LLAvatarData* avatar_data)
 
 	if (getSelfProfile())
 	{
-		mShowInSearchCheckbox->setValue((BOOL)(avatar_data->flags & AVATAR_ALLOW_PUBLISH));
+		mShowInSearchCheckbox->setValue(avatar_data->flags & AVATAR_ALLOW_PUBLISH);
 	}
 }
 

@@ -149,7 +149,7 @@ public:
 	LLPreviewedFloater*			mDisplayedFloater_2;			// the floater which is currently being displayed
 	LLGUIPreviewLiveFile*		mLiveFile;					// live file for checking for updates to the currently-displayed XML file
 	LLOverlapPanel*				mOverlapPanel;				// custom overlapping elements panel
-	// BOOL						mHighlightingDiffs;			// bool for whether localization diffs are being highlighted or not
+	// bool						mHighlightingDiffs;			// bool for whether localization diffs are being highlighted or not
 	bool						mHighlightingOverlaps;		// bool for whether overlapping elements are being highlighted
 
 	// typedef std::map<std::string,std::pair<std::list<std::string>,std::list<std::string> > > DiffMap; // this version copies the lists etc., and thus is bad memory-wise

@@ -106,7 +106,7 @@ public:
 
 	void			handleScrollWheel(S32 clicks);
 
-	S32			    isToolSelected( S32 index ); // Was BOOL
+	S32			    isToolSelected( S32 index ); // Was bool
 
 	void            setShowFloaterTools(bool pShowFloaterTools) {mIsShowFloaterTools = pShowFloaterTools;};
 	bool            isShowFloaterTools() const                  {return mIsShowFloaterTools;};

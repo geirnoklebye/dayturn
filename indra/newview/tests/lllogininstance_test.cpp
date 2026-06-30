@@ -198,9 +198,9 @@ LLControlGroup gSavedSettings("Global");
 LLControlGroup::LLControlGroup(const std::string& name) :
 	LLInstanceTracker<LLControlGroup, std::string>(name){}
 LLControlGroup::~LLControlGroup() {}
-void LLControlGroup::setBOOL(std::string_view name, BOOL val) {}
+void LLControlGroup::setBOOL(std::string_view name, bool val) {}
 void LLControlGroup::setbool(std::string_view name, bool val) {}
-BOOL LLControlGroup::getBOOL(std::string_view name) { return FALSE; }
+bool LLControlGroup::getBOOL(std::string_view name) { return false; }
 bool LLControlGroup::getbool(std::string_view name) { return false; }
 F32 LLControlGroup::getF32(std::string_view name) { return 0.0f; }
 U32 LLControlGroup::saveToFile(const std::string& filename, bool nondefault_only) { return 1; }

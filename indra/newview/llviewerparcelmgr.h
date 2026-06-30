@@ -248,7 +248,7 @@ public:
 
 	bool	canAgentBuyParcel(LLParcel*, bool forGroup) const;
 	
-//	void	startClaimLand(BOOL is_for_group = FALSE);
+//	void	startClaimLand(bool is_for_group = FALSE);
 	void	startBuyLand(bool is_for_group = false);
 	void	startSellLand();
 	void	startReleaseLand();
@@ -330,7 +330,7 @@ private:
 	static bool callbackDivideLand(const LLSD& notification, const LLSD& response);
 	static bool callbackJoinLand(const LLSD& notification, const LLSD& response);
 
-	//void	finishClaim(BOOL user_to_user_sale, U32 join);
+	//void	finishClaim(bool user_to_user_sale, U32 join);
 	LLViewerTexture* getBlockedImage() const;
 	LLViewerTexture* getPassImage() const;
 

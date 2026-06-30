@@ -2568,7 +2568,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 	if (is_audible)
 	{
-		//BOOL visible_in_chat_bubble = FALSE;
+		//bool visible_in_chat_bubble = FALSE;
 
 		color.setVec(1.f,1.f,1.f,1.f);
 		msg->getStringFast(_PREHASH_ChatData, _PREHASH_Message, mesg);

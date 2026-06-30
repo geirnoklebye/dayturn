@@ -1508,7 +1508,7 @@ EAcceptance LLToolDragAndDrop::willObjectAcceptInventory(LLViewerObject* obj, LL
 		return ACCEPT_NO;
 	}
 	
-	//BOOL copy = (perm.allowCopyBy(gAgent.getID(),
+	//bool copy = (perm.allowCopyBy(gAgent.getID(),
 	//							  gAgent.getGroupID())
 	//			 && (obj->mPermModify || obj->mFlagAllowInventoryAdd));
 	bool worn = false;

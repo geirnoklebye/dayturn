@@ -28,7 +28,7 @@
 
 LLDir::LLDir() {}
 LLDir::~LLDir() {}
-BOOL LLDir::deleteFilesInDir(const std::string &dirname, const std::string &mask) { return true; }
+bool LLDir::deleteFilesInDir(const std::string &dirname, const std::string &mask) { return true; }
 void LLDir::setChatLogsDir(const std::string &path) {}
 void LLDir::setPerAccountChatLogsDir(const std::string &first, const std::string &last) {}
 void LLDir::setLindenUserDir(const std::string &first, const std::string &last) {}
@@ -46,7 +46,7 @@ public:
 
 	/*virtual*/ std::string getCurPath() { return "CUR_PATH_FROM_LLDIR"; }
 	/*virtual*/ U32 countFilesInDir(const std::string &dirname, const std::string &mask) { return 42; }
-	/*virtual*/ BOOL getNextFileInDir(const std::string &dirname, const std::string &mask, std::string &fname, BOOL wrap) { fname = fname + "_NEXT"; return false; }
+	/*virtual*/ bool getNextFileInDir(const std::string &dirname, const std::string &mask, std::string &fname, bool wrap) { fname = fname + "_NEXT"; return false; }
 	/*virtual*/ void getRandomFileInDir(const std::string &dirname, const std::string &mask, std::string &fname) { fname = "RANDOM_FILE"; }
 	/*virtual*/ bool fileExists(const std::string &filename) const { return false; }
 };

@@ -5991,7 +5991,7 @@ void LLSelectMgr::updateSilhouettes()
 		num_sils_genned	= 0;
 
 		// render silhouettes for highlighted objects
-		//BOOL subtracting_from_selection = (gKeyboard->currentMask(true) == MASK_CONTROL);
+		//bool subtracting_from_selection = (gKeyboard->currentMask(true) == MASK_CONTROL);
 		for (S32 pass = 0; pass < 2; pass++)
 		{
 			for (LLObjectSelection::iterator iter = mHighlightedObjects->begin();

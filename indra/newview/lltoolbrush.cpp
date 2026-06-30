@@ -122,7 +122,7 @@ void LLToolBrushLand::modifyLandAtPointGlobal(const LLVector3d &pos_global,
 		iter != mLastAffectedRegions.end(); ++iter)
 	{
 		LLViewerRegion* regionp = *iter;
-		//BOOL is_changed = FALSE;
+		//bool is_changed = FALSE;
 		LLVector3 pos_region = regionp->getPosRegionFromGlobal(pos_global);
 		LLSurface &land = regionp->getLand();
 		char action = E_LAND_LEVEL;
@@ -249,7 +249,7 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 		iter != mLastAffectedRegions.end(); ++iter)
 	{
 		LLViewerRegion* regionp = *iter;
-		//BOOL is_changed = FALSE;
+		//bool is_changed = FALSE;
 		LLVector3 min_region = regionp->getPosRegionFromGlobal(min);
 		LLVector3 max_region = regionp->getPosRegionFromGlobal(max);
 	

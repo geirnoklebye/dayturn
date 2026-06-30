@@ -27,11 +27,11 @@
 class LLSky
 {
 public:
-	void setOverrideSun(BOOL override);
+	void setOverrideSun(bool override);
 	void setSunDirection(const LLVector3 &sun_direction, const LLVector3 &sun_ang_velocity);
 };
 
-void LLSky::setOverrideSun(BOOL override) {}
+void LLSky::setOverrideSun(bool override) {}
 void LLSky::setSunDirection(const LLVector3 &sun_direction, const LLVector3 &sun_ang_velocity) {}
 
 LLSky gSky;

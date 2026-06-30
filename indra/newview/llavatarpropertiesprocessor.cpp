@@ -235,7 +235,7 @@ std::string LLAvatarPropertiesProcessor::paymentInfo(const LLAvatarData* avatar_
 	bool transacted = (avatar_data->flags & AVATAR_TRANSACTED);
 	bool identified = (avatar_data->flags & AVATAR_IDENTIFIED);
 	// Not currently getting set in dataserver/lldataavatar.cpp for privacy considerations
-	//BOOL age_verified = (avatar_data->flags & AVATAR_AGEVERIFIED); 
+	//bool age_verified = (avatar_data->flags & AVATAR_AGEVERIFIED); 
 
 	const char* payment_text;
 	if(transacted)

@@ -356,7 +356,7 @@ void LLPanelGroupNotices::activate()
 //{
 //	mInventoryItem = inv_item;
 //
-////	BOOL item_is_multi = FALSE;
+////	bool item_is_multi = FALSE;
 ////	if ( inv_item->getFlags() & LLInventoryItemFlags::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
 ////	{
 ////		item_is_multi = TRUE;

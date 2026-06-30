@@ -136,7 +136,7 @@ public:
 	LLDrawable*			getParent() const			{ return mParent; }
 	
 	// must set parent through LLViewerObject::		()
-	//BOOL                setParent(LLDrawable *parent);
+	//bool                setParent(LLDrawable *parent);
 	
 	inline LLFace*      getFace(const S32 i) const;
 	inline S32			getNumFaces()      	 const;

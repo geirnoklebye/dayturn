@@ -689,7 +689,7 @@ void LLPanelPermissions::refresh()
 	bool valid_base_perms 		= LLSelectMgr::getInstance()->selectGetPerm(PERM_BASE,
 																			&base_mask_on,
 																			&base_mask_off);
-	//BOOL valid_owner_perms =//
+	//bool valid_owner_perms =//
 	LLSelectMgr::getInstance()->selectGetPerm(PERM_OWNER,
 											  &owner_mask_on,
 											  &owner_mask_off);

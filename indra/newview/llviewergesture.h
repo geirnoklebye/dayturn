@@ -65,7 +65,7 @@ public:
 	//void requestFromServer();
 	bool getIsLoaded() { return mIsLoaded; }
 
-	//void requestResetFromServer( BOOL is_male );
+	//void requestResetFromServer( bool is_male );
 
 	// See if the prefix matches any gesture.  If so, return TRUE
 	// and place the full text of the gesture trigger into

@@ -502,7 +502,7 @@ void audio_update_volume(bool force_update)
 
 		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
 		//F32 music_volume = gSavedSettings.getF32("AudioLevelMusic");
-		//BOOL music_muted = gSavedSettings.getBOOL("MuteMusic");
+		//bool music_muted = gSavedSettings.getBOOL("MuteMusic");
 
 		static LLCachedControl<F32> audioLevelMusic(gSavedSettings, "AudioLevelMusic", 0.5f);
 		static LLCachedControl<bool> muteMusic(gSavedSettings, "MuteMusic", false);
@@ -518,7 +518,7 @@ void audio_update_volume(bool force_update)
 	// Streaming Media
 	// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
 	//F32 media_volume = gSavedSettings.getF32("AudioLevelMedia");
-	//BOOL media_muted = gSavedSettings.getBOOL("MuteMedia");
+	//bool media_muted = gSavedSettings.getBOOL("MuteMedia");
 
 	static LLCachedControl<F32> audioLevelMedia(gSavedSettings, "AudioLevelMedia", 0.5f);
 	static LLCachedControl<bool> muteMedia(gSavedSettings, "MuteMedia", false);
@@ -538,7 +538,7 @@ void audio_update_volume(bool force_update)
 		// </FS:Ansariel>
 		voice_volume = mute_volume * master_volume * voice_volume;
 		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//BOOL voice_mute = gSavedSettings.getBOOL("MuteVoice");
+		//bool voice_mute = gSavedSettings.getBOOL("MuteVoice");
 		static LLCachedControl<bool> muteVoice(gSavedSettings, "MuteVoice", false);
 		bool voice_mute = muteVoice;
 		// </FS:Ansariel>

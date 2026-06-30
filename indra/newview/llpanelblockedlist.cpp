@@ -181,7 +181,7 @@
 //	}
 //}
 
-//BOOL LLPanelBlockedList::isActionChecked(const LLSD& userdata)
+//bool LLPanelBlockedList::isActionChecked(const LLSD& userdata)
 //{
 //	std::string item = userdata.asString();
 //	U32 sort_order = gSavedSettings.getU32("BlockPeopleSortOrder");
@@ -243,7 +243,7 @@
 //	if (text.empty()) return;
 //
 //	LLMute mute(LLUUID::null, text, LLMute::BY_NAME);
-//	BOOL success = LLMuteList::getInstance()->add(mute);
+//	bool success = LLMuteList::getInstance()->add(mute);
 //	if (!success)
 //	{
 //		LLNotificationsUtil::add("MuteByNameFailed");

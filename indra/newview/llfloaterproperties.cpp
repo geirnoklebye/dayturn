@@ -357,11 +357,11 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 
 	getChildView("OwnerLabel")->setEnabled(true);
 	getChildView("CheckOwnerModify")->setEnabled(false);
-	getChild<LLUICtrl>("CheckOwnerModify")->setValue(LLSD((BOOL)(owner_mask & PERM_MODIFY)));
+	getChild<LLUICtrl>("CheckOwnerModify")->setValue(LLSD(owner_mask & PERM_MODIFY));
 	getChildView("CheckOwnerCopy")->setEnabled(false);
-	getChild<LLUICtrl>("CheckOwnerCopy")->setValue(LLSD((BOOL)(owner_mask & PERM_COPY)));
+	getChild<LLUICtrl>("CheckOwnerCopy")->setValue(LLSD(owner_mask & PERM_COPY));
 	getChildView("CheckOwnerTransfer")->setEnabled(false);
-	getChild<LLUICtrl>("CheckOwnerTransfer")->setValue(LLSD((BOOL)(owner_mask & PERM_TRANSFER)));
+	getChild<LLUICtrl>("CheckOwnerTransfer")->setValue(LLSD(owner_mask & PERM_TRANSFER));
 
 	///////////////////////
 	// DEBUG PERMISSIONS //
@@ -475,7 +475,7 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 		}
 	}
 	
-	getChild<LLUICtrl>("CheckEveryoneCopy")->setValue(LLSD((BOOL)(everyone_mask & PERM_COPY)));
+	getChild<LLUICtrl>("CheckEveryoneCopy")->setValue(LLSD(everyone_mask & PERM_COPY));
 
 	///////////////
 	// SALE INFO //
@@ -515,9 +515,9 @@ void LLFloaterProperties::refreshFromItem(LLInventoryItem* item)
 
 	// Set values.
 	getChild<LLUICtrl>("CheckPurchase")->setValue(is_for_sale);
-	getChild<LLUICtrl>("CheckNextOwnerModify")->setValue(LLSD(BOOL(next_owner_mask & PERM_MODIFY)));
-	getChild<LLUICtrl>("CheckNextOwnerCopy")->setValue(LLSD(BOOL(next_owner_mask & PERM_COPY)));
-	getChild<LLUICtrl>("CheckNextOwnerTransfer")->setValue(LLSD(BOOL(next_owner_mask & PERM_TRANSFER)));
+	getChild<LLUICtrl>("CheckNextOwnerModify")->setValue(LLSD(next_owner_mask & PERM_MODIFY));
+	getChild<LLUICtrl>("CheckNextOwnerCopy")->setValue(LLSD(next_owner_mask & PERM_COPY));
+	getChild<LLUICtrl>("CheckNextOwnerTransfer")->setValue(LLSD(next_owner_mask & PERM_TRANSFER));
 
 	if (is_for_sale)
 	{
@@ -750,10 +750,10 @@ void LLFloaterProperties::updateSaleInfo()
 	LLSaleInfo sale_info(item->getSaleInfo());
 	if(!gAgent.allowOperation(PERM_TRANSFER, item->getPermissions(), GP_OBJECT_SET_SALE))
 	{
-		getChild<LLUICtrl>("CheckPurchase")->setValue(LLSD((BOOL)FALSE));
+		getChild<LLUICtrl>("CheckPurchase")->setValue(LLSD(false));
 	}
 
-	if((BOOL)getChild<LLUICtrl>("CheckPurchase")->getValue())
+	if(getChild<LLUICtrl>("CheckPurchase")->getValue())
 	{
 		// turn on sale info
 		LLSaleInfo::EForSale sale_type = LLSaleInfo::FS_COPY;
