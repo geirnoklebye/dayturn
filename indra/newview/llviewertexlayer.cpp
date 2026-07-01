@@ -206,11 +206,11 @@ void LLViewerTexLayerSetBuffer::midRenderTexLayerSet(bool success, LLRenderTarge
 			if (layer_set->isVisible())
 			{
 				//<FS:Beq> OpenSim BOM fallback
-				// layer_set->getAvatar()->debugBakedTextureUpload(layer_set->getBakedTexIndex(), FALSE); // FALSE for start of upload, TRUE for finish.
+				// layer_set->getAvatar()->debugBakedTextureUpload(layer_set->getBakedTexIndex(), false); // false for start of upload, true for finish.
 				auto bakedTexIdx = layer_set->getBakedTexIndex();
 				if(bakedTexIdx <= LLVOAvatar::sMaxBakes)
 				{
-					layer_set->getAvatar()->debugBakedTextureUpload(bakedTexIdx, false); // FALSE for start of upload, TRUE for finish.
+					layer_set->getAvatar()->debugBakedTextureUpload(bakedTexIdx, false); // false for start of upload, true for finish.
 					doUpload(bound_target);
 				}
 				else

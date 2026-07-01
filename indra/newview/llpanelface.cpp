@@ -1678,7 +1678,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 		{
 			texture_ctrl->setImageAssetID( LLUUID::null );
 			texture_ctrl->setEnabled(false);  // this is a LLUICtrl, but we don't want it to have keyboard focus so we add it as a child, not a ctrl.
-// 			texture_ctrl->setValid(FALSE);
+// 			texture_ctrl->setValid(false);
 		}
 		LLColorSwatchCtrl* mColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(mColorSwatch)
@@ -2118,7 +2118,7 @@ void LLPanelFace::updateMediaSettings()
 
     // Auto play
     //value_bool = default_media_data.getAutoPlay();
-    // set default to auto play TRUE -- angela  EXT-5172
+    // set default to auto play true -- angela  EXT-5172
     value_bool = true;
     struct functor_getter_auto_play : public LLSelectedTEGetFunctor< bool >
     {
@@ -2130,7 +2130,7 @@ void LLPanelFace::updateMediaSettings()
                 if (object->getTE(face))
                     if (object->getTE(face)->getMediaData())
                         return object->getTE(face)->getMediaData()->getAutoPlay();
-            //return mMediaEntry.getAutoPlay(); set default to auto play TRUE -- angela  EXT-5172
+            //return mMediaEntry.getAutoPlay(); set default to auto play true -- angela  EXT-5172
             return true;
         };
 
@@ -2144,7 +2144,7 @@ void LLPanelFace::updateMediaSettings()
 
 
     // Auto scale
-    // set default to auto scale TRUE -- angela  EXT-5172
+    // set default to auto scale true -- angela  EXT-5172
     //value_bool = default_media_data.getAutoScale();
     value_bool = true;
     struct functor_getter_auto_scale : public LLSelectedTEGetFunctor< bool >
@@ -2157,7 +2157,7 @@ void LLPanelFace::updateMediaSettings()
                 if (object->getTE(face))
                     if (object->getTE(face)->getMediaData())
                         return object->getTE(face)->getMediaData()->getAutoScale();
-            // return mMediaEntry.getAutoScale();  set default to auto scale TRUE -- angela  EXT-5172
+            // return mMediaEntry.getAutoScale();  set default to auto scale true -- angela  EXT-5172
             return true;
         };
 

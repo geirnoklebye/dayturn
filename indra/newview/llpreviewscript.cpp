@@ -2634,7 +2634,7 @@ void LLLiveLSLEditor::onSaveBytecodeComplete(const LLUUID& asset_uuid, void* use
 			object->saveScript(data->mItem, data->mActive, false);
 			dialog_refresh_all();
 			//LLToolDragAndDrop::dropScript(object, ids->first,
-			//						  LLAssetType::AT_LSL_TEXT, FALSE);
+			//						  LLAssetType::AT_LSL_TEXT, false);
 		}
 	}
 	else

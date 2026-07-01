@@ -67,7 +67,7 @@ public:
 
 	//void requestResetFromServer( bool is_male );
 
-	// See if the prefix matches any gesture.  If so, return TRUE
+	// See if the prefix matches any gesture.  If so, return true
 	// and place the full text of the gesture trigger into
 	// output_str
 	bool matchPrefix(const std::string& in_str, std::string* out_str);

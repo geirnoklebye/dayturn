@@ -1063,7 +1063,7 @@ bool LLOcclusionCullingGroup::earlyFail(LLCamera* camera, const LLVector4a* boun
 
 	/*if (r.magVecSquared() > 1024.0*1024.0)
 	{
-		return TRUE;
+		return true;
 	}*/
 
 	LLVector4a e;

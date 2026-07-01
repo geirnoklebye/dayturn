@@ -248,7 +248,7 @@ public:
 
 	bool	canAgentBuyParcel(LLParcel*, bool forGroup) const;
 	
-//	void	startClaimLand(bool is_for_group = FALSE);
+//	void	startClaimLand(bool is_for_group = false);
 	void	startBuyLand(bool is_for_group = false);
 	void	startSellLand();
 	void	startReleaseLand();

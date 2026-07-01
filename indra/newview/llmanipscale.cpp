@@ -956,7 +956,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 
 	LLVector3d drag_global = uniform ? mDragStartCenterGlobal : mDragFarHitGlobal;
 
-	// do the root objects i.e. (TRUE == cur->isRootEdit())
+	// do the root objects i.e. (true == cur->isRootEdit())
 	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
 		 iter != mObjectSelection->end(); iter++)
 	{

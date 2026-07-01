@@ -92,8 +92,8 @@ public:
 
 	static S32 getOperationId() { return sOperationId; }
 
-	// deal with permissions of object, etc. returns TRUE if drop can
-	// proceed, otherwise FALSE.
+	// deal with permissions of object, etc. returns true if drop can
+	// proceed, otherwise false.
 	static bool handleDropTextureProtections(LLViewerObject* hit_obj,
 						 LLInventoryItem* item,
 						 LLToolDragAndDrop::ESource source,
@@ -155,7 +155,7 @@ protected:
 
 protected:
 	// 3d drop functions. these call down into the static functions
-	// named drop<ThingToDrop> if drop is TRUE and permissions allow
+	// named drop<ThingToDrop> if drop is true and permissions allow
 	// that behavior.
 	EAcceptance dad3dNULL(LLViewerObject*, S32, MASK, bool);
 	EAcceptance dad3dRezObjectOnLand(LLViewerObject* obj, S32 face,

@@ -125,7 +125,7 @@ private:
 	// Called by UI methods.
 	void sendMsg();
 
-	// for adding agents via the UI. Return TRUE if possible, do it if 
+	// for adding agents via the UI. Return true if possible, do it if 
 	bool dropCallingCard(LLInventoryItem* item, bool drop);
 	bool dropCategory(LLInventoryCategory* category, bool drop);
 

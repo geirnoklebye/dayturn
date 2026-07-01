@@ -813,7 +813,7 @@ static void on_avatar_name_cache_notify(const LLUUID& agent_id,
 		notification =
 			LLNotifications::instance().add("FriendOnlineOffline",
 									 args,
-									 payload.with("respond_on_mousedown", TRUE),
+									 payload.with("respond_on_mousedown", true),
 									 boost::bind(&LLAvatarActions::startIM, agent_id));
 	}
 	else

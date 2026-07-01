@@ -216,7 +216,7 @@ void LLFloaterEditSky::syncControls()
 // LLSettingsSky::azimalt_t azal = psky->getSunRotationAzAl();
 // 
 // 	F32 time24 = sun_pos_to_time24(azal.second / F_TWO_PI);
-// 	getChild<LLMultiSliderCtrl>("WLSunPos")->setCurSliderValue(time24, TRUE);
+// 	getChild<LLMultiSliderCtrl>("WLSunPos")->setCurSliderValue(time24, true);
 // 	getChild<LLTimeCtrl>("WLDayTime")->setTime24(time24);
 // 	childSetValue("WLEastAngle", azal.first / F_TWO_PI);
     getChild<LLJoystickQuaternion>("WLSunRotation")->setRotation(psky->getSunRotation());

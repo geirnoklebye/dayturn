@@ -1153,7 +1153,7 @@ void LLManipRotate::renderSnapGuides()
 	}
 }
 
-// Returns TRUE if center of sphere is visible.  Also sets a bunch of member variables that are used later (e.g. mCenterToCam)
+// Returns true if center of sphere is visible.  Also sets a bunch of member variables that are used later (e.g. mCenterToCam)
 bool LLManipRotate::updateVisiblity()
 {
 	// Don't want to recalculate the center of the selection during a drag.

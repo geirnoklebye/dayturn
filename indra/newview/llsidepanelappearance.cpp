@@ -262,7 +262,7 @@ void LLSidepanelAppearance::onOpenOutfitButtonClicked()
 	LLAccordionCtrlTab* tab_outfits = mPanelOutfitsInventory->findChild<LLAccordionCtrlTab>("tab_outfits");
 	if (tab_outfits)
 	{
-		tab_outfits->changeOpenClose(FALSE);
+		tab_outfits->changeOpenClose(false);
 		LLInventoryPanel *inventory_panel = tab_outfits->findChild<LLInventoryPanel>("outfitslist_tab");
 		if (inventory_panel)
 		{

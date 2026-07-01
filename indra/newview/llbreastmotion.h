@@ -91,7 +91,7 @@ public:
 	virtual LLMotionInitStatus onInitialize(LLCharacter *character);
 
 	// called when a motion is activated
-	// must return TRUE to indicate success, or else
+	// must return true to indicate success, or else
 	// it will be deactivated
 	virtual bool onActivate();
 

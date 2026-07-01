@@ -805,7 +805,7 @@ void LLSurface::decompressDCTPatch(LLBitPack &bitpack, LLGroupHeader *gopp, bool
 }
 
 
-// Retrurns TRUE if "position" is within the bounds of surface.
+// Retrurns true if "position" is within the bounds of surface.
 // "position" is region-local
 bool LLSurface::containsPosition(const LLVector3 &position)
 {

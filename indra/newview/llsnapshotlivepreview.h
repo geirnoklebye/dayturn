@@ -121,7 +121,7 @@ public:
 	S32  getBigThumbnailWidth() const { return mBigThumbnailWidth ; }
 	S32  getBigThumbnailHeight() const { return mBigThumbnailHeight ; }
 
-	// Returns true when snapshot generated, FALSE otherwise.
+	// Returns true when snapshot generated, false otherwise.
 	static bool onIdle( void* snapshot_preview );
 
 private:

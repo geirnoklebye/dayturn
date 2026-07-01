@@ -943,7 +943,7 @@ void LLPanelLogin::loadLoginPage()
 	// First Login?
 	if (gSavedSettings.getbool("FirstLoginThisInstall"))
 	{
-		params["firstlogin"] = "TRUE"; // not bool: server expects string TRUE
+		params["firstlogin"] = "true"; // not bool: server expects string true
 	}
 
 	// Channel and Version
@@ -1314,7 +1314,7 @@ void LLPanelLogin::populateUserList(LLPointer<LLCredential> credential)
             if (cr_iter->second.notNull()) // basic safety in case of future changes
             {
                 // cr_iter->first == user_id , to be able to be find it in case we select it
-                user_combo->add(LLPanelLogin::getUserName(cr_iter->second), cr_iter->first, ADD_BOTTOM, TRUE);
+                user_combo->add(LLPanelLogin::getUserName(cr_iter->second), cr_iter->first, ADD_BOTTOM, true);
             }
             cr_iter++;
         }

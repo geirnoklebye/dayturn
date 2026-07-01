@@ -354,8 +354,8 @@ bool LLTracker::handleMouseDown(S32 x, S32 y)
 		// turn off tracking
 		if (gAgent.getAutoPilot())
 		{
-			gAgent.stopAutoPilot(TRUE);	// TRUE because cancelled by user
-			eat_mouse_click = TRUE;
+			gAgent.stopAutoPilot(true);	// true because cancelled by user
+			eat_mouse_click = true;
 		}
 		*/
 		if (getTrackingStatus())

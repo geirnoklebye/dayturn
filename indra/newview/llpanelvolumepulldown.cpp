@@ -87,7 +87,7 @@ void LLPanelVolumePulldown::setControlFalse(const LLSD& user_data)
 	LLControlVariable* control = findControl(control_name);
 	
 	if (control)
-		control->set(LLSD(FALSE));
+		control->set(LLSD(false));
 }
 
 void LLPanelVolumePulldown::updateCheckbox(LLUICtrl* ctrl, const LLSD& user_data)

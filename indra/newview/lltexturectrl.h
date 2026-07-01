@@ -191,10 +191,10 @@ public:
 	void			onFloaterCommit(ETexturePickOp op, LLUUID id);
 
 	// This call is returned when a drag is detected. Your callback
-	// should return TRUE if the drag is acceptable.
+	// should return true if the drag is acceptable.
 	void setDragCallback(drag_n_drop_callback cb)	{ mDragCallback = cb; }
 
-	// This callback is called when the drop happens. Return TRUE if
+	// This callback is called when the drop happens. Return true if
 	// the drop happened - resulting in an on commit callback, but not
 	// necessariliy any other change.
 	void setDropCallback(drag_n_drop_callback cb)	{ mDropCallback = cb; }

@@ -58,7 +58,7 @@ public:
 		S32 status,
 		LLExtStat ext_status );
 
-	// Returns TRUE if loading the landmark with given asset_uuid has been requested
+	// Returns true if loading the landmark with given asset_uuid has been requested
 	// but is not complete yet.
 	bool isAssetInLoadedCallbackMap(const LLUUID& asset_uuid);
 

@@ -292,7 +292,7 @@ public:
 			//	chat.mText = message;
 			//	chat.mSourceType = CHAT_SOURCE_SYSTEM;
 
-			//	chat_floater->addChat(chat, FALSE, FALSE);
+			//	chat_floater->addChat(chat, false, false);
 			//}
 		//}
 	}
@@ -4797,8 +4797,8 @@ void renderOnePhysicsShape(LLViewerObject* objectp)
 // Draws the selection outlines for the currently selected objects
 // Must be called after displayObjects is called, which sets the mGLName parameter
 // NOTE: This function gets called 3 times:
-//  render_ui_3d: 			FALSE, FALSE, TRUE
-//  render_hud_elements:	FALSE, FALSE, FALSE
+//  render_ui_3d: 			false, false, true
+//  render_hud_elements:	false, false, false
 void LLViewerWindow::renderSelections( bool for_gl_pick, bool pick_parcel_walls, bool for_hud )
 {
 	LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
@@ -5914,7 +5914,7 @@ bool LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 				if (!LLPipeline::sRenderDeferred)
 				{
 					// Required for showing the GUI in snapshots and performing bloom composite overlay
-					// Call even if show_ui is FALSE
+					// Call even if show_ui is false
 					render_ui(scale_factor, subfield);
 					swap();
 				}
@@ -6099,7 +6099,7 @@ bool LLViewerWindow::simpleSnapshot(LLImageRaw* raw, S32 image_width, S32 image_
         // the black flash in between captures when the number
         // of render passes is more than 1. We need to also
         // set it here because code in LLViewerDisplay resets
-        // it to TRUE each time.
+        // it to true each time.
         gDisplaySwapBuffers = false;
 
         // actually render the scene

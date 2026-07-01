@@ -98,7 +98,7 @@ bool LLSetKeyBindDialog::postBuild()
     pCheckBox = getChild<LLCheckBoxCtrl>("apply_all");
     pDescription = getChild<LLTextBase>("description");
 
-    gFocusMgr.setKeystrokesOnly(TRUE);
+    gFocusMgr.setKeystrokesOnly(true);
 
     return true;
 }

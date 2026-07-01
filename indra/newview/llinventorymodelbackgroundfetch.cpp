@@ -439,8 +439,8 @@ void LLInventoryModelBackgroundFetch::bulkFetch()
 				folder_sd["folder_id"]		= LLUUID::null.asString();
 				folder_sd["owner_id"]		= gAgent.getID();
 				folder_sd["sort_order"]		= LLSD::Integer(sort_order);
-				folder_sd["fetch_folders"]	= LLSD::Boolean(FALSE);
-				folder_sd["fetch_items"]	= LLSD::Boolean(TRUE);
+				folder_sd["fetch_folders"]	= LLSD::Boolean(false);
+				folder_sd["fetch_items"]	= LLSD::Boolean(true);
 				folder_request_body["folders"].append(folder_sd);
 				folder_count++;
 			}
@@ -457,8 +457,8 @@ void LLInventoryModelBackgroundFetch::bulkFetch()
 						folder_sd["folder_id"]		= cat->getUUID();
 						folder_sd["owner_id"]		= cat->getOwnerID();
 						folder_sd["sort_order"]		= LLSD::Integer(sort_order);
-						folder_sd["fetch_folders"]	= LLSD::Boolean(TRUE); //(LLSD::Boolean)sFullFetchStarted;
-						folder_sd["fetch_items"]	= LLSD::Boolean(TRUE);
+						folder_sd["fetch_folders"]	= LLSD::Boolean(true); //(LLSD::Boolean)sFullFetchStarted;
+						folder_sd["fetch_items"]	= LLSD::Boolean(true);
 				    
 						if (ALEXANDRIA_LINDEN_ID == cat->getOwnerID())
 						{

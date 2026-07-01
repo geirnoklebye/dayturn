@@ -134,12 +134,12 @@ void LLViewerTextureList::doPreloadImages()
 	image_list->initFromFile();
 	
 	// turn off clamping and bilinear filtering for uv picking images
-	//LLViewerFetchedTexture* uv_test = preloadUIImage("uv_test1.tga", LLUUID::null, FALSE);
-	//uv_test->setClamp(FALSE, FALSE);
-	//uv_test->setMipFilterNearest(TRUE, TRUE);
-	//uv_test = preloadUIImage("uv_test2.tga", LLUUID::null, FALSE);
-	//uv_test->setClamp(FALSE, FALSE);
-	//uv_test->setMipFilterNearest(TRUE, TRUE);
+	//LLViewerFetchedTexture* uv_test = preloadUIImage("uv_test1.tga", LLUUID::null, false);
+	//uv_test->setClamp(false, false);
+	//uv_test->setMipFilterNearest(true, true);
+	//uv_test = preloadUIImage("uv_test2.tga", LLUUID::null, false);
+	//uv_test->setClamp(false, false);
+	//uv_test->setMipFilterNearest(true, true);
 
 	LLViewerFetchedTexture* image = LLViewerTextureManager::getFetchedTextureFromFile("silhouette.j2c", FTT_LOCAL_FILE, MIPMAP_YES, LLViewerFetchedTexture::BOOST_UI);
 	if (image) 
@@ -227,7 +227,7 @@ void LLViewerTextureList::doPrefetchImages()
 
     LLViewerTextureManager::getFetchedTexture(IMG_SHOT);
     LLViewerTextureManager::getFetchedTexture(IMG_SMOKE_POOF);
-    LLViewerFetchedTexture::sSmokeImagep = LLViewerTextureManager::getFetchedTexture(IMG_SMOKE, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
+    LLViewerFetchedTexture::sSmokeImagep = LLViewerTextureManager::getFetchedTexture(IMG_SMOKE, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
     LLViewerFetchedTexture::sSmokeImagep->setNoDelete();
 
     LLStandardBumpmap::addstandard();
@@ -1331,7 +1331,7 @@ LLPointer<LLImageJ2C> LLViewerTextureList::convertToUploadFile(LLPointer<LLImage
 	
 	if (gSavedSettings.getbool("LosslessJ2CUpload") &&
 		(raw_image->getWidth() * raw_image->getHeight() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF * LL_IMAGE_REZ_LOSSLESS_CUTOFF))
-		compressedImage->setReversible(TRUE);
+		compressedImage->setReversible(true);
 	
 
 	if (gSavedSettings.getbool("Jpeg2000AdvancedCompression"))

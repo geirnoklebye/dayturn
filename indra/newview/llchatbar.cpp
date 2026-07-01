@@ -416,8 +416,8 @@ void LLChatBar::startChat(const char* line)
 	// *TODO Vadim: Why was this code commented out?
 
 // 	gChatBar->setVisible(true);
-// 	gChatBar->setKeyboardFocus(TRUE);
-// 	gSavedSettings.setBOOL("ChatVisible", TRUE);
+// 	gChatBar->setKeyboardFocus(true);
+// 	gSavedSettings.setbool("ChatVisible", true);
 // 
 // 	if (line && gChatBar->mInputEditor)
 // 	{
@@ -455,7 +455,7 @@ void LLChatBar::stopChat()
 // 
 // 	// hide chat bar so it doesn't grab focus back
 // 	gChatBar->setVisible(false);
-// 	gSavedSettings.setBOOL("ChatVisible", FALSE);
+// 	gSavedSettings.setbool("ChatVisible", false);
 }
 
 // static

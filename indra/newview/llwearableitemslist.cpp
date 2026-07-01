@@ -492,7 +492,7 @@ bool LLPanelDummyClothingListItem::postBuild()
 {
 	addWidgetToRightSide("btn_add_panel");
 
-	setIconImage(LLInventoryIcon::getIcon(LLAssetType::AT_CLOTHING, LLInventoryType::IT_NONE, mWearableType, FALSE));
+	setIconImage(LLInventoryIcon::getIcon(LLAssetType::AT_CLOTHING, LLInventoryType::IT_NONE, mWearableType, false));
 	updateItem(wearableTypeToString(mWearableType));
 
 	// Make it look loke clothing item - reserve space for 'delete' button
@@ -1042,8 +1042,8 @@ void LLWearableItemsList::ContextMenu::updateItemsVisibility(LLContextMenu* menu
 	setMenuItemEnabled(menu, "take_off_or_detach",	n_worn == n_items);
 	setMenuItemVisible(menu, "object_profile",		!standalone);
 	setMenuItemEnabled(menu, "object_profile",		n_items == 1);
-	setMenuItemVisible(menu, "--no options--", 		FALSE);
-	setMenuItemEnabled(menu, "--no options--",		FALSE);
+	setMenuItemVisible(menu, "--no options--", 		false);
+	setMenuItemEnabled(menu, "--no options--",		false);
 
 	// Populate or hide the "Attach to..." / "Attach to HUD..." submenus.
 	if (mask == MASK_ATTACHMENT && n_worn == 0)
@@ -1072,7 +1072,7 @@ void LLWearableItemsList::ContextMenu::updateItemsVisibility(LLContextMenu* menu
 	}
 	if (num_visible_items == 0)
 	{
-		setMenuItemVisible(menu, "--no options--", TRUE);
+		setMenuItemVisible(menu, "--no options--", true);
 	}
 }
 

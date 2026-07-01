@@ -899,7 +899,7 @@ bool LLFloaterColorPicker::handleHover ( S32 x, S32 y, MASK mask )
 				clamped_y = llclamp(y, mLumRegionTop - mLumRegionHeight, mLumRegionTop);
 			}
 
-			// update the stored RGB/HSL values using the mouse position - returns TRUE if RGB was updated
+			// update the stored RGB/HSL values using the mouse position - returns true if RGB was updated
 			if ( updateRgbHslFromPoint ( clamped_x, clamped_y ) )
 			{
 				// update text entry fields

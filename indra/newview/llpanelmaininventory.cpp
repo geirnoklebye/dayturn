@@ -177,7 +177,7 @@ bool LLPanelMainInventory::postBuild()
 	if (recent_items_panel)
 	{
 		// assign default values until we will be sure that we have setting to restore
-		recent_items_panel->setSinceLogoff(TRUE);
+		recent_items_panel->setSinceLogoff(true);
 		recent_items_panel->setSortOrder(LLInventoryFilter::SO_DATE);
 		recent_items_panel->setShowFolderState(LLInventoryFilter::SHOW_NON_EMPTY_FOLDERS);
 		LLInventoryFilter& recent_filter = recent_items_panel->getFilter();
@@ -1219,18 +1219,18 @@ void LLFloaterInventoryFinder::selectAllTypes(void* user_data)
 	LLFloaterInventoryFinder* self = (LLFloaterInventoryFinder*)user_data;
 	if(!self) return;
 
-	self->getChild<LLUICtrl>("check_animation")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_calling_card")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_clothing")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_gesture")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_landmark")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_notecard")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_object")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_script")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_sound")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_texture")->setValue(TRUE);
-	self->getChild<LLUICtrl>("check_snapshot")->setValue(TRUE);
-    self->getChild<LLUICtrl>("check_settings")->setValue(TRUE);
+	self->getChild<LLUICtrl>("check_animation")->setValue(true);
+	self->getChild<LLUICtrl>("check_calling_card")->setValue(true);
+	self->getChild<LLUICtrl>("check_clothing")->setValue(true);
+	self->getChild<LLUICtrl>("check_gesture")->setValue(true);
+	self->getChild<LLUICtrl>("check_landmark")->setValue(true);
+	self->getChild<LLUICtrl>("check_notecard")->setValue(true);
+	self->getChild<LLUICtrl>("check_object")->setValue(true);
+	self->getChild<LLUICtrl>("check_script")->setValue(true);
+	self->getChild<LLUICtrl>("check_sound")->setValue(true);
+	self->getChild<LLUICtrl>("check_texture")->setValue(true);
+	self->getChild<LLUICtrl>("check_snapshot")->setValue(true);
+    self->getChild<LLUICtrl>("check_settings")->setValue(true);
 }
 
 //static
@@ -1239,18 +1239,18 @@ void LLFloaterInventoryFinder::selectNoTypes(void* user_data)
 	LLFloaterInventoryFinder* self = (LLFloaterInventoryFinder*)user_data;
 	if(!self) return;
 
-	self->getChild<LLUICtrl>("check_animation")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_calling_card")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_clothing")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_gesture")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_landmark")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_notecard")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_object")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_script")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_sound")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_texture")->setValue(FALSE);
-	self->getChild<LLUICtrl>("check_snapshot")->setValue(FALSE);
-    self->getChild<LLUICtrl>("check_settings")->setValue(FALSE);
+	self->getChild<LLUICtrl>("check_animation")->setValue(false);
+	self->getChild<LLUICtrl>("check_calling_card")->setValue(false);
+	self->getChild<LLUICtrl>("check_clothing")->setValue(false);
+	self->getChild<LLUICtrl>("check_gesture")->setValue(false);
+	self->getChild<LLUICtrl>("check_landmark")->setValue(false);
+	self->getChild<LLUICtrl>("check_notecard")->setValue(false);
+	self->getChild<LLUICtrl>("check_object")->setValue(false);
+	self->getChild<LLUICtrl>("check_script")->setValue(false);
+	self->getChild<LLUICtrl>("check_sound")->setValue(false);
+	self->getChild<LLUICtrl>("check_texture")->setValue(false);
+	self->getChild<LLUICtrl>("check_snapshot")->setValue(false);
+    self->getChild<LLUICtrl>("check_settings")->setValue(false);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

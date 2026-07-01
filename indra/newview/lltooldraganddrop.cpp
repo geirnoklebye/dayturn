@@ -1830,7 +1830,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnLand(
 	{
 		// For now, always make copy
 		//accept = ACCEPT_YES_SINGLE;
-		//remove_inventory = TRUE;
+		//remove_inventory = true;
 		accept = ACCEPT_YES_COPY_SINGLE;
 		remove_inventory = false;
 	}
@@ -1907,7 +1907,7 @@ EAcceptance LLToolDragAndDrop::dad3dRezObjectOnObject(
 	{
 		// For now, always make copy
 		//accept = ACCEPT_YES_SINGLE;
-		//remove_inventory = TRUE;
+		//remove_inventory = true;
 		accept = ACCEPT_YES_COPY_SINGLE;
 		remove_inventory = false;
 	}

@@ -785,14 +785,14 @@ bool LLToolCompGun::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	// make the build menu appear.
 	setCurrentTool( (LLTool*) mNull );
 
-	// This should return FALSE, meaning the context menu will
+	// This should return false, meaning the context menu will
 	// be shown.
 	return false;
 	*/
 
 	// Returning true will suppress the context menu
 	// <FS:Ansariel> Enable context/pie menu in mouselook
-	//return TRUE;
+	//return true;
 	return (!gSavedSettings.getbool("FSEnableRightclickMenuInMouselook"));
 	// </FS:Ansariel>
 }

@@ -57,7 +57,7 @@ LLViewerParcelMediaAutoPlay::LLViewerParcelMediaAutoPlay() :
 // static
 void LLViewerParcelMediaAutoPlay::playStarted()
 {
-    LLSingleton<LLViewerParcelMediaAutoPlay>::getInstance()->mPlayed = TRUE;
+    LLSingleton<LLViewerParcelMediaAutoPlay>::getInstance()->mPlayed = true;
 }
 
 bool LLViewerParcelMediaAutoPlay::tick()
@@ -149,7 +149,7 @@ bool LLViewerParcelMediaAutoPlay::tick()
   						}
 					}
 
-					mPlayed = TRUE;
+					mPlayed = true;
 				}
 			}
 		}

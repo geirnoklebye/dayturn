@@ -500,7 +500,7 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 		static F32 last_update_time = 0.f;
 		if ((gFrameTimeSeconds - last_update_time) > 1.f)
 		{
-			InvalidateRect((HWND)gViewerWindow->getPlatformWindow(), NULL, FALSE);
+			InvalidateRect((HWND)gViewerWindow->getPlatformWindow(), NULL, false);
 			last_update_time = gFrameTimeSeconds;
 		}
 #elif LL_DARWIN
@@ -528,7 +528,7 @@ void display(bool rebuild, F32 zoom_factor, int subfield, bool for_snapshot)
 		LLGLSLShader::initProfile();
 	}
 
-	//LLGLState::verify(FALSE);
+	//LLGLState::verify(false);
 
 	/////////////////////////////////////////////////
 	//

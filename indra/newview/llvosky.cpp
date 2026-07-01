@@ -240,7 +240,7 @@ LLHeavenBody::LLHeavenBody(const F32 rad)
   mDirection(LLVector3(0,0,0)),
   mIntensity(0.f),
   mDiskRadius(rad),
-  mDraw(FALSE),
+  mDraw(false),
   mHorizonVisibility(1.f),
   mVisibility(1.f),
   mVisible(false)
@@ -487,8 +487,8 @@ void LLVOSky::init()
 
 	mHeavenlyBodyUpdated = false ;
 
-    mRainbowMap = LLViewerTextureManager::getFetchedTexture(psky->getRainbowTextureId(), FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
-    mHaloMap    = LLViewerTextureManager::getFetchedTexture(psky->getHaloTextureId(),  FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
+    mRainbowMap = LLViewerTextureManager::getFetchedTexture(psky->getRainbowTextureId(), FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
+    mHaloMap    = LLViewerTextureManager::getFetchedTexture(psky->getHaloTextureId(),  FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
 }
 
 
@@ -869,8 +869,8 @@ void LLVOSky::setMoonScale(F32 moon_scale)
 void LLVOSky::setSunTextures(const LLUUID& sun_texture, const LLUUID& sun_texture_next)
 {
     // We test the UUIDs here because we explicitly do not want the default image returned by getFetchedTexture in that case...
-    mSunTexturep[0] = sun_texture.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(sun_texture, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
-    mSunTexturep[1] = sun_texture_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(sun_texture_next, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
+    mSunTexturep[0] = sun_texture.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(sun_texture, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
+    mSunTexturep[1] = sun_texture_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(sun_texture_next, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
 
     bool can_use_wl = gPipeline.canUseWindLightShaders();
 
@@ -913,8 +913,8 @@ void LLVOSky::setMoonTextures(const LLUUID& moon_texture, const LLUUID& moon_tex
 
     bool can_use_wl = gPipeline.canUseWindLightShaders();
 
-    mMoonTexturep[0] = moon_texture.isNull()      ? nullptr : LLViewerTextureManager::getFetchedTexture(moon_texture, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
-    mMoonTexturep[1] = moon_texture_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(moon_texture_next, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
+    mMoonTexturep[0] = moon_texture.isNull()      ? nullptr : LLViewerTextureManager::getFetchedTexture(moon_texture, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
+    mMoonTexturep[1] = moon_texture_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(moon_texture_next, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
 
     if (mFace[FACE_MOON])
     {
@@ -936,8 +936,8 @@ void LLVOSky::setCloudNoiseTextures(const LLUUID& cloud_noise_texture, const LLU
 {
     LLSettingsSky::ptr_t psky = LLEnvironment::instance().getCurrentSky();
 
-    mCloudNoiseTexturep[0] = cloud_noise_texture.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(cloud_noise_texture, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
-    mCloudNoiseTexturep[1] = cloud_noise_texture_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(cloud_noise_texture_next, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
+    mCloudNoiseTexturep[0] = cloud_noise_texture.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(cloud_noise_texture, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
+    mCloudNoiseTexturep[1] = cloud_noise_texture_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(cloud_noise_texture_next, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
 
     if (mCloudNoiseTexturep[0])
 	{
@@ -957,8 +957,8 @@ void LLVOSky::setBloomTextures(const LLUUID& bloom_texture, const LLUUID& bloom_
     LLUUID bloom_tex = bloom_texture.isNull() ? psky->GetDefaultBloomTextureId() : bloom_texture;
     LLUUID bloom_tex_next = bloom_texture_next.isNull() ? (bloom_texture.isNull() ? psky->GetDefaultBloomTextureId() : bloom_texture) : bloom_texture_next;
 
-    mBloomTexturep[0] = bloom_tex.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(bloom_tex, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
-    mBloomTexturep[1] = bloom_tex_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(bloom_tex_next, FTT_DEFAULT, TRUE, LLGLTexture::BOOST_UI);
+    mBloomTexturep[0] = bloom_tex.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(bloom_tex, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
+    mBloomTexturep[1] = bloom_tex_next.isNull() ? nullptr : LLViewerTextureManager::getFetchedTexture(bloom_tex_next, FTT_DEFAULT, true, LLGLTexture::BOOST_UI);
 
     if (mBloomTexturep[0])
     {

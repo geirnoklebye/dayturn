@@ -882,7 +882,7 @@ void LLPanelProfileClassified::updateInfoRect()
         // info_scroll_content_panel contains both info and edit panel
         // info panel can be very large and scroll bar will carry over.
         // Resize info panel to prevent scroll carry over when in edit mode.
-        mInfoScroll->reshape(mInfoScroll->getRect().getWidth(), DEFAULT_EDIT_CLASSIFIED_SCROLL_HEIGHT, FALSE);
+        mInfoScroll->reshape(mInfoScroll->getRect().getWidth(), DEFAULT_EDIT_CLASSIFIED_SCROLL_HEIGHT, false);
     }
     else
     {

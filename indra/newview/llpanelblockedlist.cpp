@@ -77,7 +77,7 @@
 //bool LLPanelBlockedList::postBuild()
 //{
 //	mBlockedList = getChild<LLBlockList>("blocked");
-//	mBlockedList->setCommitOnSelectionChange(TRUE);
+//	mBlockedList->setCommitOnSelectionChange(true);
 //    this->setVisibleCallback(boost::bind(&LLPanelBlockedList::removePicker, this));
 //
 //	switch (gSavedSettings.getU32("BlockPeopleSortOrder"))
@@ -203,7 +203,7 @@
 //	const bool allow_multiple = false;
 //	const bool close_on_select = true;
 //    
-//    LLView * button = findChild<LLButton>("plus_btn", TRUE);
+//    LLView * button = findChild<LLButton>("plus_btn", true);
 //    LLFloater* root_floater = gFloaterView->getParentFloater(this);
 //	LLFloaterAvatarPicker * picker = LLFloaterAvatarPicker::show(boost::bind(&LLPanelBlockedList::callbackBlockPicked, this, _1, _2), 
 //                                                                                    allow_multiple, close_on_select, false, root_floater->getName(), button);

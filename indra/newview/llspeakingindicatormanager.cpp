@@ -109,7 +109,7 @@ private:
 	 * Changes state of indicators specified by LLUUIDs
 	 *
 	 * @param speakers_uuids - avatars' LLUUIDs whose speaking indicators should be switched
-	 * @param switch_on - if TRUE specified indicator will be switched on, off otherwise.
+	 * @param switch_on - if true specified indicator will be switched on, off otherwise.
 	 */
 	void switchSpeakerIndicators(const speaker_ids_t& speakers_uuids, bool switch_on);
 

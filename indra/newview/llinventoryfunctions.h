@@ -117,7 +117,7 @@ std::string get_category_path(LLUUID cat_id);
 // Base class for LLInventoryModel::collectDescendentsIf() method
 // which accepts an instance of one of these objects to use as the
 // function to determine if it should be added. Derive from this class
-// and override the () operator to return TRUE if you want to collect
+// and override the () operator to return true if you want to collect
 // the category or item passed in.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class LLInventoryCollectFunctor
@@ -167,7 +167,7 @@ protected:
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLIsType
 //
-// Implementation of a LLInventoryCollectFunctor which returns TRUE if
+// Implementation of a LLInventoryCollectFunctor which returns true if
 // the type is the type passed in during construction.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -185,7 +185,7 @@ protected:
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLIsNotType
 //
-// Implementation of a LLInventoryCollectFunctor which returns FALSE if the
+// Implementation of a LLInventoryCollectFunctor which returns false if the
 // type is the type passed in during construction, otherwise false.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class LLIsNotType : public LLInventoryCollectFunctor
@@ -202,7 +202,7 @@ protected:
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Class LLIsOfAssetType
 //
-// Implementation of a LLInventoryCollectFunctor which returns TRUE if
+// Implementation of a LLInventoryCollectFunctor which returns true if
 // the item or category is of asset type passed in during construction.
 // Link types are treated as links, not as the types they point to.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

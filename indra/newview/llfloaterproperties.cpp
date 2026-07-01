@@ -215,7 +215,7 @@ void LLFloaterProperties::draw()
 {
 	if (mDirty)
 	{
-		// RN: clear dirty first because refresh can set dirty to TRUE
+		// RN: clear dirty first because refresh can set dirty to true
 		mDirty = false;
 		refresh();
 	}

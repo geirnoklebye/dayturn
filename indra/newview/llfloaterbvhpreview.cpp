@@ -728,7 +728,7 @@ void LLFloaterBvhPreview::onCommitLoopIn()
 	{
 		motionp->setLoopIn((F32)getChild<LLUICtrl>("loop_in_point")->getValue().asReal() / 100.f);
 		resetMotion();
-		getChild<LLUICtrl>("loop_check")->setValue(LLSD(TRUE));
+		getChild<LLUICtrl>("loop_check")->setValue(LLSD(true));
 		onCommitLoop();
 	}
 }
@@ -748,7 +748,7 @@ void LLFloaterBvhPreview::onCommitLoopOut()
 	{
 		motionp->setLoopOut((F32)getChild<LLUICtrl>("loop_out_point")->getValue().asReal() * 0.01f * motionp->getDuration());
 		resetMotion();
-		getChild<LLUICtrl>("loop_check")->setValue(LLSD(TRUE));
+		getChild<LLUICtrl>("loop_check")->setValue(LLSD(true));
 		onCommitLoop();
 	}
 }

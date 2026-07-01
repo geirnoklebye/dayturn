@@ -8082,7 +8082,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* light_
     channel = shader.enableTexture(LLShaderMgr::DEFERRED_DEPTH, deferred_depth_target->getUsage());
 	if (channel > -1)
 	{
-        gGL.getTexUnit(channel)->bind(deferred_depth_target, TRUE);
+        gGL.getTexUnit(channel)->bind(deferred_depth_target, true);
 		stop_glerror();
     }
 		
@@ -8147,7 +8147,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* light_
 		if (channel > -1)
 		{
 			stop_glerror();
-                gGL.getTexUnit(channel)->bind(getShadowTarget(i), TRUE);
+                gGL.getTexUnit(channel)->bind(getShadowTarget(i), true);
                 gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_ANISOTROPIC);
 			gGL.getTexUnit(channel)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 			stop_glerror();
@@ -8169,7 +8169,7 @@ void LLPipeline::bindDeferredShader(LLGLSLShader& shader, LLRenderTarget* light_
 			LLRenderTarget* shadow_target = getShadowTarget(i);
 			if (shadow_target)
 			{
-				gGL.getTexUnit(channel)->bind(shadow_target, TRUE);
+				gGL.getTexUnit(channel)->bind(shadow_target, true);
 				gGL.getTexUnit(channel)->setTextureFilteringOption(LLTexUnit::TFO_ANISOTROPIC);
 			gGL.getTexUnit(channel)->setTextureAddressMode(LLTexUnit::TAM_CLAMP);
 			stop_glerror();
@@ -9697,7 +9697,7 @@ void LLPipeline::renderShadow(glh::matrix4f& view, glh::matrix4f& proj, LLCamera
                 if (i == 0)
                 {
                     LLGLSLShader::sCurBoundShaderPtr->setMinimumAlpha(0.598f);
-                    renderObjects(LLRenderPass::PASS_GRASS, LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_TEXCOORD0, TRUE);
+                    renderObjects(LLRenderPass::PASS_GRASS, LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_TEXCOORD0, true);
                 }
 
                 U32 no_idx_mask = mask & ~LLVertexBuffer::MAP_TEXTURE_INDEX;

@@ -407,7 +407,7 @@ bool LLTeleportHistoryPanel::postBuild()
 
     // init menus before list, since menus are passed to list
     mGearItemMenu = LLUICtrlFactory::getInstance()->createFromFile<LLToggleableMenu>("menu_teleport_history_item.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
-    mGearItemMenu->setAlwaysShowMenu(TRUE); // all items can be disabled if nothing is selected, show anyway
+    mGearItemMenu->setAlwaysShowMenu(true); // all items can be disabled if nothing is selected, show anyway
     mSortingMenu = LLUICtrlFactory::getInstance()->createFromFile<LLToggleableMenu>("menu_teleport_history_gear.xml", gMenuHolder, LLViewerMenuHolderGL::child_registry_t::instance());
 
 	mTeleportHistory = LLTeleportHistoryStorage::getInstance();

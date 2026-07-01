@@ -1333,7 +1333,7 @@ void move_inventory_item(
 	msg->nextBlockFast(_PREHASH_AgentData);
 	msg->addUUIDFast(_PREHASH_AgentID, agent_id);
 	msg->addUUIDFast(_PREHASH_SessionID, session_id);
-	msg->addboolFast(_PREHASH_Stamp, FALSE);
+	msg->addboolFast(_PREHASH_Stamp, false);
 	msg->nextBlockFast(_PREHASH_InventoryData);
 	msg->addUUIDFast(_PREHASH_ItemID, item_id);
 	msg->addUUIDFast(_PREHASH_FolderID, parent_id);

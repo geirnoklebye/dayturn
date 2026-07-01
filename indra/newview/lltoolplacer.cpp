@@ -84,7 +84,7 @@ bool LLToolPlacer::raycastForNewObjPos( S32 x, S32 y, LLViewerObject** hit_obj, 
 
 	// Viewer-side pick to find the right sim to create the object on.  
 	// First find the surface the object will be created on.
-	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, FALSE, FALSE);
+	LLPickInfo pick = gViewerWindow->pickImmediate(x, y, false, false);
 	
 	// Note: use the frontmost non-flora version because (a) plants usually have lots of alpha and (b) pants' Havok
 	// representations (if any) are NOT the same as their viewer representation.
@@ -432,7 +432,7 @@ bool LLToolPlacer::addObject( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	gMessageSystem->addVector3Fast(_PREHASH_RayStart,		ray_start_region );
 	gMessageSystem->addVector3Fast(_PREHASH_RayEnd,			ray_end_region );
 	gMessageSystem->addU8Fast(_PREHASH_BypassRaycast,		(U8)b_hit_land );
-	gMessageSystem->addU8Fast(_PREHASH_RayEndIsIntersection, (U8)FALSE );
+	gMessageSystem->addU8Fast(_PREHASH_RayEndIsIntersection, (U8)false );
 	gMessageSystem->addU8Fast(_PREHASH_State, state);
 
 	// Limit raycast to a single object.  

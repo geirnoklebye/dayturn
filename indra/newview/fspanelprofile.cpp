@@ -1142,12 +1142,12 @@ void FSPanelProfileInterests::resetData()
 	
 	for (S32 i = 0; i < WANT_CHECKS; ++i)
 	{
-		mWantChecks[i]->setValue(FALSE);
+		mWantChecks[i]->setValue(false);
 	}
 
 	for (S32 i = 0; i < SKILL_CHECKS; ++i)
 	{
-		mSkillChecks[i]->setValue(FALSE);
+		mSkillChecks[i]->setValue(false);
 	}
 }
 
@@ -1376,7 +1376,7 @@ void FSPanelPick::processProperties(void* data, EAvatarProcessorType type)
 void FSPanelPick::setSnapshotId(const LLUUID& id)
 {
     mSnapshotCtrl->setImageAssetID(id);
-    mSnapshotCtrl->setValid(TRUE);
+    mSnapshotCtrl->setValid(true);
 }
 
 void FSPanelPick::setPickName(const std::string& name)

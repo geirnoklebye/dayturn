@@ -111,7 +111,7 @@ bool LLFloaterImagePreview::postBuild()
 	if (mRawImagep.notNull() && gAgent.getRegion() != NULL)
 	{
 		mAvatarPreview = new LLImagePreviewAvatar(256, 256);
-		mAvatarPreview->setPreviewTarget("mPelvis", "mUpperBodyMesh0", mRawImagep, 2.f, FALSE);
+		mAvatarPreview->setPreviewTarget("mPelvis", "mUpperBodyMesh0", mRawImagep, 2.f, false);
 
 		mSculptedPreview = new LLImagePreviewSculpted(256, 256);
 		mSculptedPreview->setPreviewTarget(mRawImagep, 2.0f);

@@ -726,7 +726,7 @@ LLIMModel::LLIMSession::LLIMSession(const LLUUID& session_id, const std::string&
 	}
 	else
 	{
-		//tick returns TRUE - timer will be deleted after the tick
+		//tick returns true - timer will be deleted after the tick
 		new LLSessionTimeoutTimer(mSessionID, SESSION_INITIALIZATION_TIMEOUT);
 	}
 

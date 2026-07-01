@@ -2974,7 +2974,7 @@ void renderTexelDensity(LLDrawable* drawable)
 	//	//gGL.matrixMode(LLRender::MM_TEXTURE);
 	//	glLoadMatrixf((GLfloat*) checkboard_matrix.mMatrix);
 
-	//	gGL.getTexUnit(i)->bind(LLViewerTexture::sCheckerBoardImagep, TRUE);
+	//	gGL.getTexUnit(i)->bind(LLViewerTexture::sCheckerBoardImagep, true);
 
 	//	pushVerts(params, LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_TEXCOORD0 | LLVertexBuffer::MAP_COLOR | LLVertexBuffer::MAP_NORMAL );
 

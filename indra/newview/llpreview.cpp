@@ -194,7 +194,7 @@ void LLPreview::onCommit()
 					if( obj )
 					{
 						LLSelectMgr::getInstance()->deselectAll();
-						LLSelectMgr::getInstance()->addAsIndividual( obj, SELECT_ALL_TES, FALSE );
+						LLSelectMgr::getInstance()->addAsIndividual( obj, SELECT_ALL_TES, false );
 						LLSelectMgr::getInstance()->selectionSetObjectDescription( getChild<LLUICtrl>("desc")->getValue().asString() );
 
 						LLSelectMgr::getInstance()->deselectAll();

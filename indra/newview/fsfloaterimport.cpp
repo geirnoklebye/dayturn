@@ -715,8 +715,8 @@ void FSFloaterImport::createPrim()
 	gMessageSystem->addVector3Fast(_PREHASH_RayStart, position);
 	gMessageSystem->addVector3Fast(_PREHASH_RayEnd, position);
 
-	gMessageSystem->addU8Fast(_PREHASH_BypassRaycast, (U8)TRUE);
-	gMessageSystem->addU8Fast(_PREHASH_RayEndIsIntersection, (U8)FALSE);
+	gMessageSystem->addU8Fast(_PREHASH_BypassRaycast, (U8)true);
+	gMessageSystem->addU8Fast(_PREHASH_RayEndIsIntersection, (U8)false);
 	gMessageSystem->addU8Fast(_PREHASH_State, (U8)0);
 	gMessageSystem->addUUIDFast(_PREHASH_RayTargetID, LLUUID::null);
 	gMessageSystem->sendReliable(gAgent.getRegion()->getHost());

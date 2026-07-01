@@ -251,7 +251,7 @@ void LLPanelPermissions::disableAll()
 	getChildView("checkbox allow everyone copy")->setEnabled(false);
 	
 	// <FS:CR> OpenSim export permissions //left in case LL adds functionally
-	getChild<LLUICtrl>("checkbox allow export")->setValue(FALSE);
+	getChild<LLUICtrl>("checkbox allow export")->setValue(false);
 	getChildView("checkbox allow export")->setEnabled(false);
 	// </FS:CR>
 

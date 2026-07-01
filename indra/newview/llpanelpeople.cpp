@@ -899,11 +899,11 @@ void LLPanelPeople::giveMessage(const LLUUID& agent_id, const LLAvatarName& av_n
 	// since it's us that's arriving in the region, not the agents who were already there
 	if (LLStartUp::getStartupState() >= STATE_CLEANUP)
 	{
-		//LLPanelPeople::reportToNearbyChat(av_name.getCompleteName(TRUE, FALSE) + postMsg);
+		//LLPanelPeople::reportToNearbyChat(av_name.getCompleteName(true, false) + postMsg);
 		LLChat chat;
 		chat.mText = postMsg;
 		chat.mSourceType = CHAT_SOURCE_SYSTEM;
-		chat.mFromName = av_name.getCompleteName(TRUE, FALSE);
+		chat.mFromName = av_name.getCompleteName(true, false);
 		chat.mFromID = agent_id;
 		chat.mChatType = CHAT_TYPE_RADAR;
 		// FS:LO FIRE-1439 - Clickable avatar names on local chat radar crossing reports
@@ -1137,7 +1137,7 @@ void LLPanelPeople::updateNearbyList()
     //CA now done earlier because we need it for the arrival tests
     //    updateNearbyRange();
     //
-    LLActiveSpeakerMgr::instance().update(TRUE);
+    LLActiveSpeakerMgr::instance().update(true);
     //mk
     //CA merge error - these are duplicated above where they're used for the radar messages
     //    LLWorld::getInstance()->getAvatars(&mNearbyList->getIDs(), &positions, gAgent.getPositionGlobal(), gSavedSettings.getF32("NearMeRange"));
@@ -1145,7 +1145,7 @@ void LLPanelPeople::updateNearbyList()
 	mNearbyList->sort();
     //
     //    DISTANCE_COMPARATOR.updateAvatarsPositions(positions, mNearbyList->getIDs());
-    //    LLActiveSpeakerMgr::instance().update(TRUE);
+    //    LLActiveSpeakerMgr::instance().update(true);
     //ca
 }
 
@@ -1245,7 +1245,7 @@ void LLPanelPeople::updateButtons()
 		LLPanel* cur_panel = mTabContainer->getCurrentPanel();
 		if (cur_panel)
 		{
-			if (cur_panel->hasChild("add_friend_btn", TRUE))
+			if (cur_panel->hasChild("add_friend_btn", true))
 				cur_panel->getChildView("add_friend_btn")->setEnabled(item_selected && !is_friend && !is_self);
 			if (friends_tab_active)
 			{
@@ -1559,7 +1559,7 @@ bool LLPanelPeople::isItemsFreeOfFriends(const uuid_vec_t& uuids)
 void LLPanelPeople::onAddFriendWizButtonClicked()
 {
     LLPanel* cur_panel = mTabContainer->getCurrentPanel();
-    LLView * button = cur_panel->findChild<LLButton>("friends_add_btn", TRUE);
+    LLView * button = cur_panel->findChild<LLButton>("friends_add_btn", true);
 
 	// Show add friend wizard.
     LLFloater* root_floater = gFloaterView->getParentFloater(this);

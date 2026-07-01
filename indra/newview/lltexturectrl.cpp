@@ -516,7 +516,7 @@ void LLFloaterTexturePicker::draw()
 	getChildView("Pipette")->setEnabled(mActive);
 	getChild<LLUICtrl>("Pipette")->setValue(LLToolMgr::getInstance()->getCurrentTool() == LLToolPipette::getInstance());
 
-	//bool allow_copy = FALSE;
+	//bool allow_copy = false;
 	if( mOwner ) 
 	{
 		mTexturep = NULL;
@@ -614,8 +614,8 @@ void LLFloaterTexturePicker::draw()
 
 		// After inventory panel filter is applied we have to update
 		// constraint rect for the selected item because of folder view
-		// AutoSelectOverride set to TRUE. We force PinningSelectedItem
-		// flag to FALSE state and setting filter "dirty" to update
+		// AutoSelectOverride set to true. We force PinningSelectedItem
+		// flag to false state and setting filter "dirty" to update
 		// scroll container to show selected item (see LLFolderView::doIdle()).
 		if (!is_filter_active && !mSelectedItemPinned)
 		{
@@ -1838,7 +1838,7 @@ bool LLTextureCtrl::doDrop(LLInventoryItem* item)
 	// call the callback if it exists.
 	if(mDropCallback)
 	{
-		// if it returns TRUE, we return TRUE, and therefore the
+		// if it returns true, we return true, and therefore the
 		// commit is called above.
 		return mDropCallback(this, item);
 	}

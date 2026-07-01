@@ -70,7 +70,7 @@ inline U32 LLVOWLSky::getStarsNumIndices(void)
 }
 
 LLVOWLSky::LLVOWLSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
-	: LLStaticViewerObject(id, pcode, regionp, TRUE)
+	: LLStaticViewerObject(id, pcode, regionp, true)
 {
 	initStars();
 }

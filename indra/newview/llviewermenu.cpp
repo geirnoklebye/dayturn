@@ -4805,7 +4805,7 @@ void handle_deed_object_to_group(void*)
 
 bool enable_deed_object_to_group(void*)
 {
-	if(LLSelectMgr::getInstance()->getSelection()->isEmpty()) return FALSE;
+	if(LLSelectMgr::getInstance()->getSelection()->isEmpty()) return false;
 	LLPermissions perm;
 	LLUUID group_id;
 
@@ -4814,9 +4814,9 @@ bool enable_deed_object_to_group(void*)
 		LLSelectMgr::getInstance()->selectGetPermissions(perm) &&
 		perm.deedToGroup(gAgent.getID(), group_id))
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 */
@@ -5534,8 +5534,8 @@ class LLToolsEnableBuyOrTake : public view_listener_t
 // exception is if you own everything in the selection that is for
 // sale, in this case, you can't buy stuff from yourself, so you can
 // take it.
-// return value = TRUE if selection is a 'buy'.
-//                FALSE if selection is a 'take'
+// return value = true if selection is a 'buy'.
+//                false if selection is a 'take'
 bool is_selection_buy_not_take()
 {
 	for (LLObjectSelection::root_iterator iter = LLSelectMgr::getInstance()->getSelection()->root_begin();
@@ -8408,13 +8408,13 @@ void handle_selected_material_info()
 void handle_test_male(void*)
 {
 	LLAppearanceMgr::instance().wearOutfitByName("Male Shape & Outfit");
-	//gGestureList.requestResetFromServer( TRUE );
+	//gGestureList.requestResetFromServer( true );
 }
 
 void handle_test_female(void*)
 {
 	LLAppearanceMgr::instance().wearOutfitByName("Female Shape & Outfit");
-	//gGestureList.requestResetFromServer( FALSE );
+	//gGestureList.requestResetFromServer( false );
 }
 
 /*	if(LLWorld::getInstance()->getEnableTeenMode()) {
@@ -8926,7 +8926,7 @@ class FSAddToContactSet : public view_listener_t
 			LLVOAvatar* avatarp = find_avatar_from_object(LLSelectMgr::getInstance()->getSelection()->getPrimaryObject());
 			if (avatarp)
 			{
-				LLFloaterReg::showInstance("fs_add_contact", LLSD(avatarp->getID()), TRUE);
+				LLFloaterReg::showInstance("fs_add_contact", LLSD(avatarp->getID()), true);
 			}
 		}
 		return true;

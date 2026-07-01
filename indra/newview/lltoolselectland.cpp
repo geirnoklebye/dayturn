@@ -85,7 +85,7 @@ bool LLToolSelectLand::handleMouseDown(S32 x, S32 y, MASK mask)
 		roundXY(mWestSouthBottom);
 		roundXY(mEastNorthTop);
 
-		mMouseOutsideSlop = true; //FALSE;
+		mMouseOutsideSlop = true; //false;
 
 		LLViewerParcelMgr::getInstance()->deselectLand();
 	}

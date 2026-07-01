@@ -67,7 +67,7 @@ public:
 	void addObject(const LLUUID& id, std::string name);
 
 	// start() returns true if queue started or notification raised,
-	// FALSE only if starting a non-notification action failed
+	// false only if starting a non-notification action failed
 	// (previously it passed back the return from startQueue() directly)
 	bool start();
 	

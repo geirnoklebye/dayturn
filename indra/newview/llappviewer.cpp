@@ -655,8 +655,8 @@ LLAppViewer::LLAppViewer()
 	mLastAgentForceUpdate(0),
 	mMainloopTimeout(NULL),
 	mAgentRegionLastAlive(false),
-	mRandomizeFramerate(LLCachedControl<bool>(gSavedSettings,"Randomize Framerate", FALSE)),
-	mPeriodicSlowFrame(LLCachedControl<bool>(gSavedSettings,"Periodic Slow Frame", FALSE)),
+	mRandomizeFramerate(LLCachedControl<bool>(gSavedSettings,"Randomize Framerate", false)),
+	mPeriodicSlowFrame(LLCachedControl<bool>(gSavedSettings,"Periodic Slow Frame", false)),
 	mFastTimerLogThread(NULL),
 	mSettingsLocationList(NULL),
 	mIsFirstRun(false),
@@ -3021,9 +3021,9 @@ bool LLAppViewer::initConfiguration()
 	if (gNonInteractive)
 	{
 		tempSetControl("AllowMultipleViewers", "TRUE");
-		tempSetControl("SLURLPassToOtherInstance", "FALSE");
-		tempSetControl("RenderWater", "FALSE");
-		tempSetControl("FlyingAtExit", "FALSE");
+		tempSetControl("SLURLPassToOtherInstance", "false");
+		tempSetControl("RenderWater", "false");
+		tempSetControl("FlyingAtExit", "false");
 		tempSetControl("WindowWidth", "1024");
 		tempSetControl("WindowHeight", "200");
 		LLError::setEnabledLogTypesMask(0);

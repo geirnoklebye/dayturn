@@ -54,7 +54,7 @@ LLToolObjPicker::LLToolObjPicker()
 { }
 
 
-// returns TRUE if an object was selected 
+// returns true if an object was selected 
 bool LLToolObjPicker::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	LLRootView* viewp = gViewerWindow->getRootView();

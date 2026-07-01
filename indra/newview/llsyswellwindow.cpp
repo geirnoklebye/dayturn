@@ -150,7 +150,7 @@ void LLSysWellWindow::setVisible(bool visible)
 	}
 
 	// do not show empty window
-	if (nullptr == mMessageList || isWindowEmpty()) visible = FALSE;
+	if (nullptr == mMessageList || isWindowEmpty()) visible = false;
 
 	LLTransientDockableFloater::setVisible(visible);
 

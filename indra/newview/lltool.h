@@ -63,7 +63,7 @@ public:
 	virtual bool	handleRightMouseUp(S32 x, S32 y, MASK mask);
 	virtual bool	handleToolTip(S32 x, S32 y, MASK mask);
 
-		// Return FALSE to allow context menu to be shown.
+		// Return false to allow context menu to be shown.
 	virtual void	screenPointToLocal(S32 screen_x, S32 screen_y, S32* local_x, S32* local_y) const
 							{ *local_x = screen_x; *local_y = screen_y;	}
 	virtual void	localPointToScreen(S32 local_x, S32 local_y, S32* screen_x, S32* screen_y) const

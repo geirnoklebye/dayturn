@@ -267,7 +267,7 @@ void LLOutputMonitorCtrl::setChannelState(EChannelState state)
     mChannelState = state;
     if (state == INACTIVE_CHANNEL)
     {
-        // switchIndicator will set it to TRUE when channel becomes active
+        // switchIndicator will set it to true when channel becomes active
         setVisible(false);
     }
 }

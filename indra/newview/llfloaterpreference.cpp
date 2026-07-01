@@ -1470,7 +1470,7 @@ void LLFloaterPreference::refreshEnabledState()
 	if (!LLFeatureManager::getInstance()->isFeatureAvailable("WindLightUseAtmosShaders"))
 	{
 		ctrl_wind_light->setEnabled(false);
-		ctrl_wind_light->setValue(FALSE);
+		ctrl_wind_light->setValue(false);
 	}
 	else
 	{
@@ -1788,7 +1788,7 @@ void LLFloaterPreference::onClickEnablePopup()
 	for (itor = items.begin(); itor != items.end(); ++itor)
 	{
 		LLNotificationTemplatePtr templatep = LLNotifications::instance().getTemplate(*(std::string*)((*itor)->getUserdata()));
-		//gSavedSettings.setWarning(templatep->mName, TRUE);
+		//gSavedSettings.setWarning(templatep->mName, true);
 		std::string notification_name = templatep->mName;
 		LLUI::getInstance()->mSettingGroups["ignores"]->setbool(notification_name, true);
 	}
@@ -2711,7 +2711,7 @@ void LLPanelPreference::setControlFalse(const LLSD& user_data)
 	LLControlVariable* control = findControl(control_name);
 	
 	if (control)
-		control->set(LLSD(FALSE));
+		control->set(LLSD(false));
 }
 
 void LLPanelPreference::updateMediaAutoPlayCheckbox(LLUICtrl* ctrl)
@@ -4004,9 +4004,9 @@ void LLFloaterPreferenceProxy::onChangeSocksSettings()
 	// Check for invalid states for the other HTTP proxy radio
 	LLRadioGroup* otherHttpProxy = getChild<LLRadioGroup>("other_http_proxy_type");
 	if ((otherHttpProxy->getSelectedValue().asString() == "Socks" &&
-			getChild<LLCheckBoxCtrl>("socks_proxy_enabled")->get() == FALSE )||(
+			getChild<LLCheckBoxCtrl>("socks_proxy_enabled")->get() == false )||(
 					otherHttpProxy->getSelectedValue().asString() == "Web" &&
-					getChild<LLCheckBoxCtrl>("web_proxy_enabled")->get() == FALSE ) )
+					getChild<LLCheckBoxCtrl>("web_proxy_enabled")->get() == false ) )
 	{
 		otherHttpProxy->selectFirstItem();
 	}
@@ -4407,7 +4407,7 @@ void FSPanelPreferenceBackup::doBackupSettings(const LLSD& notification, const L
 	LL_INFOS("SettingsBackup") << "saving UI color table" << LL_ENDL;
 	LLUIColorTable::instance().saveUserSettings();
 
-	// set it to save defaults, too (FALSE), because our declaration automatically
+	// set it to save defaults, too (false), because our declaration automatically
 	// makes the value default
 	std::string backup_global_name = gDirUtilp->getExpandedFilename(LL_PATH_NONE, dir_name,
 				LLAppViewer::instance()->getSettingsFilename("Default","Global"));
@@ -4463,7 +4463,7 @@ void FSPanelPreferenceBackup::doBackupSettings(const LLSD& notification, const L
 			// run backup on per-account controls
 			LL_INFOS("SettingsBackup") << "running functor on per account settings" << LL_ENDL;
 			gSavedPerAccountSettings.applyToAll(&func_per_account);
-			// save defaults here as well (FALSE)
+			// save defaults here as well (false)
 			LL_INFOS("SettingsBackup") << "saving backup per account settings" << LL_ENDL;
 			backup_per_account_controls.saveToFile(backup_per_account_name, false);
 

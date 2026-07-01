@@ -349,40 +349,40 @@ LLEditWearableDictionary::ColorSwatchCtrls::ColorSwatchCtrls()
 
 LLEditWearableDictionary::TextureCtrls::TextureCtrls()
 {
-        addEntry ( TEX_HEAD_BODYPAINT,  new PickerControlEntry (TEX_HEAD_BODYPAINT,  "Head", LLUUID::null, TRUE ));
-        addEntry ( TEX_UPPER_BODYPAINT, new PickerControlEntry (TEX_UPPER_BODYPAINT, "Upper Body", LLUUID::null, TRUE ));
-        addEntry ( TEX_LOWER_BODYPAINT, new PickerControlEntry (TEX_LOWER_BODYPAINT, "Lower Body", LLUUID::null, TRUE ));
-        addEntry ( TEX_HAIR, new PickerControlEntry (TEX_HAIR, "Texture", LLUUID( gSavedSettings.getString( "UIImgDefaultHairUUID" ) ), FALSE ));
-        addEntry ( TEX_EYES_IRIS, new PickerControlEntry (TEX_EYES_IRIS, "Iris", LLUUID( gSavedSettings.getString( "UIImgDefaultEyesUUID" ) ), FALSE ));
-        addEntry ( TEX_UPPER_SHIRT, new PickerControlEntry (TEX_UPPER_SHIRT, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultShirtUUID" ) ), FALSE ));
-        addEntry ( TEX_LOWER_PANTS, new PickerControlEntry (TEX_LOWER_PANTS, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultPantsUUID" ) ), FALSE ));
-        addEntry ( TEX_LOWER_SHOES, new PickerControlEntry (TEX_LOWER_SHOES, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultShoesUUID" ) ), FALSE ));
-        addEntry ( TEX_LOWER_SOCKS, new PickerControlEntry (TEX_LOWER_SOCKS, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultSocksUUID" ) ), FALSE ));
-        addEntry ( TEX_UPPER_JACKET, new PickerControlEntry (TEX_UPPER_JACKET, "Upper Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultJacketUUID" ) ), FALSE ));
-        addEntry ( TEX_LOWER_JACKET, new PickerControlEntry (TEX_LOWER_JACKET, "Lower Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultJacketUUID" ) ), FALSE ));
-        addEntry ( TEX_SKIRT, new PickerControlEntry (TEX_SKIRT, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultSkirtUUID" ) ), FALSE ));
-        addEntry ( TEX_UPPER_GLOVES, new PickerControlEntry (TEX_UPPER_GLOVES, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultGlovesUUID" ) ), FALSE ));
-        addEntry ( TEX_UPPER_UNDERSHIRT, new PickerControlEntry (TEX_UPPER_UNDERSHIRT, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultUnderwearUUID" ) ), FALSE ));
-        addEntry ( TEX_LOWER_UNDERPANTS, new PickerControlEntry (TEX_LOWER_UNDERPANTS, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultUnderwearUUID" ) ), FALSE ));
-        addEntry ( TEX_LOWER_ALPHA, new PickerControlEntry (TEX_LOWER_ALPHA, "Lower Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), TRUE ));
-        addEntry ( TEX_UPPER_ALPHA, new PickerControlEntry (TEX_UPPER_ALPHA, "Upper Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), TRUE ));
-        addEntry ( TEX_HEAD_ALPHA, new PickerControlEntry (TEX_HEAD_ALPHA, "Head Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), TRUE ));
-        addEntry ( TEX_EYES_ALPHA, new PickerControlEntry (TEX_EYES_ALPHA, "Eye Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), TRUE ));
-        addEntry ( TEX_HAIR_ALPHA, new PickerControlEntry (TEX_HAIR_ALPHA, "Hair Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), TRUE ));
-        addEntry ( TEX_LOWER_TATTOO, new PickerControlEntry (TEX_LOWER_TATTOO, "Lower Tattoo", LLUUID::null, TRUE ));
-        addEntry ( TEX_UPPER_TATTOO, new PickerControlEntry (TEX_UPPER_TATTOO, "Upper Tattoo", LLUUID::null, TRUE ));
-        addEntry ( TEX_HEAD_TATTOO, new PickerControlEntry (TEX_HEAD_TATTOO, "Head Tattoo", LLUUID::null, TRUE ));
-		addEntry ( TEX_LOWER_UNIVERSAL_TATTOO, new PickerControlEntry( TEX_LOWER_UNIVERSAL_TATTOO, "Lower Universal Tattoo", LLUUID::null, TRUE));
-		addEntry ( TEX_UPPER_UNIVERSAL_TATTOO, new PickerControlEntry( TEX_UPPER_UNIVERSAL_TATTOO, "Upper Universal Tattoo", LLUUID::null, TRUE));
-		addEntry ( TEX_HEAD_UNIVERSAL_TATTOO, new PickerControlEntry( TEX_HEAD_UNIVERSAL_TATTOO, "Head Universal Tattoo", LLUUID::null, TRUE));
-		addEntry ( TEX_SKIRT_TATTOO, new PickerControlEntry(TEX_SKIRT_TATTOO, "Skirt Tattoo", LLUUID::null, TRUE));
-		addEntry ( TEX_HAIR_TATTOO, new PickerControlEntry(TEX_HAIR_TATTOO, "Hair Tattoo", LLUUID::null, TRUE));
-		addEntry ( TEX_EYES_TATTOO, new PickerControlEntry(TEX_EYES_TATTOO, "Eyes Tattoo", LLUUID::null, TRUE));
-		addEntry (TEX_LEFT_ARM_TATTOO, new PickerControlEntry(TEX_LEFT_ARM_TATTOO, "Left Arm Tattoo", LLUUID::null, TRUE));
-		addEntry (TEX_LEFT_LEG_TATTOO, new PickerControlEntry(TEX_LEFT_LEG_TATTOO, "Left Leg Tattoo", LLUUID::null, TRUE));
-		addEntry (TEX_AUX1_TATTOO, new PickerControlEntry(TEX_AUX1_TATTOO, "Aux1 Tattoo", LLUUID::null, TRUE));
-		addEntry (TEX_AUX2_TATTOO, new PickerControlEntry(TEX_AUX2_TATTOO, "Aux2 Tattoo", LLUUID::null, TRUE));
-		addEntry (TEX_AUX3_TATTOO, new PickerControlEntry(TEX_AUX3_TATTOO, "Aux3 Tattoo", LLUUID::null, TRUE));
+        addEntry ( TEX_HEAD_BODYPAINT,  new PickerControlEntry (TEX_HEAD_BODYPAINT,  "Head", LLUUID::null, true ));
+        addEntry ( TEX_UPPER_BODYPAINT, new PickerControlEntry (TEX_UPPER_BODYPAINT, "Upper Body", LLUUID::null, true ));
+        addEntry ( TEX_LOWER_BODYPAINT, new PickerControlEntry (TEX_LOWER_BODYPAINT, "Lower Body", LLUUID::null, true ));
+        addEntry ( TEX_HAIR, new PickerControlEntry (TEX_HAIR, "Texture", LLUUID( gSavedSettings.getString( "UIImgDefaultHairUUID" ) ), false ));
+        addEntry ( TEX_EYES_IRIS, new PickerControlEntry (TEX_EYES_IRIS, "Iris", LLUUID( gSavedSettings.getString( "UIImgDefaultEyesUUID" ) ), false ));
+        addEntry ( TEX_UPPER_SHIRT, new PickerControlEntry (TEX_UPPER_SHIRT, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultShirtUUID" ) ), false ));
+        addEntry ( TEX_LOWER_PANTS, new PickerControlEntry (TEX_LOWER_PANTS, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultPantsUUID" ) ), false ));
+        addEntry ( TEX_LOWER_SHOES, new PickerControlEntry (TEX_LOWER_SHOES, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultShoesUUID" ) ), false ));
+        addEntry ( TEX_LOWER_SOCKS, new PickerControlEntry (TEX_LOWER_SOCKS, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultSocksUUID" ) ), false ));
+        addEntry ( TEX_UPPER_JACKET, new PickerControlEntry (TEX_UPPER_JACKET, "Upper Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultJacketUUID" ) ), false ));
+        addEntry ( TEX_LOWER_JACKET, new PickerControlEntry (TEX_LOWER_JACKET, "Lower Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultJacketUUID" ) ), false ));
+        addEntry ( TEX_SKIRT, new PickerControlEntry (TEX_SKIRT, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultSkirtUUID" ) ), false ));
+        addEntry ( TEX_UPPER_GLOVES, new PickerControlEntry (TEX_UPPER_GLOVES, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultGlovesUUID" ) ), false ));
+        addEntry ( TEX_UPPER_UNDERSHIRT, new PickerControlEntry (TEX_UPPER_UNDERSHIRT, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultUnderwearUUID" ) ), false ));
+        addEntry ( TEX_LOWER_UNDERPANTS, new PickerControlEntry (TEX_LOWER_UNDERPANTS, "Fabric", LLUUID( gSavedSettings.getString( "UIImgDefaultUnderwearUUID" ) ), false ));
+        addEntry ( TEX_LOWER_ALPHA, new PickerControlEntry (TEX_LOWER_ALPHA, "Lower Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), true ));
+        addEntry ( TEX_UPPER_ALPHA, new PickerControlEntry (TEX_UPPER_ALPHA, "Upper Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), true ));
+        addEntry ( TEX_HEAD_ALPHA, new PickerControlEntry (TEX_HEAD_ALPHA, "Head Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), true ));
+        addEntry ( TEX_EYES_ALPHA, new PickerControlEntry (TEX_EYES_ALPHA, "Eye Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), true ));
+        addEntry ( TEX_HAIR_ALPHA, new PickerControlEntry (TEX_HAIR_ALPHA, "Hair Alpha", LLUUID( gSavedSettings.getString( "UIImgDefaultAlphaUUID" ) ), true ));
+        addEntry ( TEX_LOWER_TATTOO, new PickerControlEntry (TEX_LOWER_TATTOO, "Lower Tattoo", LLUUID::null, true ));
+        addEntry ( TEX_UPPER_TATTOO, new PickerControlEntry (TEX_UPPER_TATTOO, "Upper Tattoo", LLUUID::null, true ));
+        addEntry ( TEX_HEAD_TATTOO, new PickerControlEntry (TEX_HEAD_TATTOO, "Head Tattoo", LLUUID::null, true ));
+		addEntry ( TEX_LOWER_UNIVERSAL_TATTOO, new PickerControlEntry( TEX_LOWER_UNIVERSAL_TATTOO, "Lower Universal Tattoo", LLUUID::null, true));
+		addEntry ( TEX_UPPER_UNIVERSAL_TATTOO, new PickerControlEntry( TEX_UPPER_UNIVERSAL_TATTOO, "Upper Universal Tattoo", LLUUID::null, true));
+		addEntry ( TEX_HEAD_UNIVERSAL_TATTOO, new PickerControlEntry( TEX_HEAD_UNIVERSAL_TATTOO, "Head Universal Tattoo", LLUUID::null, true));
+		addEntry ( TEX_SKIRT_TATTOO, new PickerControlEntry(TEX_SKIRT_TATTOO, "Skirt Tattoo", LLUUID::null, true));
+		addEntry ( TEX_HAIR_TATTOO, new PickerControlEntry(TEX_HAIR_TATTOO, "Hair Tattoo", LLUUID::null, true));
+		addEntry ( TEX_EYES_TATTOO, new PickerControlEntry(TEX_EYES_TATTOO, "Eyes Tattoo", LLUUID::null, true));
+		addEntry (TEX_LEFT_ARM_TATTOO, new PickerControlEntry(TEX_LEFT_ARM_TATTOO, "Left Arm Tattoo", LLUUID::null, true));
+		addEntry (TEX_LEFT_LEG_TATTOO, new PickerControlEntry(TEX_LEFT_LEG_TATTOO, "Left Leg Tattoo", LLUUID::null, true));
+		addEntry (TEX_AUX1_TATTOO, new PickerControlEntry(TEX_AUX1_TATTOO, "Aux1 Tattoo", LLUUID::null, true));
+		addEntry (TEX_AUX2_TATTOO, new PickerControlEntry(TEX_AUX2_TATTOO, "Aux2 Tattoo", LLUUID::null, true));
+		addEntry (TEX_AUX3_TATTOO, new PickerControlEntry(TEX_AUX3_TATTOO, "Aux3 Tattoo", LLUUID::null, true));
 }
 
 LLEditWearableDictionary::PickerControlEntry::PickerControlEntry(ETextureIndex tex_index,
@@ -1533,7 +1533,7 @@ void LLPanelEditWearable::buildParamList(LLScrollingPanelList *panel_list, value
                         LLScrollingPanelParamBase *panel_param = nullptr;
                         if (wearable && wearable->getType() == LLWearableType::WT_PHYSICS) // Hack to show a different panel for physics.  Should generalize this later.
                         {
-                                panel_param = new LLScrollingPanelParamBase( p, NULL, (*it).second, TRUE, this->getWearable(), jointp);
+                                panel_param = new LLScrollingPanelParamBase( p, NULL, (*it).second, true, this->getWearable(), jointp);
                         }
                         else
                         {

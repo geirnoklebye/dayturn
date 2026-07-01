@@ -319,7 +319,7 @@ void inventory_offer_handler(LLOfferInfo* info)
         if (!bAutoAccept) // if we auto accept, do not pester the user
         {
             // Inform user that there is a script floater via toast system
-            payload["give_inventory_notification"] = TRUE;
+            payload["give_inventory_notification"] = true;
             p.payload = payload;
             LLPostponedNotification::add<LLPostponedOfferNotification>(p, info->mFromID, false);
         }
@@ -1418,7 +1418,7 @@ void LLIMProcessing::processNewMessage(LLUUID from_id,
             LLSD payload;
             payload["from_id"] = from_id;
             payload["lure_id"] = session_id;
-            payload["godlike"] = TRUE;
+            payload["godlike"] = true;
             payload["region_maturity"] = region_access;
 
             if (!canUserAccessDstRegion)

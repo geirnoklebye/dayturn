@@ -91,7 +91,7 @@
 //    mAvatarSettingsList->setRightMouseDownCallback(boost::bind(&LLFloaterAvatarRenderSettings::onAvatarListRightClick, this, _1, _2, _3));
 //    getChild<LLFilterEditor>("people_filter_input")->setCommitCallback(boost::bind(&LLFloaterAvatarRenderSettings::onFilterEdit, this, _2));
 //
-//	return TRUE;
+//	return true;
 //}
 //
 //void LLFloaterAvatarRenderSettings::draw()
@@ -245,7 +245,7 @@
 //        visual_setting = S32(LLVOAvatar::AV_ALWAYS_RENDER);
 //    }
 //
-//    LLView * button = findChild<LLButton>("plus_btn", TRUE);
+//    LLView * button = findChild<LLButton>("plus_btn", true);
 //    LLFloater* root_floater = gFloaterView->getParentFloater(this);
 //    LLFloaterAvatarPicker * picker = LLFloaterAvatarPicker::show(boost::bind(&LLFloaterAvatarRenderSettings::callbackAvatarPicked, this, _1, visual_setting),
 //                                                                    false, true, false, root_floater->getName(), button);

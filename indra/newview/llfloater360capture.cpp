@@ -496,7 +496,7 @@ void LLFloater360Capture::capture360Images()
     if (gSavedSettings.getbool("360CaptureHideAvatars"))
     {
         // Turn off the avatar if UI tells us to hide it.
-        // Note: the original call to gAvatar.hide(FALSE) did *not* hide
+        // Note: the original call to gAvatar.hide(false) did *not* hide
         // attachments and so for most residents, there would be some debris
         // left behind in the snapshot.
         // Note: this toggles so if it set to on, this will turn it off and

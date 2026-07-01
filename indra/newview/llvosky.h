@@ -135,7 +135,7 @@ protected:
 	LLVector3		mAngularVelocity;		// velocity of the local heavenly body
 
 	F32				mDiskRadius;
-	bool			mDraw;					// FALSE - do not draw.
+	bool			mDraw;					// false - do not draw.
 	F32				mHorizonVisibility;		// number [0, 1] due to how horizon
 	F32				mVisibility;			// same but due to other objects being in throng.
 	bool			mVisible;

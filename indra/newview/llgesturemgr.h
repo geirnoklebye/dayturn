@@ -80,7 +80,7 @@ public:
 
 	// Load gesture into in-memory active form.
 	// Can be called even if the inventory item isn't loaded yet.
-	// inform_server TRUE will send message upstream to update database
+	// inform_server true will send message upstream to update database
 	// user_gesture_active table, which isn't necessary on login.
 	// deactivate_similar will cause other gestures with the same trigger phrase
 	// or keybinding to be deactivated.
@@ -119,7 +119,7 @@ public:
 		mCallbackMap[inv_item_id] = cb;
 	}
 	// Trigger the first gesture that matches this key.
-	// Returns TRUE if it finds a gesture bound to that key.
+	// Returns true if it finds a gesture bound to that key.
 	bool triggerGesture(KEY key, MASK mask);
 
 	// Trigger all gestures referenced as substrings in this string

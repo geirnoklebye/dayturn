@@ -2886,7 +2886,7 @@ void LLSelectMgr::adjustTexturesByScale(bool send_to_sim, bool stretch)
 
 //-----------------------------------------------------------------------------
 // selectGetAllRootsValid()
-// Returns TRUE if the viewer has information on all selected objects
+// Returns true if the viewer has information on all selected objects
 //-----------------------------------------------------------------------------
 bool LLSelectMgr::selectGetAllRootsValid()
 {
@@ -2905,7 +2905,7 @@ bool LLSelectMgr::selectGetAllRootsValid()
 
 //-----------------------------------------------------------------------------
 // selectGetAllValid()
-// Returns TRUE if the viewer has information on all selected objects
+// Returns true if the viewer has information on all selected objects
 //-----------------------------------------------------------------------------
 bool LLSelectMgr::selectGetAllValid()
 {
@@ -3613,7 +3613,7 @@ bool LLSelectMgr::selectGetGroup(LLUUID& result_id)
 //-----------------------------------------------------------------------------
 // selectIsGroupOwned()
 // Only operates on root nodes unless editing linked parts.  
-// Returns TRUE if the first selected is group owned.
+// Returns true if the first selected is group owned.
 //-----------------------------------------------------------------------------
 struct LLSelectGetFirstGroupOwner : public LLSelectGetFirstTest
 {
@@ -3639,9 +3639,9 @@ bool LLSelectMgr::selectIsGroupOwned()
 //-----------------------------------------------------------------------------
 // selectGetPerm()
 // Only operates on root nodes.
-// Returns TRUE if all have valid data.
-// mask_on has bits set to TRUE where all permissions are TRUE
-// mask_off has bits set to TRUE where all permissions are FALSE
+// Returns true if all have valid data.
+// mask_on has bits set to true where all permissions are true
+// mask_off has bits set to true where all permissions are false
 // if a bit is off both in mask_on and mask_off, the values differ within
 // the selection.
 //-----------------------------------------------------------------------------
@@ -3692,10 +3692,10 @@ bool LLSelectMgr::selectGetPerm(U8 which_perm, U32* mask_on, U32* mask_off)
 
 	if (all_valid)
 	{
-		// ...TRUE through all ANDs means all TRUE
+		// ...true through all ANDs means all true
 		*mask_on  = mask_and;
 
-		// ...FALSE through all ORs means all FALSE
+		// ...false through all ORs means all false
 		*mask_off = ~mask_or;
 		return true;
 	}
@@ -6306,7 +6306,7 @@ void LLSelectMgr::renderSilhouettes(bool for_hud)
 	if (mHighlightedObjects->getNumNodes())
 	{
 		// render silhouettes for highlighted objects
-		bool subtracting_from_selection = (gKeyboard->currentMask(TRUE) == MASK_CONTROL);
+		bool subtracting_from_selection = (gKeyboard->currentMask(true) == MASK_CONTROL);
 		for (S32 pass = 0; pass < 2; pass++)
 		{
 			for (LLObjectSelection::iterator iter = mHighlightedObjects->begin();

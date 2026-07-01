@@ -116,8 +116,8 @@ void LLHUDText::renderText()
 
 	gGL.getTexUnit(0)->enable(LLTexUnit::TT_TEXTURE);
 
-	LLGLState gls_blend(GL_BLEND, TRUE);
-	LLGLState gls_alpha(GL_ALPHA_TEST, TRUE);
+	LLGLState gls_blend(GL_BLEND, true);
+	LLGLState gls_alpha(GL_ALPHA_TEST, true);
 	
 	LLColor4 shadow_color(0.f, 0.f, 0.f, 1.f);
 	F32 alpha_factor = 1.f;

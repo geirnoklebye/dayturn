@@ -485,28 +485,28 @@ void LLPanelRegionTools::clearAllWidgets()
 	getChild<LLUICtrl>("region name")->setValue("unknown");
 	getChild<LLUICtrl>("region name")->setFocus( false);
 
-	getChild<LLUICtrl>("check prelude")->setValue(FALSE);
+	getChild<LLUICtrl>("check prelude")->setValue(false);
 	getChildView("check prelude")->setEnabled(false);
 
-	getChild<LLUICtrl>("check fixed sun")->setValue(FALSE);
+	getChild<LLUICtrl>("check fixed sun")->setValue(false);
 	getChildView("check fixed sun")->setEnabled(false);
 
-	getChild<LLUICtrl>("check reset home")->setValue(FALSE);
+	getChild<LLUICtrl>("check reset home")->setValue(false);
 	getChildView("check reset home")->setEnabled(false);
 
-	getChild<LLUICtrl>("check damage")->setValue(FALSE);
+	getChild<LLUICtrl>("check damage")->setValue(false);
 	getChildView("check damage")->setEnabled(false);
 
-	getChild<LLUICtrl>("check visible")->setValue(FALSE);
+	getChild<LLUICtrl>("check visible")->setValue(false);
 	getChildView("check visible")->setEnabled(false);
 
-	getChild<LLUICtrl>("block terraform")->setValue(FALSE);
+	getChild<LLUICtrl>("block terraform")->setValue(false);
 	getChildView("block terraform")->setEnabled(false);
 
-	getChild<LLUICtrl>("block dwell")->setValue(FALSE);
+	getChild<LLUICtrl>("block dwell")->setValue(false);
 	getChildView("block dwell")->setEnabled(false);
 
-	getChild<LLUICtrl>("is sandbox")->setValue(FALSE);
+	getChild<LLUICtrl>("is sandbox")->setValue(false);
 	getChildView("is sandbox")->setEnabled(false);
 
 	getChild<LLUICtrl>("billable factor")->setValue(BILLABLE_FACTOR_DEFAULT);
@@ -719,13 +719,13 @@ void LLPanelRegionTools::setParentEstateID(U32 id)
 void LLPanelRegionTools::setCheckFlags(U64 flags)
 {
 	getChild<LLUICtrl>("check prelude")->setValue(is_prelude(flags) ? true : false);
-	getChild<LLUICtrl>("check fixed sun")->setValue(flags & REGION_FLAGS_SUN_FIXED ? TRUE : FALSE);
-	getChild<LLUICtrl>("check reset home")->setValue(flags & REGION_FLAGS_RESET_HOME_ON_TELEPORT ? TRUE : FALSE);
-	getChild<LLUICtrl>("check damage")->setValue(flags & REGION_FLAGS_ALLOW_DAMAGE ? TRUE : FALSE);
-	getChild<LLUICtrl>("check visible")->setValue(flags & REGION_FLAGS_EXTERNALLY_VISIBLE ? TRUE : FALSE);
-	getChild<LLUICtrl>("block terraform")->setValue(flags & REGION_FLAGS_BLOCK_TERRAFORM ? TRUE : FALSE);
-	getChild<LLUICtrl>("block dwell")->setValue(flags & REGION_FLAGS_BLOCK_DWELL ? TRUE : FALSE);
-	getChild<LLUICtrl>("is sandbox")->setValue(flags & REGION_FLAGS_SANDBOX ? TRUE : FALSE );
+	getChild<LLUICtrl>("check fixed sun")->setValue(flags & REGION_FLAGS_SUN_FIXED ? true : false);
+	getChild<LLUICtrl>("check reset home")->setValue(flags & REGION_FLAGS_RESET_HOME_ON_TELEPORT ? true : false);
+	getChild<LLUICtrl>("check damage")->setValue(flags & REGION_FLAGS_ALLOW_DAMAGE ? true : false);
+	getChild<LLUICtrl>("check visible")->setValue(flags & REGION_FLAGS_EXTERNALLY_VISIBLE ? true : false);
+	getChild<LLUICtrl>("block terraform")->setValue(flags & REGION_FLAGS_BLOCK_TERRAFORM ? true : false);
+	getChild<LLUICtrl>("block dwell")->setValue(flags & REGION_FLAGS_BLOCK_DWELL ? true : false);
+	getChild<LLUICtrl>("is sandbox")->setValue(flags & REGION_FLAGS_SANDBOX ? true : false );
 }
 
 void LLPanelRegionTools::setBillableFactor(F32 billable_factor)
@@ -751,8 +751,8 @@ void LLPanelRegionTools::onChangePrelude()
 	// checking prelude auto-checks fixed sun
 	if (getChild<LLUICtrl>("check prelude")->getValue().asBoolean())
 	{
-		getChild<LLUICtrl>("check fixed sun")->setValue(TRUE);
-		getChild<LLUICtrl>("check reset home")->setValue(TRUE);
+		getChild<LLUICtrl>("check fixed sun")->setValue(true);
+		getChild<LLUICtrl>("check reset home")->setValue(true);
 		onChangeAnything();
 	}
 	// pass on to default onChange handler
@@ -1004,15 +1004,15 @@ U64 LLPanelObjectTools::computeRegionFlags(U64 flags) const
 
 void LLPanelObjectTools::setCheckFlags(U64 flags)
 {
-	getChild<LLUICtrl>("disable scripts")->setValue(flags & REGION_FLAGS_SKIP_SCRIPTS ? TRUE : FALSE);
-	getChild<LLUICtrl>("disable collisions")->setValue(flags & REGION_FLAGS_SKIP_COLLISIONS ? TRUE : FALSE);
-	getChild<LLUICtrl>("disable physics")->setValue(flags & REGION_FLAGS_SKIP_PHYSICS ? TRUE : FALSE);
+	getChild<LLUICtrl>("disable scripts")->setValue(flags & REGION_FLAGS_SKIP_SCRIPTS ? true : false);
+	getChild<LLUICtrl>("disable collisions")->setValue(flags & REGION_FLAGS_SKIP_COLLISIONS ? true : false);
+	getChild<LLUICtrl>("disable physics")->setValue(flags & REGION_FLAGS_SKIP_PHYSICS ? true : false);
 }
 
 
 void LLPanelObjectTools::clearAllWidgets()
 {
-	getChild<LLUICtrl>("disable scripts")->setValue(FALSE);
+	getChild<LLUICtrl>("disable scripts")->setValue(false);
 	getChildView("disable scripts")->setEnabled(false);
 
 	getChildView("Apply")->setEnabled(false);

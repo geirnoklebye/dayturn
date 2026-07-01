@@ -1094,7 +1094,7 @@ void cmdline_rezplat(bool use_saved_value, F32 visual_radius) //cmdline_rezplat(
     msg->addVector3Fast(_PREHASH_RayStart, rezpos );
     msg->addVector3Fast(_PREHASH_RayEnd, rezpos );
     msg->addU8Fast(_PREHASH_BypassRaycast, (U8)1 );
-    msg->addU8Fast(_PREHASH_RayEndIsIntersection, (U8)FALSE );
+    msg->addU8Fast(_PREHASH_RayEndIsIntersection, (U8)false );
     msg->addU8Fast(_PREHASH_State, 0);
     msg->addUUIDFast(_PREHASH_RayTargetID, LLUUID::null );
     msg->sendReliable(gAgent.getRegionHost());

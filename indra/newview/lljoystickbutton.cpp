@@ -220,7 +220,7 @@ void LLJoystick::onBtnHeldDown(void *userdata)
 	LLJoystick *self = (LLJoystick *)userdata;
 	if (self)
 	{
-		self->mHeldDown = TRUE;
+		self->mHeldDown = true;
 		self->onHeldDown();
 	}
 }

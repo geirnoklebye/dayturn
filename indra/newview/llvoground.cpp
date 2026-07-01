@@ -39,7 +39,7 @@
 #include "pipeline.h"
 
 LLVOGround::LLVOGround(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
-:	LLStaticViewerObject(id, pcode, regionp, TRUE)
+:	LLStaticViewerObject(id, pcode, regionp, true)
 {
 	mbCanSelect = false;
 }
@@ -72,7 +72,7 @@ LLDrawable *LLVOGround::createDrawable(LLPipeline *pipeline)
 	return mDrawable;
 }
 
-// TO DO - this always returns TRUE, 
+// TO DO - this always returns true, 
 bool LLVOGround::updateGeometry(LLDrawable *drawable)
 {
 	LLStrider<LLVector3> verticesp;

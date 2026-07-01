@@ -198,7 +198,7 @@ bool LLVisualParamHint::render()
 	gUIProgram.bind();
 
 	LLGLSUIDefault gls_ui;
-	//LLGLState::verify(TRUE);
+	//LLGLState::verify(true);
 	mBackgroundp->draw(0, 0, mFullWidth, mFullHeight);
 
 	gGL.matrixMode(LLRender::MM_PROJECTION);

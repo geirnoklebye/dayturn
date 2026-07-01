@@ -240,12 +240,12 @@ void LLPanelPickInfo::resetControls()
 	if(getAvatarId() == gAgent.getID())
 	{
 		getChildView("edit_btn")->setEnabled(true);
-		getChildView("edit_btn")->setVisible( TRUE);
+		getChildView("edit_btn")->setVisible( true);
 	}
 	else
 	{
 		getChildView("edit_btn")->setEnabled(false);
-		getChildView("edit_btn")->setVisible( FALSE);
+		getChildView("edit_btn")->setVisible( false);
 	}
 }
 
@@ -501,14 +501,14 @@ void LLPanelPickEdit::sendUpdate()
 	pick_data.creator_id = gAgent.getID();;
 
 	//legacy var  need to be deleted
-	pick_data.top_pick = FALSE; 
+	pick_data.top_pick = false; 
 	pick_data.parcel_id = mParcelId;
 	pick_data.name = getChild<LLUICtrl>(XML_NAME)->getValue().asString();
 	pick_data.desc = getChild<LLUICtrl>(XML_DESC)->getValue().asString();
 	pick_data.snapshot_id = mSnapshotCtrl->getImageAssetID();
 	pick_data.pos_global = getPosGlobal();
 	pick_data.sort_order = 0;
-	pick_data.enabled = TRUE;
+	pick_data.enabled = true;
 
 	LLAvatarPropertiesProcessor::instance().sendPickInfoUpdate(&pick_data);
 
@@ -565,7 +565,7 @@ void LLPanelPickEdit::onClickSetLocation()
 	setPickLocation(createLocationText(getLocationNotice(), parcel_name, region_name, getPosGlobal()));
 
 	mLocationChanged = true;
-	enableSaveButton(TRUE);
+	enableSaveButton(true);
 }
 
 void LLPanelPickEdit::onClickSave()

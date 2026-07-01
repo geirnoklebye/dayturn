@@ -96,7 +96,7 @@ const F32 SKIN_WEIGHT_CAMERA_DISTANCE = 16.f;
 
 LLViewerFetchedTexture* bindMaterialDiffuseTexture(const LLImportMaterial& material)
 {
-    LLViewerFetchedTexture *texture = LLViewerTextureManager::getFetchedTexture(material.getDiffuseMap(), FTT_DEFAULT, TRUE, LLGLTexture::BOOST_PREVIEW);
+    LLViewerFetchedTexture *texture = LLViewerTextureManager::getFetchedTexture(material.getDiffuseMap(), FTT_DEFAULT, true, LLGLTexture::BOOST_PREVIEW);
 
     if (texture)
     {
@@ -3827,7 +3827,7 @@ void LLModelPreview::renderGroundPlane(float z_offset)
 //-----------------------------------------------------------------------------
 void LLModelPreview::refresh()
 {
-    mNeedsUpdate = TRUE;
+    mNeedsUpdate = true;
 }
 
 //-----------------------------------------------------------------------------

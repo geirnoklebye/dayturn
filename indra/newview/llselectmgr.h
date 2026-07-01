@@ -352,15 +352,15 @@ public:
 	bool contains(LLViewerObject* object);
 	bool contains(LLViewerObject* object, S32 te);
 
-	// returns TRUE is any node is currenly worn as an attachment
+	// returns true is any node is currenly worn as an attachment
 	bool isAttachment();
 
     bool checkAnimatedObjectEstTris();
     bool checkAnimatedObjectLinkable();
     
 	// Apply functors to various subsets of the selected objects
-	// If firstonly is FALSE, returns the AND of all apply() calls.
-	// Else returns TRUE immediately if any apply() call succeeds (i.e. OR with early exit)
+	// If firstonly is false, returns the AND of all apply() calls.
+	// Else returns true immediately if any apply() call succeeds (i.e. OR with early exit)
 	bool applyToRootObjects(LLSelectedObjectFunctor* func, bool firstonly = false);
 	bool applyToObjects(LLSelectedObjectFunctor* func);
 	bool applyToTEs(LLSelectedTEFunctor* func, bool firstonly = false);

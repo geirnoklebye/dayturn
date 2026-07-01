@@ -101,7 +101,7 @@ void LLToolCamera::handleSelect()
 // virtual
 void LLToolCamera::handleDeselect()
 {
-//	gAgent.setLookingAtAvatar(FALSE);
+//	gAgent.setLookingAtAvatar(false);
 
 	// Make sure that temporary selection won't pass anywhere except pie tool.
 	MASK override_mask = gKeyboard ? gKeyboard->currentMask(true) : 0;
