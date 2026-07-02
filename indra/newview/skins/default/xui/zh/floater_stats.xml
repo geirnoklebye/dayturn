@@ -74,11 +74,6 @@
 				<stat_bar label="使用中腳本" name="simactivescripts"/>
 				<stat_bar label="腳本執行" name="simpctscriptsrun"/>
 				<stat_bar label="腳本事件" name="simscripteps"/>
-				<stat_view label="尋徑" name="simpathfinding">
-					<stat_bar label="人工智慧步驟時間" name="simsimaistepmsec"/>
-					<stat_bar label="已略過輪廓步驟" name="simsimskippedsilhouettesteps"/>
-					<stat_bar label="角色已更新" name="simsimpctsteppedcharacters"/>
-				</stat_view>
 				<stat_bar label="進入封包" name="siminpps"/>
 				<stat_bar label="出去封包" name="simoutpps"/>
 				<stat_bar label="擱置下載" name="simpendingdownloads"/>

@@ -2756,20 +2756,6 @@ Logo, não é possível voar aqui.
 	<notification name="NoBuild">
 		Esta área desativou a opção de construir.  Não é possível construir ou fazer rez de objetos nesta área.
 	</notification>
-	<notification name="PathfindingDirty">
-		A região possui alterações de pathfinding pendentes.  Se você possui direitos de construção, poderá recarregar a região clicando no botão “Recarregar região”.
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		A região possui alterações de pathfinding pendentes.  Se você possui direitos de construção, poderá recarregar a região clicando no botão “Recarregar região”.
-		<usetemplate name="okbutton" yestext="Recarregar região"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		O pathfinding dinâmico não está habilitado nesta região.  Os objetos com script usando chamadas LSL de pathfinding podem não operar como o esperado na região.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Erro.  Pode haver um erro de rede ou do servidor, ou você pode não ter direitos de construção.  Às vezes, fazer login e logout novamente resolve este problema.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="SeeAvatars">
 		Este terreno oculta os avatares e bate-papo de outro terreno.    Não é possível ver residentes fora do terreno e vice-versa.   O bate-papo por texto no canal 0 também está bloqueado.
 	</notification>
@@ -3616,62 +3602,6 @@ Se o botão Falar for ocultado, o recurso de voz será desabilitado.
 		Essa ação irá ocultar todos os itens de menu e botões. Para trazê-los de volta, clique em [SHORTCUT] novamente.
 		<usetemplate ignoretext="Confirmar antes de ocultar interface" name="okcancelignore" notext="Cancelar" yestext="OK"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		Alguns linksets selecionados terão suas sinalizações fantasmas alternadas.
-
-Deseja continuar?
-		<usetemplate ignoretext="Algumas sinalizações fantasmas dos linksets selecionados serão alternadas." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Algumas sinalizações fantasmas dos linksets selecionados não podem ser definidas como &apos;[REQUESTED_TYPE]&apos; devido às restrições de permissão no linkset.  Ao invés disso, estes linksets serão definidos como &apos;[RESTRICTED_TYPE]&apos;.
-
-Deseja continuar?
-		<usetemplate ignoretext="Alguns linksets selecionados não podem ser definidos devido às restrições de permissão no linkset." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Alguns linksets selecionados não podem ser definidos como &apos;[REQUESTED_TYPE]&apos;, pois a forma não é convexa.
-
-Deseja continuar?
-		<usetemplate ignoretext="Alguns linksets selecionados não podem ser definidos, pois a forma não é convexa." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		Alguns linksets selecionados terão suas sinalizações fantasmas alternadas.
-
-Algumas sinalizações fantasmas dos linksets selecionados não podem ser definidas como &apos;[REQUESTED_TYPE]&apos; devido às restrições de permissão no linkset.  Ao invés disso, estes linksets serão definidos como &apos;[RESTRICTED_TYPE]&apos;.
-
-Deseja continuar?
-		<usetemplate ignoretext="Algumas sinalizações fantasmas dos linksets selecionados serão alternadas e outras não poderão ser definidas devido às restrições de permissão no linkset." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		Alguns linksets selecionados terão suas sinalizações fantasmas alternadas.
-
-Alguns linksets selecionados não podem ser definidos como &apos;[REQUESTED_TYPE]&apos;, pois a forma não é convexa.
-
-Deseja continuar?
-		<usetemplate ignoretext="Algumas sinalizações fantasmas dos linksets selecionados serão alternadas e outros não podem ser definidas, pois a forma não é convexa." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Algumas sinalizações fantasmas dos linksets selecionados não podem ser definidas como &apos;[REQUESTED_TYPE]&apos; devido às restrições de permissão no linkset.  Ao invés disso, estes linksets serão definidos como &apos;[RESTRICTED_TYPE]&apos;.
-
-Alguns linksets selecionados não podem ser definidos como &apos;[REQUESTED_TYPE]&apos;, pois a forma não é convexa. Estes tipos de uso de linksets não mudarão.
-
-Deseja continuar?
-		<usetemplate ignoretext="Alguns linksets selecionados não podem ser definidos devido às restrições de permissão no linkset e porque a forma não é convexa." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		Alguns linksets selecionados terão suas sinalizações fantasmas alternadas.
-
-Algumas sinalizações fantasmas dos linksets selecionados não podem ser definidas como &apos;[REQUESTED_TYPE]&apos; devido às restrições de permissão no linkset.  Ao invés disso, estes linksets serão definidos como &apos;[RESTRICTED_TYPE]&apos;.
-
-Alguns linksets selecionados não podem ser definidos como &apos;[REQUESTED_TYPE]&apos;, pois a forma não é convexa. Estes tipos de uso de linksets não mudarão.
-
-Deseja continuar?
-		<usetemplate ignoretext="Algumas sinalizações fantasmas dos linksets selecionados serão alternadas e outras não poderão ser definidas, pois a forma não é convexa." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		O objeto selecionado afeta o navmesh.  Alterá-lo para um Caminho Flexível irá removê-lo do navmesh.
-		<usetemplate ignoretext="O objeto selecionado afeta o navmesh.  Alterá-lo para um Caminho Flexível irá removê-lo do navmesh." name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		Aparentemente a sua máquina não atende os requisitos de hardware do [APP_NAME].  [APP_NAME] requer placas de vídeo OpenGL com suporte a multitexturas.  Se sua place de vídeo tiver este perfil, atualize o driver da placa de vídeo, assim como patches e service packs do sistema operacional. 
 
@@ -3707,14 +3637,6 @@ Desabilitando atualizações futuras deste arquivo.
 	<notification name="LocalBitmapsVerifyFail">
 		Tentativa de adição de um formato de imagem inválido ou ilegível [FNAME] que não pode ser aberto ou decodificado.
 Tentativa cancelada.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		Você está devolvendo [NUM_ITEMS] itens.  Tem certeza de que deseja continuar?
-		<usetemplate ignoretext="Tem certeza de que deseja devolver múltiplos itens?" name="okcancelignore" notext="Não" yestext="Sim"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		Você está excluindo [NUM_ITEMS] itens.  Tem certeza de que deseja continuar?
-		<usetemplate ignoretext="Tem certeza de que deseja excluir múltiplos itens?" name="okcancelignore" notext="Não" yestext="Sim"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] congelou você. Você não pode se mover ou interagir com o mundo.

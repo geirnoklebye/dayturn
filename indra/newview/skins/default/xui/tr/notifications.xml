@@ -2767,20 +2767,6 @@ Burada uçamazsınız.
 	<notification name="NoBuild">
 		Bu alanda inşa etme özelliği devre dışı. Burada nesne inşa edemez ve oluşturamazsınız.
 	</notification>
-	<notification name="PathfindingDirty">
-		Bu bölgede bekleyen yol bulma değişiklikleri var.  Eğer oluşturma haklarına sahipseniz, “Bölgeyi yeniden kaydet” düğmesine tıklayarak bölgeyi yeniden kaydedebilirsiniz.
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		Bu bölgede bekleyen yol bulma değişiklikleri var.  Eğer oluşturma haklarına sahipseniz, “Bölgeyi yeniden kaydet” düğmesine tıklayarak bölgeyi yeniden kaydedebilirsiniz.
-		<usetemplate name="okbutton" yestext="Bölgeyi yeniden kaydet"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		Bu bölgede dinamik yol bulma etkin değil.  Yol bulma LSL çağrılarını kullanan komut dosyalı nesneler, bu bölgede beklendiiği gibi çalışmayabilir.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Bir hata meydana geldi.  Bir ağ veya sunucu sorunu olabilir ya da oluşturma haklarına sahip olmayabilirsiniz.  Bazen oturumu kapatıp, tekrar açmak bu sorunu çözer.
-		<usetemplate name="okbutton" yestext="Tamam"/>
-	</notification>
 	<notification name="SeeAvatars">
 		Bu parsel, avatarları ve metin sohbetini başka bir parselden saklar.   Parselin dışındaki diğer sakinleri göremezsiniz, dışardakiler de sizi göremez.  0. kanaldaki normal metin sohbeti de engellenmiştir.
 	</notification>
@@ -3629,62 +3615,6 @@ Görünümünüzü döndürmek için dünya üzerindeki herhangi bir yeri tıkla
 		Bu eylem tüm menü öğelerini ve düğmelerini gizler. Bunları geri almak için [SHORTCUT] üzerine tekrar tıklayın.
 		<usetemplate ignoretext="KA&apos;ni gizlemeden önce onayla" name="okcancelignore" notext="İptal" yestext="Tamam"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		Bazı seçili bağlantı kümelerinin Fantom bayrağı dönüştürülecek.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Bazı seçili bağlantı kümelerinin fantom bayrağı dönüştürülecek." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Seçilen bazı bağlantı kümeleri, bağlantı kümesi için izin kısıtlamaları nedeniyle &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamıyor.  Bunun yerine bu bağlantı kümeleri &apos;[RESTRICTED_TYPE]&apos; olarak ayarlanacak.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Seçilen bazı bağlantı kümeleri, bağlantı kümesi için izin kısıtlamaları nedeniyle ayarlanamıyor." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Seçilen bazı bağlantı kümeleri &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamaz, çünkü şekil konveks değil.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Seçilen bazı bağlantı kümeleri ayarlanamaz, çünkü şekil konveks değil." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		Bazı seçili bağlantı kümelerinin Fantom bayrağı dönüştürülecek.
-
-Seçilen bazı bağlantı kümeleri, bağlantı kümesi için izin kısıtlamaları nedeniyle &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamıyor.  Bunun yerine bu bağlantı kümeleri &apos;[RESTRICTED_TYPE]&apos; olarak ayarlanacak.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Bazı seçili bağlantı kümelerinin fantom bayrağı dönüştürülecek, diğerleri ise bağlantı kümesi için izin kısıtlamaları nedeniyle ayarlanamıyor." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		Bazı seçili bağlantı kümelerinin Fantom bayrağı dönüştürülecek.
-
-Seçilen bazı bağlantı kümeleri &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamaz, çünkü şekil konveks değil.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Bazı seçili bağlantı kümelerinin fantom bayrağı dönüştürülecek, diğerleri ise şekil konveks olmadığı için ayarlanamıyor" name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Seçilen bazı bağlantı kümeleri, bağlantı kümesi için izin kısıtlamaları nedeniyle &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamıyor.  Bunun yerine bu bağlantı kümeleri &apos;[RESTRICTED_TYPE]&apos; olarak ayarlanacak.
-
-Seçilen bazı bağlantı kümeleri &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamaz, çünkü şekil konveks değil. Bu bağlantı kümelerinin kullanım tipleri değişmez.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Seçilen bazı bağlantı kümeleri, bağlantı kümesi için izin kısıtlamaları nedeniyle ve şekil konveks olmadığı için ayarlanamıyor." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		Bazı seçili bağlantı kümelerinin Fantom bayrağı dönüştürülecek.
-
-Seçilen bazı bağlantı kümeleri, bağlantı kümesi için izin kısıtlamaları nedeniyle &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamıyor.  Bunun yerine bu bağlantı kümeleri &apos;[RESTRICTED_TYPE]&apos; olarak ayarlanacak.
-
-Seçilen bazı bağlantı kümeleri &apos;[REQUESTED_TYPE]&apos; olarak ayarlanamaz, çünkü şekil konveks değil. Bu bağlantı kümelerinin kullanım tipleri değişmez.
-
-Devam etmek istiyor musunuz?
-		<usetemplate ignoretext="Bazı seçili bağlantı kümelerinin fantom bayrağı dönüştürülecek, diğerleri ise bağlantı kümesi için izin kısıtlamaları nedeniyle ve şekil konveks olmadığı için ayarlanamıyor." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		Seçilen nesne navigasyon örgüsünü etkiliyor.  Bunu bir Esnek Yol olarak değiştirirseniz, navigasyon örgüsünden çıkartmış olursunuz.
-		<usetemplate ignoretext="Seçilen nesne navigasyon örgüsünü etkiliyor.  Bunu bir Esnek Yol olarak değiştirirseniz, navigasyon örgüsünden çıkartmış olursunuz." name="okcancelignore" notext="İptal" yestext="Tamam"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		[APP_NAME] uygulaması için gerekli donanım gereksinimlerine sahip olmadığınız görünüyor. [APP_NAME] çoklu doku desteği sunan bir OpenGL grafik kartı gerektiriyor. Eğer grafik kartınız bu özellikteyse, grafik kartınızın en son sürücülerine ve işletim sisteminiz için gerekli Service Pack ve yamalara sahip olup olmadığınızı kontrol etmeyi deneyebilirsiniz.
 
@@ -3720,14 +3650,6 @@ Bundan sonra bu dosya için güncellemeler devre dışı bırakılacak.
 	<notification name="LocalBitmapsVerifyFail">
 		Geçersiz veya okunamayan bir görüntü dosyası [FNAME] eklenmeye kalkışıldı, ancak dosya açılamadı veya şifresi çözülemedi.
 Girişim iptal edildi.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		[NUM_ITEMS] öğeyi iade ediyorsunuz.  Devam etmek istediğinize emin misiniz?
-		<usetemplate ignoretext="Birden çok öğeyi iade etmek istediğinize emin misiniz?" name="okcancelignore" notext="Hayır" yestext="Evet"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		[NUM_ITEMS] öğeyi siliyorsunuz.  Devam etmek istediğinize emin misiniz?
-		<usetemplate ignoretext="Birden çok öğeyi silmek istediğinize emin misiniz?" name="okcancelignore" notext="Hayır" yestext="Evet"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] sizi dondurdu. Hareket edemez veya dünyayla etkileşim kuramazsınız.

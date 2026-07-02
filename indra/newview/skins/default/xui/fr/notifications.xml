@@ -2768,20 +2768,6 @@ Vous ne pouvez pas voler ici.
 	<notification name="NoBuild">
 		La construction est interdite dans cette zone. Vous ne pouvez pas construite ou rezzer d&apos;objets ici.
 	</notification>
-	<notification name="PathfindingDirty">
-		Des modifications de recherche de chemin sont en attente concernant cette région. Si vous disposez de droits de construction, vous pouvez la figer de nouveau en cliquant sur le bouton Refiger la région.
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		Des modifications de recherche de chemin sont en attente concernant cette région.  Si vous disposez de droits de construction, vous pouvez la figer de nouveau en cliquant sur le bouton Refiger la région.
-		<usetemplate name="okbutton" yestext="Refiger la région"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		La recherche de chemin dynamique n&apos;est pas activée dans cette région. Il se peut que les objets scriptés utilisant des appels LSL de recherche de chemin ne fonctionnent pas comme prévu pour cette région.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Une erreur est survenue. Un problème réseau ou serveur s&apos;est peut-être produit ou vous ne disposez pas de droits de construction. Se déconnecter puis se reconnecter permet parfois de résoudre le problème.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="SeeAvatars">
 		Cette parcelle masque les avatars et le chat écrit des autres parcelles. Vous ne pouvez pas voir les résidents qui se trouvent en dehors, et ceux qui se trouvent en dehors ne peuvent pas vous voir. Le chat écrit habituel sur le canal 0 est également bloqué.
 	</notification>
@@ -3630,62 +3616,6 @@ Cliquez sur un point dans le monde et faites glisser votre souris pour faire tou
 		Cette action masquera tous les boutons et articles de menu. Pour les récupérer, cliquez de nouveau sur [SHORTCUT].
 		<usetemplate ignoretext="Confirmer avant de masquer l&apos;interface" name="okcancelignore" notext="Annuler" yestext="OK"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera.
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="L&apos;indicateur Fantôme de certains groupes de liens basculera." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison des restrictions d&apos;autorisation les concernant. Ces groupes de liens seront définis sur [RESTRICTED_TYPE].
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="Certains groupes de liens sélectionnés ne peuvent pas être définis en raison des restrictions d&apos;autorisation les concernant." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison d&apos;une forme non convexe.
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="Certains groupes de liens sélectionnés ne peuvent pas être définis en raison d&apos;une forme non convexe." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera.
-
-Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison des restrictions d&apos;autorisation les concernant. Ces groupes de liens seront définis sur [RESTRICTED_TYPE].
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera et d&apos;autres ne peuvent pas être définis en raison de restrictions d&apos;autorisation sur les groupes de liens." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera.
-
-Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison d&apos;une forme non convexe.
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera et d&apos;autres ne peuvent pas être définis en raison d&apos;une forme non convexe." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison des restrictions d&apos;autorisation les concernant. Ces groupes de liens seront définis sur [RESTRICTED_TYPE].
-
-Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison d&apos;une forme non convexe. Les types d&apos;usage de ces groupes de liens ne seront pas modifiés.
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="Certains groupes de liens sélectionnés ne peuvent pas être définis en raison des restrictions d&apos;autorisation les concernant et d&apos;une forme non convexe." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera.
-
-Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison des restrictions d&apos;autorisation les concernant. Ces groupes de liens seront définis sur [RESTRICTED_TYPE].
-
-Certains groupes de liens sélectionnés ne peuvent pas être définis sur [REQUESTED_TYPE] en raison d&apos;une forme non convexe. Les types d&apos;usage de ces groupes de liens ne seront pas modifiés.
-
-Voulez-vous continuer ?
-		<usetemplate ignoretext="L&apos;indicateur Fantôme de certains groupes de liens sélectionnés basculera et d&apos;autres ne peuvent pas être définis en raison de restrictions d&apos;autorisation sur les groupes de liens et d&apos;une forme non convexe." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		L&apos;objet sélectionné affecte le maillage de navigation. Si vous le modifiez en Flexibilité, il sera supprimé de ce maillage.
-		<usetemplate ignoretext="L&apos;objet sélectionné affecte le maillage de navigation. Si vous le modifiez en Flexibilité, il sera supprimé de ce maillage." name="okcancelignore" notext="Annuler" yestext="OK"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		Vous semblez ne pas avoir le matériel requis pour utiliser [APP_NAME]. [APP_NAME] requiert une carte graphique OpenGL avec une prise en charge du multitexturing. Si vous avez une telle carte, assurez-vous que vous avez aussi les pilotes les plus récents pour la carte, ainsi que les service packs et les patchs pour votre système d&apos;exploitation.
 
@@ -3720,14 +3650,6 @@ Désactivation des mises à jour futures de ce fichier...
 	</notification>
 	<notification name="LocalBitmapsVerifyFail">
 		Tentative d&apos;ajout d&apos;un fichier image [FNAME] non valide ou illisible n&apos;ayant pas pu être ouvert ou décodé. Tentative annulée.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		Vous allez renvoyer [NUM_ITEMS] articles. Voulez-vous vraiment continuer ?
-		<usetemplate ignoretext="Voulez-vous vraiment renvoyer plusieurs articles ?" name="okcancelignore" notext="Non" yestext="Oui"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		Vous allez supprimer [NUM_ITEMS] articles. Voulez-vous vraiment continuer ?
-		<usetemplate ignoretext="Voulez-vous vraiment supprimer plusieurs articles ?" name="okcancelignore" notext="Non" yestext="Oui"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] vous a figé. Vous ne pouvez pas bouger ni interagir avec le monde.

@@ -4397,12 +4397,6 @@ Si ce message persiste, veuillez aller sur la page [SUPPORT_SITE].
 	<string name="LocationCtrlSeeAVsTooltip">
 		Les avatars à l&apos;extérieur de cette parcelle ne peuvent pas voir ni entendre les avatars qui se trouvent à l&apos;intérieur.
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		Les objets mobiles risquent de ne pas se comporter correctement dans cette région tant qu&apos;elle n&apos;est pas refigée.
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		La recherche de chemin dynamique n&apos;est pas activée dans cette région.
-	</string>
 	<string name="UpdaterWindowTitle">
 		[APP_NAME] - Mise à jour
 	</string>
@@ -5640,9 +5634,6 @@ Essayez avec le chemin d&apos;accès à l&apos;éditeur entre guillemets doubles
 	</string>
 	<string name="Normal">
 		Normal
-	</string>
-	<string name="Pathfinding_Wiki_URL">
-		http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer
 	</string>
 	<string name="Pathfinding_Object_Attr_None">
 		Aucun

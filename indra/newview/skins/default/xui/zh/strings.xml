@@ -4387,12 +4387,6 @@ http://secondlife.com/support 求助解決問題。
 	<string name="LocationCtrlSeeAVsTooltip">
 		這地段外的其他化身，看不見也聽不到位於地段裡的化身
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		地區重新產出之前，可移動物件可能無法正常運作。
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		這地區並未啟用動態尋徑。
-	</string>
 	<string name="UpdaterWindowTitle">
 		[APP_NAME] 更新
 	</string>
@@ -5633,9 +5627,6 @@ http://secondlife.com/support 求助解決問題。
 	</string>
 	<string name="Normal">
 		正常
-	</string>
-	<string name="Pathfinding_Wiki_URL">
-		http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer
 	</string>
 	<string name="Pathfinding_Object_Attr_None">
 		無

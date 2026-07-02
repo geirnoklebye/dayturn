@@ -4405,12 +4405,6 @@ Falls diese Meldung weiterhin angezeigt wird, wenden Sie sich bitte an [SUPPORT_
 	<string name="LocationCtrlSeeAVsTooltip">
 		Avatare in dieser Parzelle können von Avataren außerhalb dieser Parzelle weder gesehen noch gehört werden
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		Bewegliche Objekte verhalten sich in dieser Region u. U. erst dann korrekt, wenn die Region neu geformt wird.
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		Dynamisches Pathfinding ist in dieser Region nicht aktiviert.
-	</string>
 	<string name="UpdaterWindowTitle">
 		[APP_NAME] Aktualisierung
 	</string>
@@ -5657,9 +5651,6 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	</string>
 	<string name="Normal">
 		Normal
-	</string>
-	<string name="Pathfinding_Wiki_URL">
-		http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer
 	</string>
 	<string name="Pathfinding_Object_Attr_None">
 		Keine

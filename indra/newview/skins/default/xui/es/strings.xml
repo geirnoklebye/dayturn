@@ -4319,12 +4319,6 @@ Si sigues recibiendo este mensaje, contacta con [SUPPORT_SITE].
 	<string name="LocationCtrlSeeAVsTooltip">
 		Los avatares que están en esta parcela no pueden ser vistos ni escuchados por los que están fuera de ella
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		Los objetos que se mueven pueden presentar un comportamiento incorrecto en la región hasta que ésta se recargue.
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		Esta región no tiene activado el pathfinding dinámico.
-	</string>
 	<string name="UpdaterWindowTitle">
 		Actualizar [APP_NAME]
 	</string>
@@ -5547,9 +5541,6 @@ Inténtalo incluyendo la ruta de acceso al editor entre comillas
 	</string>
 	<string name="Normal">
 		Normal
-	</string>
-	<string name="Pathfinding_Wiki_URL">
-		http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer
 	</string>
 	<string name="Pathfinding_Object_Attr_None">
 		Ninguno

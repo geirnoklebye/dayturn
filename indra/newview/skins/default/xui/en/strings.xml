@@ -3669,8 +3669,6 @@ Please reinstall viewer from  Dayturn download site and contact Dayturn support 
   <string name="LocationCtrlModerateIconTooltip">Moderate Region</string>
   <string name="LocationCtrlGeneralIconTooltip">General Region</string>
   <string name="LocationCtrlSeeAVsTooltip">Avatars inside this parcel cannot be seen or heard by avatars outside this parcel</string>
-  <string name="LocationCtrlPathfindingDirtyTooltip">Objects that move may not behave correctly in this region until the region is rebaked.</string>
-  <string name="LocationCtrlPathfindingDisabledTooltip">Dynamic pathfinding is not enabled on this region.</string>
   <!-- Strings used by the (currently Linux) auto-updater app -->
 	<string name="UpdaterWindowTitle">
 	  [APP_NAME] Update
@@ -4310,7 +4308,6 @@ name="Command_360_Capture_Label">360 snapshot</string>
   <string name="Normal">Normal</string>
 
   <!-- Pathfinding -->
-  <string name="Pathfinding_Wiki_URL">http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer</string>
   <string name="Pathfinding_Object_Attr_None">None</string>
   <string name="Pathfinding_Object_Attr_Permanent">Affects navmesh</string>
   <string name="Pathfinding_Object_Attr_Character">Character</string>

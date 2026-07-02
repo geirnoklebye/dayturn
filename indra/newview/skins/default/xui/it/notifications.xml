@@ -2770,20 +2770,6 @@ Qui non puoi volare.
 	<notification name="NoBuild">
 		In questa zona è proibita la costruzione. Qui non puoi costruire né rezzare oggetti.
 	</notification>
-	<notification name="PathfindingDirty">
-		La regione ha modifiche di pathfinding in sospeso.  Se hai le autorizzazioni necessarie per la costruzione puoi eseguire il rebake facendo clic sul pulsante “Rebake regione”.
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		La regione ha modifiche di pathfinding in sospeso. Se hai le autorizzazioni necessarie per la costruzione, puoi eseguire il rebake facendo clic sul pulsante “Rebake regione”.
-		<usetemplate name="okbutton" yestext="Rebake regione"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		Il pathfinding dinamico non è attivato in questa regione.  Gli oggetti scriptati che usano chiamate LSL di pathfinding potrebbero non funzionare come previsto in questa regione.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Si è verificato un errore.  Potrebbe trattarsi di un problema di rete o del server, oppure potresti non avere le autorizzazioni necessarie per la costruzione.  A volte il problema viene risolto uscendo ed eseguendo nuovamente l&apos;accesso.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="SeeAvatars">
 		In questo lotto non si possono vedere avatar e chat di testo presenti in altri lotti.   Non puoi vedere altri residenti fuori dal lotto e loro non possono vederti.  Viene bloccata anche la normale chat di testo sul canale 0.
 	</notification>
@@ -3632,62 +3618,6 @@ Clicca e trascina dovunque nel mondo per ruotare la visuale
 		Questa azione cancellerà tutte le voci di menu e i pulsanti. Per visualizzarli nuovamente cliccare ancora [SHORTCUT].
 		<usetemplate ignoretext="Conferma prima di nascondere l&apos;interfaccia" name="okcancelignore" notext="Annulla" yestext="OK"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		L&apos;indicatore oggetto fantasma di alcuni set collegati verrà commutato.
-
-Vuoi continuare?
-		<usetemplate ignoretext="L&apos;indicatore oggetto fantasma di alcuni set collegati verrà commutato." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Alcuni set collegati selezionati non possono essere impostati su &apos;[REQUESTED_TYPE]&apos; a causa di limitazioni nelle autorizzazioni per i set collegati.  Questi set collegati verranno invece impostati su &apos;[RESTRICTED_TYPE]&apos;.
-
-Vuoi continuare?
-		<usetemplate ignoretext="Alcuni set collegati selezionati non possono essere impostati a causa di limitazioni nelle autorizzazioni per i set collegati." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Alcuni set collegati selezionati non possono essere impostati a &apos;[REQUESTED_TYPE]&apos; perché la forma è non-convessa.
-
-Vuoi continuare?
-		<usetemplate ignoretext="Alcuni set collegati selezionati non possono essere impostati perché la forma è non-convessa." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		L&apos;indicatore oggetto fantasma di alcuni set collegati verrà commutato.
-
-Alcuni set collegati selezionati non possono essere impostati su &apos;[REQUESTED_TYPE]&apos; a causa di limitazioni nelle autorizzazioni per i set collegati.  Questi set collegati verranno invece impostati su &apos;[RESTRICTED_TYPE]&apos;.
-
-Vuoi continuare?
-		<usetemplate ignoretext="L&apos;indicatore oggetto fantasma per alcuni set collegati selezionati verrà commutato, mentre quello degli altri non può essere impostato a causa di limitazioni nelle autorizzazioni per i set collegati." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		L&apos;indicatore oggetto fantasma di alcuni set collegati verrà commutato.
-
-Alcuni set collegati selezionati non possono essere impostati a &apos;[REQUESTED_TYPE]&apos; perché la forma è non-convessa.
-
-Vuoi continuare?
-		<usetemplate ignoretext="L&apos;indicatore oggetto fantasma per alcuni set collegati selezionati verrà commutato, mentre quello degli altri non può essere impostato perché la forma è non-convessa." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Alcuni set collegati selezionati non possono essere impostati su &apos;[REQUESTED_TYPE]&apos; a causa di limitazioni nelle autorizzazioni per i set collegati.  Questi set collegati verranno invece impostati su &apos;[RESTRICTED_TYPE]&apos;.
-
-Alcuni set collegati selezionati non possono essere impostati a &apos;[REQUESTED_TYPE]&apos; perché la forma è non-convessa. Il tipo di utilizzo di questi set collegati non cambierà.
-
-Vuoi continuare?
-		<usetemplate ignoretext="Alcuni set collegati selezionati non possono essere impostati a causa delle limitazioni nelle autorizzazioni per il set collegato e perché la forma è non-convessa." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		L&apos;indicatore oggetto fantasma di alcuni set collegati verrà commutato.
-
-Alcuni set collegati selezionati non possono essere impostati su &apos;[REQUESTED_TYPE]&apos; a causa di limitazioni nelle autorizzazioni per i set collegati.  Questi set collegati verranno invece impostati su &apos;[RESTRICTED_TYPE]&apos;.
-
-Alcuni set collegati selezionati non possono essere impostati a &apos;[REQUESTED_TYPE]&apos; perché la forma è non-convessa. Il tipo di utilizzo di questi set collegati non cambierà.
-
-Vuoi continuare?
-		<usetemplate ignoretext="L&apos;indicatore oggetto fantasma per alcuni set collegati selezionati verrà commutato, mentre quello degli altri non può essere impostato a causa delle limitazioni nelle autorizzazioni per il set collegato e perché la forma è non-convessa." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		L&apos;oggetto selezionato influenza il navmesh.  Se lo si trasforma in un percorso flessibile verrà rimosso dal navmesh.
-		<usetemplate ignoretext="L&apos;oggetto selezionato influenza il navmesh.  Se lo si trasforma in un percorso flessibile verrà rimosso dal navmesh." name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		Non sembra che tu abbia i requisiti hardware adeguati per [APP_NAME]. [APP_NAME] richiede una scheda grafica OpenGL con supporto multitexture. Se ne hai una in dotazione, accertati di avere i driver, i service pack e i patch più recenti per la scheda grafica e per il sistema operativo.
 
@@ -3723,14 +3653,6 @@ Gli aggiornamenti futuri per questo file sono disattivati.
 	<notification name="LocalBitmapsVerifyFail">
 		Tentativo di aggiungere un file immagine [FNAME] non valido o non leggibile che non è stato possibile aprire o decodificare.
 Tentativo annullato.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		Stai per restituire [NUM_ITEMS] elementi.  Vuoi continuare?
-		<usetemplate ignoretext="Sei sicuro di volere restituire più oggetti?" name="okcancelignore" notext="No" yestext="Sì"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		Stai per cancellare [NUM_ITEMS] elementi.  Vuoi continuare?
-		<usetemplate ignoretext="Sei sicuro di volere eliminare più oggetti?" name="okcancelignore" notext="No" yestext="Sì"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] ti ha congelato. Non ti puoi muovere o interagire con il mondo.

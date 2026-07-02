@@ -67,11 +67,6 @@
 					<stat_bar label="Memoria allocata" name="physicsmemoryallocated"/>
 				</stat_view>
 				<stat_bar label="Script eseguiti" name="simpctscriptsrun"/>
-				<stat_view label="Pathfinding" name="simpathfinding">
-					<stat_bar label="Tempo passaggio AI" name="simsimaistepmsec"/>
-					<stat_bar label="Passaggi silhouette saltati" name="simsimskippedsilhouettesteps"/>
-					<stat_bar label="Caratteri aggiornati" name="simsimpctsteppedcharacters"/>
-				</stat_view>
 				<stat_bar label="Totale dati non confermati (unacked)" name="simtotalunackedbytes"/>
 				<stat_view label="Orario" name="simperf">
 					<stat_bar label="Tempo totale Frame" name="simframemsec"/>

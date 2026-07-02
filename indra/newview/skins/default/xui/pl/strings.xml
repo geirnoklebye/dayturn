@@ -3886,12 +3886,6 @@ Jeżeli nadal otrzymujesz ten komunikat, skontaktuj się z [SUPPORT_SITE].
 	<string name="LocationCtrlSeeAVsTooltip">
 		Awatary wewnątrz tej działki nie mogą być widziane lub słyszane przez awatary, które są poza nią
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		Obiekty poruszające się mogą nie zachowywać się poprawnie, póki region nie zostanie odświeżony.
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		Odnajdywanie ścieżek jest wyłączone w tym regionie.
-	</string>
 	<string name="UpdaterWindowTitle">
 		Aktualizacja [APP_NAME]
 	</string>

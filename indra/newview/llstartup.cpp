@@ -194,7 +194,6 @@
 #include "llappearancemgr.h"
 #include "llavatariconctrl.h"
 #include "llvoicechannel.h"
-#include "llpathfindingmanager.h"
 #include "lllogin.h"
 #include "llevents.h"
 #include "llstartuplistener.h"
@@ -2650,9 +2649,6 @@ bool idle_startup()
 		LLAgentPicksInfo::getInstance()->requestNumberOfPicks();
 
 		display_startup();
-
-		llassert(LLPathfindingManager::getInstance() != NULL);
-		LLPathfindingManager::getInstance()->initSystem();
 
 		gAgentAvatarp->sendHoverHeight();
 

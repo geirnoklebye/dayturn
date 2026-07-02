@@ -166,13 +166,7 @@
         <menu_item_call label="Skripts auf ausführen einstellen"  name="Set Scripts to Running"/>
         <menu_item_call label="Skripts auf nicht ausführen einstellen"  name="Set Scripts to Not Running"/>
         <menu_item_call label="Wiki des LSL Skriptsprache"  name="scripting_wiki"/>
-    </menu>
-    <menu label="Pathfinding"  name="Pathfinding">
-      <menu_item_call label="Linksets..."  name="pathfinding_linksets_menu_item"/>
-      <menu_item_call label="Figuren..."  name="pathfinding_characters_menu_item"/>
-      <menu_item_call label="Anzeigen/Testen..."  name="pathfinding_console_menu_item"/>
-      <menu_item_call label="Region neu formen"  name="pathfinding_rebake_navmesh_item"/>
-    </menu>
+    </menu>    
     <menu label="Optionen"  name="Options">
       <menu_item_check label="Nur meine Objekte auswählen"  name="Select Only My Objects"/>
       <menu_item_check label="Nur bewegliche Objekte auswählen"  name="Select Only Movable Objects"/>

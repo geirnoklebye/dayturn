@@ -2783,20 +2783,6 @@ Fliegen ist hier nicht möglich.
 	<notification name="NoBuild">
 		In diesem Bereich ist das Bauen deaktiviert. Sie können keine Objekte bauen oder rezzen.
 	</notification>
-	<notification name="PathfindingDirty">
-		Diese Region weist ausstehende Pathfinding-Änderungen auf. Wenn Sie Baurechte besitzen, können Sie die Region durch Klicken auf die Schaltfläche „Region neu formen“ neu formen.
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		Diese Region weist ausstehende Pathfinding-Änderungen auf.  Wenn Sie Baurechte besitzen, können Sie die Region durch Klicken auf die Schaltfläche „Region neu formen“ neu formen.
-		<usetemplate name="okbutton" yestext="Region neu formen"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		Dynamisches Pathfinding ist in dieser Region nicht aktiviert. Geskriptete Objekte, die Pathfinding-LSL-Aufrufe verwenden, funktionieren in dieser Region u. U. nicht wie erwartet.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Fehler aufgetreten. Möglicherweise ist ein Netzwerk- oder Serverproblem aufgetreten oder Sie haben nicht die erforderlichen Baurechte. Dieses Problem lässt sich manchmal durch Ab- und Anmelden lösen.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="SeeAvatars">
 		Diese Parzelle verbirgt Avatare und Text-Chat vor einer anderen Parzelle.   Sie können Einwohner außerhalb dieser Parzelle weder sehen noch von ihnen gesehen werden.  Regulärer Text-Chat auf Kanal 0 ist ebenfalls blockiert.
 	</notification>
@@ -3644,62 +3630,6 @@ Durch Ausblenden der Schaltfläche „Sprechen“ wird die Sprechfunktion deakti
 		Durch diese Aktion werden alle Menüelemente und Schaltflächen ausgeblendet. Um sie wieder anzuzeigen, klicken Sie erneut auf [SHORTCUT].
 		<usetemplate ignoretext="Vor Ausblenden der UI bestätigen" name="okcancelignore" notext="Abbrechen" yestext="OK"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Einige der ausgewählten Linksets können aufgrund von Berechtigungseinschränkungen nicht auf „[REQUESTED_TYPE]“ gesetzt werden.  Diese Linksets werden stattdessen auf „[RESTRICTED_TYPE]“ gesetzt.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Einige der ausgewählten Linksets können aufgrund von Berechtigungseinschränkungen nicht gesetzt werden." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Einige der ausgewählten Linksets können nicht auf „[REQUESTED_TYPE]“ gesetzt werden, da die Form nicht konvex ist.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Einige der ausgewählten Linksets können nicht gesetzt werden, da die Form nicht konvex ist." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet.
-
-Einige der ausgewählten Linksets können aufgrund von Berechtigungseinschränkungen nicht auf „[REQUESTED_TYPE]“ gesetzt werden.  Diese Linksets werden stattdessen auf „[RESTRICTED_TYPE]“ gesetzt.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet und andere können aufgrund von Berechtigungseinschränkungen nicht gesetzt werden." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet.
-
-Einige der ausgewählten Linksets können nicht auf „[REQUESTED_TYPE]“ gesetzt werden, da die Form nicht konvex ist.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet und andere können nicht gesetzt werden, da die Form nicht konvex ist." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Einige der ausgewählten Linksets können aufgrund von Berechtigungseinschränkungen nicht auf „[REQUESTED_TYPE]“ gesetzt werden.  Diese Linksets werden stattdessen auf „[RESTRICTED_TYPE]“ gesetzt.
-
-Einige der ausgewählten Linksets können nicht auf „[REQUESTED_TYPE]“ gesetzt werden, da die Form nicht konvex ist. Die Nutzungsarten dieser Linksets bleiben unverändert.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Einige der ausgewählten Linksets können nicht gesetzt werden, da die Berechtigungen eingeschränkt sind und die Form nicht konvex ist." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet.
-
-Einige der ausgewählten Linksets können aufgrund von Berechtigungseinschränkungen nicht auf „[REQUESTED_TYPE]“ gesetzt werden.  Diese Linksets werden stattdessen auf „[RESTRICTED_TYPE]“ gesetzt.
-
-Einige der ausgewählten Linksets können nicht auf „[REQUESTED_TYPE]“ gesetzt werden, da die Form nicht konvex ist. Die Nutzungsarten dieser Linksets bleiben unverändert.
-
-Möchten Sie fortfahren?
-		<usetemplate ignoretext="Bei einigen ausgewählten Linksets wird die Phantom-Markierung umgeschaltet und andere können nicht gesetzt werden, da die Berechtigungen für das Linkset eingeschränkt sind und die Form nicht konvex ist." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		Das ausgewählte Objekt wirkt sich auf das Navmesh aus. Wenn Sie es in einen flexiblen Pfad ändern, wird es aus dem Navmesh entfernt.
-		<usetemplate ignoretext="Das ausgewählte Objekt wirkt sich auf das Navmesh aus. Wenn Sie es in einen flexiblen Pfad ändern, wird es aus dem Navmesh entfernt." name="okcancelignore" notext="Abbrechen" yestext="OK"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		Ihr Computer entspricht nicht den Hardwareanforderungen von [APP_NAME]. [APP_NAME] setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.
 
@@ -3735,14 +3665,6 @@ Zukünftige Aktualisierungen dieser Datei werden deaktiviert.
 	<notification name="LocalBitmapsVerifyFail">
 		Versuch, eine ungültige oder nicht lesbare Bilddatei ([FNAME]) hinzuzufügen, die nicht geöffnet oder decodiert werden konnte.
 Versuch abgebrochen.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		Sie sind dabei, [NUM_ITEMS] Objekte zurückzugeben. Möchten Sie diesen Vorgang wirklich fortsetzen?
-		<usetemplate ignoretext="Möchten Sie wirklich mehrere Objekte zurückgeben?" name="okcancelignore" notext="Nein" yestext="Ja"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		Sie sind dabei, [NUM_ITEMS] Objekte zu löschen. Möchten Sie diesen Vorgang wirklich fortsetzen?
-		<usetemplate ignoretext="Möchten Sie wirklich mehrere Objekte löschen?" name="okcancelignore" notext="Nein" yestext="Ja"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] hat Sie eingefroren. Sie können sich nicht bewegen oder mit der Welt interagieren.

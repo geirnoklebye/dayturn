@@ -2813,20 +2813,6 @@ Web ページにリンクすると、他人がこの場所に簡単にアクセ�
 	<notification name="NoBuild">
 		このエリアでは制作が禁止されています。 オブジェクトを制作したり Rez することはできません。
 	</notification>
-	<notification name="PathfindingDirty">
-		この値域（リージョン）には、保留中のパスファインディングの変更があります。制作権がある場合は、「地域の再構築」ボタンをクリックして、地域（リージョン）を再構築できます。
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		この値域（リージョン）には、保留中のパスファインディングの変更があります。制作権がある場合は、「地域の再構築」ボタンをクリックして、地域（リージョン）を再構築できます。
-		<usetemplate name="okbutton" yestext="地域の再構築"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		この地域（リージョン）でダイナミックパスファインディングが有効になっていません。パスファインディング LSL 呼び出しを使用するスクリプト化されたオブジェクトがこの地域（リージョン）では動作できません。
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		エラーが発生しました。ネットワークまたはサーバーに問題があるか、制作権がない可能性があります。この問題は、一度ログアウトしてから、ログインし直すと解決される場合があります。
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="SeeAvatars">
 		この区画にいるアバターやこの区画内で行われる文字チャットは、他の区画から見えません。あなたには、この区画外にいる住人が見えず、外の住人にはあなたの姿が見えません。チャンネル 0 での通常の文字チャットもブロックされます。
 	</notification>
@@ -3675,62 +3661,6 @@ M キーを押して変更します。
 		この操作により、全てのメニュー項目とボタンが非表示になります。再び表示するには [SHORTCUT] をもう一度クリックしてください。
 		<usetemplate ignoretext="UI を非表示にする前に確認" name="okcancelignore" notext="取り消し" yestext="OK"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		選択された一部のリンクセットはファントムフラグが切り替えられます。
-
-続けますか？
-		<usetemplate ignoretext="選択された一部のリンクセットのファントムフラグが切り替えられます。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		一部の選択されたリンクセットは、リンクセットへの権限が制限されているため、&apos;[REQUESTED_TYPE]&apos; に設定できません。これらのリンクセットは代わりに &apos;[RESTRICTED_TYPE]&apos; に設定されます。
-
-続けますか？
-		<usetemplate ignoretext="一部の選択されたリンクセットは、リンクセットへの権限が制限されているため設定できません。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		選択された一部のリンクセットは、形状が凸状でないため、&apos;[REQUESTED_TYPE]&apos; に設定できません。
-
-続けますか？
-		<usetemplate ignoretext="選択された一部のリンクセットは、形状が凸状でないため設定できません。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		選択された一部のリンクセットはファントムフラグが切り替えられます。
-
-一部の選択されたリンクセットは、リンクセットへの権限が制限されているため、&apos;[REQUESTED_TYPE]&apos; に設定できません。これらのリンクセットは代わりに &apos;[RESTRICTED_TYPE]&apos; に設定されます。
-
-続けますか？
-		<usetemplate ignoretext="選択された一部のリンクセットのファントムフラグが切り替えられ、他のリンクセットはリンクセットへの権限が制限されているため設定できません。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		選択された一部のリンクセットはファントムフラグが切り替えられます。
-
-選択された一部のリンクセットは、形状が凸状でないため、&apos;[REQUESTED_TYPE]&apos; に設定できません。
-
-続けますか？
-		<usetemplate ignoretext="選択された一部のリンクセットのファントムフラグが切り替えられ、他のリンクセットは形状が凸状でないため設定できません。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		一部の選択されたリンクセットは、リンクセットへの権限が制限されているため、&apos;[REQUESTED_TYPE]&apos; に設定できません。これらのリンクセットは代わりに &apos;[RESTRICTED_TYPE]&apos; に設定されます。
-
-選択された一部のリンクセットは、形状が凸状でないため、&apos;[REQUESTED_TYPE]&apos; に設定できません。これらのリンクセットの用途タイプは変わりません。
-
-続けますか？
-		<usetemplate ignoretext="一部の選択されたリンクセットは、リンクセットへの権限が制限されており、また形状が凸状でないため設定できません。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		選択された一部のリンクセットはファントムフラグが切り替えられます。
-
-一部の選択されたリンクセットは、リンクセットへの権限が制限されているため、&apos;[REQUESTED_TYPE]&apos; に設定できません。これらのリンクセットは代わりに &apos;[RESTRICTED_TYPE]&apos; に設定されます。
-
-選択された一部のリンクセットは、形状が凸状でないため、&apos;[REQUESTED_TYPE]&apos; に設定できません。これらのリンクセットの用途タイプは変わりません。
-
-続けますか？
-		<usetemplate ignoretext="選択された一部のリンクセットのファントムフラグが切り替えられ、他のリンクセットはリンクセットへの権限が制限され、また形状が凸状でないため設定できません。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		選択されたオブジェクトはナビメッシュに影響を与えます。オブジェクトをフレキシブルパスに変更すると、ナビメッシュから削除されます。
-		<usetemplate ignoretext="選択されたオブジェクトはナビメッシュに影響を与えます。オブジェクトをフレキシブルパスに変更すると、ナビメッシュから削除されます。" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		[APP_NAME] に必要なハードウェアがないようです。 [APP_NAME] にはマルチテクスチャをサポートする OpenGL グラフィックカードが必要です。 お使いのグラフィックカードの最新ドライバがインストールされているかどうか、オペレーティングシステムのサービスパックとパッチが入っているかをご確認ください。
 
@@ -3766,14 +3696,6 @@ M キーを押して変更します。
 	<notification name="LocalBitmapsVerifyFail">
 		開くことができない、またはデコードできない無効または読み取り不能な画像ファイル [FNAME] を追加しようとしました。
 この試行はキャンセルされました。
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		[NUM_ITEMS] 個のアイテムを返却中です。続けますか？
-		<usetemplate ignoretext="複数のアイテムを返しますか？" name="okcancelignore" notext="いいえ" yestext="はい"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		[NUM_ITEMS] 個のアイテムを削除中です。続けますか？
-		<usetemplate ignoretext="複数のアイテムを削除しますか？" name="okcancelignore" notext="いいえ" yestext="はい"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] によってあなたはフリーズされています。世界を動かすことも、世界とインタラクションすることもできません。

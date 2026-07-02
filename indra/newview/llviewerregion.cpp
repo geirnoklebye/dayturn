@@ -3513,12 +3513,6 @@ bool LLViewerRegion::meshRezEnabled() const
 				mSimulatorFeatures["MeshRezEnabled"].asBoolean());
 }
 
-bool LLViewerRegion::dynamicPathfindingEnabled() const
-{
-	return ( mSimulatorFeatures.has("DynamicPathfindingEnabled") &&
-			 mSimulatorFeatures["DynamicPathfindingEnabled"].asBoolean());
-}
-
 bool LLViewerRegion::avatarHoverHeightEnabled() const
 {
 	return ( mSimulatorFeatures.has("AvatarHoverHeightEnabled") &&

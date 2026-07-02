@@ -4394,12 +4394,6 @@ Bu iletiyi almaya devam ederseniz, lütfen [SUPPORT_SITE] bölümüne başvurun.
 	<string name="LocationCtrlSeeAVsTooltip">
 		Bu parselin içindeki avatarlar, bu parselin dışındaki avatarlar tarafından görülemez veya işitilemez
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		Bölge yeniden kaydedilinceye kadar hareket eden nesneler bu bölgede doğru davranmayabilir.
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		Bu bölgede dinamik yol bulma etkin değil.
-	</string>
 	<string name="UpdaterWindowTitle">
 		[APP_NAME] Güncelleştirme
 	</string>
@@ -5641,9 +5635,6 @@ Düzenleyici yolunu çift tırnakla çevrelemeyi deneyin.
 	</string>
 	<string name="Normal">
 		Normal
-	</string>
-	<string name="Pathfinding_Wiki_URL">
-		http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer
 	</string>
 	<string name="Pathfinding_Object_Attr_None">
 		Hiçbiri

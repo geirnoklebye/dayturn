@@ -328,9 +328,6 @@ public:
 	void getSimulatorFeatures(LLSD& info) const;	
 	void setSimulatorFeatures(const LLSD& info);
 
-	
-	bool dynamicPathfindingEnabled() const;
-
 	bool avatarHoverHeightEnabled() const;
 
 	// Opensim export permissions support, including for objects set to export

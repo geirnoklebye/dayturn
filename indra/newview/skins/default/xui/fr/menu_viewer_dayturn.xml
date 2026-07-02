@@ -167,12 +167,6 @@
         <menu_item_call label="Définir les scripts sur Pas d&apos;exécution"  name="Set Scripts to Not Running"/>
         <menu_item_call label="Wiki pour le langage script LSL"  name="scripting_wiki"/>
     </menu>
-    <menu label="Pathfinding"  name="Pathfinding">
-      <menu_item_call label="Objets des régions..."  name="pathfinding_linksets_menu_item"/>
-      <menu_item_call label="Personnages..."  name="pathfinding_characters_menu_item"/>
-      <menu_item_call label="Vue/test..."  name="pathfinding_console_menu_item"/>
-      <menu_item_call label="Refiger la région"  name="pathfinding_rebake_navmesh_item"/>
-    </menu>
     <menu label="Options"  name="Options">
       <menu_item_check label="Sélectionner mes objets uniquement"  name="Select Only My Objects"/>
       <menu_item_check label="Sélectionner les objets déplaçables uniquement"  name="Select Only Movable Objects"/>

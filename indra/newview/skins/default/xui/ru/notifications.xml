@@ -2767,20 +2767,6 @@
 	<notification name="NoBuild">
 		В этой области запрещено строительство. Здесь вы не сможете строить или выкладывать объекты.
 	</notification>
-	<notification name="PathfindingDirty">
-		В регионе есть незавершенные изменения поиска пути.  Если у вас есть права на строительство, восстановите регион, нажав кнопку «Восстановить регион».
-	</notification>
-	<notification name="PathfindingDirtyRebake">
-		В регионе есть незавершенные изменения поиска пути.  Если у вас есть права на строительство, восстановите регион, нажав кнопку «Восстановить регион».
-		<usetemplate name="okbutton" yestext="Восстановить регион"/>
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		В этом регионе не разрешен динамический поиск пути.  Возможны нарушения работы скриптовых объектов с использованием вызовов LSL поиска пути.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Произошла ошибка.  Возможно, неполадка в сети или на сервере, или у вас нет прав на строительство.  Иногда для устранения этой проблемы достаточно выйти и снова войти.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="SeeAvatars">
 		На этом участке аватары и текстовый чат скрыты от другого участка.   Жителей за пределами этого участка не будет видно, а они не будут видеть вас.  Обычный текстовый чат на канале 0 также блокируется.
 	</notification>
@@ -3629,62 +3615,6 @@
 		Это действие приведет к скрытию всех меню и кнопок. Чтобы вернуть их, щелкните [SHORTCUT] снова.
 		<usetemplate ignoretext="Подтверждать перед скрытием интерфейса" name="okcancelignore" notext="Отмена" yestext="OK"/>
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		Признак фантомности некоторых выбранных наборов связей будет изменен.
-
-Продолжить?
-		<usetemplate ignoretext="Признак фантомности некоторых выбранных наборов связей будет изменен." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Для некоторых выбранных наборов связей нельзя задать тип «[REQUESTED_TYPE]» из-за ограничений этих наборов.  Эти наборы связей будут иметь тип «[RESTRICTED_TYPE]».
-
-Продолжить?
-		<usetemplate ignoretext="Нельзя задать некоторые выбранные наборы связей из-за ограничений этих наборов." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Для некоторых выбранных наборов связей невозможно задать тип «[REQUESTED_TYPE]», так как фигура не выпуклая.
-
-Продолжить?
-		<usetemplate ignoretext="Нельзя задать некоторые выбранные наборы связей, так как фигура не выпуклая." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		Признак фантомности некоторых выбранных наборов связей будет изменен.
-
-Для некоторых выбранных наборов связей нельзя задать тип «[REQUESTED_TYPE]» из-за ограничений этих наборов.  Эти наборы связей будут иметь тип «[RESTRICTED_TYPE]».
-
-Продолжить?
-		<usetemplate ignoretext="Для некоторых выбранных наборов связей будет изменен признак фантомности, а другие наборы нельзя задать из-за ограничений этих наборов." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		Признак фантомности некоторых выбранных наборов связей будет изменен.
-
-Для некоторых выбранных наборов связей невозможно задать тип «[REQUESTED_TYPE]», так как фигура не выпуклая.
-
-Продолжить?
-		<usetemplate ignoretext="Для некоторых выбранных наборов связей будет изменен признак фантомности, а другие наборы нельзя задать, так как фигура не выпуклая." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Для некоторых выбранных наборов связей нельзя задать тип «[REQUESTED_TYPE]» из-за ограничений этих наборов.  Эти наборы связей будут иметь тип «[RESTRICTED_TYPE]».
-
-Для некоторых выбранных наборов связей невозможно задать тип «[REQUESTED_TYPE]», так как фигура не выпуклая. Тип использования этих наборов связей не изменится.
-
-Продолжить?
-		<usetemplate ignoretext="Нельзя задать некоторые выбранные наборы связей из-за ограничений этих наборов и потому, что фигура не выпуклая." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		Признак фантомности некоторых выбранных наборов связей будет изменен.
-
-Для некоторых выбранных наборов связей нельзя задать тип «[REQUESTED_TYPE]» из-за ограничений этих наборов.  Эти наборы связей будут иметь тип «[RESTRICTED_TYPE]».
-
-Для некоторых выбранных наборов связей невозможно задать тип «[REQUESTED_TYPE]», так как фигура не выпуклая. Тип использования этих наборов связей не изменится.
-
-Продолжить?
-		<usetemplate ignoretext="Для некоторых выбранных наборов связей будет изменен признак фантомности, а другие наборы нельзя задать из-за ограничений этих наборов и потому, что фигура не выпуклая." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		Выбранный объект влияет на навигационную сетку.  Если заменить его на гибкий путь, он будет удален из навигационной сетки.
-		<usetemplate ignoretext="Выбранный объект влияет на навигационную сетку.  Если заменить его на гибкий путь, он будет удален из навигационной сетки." name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		По-видимому, ваше оборудование не удовлетворяет требованиям [APP_NAME]. Для работы [APP_NAME] необходима графическая карта OpenGL с поддержкой мультитекстур. Если у вас есть такая карта, убедитесь, что установлены новейшие версии драйверов для нее и пакеты обновлений и исправления для операционной системы.
 
@@ -3720,14 +3650,6 @@
 	<notification name="LocalBitmapsVerifyFail">
 		Попытка добавить недопустимый или нечитаемый файл изображения [FNAME], который не удалось открыть или декодировать.
 Попытка отменена.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		Возвращено [NUM_ITEMS] элементов.  Продолжить?
-		<usetemplate ignoretext="Возвратить несколько предметов?" name="okcancelignore" notext="Нет" yestext="Да"/>
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		Вы удаляете несколько предметов ([NUM_ITEMS]).  Продолжить?
-		<usetemplate ignoretext="Удалить несколько предметов?" name="okcancelignore" notext="Нет" yestext="Да"/>
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] заморозил вас. В это время вы не можете перемещаться и выполнять другие действия с миром.

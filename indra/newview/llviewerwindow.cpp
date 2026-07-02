@@ -133,7 +133,6 @@
 #include "llkeyboard.h"
 #include "lllineeditor.h"
 #include "llmenugl.h"
-#include "llmenuoptionpathfindingrebakenavmesh.h"
 #include "llmodaldialog.h"
 #include "llmorphview.h"
 #include "llmoveview.h"
@@ -2348,8 +2347,6 @@ void LLViewerWindow::initWorldUI()
 
 	panel_ssf_container->setVisible(true);
 
-	LLMenuOptionPathfindingRebakeNavmesh::getInstance()->initialize();
-
 	// Load and make the toolbars visible
 	// Note: we need to load the toolbars only *after* the user is logged in and IW
 	if (gToolBarView)
@@ -2506,8 +2503,6 @@ void LLViewerWindow::shutdownViews()
 	delete mRootView;
 	mRootView = nullptr;
 	LL_INFOS() << "RootView deleted." << LL_ENDL ;
-	
-	LLMenuOptionPathfindingRebakeNavmesh::getInstance()->quit();
 
 	// Automatically deleted as children of mRootView.  Fix the globals.
 	gStatusBar = nullptr;

@@ -4283,12 +4283,6 @@ If you continue to receive this message, contact the [SUPPORT_SITE].
 	<string name="LocationCtrlSeeAVsTooltip">
 		Os avatares neste lote não podem ser vistos ou ouvidos por avatares fora dele
 	</string>
-	<string name="LocationCtrlPathfindingDirtyTooltip">
-		Os objetos que se movem podem não se comportar corretamente nesta região até que ela seja recarregada.
-	</string>
-	<string name="LocationCtrlPathfindingDisabledTooltip">
-		O pathfinding dinâmico não está habilitado nesta região.
-	</string>
 	<string name="UpdaterWindowTitle">
 		[APP_NAME] Atualização
 	</string>
@@ -5514,9 +5508,6 @@ Tente colocar o caminho do editor entre aspas.
 	</string>
 	<string name="Normal">
 		Normal
-	</string>
-	<string name="Pathfinding_Wiki_URL">
-		http://wiki.secondlife.com/wiki/Pathfinding_Tools_in_the_Second_Life_Viewer
 	</string>
 	<string name="Pathfinding_Object_Attr_None">
 		Nenhum

@@ -2405,15 +2405,6 @@ Nie możesz tutaj latać.
 	<notification name="NoBuild">
 		Ta działka nie pozwala na budowanie. Nie możesz tworzyć tutaj obiektów.
 	</notification>
-	<notification name="PathfindingDirty">
-		W tym regionie są oczekujące zmiany w odnajdywaniu ścieżek. Jeśli posiadasz prawa budowania możesz odświeżyć region klikając na przycisk “Odśwież region”.
-	</notification>
-	<notification name="DynamicPathfindingDisabled">
-		Dynamiczne odnajdywanie ścieżek nie jest włączone w tym regionie. Oskryptowane obiekty używające odwołań LSL wykorzystujących odnajdywanie ścieżek mogą nie działać zgodnie z oczekiwaniami.
-	</notification>
-	<notification name="PathfindingCannotRebakeNavmesh">
-		Wystąpił błąd. To może być problem sieci, serwera lub Twojego braku praw do budowania. Czasami wylogowanie się i zalogowanie ponownie może naprawić problem.
-	</notification>
 	<notification name="SeeAvatars">
 		Ta działka ukrywa czat tekstowy i awatary z innych działek. Nie będziesz widzieć rezydentów na zewnątrz tej działki - ani oni Ciebie. Wspólny kanał czatu 0 również jest zablokowany.
 	</notification>
@@ -3159,62 +3150,6 @@ Kliknij i przeciągnij gdziekolwiek aby obrócić widok.
 		Ta akcja ukryje wszystkie menu i przyciski. Aby je pokazać użyj skrótu [SHORTCUT] ponownie.
 		<usetemplate name="okcancelignore"  notext="Anuluj" ignoretext="Potwierdź przed ukryciem interfejsu" />
 	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom">
-		Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted">
-		Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]' ze względu na restrykcje zezwoleń zbioru części. Te zbiory części zostaną zamiast tego ustawione na '[RESTRICTED_TYPE]'.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione ze względu na restrykcje zezwoleń zbioru części." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnVolume">
-		Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]', ponieważ kształt nie jest wypukły.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione, ponieważ kształt nie jest wypukły." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted">
-		Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy.
-
-Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]' ze względu na restrykcje zezwoleń zbioru części. Te zbiory części zostaną zamiast tego ustawione na '[RESTRICTED_TYPE]'.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy, a inne nie mogą zostać ustawione ze względu na restrykcje zezwoleń zbioru części." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnVolume">
-		Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy.
-
-Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]', ponieważ kształt nie jest wypukły.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy, a inne nie mogą zostać ustawione, ponieważ kształt nie jest wypukły." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_MismatchOnRestricted_MismatchOnVolume">
-		Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]' ze względu na restrykcje zezwoleń zbioru części. Te zbiory części zostaną zamiast tego ustawione na '[RESTRICTED_TYPE]'.
-
-Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]', ponieważ kształt nie jest wypukły. Ich typ nie ulegnie zmianie.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione ze względu na restrykcje zezwoleń zbioru części i niewypukły kształt." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_WarnOnPhantom_MismatchOnRestricted_MismatchOnVolume">
-		Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy.
-
-Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]' ze względu na restrykcje zezwoleń zbioru części. Te zbiory części zostaną zamiast tego ustawione na '[RESTRICTED_TYPE]'.
-
-Niektóre z zaznaczonych zbiorów części nie mogą zostać ustawione na '[REQUESTED_TYPE]', ponieważ kształt nie jest wypukły. Ich typ nie ulegnie zmianie.
-
-Czy chcesz kontynuować?
-		<usetemplate ignoretext="Niektórym z zaznaczonych zbiorów części zostanie przełączony status Widmowy, a inne nie mogą zostać ustawione ze względu na restrykcje zezwoleń zbioru części i niewypukły kształt." name="okcancelignore" notext="Anuluj" />
-	</notification>
-	<notification name="PathfindingLinksets_ChangeToFlexiblePath">
-		Wybrany obiekt ma wpływ na Navmesh. Dodanie elastyczności spowoduje usunięcie go z Navmesha.
-		<usetemplate ignoretext="Wybrany obiekt ma wpływ na Navmesh. Dodanie elastyczności spowoduje usunięcie go z Navmesha." name="okcancelignore" notext="Anuluj" />
-	</notification>
 	<global name="UnsupportedGLRequirements">
 		Wygląda na to, że Twój system nie spełnia wymagań sprzętowych [APP_NAME]. [APP_NAME] wymaga karty graficznej kompatybilnej z OpenGL z multiteksturami. Jeżeli masz taką kartę zainstaluj najnowsze sterowniki do niej i uaktualnienia systemu operacyjnego.
 
@@ -3244,14 +3179,6 @@ Aktualizacje dla tego pliku wyłączone.
 	<notification name="LocalBitmapsVerifyFail">
 		Próba dodania niewłaściwego lub niemożliwego do odczytania pliku graficznego [FNAME], który nie może zostać otwarty lub zdekodowany.
 Anulowano.
-	</notification>
-	<notification name="PathfindingReturnMultipleItems">
-		Zwracasz [NUM_ITEMS] przedmiotów. Na pewno chcesz kontynuować?
-		<usetemplate ignoretext="Na pewno chcesz zwrócić wiele przedmiotów?" name="okcancelignore" notext="Nie" yestext="Tak" />
-	</notification>
-	<notification name="PathfindingDeleteMultipleItems">
-		Usuwasz [NUM_ITEMS] przedmiotów. Na pewno chcesz kontynuować?
-		<usetemplate ignoretext="Na pewno chcesz usunąć wiele przedmiotów?" name="okcancelignore" notext="Nie" yestext="Tak" />
 	</notification>
 	<notification name="AvatarFrozen">
 		[AV_FREEZER] unieruchomił/a Cię. Nie możesz się poruszać ani podejmować interakcji ze światem.
