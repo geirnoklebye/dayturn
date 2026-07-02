@@ -808,9 +808,6 @@ Puoi unire al massimo [MAX] oggetti.
 
 Accertati che nessuno sia bloccato e che li possiedi tutti.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Gli oggetti non possono essere collegati attraverso i confini.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		Gli oggetti non possono essere collegati attraverso i confini.
 	</notification>
@@ -3941,9 +3938,6 @@ Riprova tra un minuto.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Collegamento non riuscito -- niente di collegabile.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Collegamento non riuscito -- troppi personaggi con pathfinding
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Collegamento non riuscito -- risorse terreno non sufficienti

@@ -5542,18 +5542,6 @@ Inténtalo incluyendo la ruta de acceso al editor entre comillas
 	<string name="Normal">
 		Normal
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Ninguno
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Afecta al navmesh
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Personaje
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(Múltiple)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Muy bajo
 	</string>

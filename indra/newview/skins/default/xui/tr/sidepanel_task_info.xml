@@ -105,9 +105,6 @@
 		</combo_box>
 		<spinner label="Fiyat: L$" name="Edit Cost" tool_tip="Nesne maliyeti."/>
 		<check_box label="Aramada göster" name="search_check" tool_tip="Kişiler arama sonuçlarında bu nesneyi görebilsin"/>
-		<text name="pathfinding_attributes_label">
-			Yol bulma özellikleri:
-		</text>
 		<text name="B:">
 			B:
 		</text>

@@ -5641,18 +5641,6 @@ support@secondlife.com.
 	<string name="Normal">
 		Нормальный
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Нет
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Влияет на навигационную сетку
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Персонаж
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(несколько)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Очень низкий
 	</string>

@@ -5652,18 +5652,6 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	<string name="Normal">
 		Normal
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Keine
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Wirkt sich auf Navmesh aus
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Figur
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(mehrere)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Sehr niedrig
 	</string>

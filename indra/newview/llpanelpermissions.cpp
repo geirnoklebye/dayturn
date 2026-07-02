@@ -213,9 +213,6 @@ void LLPanelPermissions::disableAll()
 	getChildView("perm_modify")->setEnabled(false);
 	getChild<LLUICtrl>("perm_modify")->setValue(LLStringUtil::null);
 
-	getChildView("pathfinding_attributes_value")->setEnabled(false);
-	getChild<LLUICtrl>("pathfinding_attributes_value")->setValue(LLStringUtil::null);
-
 	getChildView("Creator:")->setEnabled(false);
 	getChild<LLUICtrl>("Creator Icon")->setVisible(false);
 	mLabelCreatorName->setValue(LLStringUtil::null);
@@ -338,12 +335,9 @@ void LLPanelPermissions::refresh()
 	const bool is_one_object = (object_count == 1);
 	
 	// BUG: fails if a root and non-root are both single-selected.
-	bool is_perm_modify = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
+	bool is_perm_modify = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode()
 						   && LLSelectMgr::getInstance()->selectGetRootsModify())
 		|| LLSelectMgr::getInstance()->selectGetModify();
-	bool is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
-						   && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced())
-		|| LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
 	const LLFocusableElement* keyboard_focus_view = gFocusMgr.getKeyboardFocus();
 
 	S32 string_index = 0;
@@ -360,10 +354,6 @@ void LLPanelPermissions::refresh()
 	{
 		string_index += 2;
 	}
-	else if (!is_nonpermanent_enforced)
-	{
-		string_index += 4;
-	}
 	if (!is_one_object)
 	{
 		++string_index;
@@ -371,34 +361,6 @@ void LLPanelPermissions::refresh()
 	getChildView("perm_modify")->setEnabled(true);
 	getChild<LLUICtrl>("perm_modify")->setValue(MODIFY_INFO_STRINGS[string_index]);
 
-	std::string pfAttrName;
-
-	if ((LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
-		&& LLSelectMgr::getInstance()->selectGetRootsNonPathfinding())
-		|| LLSelectMgr::getInstance()->selectGetNonPathfinding())
-	{
-		pfAttrName = "Pathfinding_Object_Attr_None";
-	}
-	else if ((LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
-		&& LLSelectMgr::getInstance()->selectGetRootsPermanent())
-		|| LLSelectMgr::getInstance()->selectGetPermanent())
-	{
-		pfAttrName = "Pathfinding_Object_Attr_Permanent";
-	}
-	else if ((LLSelectMgr::getInstance()->getSelection()->getFirstRootNode() 
-		&& LLSelectMgr::getInstance()->selectGetRootsCharacter())
-		|| LLSelectMgr::getInstance()->selectGetCharacter())
-	{
-		pfAttrName = "Pathfinding_Object_Attr_Character";
-	}
-	else
-	{
-		pfAttrName = "Pathfinding_Object_Attr_MultiSelect";
-	}
-
-	getChildView("pathfinding_attributes_value")->setEnabled(true);
-	getChild<LLUICtrl>("pathfinding_attributes_value")->setValue(LLTrans::getString(pfAttrName));
-	
 	// Update creator text field
 	getChildView("Creator:")->setEnabled(true);
 	std::string creator_app_link;
@@ -521,7 +483,7 @@ void LLPanelPermissions::refresh()
 		}
 	}
 	
-	getChildView("button set group")->setEnabled(root_selected && owners_identical && (mOwnerID == gAgent.getID()) && is_nonpermanent_enforced);
+	getChildView("button set group")->setEnabled(root_selected && owners_identical && (mOwnerID == gAgent.getID()));
 
 	getChildView("Name:")->setEnabled(true);
 	LLLineEditor* LineEditorObjectName = getChild<LLLineEditor>("Object Name");
@@ -774,12 +736,12 @@ void LLPanelPermissions::refresh()
 	bool has_change_perm_ability = false;
 	bool has_change_sale_ability = false;
 
-	if (valid_base_perms && is_nonpermanent_enforced &&
+	if (valid_base_perms &&
 		(self_owned || (group_owned && gAgent.hasPowerInGroup(group_id, GP_OBJECT_MANIPULATE))))
 	{
 		has_change_perm_ability = true;
 	}
-	if (valid_base_perms && is_nonpermanent_enforced &&
+	if (valid_base_perms &&
 	   (self_owned || (group_owned && gAgent.hasPowerInGroup(group_id, GP_OBJECT_SET_SALE))))
 	{
 		has_change_sale_ability = true;
@@ -1019,8 +981,8 @@ void LLPanelPermissions::refresh()
 		getChild<LLComboBox>("sale type")->setEnabled(false);
 	}
 
-	getChildView("label click action")->setEnabled(is_perm_modify && is_nonpermanent_enforced  && all_volume);
-	getChildView("clickaction")->setEnabled(is_perm_modify && is_nonpermanent_enforced && all_volume);
+	getChildView("label click action")->setEnabled(is_perm_modify && all_volume);
+	getChildView("clickaction")->setEnabled(is_perm_modify && all_volume);
 }
 
 // Shorten name if it doesn't fit into max_pixels of two lines
@@ -1308,11 +1270,8 @@ void LLPanelPermissions::setAllSaleInfo()
     bool is_perm_modify = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode()
                            && LLSelectMgr::getInstance()->selectGetRootsModify())
                           || LLSelectMgr::getInstance()->selectGetModify();
-    bool is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode()
-                                     && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced())
-                                    || LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
 
-    if (is_perm_modify && is_nonpermanent_enforced)
+    if (is_perm_modify)
     {
         struct f : public LLSelectedObjectFunctor
         {

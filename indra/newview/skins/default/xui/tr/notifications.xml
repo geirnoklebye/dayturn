@@ -810,9 +810,6 @@ En fazla [MAX] nesneyi birbirine bağlayabilirsiniz.
 
 Lütfen hiçbirinin kilitli olmadığından ve hepsine sahip olduğunuzdan emin olun.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Nesneler bölge sınırları üzerinden bağlantılandırılamaz.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		Nesneler bölge sınırları üzerinden bağlantılandırılamaz.
 	</notification>
@@ -3936,9 +3933,6 @@ Lütfen bir dakika sonra tekrar deneyin.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Bağlantı başarısız oldu -- bağlantı verilebilecek bir şey yok.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Bağlantı başarısız oldu -- çok fazla yol bulma karakteri var
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Bağlantı başarısız oldu -- arazi kaynakları yetersiz

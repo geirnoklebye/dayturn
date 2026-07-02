@@ -809,9 +809,6 @@
 
 Убедитесь, что все объекты разблокированы и что вы владеете всеми ими.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Объекты нельзя связывать через границу региона.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		Объекты нельзя связывать через границу региона.
 	</notification>
@@ -3943,9 +3940,6 @@
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Связь невозможна -- нет связываемых объектов.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Связь невозможна -- слишком много персонажей с поиском пути
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Связь невозможна -- недостаточно земельных ресурсов

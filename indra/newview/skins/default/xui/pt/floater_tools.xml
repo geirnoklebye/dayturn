@@ -244,11 +244,6 @@
 					F:
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					Atributos do pathfinding:
-				</text>
-			</panel>
 		</panel>
 		<panel label="Objeto" name="Object">
 			<check_box label="Travado" name="checkbox locked" tool_tip="Previne que o objeto seja movido ou apagado. Muito útil para evitar edições não intencionais durante a construção."/>

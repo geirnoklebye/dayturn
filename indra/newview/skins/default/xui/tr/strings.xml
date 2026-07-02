@@ -5636,18 +5636,6 @@ Düzenleyici yolunu çift tırnakla çevrelemeyi deneyin.
 	<string name="Normal">
 		Normal
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Hiçbiri
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Navigasyon örgüsünü etkiler
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Karakter
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(Birden çok)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Çok Düşük
 	</string>

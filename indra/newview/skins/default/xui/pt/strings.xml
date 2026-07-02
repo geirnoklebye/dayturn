@@ -5509,18 +5509,6 @@ Tente colocar o caminho do editor entre aspas.
 	<string name="Normal">
 		Normal
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Nenhum
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Afeta o navmesh
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Personagem
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(Múltiplo)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Muito baixo
 	</string>

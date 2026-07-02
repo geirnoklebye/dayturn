@@ -5633,18 +5633,6 @@ www.secondlife.com から最新バージョンをダウンロードしてくだ�
 	<string name="Normal">
 		普通
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		なし
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		ナビメッシュに影響を与える
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		キャラクター
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		（複数）
-	</string>
 	<string name="snapshot_quality_very_low">
 		非常に低い
 	</string>

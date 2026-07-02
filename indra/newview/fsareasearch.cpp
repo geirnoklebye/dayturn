@@ -176,10 +176,6 @@ bool FSAreaSearch::postBuild()
 		}
 	}
 
-	// TODO: add area search settings to the color.xml file
-	mBeaconColor = LLUIColorTable::getInstance()->getColor("PathfindingLinksetBeaconColor");
-	mBeaconTextColor = LLUIColorTable::getInstance()->getColor("PathfindingDefaultBeaconTextColor");
-
 	return LLFloater::postBuild();
 }
 

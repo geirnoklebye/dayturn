@@ -1455,37 +1455,6 @@ even though the user gets a free copy.
                 F:
             </text>
         </panel>
-		<panel
-         border="false"
-         follows="left|top"
-         layout="topleft"
-         mouse_opaque="false"
-         name="pathfinding_attrs_panel"
-         left="0"
-         top_pad="0"
-         height="25"
-         width="290">
-      <text
-         only_in_sl="true"
-         type="string"
-         follows="left|top"
-         name="pathfinding_attributes_label"
-         top_pad="4"
-         width="150"
-         left="10">
-        Pathfinding attributes:
-      </text>
-      <text
-         only_in_sl="true"
-         type="string"
-         follows="left|top"
-         text_color="EmphasisColor"
-         name="pathfinding_attributes_value"
-         width="130"
-         word_wrap="false"
-         left_pad="0">
-      </text>
-    </panel>
   </panel>
       <!-- Object tab -->
       <panel

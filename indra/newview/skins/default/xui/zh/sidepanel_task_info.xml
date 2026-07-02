@@ -105,9 +105,6 @@
 		</combo_box>
 		<spinner label="價格： L$" name="Edit Cost" tool_tip="物件成本。"/>
 		<check_box label="顯示在搜尋中" name="search_check" tool_tip="讓其他人可以在搜尋結果中察看到此物件"/>
-		<text name="pathfinding_attributes_label">
-			尋徑屬性：
-		</text>
 		<text name="B:">
 			B:
 		</text>

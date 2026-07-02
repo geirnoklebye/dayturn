@@ -250,11 +250,6 @@
 					F：
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					パスファインディング属性:
-				</text>
-			</panel>
 		</panel>
 		<panel label="形状" name="Object">
 			<check_box label="ロック" name="checkbox locked" tool_tip="オブジェクトの移動と削除を禁止します。 この機能を使うと、制作中の意図せぬ編集を防ぐことができます"/>

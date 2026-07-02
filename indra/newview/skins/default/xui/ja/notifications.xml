@@ -830,9 +830,6 @@ L$ が不足しているのでこのグループに参加することができ�
 
 どのオブジェクトもロックされておらず、あなたのものであることを確認してください。
 	</notification>
-	<notification name="CannotLinkPermanent">
-		地域（リージョン）の境界を越えてオブジェクトをリンクできません。
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		地域（リージョン）の境界を越えてオブジェクトをリンクできません。
 	</notification>
@@ -3982,9 +3979,6 @@ M キーを押して変更します。
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		リンクエラー -- リンクできるものがありません。
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		リンクエラー -- パスファインディングの文字数が多すぎます
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		リンクエラー -- 土地のリソースが足りません

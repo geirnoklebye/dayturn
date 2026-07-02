@@ -688,33 +688,6 @@ public:
 	// returns true if all objects are in same region
 	bool selectGetSameRegion();
 
-	// returns true if is all objects are non-permanent-enforced
-	bool selectGetRootsNonPermanentEnforced();
-	bool selectGetNonPermanentEnforced();
-
-	// returns true if is all objects are permanent
-	bool selectGetRootsPermanent();
-	bool selectGetPermanent();
-
-	// returns true if is all objects are character
-	bool selectGetRootsCharacter();
-	bool selectGetCharacter();
-
-	// returns true if is all objects are not permanent
-	bool selectGetRootsNonPathfinding();
-	bool selectGetNonPathfinding();
-
-	// returns true if is all objects are not permanent
-	bool selectGetRootsNonPermanent();
-	bool selectGetNonPermanent();
-
-	// returns true if is all objects are not character
-	bool selectGetRootsNonCharacter();
-	bool selectGetNonCharacter();
-
-	bool selectGetEditableLinksets();
-	bool selectGetViewableCharacters();
-
 	// returns true if selected objects can be transferred.
 	bool selectGetRootsTransfer();
 

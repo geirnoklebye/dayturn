@@ -803,9 +803,6 @@
 
 請確定沒有物件被鎖住，並確定你擁有所有物件。
 	</notification>
-	<notification name="CannotLinkPermanent">
-		物件無法跨越地區界限進行聯結。
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		物件無法跨越地區界限進行聯結。
 	</notification>
@@ -3908,9 +3905,6 @@ SHA1 指紋：[MD5_DIGEST]
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		聯結失敗——沒有可聯結的東西。
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		聯結失敗——尋徑角色太多
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		聯結失敗——土地資源不足

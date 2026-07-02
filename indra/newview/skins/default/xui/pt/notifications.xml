@@ -803,9 +803,6 @@ Você pode unir um máximo de [MAX] objetos.
 
 Por favor, certifique-se de que nenhum deles está travado e que você é dono de todos eles.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Os objetos não podem ser vinculados através de demarcações de região.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		Os objetos não podem ser vinculados através de demarcações de região.
 	</notification>
@@ -3930,9 +3927,6 @@ Tente novamente em instantes.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Falha na vinculação -- nada é vinculável.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Falha na vinculação -- muitos personagens com pathfinding
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Falha na vinculação -- recursos de terreno insuficientes

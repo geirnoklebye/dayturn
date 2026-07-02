@@ -4307,11 +4307,6 @@ name="Command_360_Capture_Label">360 snapshot</string>
   <string name="Preview">Preview</string>
   <string name="Normal">Normal</string>
 
-  <!-- Pathfinding -->
-  <string name="Pathfinding_Object_Attr_None">None</string>
-  <string name="Pathfinding_Object_Attr_Permanent">Affects navmesh</string>
-  <string name="Pathfinding_Object_Attr_Character">Character</string>
-  <string name="Pathfinding_Object_Attr_MultiSelect">(Multiple)</string>
 
   <!-- Snapshot image quality levels -->
   <string name="snapshot_quality_very_low">Very Low</string>

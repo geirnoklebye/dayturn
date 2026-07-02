@@ -11093,63 +11093,6 @@ void LLPipeline::addDebugBlip(const LLVector3& position, const LLColor4& color)
 	mDebugBlips.push_back(blip);
 }
 
-void LLPipeline::hidePermanentObjects( std::vector<U32>& restoreList )
-{
-	//This method is used to hide any vo's from the object list that may have
-	//the permanent flag set.
-	
-	U32 objCnt = gObjectList.getNumObjects();
-	for (U32 i = 0; i < objCnt; ++i)
-	{
-		LLViewerObject* pObject = gObjectList.getObject(i);
-		if ( pObject && pObject->flagObjectPermanent() )
-		{
-			LLDrawable *pDrawable = pObject->mDrawable;
-		
-			if ( pDrawable )
-			{
-				restoreList.push_back( i );
-				hideDrawable( pDrawable );			
-			}
-		}
-	}
-
-	skipRenderingOfTerrain( true );
-}
-
-void LLPipeline::restorePermanentObjects( const std::vector<U32>& restoreList )
-{
-	//This method is used to restore(unhide) any vo's from the object list that may have
-	//been hidden because their permanency flag was set.
-
-	std::vector<U32>::const_iterator itCurrent	= restoreList.begin();
-	std::vector<U32>::const_iterator itEnd		= restoreList.end();
-	
-	U32 objCnt = gObjectList.getNumObjects();
-
-	while ( itCurrent != itEnd )
-	{
-		U32 index = *itCurrent;
-		LLViewerObject* pObject = NULL;
-		if ( index < objCnt ) 
-		{
-			pObject = gObjectList.getObject( index );
-		}
-		if ( pObject )
-		{
-			LLDrawable *pDrawable = pObject->mDrawable;
-			if ( pDrawable )
-			{
-				pDrawable->clearState( LLDrawable::FORCE_INVISIBLE );
-				unhideDrawable( pDrawable );				
-			}
-		}
-		++itCurrent;
-	}
-	
-	skipRenderingOfTerrain( false );
-}
-
 void LLPipeline::skipRenderingOfTerrain( bool flag )
 {
 	pool_set_t::iterator iter = mPools.begin();

@@ -810,9 +810,6 @@ todos los objetos.
 
 Por favor, asegúrate de que no hay ninguno bloqueado, y de que eres el propietario de todos.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		No se pueden vincular objetos a través de límites de región.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		No se pueden vincular objetos a través de límites de región.
 	</notification>
@@ -3941,9 +3938,6 @@ Prueba otra vez dentro de un minuto.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Error de vínculo: no hay objetos que se puedan vincular.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Error de vínculo: demasiados personajes de pathfinding
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Error de vínculo: recursos de terreno insuficientes

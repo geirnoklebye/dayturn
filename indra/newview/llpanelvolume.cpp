@@ -1321,24 +1321,6 @@ void LLPanelVolume::onCommitAnimatedMeshCheckbox(LLUICtrl *, void*)
 
 void LLPanelVolume::onCommitIsFlexible(LLUICtrl *, void*)
 {
-	if (mObject->flagObjectPermanent())
-	{
-		LLNotificationsUtil::add("PathfindingLinksets_ChangeToFlexiblePath", LLSD(), LLSD(), boost::bind(&LLPanelVolume::handleResponseChangeToFlexible, this, _1, _2));
-	}
-	else
-	{
-		sendIsFlexible();
-	}
+	sendIsFlexible();
 }
 
-void LLPanelVolume::handleResponseChangeToFlexible(const LLSD &pNotification, const LLSD &pResponse)
-{
-	if (LLNotificationsUtil::getSelectedOption(pNotification, pResponse) == 0)
-	{
-		sendIsFlexible();
-	}
-	else
-	{
-		getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->setValue(false);
-	}
-}

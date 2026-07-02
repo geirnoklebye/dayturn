@@ -5549,18 +5549,6 @@ Prova a racchiudere il percorso dell&apos;editor in doppie virgolette.
 	<string name="Normal">
 		Normale
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Nessuno
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Influenza il navmesh
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Personaggio
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(Multiple)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Molto basso
 	</string>

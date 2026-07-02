@@ -4657,18 +4657,6 @@ Spróbuj załączyć ścieżkę do edytora w cytowaniu.
 	<string name="Normal">
 		Normalne
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Brak
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Wpływ na Navmesh
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Postać
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(Wiele)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Bardzo niska
 	</string>

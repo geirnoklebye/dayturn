@@ -249,11 +249,6 @@
 					F:
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					尋徑屬性：
-				</text>
-			</panel>
 		</panel>
 		<panel label="物件" name="Object">
 			<check_box label="已鎖住" name="checkbox locked" tool_tip="避免物件被移動或刪除。 這在建製過程中非常有用，可避免意外的編輯更動。"/>

@@ -105,9 +105,6 @@
 		</combo_box>
 		<spinner label="Цена: L$" name="Edit Cost" tool_tip="Стоимость объекта."/>
 		<check_box label="Показать в результатах поиска" name="search_check" tool_tip="Показывать объект в результатах поиска"/>
-		<text name="pathfinding_attributes_label">
-			Атрибуты поиска пути:
-		</text>
 		<text name="B:">
 			Н:
 		</text>

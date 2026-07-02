@@ -523,8 +523,6 @@ public:
 	inline bool		flagObjectCopy() const			{ return ((mFlags & FLAGS_OBJECT_COPY) != 0); }
 	inline bool		flagObjectMove() const			{ return ((mFlags & FLAGS_OBJECT_MOVE) != 0); }
 	inline bool		flagObjectTransfer() const		{ return ((mFlags & FLAGS_OBJECT_TRANSFER) != 0); }
-	inline bool		flagObjectPermanent() const		{ return ((mFlags & FLAGS_AFFECTS_NAVMESH) != 0); }
-	inline bool		flagCharacter() const			{ return ((mFlags & FLAGS_CHARACTER) != 0); }
 	inline bool		flagVolumeDetect() const		{ return ((mFlags & FLAGS_VOLUME_DETECT) != 0); }
 	inline bool		flagIncludeInSearch() const     { return ((mFlags & FLAGS_INCLUDE_IN_SEARCH) != 0); }
 	inline bool		flagScripted() const			{ return ((mFlags & FLAGS_SCRIPTED) != 0); }

@@ -817,9 +817,6 @@ Sie können maximal [MAX] Objekte verknüpfen.
 
 Stellen Sie sicher, dass kein Objekt gesperrt ist und alle Objekte Ihnen gehören.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Objekte können nicht über Regionsgrenzen hinweg verknüpft werden.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		Objekte können nicht über Regionsgrenzen hinweg verknüpft werden.
 	</notification>
@@ -3958,9 +3955,6 @@ Warten Sie kurz und versuchen Sie es noch einmal.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Verknüpfungsfehler – nichts zum Verknüpfen vorhanden.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Verknüpfungsfehler – zu viele Pathfinding-Figuren
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Verknüpfungsfehler – nicht genügend Landressourcen

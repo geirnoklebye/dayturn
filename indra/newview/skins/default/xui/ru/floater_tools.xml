@@ -249,11 +249,6 @@
 					F:
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					Атрибуты поиска пути:
-				</text>
-			</panel>
 		</panel>
 		<panel label="Объект" name="Object">
 			<check_box label="Фиксированный" name="checkbox locked" tool_tip="Предотвращение перемещения или удаления объекта. Обычно эта функция полезна во время стройки для избежания нежелательных изменений."/>

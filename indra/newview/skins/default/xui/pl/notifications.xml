@@ -574,9 +574,6 @@ Maksymalnie można połączyć [MAX] obiektów.
 
 Upewnij się, że żaden z obiektów nie jest zablokowany i wszystkie należą do Ciebie.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Nie możesz łączyć obiektów przez granice regionów.
-	</notification>
 	<notification name="CannotLinkDifferentOwners">
 		Nie możesz połączyć obiektów, ponieważ należą one do różnych osób.
 
@@ -3460,9 +3457,6 @@ Spróbuj ponownie za minutę.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Scalanie nie powiodło się -- nic nie wygląda na możliwe do scalenia.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Scalanie nie powiodło się -- zbyt dużo postaci odnajdywania ścieżek
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Scalanie nie powiodło się -- niewystarczające zasoby ziemi

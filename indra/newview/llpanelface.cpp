@@ -1760,10 +1760,7 @@ void LLPanelFace::refreshMedia()
         return;
     }
 
-    bool is_nonpermanent_enforced = (LLSelectMgr::getInstance()->getSelection()->getFirstRootNode()
-        && LLSelectMgr::getInstance()->selectGetRootsNonPermanentEnforced())
-        || LLSelectMgr::getInstance()->selectGetNonPermanentEnforced();
-    bool editable = is_nonpermanent_enforced && (first_object->permModify() || selectedMediaEditable());
+    bool editable = first_object->permModify() || selectedMediaEditable();
 
     // Check modify permissions and whether any selected objects are in
     // the process of being fetched.  If they are, then we're not editable

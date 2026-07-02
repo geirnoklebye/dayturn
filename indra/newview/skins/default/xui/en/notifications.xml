@@ -2108,14 +2108,6 @@ Please make sure none are locked, and that you own all of them.
 
   <notification
    icon="alertmodal.tga"
-   name="CannotLinkPermanent"
-   type="alertmodal">
-    Objects cannot be linked across region boundaries.
-    <tag>fail</tag>
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
    name="CannotLinkAcrossRegions"
    type="alertmodal">
 Objects cannot be linked across region boundaries.
@@ -10741,14 +10733,6 @@ Link failed -- cannot link no-copy with no-transfer
    type="notify">
    <tag>fail</tag>
 Link failed -- nothing linkable.
-  </notification>
-
-  <notification
-   icon="alertmodal.tga"
-   name="LinkFailedTooManyPathfindingChars"
-   type="notify">
-   <tag>fail</tag>
-Link failed -- too many pathfinding characters
   </notification>
 
   <notification

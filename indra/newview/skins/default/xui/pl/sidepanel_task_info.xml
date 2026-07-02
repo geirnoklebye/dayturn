@@ -102,9 +102,6 @@
 		</combo_box>
 		<spinner name="Edit Cost" label="Cena: L$" />
 		<check_box label="Pokaż w wyszukiwarce" name="search_check" tool_tip="Udostępnij widzialność tego obiektu w wyszukiwarce" />
-		<text name="pathfinding_attributes_label">
-			Atrybuty odnajd. ścieżek:
-		</text>
 	</panel>
 	<panel name="button_panel">
 		<button label="Otwórz" name="open_btn" />

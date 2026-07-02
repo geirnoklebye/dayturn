@@ -96,8 +96,6 @@ protected:
 	void            sendPhysicsRestitution(LLUICtrl* ctrl, void* userdata);
 	void            sendPhysicsDensity(LLUICtrl* ctrl, void* userdata);
 
-	void            handleResponseChangeToFlexible(const LLSD &pNotification, const LLSD &pResponse);
-
 /*
 	LLTextBox*		mLabelSelectSingleMessage;
 	// Light

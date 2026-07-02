@@ -249,11 +249,6 @@
 					F:
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					Yol bulma özellikleri:
-				</text>
-			</panel>
 		</panel>
 		<panel label="Nesne" name="Object">
 			<check_box label="Kilitli" name="checkbox locked" tool_tip="Nesnenin hareket ettirilmesini veya silinmesini engeller. Arzulanmayan düzenlemelerden kaçınmak için inşa işlemleri sırasında oldukça faydalıdır."/>

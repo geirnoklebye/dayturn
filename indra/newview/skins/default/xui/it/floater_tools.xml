@@ -251,11 +251,6 @@
 					F:
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					Attributi pathfinding:
-				</text>
-			</panel>
 		</panel>
 		<panel label="Oggetto" name="Object">
 			<check_box label="Bloccato" name="checkbox locked" tool_tip="Previene lo spostamento o la cancellazione dell&apos;oggetto. Spesso utile mentre si costruisce per evitare involontarie modifiche."/>

@@ -5635,18 +5635,6 @@ Essayez avec le chemin d&apos;accès à l&apos;éditeur entre guillemets doubles
 	<string name="Normal">
 		Normal
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		Aucun
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		Maillage de navigation affecté
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		Personnage
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		(Multiple)
-	</string>
 	<string name="snapshot_quality_very_low">
 		Très faible
 	</string>

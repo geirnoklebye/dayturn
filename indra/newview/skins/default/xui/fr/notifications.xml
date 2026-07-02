@@ -809,9 +809,6 @@ Vous pouvez lier un maximum de [MAX] objets.
 
 Assurez-vous que vous êtes le propriétaire de tous les objets et qu&apos;aucun d&apos;eux n&apos;est verrouillé.
 	</notification>
-	<notification name="CannotLinkPermanent">
-		Impossible de lier des objets d&apos;une région à une autre.
-	</notification>
 	<notification name="CannotLinkAcrossRegions">
 		Impossible de lier des objets d’une région à une autre.
 	</notification>
@@ -3943,9 +3940,6 @@ Veuillez réessayer dans une minute.
 	</notification>
 	<notification name="LinkFailedNothingLinkable">
 		Échec du lien - il n&apos;y a rien qui puisse être lié.
-	</notification>
-	<notification name="LinkFailedTooManyPathfindingChars">
-		Échec du lien -- trop de personnages de recherche de chemin
 	</notification>
 	<notification name="LinkFailedInsufficientLand">
 		Échec du lien -- ressources de terrain insuffisantes

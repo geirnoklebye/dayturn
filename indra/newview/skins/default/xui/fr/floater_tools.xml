@@ -244,11 +244,6 @@
 					F :
 				</text>
 			</panel>
-			<panel name="pathfinding_attrs_panel">
-				<text name="pathfinding_attributes_label">
-					Attributs de recherche de chemin :
-				</text>
-			</panel>
 		</panel>
 		<panel label="Objet" name="Object">
 			<check_box label="Verrouillé" name="checkbox locked" tool_tip="Empêche l&apos;objet d&apos;être déplacé ou supprimé. Utile pendant la construction pour éviter les modifications involontaires."/>

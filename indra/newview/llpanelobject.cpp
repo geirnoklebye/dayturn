@@ -504,14 +504,10 @@ void LLPanelObject::getState( )
 	bool editable = root_objectp->permModify();
 
 	bool is_flexible = volobjp && volobjp->isFlexible();
-	bool is_permanent = root_objectp->flagObjectPermanent();
-	bool is_permanent_enforced = root_objectp->isPermanentEnforced();
-	bool is_character = root_objectp->flagCharacter();
-	llassert(!is_permanent || !is_character); // should never have a permanent object that is also a character
 
 	// Lock checkbox - only modifiable if you own the object.
 	bool self_owned = (gAgent.getID() == owner_id);
-	mCheckLock->setEnabled( roots_selected > 0 && self_owned && !is_permanent_enforced);
+	mCheckLock->setEnabled( roots_selected > 0 && self_owned);
 
 	// More lock and debit checkbox - get the values
 	bool valid;
@@ -543,24 +539,21 @@ void LLPanelObject::getState( )
 
 	// Physics checkbox
 	mIsPhysical = root_objectp->flagUsePhysics();
-	llassert(!is_permanent || !mIsPhysical); // should never have a permanent object that is also physical
 
 	mCheckPhysics->set( mIsPhysical );
-	mCheckPhysics->setEnabled( roots_selected>0 
-								&& (editable || gAgent.isGodlike()) 
-								&& !is_flexible && !is_permanent);
+	mCheckPhysics->setEnabled( roots_selected>0
+								&& (editable || gAgent.isGodlike())
+								&& !is_flexible);
 
 	mIsTemporary = root_objectp->flagTemporaryOnRez();
-	llassert(!is_permanent || !mIsTemporary); // should never has a permanent object that is also temporary
 
 	mCheckTemporary->set( mIsTemporary );
-	mCheckTemporary->setEnabled( roots_selected>0 && editable && !is_permanent);
+	mCheckTemporary->setEnabled( roots_selected>0 && editable);
 
 	mIsPhantom = root_objectp->flagPhantom();
 	bool is_volume_detect = root_objectp->flagVolumeDetect();
-	llassert(!is_character || !mIsPhantom); // should never have a character that is also a phantom
 	mCheckPhantom->set( mIsPhantom );
-	mCheckPhantom->setEnabled( roots_selected>0 && editable && !is_flexible && !is_permanent_enforced && !is_character && !is_volume_detect);
+	mCheckPhantom->setEnabled( roots_selected>0 && editable && !is_flexible && !is_volume_detect);
 
 	//----------------------------------------------------------------------------
 
@@ -599,7 +592,7 @@ void LLPanelObject::getState( )
 	{
 		// Only allowed to change these parameters for objects
 		// that you have permissions on AND are not attachments.
-		enabled = root_objectp->permModify() && !root_objectp->isPermanentEnforced();
+		enabled = root_objectp->permModify();
 		
 		// Volume type
 		const LLVolumeParams &volume_params = objectp->getVolume()->getParams();

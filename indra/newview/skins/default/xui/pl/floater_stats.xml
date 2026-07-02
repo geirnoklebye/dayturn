@@ -74,11 +74,6 @@
 				<stat_bar label="Aktywne skrypty" name="simactivescripts" />
 				<stat_bar label="Skrypty uruchomione" name="simpctscriptsrun" />
 				<stat_bar label="Zdarzenia skryptowe" name="simscripteps" />
-				<stat_view name="simpathfinding" label="Odnajdywanie ścieżek">
-					<stat_bar label="  Czasokrok dla AI" name="simsimaistepmsec" />
-					<stat_bar label="  Pominięte kroki sylwetek" name="simsimskippedsilhouettesteps" unit_label="/sek" />
-					<stat_bar label="  Postaci zaktualizowanych" name="simsimpctsteppedcharacters" />
-				</stat_view>
 				<stat_bar label="Pakiety wchodzące" unit_label="pkt/sek" name="siminpps" />
 				<stat_bar label="Pakiety wychodzące" unit_label="pkt/sek" name="simoutpps" />
 				<stat_bar label="Oczekujące pobrania" name="simpendingdownloads" />

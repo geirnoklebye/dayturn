@@ -105,9 +105,6 @@
 		</combo_box>
 		<spinner label="価格： L$" name="Edit Cost" tool_tip="オブジェクトの価格。"/>
 		<check_box label="検索に表示" name="search_check" tool_tip="このオブジェクトを検索結果に表示します"/>
-		<text name="pathfinding_attributes_label">
-			パスファインディング属性:
-		</text>
 		<text name="B:">
 			B.
 		</text>

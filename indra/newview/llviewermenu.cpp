@@ -7927,12 +7927,11 @@ bool object_selected_and_point_valid()
 		}
 	}
 
-	return (selection->getRootObjectCount() == 1) && 
-		(selection->getFirstRootObject()->getPCode() == LL_PCODE_VOLUME) && 
+	return (selection->getRootObjectCount() == 1) &&
+		(selection->getFirstRootObject()->getPCode() == LL_PCODE_VOLUME) &&
 		selection->getFirstRootObject()->permYouOwner() &&
 		selection->getFirstRootObject()->flagObjectMove() &&
-		!selection->getFirstRootObject()->flagObjectPermanent() &&
-		!((LLViewerObject*)selection->getFirstRootObject()->getRoot())->isAvatar() && 
+		!((LLViewerObject*)selection->getFirstRootObject()->getRoot())->isAvatar() &&
 		(selection->getFirstRootObject()->getNVPair("AssetContainer") == NULL);
 }
 

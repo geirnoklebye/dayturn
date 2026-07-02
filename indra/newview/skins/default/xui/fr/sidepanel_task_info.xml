@@ -105,9 +105,6 @@
 		</combo_box>
 		<spinner label="Prix : L$" name="Edit Cost" tool_tip="Coût de l&apos;objet."/>
 		<check_box label="Afficher avec la recherche" name="search_check" tool_tip="Permettre aux autres résidents de voir cet objet dans les résultats de recherche"/>
-		<text name="pathfinding_attributes_label">
-			Attributs de recherche de chemin :
-		</text>
 		<text name="B:">
 			B :
 		</text>

@@ -5628,18 +5628,6 @@ http://secondlife.com/support 求助解決問題。
 	<string name="Normal">
 		正常
 	</string>
-	<string name="Pathfinding_Object_Attr_None">
-		無
-	</string>
-	<string name="Pathfinding_Object_Attr_Permanent">
-		影響導航網面
-	</string>
-	<string name="Pathfinding_Object_Attr_Character">
-		角色
-	</string>
-	<string name="Pathfinding_Object_Attr_MultiSelect">
-		（多項）
-	</string>
 	<string name="snapshot_quality_very_low">
 		很低
 	</string>

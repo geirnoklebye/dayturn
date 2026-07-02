@@ -41,8 +41,7 @@ const U32   FLAGS_TAKES_MONEY          = (1U << 9);
 const U32   FLAGS_PHANTOM              = (1U << 10);
 const U32   FLAGS_INVENTORY_EMPTY      = (1U << 11);
 
-const U32   FLAGS_AFFECTS_NAVMESH      = (1U << 12);
-const U32   FLAGS_CHARACTER            = (1U << 13);
+// bits 12-13 formerly FLAGS_AFFECTS_NAVMESH / FLAGS_CHARACTER (SL pathfinding, unused on OpenSim)
 const U32   FLAGS_VOLUME_DETECT        = (1U << 14);
 const U32   FLAGS_INCLUDE_IN_SEARCH    = (1U << 15);
 
