@@ -143,13 +143,13 @@ public:
 
 	virtual bool	canLoadOrSaveToFile();
 
-//	void			selectNext(const std::string& search_text_in, BOOL case_insensitive, BOOL wrap = TRUE);
+//	void			selectNext(const std::string& search_text_in, bool case_insensitive, bool wrap = true);
 // [SL:KB] - Patch: UI-FloaterSearchReplace | Checked: 2010-10-29 (Catznip-2.3.0a) | Added: Catznip-2.3.0a
 	std::string		getSelectionString() const;
 	void			selectNext(const std::string& search_text_in, bool case_insensitive, bool wrap = true, bool search_up = false);
 	bool			replaceText(const std::string& search_text, const std::string& replace_text, bool case_insensitive, bool wrap = true, bool search_up = false);
 // [/SL:KB]
-//	BOOL			replaceText(const std::string& search_text, const std::string& replace_text, BOOL case_insensitive, BOOL wrap = TRUE);
+//	BOOL			replaceText(const std::string& search_text, const std::string& replace_text, bool case_insensitive, bool wrap = true);
 
 	void			replaceTextAll(const std::string& search_text, const std::string& replace_text, bool case_insensitive);
 

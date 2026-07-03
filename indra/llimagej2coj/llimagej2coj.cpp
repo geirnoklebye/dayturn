@@ -196,7 +196,7 @@ bool LLImageJ2COJ::decodeImpl(LLImageJ2C &base, LLImageRaw &raw_image, F32 decod
 			// if we didn't get the discard level we're expecting, fail
 			opj_image_destroy(image);
 //MK
-////			base.mDecoding = FALSE;
+////			base.mDecoding = false;
 			base.decodeFailed();
 //mk
 			return true;

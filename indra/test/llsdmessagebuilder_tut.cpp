@@ -126,14 +126,14 @@ namespace tut
 	
 	template<> template<>
 	void LLSDMessageBuilderTestObject::test<2>()
-		 // BOOL
+		 // bool
 	{
-	  BOOL outValue, inValue = TRUE;
+	  bool outValue, inValue = true;
 	  LLSDMessageBuilder builder = defaultBuilder();
-	  builder.addBOOL("var", inValue);
+	  builder.addbool("var", inValue);
 	  LLSDMessageReader reader = setReader(builder);
-	  reader.getBOOL("block", "var", outValue);
-	  ensure_equals("Ensure BOOL", inValue, outValue);
+	  reader.getbool("block", "var", outValue);
+	  ensure_equals("Ensure bool", inValue, outValue);
 	}
 
 	template<> template<>

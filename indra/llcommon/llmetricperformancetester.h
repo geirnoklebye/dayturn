@@ -150,7 +150,7 @@ public:
 	static bool isMetricLogRequested(std::string name);
 	
 	/**
-	 * @return Returns true if there's a tester defined, FALSE otherwise.
+	 * @return Returns true if there's a tester defined, false otherwise.
 	 */
 	static bool hasMetricPerformanceTesters() { return !sTesterMap.empty() ;}
 	/**

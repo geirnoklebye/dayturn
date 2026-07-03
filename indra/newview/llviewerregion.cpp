@@ -2952,11 +2952,11 @@ void LLViewerRegion::unpackRegionHandshake()
 
 	if (gIsInSecondLife)
 	{
-		mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+		mCentralBakeVersion = region_protocols & 1; // was (S32)gSavedSettings.getbool("UseServerTextureBaking");
 	}
 	else
 	{
-		mCentralBakeVersion = region_protocols & 0; // was (S32)gSavedSettings.getBOOL("UseServerTextureBaking");
+		mCentralBakeVersion = region_protocols & 0; // was (S32)gSavedSettings.getbool("UseServerTextureBaking");
 	}
 
 	LLVLComposition *compp = getComposition();

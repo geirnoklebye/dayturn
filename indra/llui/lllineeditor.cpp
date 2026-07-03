@@ -282,7 +282,7 @@ void LLLineEditor::onCommit()
 	if (mSelectAllonCommit) selectAll();
 }
 
-// Returns TRUE if user changed value at all
+// Returns true if user changed value at all
 // virtual
 bool LLLineEditor::isDirty() const
 {

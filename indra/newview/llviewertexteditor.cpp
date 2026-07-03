@@ -174,7 +174,7 @@ public:
 // [SL:KB] - Patch: UI-Notecards | Checked: 2012-07-02 (Catznip-3.3.0)
 			LLFloaterReg::showInstance("preview_notecard", LLSD(item->getUUID()), TAKE_FOCUS_YES);
 // [/SL:KB]
-//			if(!gSavedSettings.getBOOL("ShowNewInventory"))
+//			if(!gSavedSettings.getbool("ShowNewInventory"))
 //			{
 //				LLFloaterReg::showInstance("preview_notecard", LLSD(item->getUUID()), TAKE_FOCUS_YES);
 //			}

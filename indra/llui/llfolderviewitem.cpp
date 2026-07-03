@@ -371,7 +371,7 @@ std::set<LLFolderViewItem*> LLFolderViewItem::getSelectionList() const
 	return selection;
 }
 
-// addToFolder() returns TRUE if it succeeds. FALSE otherwise
+// addToFolder() returns true if it succeeds. false otherwise
 void LLFolderViewItem::addToFolder(LLFolderViewFolder* folder)
 {
 	folder->addItem(this); 
@@ -1052,7 +1052,7 @@ LLFolderViewFolder::~LLFolderViewFolder( void )
 	gFocusMgr.releaseFocusIfNeeded( this ); // calls onCommit()
 }
 
-// addToFolder() returns TRUE if it succeeds. FALSE otherwise
+// addToFolder() returns true if it succeeds. false otherwise
 void LLFolderViewFolder::addToFolder(LLFolderViewFolder* folder)
 {
 	folder->addFolder(this);
@@ -1306,7 +1306,7 @@ bool LLFolderViewFolder::setSelection(LLFolderViewItem* selection, bool openitem
 // This method is used to change the selection of an item.
 // Recursively traverse all children; if 'selection' is 'this' then change
 // the select status if necessary.
-// Returns TRUE if the selection state of this folder, or of a child, was changed.
+// Returns true if the selection state of this folder, or of a child, was changed.
 bool LLFolderViewFolder::changeSelection(LLFolderViewItem* selection, bool selected)
 {
 	bool rv = false;

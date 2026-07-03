@@ -1833,7 +1833,7 @@ bool LLStringUtilBase<T>::convertToBOOL(const string_type& string, BOOL& value)
 		(temp == "true") || 
 		(temp == "True") )
 	{
-		value = TRUE;
+		value = true;
 		return true;
 	}
 	else
@@ -1845,7 +1845,7 @@ bool LLStringUtilBase<T>::convertToBOOL(const string_type& string, BOOL& value)
 		(temp == "false") || 
 		(temp == "False") )
 	{
-		value = FALSE;
+		value = false;
 		return true;
 	}
 
@@ -1942,7 +1942,7 @@ bool LLStringUtilBase<T>::convertToS32(const string_type& string, S32& value)
 		//if((LONG_MAX == v) || (LONG_MIN == v))
 		//{
 		//	// Underflow or overflow
-		//	return FALSE;
+		//	return false;
 		//}
 
 		value = v;
@@ -1982,7 +1982,7 @@ bool LLStringUtilBase<T>::convertToF64(const string_type& string, F64& value)
 		//if( ((-HUGE_VAL == v) || (HUGE_VAL == v))) )
 		//{
 		//	// Underflow or overflow
-		//	return FALSE;
+		//	return false;
 		//}
 
 		value = v;

@@ -999,7 +999,7 @@ bool LLToolGrabBase::handleMouseUp(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
+	//gAgent.setObjectTracking(gSavedSettings.getbool("TrackFocusObject"));
 
 	return true;
 } 

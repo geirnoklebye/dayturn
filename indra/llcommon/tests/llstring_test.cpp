@@ -77,12 +77,12 @@ namespace tut
 	void string_index_object_t::test<3>()
 	{
 		std::string str("Len=5");
-		ensure("isValidIndex failed", LLStringUtil::isValidIndex(str, 0) == TRUE &&
-									  LLStringUtil::isValidIndex(str, 5) == TRUE &&
-									  LLStringUtil::isValidIndex(str, 6) == FALSE);
+		ensure("isValidIndex failed", LLStringUtil::isValidIndex(str, 0) == true &&
+									  LLStringUtil::isValidIndex(str, 5) == true &&
+									  LLStringUtil::isValidIndex(str, 6) == false);
 
 		std::string str1;
-		ensure("isValidIndex failed fo rempty string", LLStringUtil::isValidIndex(str1, 0) == FALSE);
+		ensure("isValidIndex failed fo rempty string", LLStringUtil::isValidIndex(str1, 0) == false);
 	}
 
 	template<> template<>
@@ -150,10 +150,10 @@ namespace tut
 	void string_index_object_t::test<10>()
 	{
 		std::string str_val("Second");
-		ensure("1. isHead failed", LLStringUtil::isHead(str_val, "SecondLife Source") == TRUE);
-		ensure("2. isHead failed", LLStringUtil::isHead(str_val, " SecondLife Source") == FALSE);
+		ensure("1. isHead failed", LLStringUtil::isHead(str_val, "SecondLife Source") == true);
+		ensure("2. isHead failed", LLStringUtil::isHead(str_val, " SecondLife Source") == false);
 		std::string str_val2("");
-		ensure("3. isHead failed", LLStringUtil::isHead(str_val2, "") == FALSE);
+		ensure("3. isHead failed", LLStringUtil::isHead(str_val2, "") == false);
 	}
 
 	template<> template<>
@@ -203,10 +203,10 @@ namespace tut
 	void string_index_object_t::test<15>()
 	{
 		std::string str_val("Hello.\n\r\t");
-		ensure("containsNonprintable failed", LLStringUtil::containsNonprintable(str_val) == TRUE);
+		ensure("containsNonprintable failed", LLStringUtil::containsNonprintable(str_val) == true);
 
 		str_val = "ABC ";
-		ensure("containsNonprintable failed", LLStringUtil::containsNonprintable(str_val) == FALSE);
+		ensure("containsNonprintable failed", LLStringUtil::containsNonprintable(str_val) == false);
 	}
 
 	template<> template<>
@@ -228,35 +228,35 @@ namespace tut
 	template<> template<>
 	void string_index_object_t::test<17>()
 	{
-		BOOL value;
+		bool value;
 		std::string str_val("1");
-		ensure("convertToBOOL 1 failed", LLStringUtil::convertToBOOL(str_val, value) && value);
+		ensure("convertTobool 1 failed", LLStringUtil::convertTobool(str_val, value) && value);
 		str_val = "T";
-		ensure("convertToBOOL T failed", LLStringUtil::convertToBOOL(str_val, value) && value);
+		ensure("convertTobool T failed", LLStringUtil::convertTobool(str_val, value) && value);
 		str_val = "t";
-		ensure("convertToBOOL t failed", LLStringUtil::convertToBOOL(str_val, value) && value);
-		str_val = "TRUE";
-		ensure("convertToBOOL TRUE failed", LLStringUtil::convertToBOOL(str_val, value) && value);
-		str_val = "True";
-		ensure("convertToBOOL True failed", LLStringUtil::convertToBOOL(str_val, value) && value);
+		ensure("convertTobool t failed", LLStringUtil::convertTobool(str_val, value) && value);
 		str_val = "true";
-		ensure("convertToBOOL true failed", LLStringUtil::convertToBOOL(str_val, value) && value);
+		ensure("convertTobool true failed", LLStringUtil::convertTobool(str_val, value) && value);
+		str_val = "True";
+		ensure("convertTobool True failed", LLStringUtil::convertTobool(str_val, value) && value);
+		str_val = "true";
+		ensure("convertTobool true failed", LLStringUtil::convertTobool(str_val, value) && value);
 
 		str_val = "0";
-		ensure("convertToBOOL 0 failed", LLStringUtil::convertToBOOL(str_val, value) && !value);
+		ensure("convertTobool 0 failed", LLStringUtil::convertTobool(str_val, value) && !value);
 		str_val = "F";
-		ensure("convertToBOOL F failed", LLStringUtil::convertToBOOL(str_val, value) && !value);
+		ensure("convertTobool F failed", LLStringUtil::convertTobool(str_val, value) && !value);
 		str_val = "f";
-		ensure("convertToBOOL f failed", LLStringUtil::convertToBOOL(str_val, value) && !value);
-		str_val = "FALSE";
-		ensure("convertToBOOL FALSE failed", LLStringUtil::convertToBOOL(str_val, value) && !value);
-		str_val = "False";
-		ensure("convertToBOOL False failed", LLStringUtil::convertToBOOL(str_val, value) && !value);
+		ensure("convertTobool f failed", LLStringUtil::convertTobool(str_val, value) && !value);
 		str_val = "false";
-		ensure("convertToBOOL false failed", LLStringUtil::convertToBOOL(str_val, value) && !value);
+		ensure("convertTobool false failed", LLStringUtil::convertTobool(str_val, value) && !value);
+		str_val = "False";
+		ensure("convertTobool False failed", LLStringUtil::convertTobool(str_val, value) && !value);
+		str_val = "false";
+		ensure("convertTobool false failed", LLStringUtil::convertTobool(str_val, value) && !value);
 
 		str_val = "Tblah";
-		ensure("convertToBOOL false failed", !LLStringUtil::convertToBOOL(str_val, value));
+		ensure("convertTobool false failed", !LLStringUtil::convertTobool(str_val, value));
 	}
 
 	template<> template<>
@@ -454,17 +454,17 @@ namespace tut
 		std::string lhs_str("PROgraM12files");
 		std::string rhs_str("PROgram12Files");
 		ensure("compareDict 1 failed", LLStringUtil::compareDict(lhs_str, rhs_str) < 0);
-		ensure("precedesDict 1 failed", LLStringUtil::precedesDict(lhs_str, rhs_str) == TRUE);
+		ensure("precedesDict 1 failed", LLStringUtil::precedesDict(lhs_str, rhs_str) == true);
 		
 		lhs_str = "PROgram12Files";
 		rhs_str = "PROgram12Files";
 		ensure("compareDict 2 failed", LLStringUtil::compareDict(lhs_str, rhs_str) == 0);
-		ensure("precedesDict 2 failed", LLStringUtil::precedesDict(lhs_str, rhs_str) == FALSE);
+		ensure("precedesDict 2 failed", LLStringUtil::precedesDict(lhs_str, rhs_str) == false);
 
 		lhs_str = "PROgram12Files";
 		rhs_str = "PROgRAM12FILES";
 		ensure("compareDict 3 failed", LLStringUtil::compareDict(lhs_str, rhs_str) > 0);
-		ensure("precedesDict 3 failed", LLStringUtil::precedesDict(lhs_str, rhs_str) == FALSE);
+		ensure("precedesDict 3 failed", LLStringUtil::precedesDict(lhs_str, rhs_str) == false);
 	}
 
 	template<> template<>
@@ -867,8 +867,8 @@ namespace tut
 		ensure("convertTobool T failed", LLStringUtil::convertTobool(str_val, value) && value);
 		str_val = "t";
 		ensure("convertTobool t failed", LLStringUtil::convertTobool(str_val, value) && value);
-		str_val = "TRUE";
-		ensure("convertTobool TRUE failed", LLStringUtil::convertTobool(str_val, value) && value);
+		str_val = "true";
+		ensure("convertTobool true failed", LLStringUtil::convertTobool(str_val, value) && value);
 		str_val = "True";
 		ensure("convertTobool True failed", LLStringUtil::convertTobool(str_val, value) && value);
 		str_val = "true";
@@ -880,8 +880,8 @@ namespace tut
 		ensure("convertTobool F failed", LLStringUtil::convertTobool(str_val, value) && !value);
 		str_val = "f";
 		ensure("convertTobool f failed", LLStringUtil::convertTobool(str_val, value) && !value);
-		str_val = "FALSE";
-		ensure("convertTobool FALSE failed", LLStringUtil::convertTobool(str_val, value) && !value);
+		str_val = "false";
+		ensure("convertTobool false failed", LLStringUtil::convertTobool(str_val, value) && !value);
 		str_val = "False";
 		ensure("convertTobool False failed", LLStringUtil::convertTobool(str_val, value) && !value);
 		str_val = "false";

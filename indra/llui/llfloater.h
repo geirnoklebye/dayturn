@@ -473,7 +473,7 @@ private:
 	LLUIString		mTitle;
 	LLUIString		mShortTitle;
 	
-	bool			mSingleInstance;	  // TRUE if there is only ever one instance of the floater
+	bool			mSingleInstance;	  // true if there is only ever one instance of the floater
 	bool			mReuseInstance;		  // true if we want to hide the floater when we close it instead of destroying it
     bool            mIsReuseInitialized;  // true if mReuseInstance already set from parameters
 	std::string		mInstanceName;		  // Store the instance name so we can remove ourselves from the list

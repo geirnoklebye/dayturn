@@ -180,12 +180,12 @@ public:
     S32 getTextPad();
 
 	// If 'selection' is 'this' then note that otherwise ignore.
-	// Returns TRUE if this item ends up being selected.
+	// Returns true if this item ends up being selected.
 	virtual bool setSelection(LLFolderViewItem* selection, bool openitem, bool take_keyboard_focus);
 
 	// This method is used to set the selection state of an item.
 	// If 'selection' is 'this' then note selection.
-	// Returns TRUE if the selection state of this item was changed.
+	// Returns true if the selection state of this item was changed.
 	virtual bool changeSelection(LLFolderViewItem* selection, bool selected);
 
 	// this method is used to deselect this element
@@ -366,14 +366,14 @@ public:
 
 	// Passes selection information on to children and record
 	// selection information if necessary.
-	// Returns TRUE if this object (or a child) ends up being selected.
+	// Returns true if this object (or a child) ends up being selected.
 	// If 'openitem' is true then folders are opened up along the way to the selection.
 	virtual bool setSelection(LLFolderViewItem* selection, bool openitem, bool take_keyboard_focus = true);
 
 	// This method is used to change the selection of an item.
 	// Recursively traverse all children; if 'selection' is 'this' then change
 	// the select status if necessary.
-	// Returns TRUE if the selection state of this folder, or of a child, was changed.
+	// Returns true if the selection state of this folder, or of a child, was changed.
 	virtual bool changeSelection(LLFolderViewItem* selection, bool selected);
 
 	// this method is used to group select items

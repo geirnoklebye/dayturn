@@ -247,7 +247,7 @@ void LLAvatarJointMesh::setTexture( LLGLTexture *texture )
 	{
 		mLayerSet = nullptr;
 		//texture->bindTexture(0);
-		//texture->setClamp(TRUE, TRUE);
+		//texture->setClamp(true, true);
 	}
 }
 

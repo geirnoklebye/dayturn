@@ -251,7 +251,7 @@ bool LLSidepanelInventory::postBuild()
 
 		// Set the inbox visible based on debug settings (final setting comes from http request below)
 		// <FS:Ansariel> FIRE-17603: Received Items button sometimes vanishing
-		//enableInbox(gSavedSettings.getBOOL("InventoryDisplayInbox"));
+		//enableInbox(gSavedSettings.getbool("InventoryDisplayInbox"));
 		enableInbox(!gSavedSettings.getbool("FSShowInboxFolder") || gSavedSettings.getbool("FSAlwaysShowInboxButton"));
 		}
 		// </FS:Ansariel>

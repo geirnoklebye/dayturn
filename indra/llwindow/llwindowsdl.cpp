@@ -1132,7 +1132,7 @@ void LLWindowSDL::beforeDialog()
 
 	LL_INFOS() << "LLWindowSDL::beforeDialog()" << LL_ENDL;
 
-	if (SDLReallyCaptureInput(FALSE)) // must ungrab input so popup works!
+	if (SDLReallyCaptureInput(false)) // must ungrab input so popup works!
 	{
 		if (mFullscreen)
 		{
@@ -1619,7 +1619,7 @@ void LLWindowSDL::processMiscNativeEvents()
 	    pump_timer.setTimerExpirySec(1.0f / 15.0f);
 	    do {
 		     // Always do at least one non-blocking pump
-		    gtk_main_iteration_do(FALSE);
+		    gtk_main_iteration_do(false);
 	    } while (gtk_events_pending() &&
 		     !pump_timer.hasExpired());
 
@@ -2331,8 +2331,8 @@ bool LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
 
 		gtk_color_selection_set_previous_color (colorsel, &color);
 		gtk_color_selection_set_current_color (colorsel, &color);
-		gtk_color_selection_set_has_palette (colorsel, TRUE);
-		gtk_color_selection_set_has_opacity_control(colorsel, FALSE);
+		gtk_color_selection_set_has_palette (colorsel, true);
+		gtk_color_selection_set_has_opacity_control(colorsel, false);
 
 		gint response = GTK_RESPONSE_NONE;
 		g_signal_connect (win,
@@ -2344,7 +2344,7 @@ bool LLWindowSDL::dialogColorPicker( F32 *r, F32 *g, F32 *b)
 				  G_CALLBACK (color_changed_callback),
 				  &color);
 
-		gtk_window_set_modal(GTK_WINDOW(win), TRUE);
+		gtk_window_set_modal(GTK_WINDOW(win), true);
 		gtk_widget_show_all(win);
 		// hide the help button - we don't service it.
 		gtk_widget_hide(GTK_COLOR_SELECTION_DIALOG(win)->help_button);
@@ -2408,7 +2408,7 @@ void LLWindowSDL::spawnWebBrowser(const std::string& escaped_url, bool async)
 
 void LLWindowSDL::openFile(const std::string& file_name)
 {
-	spawnWebBrowser("file://"+file_name,TRUE);
+	spawnWebBrowser("file://"+file_name,true);
 }
 
 void *LLWindowSDL::getPlatformWindow()

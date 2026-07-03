@@ -3882,9 +3882,9 @@ bool LLViewerMediaImpl::shouldShowBasedOnClass() const
 	bool inside_parcel = isInAgentParcel();
 
 	//	LL_INFOS() << " hasFocus = " << hasFocus() <<
-	//	" others = " << (attached_to_another_avatar && gSavedSettings.getBOOL(LLViewerMedia::SHOW_MEDIA_ON_OTHERS_SETTING)) <<
-	//	" within = " << (inside_parcel && gSavedSettings.getBOOL(LLViewerMedia::SHOW_MEDIA_WITHIN_PARCEL_SETTING)) <<
-	//	" outside = " << (!inside_parcel && gSavedSettings.getBOOL(LLViewerMedia::SHOW_MEDIA_OUTSIDE_PARCEL_SETTING)) << LL_ENDL;
+	//	" others = " << (attached_to_another_avatar && gSavedSettings.getbool(LLViewerMedia::SHOW_MEDIA_ON_OTHERS_SETTING)) <<
+	//	" within = " << (inside_parcel && gSavedSettings.getbool(LLViewerMedia::SHOW_MEDIA_WITHIN_PARCEL_SETTING)) <<
+	//	" outside = " << (!inside_parcel && gSavedSettings.getbool(LLViewerMedia::SHOW_MEDIA_OUTSIDE_PARCEL_SETTING)) << LL_ENDL;
 
 	// If it has focus, we should show it
 	// This is incorrect, and causes EXT-6750 (disabled attachment media still plays)

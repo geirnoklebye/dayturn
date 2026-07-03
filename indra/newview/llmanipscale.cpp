@@ -402,7 +402,7 @@ bool LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
 		// Might have missed last update due to UPDATE_DELAY timing
 		LLSelectMgr::getInstance()->sendMultipleUpdate( mLastUpdateFlags );
 
-		//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
+		//gAgent.setObjectTracking(gSavedSettings.getbool("TrackFocusObject"));
 		LLSelectMgr::getInstance()->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
 	}
 	return LLManip::handleMouseUp(x, y, mask);
@@ -1189,7 +1189,7 @@ void LLManipScale::sendUpdates( bool send_position_update, bool send_scale_updat
 		mLastUpdateFlags = update_flags;
 
 		// enforce minimum update delay and don't stream updates on sub-object selections
-		if( elapsed_time > UPDATE_DELAY && !gSavedSettings.getBOOL("EditLinkedParts") )
+		if( elapsed_time > UPDATE_DELAY && !gSavedSettings.getbool("EditLinkedParts") )
 		{
 			LLSelectMgr::getInstance()->sendMultipleUpdate( update_flags );
 			update_timer.reset();

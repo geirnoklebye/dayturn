@@ -956,7 +956,7 @@ void LLScriptEdCore::onBtnDynamicHelp()
 		if (parent)
 			parent->addDependentFloater(live_help_floater, true);
 		live_help_floater->childSetCommitCallback("lock_check", onCheckLock, this);
-		live_help_floater->getChild<LLUICtrl>("lock_check")->setValue(gSavedSettings.getBOOL("ScriptHelpFollowsCursor"));
+		live_help_floater->getChild<LLUICtrl>("lock_check")->setValue(gSavedSettings.getbool("ScriptHelpFollowsCursor"));
 		live_help_floater->childSetCommitCallback("history_combo", onHelpComboCommit, this);
 		live_help_floater->childSetAction("back_btn", onClickBack, this);
 		live_help_floater->childSetAction("fwd_btn", onClickForward, this);

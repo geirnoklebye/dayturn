@@ -3468,7 +3468,7 @@ bool LLMenuBarGL::handleKeyHere(KEY key, MASK mask)
 	if (key == KEY_ESCAPE && mask == MASK_NONE)
 	{
 		LLMenuGL::setKeyboardMode(false);
-		// if any menus are visible, this will return TRUE, stopping further processing of ESCAPE key
+		// if any menus are visible, this will return true, stopping further processing of ESCAPE key
 		return LLMenuGL::sMenuContainer->hideMenus();
 	}
 

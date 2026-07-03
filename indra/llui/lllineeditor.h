@@ -186,7 +186,7 @@ public:
 	virtual void 	setRect(const LLRect& rect);
 	virtual bool	acceptsTextInput() const;
 	virtual void	onCommit();
-	virtual bool	isDirty() const;	// Returns TRUE if user changed value at all
+	virtual bool	isDirty() const;	// Returns true if user changed value at all
 	virtual void	resetDirty();		// Clear dirty state
 
 	// assumes UTF8 text

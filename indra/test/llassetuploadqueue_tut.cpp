@@ -100,8 +100,8 @@ namespace tut
 	{
 		LLUUID task_id;
 		LLUUID item_id;
-		BOOL is_running = FALSE; 
-		BOOL is_target_mono = TRUE; 
+		bool is_running = false; 
+		bool is_target_mono = true; 
 		LLUUID queue_id;
 		q.queue(filename, task_id, item_id, is_running, is_target_mono, queue_id);
 	}

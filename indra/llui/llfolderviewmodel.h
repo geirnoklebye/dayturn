@@ -219,7 +219,7 @@ public:
 	virtual void clearChildren() = 0;
 
 	// This method will be called to determine if a drop can be
-	// performed, and will set drop to TRUE if a drop is
+	// performed, and will set drop to true if a drop is
 	// requested. Returns true if a drop is possible/happened,
 	// otherwise false.
 	virtual bool dragOrDrop(MASK mask, bool drop,

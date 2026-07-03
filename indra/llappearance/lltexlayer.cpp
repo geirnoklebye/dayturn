@@ -1133,7 +1133,7 @@ bool LLTexLayer::render(S32 x, S32 y, S32 width, S32 height, LLRenderTarget* bou
 			}
 //			else
 //			{
-//				success = FALSE;
+//				success = false;
 //			}
 		}
 	}

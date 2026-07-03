@@ -960,7 +960,7 @@ bool LLAppViewerWin32::initHardwareTest()
 	// Do driver verification and initialization based on DirectX
 	// hardware polling and driver versions
 	//
-	if (/*true == gSavedSettings.getBOOL("ProbeHardwareOnStartup") &&*/ false == gSavedSettings.getbool("NoHardwareProbe")) // <FS:Ansariel> FIRE-20378 / FIRE-20382: Breaks memory detection an 4K monitor workaround
+	if (/*true == gSavedSettings.getbool("ProbeHardwareOnStartup") &&*/ false == gSavedSettings.getbool("NoHardwareProbe")) // <FS:Ansariel> FIRE-20378 / FIRE-20382: Breaks memory detection an 4K monitor workaround
 	{
 		// per DEV-11631 - disable hardware probing for everything
 		// but vram.

@@ -470,11 +470,11 @@ void audio_update_volume(bool force_update)
 		// handle secondary gains
 		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
 		//gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_SFX,
-		//						  gSavedSettings.getBOOL("MuteSounds") ? 0.f : gSavedSettings.getF32("AudioLevelSFX"));
+		//						  gSavedSettings.getbool("MuteSounds") ? 0.f : gSavedSettings.getF32("AudioLevelSFX"));
 		//gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_UI,
-		//						  gSavedSettings.getBOOL("MuteUI") ? 0.f : gSavedSettings.getF32("AudioLevelUI"));
+		//						  gSavedSettings.getbool("MuteUI") ? 0.f : gSavedSettings.getF32("AudioLevelUI"));
 		//gAudiop->setSecondaryGain(LLAudioEngine::AUDIO_TYPE_AMBIENT,
-		//						  gSavedSettings.getBOOL("MuteAmbient") ? 0.f : gSavedSettings.getF32("AudioLevelAmbient"));
+		//						  gSavedSettings.getbool("MuteAmbient") ? 0.f : gSavedSettings.getF32("AudioLevelAmbient"));
 
 		static LLCachedControl<bool> muteSounds(gSavedSettings, "MuteSounds", false);
 		static LLCachedControl<bool> muteUI(gSavedSettings, "MuteUI", false);
@@ -502,7 +502,7 @@ void audio_update_volume(bool force_update)
 
 		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
 		//F32 music_volume = gSavedSettings.getF32("AudioLevelMusic");
-		//bool music_muted = gSavedSettings.getBOOL("MuteMusic");
+		//bool music_muted = gSavedSettings.getbool("MuteMusic");
 
 		static LLCachedControl<F32> audioLevelMusic(gSavedSettings, "AudioLevelMusic", 0.5f);
 		static LLCachedControl<bool> muteMusic(gSavedSettings, "MuteMusic", false);
@@ -518,7 +518,7 @@ void audio_update_volume(bool force_update)
 	// Streaming Media
 	// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
 	//F32 media_volume = gSavedSettings.getF32("AudioLevelMedia");
-	//bool media_muted = gSavedSettings.getBOOL("MuteMedia");
+	//bool media_muted = gSavedSettings.getbool("MuteMedia");
 
 	static LLCachedControl<F32> audioLevelMedia(gSavedSettings, "AudioLevelMedia", 0.5f);
 	static LLCachedControl<bool> muteMedia(gSavedSettings, "MuteMedia", false);
@@ -538,7 +538,7 @@ void audio_update_volume(bool force_update)
 		// </FS:Ansariel>
 		voice_volume = mute_volume * master_volume * voice_volume;
 		// <FS:Ansariel> Use faster LLCachedControls for frequently visited locations
-		//bool voice_mute = gSavedSettings.getBOOL("MuteVoice");
+		//bool voice_mute = gSavedSettings.getbool("MuteVoice");
 		static LLCachedControl<bool> muteVoice(gSavedSettings, "MuteVoice", false);
 		bool voice_mute = muteVoice;
 		// </FS:Ansariel>

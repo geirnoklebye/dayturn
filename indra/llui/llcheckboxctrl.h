@@ -125,7 +125,7 @@ public:
 	
 	virtual void		setControlName(const std::string& control_name, LLView* context);
 
-	virtual bool		isDirty()	const;		// Returns TRUE if the user has modified this control.
+	virtual bool		isDirty()	const;		// Returns true if the user has modified this control.
 	virtual void		resetDirty();			// Clear dirty state
 
 // <FS:Ansariel> on_check callback parameter

@@ -514,7 +514,7 @@ public:
 	// to be top-left based.
 	static void setupParamsForExport(Params& p, LLView* parent);
 	
-	//virtual BOOL	addChildFromParam(const LLInitParam::BaseBlock& params) { return TRUE; }
+	//virtual bool	addChildFromParam(const LLInitParam::BaseBlock& params) { return true; }
 	virtual bool	handleKeyHere(KEY key, MASK mask);
 	virtual bool	handleKeyUpHere(KEY key, MASK mask);
 	virtual bool	handleUnicodeCharHere(llwchar uni_char);

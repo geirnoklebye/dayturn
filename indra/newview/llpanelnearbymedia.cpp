@@ -81,7 +81,7 @@ LLPanelNearByMedia::LLPanelNearByMedia()
 {
 	/* ## Zi: Media/Stream separation
     mParcelAudioAutoStart = gSavedSettings.getS32("ParcelMediaAutoPlayEnable") != 0
-                            && gSavedSettings.getBOOL("MediaTentativeAutoPlay");
+                            && gSavedSettings.getbool("MediaTentativeAutoPlay");
 
     gSavedSettings.getControl("ParcelMediaAutoPlayEnable")->getSignal()->connect(boost::bind(&LLPanelNearByMedia::handleMediaAutoPlayChanged, this, _2));
 	## Zi: Media/Stream separation
@@ -179,7 +179,7 @@ void LLPanelNearByMedia::handleMediaAutoPlayChanged(const LLSD& newvalue)
 	// update mParcelAudioAutoStartMode if "ParcelMediaAutoPlayEnable" changes
     S32 value = gSavedSettings.getS32("ParcelMediaAutoPlayEnable");
     mParcelAudioAutoStart = value != 0
-                            && gSavedSettings.getBOOL("MediaTentativeAutoPlay");
+                            && gSavedSettings.getbool("MediaTentativeAutoPlay");
 
     LLViewerParcelAskPlay *inst = LLViewerParcelAskPlay::getInstance();
     if (value == 2 && !inst->hasData())
@@ -556,7 +556,7 @@ void LLPanelNearByMedia::refreshParcelItems()
 	}
 	/* 	## Zi: Media/Stream separation
 	// Next Parcel Audio: add or remove it as necessary (don't show if disabled in prefs)
-	if (should_include && media_inst->hasParcelAudio() && gSavedSettings.getBOOL("AudioStreamingMusic"))
+	if (should_include && media_inst->hasParcelAudio() && gSavedSettings.getbool("AudioStreamingMusic"))
 	{
 		// Yes, there is parcel audio.
 		if (NULL == mParcelAudioItem)
@@ -956,7 +956,7 @@ void LLPanelNearByMedia::updateControls()
 	/* ## Zi: Media/Stream separation
 	if (selected_media_id == PARCEL_AUDIO_LIST_ITEM_UUID)
 	{
-		if (!media_inst->getInstance()->hasParcelAudio() || !gSavedSettings.getBOOL("AudioStreamingMusic"))
+		if (!media_inst->getInstance()->hasParcelAudio() || !gSavedSettings.getbool("AudioStreamingMusic"))
 		{
 			// disable controls if audio streaming music is disabled from preference
 			showDisabledControls();
@@ -965,7 +965,7 @@ void LLPanelNearByMedia::updateControls()
 			showTimeBasedControls(media_inst->isParcelAudioPlaying(),
 							  false, // include_zoom
 							  false, // is_zoomed
-							  gSavedSettings.getBOOL("MuteMusic"), 
+							  gSavedSettings.getbool("MuteMusic"), 
 							  gSavedSettings.getF32("AudioLevelMusic") );
 		}
 	}
@@ -1139,7 +1139,7 @@ void LLPanelNearByMedia::onClickSelectedMediaMute()
 	/* ## Zi: Media/Stream separation
 	if (selected_media_id == PARCEL_AUDIO_LIST_ITEM_UUID)
 	{
-		gSavedSettings.setBOOL("MuteMusic", mMuteBtn->getValue());
+		gSavedSettings.setbool("MuteMusic", mMuteBtn->getValue());
 	}
 	else {
 	## Zi: Media/Stream separation

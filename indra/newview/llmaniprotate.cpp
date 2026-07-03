@@ -488,7 +488,7 @@ bool LLManipRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 		// Might have missed last update due to timing.
 		LLSelectMgr::getInstance()->sendMultipleUpdate( UPD_ROTATION | UPD_POSITION );
 		LLSelectMgr::getInstance()->enableSilhouette(true);
-		//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
+		//gAgent.setObjectTracking(gSavedSettings.getbool("TrackFocusObject"));
 
 		LLSelectMgr::getInstance()->updateSelectionCenter();
 		LLSelectMgr::getInstance()->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
@@ -1941,7 +1941,7 @@ bool LLManipRotate::canAffectSelection()
 				LLViewerObject *root_object = (objectp == nullptr) ? nullptr : objectp->getRootEdit();
 				return objectp->permMove() && !objectp->isPermanentEnforced() &&
 					((root_object == nullptr) || !root_object->isPermanentEnforced()) &&
-					(objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
+					(objectp->permModify() || !gSavedSettings.getbool("EditLinkedParts"));
 			}
 		} func;
 		can_rotate = mObjectSelection->applyToObjects(&func);

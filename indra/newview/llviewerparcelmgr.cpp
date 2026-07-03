@@ -563,7 +563,7 @@ LLParcelSelectionHandle LLViewerParcelMgr::selectLand(const LLVector3d &corner1,
 	msg->addF32Fast(_PREHASH_South, wsb_region.mV[VY] );
 	msg->addF32Fast(_PREHASH_East,  ent_region.mV[VX] );
 	msg->addF32Fast(_PREHASH_North, ent_region.mV[VY] );
-	msg->addBOOL("SnapSelection", snap_selection);
+	msg->addbool("SnapSelection", snap_selection);
 	msg->sendReliable( region->getHost() );
 
 	mRequestResult = PARCEL_RESULT_NO_DATA;
@@ -2072,7 +2072,7 @@ void LLViewerParcelMgr::optionallyStartMusic(const std::string &music_url, const
 		//     nearby_media_panel->getParcelAudioAutoStart()) ||
 		//    // or they have expressed no opinion in the UI, but have autoplay on...
 		//    (!nearby_media_panel &&
-		//     gSavedSettings.getBOOL(LLViewerMedia::AUTO_PLAY_MEDIA_SETTING) &&
+		//     gSavedSettings.getbool(LLViewerMedia::AUTO_PLAY_MEDIA_SETTING) &&
 		else if (gStatusBar->getAudioStreamEnabled() ||
 		    // or they have expressed no opinion in the UI, but have autoplay on...
 			(gSavedSettings.getbool("FSParcelMusicAutoPlay")

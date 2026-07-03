@@ -251,7 +251,7 @@ bool LLManip::handleMouseUp(S32 x, S32 y, MASK mask)
 
 void LLManip::updateGridSettings()
 {
-	sGridMaxSubdivisionLevel = gSavedSettings.getBOOL("GridSubUnit") ? (F32)gSavedSettings.getS32("GridSubdivision") : 1.f;
+	sGridMaxSubdivisionLevel = gSavedSettings.getbool("GridSubUnit") ? (F32)gSavedSettings.getS32("GridSubdivision") : 1.f;
 }
 
 bool LLManip::getMousePointOnPlaneAgent(LLVector3& point, S32 x, S32 y, LLVector3 origin, LLVector3 normal)

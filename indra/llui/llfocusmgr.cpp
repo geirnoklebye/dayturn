@@ -311,7 +311,7 @@ void LLFocusMgr::setKeyboardFocus(LLFocusableElement* new_focus, bool lock, bool
 }
 
 
-// Returns TRUE is parent or any descedent of parent has keyboard focus.
+// Returns true is parent or any descedent of parent has keyboard focus.
 bool LLFocusMgr::childHasKeyboardFocus(const LLView* parent ) const
 {
 	LLView* focus_view = dynamic_cast<LLView*>(mKeyboardFocus);

@@ -121,7 +121,7 @@ public:
 	virtual void	clear();					// select nothing
 	virtual void	onCommit();
 	virtual bool	acceptsTextInput() const		{ return mAllowTextEntry; }
-	virtual bool	isDirty() const;			// Returns TRUE if the user has modified this control.
+	virtual bool	isDirty() const;			// Returns true if the user has modified this control.
 	virtual void	resetDirty();				// Clear dirty state
 
 	virtual void	setFocus(bool b);
@@ -142,7 +142,7 @@ public:
 	LLScrollListItem*	add(const std::string& name, void* userdata, EAddPosition pos = ADD_BOTTOM, bool enabled = true);
 	LLScrollListItem*	add(const std::string& name, LLSD value, EAddPosition pos = ADD_BOTTOM, bool enabled = true);
 	LLScrollListItem*	addSeparator(EAddPosition pos = ADD_BOTTOM);
-	bool			remove( S32 index );	// remove item by index, return TRUE if found and removed
+	bool			remove( S32 index );	// remove item by index, return true if found and removed
 	void			removeall() { clearRows(); }
 	bool			itemExists(const std::string& name);
 
@@ -162,7 +162,7 @@ public:
 	// Updates the combobox label to match the selected list item.
 	void			updateLabel();
 
-	bool			remove(const std::string& name);	// remove item "name", return TRUE if found and removed
+	bool			remove(const std::string& name);	// remove item "name", return true if found and removed
 	
 	bool			setCurrentByIndex(S32 index);
 	S32				getCurrentIndex() const;

@@ -5226,7 +5226,7 @@ void LLSelectMgr::packObjectIncludeInSearch(LLSelectNode* node, void *user_data)
 {
 	gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
 	gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, node->getObject()->getLocalID() );
-	gMessageSystem->addBOOL("IncludeInSearch", node->getObject()->getIncludeInSearch());
+	gMessageSystem->addbool("IncludeInSearch", node->getObject()->getIncludeInSearch());
 }
 
 // static

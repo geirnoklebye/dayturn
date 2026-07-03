@@ -286,7 +286,7 @@ public:
 		//if (level == LLError::LEVEL_WARN)
 		//{
 			//LLFloaterChat* chat_floater = LLFloaterReg::findTypedInstance<LLFloaterChat>("chat");
-			//if (chat_floater && gSavedSettings.getBOOL("WarningsAsChat"))
+			//if (chat_floater && gSavedSettings.getbool("WarningsAsChat"))
 			//{
 			//	LLChat chat;
 			//	chat.mText = message;

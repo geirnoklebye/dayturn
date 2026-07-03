@@ -64,7 +64,7 @@ LLToolSelect::LLToolSelect( LLToolComposite* composite )
 bool LLToolSelect::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// do immediate pick query
-    bool pick_rigged = false; //gSavedSettings.getBOOL("AnimatedObjectsAllowLeftClick");
+    bool pick_rigged = false; //gSavedSettings.getbool("AnimatedObjectsAllowLeftClick");
 	mPick = gViewerWindow->pickImmediate(x, y, true, pick_rigged);
 
 	// Pass mousedown to agent

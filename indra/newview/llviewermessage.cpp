@@ -2652,7 +2652,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 			
 			if (!is_muted && !is_do_not_disturb)
 			{
-				//visible_in_chat_bubble = gSavedSettings.getBOOL("UseChatBubbles");
+				//visible_in_chat_bubble = gSavedSettings.getbool("UseChatBubbles");
 				std::string formated_msg = "";
 				LLViewerChat::formatChatMsg(chat, formated_msg);
 				LLChat chat_bubble = chat;

@@ -352,7 +352,7 @@ void LLComboBox::sortByName(bool ascending)
 
 
 // Choose an item with a given name in the menu.
-// Returns TRUE if the item was found.
+// Returns true if the item was found.
 bool LLComboBox::setSimple(const LLStringExplicit& name)
 {
 	bool found = mList->selectItemByLabel(name, false);

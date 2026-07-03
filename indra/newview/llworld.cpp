@@ -621,7 +621,7 @@ void LLWorld::updateLimits()
     mEnforceMaxBuild
     */
 
-    // not used as long as there is no gSavedSettings.getBOOL("DisableMaxBuildConstraints") to overwrite default settings
+    // not used as long as there is no gSavedSettings.getbool("DisableMaxBuildConstraints") to overwrite default settings
     /*
     mAllowParcelWindLight
     */

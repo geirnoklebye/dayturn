@@ -420,7 +420,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 	mIconResource = gIconResource;
 	mOverrideAspectRatio = 0.f;
 	mNativeAspectRatio = 0.f;
-	mInputProcessingPaused = FALSE;
+	mInputProcessingPaused = false;
 	mPreeditor = NULL;
 	mKeyCharCode = 0;
 	mKeyScanCode = 0;
@@ -437,7 +437,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 	
 	if (!SystemParametersInfo(SPI_GETMOUSEVANISH, 0, &mMouseVanish, 0))
 	{
-		mMouseVanish = TRUE;
+		mMouseVanish = true;
 	}
 
 	// Initialize the keyboard
@@ -567,7 +567,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 				mCallbacks->translateString("MBError"), OSMB_OK);
 			return;
 		}
-		sIsClassRegistered = TRUE;
+		sIsClassRegistered = true;
 	}
 
 	//-----------------------------------------------------------------------
@@ -620,7 +620,7 @@ LLWindowWin32::LLWindowWin32(LLWindowCallbacks* callbacks,
 		if (closest_refresh == 0)
 		{
 			LL_WARNS("Window") << "Couldn't find display mode " << width << " by " << height << " at " << BITS_PER_PIXEL << " bits per pixel" << LL_ENDL;
-			//success = FALSE;
+			//success = false;
 
 			if (!EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode))
 			{
@@ -2091,7 +2091,7 @@ void LLWindowWin32::releaseMouse()
 
 void LLWindowWin32::delayInputProcessing()
 {
-	mInputProcessingPaused = TRUE;
+	mInputProcessingPaused = true;
 }
 
 
@@ -2164,7 +2164,7 @@ void LLWindowWin32::gatherInput()
         }
     }
 
-	mInputProcessingPaused = FALSE;
+	mInputProcessingPaused = false;
 
 	updateCursor();
 }
@@ -2477,7 +2477,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
                     // characters.  We just need to take care of surrogate pairs sent as two WM_CHAR's
                     // by ourselves.  It is not that tough.  -- Alissa Sabre @ SL
 
-                    // Even if LLWindowCallbacks::handleUnicodeChar(llwchar, BOOL) returned FALSE,
+                    // Even if LLWindowCallbacks::handleUnicodeChar(llwchar, bool) returned false,
                     // we *did* processed the event, so I believe we should not pass it to DefWindowProc...
                     window_imp->handleUnicodeUTF16((U16)w_param, gKeyboard->currentMask(false));
                 });
@@ -2794,19 +2794,19 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
             // means that the window was un-minimized.
             if (w_param == SIZE_RESTORED && window_imp->mLastSizeWParam != SIZE_RESTORED)
             {
-                WINDOW_IMP_POST(window_imp->mCallbacks->handleActivate(window_imp, TRUE));
+                WINDOW_IMP_POST(window_imp->mCallbacks->handleActivate(window_imp, true));
             }
 
             // handle case of window being maximized from fully minimized state
             if (w_param == SIZE_MAXIMIZED && window_imp->mLastSizeWParam != SIZE_MAXIMIZED)
             {
-                WINDOW_IMP_POST(window_imp->mCallbacks->handleActivate(window_imp, TRUE));
+                WINDOW_IMP_POST(window_imp->mCallbacks->handleActivate(window_imp, true));
             }
 
             // Also handle the minimization case
             if (w_param == SIZE_MINIMIZED && window_imp->mLastSizeWParam != SIZE_MINIMIZED)
             {
-                WINDOW_IMP_POST(window_imp->mCallbacks->handleActivate(window_imp, FALSE));
+                WINDOW_IMP_POST(window_imp->mCallbacks->handleActivate(window_imp, false));
             }
 
             // Actually resize all of our views
@@ -3771,7 +3771,7 @@ void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, bool b)
             if (sWinIMEOpened && GetKeyboardLayout(0) == sWinInputLocale)
             {
                 HIMC himc = LLWinImm::getContext(mWindowHandle);
-                LLWinImm::setOpenStatus(himc, TRUE);
+                LLWinImm::setOpenStatus(himc, true);
                 LLWinImm::setConversionStatus(himc, sWinIMEConversionMode, sWinIMESentenceMode);
                 LLWinImm::releaseContext(mWindowHandle, himc);
             }
@@ -3797,7 +3797,7 @@ void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, bool b)
                     // We need both ImmSetConversionStatus and ImmSetOpenStatus here to surely disable IME's 
                     // keyboard hooking, because Some IME reacts only on the former and some other on the latter...
                     LLWinImm::setConversionStatus(himc, IME_CMODE_NOCONVERSION, sWinIMESentenceMode);
-                    LLWinImm::setOpenStatus(himc, FALSE);
+                    LLWinImm::setOpenStatus(himc, false);
                 }
                 LLWinImm::releaseContext(mWindowHandle, himc);
             }
@@ -4079,13 +4079,13 @@ void LLWindowWin32::handleCompositionMessage(const U32 indexes)
 			size = LLWinImm::getCompositionString(himc, GCS_COMPATTR, data, size);
 			if (size == preedit_string_utf16_length)
 			{
-				preedit_standouts.assign(preedit_segment_lengths.size(), FALSE);
+				preedit_standouts.assign(preedit_segment_lengths.size(), false);
 				S32 offset = 0;
 				for (U32 i = 0; i < preedit_segment_lengths.size(); i++)
 				{
 					if (ATTR_TARGET_CONVERTED == data[offset] || ATTR_TARGET_NOTCONVERTED == data[offset])
 					{
-						preedit_standouts[i] = TRUE;
+						preedit_standouts[i] = true;
 					}
 					offset += wstring_utf16_length(preedit_string, offset, preedit_segment_lengths[i]);
 				}
@@ -4144,7 +4144,7 @@ void LLWindowWin32::handleCompositionMessage(const U32 indexes)
 			}
 			if (preedit_standouts.size() == 0)
 			{
-				preedit_standouts.assign(preedit_segment_lengths.size(), FALSE);
+				preedit_standouts.assign(preedit_segment_lengths.size(), false);
 			}
 		}
 		mPreeditor->updatePreedit(preedit_string, preedit_segment_lengths, preedit_standouts, caret_position);

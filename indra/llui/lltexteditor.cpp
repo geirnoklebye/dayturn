@@ -1165,7 +1165,7 @@ S32 LLTextEditor::addChar(S32 pos, llwchar wc)
 		return delta;
 	}
 
-	return execute(new TextCmdAddChar(pos, FALSE, wc, LLTextSegmentPtr()));
+	return execute(new TextCmdAddChar(pos, false, wc, LLTextSegmentPtr()));
 }
 
 void LLTextEditor::addChar(llwchar wc)

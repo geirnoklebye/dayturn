@@ -3219,9 +3219,9 @@ bool LLAgent::setUserGroupFlags(const LLUUID& group_id, bool accept_notices, boo
 			msg->addUUID("SessionID", gAgentSessionID);
 			msg->nextBlock("Data");
 			msg->addUUID("GroupID", group_id);
-			msg->addBOOL("AcceptNotices", accept_notices);
+			msg->addbool("AcceptNotices", accept_notices);
 			msg->nextBlock("NewData");
-			msg->addBOOL("ListInProfile", list_in_profile);
+			msg->addbool("ListInProfile", list_in_profile);
 			sendReliableMessage();
 			return true;
 		}
@@ -3915,7 +3915,7 @@ void LLAgent::processControlTake(LLMessageSystem *msg, void **)
 	U32	controls;
 	msg->getU32("Data", "Controls", controls );
 	U32 passon;
-	msg->getBOOL("Data", "PassToAgent", passon );
+	msg->getbool("Data", "PassToAgent", passon );
 
 	S32 i;
 	S32 total_count = 0;
@@ -3948,7 +3948,7 @@ void LLAgent::processControlRelease(LLMessageSystem *msg, void **)
 	U32	controls;
 	msg->getU32("Data", "Controls", controls );
 	U32 passon;
-	msg->getBOOL("Data", "PassToAgent", passon );
+	msg->getbool("Data", "PassToAgent", passon );
 
 	S32 i;
 	for (i = 0; i < TOTAL_CONTROLS; i++)

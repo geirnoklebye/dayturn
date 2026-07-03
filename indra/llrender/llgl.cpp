@@ -872,9 +872,9 @@ void LLGLManager::asLLSD(LLSD& info)
 	info["has_map_buffer_range"] = mHasMapBufferRange;
 	info["has_flush_buffer_range"] = mHasFlushBufferRange;
 	info["has_pbuffer"] = mHasPBuffer;
-    info["has_shader_objects"] = std::string("Assumed TRUE");   // was mHasShaderObjects;
-	info["has_vertex_shader"] = std::string("Assumed TRUE");    // was mHasVertexShader;
-	info["has_fragment_shader"] = std::string("Assumed TRUE");  // was mHasFragmentShader;
+    info["has_shader_objects"] = std::string("Assumed true");   // was mHasShaderObjects;
+	info["has_vertex_shader"] = std::string("Assumed true");    // was mHasVertexShader;
+	info["has_fragment_shader"] = std::string("Assumed true");  // was mHasFragmentShader;
 	info["num_texture_image_units"] =  mNumTextureImageUnits;
 	info["has_occlusion_query"] = mHasOcclusionQuery;
 	info["has_timer_query"] = mHasTimerQuery;

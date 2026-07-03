@@ -802,7 +802,7 @@ void LLViewerJoystick::moveObjects(bool reset)
 	static bool toggle_send_to_sim = false;
 
 	if (!gFocusMgr.getAppHasFocus() || mDriverState != JDS_INITIALIZED
-		|| !gSavedSettings.getBOOL("JoystickEnabled") || !gSavedSettings.getBOOL("JoystickBuildEnabled"))
+		|| !gSavedSettings.getbool("JoystickEnabled") || !gSavedSettings.getbool("JoystickBuildEnabled"))
 	{
 		return;
 	}
@@ -924,7 +924,7 @@ void LLViewerJoystick::moveObjects(bool reset)
 void LLViewerJoystick::moveAvatar(bool reset)
 {
 	if (!gFocusMgr.getAppHasFocus() || mDriverState != JDS_INITIALIZED
-		|| !gSavedSettings.getBOOL("JoystickEnabled") || !gSavedSettings.getBOOL("JoystickAvatarEnabled"))
+		|| !gSavedSettings.getbool("JoystickEnabled") || !gSavedSettings.getbool("JoystickAvatarEnabled"))
 	{
 		return;
 	}
@@ -1023,7 +1023,7 @@ void LLViewerJoystick::moveAvatar(bool reset)
 	F32 val, dom_mov = 0.f;
 	U32 dom_axis = Z_I;
 #if LIB_NDOF
-    bool absolute = (gSavedSettings.getBOOL("Cursor3D") && mNdofDev->absolute);
+    bool absolute = (gSavedSettings.getbool("Cursor3D") && mNdofDev->absolute);
 #else
     bool absolute = false;
 #endif
@@ -1171,7 +1171,7 @@ void LLViewerJoystick::moveFlycam(bool reset)
 	static F32          		sFlycamZoom;
 	
 	if (!gFocusMgr.getAppHasFocus() || mDriverState != JDS_INITIALIZED
-		|| !gSavedSettings.getBOOL("JoystickEnabled") || !gSavedSettings.getBOOL("JoystickFlycamEnabled"))
+		|| !gSavedSettings.getbool("JoystickEnabled") || !gSavedSettings.getbool("JoystickFlycamEnabled"))
 	{
 		return;
 	}

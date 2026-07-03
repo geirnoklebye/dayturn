@@ -315,7 +315,7 @@ bool LLTexLayerParamAlpha::render(S32 x, S32 y, S32 width, S32 height)
 			if (!mCachedProcessedTexture)
 			{
 				llassert(gTextureManagerBridgep);
-				mCachedProcessedTexture = gTextureManagerBridgep->getLocalTexture(image_tga_width, image_tga_height, 1, FALSE);
+				mCachedProcessedTexture = gTextureManagerBridgep->getLocalTexture(image_tga_width, image_tga_height, 1, false);
 
 				// We now have something in one of our caches
 				LLTexLayerSet::sHasCaches |= mCachedProcessedTexture.notNull();

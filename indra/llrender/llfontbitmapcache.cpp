@@ -122,7 +122,7 @@ bool LLFontBitmapCache::nextOpenPos(S32 width, S32 &pos_x, S32 &pos_y, S32& bitm
 			// Attach corresponding GL texture.
 			image_gl->createGLTexture(0, image_raw);
 			gGL.getTexUnit(0)->bind(image_gl);
-			image_gl->setFilteringOption(LLTexUnit::TFO_POINT); // was setMipFilterNearest(TRUE, TRUE);
+			image_gl->setFilteringOption(LLTexUnit::TFO_POINT); // was setMipFilterNearest(true, true);
 		}
 		else
 		{

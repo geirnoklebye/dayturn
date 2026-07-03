@@ -133,7 +133,7 @@ bool LLFloaterLagMeter::postBuild()
 LLFloaterLagMeter::~LLFloaterLagMeter()
 {
 	// save shrunk status for next time
-//	gSavedSettings.setBOOL("LagMeterShrunk", mShrunk);
+//	gSavedSettings.setbool("LagMeterShrunk", mShrunk);
 	// expand so we save the large window rectangle
 	if (isShrunk())
 	{

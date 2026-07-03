@@ -290,7 +290,7 @@ class LLMessageSystem : public LLMessageSenderInterface
 	LLPacketRing				mPacketRing;
 	LLReliablePacketParams		mReliablePacketParams;
 
-	// Set this flag to TRUE when you want *very* verbose logs.
+	// Set this flag to true when you want *very* verbose logs.
 	bool						mVerboseLog;
 
 	F32                         mMessageFileVersionNumber;

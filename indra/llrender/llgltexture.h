@@ -129,7 +129,7 @@ public:
     // discard_level - mip level, 0 for highest resultion mip
     // imageraw - the image to copy from
     // usename - explicit GL name override
-    // to_create - set to FALSE to force gl texture to not be created
+    // to_create - set to false to force gl texture to not be created
     // category - LLGLTexture category for this LLGLTexture
     // defer_copy - set to true to allocate GL texture but NOT initialize with imageraw data
     // tex_name - if not null, will be set to the GL name of the texture created
