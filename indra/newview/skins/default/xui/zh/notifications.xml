@@ -1912,30 +1912,6 @@ SHA1 指紋：[MD5_DIGEST]
 		僅針對這個領地或針對 [ALL_ESTATES] 移除領地管理人？
 		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
 	</notification>
-	<notification label="選擇領地" name="EstateAllowedExperienceAdd">
-		僅針對這個領地或針對 [ALL_ESTATES] 將它新增到允許清單？
-		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
-	</notification>
-	<notification label="選擇領地" name="EstateAllowedExperienceRemove">
-		僅針對這個領地或針對 [ALL_ESTATES] 將它從允許清單中移除？
-		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
-	</notification>
-	<notification label="選擇領地" name="EstateBlockedExperienceAdd">
-		僅針對這個領地或針對 [ALL_ESTATES] 將它新增到封鎖清單？
-		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
-	</notification>
-	<notification label="選擇領地" name="EstateBlockedExperienceRemove">
-		僅針對這個領地或針對 [ALL_ESTATES] 將它從封鎖清單中移除？
-		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
-	</notification>
-	<notification label="選擇領地" name="EstateTrustedExperienceAdd">
-		僅針對這個領地或針對 [ALL_ESTATES] 將它新增到金鑰清單？
-		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
-	</notification>
-	<notification label="選擇領地" name="EstateTrustedExperienceRemove">
-		僅針對這個領地，還是針對 [ALL_ESTATES] 將它從金鑰清單中移除？
-		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="全部領地" yestext="這個領地"/>
-	</notification>
 	<notification label="確認踢出" name="EstateKickUser">
 		將 [EVIL_USER] 由這領地踢出？
 		<usetemplate name="okcancelbuttons" notext="取消" yestext="確定"/>
@@ -2995,72 +2971,6 @@ SHA1 指紋：[MD5_DIGEST]
 			<button name="Yes" text="是"/>
 			<button name="No" text="否"/>
 			<button name="Mute" text="封鎖"/>
-		</form>
-	</notification>
-	<notification name="ExperienceAcquireFailed">
-		無法取得新的體驗：
-    [ERROR_MESSAGE]
-		<usetemplate name="okbutton" yestext="確定"/>
-	</notification>
-	<notification name="NotInGroupExperienceProfileMessage">
-		已取消對體驗群組的變更，因為擁有人不是所選群組的成員。
-	</notification>
-	<notification name="UneditableExperienceProfileMessage">
-		已在更新體驗簡覽時忽略不可編輯的欄位 &apos;[field]&apos;。
-	</notification>
-	<notification name="RestrictedToOwnerExperienceProfileMessage">
-		已忽略對欄位 &apos;[field]&apos; 的變更，只有體驗擁有人可作此變更。
-	</notification>
-	<notification name="MaturityRatingExceedsOwnerExperienceProfileMessage">
-		你不能將體驗的內容分級設定為比擁有人所設更高的等級。
-	</notification>
-	<notification name="RestrictedTermExperienceProfileMessage">
-		以下項目導致無法更新體驗的名稱或描述：[extra_info]
-	</notification>
-	<notification name="TeleportedHomeExperienceRemoved">
-		你已移除金鑰體驗 secondlife:///app/experience/[public_id]/profile，因此被瞬間傳送離開 [region_name] 地區，因為你已無權續留。
-		<form name="form">
-			<ignore name="ignore" text="移除體驗後，已被踢出地區"/>
-		</form>
-	</notification>
-	<notification name="TrustedExperienceEntry">
-		你已參與金鑰體驗 secondlife:///app/experience/[public_id]/profile，因此獲准進入 [region_name] 地區，若移除此體驗，你可能會被踢出地區。
-		<form name="form">
-			<ignore name="ignore" text="已透過體驗獲准進入地區"/>
-		</form>
-	</notification>
-	<notification name="TrustedExperiencesAvailable">
-		你並沒有權限進入此目的地。 若接受以下一項體驗，可獲准進入該地區：
-
-[EXPERIENCE_LIST]
-
-可能有其他金鑰體驗供選擇。
-	</notification>
-	<notification name="ExperienceEvent">
-		一個物件已得到 secondlife:///app/experience/[public_id]/profile 體驗允許，可以[EventType]。
-    所有人：secondlife:///app/agent/[OwnerID]/inspect
-    物件名稱：[ObjectName]
-    地段名稱：[ParcelName]
-	</notification>
-	<notification name="ExperienceEventAttachment">
-		一個附件已得到 secondlife:///app/experience/[public_id]/profile 體驗允許，可以[EventType]。
-    所有人：secondlife:///app/agent/[OwnerID]/inspect
-	</notification>
-	<notification name="ScriptQuestionExperience">
-		&apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;，一個由 &apos;[NAME]&apos; 擁有的物件，邀請你參與以下的 [GRID_WIDE] 體驗：
-
-[EXPERIENCE]
-
-允准之後，除非在「體驗簡覽」撤銷該權限，否則你將不再看到此訊息。
-
-本體驗的相關腳本，將可在啟用本體驗的地區進行以下動作： 
-
-[QUESTIONS] 你是否同意？
-		<form name="form">
-			<button name="BlockExperience" text="封鎖體驗"/>
-			<button name="Mute" text="封鎖物件"/>
-			<button name="Yes" text="是"/>
-			<button name="No" text="否"/>
 		</form>
 	</notification>
 	<notification name="ScriptQuestionCaution">

@@ -555,7 +555,6 @@ http://secondlife.com/support for help fixing this problem.
 	
 	<string name="NotConnected">Not Connected</string>
 	<string name="AgentNameSubst">(You)</string> <!-- Substitution for agent name -->
-	<string name="JoinAnExperience"/><!-- intentionally blank -->
 	<string name="SilentlyManageEstateAccess">Suppress alerts when managing estate access lists</string>
 	<string name="OverrideYourAnimations">Replace your default animations</string>
 	<string name="ScriptReturnObjects">Return objects on your behalf</string>
@@ -4332,39 +4331,6 @@ name="Command_360_Capture_Label">360 snapshot</string>
 <!--Draw distance set from command line dd x response chat-->
   <string name="FSCmdLineDrawDistanceSet">Draw Distance set to [DISTANCE]m.</string>  
   
-  <!-- Experience Tools strings -->
-  <string name="experience_tools_experience">Experience</string>
-  <string name="ExperienceNameNull">(no experience)</string>
-  <string name="ExperienceNameUntitled">(untitled experience)</string>
-  <string name="Land-Scope">Land-Scope</string>
-  <string name="Grid-Scope">Grid-Scope</string>
-  <string name="Allowed_Experiences_Tab">ALLOWED</string>
-  <string name="Blocked_Experiences_Tab">BLOCKED</string>
-  <string name="Contrib_Experiences_Tab">CONTRIBUTOR</string>
-  <string name="Admin_Experiences_Tab">ADMIN</string>
-  <string name="Recent_Experiences_Tab">RECENT</string>
-  <string name="Owned_Experiences_Tab">OWNED</string>
-  <string name="ExperiencesCounter">([EXPERIENCES], max [MAXEXPERIENCES])</string>
-  <string name="ExperiencePermission1">take over your controls</string>
-  <string name="ExperiencePermission3">trigger animations on your avatar</string>
-  <string name="ExperiencePermission4">attach to your avatar</string>
-  <string name="ExperiencePermission9">track your camera</string>
-  <string name="ExperiencePermission10">control your camera</string>
-  <string name="ExperiencePermission11">teleport you</string>
-  <string name="ExperiencePermission12">automatically accept experience permissions</string>
-  <string name="ExperiencePermission16">force your avatar to sit</string>
-  <string name="ExperiencePermission17">change your environment settings</string>
-  <string name="ExperiencePermissionShortUnknown">perform an unknown operation: [Permission]</string>
-  <string name="ExperiencePermissionShort1">Take Controls</string>
-  <string name="ExperiencePermissionShort3">Trigger Animations</string>
-  <string name="ExperiencePermissionShort4">Attach</string>
-  <string name="ExperiencePermissionShort9">Track Camera</string>
-  <string name="ExperiencePermissionShort10">Control Camera</string>
-  <string name="ExperiencePermissionShort11">Teleport</string>
-  <string name="ExperiencePermissionShort12">Permission</string>
-  <string name="ExperiencePermissionShort16">Sit</string>
-  <string name="ExperiencePermissionShort17">Environment</string>
-
   <!-- Conversation log messages -->
   <string name="logging_calls_disabled_log_empty">
     Conversations are not being logged. To begin keeping a log, choose "Save: Log only" or "Save: Log and transcripts" under Preferences > Chat.

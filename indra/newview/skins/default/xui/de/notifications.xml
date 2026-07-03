@@ -1944,30 +1944,6 @@ Tausende Regionen werden verändert und der Spaceserver wird dadurch stark belas
 		Verwalter nur für diesen Grundbesitz oder für [ALL_ESTATES] entfernen?
 		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Diesen Grundbesitz"/>
 	</notification>
-	<notification label="Grundbesitz auswählen" name="EstateAllowedExperienceAdd">
-		Nur für diesen Grundbesitz oder für [ALL_ESTATES] zur Erlaubnisliste hinzufügen?
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Dieser Grundbesitz"/>
-	</notification>
-	<notification label="Grundbesitz auswählen" name="EstateAllowedExperienceRemove">
-		Nur für diesen Grundbesitz oder für [ALL_ESTATES] aus der Erlaubnisliste entfernen?
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Dieser Grundbesitz"/>
-	</notification>
-	<notification label="Grundbesitz auswählen" name="EstateBlockedExperienceAdd">
-		Nur für diesen Grundbesitz oder für [ALL_ESTATES] zur Blockierliste hinzufügen?
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Dieser Grundbesitz"/>
-	</notification>
-	<notification label="Grundbesitz auswählen" name="EstateBlockedExperienceRemove">
-		Nur für diesen Grundbesitz oder für [ALL_ESTATES] aus der Blockierliste entfernen?
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Dieser Grundbesitz"/>
-	</notification>
-	<notification label="Grundbesitz auswählen" name="EstateTrustedExperienceAdd">
-		Nur für diesen Grundbesitz oder für [ALL_ESTATES] zur Schlüsselliste hinzufügen?
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Dieser Grundbesitz"/>
-	</notification>
-	<notification label="Grundbesitz auswählen" name="EstateTrustedExperienceRemove">
-		Nur für diesen Grundbesitz oder für [ALL_ESTATES] aus der Schlüsselliste entfernen?
-		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundbesitze" yestext="Dieser Grundbesitz"/>
-	</notification>
 	<notification label="Rauswurf bestätigen" name="EstateKickUser">
 		Benutzer [EVIL_USER] von diesem Grundbesitz werfen?
 		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>

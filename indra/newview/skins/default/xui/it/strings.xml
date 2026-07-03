@@ -1097,7 +1097,6 @@ http://secondlife.com/support per risolvere il problema.
 	<string name="AgentNameSubst">
 		(Tu)
 	</string>
-	<string name="JoinAnExperience"/>
 	<string name="SilentlyManageEstateAccess">
 		Omette gli avvisi durante la gestione degli elenchi di accesso alle proprietà immobiliari
 	</string>
@@ -2098,9 +2097,6 @@ Se continui a ricevere questo messaggio, contatta l&apos;assistenza Second Life 
 	</string>
 	<string name="CompileQueueUnknownFailure">
 		Errore di dowload sconosciuto
-	</string>
-	<string name="CompileNoExperiencePerm">
-		Saltato lo script [SCRIPT] con l&apos;esperienza [EXPERIENCE].
 	</string>
 	<string name="CompileQueueTitle">
 		Avanzamento ricompilazione
@@ -5569,69 +5565,6 @@ Prova a racchiudere il percorso dell&apos;editor in doppie virgolette.
 	</string>
 	<string name="UserDictionary">
 		[User]
-	</string>
-	<string name="experience_tools_experience">
-		Esperienza
-	</string>
-	<string name="ExperienceNameNull">
-		(nessuna esperienza)
-	</string>
-	<string name="ExperienceNameUntitled">
-		(esperienza senza titolo)
-	</string>
-	<string name="Land-Scope">
-		A livello di terreno
-	</string>
-	<string name="Grid-Scope">
-		A livello di griglia
-	</string>
-	<string name="Allowed_Experiences_Tab">
-		CONSENTITO
-	</string>
-	<string name="Blocked_Experiences_Tab">
-		BLOCCATO
-	</string>
-	<string name="Contrib_Experiences_Tab">
-		FORNITORE
-	</string>
-	<string name="Admin_Experiences_Tab">
-		AMMINISTRATORE
-	</string>
-	<string name="Recent_Experiences_Tab">
-		RECENTE
-	</string>
-	<string name="Owned_Experiences_Tab">
-		DI PROPRIETÀ
-	</string>
-	<string name="ExperiencesCounter">
-		([EXPERIENCES], massimo [MAXEXPERIENCES])
-	</string>
-	<string name="ExperiencePermission1">
-		gestione dei tuoi comandi
-	</string>
-	<string name="ExperiencePermission3">
-		attivazione di animazioni per il tuo avatar
-	</string>
-	<string name="ExperiencePermission4">
-		collegamento al tuo avatar
-	</string>
-	<string name="ExperiencePermission9">
-		monitoraggio della tua videocamera
-	</string>
-	<string name="ExperiencePermission10">
-		controllo della tua videocamera
-	</string>
-	<string name="ExperiencePermission11">
-		ti teletrasporta
-	</string>
-	<string name="ExperiencePermission12">
-		accettazione automatica delle autorizzazioni per le esperienze
-	</string>
-	<string name="ExperiencePermission16">
-		obbliga l&apos;avatar a sedersi
-	</string>
-	<string name="ExperiencePermission17">
-		cambia le impostazioni dell’ambiente
 	</string>
 	<string name="ExperiencePermissionShortUnknown">
 		ha eseguito un&apos;operazione sconosciuta: [Permission]

@@ -1931,30 +1931,6 @@ Cambierà migliaia di regioni e produrrà seri problemi ai vari server.
 		Rimuovi come gestore della proprietà solo per questa proprietà oppure per  [ALL_ESTATES]?
 		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà" yestext="Questa proprietà"/>
 	</notification>
-	<notification label="Seleziona proprietà immobiliare" name="EstateAllowedExperienceAdd">
-		Aggiungi all&apos;elenco di elementi consentiti per questa proprietà immobiliare oppure per [ALL_ESTATES]?
-		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà immobiliari" yestext="Questa proprietà immobiliare"/>
-	</notification>
-	<notification label="Seleziona proprietà immobiliare" name="EstateAllowedExperienceRemove">
-		Rimuovi dall&apos;elenco di elementi consentiti per questa proprietà immobiliare oppure per [ALL_ESTATES]?
-		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà immobiliari" yestext="Questa proprietà immobiliare"/>
-	</notification>
-	<notification label="Seleziona proprietà immobiliare" name="EstateBlockedExperienceAdd">
-		Aggiungi all&apos;elenco di elementi bloccati per questa proprietà immobiliare oppure per [ALL_ESTATES]?
-		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà immobiliari" yestext="Questa proprietà immobiliare"/>
-	</notification>
-	<notification label="Seleziona proprietà immobiliare" name="EstateBlockedExperienceRemove">
-		Rimuovi dall&apos;elenco di elementi bloccati per questa proprietà immobiliare oppure per [ALL_ESTATES]?
-		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà immobiliari" yestext="Questa proprietà immobiliare"/>
-	</notification>
-	<notification label="Seleziona proprietà immobiliare" name="EstateTrustedExperienceAdd">
-		Aggiungi all&apos;elenco di elementi chiave per questa proprietà immobiliare oppure per [ALL_ESTATES]?
-		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà immobiliari" yestext="Questa proprietà immobiliare"/>
-	</notification>
-	<notification label="Seleziona proprietà immobiliare" name="EstateTrustedExperienceRemove">
-		Rimuovi dall&apos;elenco di elementi chiave solo per questa proprietà immobiliare oppure per [ALL_ESTATES]?
-		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà immobiliari" yestext="Questa proprietà immobiliare"/>
-	</notification>
 	<notification label="Conferma espulsione" name="EstateKickUser">
 		Espelli [EVIL_USER] da questa proprietà?
 		<usetemplate name="okcancelbuttons" notext="Annulla" yestext="OK"/>
@@ -3016,72 +2992,7 @@ OK?
 			<button name="Mute" text="Blocca"/>
 		</form>
 	</notification>
-	<notification name="ExperienceAcquireFailed">
-		Impossibile acquisire una nuova esperienza:
-    [ERROR_MESSAGE]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="NotInGroupExperienceProfileMessage">
-		Una modifica apportata al gruppo esperienza è stata ignorata perché il proprietario non è un membro del gruppo selezionato.
-	</notification>
-	<notification name="UneditableExperienceProfileMessage">
-		Il campo non modificabile &apos;[field]&apos; è stato ignorato durante l&apos;aggiornamento del profilo esperienza.
-	</notification>
-	<notification name="RestrictedToOwnerExperienceProfileMessage">
-		Ignorate le modifiche apportate al campo &apos;[field]&apos;, che può essere impostato solo dal proprietario dell&apos;esperienza.
-	</notification>
-	<notification name="MaturityRatingExceedsOwnerExperienceProfileMessage">
-		Non puoi impostare la categoria di accesso di un&apos;esperienza a un livello maggiore di quello del proprietario.
-	</notification>
-	<notification name="RestrictedTermExperienceProfileMessage">
-		I termini seguenti hanno impedito l&apos;aggiornamento del nome o della descrizione del profilo dell&apos;esperienza: [extra_info]
-	</notification>
-	<notification name="TeleportedHomeExperienceRemoved">
-		Sei stato teleportato dalla regione [region_name] per aver rimosso l&apos;esperienza secondlife:///app/experience/[public_id]/profile e non puoi più accedere alla regione.
-		<form name="form">
-			<ignore name="ignore" text="Espulso dalla regione per aver rimosso un&apos;esperienza"/>
-		</form>
-	</notification>
-	<notification name="TrustedExperienceEntry">
-		Ti è stato consentito l&apos;accesso alla regione [region_name] grazie alla partecipazione all&apos;esperienza chiave secondlife:///app/experience/[public_id]/profile. Se rimuovi l&apos;esperienza, sarai passibile di espulsione dalla regione.
-		<form name="form">
-			<ignore name="ignore" text="Può accedere a una regione grazie a un&apos;esperienza"/>
-		</form>
-	</notification>
-	<notification name="TrustedExperiencesAvailable">
-		Non puoi accedere a questa destinazione. Potresti accedere alla regione accettando un&apos;esperienza nell&apos;elenco seguente:
 
-[EXPERIENCE_LIST]
-
-Possono essere disponibili altre esperienze chiave.
-	</notification>
-	<notification name="ExperienceEvent">
-		L&apos;esperienza secondlife:///app/experience/[public_id]/profile ha consentito a un oggetto la seguente azione: [EventType].
-    Proprietario: secondlife:///app/agent/[OwnerID]/inspect
-    Nome oggetto: [ObjectName]
-    Nome lotto: [ParcelName]
-	</notification>
-	<notification name="ExperienceEventAttachment">
-		L&apos;esperienza secondlife:///app/experience/[public_id]/profile ha consentito un elemento collegato la seguente azione: [EventType].
-    Proprietario: secondlife:///app/agent/[OwnerID]/inspect
-	</notification>
-	<notification name="ScriptQuestionExperience">
-		&apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;, un oggetto posseduto da &apos;[NAME]&apos;, richiede la tua partecipazione all&apos;esperienza [GRID_WIDE]:
-
-[EXPERIENCE]
-
-Una volta concessa l&apos;autorizzazione, questo messaggio non verrà più visualizzato per questa esperienza, a meno che l&apos;autorizzazione non venga revocata nel profilo dell&apos;esperienza.
-
-Gli script associati a questa esperienza potranno fare quanto segue nelle regioni in cui è attiva l&apos;esperienza: 
-
-[QUESTIONS]OK?
-		<form name="form">
-			<button name="BlockExperience" text="Blocca esperienza"/>
-			<button name="Mute" text="Blocca oggetto"/>
-			<button name="Yes" text="Sì"/>
-			<button name="No" text="No"/>
-		</form>
-	</notification>
 	<notification name="ScriptQuestionCaution">
 		Avviso: L&apos;oggetto &apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos; ha richiesto accesso completo al tuo account in Dollari Linden. Se consenti l&apos;accesso, potrà rimuovere fondi dal tuo account in qualunque momento e anche svuotare completamente l&apos;account, per un periodo illimitato e senza ulteriori avvisi.
   

@@ -1919,30 +1919,6 @@ Isto mudará milhares de regiões e fará o spaceserver soluçar.
 		Remover o gerente da propriedade desta propriedade apenas ou para [ALL_ESTATES]?
 		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todas as Propriedades" yestext="Esta Propriedade"/>
 	</notification>
-	<notification label="Selecionar terreno" name="EstateAllowedExperienceAdd">
-		Adicionar à lista de permitidos para esse terreno somente ou para [ALL_ESTATES]?
-		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos os terrenos" yestext="Este terreno"/>
-	</notification>
-	<notification label="Selecionar terreno" name="EstateAllowedExperienceRemove">
-		Remover da lista de permitidos para esse terreno somente ou para [ALL_ESTATES]?
-		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos os terrenos" yestext="Este terreno"/>
-	</notification>
-	<notification label="Selecionar terreno" name="EstateBlockedExperienceAdd">
-		Adicionar à lista de bloqueados desse terreno somente ou de [ALL_ESTATES]?
-		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos os terrenos" yestext="Este terreno"/>
-	</notification>
-	<notification label="Selecionar terreno" name="EstateBlockedExperienceRemove">
-		Remover da lista de bloqueados para esse terreno somente ou para [ALL_ESTATES]?
-		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos os terrenos" yestext="Este terreno"/>
-	</notification>
-	<notification label="Selecionar terreno" name="EstateTrustedExperienceAdd">
-		Adicionar à lista-chave desse terreno somente ou de [ALL_ESTATES]?
-		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos os terrenos" yestext="Este terreno"/>
-	</notification>
-	<notification label="Selecionar terreno" name="EstateTrustedExperienceRemove">
-		Remover da lista-chave para esse terreno somente ou para [ALL_ESTATES]?
-		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos os terrenos" yestext="Este terreno"/>
-	</notification>
 	<notification label="Confirmar expulsão" name="EstateKickUser">
 		Expulsar [EVIL_USER] desta propriedade?
 		<usetemplate name="okcancelbuttons" notext="Cancelar" yestext="Expulsar"/>
@@ -3000,72 +2976,6 @@ OK?
 			<button name="Yes" text="Sim"/>
 			<button name="No" text="Não"/>
 			<button name="Mute" text="Bloquear"/>
-		</form>
-	</notification>
-	<notification name="ExperienceAcquireFailed">
-		Não foi possível adquirir uma nova experiência:
-    [ERROR_MESSAGE]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="NotInGroupExperienceProfileMessage">
-		Uma alteração do grupo de experiência foi ignorada porque o proprietário não é membro do grupo selecionado.
-	</notification>
-	<notification name="UneditableExperienceProfileMessage">
-		O campo não editável &apos;[field]&apos; foi ignorado ao atualizar o perfil de experiência.
-	</notification>
-	<notification name="RestrictedToOwnerExperienceProfileMessage">
-		Alterações ignoradas para o campo &apos;[field]&apos; que só podem ser definidas pelo proprietário da experiência.
-	</notification>
-	<notification name="MaturityRatingExceedsOwnerExperienceProfileMessage">
-		Você não pode definir a classificação de maturidade de uma experiência como sendo mais alta que a do proprietário.
-	</notification>
-	<notification name="RestrictedTermExperienceProfileMessage">
-		Os seguintes termos impediram a atualização do nome e/ou descrição do perfil de experiência: [extra_info]
-	</notification>
-	<notification name="TeleportedHomeExperienceRemoved">
-		Você foi teletransportado da região [region_name] por remover a experiência secondlife:///app/experience/[public_id]/profile e não tem mais permissão na região.
-		<form name="form">
-			<ignore name="ignore" text="Ejetado da região por remover uma experiência"/>
-		</form>
-	</notification>
-	<notification name="TrustedExperienceEntry">
-		Você recebeu permissão para a região [region_name] ao participar da experiência-chave secondlife:///app/experience/[public_id]/profile e remover essa experiência pode ejetá-lo da região.
-		<form name="form">
-			<ignore name="ignore" text="Permitido em uma região por uma experiência"/>
-		</form>
-	</notification>
-	<notification name="TrustedExperiencesAvailable">
-		Você não está autorizado a acessar esse destino. Você pode ser permitido na região aceitando uma das experiências abaixo:
-
-[EXPERIENCE_LIST]
-
-Outras experiências-chave podem estar disponíveis.
-	</notification>
-	<notification name="ExperienceEvent">
-		Um objeto foi permitido para [EventType] pelo secondlife:///app/experience/[public_id]/profile experience.
-    Proprietário: secondlife:///app/agent/[OwnerID]/inspect
-    Nome do objeto: [ObjectName]
-    Nome da parcela: [ParcelName]
-	</notification>
-	<notification name="ExperienceEventAttachment">
-		Um anexo teve permissão para executar [EventType] pelo secondlife:///app/experience/[public_id]/profile experience.
-    Proprietário: secondlife:///app/agent/[OwnerID]/inspect
-	</notification>
-	<notification name="ScriptQuestionExperience">
-		&apos;&lt;nolink&gt;[OBJECTNAME]&lt;/nolink&gt;&apos;, um objeto de propriedade de &apos;[NAME]&apos;, solicita a sua participação na experiência [GRID_WIDE]:
-
-[EXPERIENCE]
-
-Após a permissão ser concedida, você não verá essa mensagem novamente para essa experiência, a menos que ela seja revogada do perfil da experiência.
-
-Os scripts associados a essa experiência poderão realizar o seguinte nas regiões onde a experiência esteja ativa: 
-
-[QUESTIONS]Isso está bem?
-		<form name="form">
-			<button name="BlockExperience" text="Bloquear experiência"/>
-			<button name="Mute" text="Bloquear objeto"/>
-			<button name="Yes" text="Sim"/>
-			<button name="No" text="Não"/>
 		</form>
 	</notification>
 	<notification name="ScriptQuestionCaution">

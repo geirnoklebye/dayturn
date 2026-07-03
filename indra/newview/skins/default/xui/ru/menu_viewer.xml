@@ -8,7 +8,6 @@
 		<menu_item_call label="Новое окно инвентаря" name="NewInventoryWindow"/>
 		<menu_item_call label="Места..." name="Places"/>
 		<menu_item_call label="Подборка..." name="Picks"/>
-		<menu_item_call label="Приключения..." name="Experiences"/>
 		<menu_item_call label="Мои скрипты..." name="MyScripts"/>
 		<menu_item_call label="Управление камерой..." name="Camera Controls"/>
 		<menu label="Движение" name="Movement">

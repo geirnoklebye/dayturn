@@ -1107,7 +1107,6 @@ http://secondlife.com/support pour vous aider à résoudre ce problème.
 	<string name="AgentNameSubst">
 		(Vous)
 	</string>
-	<string name="JoinAnExperience"/>
 	<string name="SilentlyManageEstateAccess">
 		Supprimer les alertes lors de la gestion des listes d&apos;accès aux domaines
 	</string>
@@ -2114,9 +2113,6 @@ Si vous continuez de recevoir ce message, contactez l’assistance Second Life �
 	</string>
 	<string name="CompileQueueUnknownFailure">
 		Échec du téléchargement, erreur inconnue
-	</string>
-	<string name="CompileNoExperiencePerm">
-		En train d’ignorer le script [SCRIPT] avec l’expérience [EXPERIENCE].
 	</string>
 	<string name="CompileQueueTitle">
 		Recompilation - progrès
@@ -5655,99 +5651,6 @@ Essayez avec le chemin d&apos;accès à l&apos;éditeur entre guillemets doubles
 	</string>
 	<string name="UserDictionary">
 		[User]
-	</string>
-	<string name="experience_tools_experience">
-		Expérience
-	</string>
-	<string name="ExperienceNameNull">
-		(aucune expérience)
-	</string>
-	<string name="ExperienceNameUntitled">
-		(expérience sans titre)
-	</string>
-	<string name="Land-Scope">
-		À l’échelle des terrains
-	</string>
-	<string name="Grid-Scope">
-		À l’échelle de la grille
-	</string>
-	<string name="Allowed_Experiences_Tab">
-		AUTORISÉE
-	</string>
-	<string name="Blocked_Experiences_Tab">
-		BLOQUÉE
-	</string>
-	<string name="Contrib_Experiences_Tab">
-		CONTRIBUTEUR
-	</string>
-	<string name="Admin_Experiences_Tab">
-		ADMIN
-	</string>
-	<string name="Recent_Experiences_Tab">
-		RÉCENTE
-	</string>
-	<string name="Owned_Experiences_Tab">
-		AVEC PROPRIÉTAIRE
-	</string>
-	<string name="ExperiencesCounter">
-		([EXPERIENCES], [MAXEXPERIENCES] max.)
-	</string>
-	<string name="ExperiencePermission1">
-		assumer vos contrôles
-	</string>
-	<string name="ExperiencePermission3">
-		déclencher des animations pour votre avatar
-	</string>
-	<string name="ExperiencePermission4">
-		attacher à votre avatar
-	</string>
-	<string name="ExperiencePermission9">
-		suivre votre caméra
-	</string>
-	<string name="ExperiencePermission10">
-		contrôler votre caméra
-	</string>
-	<string name="ExperiencePermission11">
-		vous téléporter
-	</string>
-	<string name="ExperiencePermission12">
-		accepter automatiquement les permissions d’expérience
-	</string>
-	<string name="ExperiencePermission16">
-		forcez votre avatar à s’asseoir
-	</string>
-	<string name="ExperiencePermission17">
-		changer vos paramètres d&apos;environnement
-	</string>
-	<string name="ExperiencePermissionShortUnknown">
-		a effectué une opération inconnue : [Permission]
-	</string>
-	<string name="ExperiencePermissionShort1">
-		Prendre le contrôle
-	</string>
-	<string name="ExperiencePermissionShort3">
-		Déclencher des animations
-	</string>
-	<string name="ExperiencePermissionShort4">
-		Attacher
-	</string>
-	<string name="ExperiencePermissionShort9">
-		Suivre la caméra
-	</string>
-	<string name="ExperiencePermissionShort10">
-		Contrôler la caméra
-	</string>
-	<string name="ExperiencePermissionShort11">
-		Téléportation
-	</string>
-	<string name="ExperiencePermissionShort12">
-		Permission
-	</string>
-	<string name="ExperiencePermissionShort16">
-		M&apos;asseoir
-	</string>
-	<string name="ExperiencePermissionShort17">
-		Environnement
 	</string>
 	<string name="logging_calls_disabled_log_empty">
 		Les conversations ne sont pas archivées. Pour commencer à tenir un journal, choisissez Enregistrer : Journal seul ou Enregistrer : Journal et transcriptions sous Préférences &gt; Chat.

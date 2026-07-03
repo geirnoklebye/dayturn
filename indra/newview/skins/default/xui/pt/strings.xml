@@ -1063,7 +1063,6 @@ http://secondlife.com/support para ajuda ao resolver este problema.
 	<string name="AgentNameSubst">
 		(Você)
 	</string>
-	<string name="JoinAnExperience"/>
 	<string name="SilentlyManageEstateAccess">
 		Suprimir alertas ao gerenciar listas de acesso ao terreno
 	</string>
@@ -2064,9 +2063,6 @@ Se você continuar a receber essa mensagem, entre em contato com o suporte do Se
 	</string>
 	<string name="CompileQueueUnknownFailure">
 		Falha desconhecida para download
-	</string>
-	<string name="CompileNoExperiencePerm">
-		Pulando script [SCRIPT] com experiência [EXPERIENCE]
 	</string>
 	<string name="CompileQueueTitle">
 		Progresso do recompilamento
@@ -5529,99 +5525,6 @@ Tente colocar o caminho do editor entre aspas.
 	</string>
 	<string name="UserDictionary">
 		[Usuário]
-	</string>
-	<string name="experience_tools_experience">
-		Experiência
-	</string>
-	<string name="ExperienceNameNull">
-		(nenhuma experiência)
-	</string>
-	<string name="ExperienceNameUntitled">
-		(experiência sem título)
-	</string>
-	<string name="Land-Scope">
-		Dentro do terreno
-	</string>
-	<string name="Grid-Scope">
-		Dentro da grade
-	</string>
-	<string name="Allowed_Experiences_Tab">
-		PERMITIDO
-	</string>
-	<string name="Blocked_Experiences_Tab">
-		BLOQUEADO
-	</string>
-	<string name="Contrib_Experiences_Tab">
-		COLABORADOR
-	</string>
-	<string name="Admin_Experiences_Tab">
-		ADMINISTRADOR
-	</string>
-	<string name="Recent_Experiences_Tab">
-		RECENTE
-	</string>
-	<string name="Owned_Experiences_Tab">
-		PRÓPRIAS
-	</string>
-	<string name="ExperiencesCounter">
-		([EXPERIENCES], máx. [MAXEXPERIENCES])
-	</string>
-	<string name="ExperiencePermission1">
-		assumir seus controles
-	</string>
-	<string name="ExperiencePermission3">
-		acionar animações no seu avatar
-	</string>
-	<string name="ExperiencePermission4">
-		anexar ao avatar
-	</string>
-	<string name="ExperiencePermission9">
-		rastrear sua câmera
-	</string>
-	<string name="ExperiencePermission10">
-		controlar sua câmera
-	</string>
-	<string name="ExperiencePermission11">
-		teletransportar você
-	</string>
-	<string name="ExperiencePermission12">
-		aceitar automaticamente permissões de experiência
-	</string>
-	<string name="ExperiencePermission16">
-		forçar o avatar a sentar
-	</string>
-	<string name="ExperiencePermission17">
-		alterar sua configurações de ambiente
-	</string>
-	<string name="ExperiencePermissionShortUnknown">
-		realizar uma operação desconhecida: [Permission]
-	</string>
-	<string name="ExperiencePermissionShort1">
-		Assumir o controle
-	</string>
-	<string name="ExperiencePermissionShort3">
-		Acionar animações
-	</string>
-	<string name="ExperiencePermissionShort4">
-		Anexar
-	</string>
-	<string name="ExperiencePermissionShort9">
-		Rastrear câmera
-	</string>
-	<string name="ExperiencePermissionShort10">
-		Controlar câmera
-	</string>
-	<string name="ExperiencePermissionShort11">
-		Teletransportar
-	</string>
-	<string name="ExperiencePermissionShort12">
-		Autorização
-	</string>
-	<string name="ExperiencePermissionShort16">
-		Sentar
-	</string>
-	<string name="ExperiencePermissionShort17">
-		Ambiente
 	</string>
 	<string name="logging_calls_disabled_log_empty">
 		As conversas não estão sendo registradas. Para começar a manter um registro, selecione &quot;Salvar: apenas registro&quot; ou &quot;Salvar: registro e transcrições&quot; em Preferências&gt; Bate-papo.

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="item properties" title="Perfil do item">
-	<panel.string name="loading_experience">
-		(carregando)
-	</panel.string>
 	<panel.string name="unknown">
 		(desconhecido)
 	</panel.string>
@@ -47,9 +44,6 @@
 			</text>
 			<text name="LabelAcquiredTitle">
 				Adquirido:
-			</text>
-			<text name="LabelItemExperienceTitle">
-				Experiência:
 			</text>
 			<panel name="perms_inv">
 				<text name="perm_modify">

@@ -72,7 +72,6 @@
     <menu_item_call label="Ziele..." name="Destinations"/>
     <menu_item_call label="Orte..."  name="Places"/>
     <menu_item_call label="Auswahlen..."  name="Picks"/>
-    <menu_item_call label="Erlebnisse..."  name="Experiences"/>
     <menu_item_check label="Karte"  name="World Map"/>
     <menu_item_check label="Minikarte"  name="Mini-Map"/>
     <menu_item_check label="Chat in der Nähe"  name="Nearby Chat"/>

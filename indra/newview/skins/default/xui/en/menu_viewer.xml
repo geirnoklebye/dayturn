@@ -50,13 +50,6 @@
          function="ShowAgentProfilePicks" />
       </menu_item_call>
       <menu_item_call
-        label="Experiences..."
-        name="Experiences">
-        <menu_item_call.on_click
-          function="Floater.ToggleOrBringToFront"
-          parameter="experiences"/>
-      </menu_item_call>
-      <menu_item_call
        label="Camera Controls..."
        name="Camera Controls"
        shortcut="control|K">

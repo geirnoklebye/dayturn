@@ -1115,7 +1115,6 @@ besuchen Sie bitte http://secondlife.com/support
 	<string name="AgentNameSubst">
 		(Sie)
 	</string>
-	<string name="JoinAnExperience"/>
 	<string name="SilentlyManageEstateAccess">
 		Beim Verwalten von Grundbesitzzugangslisten Warnhinweise unterdrücken
 	</string>
@@ -2122,9 +2121,6 @@ Falls diese Meldung weiterhin angezeigt wird, wenden Sie sich unter http://suppo
 	</string>
 	<string name="CompileQueueUnknownFailure">
 		Unbekannter Fehler beim Herunterladen
-	</string>
-	<string name="CompileNoExperiencePerm">
-		Skript „[SCRIPT]“ mit Erlebnis „[EXPERIENCE]“ wird übersprungen.
 	</string>
 	<string name="CompileQueueTitle">
 		Rekompilierung
@@ -5672,99 +5668,6 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	</string>
 	<string name="UserDictionary">
 		[Benutzer]
-	</string>
-	<string name="experience_tools_experience">
-		Erlebnis
-	</string>
-	<string name="ExperienceNameNull">
-		(kein Erlebnis)
-	</string>
-	<string name="ExperienceNameUntitled">
-		(unbenanntes Erlebnis)
-	</string>
-	<string name="Land-Scope">
-		Landumfang
-	</string>
-	<string name="Grid-Scope">
-		Gridumfang
-	</string>
-	<string name="Allowed_Experiences_Tab">
-		ZULäSSIG
-	</string>
-	<string name="Blocked_Experiences_Tab">
-		BLOCKIERT
-	</string>
-	<string name="Contrib_Experiences_Tab">
-		CONTRIBUTOR
-	</string>
-	<string name="Admin_Experiences_Tab">
-		ADMIN
-	</string>
-	<string name="Recent_Experiences_Tab">
-		AKTUELL
-	</string>
-	<string name="Owned_Experiences_Tab">
-		EIGENE
-	</string>
-	<string name="ExperiencesCounter">
-		([EXPERIENCES], max. [MAXEXPERIENCES])
-	</string>
-	<string name="ExperiencePermission1">
-		Ihre Steuerungen übernehmen
-	</string>
-	<string name="ExperiencePermission3">
-		Animationen Ihres Avatars auslösen
-	</string>
-	<string name="ExperiencePermission4">
-		an Ihren Avatar anhängen
-	</string>
-	<string name="ExperiencePermission9">
-		Ihre Kamera vorfolgen
-	</string>
-	<string name="ExperiencePermission10">
-		Ihre Kamera steuern
-	</string>
-	<string name="ExperiencePermission11">
-		Sie teleportieren
-	</string>
-	<string name="ExperiencePermission12">
-		automatisch Erlebnisberechtigungen akzeptieren
-	</string>
-	<string name="ExperiencePermission16">
-		ihren Avatar zwingen, sich zu setzen
-	</string>
-	<string name="ExperiencePermission17">
-		Ändern Ihrer Umgebungseinstellungen
-	</string>
-	<string name="ExperiencePermissionShortUnknown">
-		unbekannten Vorgang durchführen: [Permission]
-	</string>
-	<string name="ExperiencePermissionShort1">
-		Steuerungen übernehmen
-	</string>
-	<string name="ExperiencePermissionShort3">
-		Animationen auslösen
-	</string>
-	<string name="ExperiencePermissionShort4">
-		Anhängen
-	</string>
-	<string name="ExperiencePermissionShort9">
-		Kamera verfolgen
-	</string>
-	<string name="ExperiencePermissionShort10">
-		Kamera steuern
-	</string>
-	<string name="ExperiencePermissionShort11">
-		Teleportieren
-	</string>
-	<string name="ExperiencePermissionShort12">
-		Berechtigung
-	</string>
-	<string name="ExperiencePermissionShort16">
-		Sitzen
-	</string>
-	<string name="ExperiencePermissionShort17">
-		Umgebung
 	</string>
 	<string name="logging_calls_disabled_log_empty">
 		Unterhaltungen werden nicht protokolliert. Um ein Protokoll zu starten, wählen Sie „Speichern: nur Protokoll“ oder „Speichern: Protokoll und Transkripte“ unter „Einstellungen“ &gt; „Chat“.

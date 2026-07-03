@@ -103,31 +103,4 @@
     layout="topleft"
     name="mono"
     width="100" />
-  <check_box width="130"
-             height="21"
-             enabled="false"
-             left="9"
-             top_pad="10"
-             layout="topleft"
-             follows="bottom|left"
-             label="Use Experience:"
-             name="enable_xp"/>
-  <combo_box
-    label=""
-    top_pad="-21"
-    left="149"
-    right="467"
-    layout="topleft"
-    follows="left|bottom|right"
-    visible="false"
-    name="Experiences..."/>
-  <button label="&gt;"
-          name="view_profile"
-          height="23"
-          width="23"
-          right="496"
-          layout="topleft"
-          top_pad="-23"
-          follows="right"
-          visible="false"/>
 </floater>
