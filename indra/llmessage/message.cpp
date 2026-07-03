@@ -3552,20 +3552,24 @@ void LLMessageSystem::addIPPort(const char *varname, U16 v)
 	mMessageBuilder->addIPPort(LLMessageStringTable::getInstance()->getString(varname), v);
 }
 
+/* 
 void LLMessageSystem::addBOOLFast(const char* varname, BOOL v)
 {
 	mMessageBuilder->addBOOL(varname, v);
 }
+ */
 
 void LLMessageSystem::addboolFast(const char* varname, bool v)
 {
 	mMessageBuilder->addbool(varname, v);
 }
 
+/* 
 void LLMessageSystem::addBOOL(const char* varname, BOOL v)
 {
 	mMessageBuilder->addBOOL(LLMessageStringTable::getInstance()->getString(varname), v);
 }
+ */
 
 void LLMessageSystem::addbool(const char* varname, bool v)
 {
@@ -3674,6 +3678,7 @@ void LLMessageSystem::getU8(const char *block, const char *var, U8 &u,
 				LLMessageStringTable::getInstance()->getString(var), u, blocknum);
 }
 
+/* 
 void LLMessageSystem::getBOOLFast(const char *block, const char *var, BOOL &b,
 								  S32 blocknum)
 {
@@ -3686,6 +3691,7 @@ void LLMessageSystem::getBOOL(const char *block, const char *var, BOOL &b,
 	getBOOLFast(LLMessageStringTable::getInstance()->getString(block), 
 				LLMessageStringTable::getInstance()->getString(var), b, blocknum);
 }
+ */
 
 void LLMessageSystem::getboolFast(const char *block, const char *var, bool &b,
 								  S32 blocknum)

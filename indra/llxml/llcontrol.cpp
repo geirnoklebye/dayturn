@@ -664,10 +664,12 @@ void LLControlGroup::incrCount(std::string_view name)
 	getCount[name.data()] = getCount[name.data()].asInteger() + 1;
 }
 
+/* 
 BOOL LLControlGroup::getBOOL(std::string_view name)
 {
 	return (BOOL)get<bool>(name);
 }
+ */
 
 bool LLControlGroup::getbool(std::string_view name)
 {
@@ -777,10 +779,12 @@ bool LLControlGroup::controlExists(std::string_view name)
 // Set functions
 //-------------------------------------------------------------------
 
+/* 
 void LLControlGroup::setBOOL(std::string_view name, BOOL val)
 {
 	set<bool>(name, val);
 }
+ */
 
 void LLControlGroup::setbool(std::string_view name, bool val)
 {

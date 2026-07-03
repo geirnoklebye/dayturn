@@ -440,6 +440,7 @@ void LLTemplateMessageBuilder::addIPPort(const char *varname, U16 u)
 	addData(varname, &u, MVT_IP_PORT, sizeof(u));
 }
 
+/* 
 void LLTemplateMessageBuilder::addBOOL(const char* varname, BOOL b)
 {
 	// Can't just cast a BOOL (actually a U32) to a U8.
@@ -447,6 +448,7 @@ void LLTemplateMessageBuilder::addBOOL(const char* varname, BOOL b)
 	U8 temp = (b != 0);
 	addData(varname, &temp, MVT_BOOL, sizeof(temp));
 }
+ */
 
 void LLTemplateMessageBuilder::addbool(const char* varname, bool b)
 {

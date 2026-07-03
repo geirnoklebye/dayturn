@@ -112,6 +112,7 @@ void LLSDMessageReader::getBinaryData(const char *block, const char *var,
 	memcpy(datap, &(data[0]), data_size);
 }
 
+/* 
 //virtual 
 void LLSDMessageReader::getBOOL(const char *block, const char *var, 
 								BOOL &data, 
@@ -119,6 +120,7 @@ void LLSDMessageReader::getBOOL(const char *block, const char *var,
 {
 	data = getLLSD(mMessage, block, var, blocknum);
 }
+ */
 
 //virtual 
 void LLSDMessageReader::getbool(const char *block, const char *var, 

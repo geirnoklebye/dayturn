@@ -73,12 +73,12 @@ namespace tut
 								const std::string& block,
 								const std::string& var,
 								S32 blocknum,
-								BOOL expected)
+								bool expected)
 		{
 			LLSDMessageReader msg;
 			msg.setMessage("fakename", msg_data);
-			BOOL test_data;
-			msg.getBOOL(block.c_str(), var.c_str(), test_data, blocknum);
+			bool test_data;
+			msg.getbool(block.c_str(), var.c_str(), test_data, blocknum);
  			ensure_equals(	"Ensure bool field", test_data, expected);
  		}
  	};

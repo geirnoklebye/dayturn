@@ -943,9 +943,9 @@ void LLFolderViewItem::draw()
 	//--------------------------------------------------------------------------------//
 	// Draw "protected" indicator
 	//
-	if((mListener->getUUID()==AOEngine::instance().getAOFolder() && gSavedPerAccountSettings.getBOOL("ProtectAOFolders"))
+	if((mListener->getUUID()==AOEngine::instance().getAOFolder() && gSavedPerAccountSettings.getbool("ProtectAOFolders"))
 // //-TT Client LSL Bridge
-// 		||(mListener->getUUID()==FSLSLBridge::instance().getBridgeFolder() && gSavedPerAccountSettings.getBOOL("ProtectBridgeFolder"))
+// 		||(mListener->getUUID()==FSLSLBridge::instance().getBridgeFolder() && gSavedPerAccountSettings.getbool("ProtectBridgeFolder"))
 // //-TT
 		)
 	{

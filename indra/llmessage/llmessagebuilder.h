@@ -57,7 +57,7 @@ public:
 		const char* varname,
 		const void* data, 
 		S32 size) = 0;
-	virtual void addBOOL(const char* varname, BOOL b) = 0;
+	//virtual void addBOOL(const char* varname, BOOL b) = 0;
 	virtual void addbool(const char* varname, bool b) = 0;
 	virtual void addS8(const char* varname, S8 s) = 0;
 	virtual void addU8(const char* varname, U8 u) = 0;

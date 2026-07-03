@@ -55,7 +55,7 @@ public:
 		const char* varname,
 		const void* data, 
 		S32 size);
-	virtual void addBOOL(const char* varname, BOOL b);
+	//virtual void addBOOL(const char* varname, BOOL b);
 	virtual void addbool(const char* varname, bool b);
 	virtual void addS8(const char* varname, S8 s);
 	virtual void addU8(const char* varname, U8 u);

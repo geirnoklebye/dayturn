@@ -168,10 +168,12 @@ void LLSDMessageBuilder::addIPPort(const char* varname, U16 v)
 	(*mCurrentBlock)[varname] = v;
 }
 
+/* 
 void LLSDMessageBuilder::addBOOL(const char* varname, BOOL v)
 {
 	(*mCurrentBlock)[varname] = (v == TRUE);
 }
+ */
 
 void LLSDMessageBuilder::addbool(const char* varname, bool v)
 {
@@ -358,7 +360,7 @@ void LLSDMessageBuilder::copyFromMessageData(const LLMsgData& data)
 				break;	
 
 			case MVT_BOOL:
-				addBOOL(varname, *(BOOL*)mvci.getData());
+				//addBOOL(varname, *(BOOL*)mvci.getData());
 				addbool(varname, *(bool*)mvci.getData());
 				break;
 

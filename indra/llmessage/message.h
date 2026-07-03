@@ -480,9 +480,9 @@ public:
 	void addBinaryDataFast(const char *varname, const void *data, S32 size);
 	void addBinaryData(const char *varname, const void *data, S32 size);
 
-	void	addBOOLFast( const char* varname, BOOL b);						// typed, checks storage space
+	//void	addBOOLFast( const char* varname, BOOL b);						// typed, checks storage space
 	void	addboolFast( const char* varname, bool b);						// typed, checks storage space
-	void	addBOOL( const char* varname, BOOL b);						// typed, checks storage space
+	//void	addBOOL( const char* varname, BOOL b);						// typed, checks storage space
 	void	addbool( const char* varname, bool b);						// typed, checks storage space
 	void	addS8Fast(	const char *varname, S8 s);							// typed, checks storage space
 	void	addS8(	const char *varname, S8 s);							// typed, checks storage space
@@ -598,9 +598,9 @@ public:
 	*/
 	void	getBinaryDataFast(const char *blockname, const char *varname, void *datap, S32 size, S32 blocknum = 0, S32 max_size = S32_MAX);
 	void	getBinaryData(const char *blockname, const char *varname, void *datap, S32 size, S32 blocknum = 0, S32 max_size = S32_MAX);
-	void	getBOOLFast(	const char *block, const char *var, BOOL &data, S32 blocknum = 0);
+	//void	getBOOLFast(	const char *block, const char *var, BOOL &data, S32 blocknum = 0);
 	void	getboolFast(	const char *block, const char *var, bool &data, S32 blocknum = 0);
-	void	getBOOL(	const char *block, const char *var, BOOL &data, S32 blocknum = 0);
+	//void	getBOOL(	const char *block, const char *var, BOOL &data, S32 blocknum = 0);
 	void	getbool(	const char *block, const char *var, bool &data, S32 blocknum = 0);
 	void	getS8Fast(		const char *block, const char *var, S8 &data, S32 blocknum = 0);
 	void	getS8(		const char *block, const char *var, S8 &data, S32 blocknum = 0);

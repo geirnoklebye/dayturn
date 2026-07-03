@@ -302,7 +302,7 @@ bool LLAvatarActions::isCalling(const LLUUID &id)
 bool LLAvatarActions::canCall()
 {
   //KKA-839 add option to avoid unintended calls, move this into LLVoiceClient since groups need it too
-	//return LLVoiceClient::getInstance()->voiceEnabled() && LLVoiceClient::getInstance()->isVoiceWorking() && !gSavedSettings.getBOOL("KokuaDisableVoiceCallStart");
+	//return LLVoiceClient::getInstance()->voiceEnabled() && LLVoiceClient::getInstance()->isVoiceWorking() && !gSavedSettings.getbool("KokuaDisableVoiceCallStart");
   return LLVoiceClient::getInstance()->canCall();
 }
 

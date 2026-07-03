@@ -267,7 +267,7 @@ public:
 
 	std::string getString(std::string_view name);
 	std::string getText(std::string_view name);
-	BOOL		getBOOL(std::string_view name);
+	//BOOL		getBOOL(std::string_view name);
     bool        getbool(std::string_view name);
 	S32			getS32(std::string_view name);
 	F32			getF32(std::string_view name);
@@ -306,7 +306,7 @@ public:
 		return convert_from_llsd<T>(value, type, name);
 	}
 
-	void	setBOOL(std::string_view name, BOOL val);
+	//void	setBOOL(std::string_view name, BOOL val);
 	void	setbool(std::string_view name, bool val);
 	void	setS32(std::string_view name, S32 val);
 	void	setF32(std::string_view name, F32 val);
