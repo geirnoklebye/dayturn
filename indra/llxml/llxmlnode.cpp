@@ -1267,10 +1267,18 @@ bool LLXMLNode::hasAttribute(const char* name )
 	return getAttribute(name, node);
 }
 
+/* 
 bool LLXMLNode::getAttributeBOOL(const char* name, bool& value )
 {
 	LLXMLNodePtr node;
 	return (getAttribute(name, node) && node->getBoolValue(1, &value));
+}
+ */
+
+bool LLXMLNode::getAttributebool(const char* name, bool& value )
+{
+    LLXMLNodePtr node;
+    return (getAttribute(name, node) && node->getBoolValue(1, &value));
 }
 
 bool LLXMLNode::getAttributeU8(const char* name, U8& value )

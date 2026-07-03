@@ -313,7 +313,7 @@ bool font_desc_init_from_xml(LLXMLNodePtr node, LLFontDescriptor& desc)
 			if (child->hasAttribute("load_collection"))
 			{
 				bool col = false;
-				child->getAttributeBOOL("load_collection", col);
+				child->getAttributebool("load_collection", col);
 				if (col)
 				{
 					desc.getFontCollectionsList().push_back(font_file_name);

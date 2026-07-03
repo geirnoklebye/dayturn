@@ -105,7 +105,7 @@ public:
 	bool hasAttribute( const std::string& name );
 
 	// Fast versions use cannonical_name handler to entry in LLXmlTree::sAttributeKeys string table
-	bool			getFastAttributeBOOL(		LLStdStringHandle cannonical_name, BOOL& value );
+	//bool			getFastAttributeBOOL(		LLStdStringHandle cannonical_name, BOOL& value );
 	bool			getFastAttributeU8(			LLStdStringHandle cannonical_name, U8& value );
 	bool			getFastAttributeS8(			LLStdStringHandle cannonical_name, S8& value );
 	bool			getFastAttributeU16(		LLStdStringHandle cannonical_name, U16& value );
@@ -126,7 +126,7 @@ public:
 
 
 	// Normal versions find 'name' in LLXmlTree::sAttributeKeys then call fast versions
-	virtual bool		getAttributeBOOL(		const std::string& name, BOOL& value );
+	//virtual bool		getAttributeBOOL(		const std::string& name, BOOL& value );
 	virtual bool		getAttributeU8(			const std::string& name, U8& value );
 	virtual bool		getAttributeS8(			const std::string& name, S8& value );
 	virtual bool		getAttributeU16(		const std::string& name, U16& value );

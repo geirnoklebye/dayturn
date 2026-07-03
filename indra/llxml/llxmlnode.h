@@ -183,7 +183,8 @@ public:
 
 	bool hasAttribute(const char* name );
 
-    bool getAttributeBOOL(const char* name, bool& value );
+    //bool getAttributeBOOL(const char* name, bool& value );
+    bool getAttributebool(const char* name, bool& value );
 	bool getAttributeU8(const char* name, U8& value );
 	bool getAttributeS8(const char* name, S8& value );
 	bool getAttributeU16(const char* name, U16& value );

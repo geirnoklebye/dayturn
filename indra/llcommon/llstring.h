@@ -381,7 +381,7 @@ public:
 	static void _makeASCII(string_type& string);
 
 	// Conversion to other data types
-	static bool	convertToBOOL(const string_type& string, BOOL& value);
+	//static bool	convertToBOOL(const string_type& string, BOOL& value);
 	static bool	convertToU8(const string_type& string, U8& value);
 	static bool	convertToS8(const string_type& string, S8& value);
 	static bool	convertToS16(const string_type& string, S16& value);
@@ -1815,6 +1815,7 @@ auto LLStringUtilBase<T>::getenv(const std::string& key, const string_type& dflt
     }
 }
 
+/* 
 template<class T> 
 bool LLStringUtilBase<T>::convertToBOOL(const string_type& string, BOOL& value)
 {
@@ -1851,6 +1852,7 @@ bool LLStringUtilBase<T>::convertToBOOL(const string_type& string, BOOL& value)
 
 	return false;
 }
+ */
 
 template<class T> 
 bool LLStringUtilBase<T>::convertToU8(const string_type& string, U8& value)
