@@ -233,8 +233,6 @@ set(viewer_SOURCE_FILES
     lleventnotifier.cpp
     lleventpoll.cpp
     llexpandabletextbox.cpp
-    llexperiencelog.cpp
-    llexternaleditor.cpp
     llface.cpp
     llfasttimerview.cpp
     llfavoritesbar.cpp
@@ -248,7 +246,6 @@ set(viewer_SOURCE_FILES
 	llfloateradvancedbuildoptions.cpp
     llfloaterbvhpreview.cpp
     llfloateraddpaymentmethod.cpp
-    llfloaterauction.cpp
     llfloaterautoreplacesettings.cpp
     llfloateravatar.cpp
     llfloateravatarpicker.cpp
@@ -280,9 +277,6 @@ set(viewer_SOURCE_FILES
     llfloatereditextdaycycle.cpp
     llfloaterenvironmentadjust.cpp
     llfloaterevent.cpp
-    llfloaterexperiencepicker.cpp
-    llfloaterexperienceprofile.cpp
-    llfloaterexperiences.cpp
     llfloaterfixedenvironment.cpp
     llfloaterfonttest.cpp
     llfloaterforgetuser.cpp
@@ -478,17 +472,12 @@ set(viewer_SOURCE_FILES
     llpaneleditwater.cpp
     llpaneleditwearable.cpp
     llpanelenvironment.cpp
-    llpanelexperiencelisteditor.cpp
-    llpanelexperiencelog.cpp
-    llpanelexperiencepicker.cpp
-    llpanelexperiences.cpp
     llpanelface.cpp
     llpanelgenerictip.cpp
     llpanelgroup.cpp
     llpanelgroupcreate.cpp
     llpanelgroupbulk.cpp
     llpanelgroupbulkban.cpp
-    llpanelgroupexperiences.cpp
     llpanelgroupgeneral.cpp
     llpanelgroupinvite.cpp
     llpanelgrouplandmoney.cpp
@@ -895,7 +884,6 @@ set(viewer_HEADER_FILES
     lleventnotifier.h
     lleventpoll.h
     llexpandabletextbox.h
-    llexperiencelog.h
     llexternaleditor.h
     llface.h
     llfasttimerview.h
@@ -910,7 +898,6 @@ set(viewer_HEADER_FILES
 	llfloateradvancedbuildoptions.h
     llfloaterbvhpreview.h
     llfloateraddpaymentmethod.h
-    llfloaterauction.h
     llfloaterautoreplacesettings.h
     llfloateravatar.h
     llfloateravatarpicker.h
@@ -942,9 +929,6 @@ set(viewer_HEADER_FILES
     llfloatereditextdaycycle.h
     llfloaterenvironmentadjust.h
     llfloaterevent.h
-    llfloaterexperiencepicker.h
-    llfloaterexperienceprofile.h
-    llfloaterexperiences.h
     llfloaterfixedenvironment.h
     llfloaterfonttest.h
     llfloaterforgetuser.h
@@ -1132,10 +1116,6 @@ set(viewer_HEADER_FILES
     llpaneleditwater.h
     llpaneleditwearable.h
     llpanelenvironment.h
-    llpanelexperiencelisteditor.h
-    llpanelexperiencelog.h
-    llpanelexperiencepicker.h
-    llpanelexperiences.h
     llpanelface.h
     llpanelgenerictip.h
     llpanelgroup.h
@@ -1143,7 +1123,6 @@ set(viewer_HEADER_FILES
     llpanelgroupbulk.h
     llpanelgroupbulkimpl.h
     llpanelgroupbulkban.h
-    llpanelgroupexperiences.h
     llpanelgroupgeneral.h
     llpanelgroupinvite.h
     llpanelgrouplandmoney.h

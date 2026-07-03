@@ -142,7 +142,6 @@
 				Laden...
 			</text>
 			<button label="Land kaufen" label_selected="Land kaufen..." name="Buy Land..."/>
-			<button label="Linden-Verkauf" label_selected="Linden-Verkauf..." name="Linden Sale..." tool_tip="Land muss Eigentum und auf Inhalt gesetzt sein und nicht zur Auktion stehen."/>
 			<button label="Skriptinfo" name="Scripts..."/>
 			<button label="Für Gruppe kaufen" label_selected="Für Gruppe kaufen..." name="Buy For Group..."/>
 			<button label="Pass kaufen" label_selected="Pass kaufen..." name="Buy Pass..." tool_tip="Ein Pass gibt Ihnen zeitbegrenzten Zugang zu diesem Land."/>

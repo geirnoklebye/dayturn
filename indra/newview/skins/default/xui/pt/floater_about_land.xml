@@ -142,7 +142,6 @@ Vá para o menu Mundo &gt; Sobre o terreno ou selecione outro lote para mostrar 
 				Carregando...
 			</text>
 			<button label="Comprar terreno..." label_selected="Comprar terreno..." left="130" name="Buy Land..." width="125"/>
-			<button label="Venda Linden" name="Linden Sale..." tool_tip="O terreno precisa ser possuído, estar com o conteúdo configurado e não estar pronto para leilão."/>
 			<button label="Dados do script" name="Scripts..."/>
 			<button label="Comprar para o grupo" name="Buy For Group..."/>
 			<button label="Comprar passe..." label_selected="Comprar passe..." left="130" name="Buy Pass..." tool_tip="Um passe concede a você acesso temporário a este terreno." width="125"/>

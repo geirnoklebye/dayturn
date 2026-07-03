@@ -518,17 +518,6 @@
 			 top_pad="5"
              name="Buy Land..."
              width="130" />
-			<button
-             enabled="false"
-             follows="left|top"
-             height="23"
-             label="Linden Sale"
-             layout="topleft"
-             left="10"
-             name="Linden Sale..."
-             tool_tip="Land must be owned, set content, and not already for auction."
-             top_pad="-23"
-             width="150" />
             <button
              enabled="true"
              follows="left|top"

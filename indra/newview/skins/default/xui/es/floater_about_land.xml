@@ -142,7 +142,6 @@ Vaya al menú Mundo &gt; Acerca del terreno o seleccione otra parcela para ver s
 				Cargando...
 			</text>
 			<button label="Comprar terreno" left="130" name="Buy Land..." width="125"/>
-			<button label="Venta Linden" name="Linden Sale..." tool_tip="El terreno debe estar en propiedad, con contenido, y no estar en subasta."/>
 			<button label="Información de scripts" name="Scripts..."/>
 			<button label="Comprar para el grupo" name="Buy For Group..."/>
 			<button label="Comprar un pase" left="130" name="Buy Pass..." tool_tip="Un pase le da acceso temporal a este terreno." width="125"/>

@@ -142,7 +142,6 @@
 				ローディング...
 			</text>
 			<button label="土地の購入" label_selected="土地を購入..." left="130" name="Buy Land..." width="100"/>
-			<button label="リンデンセール" label_selected="Linden セール..." name="Linden Sale..." tool_tip="土地が所有されており、コンテンツが設定されている必要があります。オークションの対象になっていないことも必要条件です。"/>
 			<button label="スクリプト情報" name="Scripts..." width="100"/>
 			<button label="グループに購入" label_selected="グループ用に購入..." name="Buy For Group..."/>
 			<button label="入場許可を購入" label_selected="入場許可を購入..." left="130" name="Buy Pass..." tool_tip="この土地への一時的なアクセスを許可します。" width="100"/>

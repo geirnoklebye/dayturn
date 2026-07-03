@@ -141,7 +141,6 @@
 				Загрузка...
 			</text>
 			<button label="Купить землю" name="Buy Land..."/>
-			<button label="Продать для Linden" name="Linden Sale..." tool_tip="Земля должна быть в собственности, иметь заданное содержимое и не быть выставленной на аукцион,"/>
 			<button label="Информация о скриптах" name="Scripts..."/>
 			<button label="Купить для группы" name="Buy For Group..."/>
 			<button label="Купить пропуск" name="Buy Pass..." tool_tip="Пропуск дает вам временный доступ на эту землю."/>

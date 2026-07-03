@@ -141,7 +141,6 @@
 				Yükleniyor...
 			</text>
 			<button label="Arazi Satın Al" name="Buy Land..."/>
-			<button label="Linden Satışı" name="Linden Sale..." tool_tip="Arazinin sahip olunması, içeriğinin ayarlanması ve ihaleye çıkmamış olması gerekir"/>
 			<button label="Komut Dosyası Bilgileri" name="Scripts..."/>
 			<button label="Grup İçin Satın Al" name="Buy For Group..."/>
 			<button label="Geçiş Hakkı Satın Al" name="Buy Pass..." tool_tip="Geçiş hakkı bu araziye geçici erişiminizi sağlar."/>

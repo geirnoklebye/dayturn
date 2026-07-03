@@ -141,7 +141,6 @@
 				載入中...
 			</text>
 			<button label="購買土地" name="Buy Land..."/>
-			<button label="Linden 出售" name="Linden Sale..." tool_tip="土地必須有人擁有、已設有內容，並且不在拍賣中。"/>
 			<button label="腳本資訊" name="Scripts..."/>
 			<button label="為群組購買" name="Buy For Group..."/>
 			<button label="購買通行權" name="Buy Pass..." tool_tip="通行權允許你暫時可出入這塊土地。"/>

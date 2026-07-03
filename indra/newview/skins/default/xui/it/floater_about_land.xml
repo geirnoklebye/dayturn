@@ -145,7 +145,6 @@ Vai al menu Mondo &gt; Informazioni sul terreno oppure seleziona un altro appezz
 				Caricamento in corso...
 			</text>
 			<button label="Acquista il terreno..." label_selected="Acquista il terreno..." left="130" name="Buy Land..." width="125"/>
-			<button label="Vendita Linden" name="Linden Sale..." tool_tip="La terra deve essere di proprietà, con contenuto impostato, e non già messa all&apos;asta."/>
 			<button label="Informazioni script" name="Scripts..."/>
 			<button label="Acquista per il gruppo" name="Buy For Group..."/>
 			<button label="Compra Pass..." label_selected="Compra Pass..." left="130" name="Buy Pass..." tool_tip="Un pass ti da un accesso temporaneo in questo territorio." width="125"/>
