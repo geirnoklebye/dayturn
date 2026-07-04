@@ -546,8 +546,6 @@ public:
 	inline F32      getPhysicsDensity() const       { return mPhysicsDensity; }
 	inline F32      getPhysicsRestitution() const   { return mPhysicsRestitution; }
 
-	bool            isPermanentEnforced() const;
-	
 	bool getIncludeInSearch() const;
 	void setIncludeInSearch(bool include_in_search);
 

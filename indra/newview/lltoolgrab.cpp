@@ -252,7 +252,7 @@ bool LLToolGrabBase::handleObjectHit(const LLPickInfo& info)
 				gViewerWindow->hideCursor();
 				gViewerWindow->moveCursorToCenter();
 			}
-			else if (objectp->permMove() && !objectp->isPermanentEnforced())
+			else if (objectp->permMove())
 			{
 				mMode = GRAB_ACTIVE_CENTER;
 				gViewerWindow->hideCursor();

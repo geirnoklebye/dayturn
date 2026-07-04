@@ -6471,13 +6471,6 @@ void LLViewerObject::markForUnload(bool priority)
 	}
 }
 
-bool LLViewerObject::isPermanentEnforced() const
-{
-	// OpenSim never sends FLAGS_AFFECTS_NAVMESH, so this was always false; kept as a
-	// stub rather than removed since it has ~35 callers across the manipulation tools.
-	return false;
-}
-
 bool LLViewerObject::getIncludeInSearch() const
 {
 	return flagIncludeInSearch();

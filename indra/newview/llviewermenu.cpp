@@ -4997,9 +4997,8 @@ static bool get_derezzable_objects(
 		{
 		case DRD_TAKE_INTO_AGENT_INVENTORY:
 		case DRD_TRASH:
-			if (!object->isPermanentEnforced() &&
-				((node->mPermissions->allowTransferTo(gAgent.getID()) && object->permModify())
-				|| (node->allowOperationOnNode(PERM_OWNER, GP_OBJECT_MANIPULATE))))
+			if ((node->mPermissions->allowTransferTo(gAgent.getID()) && object->permModify())
+				|| (node->allowOperationOnNode(PERM_OWNER, GP_OBJECT_MANIPULATE)))
 			{
 				can_derez_current = true;
 			}
@@ -5430,10 +5429,9 @@ bool enable_take()
 			return true;
 		}
 # endif
-		if(!object->isPermanentEnforced() &&
-			((node->mPermissions->allowTransferTo(gAgent.getID())
+		if((node->mPermissions->allowTransferTo(gAgent.getID())
 			&& object->permModify())
-			|| (node->mPermissions->getOwner() == gAgent.getID())))
+			|| (node->mPermissions->getOwner() == gAgent.getID()))
 		{
 			return !object->isAttachment();
 		}

@@ -858,7 +858,7 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 		&& objectp->getPCode() == LL_PCODE_VOLUME
 		&& objectp->permModify())
 	{
-		bool editable = objectp->permModify() && !objectp->isPermanentEnforced();
+		bool editable = objectp->permModify();
 
 		// only turn on auto-adjust button if there is a media renderer and the media is loaded
         childSetEnabled("button align", editable);
@@ -1719,8 +1719,8 @@ void LLPanelFace::updateUI(bool force_set_values /*false*/)
 void LLPanelFace::updateCopyTexButton()
 {
     LLViewerObject* objectp = LLSelectMgr::getInstance()->getSelection()->getFirstObject();
-    mMenuClipboardTexture->setEnabled(objectp && objectp->getPCode() == LL_PCODE_VOLUME && objectp->permModify() 
-                                                    && !objectp->isPermanentEnforced() && !objectp->isInventoryPending() 
+    mMenuClipboardTexture->setEnabled(objectp && objectp->getPCode() == LL_PCODE_VOLUME && objectp->permModify()
+                                                    && !objectp->isInventoryPending()
                                                     && (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1));
     std::string tooltip = (objectp && objectp->isInventoryPending()) ? LLTrans::getString("LoadingContents") : getString("paste_options");
     mMenuClipboardTexture->setToolTip(tooltip);
@@ -3599,7 +3599,6 @@ void LLPanelFace::onCopyColor()
     if (!objectp || !node
         || objectp->getPCode() != LL_PCODE_VOLUME
         || !objectp->permModify()
-        || objectp->isPermanentEnforced()
         || selected_count > 1)
     {
         return;
@@ -3650,7 +3649,6 @@ void LLPanelFace::onPasteColor()
     if (!objectp || !node
         || objectp->getPCode() != LL_PCODE_VOLUME
         || !objectp->permModify()
-        || objectp->isPermanentEnforced()
         || selected_count > 1)
     {
         // not supposed to happen
@@ -3767,7 +3765,6 @@ void LLPanelFace::onCopyTexture()
     if (!objectp || !node
         || objectp->getPCode() != LL_PCODE_VOLUME
         || !objectp->permModify()
-        || objectp->isPermanentEnforced()
         || selected_count > 1)
     {
         return;
@@ -3957,7 +3954,6 @@ void LLPanelFace::onPasteTexture()
     if (!objectp || !node
         || objectp->getPCode() != LL_PCODE_VOLUME
         || !objectp->permModify()
-        || objectp->isPermanentEnforced()
         || selected_count > 1)
     {
         // not supposed to happen

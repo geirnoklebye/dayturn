@@ -348,7 +348,7 @@ void LLSelectMgr::overrideObjectUpdates()
 		virtual bool apply(LLSelectNode* selectNode)
 		{
 			LLViewerObject* object = selectNode->getObject();
-			if (object && object->permMove() && !object->isPermanentEnforced())
+			if (object && object->permMove())
 			{
 				if (!selectNode->mLastPositionLocal.isExactlyZero())
 				{
@@ -830,9 +830,7 @@ bool LLSelectMgr::enableLinkObjects()
 			{
 				virtual bool apply(LLViewerObject* object)
 				{
-					LLViewerObject *root_object = (object == nullptr) ? nullptr : object->getRootEdit();
-					return object->permModify() && !object->isPermanentEnforced() &&
-						((root_object == nullptr) || !root_object->isPermanentEnforced());
+					return object->permModify();
 				}
 			} func;
 			const bool firstonly = true;
@@ -849,12 +847,10 @@ bool LLSelectMgr::enableLinkObjects()
 bool LLSelectMgr::enableUnlinkObjects()
 {
 	LLViewerObject* first_editable_object = LLSelectMgr::getInstance()->getSelection()->getFirstEditableObject();
-	LLViewerObject *root_object = (first_editable_object == nullptr) ? nullptr : first_editable_object->getRootEdit();
 
 	bool new_value = LLSelectMgr::getInstance()->selectGetAllRootsValid() &&
 		first_editable_object &&
-		!first_editable_object->isAttachment() && !first_editable_object->isPermanentEnforced() &&
-		((root_object == NULL) || !root_object->isPermanentEnforced());
+		!first_editable_object->isAttachment();
 
 	return new_value;
 }
@@ -1166,7 +1162,7 @@ void LLSelectMgr::highlightObjectOnly(LLViewerObject* objectp)
 	}
 	
 	if ((gSavedSettings.getbool("SelectOwnedOnly") && !objectp->permYouOwner()) 
-		|| (gSavedSettings.getbool("SelectMovableOnly") && (!objectp->permMove() ||  objectp->isPermanentEnforced())))
+		|| (gSavedSettings.getbool("SelectMovableOnly") && (!objectp->permMove())))
 	{
 		// only select my own objects
 		return;
@@ -3576,10 +3572,8 @@ bool LLSelectMgr::selectGetEditMoveLinksetPermissions(bool &move, bool &modify)
             return false;
         }
 
-        LLViewerObject *root_object = object->getRootEdit();
         bool this_object_movable = false;
-        if (object->permMove() && !object->isPermanentEnforced() &&
-            ((root_object == nullptr) || !root_object->isPermanentEnforced()) &&
+        if (object->permMove() &&
             (object->permModify() || selecting_linked_set))
         {
             this_object_movable = true;
@@ -6977,10 +6971,10 @@ bool LLSelectMgr::canSelectObject(LLViewerObject* object, bool ignore_select_own
 
 	if(!ignore_select_owned)
 	{
-	if ((gSavedSettings.getbool("SelectOwnedOnly") && !object->permYouOwner()) ||
-		(gSavedSettings.getbool("SelectMovableOnly") && (!object->permMove() ||  object->isPermanentEnforced())))
-	{
-		// only select my own objects
+		if ((gSavedSettings.getbool("SelectOwnedOnly") && !object->permYouOwner()) ||
+		(gSavedSettings.getbool("SelectMovableOnly") && (!object->permMove())))
+		{
+			// only select my own objects
 			return false;
 		}
 	}
@@ -7707,7 +7701,7 @@ LLSelectNode* LLObjectSelection::getFirstMoveableNode(bool get_root_first)
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			return obj && obj->permMove() && !obj->isPermanentEnforced();
+			return obj && obj->permMove();
 		}
 	} func;
 	LLSelectNode* res = get_root_first ? getFirstRootNode(&func, true) : getFirstNode(&func);
@@ -7745,7 +7739,7 @@ LLViewerObject* LLObjectSelection::getFirstDeleteableObject()
 			LLViewerObject* obj = node->getObject();
 			// you can delete an object if you are the owner
 			// or you have permission to modify it.
-			if( obj && !obj->isPermanentEnforced() &&
+			if( obj &&
 				( (obj->permModify()) ||
 				(obj->permYouOwner()) ||
 				(!obj->permAnyOwner())	))		// public
@@ -7788,7 +7782,7 @@ LLViewerObject* LLObjectSelection::getFirstMoveableObject(bool get_parent)
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			return obj && obj->permMove() && !obj->isPermanentEnforced();
+			return obj && obj->permMove();
 		}
 	} func;
 	return getFirstSelectedObject(&func, get_parent);
@@ -7804,7 +7798,7 @@ LLViewerObject* LLObjectSelection::getFirstUndoEnabledObject(bool get_parent)
         bool apply(LLSelectNode* node)
         {
             LLViewerObject* obj = node->getObject();
-            return obj && (obj->permModify() || (obj->permMove() && !obj->isPermanentEnforced()));
+            return obj && (obj->permModify() || obj->permMove());
         }
     } func;
     return getFirstSelectedObject(&func, get_parent);
@@ -7873,7 +7867,7 @@ bool LLSelectMgr::selectionMove(const LLVector3& displ,
 	{
 		obj = (*it)->getObject();
 		bool enable_pos = false, enable_rot = false;
-		bool perm_move = obj->permMove() && !obj->isPermanentEnforced();
+		bool perm_move = obj->permMove();
 		bool perm_mod = obj->permModify();
 		
 		LLVector3d sel_center(getSelectionCenterGlobal());

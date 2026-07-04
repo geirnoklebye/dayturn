@@ -528,7 +528,8 @@ void LLPanelPermissions::refresh()
 	// figure out the contents of the name, description, & category
 	bool edit_name_desc = false;
 // FIRE-777: allow batch edit for name and description
-//	if (is_one_object && objectp->permModify() && !objectp->isPermanentEnforced())
+//  GN: Original statement simplified at removal of pathfinding
+//	if (is_one_object && objectp->permModify())
 	if (objectp->permModify())
 // /FIRE-777
 	{

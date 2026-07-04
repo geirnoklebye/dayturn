@@ -275,7 +275,7 @@ void LLPanelVolume::getState( )
 	LLSelectMgr::getInstance()->selectGetOwner(owner_id, owner_name);
 
 	// BUG? Check for all objects being editable?
-	bool editable = root_objectp->permModify() && !root_objectp->isPermanentEnforced();
+	bool editable = root_objectp->permModify();
 	bool single_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME )
 		&& LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1;
     bool single_root_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME ) && 
@@ -381,7 +381,7 @@ void LLPanelVolume::getState( )
             {
                 LL_INFOS() << " cba " << root_volobjp->canBeAnimatedObject()
                            << " editable " << editable << " permModify() " << root_volobjp->permModify()
-                           << " ispermenf " << root_volobjp->isPermanentEnforced() << LL_ENDL;
+                           << LL_ENDL;
             }
         }
 #endif
@@ -421,7 +421,7 @@ void LLPanelVolume::getState( )
 	getChild<LLUICtrl>("Flexible1D Checkbox Ctrl")->setValue(is_flexible);
 	if (is_flexible || (volobjp && volobjp->canBeFlexible()))
 	{
-		getChildView("Flexible1D Checkbox Ctrl")->setEnabled(editable && single_volume && volobjp && !volobjp->isMesh() && !objectp->isPermanentEnforced());
+		getChildView("Flexible1D Checkbox Ctrl")->setEnabled(editable && single_volume && volobjp && !volobjp->isMesh());
 	}
 	else
 	{
@@ -565,7 +565,7 @@ void LLPanelVolume::getState( )
 
 	mComboPhysicsShapeType->add(getString("Convex Hull"), LLSD(2));	
 	mComboPhysicsShapeType->setValue(LLSD(objectp->getPhysicsShapeType()));
-	mComboPhysicsShapeType->setEnabled(editable && !objectp->isPermanentEnforced() && ((root_objectp == nullptr) || !root_objectp->isPermanentEnforced()));
+	mComboPhysicsShapeType->setEnabled(editable);
 
 	mObject = objectp;
 	mRootObject = root_objectp;

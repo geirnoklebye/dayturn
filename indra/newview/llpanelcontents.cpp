@@ -115,7 +115,7 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 
 	// BUG? Check for all objects being editable?
 	bool editable = gAgent.isGodlike()
-					|| (objectp->permModify() && !objectp->isPermanentEnforced()
+					|| (objectp->permModify()
 					       && ( objectp->permYouOwner() || ( !group_id.isNull() && gAgent.isInGroup(group_id) )));  // solves SL-23488
 	bool all_volume = LLSelectMgr::getInstance()->selectionAllPCode( LL_PCODE_VOLUME );
 
@@ -126,8 +126,8 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 		((LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1)
 			|| (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)));
 
-	getChildView("button permissions")->setEnabled(!objectp->isPermanentEnforced());
-	mPanelInventoryObject->setEnabled(!objectp->isPermanentEnforced());
+	getChildView("button permissions")->setEnabled(true);
+	mPanelInventoryObject->setEnabled(true);
 }
 
 void LLPanelContents::refresh()

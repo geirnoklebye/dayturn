@@ -438,7 +438,7 @@ void LLSidepanelTaskInfo::refresh()
 
 	// figure out the contents of the name, description, & category
 	bool edit_name_desc = false;
-	if (is_one_object && objectp->permModify() && !objectp->isPermanentEnforced())
+	if (is_one_object && objectp->permModify())
 	{
 		edit_name_desc = true;
 	}
