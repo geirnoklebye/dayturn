@@ -24,6 +24,7 @@
 #ifndef LL_BOOL_H
 #define LL_BOOL_H
 
+/* 
 typedef signed int		BOOL;
 // definition moved from stdtypes.h
 
@@ -34,5 +35,6 @@ typedef signed int		BOOL;
 #ifndef FALSE
 #define FALSE			(0) // definition moved from stdtypes.h
 #endif
+ */
 
 #endif
