@@ -106,14 +106,6 @@ typedef U32             		TPACKETID;
 #define F64_MIN		(DBL_MIN)
 
 
-// #ifndef TRUE
-// #define TRUE			(1) definition moved to llbool.h
-// #endif
-// 
-// #ifndef FALSE
-// #define FALSE			(0) definition moved to llbool.h
-// #endif
-
 #ifndef NULL
 #define NULL			(0)
 #endif

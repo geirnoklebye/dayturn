@@ -37,7 +37,6 @@
 
 // common includes
 #include "stdtypes.h"
-#include "llbool.h"
 #include "v3math.h"
 #include "llquaternion.h"
 #include "llsphere.h"

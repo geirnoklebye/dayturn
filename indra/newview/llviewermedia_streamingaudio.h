@@ -30,7 +30,6 @@
 
 
 #include "stdtypes.h" // from llcommon
-#include "llbool.h"
 
 #include "llstreamingaudio.h"
 

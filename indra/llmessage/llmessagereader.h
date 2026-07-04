@@ -28,7 +28,6 @@
 #define LL_LLMESSAGEREADER_H
 
 #include "stdtypes.h"
-#include "llbool.h"
 
 class LLHost;
 class LLMessageBuilder;
