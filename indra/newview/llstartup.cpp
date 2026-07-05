@@ -53,7 +53,6 @@
 #include "fscommon.h"
 #include "fsfloatersearch.h"	// <FS:CR> FIRE-6310
 #include "llavatarnamecache.h"
-#include "llexperiencecache.h"
 #include "lllandmark.h"
 #include "llcachename.h"
 #include "lldir.h"
@@ -198,7 +197,6 @@
 #include "llevents.h"
 #include "llstartuplistener.h"
 #include "lltoolbarview.h"
-#include "llexperiencelog.h"
 #include "llcleanup.h"
 
 #include "llenvironment.h"
@@ -1597,7 +1595,6 @@ bool idle_startup()
 		gAgent.setPositionAgent(agent_start_position_region);
 
 		display_startup();
-		LLStartUp::initExperiences();
 
 		display_startup();
 
@@ -3340,15 +3337,6 @@ void LLStartUp::initNameCache()
 	cache_inst->setUseUsernames(gSavedSettings.getbool("NameTagShowUsernames"));
 }
 
-
-void LLStartUp::initExperiences()
-{   
-    // Should trigger loading the cache.
-    LLExperienceCache::instance().setCapabilityQuery(
-        boost::bind(&LLAgent::getRegionCapability, &gAgent, _1));
-
-	LLExperienceLog::instance().initialize();
-}
 
 void LLStartUp::cleanupNameCache()
 {

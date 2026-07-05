@@ -124,8 +124,6 @@
 
 #include "llnotificationmanager.h"
 #include "tea.h" 					// Opensim currency support>
-#include "llexperiencecache.h"
-#include "llexperiencecache.h"
 #include "lluiusage.h"
 
 #include "llfloaterreg.h"
@@ -155,7 +153,6 @@ extern bool gIsInSecondLife; //Opensim or SecondLife
 bool check_offer_throttle(const std::string& from_name, bool check_only);
 bool check_asset_previewable(const LLAssetType::EType asset_type);
 static void process_money_balance_reply_extended(LLMessageSystem* msg);
-bool handle_trusted_experiences_notification(const LLSD&);
 
 //inventory offer throttle globals
 LLFrameTimer gThrottleTimer;
@@ -5082,27 +5079,6 @@ bool handle_special_notification(std::string notificationID, LLSD& llsdBlock)
 	return returnValue;
 }
 
-bool handle_trusted_experiences_notification(const LLSD& llsdBlock)
-{
-	if(llsdBlock.has("trusted_experiences"))
-	{
-		std::ostringstream str;
-		const LLSD& experiences = llsdBlock["trusted_experiences"];
-		LLSD::array_const_iterator it = experiences.beginArray();
-		for(/**/; it != experiences.endArray(); ++it)
-		{
-			str<<LLSLURL("experience", it->asUUID(), "profile").getSLURLString() << "\n";
-		}
-		std::string str_list = str.str();
-		if(!str_list.empty())
-		{
-			LLNotificationsUtil::add("TrustedExperiencesAvailable", LLSD::emptyMap().with("EXPERIENCE_LIST", (LLSD)str_list));
-			return true;
-		}
-	}
-	return false;
-}
-
 // some of the server notifications need special handling. This is where we do that.
 bool handle_teleport_access_blocked(LLSD& llsdBlock, const std::string & notificationID, const std::string & defaultMessage)
 {
@@ -5205,7 +5181,6 @@ bool handle_teleport_access_blocked(LLSD& llsdBlock, const std::string & notific
 		}
 	}
 
-	handle_trusted_experiences_notification(llsdBlock);
 	return returnValue;
 }
 
@@ -5245,8 +5220,6 @@ bool attempt_standard_notification(LLMessageSystem* msgsystem)
 		}
 
 
-		handle_trusted_experiences_notification(llsdBlock);
-		
 		if (
 			(notificationID == "RegionEntryAccessBlocked") ||
 			(notificationID == "LandClaimAccessBlocked") ||
@@ -5773,16 +5746,6 @@ void notify_cautioned_script_question(const LLSD& notification, const LLSD& resp
 
 void script_question_mute(const LLUUID& item_id, const std::string& object_name);
 
-void experiencePermissionBlock(LLUUID experience, LLSD result)
-{
-    LLSD permission;
-    LLSD data;
-    permission["permission"] = "Block";
-    data[experience.asString()] = permission;
-    data["experience"] = experience;
-    LLEventPumps::instance().obtain("experience_permission").post(data);
-}
-
 bool script_question_cb(const LLSD& notification, const LLSD& response)
 {
 	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
@@ -5800,12 +5763,6 @@ bool script_question_cb(const LLSD& notification, const LLSD& response)
 		return false;
 	}
 
-	LLUUID experience;
-	if(notification["payload"].has("experience"))
-	{
-		experience = notification["payload"]["experience"].asUUID();
-	}
-
 	// check whether permissions were granted or denied
 	bool allowed = true;
 	// the "yes/accept" button is the first button in the template, making it button 0
@@ -5814,16 +5771,6 @@ bool script_question_cb(const LLSD& notification, const LLSD& response)
 	{
 		new_questions = 0;
 		allowed = false;
-	}	
-	else if(experience.notNull())
-	{
-		LLSD permission;
-		LLSD data;
-		permission["permission"]="Allow";
-
-		data[experience.asString()]=permission;
-		data["experience"]=experience;
-		LLEventPumps::instance().obtain("experience_permission").post(data);
 	}
 
 	LLUUID task_id = notification["payload"]["task_id"].asUUID();
@@ -5851,18 +5798,7 @@ bool script_question_cb(const LLSD& notification, const LLSD& response)
 	{
 		script_question_mute(task_id,notification["payload"]["object_name"].asString());
 	}
-	if ( response["BlockExperience"] )
-	{
-		if(experience.notNull())
-		{
-			LLViewerRegion* region = gAgent.getRegion();
-			if (!region)
-			    return false;
 
-            LLExperienceCache::instance().setExperiencePermission(experience, std::string("Block"), boost::bind(&experiencePermissionBlock, experience, _1));
-
-		}
-}
 	return false;
 }
 
@@ -5895,22 +5831,6 @@ void script_question_mute(const LLUUID& task_id, const std::string& object_name)
 
 static LLNotificationFunctorRegistration script_question_cb_reg_1("ScriptQuestion", script_question_cb);
 static LLNotificationFunctorRegistration script_question_cb_reg_2("ScriptQuestionCaution", script_question_cb);
-static LLNotificationFunctorRegistration script_question_cb_reg_3("ScriptQuestionExperience", script_question_cb);
-
-void process_script_experience_details(const LLSD& experience_details, LLSD args, LLSD payload)
-{
-	if(experience_details[LLExperienceCache::PROPERTIES].asInteger() & LLExperienceCache::PROPERTY_GRID)
-	{
-		args["GRID_WIDE"] = LLTrans::getString("Grid-Scope");
-	}
-	else
-	{
-		args["GRID_WIDE"] = LLTrans::getString("Land-Scope");
-	}
-	args["EXPERIENCE"] = LLSLURL("experience", experience_details[LLExperienceCache::EXPERIENCE_ID].asUUID(), "profile").getSLURLString();
-
-	LLNotificationsUtil::add("ScriptQuestionExperience", args, payload);
-}
 
 void process_script_question(LLMessageSystem *msg, void **user_data)
 {
@@ -5923,7 +5843,6 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 	S32		questions;
 	std::string object_name;
 	std::string owner_name;
-	LLUUID experienceid;
 
 	// taskid -> object key of object requesting permissions
 	msg->getUUIDFast(_PREHASH_Data, _PREHASH_TaskID, taskid );
@@ -5932,11 +5851,6 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 	msg->getStringFast(_PREHASH_Data, _PREHASH_ObjectName, object_name);
 	msg->getStringFast(_PREHASH_Data, _PREHASH_ObjectOwner, owner_name);
 	msg->getS32Fast(_PREHASH_Data, _PREHASH_Questions, questions );
-
-	if(msg->has(_PREHASH_Experience))
-	{
-		msg->getUUIDFast(_PREHASH_Experience, _PREHASH_ExperienceID, experienceid);
-	}
 
 	// Special case. If the objects are owned by this agent, throttle per-object instead
 	// of per-owner. It's common for residents to reset a ton of scripts that re-request
@@ -5983,21 +5897,6 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 		args["OBJECTNAME"] = object_name;
 		args["NAME"] = clean_owner_name;
 		S32 known_questions = 0;
-
-		// SL-19346, SL-19528 - No DEBIT warning for GRID & PRIVILEGED
-		if (experienceid.notNull())
-		{
-			const LLSD& experience = LLExperienceCache::instance().get(experienceid);
-			if (!experience.isUndefined())
-			{
-				S32 properties = experience[LLExperienceCache::PROPERTIES].asInteger();
-				if ((properties | LLExperienceCache::PROPERTY_GRID) &&
-					(properties | LLExperienceCache::PROPERTY_PRIVILEGED))
-				{
-					questions ^= SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_DEBIT].permbit;
-				}
-			}
-		}
 
 		bool has_not_only_debit = questions ^ SCRIPT_PERMISSIONS[SCRIPT_PERMISSION_DEBIT].permbit;
 		// check the received permission flags against each permission
@@ -6050,12 +5949,6 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 			{
 				args["FOOTERTEXT"] = (count > 1) ? LLTrans::getString("AdditionalPermissionsRequestHeader") + "\n\n" + script_question : "";
 				notification = "ScriptQuestionCaution";
-			}
-			else if(experienceid.notNull())
-			{
-				payload["experience"]=experienceid;
-                LLExperienceCache::instance().get(experienceid, boost::bind(process_script_experience_details, _1, args, payload));
-				return;
 			}
 
 			LLNotificationsUtil::add(notification, args, payload);

@@ -707,7 +707,6 @@ LLUUID LLBufferedAssetUploadInfo::finishUpload(LLSD &result)
 
 LLScriptAssetUpload::LLScriptAssetUpload(LLUUID itemId, std::string buffer, invnUploadFinish_f finish) :
 LLBufferedAssetUploadInfo(itemId, LLAssetType::AT_LSL_TEXT, buffer, finish),
-mExerienceId(),
 mTargetType(MONO),
 mIsRunning(false)
 {
@@ -715,16 +714,14 @@ mIsRunning(false)
 
 LLScriptAssetUpload::LLScriptAssetUpload(LLUUID itemId, TargetType_t targetType, std::string buffer, invnUploadFinish_f finish) :
     LLBufferedAssetUploadInfo(itemId, LLAssetType::AT_LSL_TEXT, buffer, finish),
-    mExerienceId(),
     mTargetType(gSavedSettings.getbool("SaveInventoryScriptsAsMono") ? LLScriptAssetUpload::MONO : LLScriptAssetUpload::LSL2),
     mIsRunning(false)
 {
 }
 
 LLScriptAssetUpload::LLScriptAssetUpload(LLUUID taskId, LLUUID itemId, TargetType_t targetType,
-        bool isRunning, LLUUID exerienceId, std::string buffer, taskUploadFinish_f finish):
+        bool isRunning, std::string buffer, taskUploadFinish_f finish):
     LLBufferedAssetUploadInfo(taskId, itemId, LLAssetType::AT_LSL_TEXT, buffer, finish),
-    mExerienceId(exerienceId),
     mTargetType(targetType),
     mIsRunning(isRunning)
 {
@@ -745,7 +742,6 @@ LLSD LLScriptAssetUpload::generatePostBody()
         body["item_id"] = getItemId();
         body["is_script_running"] = getIsRunning();
         body["target"] = (getTargetType() == MONO) ? "mono" : "lsl2";
-        body["experience"] = getExerienceId();
     }
 
     return body;

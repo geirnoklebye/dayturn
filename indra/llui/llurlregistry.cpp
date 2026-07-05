@@ -72,7 +72,6 @@ LLUrlRegistry::LLUrlRegistry()
 	registerUrl(new LLUrlEntryObjectIM());
 	registerUrl(new LLUrlEntryPlace());
 	registerUrl(new LLUrlEntryInventory());
-    registerUrl(new LLUrlEntryExperienceProfile());
     mUrlEntryKeybinding = new LLUrlEntryKeybinding();
     registerUrl(mUrlEntryKeybinding);
 	//LLUrlEntrySL and LLUrlEntrySLLabel have more common pattern, 

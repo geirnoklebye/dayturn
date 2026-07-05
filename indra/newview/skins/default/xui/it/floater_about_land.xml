@@ -482,7 +482,6 @@ Media:
 				<button label="Rimuovi" label_selected="Rimuovi" name="remove_banned"/>
 			</panel>
 		</panel>
-		<panel label="ESPERIENZE" name="land_experiences_panel"/>
 		<panel label="AMBIENTE" name="land_environment_panel"/>
 	</tab_container>
 </floater>

@@ -1,6 +1,6 @@
 /** 
  * @file llpanelenvironment.cpp
- * @brief LLPanelExperiences class implementation
+ * @brief LLPanelEnvironments class implementation
  *
  * $LicenseInfo:firstyear=2013&license=viewerlgpl$
  * Second Life Viewer Source Code
@@ -29,7 +29,6 @@
 
 #include "llpanelprofile.h"
 #include "lluictrlfactory.h"
-#include "llexperiencecache.h"
 #include "llagent.h"
 #include "llparcel.h"
 

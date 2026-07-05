@@ -62,9 +62,6 @@ class LLPanelRegionDebugInfo;
 class LLPanelRegionTerrainInfo;
 class LLPanelEstateInfo;
 class LLPanelEstateCovenant;
-class LLPanelExperienceListEditor;
-class LLPanelExperiences;
-class LLPanelRegionExperiences;
 class LLPanelEstateAccess;
 class LLPanelRegionEnvironment;
 
@@ -95,7 +92,6 @@ public:
 	static LLPanelEstateCovenant* getPanelCovenant();
 	static LLPanelRegionTerrainInfo* getPanelRegionTerrain();
 	static LLPanelRegionOpenSettingsInfo* getPanelOpenSettings();
-	static LLPanelRegionExperiences* getPanelExperiences();
 	static LLPanelRegionGeneralInfo* getPanelGeneral();
 	static LLPanelRegionEnvironment* getPanelEnvironment();
 
@@ -415,39 +411,6 @@ protected:
 };
 
 /////////////////////////////////////////////////////////////////////////////
-
-
-class LLPanelRegionExperiences : public LLPanelRegionInfo
-{
-    LOG_CLASS(LLPanelRegionExperiences);
-
-public:
-	LLPanelRegionExperiences(){}
-	/*virtual*/ bool postBuild();
-	virtual bool sendUpdate();
-	
-	static bool experienceCoreConfirm(const LLSD& notification, const LLSD& response);
-	static void sendEstateExperienceDelta(U32 flags, const LLUUID& agent_id);
-
-	static void infoCallback(LLHandle<LLPanelRegionExperiences> handle, const LLSD& content);
-	bool refreshFromRegion(LLViewerRegion* region);
-	void sendPurchaseRequest()const;
-	void processResponse( const LLSD& content );
-private:
-	void refreshRegionExperiences();
-
-    static std::string regionCapabilityQuery(LLViewerRegion* region, const std::string &cap);
-
-	LLPanelExperienceListEditor* setupList(const char* control_name, U32 add_id, U32 remove_id);
-	static LLSD addIds( LLPanelExperienceListEditor* panel );
-
-	void itemChanged(U32 event_type, const LLUUID& id);
-
-	LLPanelExperienceListEditor* mTrusted;
-	LLPanelExperienceListEditor* mAllowed;
-	LLPanelExperienceListEditor* mBlocked;
-	LLUUID mDefaultExperience;
-};
 
 
 class LLPanelEstateAccess : public LLPanelRegionInfo

@@ -85,8 +85,6 @@
 #include "llviewercontrol.h"
 #include "llappviewer.h"
 #include "llfloatergotoline.h"
-#include "llexperiencecache.h"
-#include "llfloaterexperienceprofile.h"
 #include "llviewerassetupload.h"
 #include "lltoggleablemenu.h"
 #include "llmenubutton.h"
@@ -431,55 +429,6 @@ LLScriptEdCore::~LLScriptEdCore()
 	{
 		mSyntaxIDConnection.disconnect();
 	}
-}
-
-void LLLiveLSLEditor::experienceChanged()
-{
-	if(mScriptEd->getAssociatedExperience() != mExperiences->getSelectedValue().asUUID())
-	{
-		mScriptEd->enableSave(getIsModifiable());
-		//getChildView("Save_btn")->setEnabled(true);
-		mScriptEd->setAssociatedExperience(mExperiences->getSelectedValue().asUUID());
-		updateExperiencePanel();
-	}
-}
-
-void LLLiveLSLEditor::onViewProfile( LLUICtrl *ui, void* userdata )
-{
-	LLLiveLSLEditor* self = (LLLiveLSLEditor*)userdata;
-
-	LLUUID id;
-	if(self->mExperienceEnabled->get())
-	{
-		id=self->mScriptEd->getAssociatedExperience();
-		if(id.notNull())
-		{
-			 LLFloaterReg::showInstance("experience_profile", id, true);
-		}
-	}
-
-}
-
-void LLLiveLSLEditor::onToggleExperience( LLUICtrl *ui, void* userdata )
-{
-	LLLiveLSLEditor* self = (LLLiveLSLEditor*)userdata;
-
-	LLUUID id;
-	if(self->mExperienceEnabled->get())
-	{
-		if(self->mScriptEd->getAssociatedExperience().isNull())
-		{
-			id=self->mExperienceIds.beginArray()->asUUID();
-		}
-	}
-
-	if(id != self->mScriptEd->getAssociatedExperience())
-	{
-		self->mScriptEd->enableSave(self->getIsModifiable());
-	}
-	self->mScriptEd->setAssociatedExperience(id);
-
-	self->updateExperiencePanel();
 }
 
 bool LLScriptEdCore::postBuild()
@@ -1338,11 +1287,6 @@ bool LLScriptEdCore::enableLoadFromFileMenu(void* userdata)
 	return (self && self->mEditor) ? self->mEditor->canLoadOrSaveToFile() : false;
 }
 
-LLUUID LLScriptEdCore::getAssociatedExperience()const
-{
-	return mAssociatedExperience;
-}
-
 void LLScriptEdCore::onChangeFontSize(const LLSD &userdata)
 {
     const std::string font_name = userdata.asString();
@@ -1355,148 +1299,6 @@ bool LLScriptEdCore::isFontSizeChecked(const LLSD &userdata)
     const std::string size_name = userdata.asString();
 
     return (size_name == current_size_name);
-}
-
-    void LLLiveLSLEditor::setExperienceIds( const LLSD& experience_ids ){
-	mExperienceIds=experience_ids;
-	updateExperiencePanel();
-}
-
-
-void LLLiveLSLEditor::updateExperiencePanel()
-{
-	if(mScriptEd->getAssociatedExperience().isNull())
-	{
-		mExperienceEnabled->set(false);
-		mExperiences->setVisible(false);
-		if(mExperienceIds.size()>0)
-		{
-			mExperienceEnabled->setEnabled(true);
-			mExperienceEnabled->setToolTip(getString("add_experiences"));
-		}
-		else
-		{
-			mExperienceEnabled->setEnabled(false);
-			mExperienceEnabled->setToolTip(getString("no_experiences"));
-		}
-		getChild<LLButton>("view_profile")->setVisible(false);
-	}
-	else
-	{
-		mExperienceEnabled->setToolTip(getString("experience_enabled"));
-		mExperienceEnabled->setEnabled(getIsModifiable());
-		mExperiences->setVisible(true);
-		mExperienceEnabled->set(true);
-		getChild<LLButton>("view_profile")->setToolTip(getString("show_experience_profile"));
-		buildExperienceList();
-	}
-}
-
-void LLLiveLSLEditor::buildExperienceList()
-{
-	mExperiences->clearRows();
-	bool foundAssociated=false;
-	const LLUUID& associated = mScriptEd->getAssociatedExperience();
-	LLUUID last;
-	LLScrollListItem* item;
-	for(LLSD::array_const_iterator it = mExperienceIds.beginArray(); it != mExperienceIds.endArray(); ++it)
-	{
-		LLUUID id = it->asUUID();
-		EAddPosition position = ADD_BOTTOM;
-		if(id == associated)
-		{
-			foundAssociated = true;
-			position = ADD_TOP;
-		}
-		
-        const LLSD& experience = LLExperienceCache::instance().get(id);
-		if(experience.isUndefined())
-		{
-			mExperiences->add(getString("loading"), id, position);
-			last = id;
-		}
-		else
-		{
-			std::string experience_name_string = experience[LLExperienceCache::NAME].asString();
-			if (experience_name_string.empty())
-			{
-				experience_name_string = LLTrans::getString("ExperienceNameUntitled");
-			}
-			mExperiences->add(experience_name_string, id, position);
-		} 
-	}
-
-	if(!foundAssociated )
-	{
-        const LLSD& experience = LLExperienceCache::instance().get(associated);
-		if(experience.isDefined())
-		{
-			std::string experience_name_string = experience[LLExperienceCache::NAME].asString();
-			if (experience_name_string.empty())
-			{
-				experience_name_string = LLTrans::getString("ExperienceNameUntitled");
-			}
-			item=mExperiences->add(experience_name_string, associated, ADD_TOP);
-		} 
-		else
-		{
-			item=mExperiences->add(getString("loading"), associated, ADD_TOP);
-			last = associated;
-		}
-		item->setEnabled(false);
-	}
-
-	if(last.notNull())
-	{
-		mExperiences->setEnabled(false);
-        LLExperienceCache::instance().get(last, boost::bind(&LLLiveLSLEditor::buildExperienceList, this));
-	}
-	else
-	{
-		mExperiences->setEnabled(true);
-		mExperiences->sortByName(true);
-		mExperiences->setCurrentByIndex(mExperiences->getCurrentIndex());
-		getChild<LLButton>("view_profile")->setVisible(true);
-	}
-}
-
-
-void LLScriptEdCore::setAssociatedExperience( const LLUUID& experience_id )
-{
-	mAssociatedExperience = experience_id;
-}
-
-
-
-void LLLiveLSLEditor::requestExperiences()
-{
-	if (!getIsModifiable())
-	{
-		return;
-	}
-
-	LLViewerRegion* region = gAgent.getRegion();
-	if (region)
-	{
-		std::string lookup_url=region->getCapability("GetCreatorExperiences"); 
-		if(!lookup_url.empty())
-		{
-            LLCoreHttpUtil::HttpCoroutineAdapter::completionCallback_t success =
-                boost::bind(&LLLiveLSLEditor::receiveExperienceIds, _1, getDerivedHandle<LLLiveLSLEditor>());
-
-            LLCoreHttpUtil::HttpCoroutineAdapter::callbackHttpGet(lookup_url, success);
-		}
-	}
-}
-
-/*static*/ 
-void LLLiveLSLEditor::receiveExperienceIds(LLSD result, LLHandle<LLLiveLSLEditor> hparent)
-{
-    LLLiveLSLEditor* parent = hparent.get();
-    if (!parent)
-        return;
-
-    parent->setExperienceIds(result["experience_ids"]);
 }
 
 
@@ -2083,16 +1885,6 @@ bool LLLiveLSLEditor::postBuild()
 	mScriptEd->mEditor->makePristine();
 	mScriptEd->mEditor->setFocus(true);
 
-
-	mExperiences = getChild<LLComboBox>("Experiences...");
-	mExperiences->setCommitCallback(boost::bind(&LLLiveLSLEditor::experienceChanged, this));
-	
-	mExperienceEnabled = getChild<LLCheckBoxCtrl>("enable_xp");
-	
-	childSetCommitCallback("enable_xp", onToggleExperience, this);
-	childSetCommitCallback("view_profile", onViewProfile, this);
-	
-
 	return LLPreview::postBuild();
 }
 
@@ -2148,8 +1940,6 @@ void LLLiveLSLEditor::loadAsset()
 				{
 					url = region->getCapability("GetMetadata");
 				}
-				LLExperienceCache::instance().fetchAssociatedExperience(item->getParentUUID(), item->getUUID(), url,
-					boost::bind(&LLLiveLSLEditor::setAssociatedExperience, getDerivedHandle<LLLiveLSLEditor>(), _1));
 
 				bool isGodlike = gAgent.isGodlike();
 				bool copyManipulate = gAgent.allowOperation(PERM_COPY, item->getPermissions(), GP_OBJECT_MANIPULATE);
@@ -2237,8 +2027,6 @@ void LLLiveLSLEditor::loadAsset()
 										  time_corrected());
 		mAssetStatus = PREVIEW_ASSET_LOADED;
 	}
-
-	requestExperiences();
 }
 
 // static
@@ -2540,7 +2328,7 @@ void LLLiveLSLEditor::saveIfNeeded(bool sync /*= true*/)
 	mIsSaving = true;
 	if (!url.empty())
 	{
-		uploadAssetViaCaps(url, filename, mObjectUUID, mItemUUID, is_running, mScriptEd->getAssociatedExperience());
+		uploadAssetViaCaps(url, filename, mObjectUUID, mItemUUID, is_running);
 	}
 }
 
@@ -2548,8 +2336,7 @@ void LLLiveLSLEditor::uploadAssetViaCaps(const std::string& url,
 										 const std::string& filename,
 										 const LLUUID& task_id,
 										 const LLUUID& item_id,
-										 bool is_running,
-										 const LLUUID& experience_public_id )
+										 bool is_running)
 {
 	LL_INFOS() << "Update Task Inventory via capability " << url << LL_ENDL;
 	LLSD body;
@@ -2557,13 +2344,12 @@ void LLLiveLSLEditor::uploadAssetViaCaps(const std::string& url,
 	body["item_id"] = item_id;
 	body["is_script_running"] = is_running;
 	body["target"] = monoChecked() ? "mono" : "lsl2";
-	body["experience"] = experience_public_id;
     std::string buffer(mScriptEd->mEditor->getText());
     LLBufferedAssetUploadInfo::taskUploadFinish_f proc = boost::bind(&LLLiveLSLEditor::finishLSLUpload, _1, _2, _3, _4, is_running);
 
     LLResourceUploadInfo::ptr_t uploadInfo(new LLScriptAssetUpload(mObjectUUID, mItemUUID,
         monoChecked() ? LLScriptAssetUpload::MONO : LLScriptAssetUpload::LSL2,
-        is_running, mScriptEd->getAssociatedExperience(), buffer, proc));
+        is_running, buffer, proc));
 
     LLViewerAssetUpload::EnqueueInventoryUpload(url, uploadInfo);
 //	LLHTTPClient::post(url, body,
@@ -2726,16 +2512,3 @@ bool LLLiveLSLEditor::monoChecked() const
 	return mMonoCheckbox && mMonoCheckbox->getValue();
 }
 
-void LLLiveLSLEditor::setAssociatedExperience( LLHandle<LLLiveLSLEditor> editor, const LLSD& experience )
-{
-	if (LLLiveLSLEditor* scriptEd = editor.get())
-	{
-		LLUUID id;
-		if (experience.has(LLExperienceCache::EXPERIENCE_ID))
-		{
-			id=experience[LLExperienceCache::EXPERIENCE_ID].asUUID();
-		}
-		scriptEd->mScriptEd->setAssociatedExperience(id);
-		scriptEd->updateExperiencePanel();
-	}
-}

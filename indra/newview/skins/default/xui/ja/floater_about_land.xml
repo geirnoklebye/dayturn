@@ -476,7 +476,6 @@
 				<button label="削除" label_selected="削除" name="remove_banned"/>
 			</panel>
 		</panel>
-		<panel label="体験" name="land_experiences_panel"/>
 		<panel label="環境" name="land_environment_panel"/>
 	</tab_container>
 </floater>

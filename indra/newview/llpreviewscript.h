@@ -52,7 +52,6 @@ class LLKeywordToken;
 class LLViewerInventoryItem;
 class LLScriptEdContainer;
 class LLFloaterGotoLine;
-class LLFloaterExperienceProfile;
 class LLScriptMovedObserver;
 
 class LLLiveLSLFile : public LLLiveFile
@@ -137,8 +136,6 @@ public:
 	static bool		enableLoadFromFileMenu(void* userdata);
 
     virtual bool	hasAccelerators() const { return true; }
-	LLUUID 			getAssociatedExperience()const;
-	void            setAssociatedExperience( const LLUUID& experience_id );
 
 	void 			setScriptName(const std::string& name){mScriptName = name;};
 
@@ -193,7 +190,6 @@ private:
 	bool			mEnableSave;
 	bool			mHasScriptData;
 	LLLiveLSLFile*	mLiveFile;
-	LLUUID			mAssociatedExperience;
 	bool			mScriptRemoved;
 	bool			mSaveDialogShown;
     LLUUID          mAssetID;
@@ -302,17 +298,6 @@ public:
 	LLScriptEditor* getEditor() { return (mScriptEd) ? mScriptEd->mEditor : nullptr; }
 // [/SL:KB]
 
-	static void setAssociatedExperience( LLHandle<LLLiveLSLEditor> editor, const LLSD& experience );
-	static void onToggleExperience(LLUICtrl *ui, void* userdata);
-	static void onViewProfile(LLUICtrl *ui, void* userdata);
-
-	void setExperienceIds(const LLSD& experience_ids);
-	void buildExperienceList();
-	void updateExperiencePanel();
-	void requestExperiences();
-	void experienceChanged();
-	void addAssociatedExperience(const LLSD& experience);
-
     void setObjectName(std::string name) { mObjectName = name; }
 	
 private:
@@ -327,8 +312,7 @@ private:
 							const std::string& filename,
 							const LLUUID& task_id,
 							const LLUUID& item_id,
-							bool is_running,
-							const LLUUID& experience_public_id);
+							bool is_running);
 	bool monoChecked() const;
 
 
@@ -353,7 +337,6 @@ private:
 	static void	onMonoCheckboxClicked(LLUICtrl*, void* userdata);
 
     static void finishLSLUpload(LLUUID itemId, LLUUID taskId, LLUUID newAssetId, LLSD response, bool isRunning);
-    static void receiveExperienceIds(LLSD result, LLHandle<LLLiveLSLEditor> parent);
 
 private:
 	bool				mIsNew;
@@ -374,12 +357,6 @@ private:
 	LLCheckBoxCtrl*	mMonoCheckbox;
 	bool mIsModifiable;
 
-
-	LLComboBox*		mExperiences;
-	LLCheckBoxCtrl*	mExperienceEnabled;
-	LLSD			mExperienceIds;
-
-	LLHandle<LLFloater> mExperienceProfile;
     std::string mObjectName;
 };
 

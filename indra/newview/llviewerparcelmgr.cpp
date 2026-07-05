@@ -953,18 +953,10 @@ void LLViewerParcelMgr::sendParcelAccessListRequest(U32 flags)
 	{
 		mCurrentParcel->mBanList.clear();
 	}
-	if (flags & AL_ACCESS) 
+	if (flags & AL_ACCESS)
 	{
 		mCurrentParcel->mAccessList.clear();
-	}		
-	if (flags & AL_ALLOW_EXPERIENCE) 
-	{
-		mCurrentParcel->clearExperienceKeysByType(EXPERIENCE_KEY_TYPE_ALLOWED);
 	}
-	if (flags & AL_BLOCK_EXPERIENCE) 
-	{
-		mCurrentParcel->clearExperienceKeysByType(EXPERIENCE_KEY_TYPE_BLOCKED);
-	}		
 
 	// Only the headers differ
 	msg->newMessageFast(_PREHASH_ParcelAccessListRequest);
@@ -1865,17 +1857,7 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 			}
 
 			// Request access list information for this land
-            
-            // <FA.Ansariel> FIRE-17280: Requestion experience access and block list interferes with Opensim land flags
-            
-            if (LLGridManager::instance().isInSecondLife())
-            {
-			    parcel_mgr.sendParcelAccessListRequest(AL_ACCESS | AL_BAN | AL_ALLOW_EXPERIENCE | AL_BLOCK_EXPERIENCE);
-            } else {
-                parcel_mgr.sendParcelAccessListRequest(AL_ACCESS | AL_BAN );
-            }
-            
-            // <FA.Ansariel>
+			parcel_mgr.sendParcelAccessListRequest(AL_ACCESS | AL_BAN);
 
 			// Request dwell for this land, if it's not public land.
 			parcel_mgr.mSelectedDwell = DWELL_NAN;
@@ -2122,14 +2104,6 @@ void LLViewerParcelMgr::processParcelAccessListReply(LLMessageSystem *msg, void 
 	{
 		parcel->unpackAccessEntries(msg, &(parcel->mBanList) );
 	}
-	else if (message_flags & AL_ALLOW_EXPERIENCE)
-	{
-		parcel->unpackExperienceEntries(msg, EXPERIENCE_KEY_TYPE_ALLOWED);
-	}
-	else if (message_flags & AL_BLOCK_EXPERIENCE)
-	{
-		parcel->unpackExperienceEntries(msg, EXPERIENCE_KEY_TYPE_BLOCKED);
-	}
 	/*else if (message_flags & AL_RENTER)
 	{
 		parcel->unpackAccessEntries(msg, &(parcel->mRenterList) );
@@ -2181,17 +2155,8 @@ void LLViewerParcelMgr::sendParcelAccessListUpdate(U32 which)
 	}
 
 	if (which & AL_BAN)
-	{	
+	{
 		sendParcelAccessListUpdate(AL_BAN, parcel->mBanList, region, parcel->getLocalID());
-	}
-
-	if(which & AL_ALLOW_EXPERIENCE)
-	{
-		sendParcelAccessListUpdate(AL_ALLOW_EXPERIENCE, parcel->getExperienceKeysByType(EXPERIENCE_KEY_TYPE_ALLOWED), region, parcel->getLocalID());
-	}
-	if(which & AL_BLOCK_EXPERIENCE)
-	{
-		sendParcelAccessListUpdate(AL_BLOCK_EXPERIENCE, parcel->getExperienceKeysByType(EXPERIENCE_KEY_TYPE_BLOCKED), region, parcel->getLocalID());
 	}
 }
 

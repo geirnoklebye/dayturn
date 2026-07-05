@@ -47,7 +47,6 @@
 #include "llavatarpropertiesprocessor.h"
 #include "llavatarrendernotifier.h"
 #include "llcontrolavatar.h"
-#include "llexperiencecache.h"
 #include "llphysicsmotion.h"
 #include "llviewercontrol.h"
 #include "llcallingcard.h"		// IDEVO for LLAvatarTracker

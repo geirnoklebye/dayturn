@@ -41,7 +41,6 @@
 #include "message.h"
 #include "u64.h"
 #include "llregionflags.h"
-#include <boost/range/adaptor/map.hpp>
 
 static const F32 SOME_BIG_NUMBER = 1000.0f;
 static const F32 SOME_BIG_NEG_NUMBER = -1000.0f;
@@ -687,25 +686,6 @@ void LLParcel::unpackAccessEntries(LLMessageSystem* msg,
 }
 
 
-void LLParcel::unpackExperienceEntries( LLMessageSystem* msg, U32 type )
-{
-	LLUUID id;
-
-	S32 i;
-	S32 count = msg->getNumberOfBlocksFast(_PREHASH_List);
-	for (i = 0; i < count; i++)
-	{
-		msg->getUUIDFast(_PREHASH_List, _PREHASH_ID, id, i);
-
-		if (id.notNull())
-		{
-			mExperienceKeys[id]=type;
-		}
-	}
-}
-
-
-
 void LLParcel::expirePasses(S32 now)
 {
     LLAccessEntry::map::iterator itor = mAccessList.begin();
@@ -1217,59 +1197,4 @@ LLParcel::ECategory category_ui_string_to_category(const std::string& s)
     // "Any" is a valid category for searches, and
     // is a distinct option from "None" and "Other"
     return LLParcel::C_ANY;
-}
-
-LLAccessEntry::map LLParcel::getExperienceKeysByType( U32 type ) const
-{
-	LLAccessEntry::map access;
-	LLAccessEntry entry;
-	xp_type_map_t::const_iterator it = mExperienceKeys.begin();
-	for(/**/; it != mExperienceKeys.end(); ++it)
-	{
-		if(it->second == type)
-		{
-			entry.mID = it->first;
-			access[entry.mID] = entry;
-		}
-	}
-	return access;
-}
-
-void LLParcel::clearExperienceKeysByType( U32 type )
-{
-	xp_type_map_t::iterator it = mExperienceKeys.begin();
-	while(it != mExperienceKeys.end())
-	{
-		if(it->second == type)
-		{
-			mExperienceKeys.erase(it++);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
-
-void LLParcel::setExperienceKeyType( const LLUUID& experience_key, U32 type )
-{
-	if(type == EXPERIENCE_KEY_TYPE_NONE)
-	{
-		mExperienceKeys.erase(experience_key);
-	}
-	else
-	{
-		if(countExperienceKeyType(type) < PARCEL_MAX_EXPERIENCE_LIST)
-		{
-			mExperienceKeys[experience_key] = type;
-		}
-	}
-}
-
-U32 LLParcel::countExperienceKeyType( U32 type )
-{
-	return std::count_if(
-		boost::begin(mExperienceKeys | boost::adaptors::map_values), 
-		boost::end(mExperienceKeys | boost::adaptors::map_values), 
-		[type](U32 key){ return (key == type); });
 }

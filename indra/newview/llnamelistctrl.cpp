@@ -135,14 +135,8 @@ bool LLNameListCtrl::handleDragAndDrop(
 	return handled;
 }
 
-void LLNameListCtrl::showInspector(const LLUUID& avatar_id, bool is_group, bool is_experience)
+void LLNameListCtrl::showInspector(const LLUUID& avatar_id, bool is_group)
 {
-	if(is_experience)
-	{
-		LLFloaterReg::showInstance("experience_profile", avatar_id, true);
-		return;
-	}
-
 	if (is_group)
 		LLFloaterReg::showInstance("inspect_group", LLSD().with("group_id", avatar_id));
 	else
@@ -249,11 +243,10 @@ bool LLNameListCtrl::handleToolTip(S32 x, S32 y, MASK mask)
 				{
 					// Should we show a group or an avatar inspector?
 					bool is_group = hit_item->isGroup();
-					bool is_experience = hit_item->isExperience();
 
 					LLToolTip::Params params;
 					params.background_visible(false);
-					params.click_callback(boost::bind(&LLNameListCtrl::showInspector, this, avatar_id, is_group, is_experience));
+					params.click_callback(boost::bind(&LLNameListCtrl::showInspector, this, avatar_id, is_group));
 					params.delay_time(0.0f);		// spawn instantly on hover
 					params.image(icon);
 					params.message("");
@@ -326,7 +319,7 @@ LLScrollListItem* LLNameListCtrl::addNameItemRow(
 	const std::string& prefix)
 {
 	LLUUID id = name_item.value().asUUID();
-	LLNameListItem* item = new LLNameListItem(name_item,name_item.target() == GROUP, name_item.target() == EXPERIENCE);
+	LLNameListItem* item = new LLNameListItem(name_item,name_item.target() == GROUP);
 
 	if (!item) return nullptr;
 
@@ -395,8 +388,6 @@ LLScrollListItem* LLNameListCtrl::addNameItemRow(
 			}
 			break;
 		}
-	case EXPERIENCE:
-		// just use supplied name
 	default:
 		break;
 	}

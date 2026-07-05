@@ -96,12 +96,12 @@ protected:
 
 	bool onScriptQueueConfirmation(const LLSD& notification, const LLSD& response);
 
+	virtual bool startQueue() = 0;
+
   void onClickCopyToClipboard();
 	
 	// returns true if this is done
 	bool isDone() const;
-
-	virtual bool startQueue() = 0;
 
 	void setStartString(const std::string& s) { mStartString = s; }
 
@@ -156,10 +156,6 @@ struct LLCompileQueueData
 class LLFloaterCompileQueue : public LLFloaterScriptQueue
 {
 	friend class LLFloaterReg;
-public:
-	
-	void experienceIdsReceived( const LLSD& content );
-	bool hasExperience(const LLUUID& id)const;
 
 protected:
 	LLFloaterCompileQueue(const LLSD& key);
@@ -173,10 +169,6 @@ protected:
     static void handleHTTPResponse(std::string pumpName, const LLSD &expresult);
     static void handleScriptRetrieval(const LLUUID& assetId, LLAssetType::EType type, void* userData, S32 status, LLExtStat extStatus);
 
-private:
-    static void processExperienceIdResults(LLSD result, LLUUID parent);
-    //uuid_list_t mAssetIds;  // list of asset IDs processed.
-	uuid_list_t mExperienceIds;
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

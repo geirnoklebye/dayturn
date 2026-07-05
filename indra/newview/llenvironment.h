@@ -100,7 +100,6 @@ public:
     {
         ENV_EDIT = 0,
         ENV_LOCAL,
-        ENV_PUSH,
         ENV_PARCEL,
         ENV_REGION,
         ENV_DEFAULT,
@@ -243,8 +242,6 @@ public:
 
     const altitude_list_t &     getRegionAltitudes() const { return mTrackAltitudes; }
 
-    void                        handleEnvironmentPush(LLSD &message);
-
     //cached uniform values from LLSD values
     LLShaderUniforms mWaterUniforms[LLGLSLShader::SG_COUNT];
     LLShaderUniforms mSkyUniforms[LLGLSLShader::SG_COUNT];
@@ -354,18 +351,6 @@ private:
 
     typedef std::array<DayInstance::ptr_t, ENV_END> InstanceArray_t;
 
-    struct ExpEnvironmentEntry
-    {
-        typedef std::shared_ptr<ExpEnvironmentEntry> ptr_t;
-
-        S32Seconds  mTime;
-        LLUUID      mExperienceId;
-        LLSD        mEnvironmentOverrides;
-    };
-    typedef std::deque<ExpEnvironmentEntry::ptr_t>  mPushOverrides;
-
-    LLUUID                      mPushEnvironmentExpId;
-
     static const F32            SUN_DELTA_YAW;
     F32                         mLastCamYaw = 0.0f;
 
@@ -391,8 +376,6 @@ private:
 
     LLSD                        mSkyOverrides;
     LLSD                        mWaterOverrides;
-    typedef std::map<std::string, LLUUID> experience_overrides_t;
-    experience_overrides_t      mExperienceOverrides;
 
     DayInstance::ptr_t          getEnvironmentInstance(EnvSelection_t env, bool create = false);
 
@@ -460,16 +443,6 @@ private:
     void                        onSetEnvAssetLoaded(EnvSelection_t env, LLUUID asset_id, LLSettingsBase::ptr_t settings, LLSettingsBase::Seconds transition, S32 status, S32 env_version);
     void                        onUpdateParcelAssetLoaded(LLUUID asset_id, LLSettingsBase::ptr_t settings, S32 status, S32 parcel_id, S32 day_length, S32 day_offset, altitudes_vect_t altitudes);
 
-    void                        handleEnvironmentPushClear(LLUUID experience_id, LLSD &message, F32 transition);
-    void                        handleEnvironmentPushFull(LLUUID experience_id, LLSD &message, F32 transition);
-    void                        handleEnvironmentPushPartial(LLUUID experience_id, LLSD &message, F32 transition);
-
-    void clearExperienceEnvironment(LLUUID experience_id, LLSettingsBase::Seconds transition_time);
-    void                        setExperienceEnvironment(LLUUID experience_id, LLUUID asset_id, F32 transition_time);
-    void                        setExperienceEnvironment(LLUUID experience_id, LLSD environment, F32 transition_time);
-    void                        onSetExperienceEnvAssetLoaded(LLUUID experience_id, LLSettingsBase::ptr_t setting, F32 transition_time, S32 status);
-
-    void                        listenExperiencePump(const LLSD &message);
     void                        loadSkyWaterFromSettings(const LLSD &env_data, bool &valid, bool &assets_present); // for use in loadFromSettings()
 
 };

@@ -91,10 +91,9 @@ public:
 	// Enables all buttons
 	static void showFromMenu(EReportType report_type);
 
-	static void showFromObject(const LLUUID& object_id, const LLUUID& experience_id = LLUUID::null);
+	static void showFromObject(const LLUUID& object_id);
 	static void showFromAvatar(const LLUUID& avatar_id, const std::string avatar_name);
     static void showFromChat(const LLUUID& avatar_id, const std::string& avatar_name, const std::string& time, const std::string& description);
-	static void showFromExperience(const LLUUID& experience_id);
 
 	static void onClickSend			(void *userdata);
 	static void onClickCancel		(void *userdata);
@@ -110,7 +109,7 @@ public:
 	void takeNewSnapshot();
 
 private:
-	static void show(const LLUUID& object_id, const std::string& avatar_name = LLStringUtil::null, const LLUUID& experience_id = LLUUID::null);
+	static void show(const LLUUID& object_id, const std::string& avatar_name = LLStringUtil::null);
 
 	void takeScreenshot(bool use_prev_screenshot = false);
 	void uploadImage();
@@ -120,7 +119,6 @@ private:
 	void sendReportViaCaps(std::string url, std::string sshot_url, const LLSD & report);
 	void setPosBox(const LLVector3d &pos);
 	void enableControls(bool own_avatar);
-	void getExperienceInfo(const LLUUID& object_id);
 	void getObjectInfo(const LLUUID& object_id);
 	void callbackAvatarID(const uuid_vec_t& ids, const std::vector<LLAvatarName> names);
 	void setFromAvatarID(const LLUUID& avatar_id);
@@ -134,7 +132,6 @@ private:
 	LLUUID 			mObjectID;
 	LLUUID			mScreenID;
 	LLUUID			mAbuserID;
-	LLUUID			mExperienceID;
 	// Store the real name, not the link, for upstream reporting
 	std::string		mOwnerName;
 	bool			mDeselectOnClose;

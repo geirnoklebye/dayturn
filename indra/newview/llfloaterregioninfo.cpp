@@ -49,6 +49,7 @@
 #include "llappviewer.h"
 #include "llavataractions.h"
 #include "llavatarname.h"
+#include "llavatarnamecache.h"
 #include "llfloateravatarpicker.h"
 #include "llbutton.h" 
 #include "llcheckboxctrl.h"
@@ -92,12 +93,7 @@
 #include "llagentui.h"
 #include "llmeshrepository.h"
 #include "llfloaterregionrestarting.h"
-#include "llpanelexperiencelisteditor.h"
-#include "llpanelexperiencepicker.h"
-#include "llexperiencecache.h"
-#include "llpanelexperiences.h"
 #include "llcorehttputil.h"
-#include "llavatarnamecache.h"
 #include "llenvironment.h"
 
 // Aurora Sim - Region Settings Console
@@ -140,17 +136,6 @@ public:
 		const sparam_t& strings);
 };
 
-class LLDispatchSetEstateExperience : public LLDispatchHandler
-{
-public:
-	virtual bool operator()(
-		const LLDispatcher* dispatcher,
-		const std::string& key,
-		const LLUUID& invoice,
-		const sparam_t& strings);
-
-	static LLSD getIDs( sparam_t::const_iterator it, sparam_t::const_iterator end, S32 count );
-};
 
 
 /*
@@ -298,14 +283,6 @@ bool LLFloaterRegionInfo::postBuild()
 		return true;
 	}
 
-	if(!gAgent.getRegionCapability("RegionExperiences").empty())
-	{
-		panel = new LLPanelRegionExperiences;
-		mInfoPanels.push_back(panel);
-		panel->buildFromFile("panel_region_experiences.xml");
-		mTab->addTabPanel(panel);
-	}
-	
 	gMessageSystem->setHandlerFunc(
 		"EstateOwnerMessage", 
 		&processEstateOwnerRequest);
@@ -646,14 +623,6 @@ LLPanelRegionOpenSettingsInfo* LLFloaterRegionInfo::getPanelOpenSettings()
 	LLTabContainer* tab = floater->getChild<LLTabContainer>("region_panels");
 	LLPanelRegionOpenSettingsInfo* panel = (LLPanelRegionOpenSettingsInfo*)tab->getChild<LLPanel>("RegionSettings");
 	return panel;
-}
-
-LLPanelRegionExperiences* LLFloaterRegionInfo::getPanelExperiences()
-{
-	LLFloaterRegionInfo* floater = LLFloaterReg::getTypedInstance<LLFloaterRegionInfo>("region_info");
-	if (!floater) return nullptr;
-	LLTabContainer* tab = floater->getChild<LLTabContainer>("region_panels");
-	return (LLPanelRegionExperiences*)tab->getChild<LLPanel>("Experiences");
 }
 
 void LLFloaterRegionInfo::disableTabCtrls()
@@ -1842,10 +1811,6 @@ void LLPanelEstateInfo::initDispatch(LLDispatcher& dispatch)
 	static LLDispatchSetEstateAccess set_access;
 	dispatch.addHandler(name, &set_access);
 
-	name.assign("setexperience");
-	static LLDispatchSetEstateExperience set_experience;
-	dispatch.addHandler(name, &set_experience);
-
 	estate_dispatch_initialized = true;
 }
 
@@ -2641,321 +2606,6 @@ bool LLDispatchSetEstateAccess::operator()(
 		panel->updateLists();
 	}
 	return true;
-}
-
-// static
-LLSD LLDispatchSetEstateExperience::getIDs( sparam_t::const_iterator it, sparam_t::const_iterator end, S32 count )
-{
-	LLSD idList = LLSD::emptyArray();
-	LLUUID id;
-	while (count-- > 0 && it < end)
-	{
-		memcpy(id.mData, (*(it++)).data(), UUID_BYTES);
-		idList.append(id);
-	}
-	return idList;
-}
-
-// key = "setexperience"
-// strings[0] = str(estate_id)
-// strings[1] = str(send_to_agent_only)
-// strings[2] = str(num blocked)
-// strings[3] = str(num trusted)
-// strings[4] = str(num allowed)
-// strings[5] = bin(uuid) ...
-// ...
-bool LLDispatchSetEstateExperience::operator()(
-	const LLDispatcher* dispatcher,
-	const std::string& key,
-	const LLUUID& invoice,
-	const sparam_t& strings)
-{
-	LLPanelRegionExperiences* panel = LLFloaterRegionInfo::getPanelExperiences();
-	if (!panel)
-		return true;
-
-	const sparam_t::size_type MIN_SIZE = 5;
-	if (strings.size() < MIN_SIZE)
-		return true;
-
-	// Skip 2 parameters
-	sparam_t::const_iterator it = strings.begin();
-	++it; // U32 estate_id = strtol((*it).c_str(), NULL, 10);
-	++it; // U32 send_to_agent_only = strtoul((*(++it)).c_str(), NULL, 10);
-
-	// Read 3 parameters
-	LLUUID id;
-	S32 num_blocked = strtol((*(it++)).c_str(), NULL, 10);
-	S32 num_trusted = strtol((*(it++)).c_str(), NULL, 10);
-	S32 num_allowed = strtol((*(it++)).c_str(), NULL, 10);
-
-	LLSD ids = LLSD::emptyMap()
-		.with("blocked", getIDs(it, strings.end(), num_blocked))
-		.with("trusted", getIDs(it + num_blocked, strings.end(), num_trusted))
-		.with("allowed", getIDs(it + num_blocked + num_trusted, strings.end(), num_allowed));
-
-	panel->processResponse(ids);
-
-	return true;
-}
-
-bool LLPanelRegionExperiences::postBuild()
-{
-	mAllowed = setupList("panel_allowed", ESTATE_EXPERIENCE_ALLOWED_ADD, ESTATE_EXPERIENCE_ALLOWED_REMOVE);
-	mTrusted = setupList("panel_trusted", ESTATE_EXPERIENCE_TRUSTED_ADD, ESTATE_EXPERIENCE_TRUSTED_REMOVE);
-	mBlocked = setupList("panel_blocked", ESTATE_EXPERIENCE_BLOCKED_ADD, ESTATE_EXPERIENCE_BLOCKED_REMOVE);
-
-	getChild<LLLayoutPanel>("trusted_layout_panel")->setVisible(true);
-	getChild<LLTextBox>("experiences_help_text")->setText(getString("estate_caption"));
-	getChild<LLTextBox>("trusted_text_help")->setText(getString("trusted_estate_text"));
-	getChild<LLTextBox>("allowed_text_help")->setText(getString("allowed_estate_text"));
-	getChild<LLTextBox>("blocked_text_help")->setText(getString("blocked_estate_text"));
-
-	return LLPanelRegionInfo::postBuild();
-}
-
-LLPanelExperienceListEditor* LLPanelRegionExperiences::setupList( const char* control_name, U32 add_id, U32 remove_id )
-{
-	LLPanelExperienceListEditor* child = findChild<LLPanelExperienceListEditor>(control_name);
-	if(child)
-	{
-		child->getChild<LLTextBox>("text_name")->setText(child->getString(control_name));
-		child->setMaxExperienceIDs(ESTATE_MAX_EXPERIENCE_IDS);
-		child->setAddedCallback(  boost::bind(&LLPanelRegionExperiences::itemChanged, this, add_id, _1));
-		child->setRemovedCallback(boost::bind(&LLPanelRegionExperiences::itemChanged, this, remove_id, _1));
-	}
-
-	return child;
-}
-
-
-void LLPanelRegionExperiences::processResponse( const LLSD& content )
-{
-	if(content.has("default"))
-	{
-		mDefaultExperience = content["default"].asUUID();
-	}
-
-	mAllowed->setExperienceIds(content["allowed"]);
-	mBlocked->setExperienceIds(content["blocked"]);
-
-	LLSD trusted = content["trusted"];
-	if(mDefaultExperience.notNull())
-	{
-		mTrusted->setStickyFunction(boost::bind(LLPanelExperiencePicker::FilterMatching, _1, mDefaultExperience));
-		trusted.append(mDefaultExperience);
-	}
-
-	mTrusted->setExperienceIds(trusted);
-	
-	mAllowed->refreshExperienceCounter();
-	mBlocked->refreshExperienceCounter();
-	mTrusted->refreshExperienceCounter();
-
-}
-
-// Used for both access add and remove operations, depending on the flag
-// passed in (ESTATE_EXPERIENCE_ALLOWED_ADD, ESTATE_EXPERIENCE_ALLOWED_REMOVE, etc.)
-// static
-bool LLPanelRegionExperiences::experienceCoreConfirm(const LLSD& notification, const LLSD& response)
-{
-	S32 option = LLNotificationsUtil::getSelectedOption(notification, response);
-	const U32 originalFlags = (U32)notification["payload"]["operation"].asInteger();
-
-	LLViewerRegion* region = gAgent.getRegion();
-	
-	LLSD::array_const_iterator end_it = notification["payload"]["allowed_ids"].endArray();
-
-	for (LLSD::array_const_iterator iter = notification["payload"]["allowed_ids"].beginArray();
-		iter != end_it;
-	     iter++)
-	{
-		U32 flags = originalFlags;
-		if (iter + 1 != end_it)
-			flags |= ESTATE_ACCESS_NO_REPLY;
-
-		const LLUUID id = iter->asUUID();
-		switch(option)
-		{
-			case 0:
-			    // This estate
-			    sendEstateExperienceDelta(flags, id);
-			    break;
-			case 1:
-			{
-				// All estates, either than I own or manage for this owner.  
-				// This will be verified on simulator. JC
-				if (!region) break;
-				if (region->getOwner() == gAgent.getID()
-				    || gAgent.isGodlike())
-				{
-					flags |= ESTATE_ACCESS_APPLY_TO_ALL_ESTATES;
-					sendEstateExperienceDelta(flags, id);
-				}
-				else if (region->isEstateManager())
-				{
-					flags |= ESTATE_ACCESS_APPLY_TO_MANAGED_ESTATES;
-					sendEstateExperienceDelta(flags, id);
-				}
-				break;
-			}
-			case 2:
-			default:
-			    break;
-		}
-	}
-	return false;
-}
-
-
-// Send the actual "estateexperiencedelta" message
-void LLPanelRegionExperiences::sendEstateExperienceDelta(U32 flags, const LLUUID& experience_id)
-{
-	strings_t str(3, std::string());
-	gAgent.getID().toString(str[0]);
-	str[1] = llformat("%u", flags);
-	experience_id.toString(str[2]);
-
-	LLPanelRegionExperiences* panel = LLFloaterRegionInfo::getPanelExperiences();
-	if (panel)
-	{
-		panel->sendEstateOwnerMessage(gMessageSystem, "estateexperiencedelta", LLFloaterRegionInfo::getLastInvoice(), str);
-	}
-}
-
-
-void LLPanelRegionExperiences::infoCallback(LLHandle<LLPanelRegionExperiences> handle, const LLSD& content)
-{	
-	if(handle.isDead())
-		return;
-
-	LLPanelRegionExperiences* floater = handle.get();
-	if (floater)
-	{
-		floater->processResponse(content);
-	}
-}
-
-/*static*/
-std::string LLPanelRegionExperiences::regionCapabilityQuery(LLViewerRegion* region, const std::string &cap)
-{
-    // region->getHandle()  How to get a region * from a handle?
-
-    return region->getCapability(cap);
-}
-
-bool LLPanelRegionExperiences::refreshFromRegion(LLViewerRegion* region)
-{
-	bool allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
-
-	mAllowed->loading();
-	mAllowed->setReadonly(!allow_modify);
-	// remove grid-wide experiences
-	mAllowed->addFilter(boost::bind(LLPanelExperiencePicker::FilterWithProperty, _1, LLExperienceCache::PROPERTY_GRID));
-	// remove default experience
-	mAllowed->addFilter(boost::bind(LLPanelExperiencePicker::FilterMatching, _1, mDefaultExperience));
-
-	mBlocked->loading();
-	mBlocked->setReadonly(!allow_modify);
-	// only grid-wide experiences
-	mBlocked->addFilter(boost::bind(LLPanelExperiencePicker::FilterWithoutProperty, _1, LLExperienceCache::PROPERTY_GRID));
-	// but not privileged ones
-	mBlocked->addFilter(boost::bind(LLPanelExperiencePicker::FilterWithProperty, _1, LLExperienceCache::PROPERTY_PRIVILEGED));
-	// remove default experience
-	mBlocked->addFilter(boost::bind(LLPanelExperiencePicker::FilterMatching, _1, mDefaultExperience));
-
-	mTrusted->loading();
-	mTrusted->setReadonly(!allow_modify);
-
-    LLExperienceCache::instance().getRegionExperiences(boost::bind(&LLPanelRegionExperiences::regionCapabilityQuery, region, _1),
-        boost::bind(&LLPanelRegionExperiences::infoCallback, getDerivedHandle<LLPanelRegionExperiences>(), _1));
-
-    return LLPanelRegionInfo::refreshFromRegion(region);
-}
-
-LLSD LLPanelRegionExperiences::addIds(LLPanelExperienceListEditor* panel)
-{
-	LLSD ids;
-	const uuid_list_t& id_list = panel->getExperienceIds();
-	for(uuid_list_t::const_iterator it = id_list.begin(); it != id_list.end(); ++it)
-	{
-		ids.append(*it);
-	}
-	return ids;
-}
-
-
-bool LLPanelRegionExperiences::sendUpdate()
-{
-	LLViewerRegion* region = gAgent.getRegion();
-
-    LLSD content;
-
-	content["allowed"]=addIds(mAllowed);
-	content["blocked"]=addIds(mBlocked);
-	content["trusted"]=addIds(mTrusted);
-
-    LLExperienceCache::instance().setRegionExperiences(boost::bind(&LLPanelRegionExperiences::regionCapabilityQuery, region, _1),
-        content, boost::bind(&LLPanelRegionExperiences::infoCallback, getDerivedHandle<LLPanelRegionExperiences>(), _1));
-
-	return true;
-}
-
-void LLPanelRegionExperiences::itemChanged( U32 event_type, const LLUUID& id )
-{
-	std::string dialog_name;
-	switch (event_type)
-	{
-		case ESTATE_EXPERIENCE_ALLOWED_ADD:
-			dialog_name = "EstateAllowedExperienceAdd";
-			break;
-
-		case ESTATE_EXPERIENCE_ALLOWED_REMOVE:
-			dialog_name = "EstateAllowedExperienceRemove";
-			break;
-
-		case ESTATE_EXPERIENCE_TRUSTED_ADD:
-			dialog_name = "EstateTrustedExperienceAdd";
-			break;
-
-		case ESTATE_EXPERIENCE_TRUSTED_REMOVE:
-			dialog_name = "EstateTrustedExperienceRemove";
-			break;
-
-		case ESTATE_EXPERIENCE_BLOCKED_ADD:
-			dialog_name = "EstateBlockedExperienceAdd";
-			break;
-
-		case ESTATE_EXPERIENCE_BLOCKED_REMOVE:
-			dialog_name = "EstateBlockedExperienceRemove";
-			break;
-
-		default:
-			return;
-	}
-
-	LLSD payload;
-	payload["operation"] = (S32)event_type;
-	payload["dialog_name"] = dialog_name;
-	payload["allowed_ids"].append(id);
-
-	LLSD args;
-	args["ALL_ESTATES"] = all_estates_text();
-
-	LLNotification::Params params(dialog_name);
-	params.payload(payload)
-		.substitutions(args)
-		.functor.function(LLPanelRegionExperiences::experienceCoreConfirm);
-	if (LLPanelEstateInfo::isLindenEstate())
-	{
-		LLNotifications::instance().forceResponse(params, 0);
-	}
-	else
-	{
-		LLNotifications::instance().add(params);
-	}
-
-	onChangeAnything();
 }
 
 

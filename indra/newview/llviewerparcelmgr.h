@@ -311,7 +311,6 @@ public:
 
 private:
 	static void sendParcelAccessListUpdate(U32 flags, const std::map<LLUUID, class LLAccessEntry>& entries, LLViewerRegion* region, S32 parcel_local_id);
-	static void sendParcelExperienceUpdate( const U32 flags, uuid_vec_t experience_ids, LLViewerRegion* region, S32 parcel_local_id );
 	static bool releaseAlertCB(const LLSD& notification, const LLSD& response);
 
 	// If the user is claiming land and the current selection 

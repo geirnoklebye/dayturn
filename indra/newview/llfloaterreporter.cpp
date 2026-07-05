@@ -84,7 +84,6 @@
 #include "llagentui.h"
 
 #include "lltrans.h"
-#include "llexperiencecache.h"
 
 #include "llcorehttputil.h"
 #include "llviewerassetupload.h"
@@ -277,30 +276,6 @@ void LLFloaterReporter::enableControls(bool enable)
 	getChildView("details_edit")->setEnabled(enable);
 	getChildView("send_btn")->setEnabled(enable);
 	getChildView("cancel_btn")->setEnabled(enable);
-}
-
-void LLFloaterReporter::getExperienceInfo(const LLUUID& experience_id)
-{
-	mExperienceID = experience_id;
-
-	if (LLUUID::null != mExperienceID)
-	{
-        const LLSD& experience = LLExperienceCache::instance().get(mExperienceID);
-		std::stringstream desc;
-
-		if(experience.isDefined())
-		{
-			setFromAvatarID(experience[LLExperienceCache::AGENT_ID]);
-			desc << "Experience id: " << mExperienceID;
-		}
-		else
-		{
-			desc << "Unable to retrieve details for id: "<< mExperienceID;
-		}
-		
-		LLUICtrl* details = getChild<LLUICtrl>("details_edit");
-		details->setValue(desc.str());
-	}
 }
 
 void LLFloaterReporter::getObjectInfo(const LLUUID& object_id)
@@ -603,7 +578,7 @@ void LLFloaterReporter::showFromMenu(EReportType report_type)
 }
 
 // static
-void LLFloaterReporter::show(const LLUUID& object_id, const std::string& avatar_name, const LLUUID& experience_id)
+void LLFloaterReporter::show(const LLUUID& object_id, const std::string& avatar_name)
 {
 	LLFloaterReporter* reporter_floater = LLFloaterReg::findTypedInstance<LLFloaterReporter>("reporter");
 	if(reporter_floater && reporter_floater->isInVisibleChain())
@@ -620,36 +595,17 @@ void LLFloaterReporter::show(const LLUUID& object_id, const std::string& avatar_
 	{
 		reporter_floater->setFromAvatarID(object_id);
 	}
-	if(experience_id.notNull())
-	{
-		reporter_floater->getExperienceInfo(experience_id);
-	}
 
 	// Need to deselect on close
 	reporter_floater->mDeselectOnClose = true;
 }
 
-
-
-void LLFloaterReporter::showFromExperience( const LLUUID& experience_id )
-{
-	LLFloaterReporter* reporter_floater = LLFloaterReg::findTypedInstance<LLFloaterReporter>("reporter");
-	if(reporter_floater && reporter_floater->isInVisibleChain())
-	{
-		gSavedPerAccountSettings.setbool("PreviousScreenshotForReport", false);
-	}
-	reporter_floater = LLFloaterReg::showTypedInstance<LLFloaterReporter>("reporter");
-	reporter_floater->getExperienceInfo(experience_id);
-
-	// Need to deselect on close
-	reporter_floater->mDeselectOnClose = true;
-}
 
 
 // static
-void LLFloaterReporter::showFromObject(const LLUUID& object_id, const LLUUID& experience_id)
+void LLFloaterReporter::showFromObject(const LLUUID& object_id)
 {
-	show(object_id, LLStringUtil::null, experience_id);
+	show(object_id, LLStringUtil::null);
 }
 
 // static

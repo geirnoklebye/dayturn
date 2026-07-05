@@ -116,7 +116,6 @@
 // Linden library includes
 #include "llavatarnamecache.h"
 #include "lldiriterator.h"
-#include "llexperiencecache.h"
 #include "llimagej2c.h"
 #include "llmemory.h"
 #include "llprimitive.h"
@@ -5788,12 +5787,6 @@ void LLAppViewer::disconnectViewer()
 
 	LLAvatarNameCache::instance().setCustomNameCheckCallback(LLAvatarNameCache::custom_name_check_callback_t()); // <FS:Ansariel> Contact sets
 	saveNameCache();
-	if (LLExperienceCache::instanceExists())
-	{
-		// TODO: LLExperienceCache::cleanup() logic should be moved to
-		// cleanupSingleton().
-		LLExperienceCache::instance().cleanup();
-	}
 
 	// close inventory interface, close all windows
 	LLSidepanelInventory::cleanup();

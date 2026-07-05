@@ -1405,8 +1405,6 @@ extern char const* const _PREHASH_AppearanceVersion;
 extern char const* const _PREHASH_CofVersion;
 extern char const* const _PREHASH_AppearanceHover;
 extern char const* const _PREHASH_HoverHeight;
-extern char const* const _PREHASH_Experience;
-extern char const* const _PREHASH_ExperienceID;
 extern char const* const _PREHASH_LargeGenericMessage;
 
 #endif

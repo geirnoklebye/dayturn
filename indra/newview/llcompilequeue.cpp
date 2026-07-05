@@ -57,7 +57,6 @@
 #include "lltrans.h"
 
 #include "llselectmgr.h"
-#include "llexperiencecache.h"
 
 #include "llviewerassetupload.h"
 #include "llcorehttputil.h"
@@ -129,9 +128,9 @@ class LLQueuedScriptAssetUpload : public LLScriptAssetUpload
 {
 public:
     LLQueuedScriptAssetUpload(LLUUID taskId, LLUUID itemId, LLUUID assetId, TargetType_t targetType,
-            bool isRunning, std::string scriptName, LLUUID queueId, LLUUID exerienceId, taskUploadFinish_f finish) :
-        LLScriptAssetUpload(taskId, itemId, targetType, isRunning, 
-            exerienceId, std::string(), finish),
+            bool isRunning, std::string scriptName, LLUUID queueId, taskUploadFinish_f finish) :
+        LLScriptAssetUpload(taskId, itemId, targetType, isRunning,
+            std::string(), finish),
         mScriptName(scriptName),
         mQueueId(queueId)
     {
@@ -176,8 +175,6 @@ struct LLScriptQueueData
 	LLUUID mTaskId;
 	LLPointer<LLInventoryItem> mItem;
 	LLHost mHost;
-	LLUUID mExperienceId;
-	std::string mExperiencename;
 	LLScriptQueueData(const LLUUID& q_id, const LLUUID& task_id, LLInventoryItem* item) :
 		mQueueID(q_id), mTaskId(task_id), mItem(new LLInventoryItem(item)) {}
 
@@ -360,19 +357,6 @@ LLFloaterCompileQueue::~LLFloaterCompileQueue()
 { 
 }
 
-void LLFloaterCompileQueue::experienceIdsReceived( const LLSD& content )
-{
-	for(LLSD::array_const_iterator it  = content.beginArray(); it != content.endArray(); ++it)
-	{
-		mExperienceIds.insert(it->asUUID());
-	}
-}
-
-bool LLFloaterCompileQueue::hasExperience( const LLUUID& id ) const
-{
-	return mExperienceIds.find(id) != mExperienceIds.end();
-}
-
 // //Attempt to record this asset ID.  If it can not be inserted into the set 
 // //then it has already been processed so return false.
 
@@ -415,30 +399,6 @@ void LLFloaterCompileQueue::handleScriptRetrieval(const LLUUID& assetId,
 
 }
 
-/*static*/
-void LLFloaterCompileQueue::processExperienceIdResults(LLSD result, LLUUID parent)
-{
-    LLFloaterCompileQueue* queue = LLFloaterReg::findTypedInstance<LLFloaterCompileQueue>("compile_queue", parent);
-    if (!queue)
-        return;
-
-    queue->experienceIdsReceived(result["experience_ids"]);
-
-    // getDerived handle gets a handle that can be resolved to a parent class of the derived object.
-    LLHandle<LLFloaterScriptQueue> hFloater(queue->getDerivedHandle<LLFloaterScriptQueue>());
-
-    // note subtle difference here: getDerivedHandle in this case is for an LLFloaterCompileQueue
-    fnQueueAction_t fn = boost::bind(LLFloaterCompileQueue::processScript,
-        queue->getDerivedHandle<LLFloaterCompileQueue>(), _1, _2, _3);
-
-
-    LLCoros::instance().launch("ScriptQueueCompile", boost::bind(LLFloaterScriptQueue::objectScriptProcessingQueueCoro,
-        queue->mStartString,
-        hFloater,
-        queue->mObjectList,
-        fn));
-
-}
 
 /// This is a utility function to be bound and called from objectScriptProcessingQueueCoro.
 /// Do not call directly. It may throw a LLCheckedHandle<>::Stale exception.
@@ -474,40 +434,6 @@ bool LLFloaterCompileQueue::processScript(LLHandle<LLFloaterCompileQueue> hfloat
         std::string buffer = "Skipping: " + item->getName() + "(Permissions)";
         floater->addStringMessage(buffer);
         return true;
-    }
-
-    // Attempt to retrieve the experience
-    LLUUID experienceId;
-    {
-        LLExperienceCache::instance().fetchAssociatedExperience(inventory->getParentUUID(), inventory->getUUID(),
-            boost::bind(&LLFloaterCompileQueue::handleHTTPResponse, pump.getName(), _1));
-
-        result = llcoro::suspendUntilEventOnWithTimeout(pump, QUEUE_INVENTORY_FETCH_TIMEOUT,
-            LLSDMap("timeout", LLSD::Boolean(true)));
-
-        floater.check();
-
-        if (result.has("timeout"))
-        {   // A timeout filed in the result will always be true if present.
-            LLStringUtil::format_map_t args;
-            args["[OBJECT_NAME]"] = inventory->getName();
-            std::string buffer = floater->getString("Timeout", args);
-            floater->addStringMessage(buffer);
-            return true;
-        }
-
-        if (result.has(LLExperienceCache::EXPERIENCE_ID))
-        {
-            experienceId = result[LLExperienceCache::EXPERIENCE_ID].asUUID();
-            if (!floater->hasExperience(experienceId))
-            {
-                floater->addProcessingMessage("CompileNoExperiencePerm", 
-                    LLSDMap("SCRIPT", inventory->getName())
-                        ("EXPERIENCE", result[LLExperienceCache::NAME].asString()));
-                return true;
-            }
-        }
-
     }
 
     if (!gAssetStorage)
@@ -572,7 +498,6 @@ bool LLFloaterCompileQueue::processScript(LLHandle<LLFloaterCompileQueue> hfloat
             true, 
             inventory->getName(), 
             LLUUID(), 
-            experienceId, 
             boost::bind(&LLFloaterCompileQueue::handleHTTPResponse, pump.getName(), _4));
 
         LLViewerAssetUpload::EnqueueInventoryUpload(url, uploadInfo);
@@ -620,23 +545,16 @@ bool LLFloaterCompileQueue::processScript(LLHandle<LLFloaterCompileQueue> hfloat
 
 bool LLFloaterCompileQueue::startQueue()
 {
-    LLViewerRegion* region = gAgent.getRegion();
-    if (region)
-    {
-        std::string lookup_url = region->getCapability("GetCreatorExperiences");
-        if (!lookup_url.empty())
-        {
-            LLCoreHttpUtil::HttpCoroutineAdapter::completionCallback_t success =
-                boost::bind(&LLFloaterCompileQueue::processExperienceIdResults, _1, getKey().asUUID());
+    // Bind the processScript method into a QueueAction function and pass it
+    // into the object queue processing coroutine.
+    fnQueueAction_t fn = boost::bind(LLFloaterCompileQueue::processScript,
+        getDerivedHandle<LLFloaterCompileQueue>(), _1, _2, _3);
 
-            LLCoreHttpUtil::HttpCoroutineAdapter::completionCallback_t failure =
-                boost::bind(&LLFloaterCompileQueue::processExperienceIdResults, LLSD(), getKey().asUUID());
-
-            LLCoreHttpUtil::HttpCoroutineAdapter::callbackHttpGet(lookup_url,
-                success, failure);
-            return true;
-        }
-    }
+    LLCoros::instance().launch("ScriptCompileQueue", boost::bind(LLFloaterScriptQueue::objectScriptProcessingQueueCoro,
+        mStartString,
+        getDerivedHandle<LLFloaterScriptQueue>(),
+        mObjectList,
+        fn));
 
     return true;
 }

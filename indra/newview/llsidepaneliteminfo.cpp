@@ -44,7 +44,6 @@
 #include "llviewercontrol.h"
 #include "llviewerinventory.h"
 #include "llviewerobjectlist.h"
-#include "llexperiencecache.h"
 #include "lltrans.h"
 #include "llviewerregion.h"
 
@@ -358,21 +357,6 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 	{
 		is_obj_modify = object->permOwnerModify();
 	}
-
-    if(item->getInventoryType() == LLInventoryType::IT_LSL)
-    {
-        getChildView("LabelItemExperienceTitle")->setVisible(true);
-        LLTextBox* tb = getChild<LLTextBox>("LabelItemExperience");
-        tb->setText(getString("loading_experience"));
-        tb->setVisible(true);
-        std::string url = std::string();
-        if(object && object->getRegion())
-        {
-            url = object->getRegion()->getCapability("GetMetadata");
-        }
-        LLExperienceCache::instance().fetchAssociatedExperience(item->getParentUUID(), item->getUUID(), url,
-                boost::bind(&LLSidepanelItemInfo::setAssociatedExperience, getDerivedHandle<LLSidepanelItemInfo>(), _1));
-    }
     
 	//////////////////////
 	// ITEM NAME & DESC //
@@ -727,28 +711,6 @@ void LLSidepanelItemInfo::refreshFromItem(LLViewerInventoryItem* item)
 		edit_cost->setValue(llformat("%d",0));
 		combo_sale_type->setValue(LLSaleInfo::FS_COPY);
 	}
-}
-
-
-void LLSidepanelItemInfo::setAssociatedExperience( LLHandle<LLSidepanelItemInfo> hInfo, const LLSD& experience )
-{
-    LLSidepanelItemInfo* info = hInfo.get();
-    if(info)
-    {
-        LLUUID id;
-        if(experience.has(LLExperienceCache::EXPERIENCE_ID))
-        {
-            id=experience[LLExperienceCache::EXPERIENCE_ID].asUUID();
-        }
-        if(id.notNull())
-        {
-            info->getChild<LLTextBox>("LabelItemExperience")->setText(LLSLURL("experience", id, "profile").getSLURLString());    
-        }
-        else
-        {
-            info->getChild<LLTextBox>("LabelItemExperience")->setText(LLTrans::getString("ExperienceNameNull"));
-        }
-    }
 }
 
 

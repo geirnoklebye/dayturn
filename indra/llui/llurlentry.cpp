@@ -41,7 +41,6 @@
 #include "lltrans.h"
 #include "lluicolortable.h"
 #include "message.h"
-#include "llexperiencecache.h"
 #include "v3dmath.h"
 
 #define APP_HEADER_REGEX "(((hop|x-grid-location-info)://[-\\w\\.\\:\\@]+/app)|((hop|secondlife):///app))"
@@ -1539,58 +1538,6 @@ std::string LLUrlEntryEmail::getUrl(const std::string &string) const
 		return "mailto:" + escapeUrl(string);
 	}
 	return escapeUrl(string);
-}
-
-LLUrlEntryExperienceProfile::LLUrlEntryExperienceProfile()
-{
-    mPattern = boost::regex(APP_HEADER_REGEX "/experience/[\\da-f-]+/profile",
-        boost::regex::perl|boost::regex::icase);
-    mIcon = "Generic_Experience";
-	mMenuName = "menu_url_experience.xml";
-}
-
-std::string LLUrlEntryExperienceProfile::getLabel( const std::string &url, const LLUrlLabelCallback &cb )
-{
-    if (!gCacheName)
-    {
-        // probably at the login screen, use short string for layout
-        return LLTrans::getString("LoadingData");
-    }
-
-    std::string experience_id_string = getIDStringFromUrl(url);
-    if (experience_id_string.empty())
-    {
-        // something went wrong, just give raw url
-        return unescapeUrl(url);
-    }
-
-    LLUUID experience_id(experience_id_string);
-    if (experience_id.isNull())
-    {
-        return LLTrans::getString("ExperienceNameNull");
-    }
-
-    const LLSD& experience_details = LLExperienceCache::instance().get(experience_id);
-    if(!experience_details.isUndefined())
-    {
-		std::string experience_name_string = experience_details[LLExperienceCache::NAME].asString();
-        return experience_name_string.empty() ? LLTrans::getString("ExperienceNameUntitled") : experience_name_string;
-    }
-
-    addObserver(experience_id_string, url, cb);
-    LLExperienceCache::instance().get(experience_id, boost::bind(&LLUrlEntryExperienceProfile::onExperienceDetails, this, _1));
-    return LLTrans::getString("LoadingData");
-
-}
-
-void LLUrlEntryExperienceProfile::onExperienceDetails( const LLSD& experience_details )
-{
-	std::string name = experience_details[LLExperienceCache::NAME].asString();
-	if(name.empty())
-	{
-		name = LLTrans::getString("ExperienceNameUntitled");
-	}
-    callObservers(experience_details[LLExperienceCache::EXPERIENCE_ID].asString(), name, LLStringUtil::null);
 }
 
 //
