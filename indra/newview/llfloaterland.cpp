@@ -45,7 +45,6 @@
 #include "llcombobox.h"
 #include "llfloaterreg.h"
 #include "llfloateravatarpicker.h"
-#include "llfloaterauction.h"
 #include "llfloaterbanduration.h"
 #include "llfloatergroups.h"
 #include "llfloaterscriptlimits.h"
@@ -78,10 +77,7 @@
 #include "llviewercontrol.h"
 #include "roles_constants.h"
 #include "lltrans.h"
-#include "llpanelexperiencelisteditor.h"
-#include "llpanelexperiencepicker.h"
 #include "llpanelenvironment.h"
-#include "llexperiencecache.h"
 
 #include "llgroupactions.h"
 #include "llenvironment.h"
@@ -123,28 +119,6 @@ public:
 };
 
 
-class LLPanelLandExperiences
-	:	public LLPanel
-{
-public:	
-	LLPanelLandExperiences(LLSafeHandle<LLParcelSelection>& parcelp);
-	virtual bool postBuild();
-	void refresh();
-
-	void experienceAdded(const LLUUID& id, U32 xp_type, U32 access_type);
-	void experienceRemoved(const LLUUID& id, U32 access_type);
-protected:
-	LLPanelExperienceListEditor* setupList( const char* control_name, U32 xp_type, U32 access_type );
-	void refreshPanel(LLPanelExperienceListEditor* panel, U32 xp_type);
-
-	LLSafeHandle<LLParcelSelection>&	mParcel;
-
-
-	LLPanelExperienceListEditor* mAllowed;
-	LLPanelExperienceListEditor* mBlocked;
-};
-
-
 class LLPanelLandEnvironment
     : public LLPanelEnvironmentInfo
 {
@@ -176,7 +150,7 @@ protected:
 };
 
 
-// inserts maturity info(icon and text) into target textbox 
+// inserts maturity info(icon and text) into target textbox
 // names_floater - pointer to floater which contains strings with maturity icons filenames
 // str_to_parse is string in format "txt1[MATURITY]txt2" where maturity icon and text will be inserted instead of [MATURITY]
 void insert_maturity_into_textbox(LLTextBox* target_textbox, LLFloater* names_floater, std::string str_to_parse);
@@ -314,7 +288,6 @@ LLFloaterLand::LLFloaterLand(const LLSD& seed)
 	mFactoryMap["land_audio_panel"] =	LLCallbackMap(createPanelLandAudio, this);
 	mFactoryMap["land_media_panel"] =	LLCallbackMap(createPanelLandMedia, this);
 	mFactoryMap["land_access_panel"] =	LLCallbackMap(createPanelLandAccess, this);
-	mFactoryMap["land_experiences_panel"] =	LLCallbackMap(createPanelLandExperiences, this);
     mFactoryMap["land_environment_panel"] = LLCallbackMap(createPanelLandEnvironment, this);
 
 	sObserver = new LLParcelSelectionObserver();
@@ -333,15 +306,6 @@ bool LLFloaterLand::postBuild()
 	{
 		tab->selectTab(sLastTab);
 	}
-
-// <FS:Ansariel> FIRE-17280: Requesting Experience access allow and block list interferes with OpenSim landflags
-
-	if (!gIsInSecondLife)
-	{
-		mTabLand->removeTabPanel(mTabLand->getPanelByName("land_experiences_panel"));
-	}
-
-// <FS:Ansariel>
 
 	return true;
 }
@@ -365,7 +329,6 @@ void LLFloaterLand::refresh()
 	mPanelMedia->refresh();
 	mPanelAccess->refresh();
 	mPanelCovenant->refresh();
-	mPanelExperiences->refresh();
     mPanelEnvironment->refresh();
 }
 
@@ -425,14 +388,6 @@ void* LLFloaterLand::createPanelLandAccess(void* data)
 	LLFloaterLand* self = (LLFloaterLand*)data;
 	self->mPanelAccess = new LLPanelLandAccess(self->mParcel);
 	return self->mPanelAccess;
-}
-
-// static
-void* LLFloaterLand::createPanelLandExperiences(void* data)
-{
-	LLFloaterLand* self = (LLFloaterLand*)data;
-	self->mPanelExperiences = new LLPanelLandExperiences(self->mParcel);
-	return self->mPanelExperiences;
 }
 
 //static 
@@ -549,9 +504,6 @@ bool LLPanelLandGeneral::postBuild()
 	mBtnReclaimLand = getChild<LLButton>("Reclaim Land...");
 	mBtnReclaimLand->setClickedCallback(onClickReclaim, NULL);
 
-	mBtnStartAuction = getChild<LLButton>("Linden Sale...");
-	mBtnStartAuction->setClickedCallback(onClickStartAuction, this);
-
 	mBtnScriptLimits = getChild<LLButton>("Scripts...");
 
 	if(gDisconnected)
@@ -601,7 +553,6 @@ void LLPanelLandGeneral::refresh()
 
 	mBtnDeedToGroup->setEnabled(false);
 	mBtnSetGroup->setEnabled(false);
-	mBtnStartAuction->setEnabled(false);
 
 	mCheckDeedToGroup	->set(false);
 	mCheckDeedToGroup	->setEnabled(false);
@@ -641,7 +592,6 @@ void LLPanelLandGeneral::refresh()
 		return;
 	}
 
-	mBtnStartAuction->setVisible(gAgent.isGodlike());
 	bool region_owner = false;
 	LLViewerRegion* regionp = LLViewerParcelMgr::getInstance()->getSelectionRegion();
 	if(regionp && (regionp->getOwner() == gAgent.getID()))
@@ -699,7 +649,6 @@ void LLPanelLandGeneral::refresh()
 			mTextClaimDate->setEnabled(false);
 			mTextGroup->setText(getString("none_text"));
 			mTextGroup->setEnabled(false);
-			mBtnStartAuction->setEnabled(false);
 		}
 		else
 		{
@@ -751,11 +700,6 @@ void LLPanelLandGeneral::refresh()
 			LLStringUtil::format (claim_date_str, substitution);
 			mTextClaimDate->setText(claim_date_str);
 			mTextClaimDate->setEnabled(is_leased);
-
-			bool enable_auction = (gAgent.getGodLevel() >= GOD_LIAISON)
-								  && (owner_id == GOVERNOR_LINDEN_ID)
-								  && (parcel->getAuctionID() == 0);
-			mBtnStartAuction->setEnabled(enable_auction);
 		}
 
 		// Display options
@@ -1079,25 +1023,6 @@ void LLPanelLandGeneral::onClickBuyPass(void* data)
 	// creating pointer on selection to avoid deselection of parcel until we are done with buying pass (EXT-6464)
 	sSelectionForBuyPass = LLViewerParcelMgr::getInstance()->getParcelSelection();
 	LLNotificationsUtil::add("LandBuyPass", args, LLSD(), cbBuyPass);
-}
-
-// static
-void LLPanelLandGeneral::onClickStartAuction(void* data)
-{
-	LLPanelLandGeneral* panelp = (LLPanelLandGeneral*)data;
-	LLParcel* parcelp = panelp->mParcel->getParcel();
-	if(parcelp)
-	{
-		if(parcelp->getForSale())
-		{
-			LLNotificationsUtil::add("CannotStartAuctionAlreadyForSale");
-		}
-		else
-		{
-			//LLFloaterAuction::showInstance();
-			LLFloaterReg::showInstance("auction");
-		}
-	}
 }
 
 // static
@@ -3249,106 +3174,6 @@ void insert_maturity_into_textbox(LLTextBox* target_textbox, LLFloater* names_fl
 
 	target_textbox->appendText(LLViewerParcelMgr::getInstance()->getSelectionRegion()->getSimAccessString(), false);
 	target_textbox->appendText(text_after_rating, false);
-}
-
-LLPanelLandExperiences::LLPanelLandExperiences( LLSafeHandle<LLParcelSelection>& parcelp ) 
-	: mParcel(parcelp)
-{
-
-}
-
-
-bool LLPanelLandExperiences::postBuild()
-{
-	mAllowed = setupList("panel_allowed", EXPERIENCE_KEY_TYPE_ALLOWED, AL_ALLOW_EXPERIENCE);
-	mBlocked = setupList("panel_blocked", EXPERIENCE_KEY_TYPE_BLOCKED, AL_BLOCK_EXPERIENCE);
-
-	// only non-grid-wide experiences
-	mAllowed->addFilter(boost::bind(LLPanelExperiencePicker::FilterWithProperty, _1, LLExperienceCache::PROPERTY_GRID));
-
-	// no privileged ones
-	mBlocked->addFilter(boost::bind(LLPanelExperiencePicker::FilterWithoutProperties, _1, LLExperienceCache::PROPERTY_PRIVILEGED|LLExperienceCache::PROPERTY_GRID));
-
-	getChild<LLLayoutPanel>("trusted_layout_panel")->setVisible(false);
-	getChild<LLTextBox>("experiences_help_text")->setVisible(false);
-	getChild<LLTextBox>("allowed_text_help")->setText(getString("allowed_parcel_text"));
-	getChild<LLTextBox>("blocked_text_help")->setText(getString("blocked_parcel_text"));
-	
-	return LLPanel::postBuild();
-}
-
-LLPanelExperienceListEditor* LLPanelLandExperiences::setupList( const char* control_name, U32 xp_type, U32 access_type )
-{
-	LLPanelExperienceListEditor* child = findChild<LLPanelExperienceListEditor>(control_name);
-	if(child)
-	{
-		child->getChild<LLTextBox>("text_name")->setText(child->getString(control_name));
-		child->setMaxExperienceIDs(PARCEL_MAX_EXPERIENCE_LIST);
-		child->setAddedCallback(boost::bind(&LLPanelLandExperiences::experienceAdded, this, _1, xp_type, access_type));
-		child->setRemovedCallback(boost::bind(&LLPanelLandExperiences::experienceRemoved, this, _1, access_type));
-	}
-
-	return child;
-}
-
-void LLPanelLandExperiences::experienceAdded( const LLUUID& id, U32 xp_type, U32 access_type )
-{
-	LLParcel* parcel = mParcel->getParcel();
-	if (parcel)
-	{			
-		parcel->setExperienceKeyType(id, xp_type);
-		LLViewerParcelMgr::getInstance()->sendParcelAccessListUpdate(access_type);
-		refresh();
-	}
-}
-
-void LLPanelLandExperiences::experienceRemoved( const LLUUID& id, U32 access_type )
-{
-	LLParcel* parcel = mParcel->getParcel();
-	if (parcel)
-	{			
-		parcel->setExperienceKeyType(id, EXPERIENCE_KEY_TYPE_NONE);
-		LLViewerParcelMgr::getInstance()->sendParcelAccessListUpdate(access_type);
-		refresh();
-	}
-}
-
-void LLPanelLandExperiences::refreshPanel(LLPanelExperienceListEditor* panel, U32 xp_type)
-{
-	LLParcel *parcel = mParcel->getParcel();
-
-	// Display options
-	if (panel == nullptr)
-	{
-		return;
-	}
-	if (!parcel || gDisconnected)
-	{
-		// disable the panel
-		panel->setEnabled(false);
-		panel->setExperienceIds(LLSD::emptyArray());
-	}
-	else
-	{
-		// enable the panel
-		panel->setEnabled(true);
-		LLAccessEntry::map entries = parcel->getExperienceKeysByType(xp_type);
-		LLAccessEntry::map::iterator it = entries.begin();
-		LLSD ids = LLSD::emptyArray();
-		for (/**/; it != entries.end(); ++it)
-		{
-			ids.append(it->second.mID);
-		}
-		panel->setExperienceIds(ids);
-		panel->setReadonly(!LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_OPTIONS));
-		panel->refreshExperienceCounter();
-	}
-}
-
-void LLPanelLandExperiences::refresh()
-{
-	refreshPanel(mAllowed, EXPERIENCE_KEY_TYPE_ALLOWED);
-	refreshPanel(mBlocked, EXPERIENCE_KEY_TYPE_BLOCKED);
 }
 
 //=========================================================================

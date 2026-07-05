@@ -1712,9 +1712,6 @@ Haz clic en OK para instalar.
 		Lo sentimos, pero no puedes ignorar a un Linden.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		No puedes empezar una subasta en una parcela que ya está en venta. Desactiva la venta de terreno si estás seguro de querer iniciar una subasta.
-	</notification>
 	<notification label="Falló ignorar el objeto según su nombre." name="MuteByNameFailed">
 		Ya has ignorado este nombre.
 		<usetemplate name="okbutton" yestext="OK"/>

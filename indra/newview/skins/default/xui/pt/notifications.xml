@@ -1697,9 +1697,6 @@ Deseja prosseguir?
 		Desculpe, nenhum Linden pode ser bloqueado.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Você não pode começar um leilão com um lote que já foi colocado à venda. Desabilite a venda se você tem certeza que deseja fazer um leilão.
-	</notification>
 	<notification label="Falha ao bloquear objeto por nome" name="MuteByNameFailed">
 		Você já bloqueou este residente.
 		<usetemplate name="okbutton" yestext="OK"/>

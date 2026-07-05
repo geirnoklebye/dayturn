@@ -138,7 +138,6 @@ Gå til &apos;Verden&apos; &gt; &apos;Om land&apos; eller vælg en anden parcel 
 			<button label="Køb adgang" name="Buy Pass..." tool_tip="Giver adgang til midlertidig adgang til dette område."/>
 			<button label="Efterlad land" name="Abandon Land..."/>
 			<button label="Kræv tilbage" name="Reclaim Land..."/>
-			<button label="Linden salg" name="Linden Sale..." tool_tip="Land skal være ejet, indholdsrating sat og ikke allerede på auktion."/>
 		</panel>
 		<panel label="REGLER" name="land_covenant_panel">
 			<panel.string name="can_resell">

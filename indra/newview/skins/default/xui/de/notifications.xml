@@ -1721,9 +1721,6 @@ Diese Gruppe verlassen?
 		Lindens können nicht ignoriert werden.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Eine Parzelle, die bereits zum Verkauf freigegeben ist, kann nicht versteigert werden.  Deaktivieren Sie den Landverkauf, wenn Sie das Land zur Versteigerung freigeben möchten.
-	</notification>
 	<notification label="Objekt nach Name ignorieren ist fehlgeschlagen" name="MuteByNameFailed">
 		Dieser Name wird bereits ignoriert.
 		<usetemplate name="okbutton" yestext="OK"/>

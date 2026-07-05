@@ -112,7 +112,6 @@
 				Wczytywanie...
 			</text>
 			<button label="Kup działkę" name="Buy Land..." />
-			<button label="Sprzedaż przez Lindenów" name="Linden Sale..." tool_tip="Działka musi mieć Właściciela, zawartość oraz nie może być wystawiona na Aukcję." />
 			<button label="Skrypty" name="Scripts..."/>
 			<button label="Kup dla Grupy" name="Buy For Group..." />
 			<button label="Kup Przepustkę" name="Buy Pass..." tool_tip="Przepustka udostępnia tymczasowy wstęp na działkę." />

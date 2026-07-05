@@ -1707,9 +1707,6 @@ Gruptan ayrılmak istiyor musunuz?
 		Üzgünüz, bir Linden çalışanını engelleyemezsiniz.
 		<usetemplate name="okbutton" yestext="Tamam"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Satılığa çıkarılmış bir parsel için açık arttırma başlatamazsınız.  Açık arttırma başlatmak istediğinize eminseniz arazi satışını devre dışı bırakın.
-	</notification>
 	<notification label="Nesneyi ada göre engelleme başarısız" name="MuteByNameFailed">
 		Bu adı zaten engellediniz.
 		<usetemplate name="okbutton" yestext="Tamam"/>

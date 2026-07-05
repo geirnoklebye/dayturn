@@ -4490,13 +4490,6 @@ Sorry, you cannot block a Linden.
      yestext="OK"/>
   </notification>
 
-  <notification
-   icon="alertmodal.tga"
-   name="CannotStartAuctionAlreadyForSale"
-   type="alertmodal">
-    You cannot start an auction on a parcel which is already set for sale.  Disable the land sale if you are sure you want to start an auction.
-    <tag>fail</tag>
-  </notification>
 
   <notification
    icon="alertmodal.tga"

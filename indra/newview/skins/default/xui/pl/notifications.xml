@@ -1498,9 +1498,6 @@ Chcesz ją opuścić?
 	<notification name="MuteLinden">
 		Przepraszamy, ale nie możesz zablokować Lindena.
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Aukcja nie może zostać rozpoczęta dla działki, która została już wcześniej wystawiona na sprzedaż. Dezaktywuj opcję sprzedaży działki, jeżeli chcesz rozpocząć aukcję.
-	</notification>
 	<notification label="Blokowanie obiektów według nazwy nie powiodło się" name="MuteByNameFailed">
 		Rezydent/obiekt jest już zablokowany.
 	</notification>

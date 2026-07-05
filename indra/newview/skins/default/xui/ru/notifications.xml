@@ -1706,9 +1706,6 @@
 		Заблокировать Linden нельзя.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Нельзя выставить на аукцион участок, который уже продается.  Отмените продажу участка, если действительно хотите начать аукцион.
-	</notification>
 	<notification label="Не удалось блокировать объект по имени" name="MuteByNameFailed">
 		Вы уже внесли это имя в черный список.
 		<usetemplate name="okbutton" yestext="OK"/>

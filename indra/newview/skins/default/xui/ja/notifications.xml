@@ -1740,9 +1740,6 @@ https://secondlife.com/support/downloads/ からダウンロードしてくだ�
 		リンデンをブロックすることはできません。
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		既に売り出し中の区画なのでオークションにかけることはできません。  オークションにかけたい場合は売り出し設定を解除してから行ってください。
-	</notification>
 	<notification label="名前でのオブジェクトのブロックに失敗しました" name="MuteByNameFailed">
 		この名前は既にブロック済みです。
 		<usetemplate name="okbutton" yestext="OK"/>

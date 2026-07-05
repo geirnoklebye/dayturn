@@ -666,9 +666,6 @@ Du skal genstarte [APP_NAME] for at installere denne opdatering.
 	<notification name="MuteLinden">
 		Beklager, men du kan ikke blokere en Linden.
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Du kan ikke starte en auktion på en parcel som allerede er sat til salg. Fjern &apos;til salg&apos; muligheden hvis du ønsker at starte en auktion.
-	</notification>
 	<notification label="Blokering af objekt via navn mislykkedes" name="MuteByNameFailed">
 		Du har allerede blokeret dette navn.
 	</notification>

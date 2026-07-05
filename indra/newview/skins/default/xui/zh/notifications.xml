@@ -1694,9 +1694,6 @@ SHA1 指紋：[MD5_DIGEST]
 		抱歉，你無法封鎖任何一位 Linden。
 		<usetemplate name="okbutton" yestext="確定"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		你無法在已在出售中的地段裡進行拍賣。  你如果確定要拍賣，請先停止土地出售。
-	</notification>
 	<notification label="依名稱封鎖物件失敗" name="MuteByNameFailed">
 		你已經封鎖了這個名稱。
 		<usetemplate name="okbutton" yestext="確定"/>

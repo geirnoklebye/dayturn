@@ -66,7 +66,6 @@ class LLPanelLandBan;
 class LLPanelLandRenters;
 class LLPanelLandCovenant;
 class LLParcel;
-class LLPanelLandExperiences;
 class LLPanelLandEnvironment;
 
 class LLFloaterLand
@@ -103,7 +102,6 @@ protected:
 	static void* createPanelLandAudio(void* data);
 	static void* createPanelLandMedia(void* data);
 	static void* createPanelLandAccess(void* data);
-	static void* createPanelLandExperiences(void* data);
     static void* createPanelLandEnvironment(void* data);
 	static void* createPanelLandBan(void* data);
 
@@ -120,7 +118,6 @@ protected:
 	LLPanelLandMedia*		mPanelMedia;
 	LLPanelLandAccess*		mPanelAccess;
 	LLPanelLandCovenant*	mPanelCovenant;
-	LLPanelLandExperiences*	mPanelExperiences;
     LLPanelLandEnvironment *mPanelEnvironment;
 
 	LLSafeHandle<LLParcelSelection>	mParcel;
@@ -170,7 +167,6 @@ public:
 	static void callbackAvatarPick(const std::vector<std::string>& names, const uuid_vec_t& ids, void* data);
 	static void finalizeAvatarPick(void* data);
 	static void callbackHighlightTransferable(S32 option, void* userdata);
-	static void onClickStartAuction(void*);
 	// sale change confirmed when "is for sale", "sale price", "sell to whom" fields are changed
 	static void confirmSaleChange(S32 landSize, S32 salePrice, std::string authorizedName, void(*callback)(void*), void* userdata);
 	static void callbackConfirmSaleChange(S32 option, void* userdata);
@@ -230,7 +226,6 @@ protected:
 	LLButton*		mBtnReclaimLand;
 
 	LLButton*		mBtnBuyPass;
-	LLButton* mBtnStartAuction;
 
 	LLSafeHandle<LLParcelSelection>&	mParcel;
 

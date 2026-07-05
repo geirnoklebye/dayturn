@@ -1707,9 +1707,6 @@ Lasciare il gruppo?
 		Spiacenti, non puoi bloccare un Linden.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="CannotStartAuctionAlreadyForSale">
-		Non è possibile mettere in vendita all&apos;asta un terreno che è già impostato per la vendita. Disabilita la vendita del terreno, se sei certo di voler avviare una vendita all&apos;asta.
-	</notification>
 	<notification label="Il blocco dell&apos;oggetto in base al nome non è riuscito," name="MuteByNameFailed">
 		hai già bloccato questo nome.
 		<usetemplate name="okbutton" yestext="OK"/>
