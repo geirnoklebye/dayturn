@@ -162,7 +162,6 @@ public:
 	void onEditWearableClicked(void);
 	void onAddWearableClicked(void);
 	void onReplaceMenuItemClicked(LLUUID selected_item_id);
-	void onShopButtonClicked();
 
 	void displayCurrentOutfit();
 	void updateCurrentOutfitName();
@@ -203,10 +202,6 @@ private:
 
 	void updateWearablesPanelVerbButtons();
 
-	typedef std::pair<LLWearableType::EType, size_t> selection_info_t;
-
-	LLWearableType::EType getCOFWearablesSelectionType() const;
-	selection_info_t getAddMorePanelSelectionType() const;
 	LLWearableType::EType getWearableTypeByItemUUID(const LLUUID& item_uuid) const;
 
 	LLTextBox*			mCurrentOutfitName;

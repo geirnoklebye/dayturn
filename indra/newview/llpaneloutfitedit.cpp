@@ -82,70 +82,6 @@ static const std::string REVERT_BTN("revert_btn");
 static const std::string SAVE_AS_BTN("save_as_btn");
 static const std::string SAVE_BTN("save_btn");
 
-
-///////////////////////////////////////////////////////////////////////////////
-// LLShopURLDispatcher
-///////////////////////////////////////////////////////////////////////////////
-
-class LLShopURLDispatcher
-{
-public:
-	std::string resolveURL(LLWearableType::EType wearable_type, ESex sex);
-	std::string resolveURL(LLAssetType::EType asset_type, ESex sex);
-};
-
-std::string LLShopURLDispatcher::resolveURL(LLWearableType::EType wearable_type, ESex sex)
-{
-	const std::string prefix = "MarketplaceURL";
-	const std::string sex_str = (sex == SEX_MALE) ? "Male" : "Female";
-	const std::string type_str = LLWearableType::getInstance()->getTypeName(wearable_type);
-
-	std::string setting_name = prefix;
-
-	switch (wearable_type)
-	{
-	case LLWearableType::WT_ALPHA:
-	case LLWearableType::WT_NONE:
-	case LLWearableType::WT_INVALID:	// just in case, this shouldn't happen
-	case LLWearableType::WT_COUNT:		// just in case, this shouldn't happen
-		break;
-
-	default:
-		setting_name += '_';
-		setting_name += type_str;
-		setting_name += sex_str;
-		break;
-	}
-
-	return gSavedSettings.getString(setting_name);
-}
-
-std::string LLShopURLDispatcher::resolveURL(LLAssetType::EType asset_type, ESex sex)
-{
-	const std::string prefix = "MarketplaceURL";
-	const std::string sex_str = (sex == SEX_MALE) ? "Male" : "Female";
-	const std::string type_str = LLAssetType::lookup(asset_type);
-
-	std::string setting_name = prefix;
-
-	switch (asset_type)
-	{
-	case LLAssetType::AT_CLOTHING:
-	case LLAssetType::AT_OBJECT:
-	case LLAssetType::AT_BODYPART:
-		setting_name += '_';
-		setting_name += type_str;
-		setting_name += sex_str;
-		break;
-
-	// to suppress warnings
-	default:
-		break;
-	}
-
-	return gSavedSettings.getString(setting_name);
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 // LLPanelOutfitEditGearMenu
 ///////////////////////////////////////////////////////////////////////////////
@@ -482,9 +418,6 @@ bool LLPanelOutfitEdit::postBuild()
 	childSetCommitCallback("folder_view_btn", boost::bind(&LLPanelOutfitEdit::saveListSelection, this), NULL);
 	childSetCommitCallback("list_view_btn", boost::bind(&LLPanelOutfitEdit::showWearablesListView, this), NULL);
 	childSetCommitCallback("list_view_btn", boost::bind(&LLPanelOutfitEdit::saveListSelection, this), NULL);
-	childSetCommitCallback("shop_btn_1", boost::bind(&LLPanelOutfitEdit::onShopButtonClicked, this), NULL);
-	childSetCommitCallback("shop_btn_2", boost::bind(&LLPanelOutfitEdit::onShopButtonClicked, this), NULL);
-
 	setVisibleCallback(boost::bind(&LLPanelOutfitEdit::onVisibilityChanged, this, _2));
 
 	mWearablesGearMenuBtn = getChild<LLMenuButton>("wearables_gear_menu_btn");
@@ -810,117 +743,6 @@ void LLPanelOutfitEdit::onReplaceMenuItemClicked(LLUUID selected_item_id)
 	{
 		showFilteredWearablesListView(item->getWearableType());
 	}
-}
-
-void LLPanelOutfitEdit::onShopButtonClicked()
-{
-	static LLShopURLDispatcher url_resolver;
-
-	// will contain the resultant URL
-	std::string url;
-
-	if (isAgentAvatarValid())
-	{
-		// try to get wearable type from 'Add More' panel first (EXT-7639)
-		selection_info_t selection_info = getAddMorePanelSelectionType();
-
-		LLWearableType::EType type = selection_info.first;
-
-		if (selection_info.second > 1)
-		{
-			// the second argument is not important in this case: generic market place will be opened
-			url = url_resolver.resolveURL(LLWearableType::WT_NONE, SEX_FEMALE);
-		}
-		else
-		{
-		if (type == LLWearableType::WT_NONE)
-		{
-			type = getCOFWearablesSelectionType();
-		}
-
-		ESex sex = gAgentAvatarp->getSex();
-
-		// WT_INVALID comes for attachments
-		if (type != LLWearableType::WT_INVALID && type != LLWearableType::WT_NONE)
-		{
-			url = url_resolver.resolveURL(type, sex);
-		}
-
-		if (url.empty())
-		{
-				url = url_resolver.resolveURL(
-						mCOFWearables->getExpandedAccordionAssetType(), sex);
-			}
-		}
-	}
-	else
-	{
-		LL_WARNS() << "Agent avatar is invalid" << LL_ENDL;
-
-		// the second argument is not important in this case: generic market place will be opened
-		url = url_resolver.resolveURL(LLWearableType::WT_NONE, SEX_FEMALE);
-	}
-
-	LLWeb::loadURL(url);
-}
-
-LLWearableType::EType LLPanelOutfitEdit::getCOFWearablesSelectionType() const
-{
-	std::vector<LLPanel*> selected_items;
-	LLWearableType::EType type = LLWearableType::WT_NONE;
-
-	mCOFWearables->getSelectedItems(selected_items);
-
-	if (selected_items.size() == 1)
-	{
-		LLPanel* item = selected_items.front();
-
-		// LLPanelDummyClothingListItem is lower then LLPanelInventoryListItemBase in hierarchy tree
-		if (LLPanelDummyClothingListItem* dummy_item = dynamic_cast<LLPanelDummyClothingListItem*>(item))
-		{
-			type = dummy_item->getWearableType();
-		}
-		else if (LLPanelInventoryListItemBase* real_item = dynamic_cast<LLPanelInventoryListItemBase*>(item))
-		{
-			type = real_item->getWearableType();
-		}
-	}
-
-	return type;
-}
-
-LLPanelOutfitEdit::selection_info_t LLPanelOutfitEdit::getAddMorePanelSelectionType() const
-{
-	selection_info_t result = std::make_pair(LLWearableType::WT_NONE, 0);
-
-	if (mAddWearablesPanel != nullptr && mAddWearablesPanel->getVisible())
-	{
-		if (mInventoryItemsPanel != nullptr && mInventoryItemsPanel->getVisible())
-		{
-			std::set<LLFolderViewItem*> selected_items =    mInventoryItemsPanel->getRootFolder()->getSelectionList();
-
-			result.second = selected_items.size();
-
-			if (result.second == 1)
-			{
-				result.first = getWearableTypeByItemUUID(static_cast<LLFolderViewModelItemInventory*>((*selected_items.begin())->getViewModelItem())->getUUID());
-			}
-		}
-		else if (mWearableItemsList != nullptr && mWearableItemsList->getVisible())
-		{
-			std::vector<LLUUID> selected_uuids;
-			mWearableItemsList->getSelectedUUIDs(selected_uuids);
-
-			result.second = selected_uuids.size();
-
-			if (result.second == 1)
-			{
-				result.first = getWearableTypeByItemUUID(selected_uuids.front());
-			}
-		}
-	}
-
-	return result;
 }
 
 LLWearableType::EType LLPanelOutfitEdit::getWearableTypeByItemUUID(const LLUUID& item_uuid) const
