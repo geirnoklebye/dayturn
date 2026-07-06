@@ -441,48 +441,6 @@ Warten Sie kurz und versuchen Sie dann noch einmal, sich anzumelden.
 	<string name="TooltipSLIcon">
 		Führt zu einer Seite in der offiziellen Domäne SecondLife.com oder LindenLab.com.
 	</string>
-	<string name="TooltipOutboxDragToWorld">
-		Sie können keine Objekte aus dem Marktplatz-Auflistungsordner rezzen
-	</string>
-	<string name="TooltipOutboxWorn">
-		Sie können Objekte, die Sie tragen, nicht in den Marktplatz-Auflistungsordner stellen
-	</string>
-	<string name="TooltipOutboxFolderLevels">
-		Tiefe der verschachtelten Ordner überschreitet [AMOUNT]. Reduzieren Sie die Ordnertiefe. Verpacken Sie ggf. einige Artikel.
-	</string>
-	<string name="TooltipOutboxTooManyFolders">
-		Anzahl von Unterordnern überschreitet [AMOUNT]. Reduzieren Sie die Anzahl von Ordnern in Ihrer Auflistung. Verpacken Sie ggf. einige Artikel.
-	</string>
-	<string name="TooltipOutboxTooManyObjects">
-		Anzahl von Objekten überschreitet [AMOUNT]. Um mehr als [AMOUNT] Objekte in einer Auflistung verkaufen zu können, müssen Sie einige davon verpacken.
-	</string>
-	<string name="TooltipOutboxTooManyStockItems">
-		Anzahl von Bestandsobjekten überschreitet [AMOUNT].
-	</string>
-	<string name="TooltipOutboxCannotDropOnRoot">
-		Sie können Objekte oder Ordner nur in der Registerkarte „ALLE“ oder „NICHT VERKNüPFT“ ablegen. Klicken Sie auf eine dieser Registerkarten und versuchen Sie dann erneut, Ihre Objekte bzw. Ordner zu verschieben.
-	</string>
-	<string name="TooltipOutboxNoTransfer">
-		Mindestens eines dieser Objekte kann nicht verkauft oder übertragen werden
-	</string>
-	<string name="TooltipOutboxNotInInventory">
-		Sie können nur Objekte aus Ihrem Inventar in den Marktplatz einstellen
-	</string>
-	<string name="TooltipOutboxLinked">
-		Sie können keine verknüpften Objekte oder Ordner in den Marktplatz einstellen
-	</string>
-	<string name="TooltipOutboxCallingCard">
-		Sie können Visitenkarten nicht in den Marktplatz einstellen
-	</string>
-	<string name="TooltipOutboxDragActive">
-		Sie können keine gelistete Auflistung entfernen
-	</string>
-	<string name="TooltipOutboxCannotMoveRoot">
-		Der Stammordner mit Marktplatz-Auflistungen kann nicht verschoben werden.
-	</string>
-	<string name="TooltipOutboxMixedStock">
-		Alle Objekte in einem Bestandsordner müssen vom gleichen Typ sein und die gleiche Berechtigung haben
-	</string>
 	<string name="TooltipDragOntoOwnChild">
 		Sie können einen Ordner nicht in einen seiner untergeordneten Ordner verschieben
 	</string>
@@ -1451,29 +1409,11 @@ besuchen Sie bitte http://secondlife.com/support
 	<string name="FavoritesNoMatchingItems">
 		Landmarke hier hin ziehen, um diese hinzuzufügen.
 	</string>
-	<string name="MarketplaceNoMatchingItems">
-		Keine übereinstimmenden Objekte gefunden. Überprüfen Sie die Schreibweise des Suchbegriffs und versuchen Sie es noch einmal.
-	</string>
 	<string name="InventoryNoTexture">
 		Sie haben keine Kopie dieser Textur in Ihrem Inventar.
 	</string>
-	<string name="InventoryInboxNoItems">
-		Einkäufe aus dem Marktplatz erscheinen hier. Sie können diese dann zur Verwendung in Ihr Inventar ziehen.
-	</string>
 	<string name="MarketplaceURL">
 		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/
-	</string>
-	<string name="MarketplaceURL_CreateStore">
-		http://community.secondlife.com/t5/English-Knowledge-Base/Selling-in-the-Marketplace/ta-p/700193#Section_.3
-	</string>
-	<string name="MarketplaceURL_Dashboard">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/dashboard
-	</string>
-	<string name="MarketplaceURL_Imports">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/imports
-	</string>
-	<string name="MarketplaceURL_LearnMore">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
 	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		Fenster mit Spieloptionen öffnen.
@@ -1484,125 +1424,8 @@ besuchen Sie bitte http://secondlife.com/support
 	<string name="InventoryPlaySoundTooltip">
 		Fenster mit Spieloptionen öffnen.
 	</string>
-	<string name="InventoryOutboxNotMerchantTitle">
-		Jeder kann Artikel im Marktplatz verkaufen.
-	</string>
-	<string name="InventoryOutboxNotMerchantTooltip"/>
-	<string name="InventoryOutboxNotMerchant">
-		Wenn Sie als Händler aktiv werden möchten, müssen Sie einen [[MARKETPLACE_CREATE_STORE_URL] Laden im Marktplatz erstellen].
-	</string>
-	<string name="InventoryOutboxNoItemsTitle">
-		Ihre Outbox ist leer.
-	</string>
-	<string name="InventoryOutboxNoItemsTooltip"/>
-	<string name="InventoryOutboxNoItems">
-		Ziehen Sie Ordner in dien Bereich und klicken Sie auf „In Marktplatz übertragen“, um sie im [[MARKETPLACE_DASHBOARD_URL] Marktplatz] zum Verkauf anzubieten.
-	</string>
-	<string name="InventoryOutboxInitializingTitle">
-		Marktplatz wird initialisiert.
-	</string>
-	<string name="InventoryOutboxInitializing">
-		Wir greifen auf Ihr Konto im [[MARKETPLACE_CREATE_STORE_URL] Marktplatz-Laden] zu.
-	</string>
-	<string name="InventoryOutboxErrorTitle">
-		Marktplatzfehler.
-	</string>
-	<string name="InventoryOutboxError">
-		Der [[MARKETPLACE_CREATE_STORE_URL] Marktplatz-Laden] gibt Fehler zurück.
-	</string>
-	<string name="InventoryMarketplaceError">
-		Beim Öffnen der Marktplatz-Auflistungen ist ein Fehler aufgetreten.
-Falls diese Meldung weiterhin angezeigt wird, wenden Sie sich unter http://support.secondlife.com an den Support von Second Life.
-	</string>
-	<string name="InventoryMarketplaceListingsNoItemsTitle">
-		Ihr Ordner mit Marktplatz-Auflistungen ist leer.
-	</string>
-	<string name="InventoryMarketplaceListingsNoItems">
-		Ziehen Sie Ordner in diesen Bereich, um sie im [[MARKETPLACE_DASHBOARD_URL] Marktplatz] zum Verkauf anzubieten.
-	</string>
 	<string name="InventoryItemsCount">
 		( [ITEMS_COUNT] Artikel )
-	</string>
-	<string name="Marketplace Validation Warning Stock">
-		Bestandsordner müssen in einem Versionsordner gespeichert sein
-	</string>
-	<string name="Marketplace Validation Error Mixed Stock">
-		: Fehler: Alle Objekte in einem Bestandsordner müssen kopiergeschützt und vom gleichen Typ sein.
-	</string>
-	<string name="Marketplace Validation Error Subfolder In Stock">
-		: Fehler: Bestandsordner kann keine Unterordner enthalten
-	</string>
-	<string name="Marketplace Validation Warning Empty">
-		: Warnung: Ordner enthält keine Objekte
-	</string>
-	<string name="Marketplace Validation Warning Create Stock">
-		: Warnung: Bestandsordner wird erstellt
-	</string>
-	<string name="Marketplace Validation Warning Create Version">
-		: Warnung: Versionsordner wird erstellt
-	</string>
-	<string name="Marketplace Validation Warning Move">
-		: Warnung: Objekte werden verschoben
-	</string>
-	<string name="Marketplace Validation Warning Delete">
-		: Warnung: Ordnerinhalte wurden in Bestandsordner übertragen; leerer Ordner wird entfernt
-	</string>
-	<string name="Marketplace Validation Error Stock Item">
-		: Fehler: Kopiergeschützte Objekte müssen in einem Bestandsordner gespeichert sein
-	</string>
-	<string name="Marketplace Validation Warning Unwrapped Item">
-		: Warnung: Objekte müssen in einem Versionsordner gespeichert sein
-	</string>
-	<string name="Marketplace Validation Error">
-		: Fehler:
-	</string>
-	<string name="Marketplace Validation Warning">
-		: Warnung:
-	</string>
-	<string name="Marketplace Validation Error Empty Version">
-		: Warnung: Versionsordner muss mindestens 1 Objekt enthalten
-	</string>
-	<string name="Marketplace Validation Error Empty Stock">
-		: Warnung: Bestandsordner muss mindestens 1 Objekt enthalten
-	</string>
-	<string name="Marketplace Validation No Error">
-		Keine Fehler oder Warnungen
-	</string>
-	<string name="Marketplace Error None">
-		Keine Fehler
-	</string>
-	<string name="Marketplace Error Prefix">
-		Fehler:
-	</string>
-	<string name="Marketplace Error Not Merchant">
-		Bevor Sie Artikel in den Marktplatz übertragen können, müssen Sie sich als Händler registrieren (kostenlos).
-	</string>
-	<string name="Marketplace Error Not Accepted">
-		Objekt kann nicht in diesen Ordner verschoben werden.
-	</string>
-	<string name="Marketplace Error Unsellable Item">
-		Dieses Objekt kann nicht im Marktplatz verkauft werden.
-	</string>
-	<string name="MarketplaceNoID">
-		keine Mkt-ID
-	</string>
-	<string name="MarketplaceLive">
-		aufgelistet
-	</string>
-	<string name="MarketplaceActive">
-		aktiv
-	</string>
-	<string name="MarketplaceMax">
-		max.
-	</string>
-	<string name="MarketplaceStock">
-		Bestand
-	</string>
-	<string name="MarketplaceNoStock">
-		ausverkauft
-	</string>
-	<string name="MarketplaceUpdating">
-		Aktualisierung läuft...
 	</string>
 	<string name="UploadFeeInfo">
 		Die Gebühr richtet sich nach deiner Abonnementstufe. Bei höheren Stufen werden niedrigere Gebühren erhoben. [https://secondlife.com/my/account/membership.php? Mehr erfahren]
@@ -5471,20 +5294,11 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	<string name="Command_Map_Label">
 		Karte
 	</string>
-	<string name="Command_Marketplace_Label">
-		Marktplatz
-	</string>
-	<string name="Command_MarketplaceListings_Label">
-		Marktplatz
-	</string>
 	<string name="Command_MiniMap_Label">
 		Minikarte
 	</string>
 	<string name="Command_Move_Label">
 		Gehen / Rennen / Fliegen
-	</string>
-	<string name="Command_Outbox_Label">
-		Händler-Outbox
 	</string>
 	<string name="Command_People_Label">
 		Leute
@@ -5561,20 +5375,11 @@ Setzen Sie den Editorpfad in Anführungszeichen
 	<string name="Command_Map_Tooltip">
 		Weltkarte
 	</string>
-	<string name="Command_Marketplace_Tooltip">
-		Einkaufen gehen
-	</string>
-	<string name="Command_MarketplaceListings_Tooltip">
-		Ihre Kreation verkaufen
-	</string>
 	<string name="Command_MiniMap_Tooltip">
 		Leute in der Nähe anzeigen
 	</string>
 	<string name="Command_Move_Tooltip">
 		Ihren Avatar bewegen
-	</string>
-	<string name="Command_Outbox_Tooltip">
-		Artikel zum Verkauf in den Marktplatz übertragen
 	</string>
 	<string name="Command_People_Tooltip">
 		Freunde, Gruppen und Leute in der Nähe

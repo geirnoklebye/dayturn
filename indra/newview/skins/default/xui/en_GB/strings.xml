@@ -64,7 +64,6 @@ Where Key = database field name, xmlDataToPutIntoTheDatabase = serialised XML da
     <string name="LoginQuicktimeOK">QuickTime initialised successfully.</string>
     <string name="BUTTON_MINIMIZE">Minimise</string>
 
-    <string name="Marketplace Error Folder Depth">Error: This item contains too many levels of nested folders.  Reorganise it to a maximum of 3 levels of nested folders.</string>
     <string name="MBAlreadyRunning">
 [APP_NAME] is already running.
 Check your task bar for a minimised copy of the program.

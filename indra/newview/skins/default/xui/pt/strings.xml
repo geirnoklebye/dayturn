@@ -404,48 +404,6 @@ Aguarde um minuto antes que tentar logar-se novamente.
 	<string name="TooltipSLIcon">
 		Isso contém um link para uma página no domínio oficial do SecondLife.com ou LindenLab.com.
 	</string>
-	<string name="TooltipOutboxDragToWorld">
-		Não é possível fazer rez de itens da pasta Listagens do Marketplace
-	</string>
-	<string name="TooltipOutboxWorn">
-		Não é possível colocar itens que você estiver usando na pasta Listagens do Marketplace
-	</string>
-	<string name="TooltipOutboxFolderLevels">
-		A profundidade das pastas aninhadas excede [AMOUNT]. Diminua a profundidade das pastas dentro de pastas. Agrupe os itens se necessário.
-	</string>
-	<string name="TooltipOutboxTooManyFolders">
-		O número de subpastas excede [AMOUNT]. Diminua a o número de pastas em sua listagem. Agrupe os itens se necessário.
-	</string>
-	<string name="TooltipOutboxTooManyObjects">
-		O número de itens excede [AMOUNT]. Para vender mais que [AMOUNT] itens em uma listagem, você deve agrupar alguns deles.
-	</string>
-	<string name="TooltipOutboxTooManyStockItems">
-		O número de itens de estoque excede [AMOUNT].
-	</string>
-	<string name="TooltipOutboxCannotDropOnRoot">
-		Você pode soltar somente itens ou pastas na aba TUDO ou NÃO ASSOCIADOS. Selecione uma dessas abas e mova seus itens ou pastas novamente.
-	</string>
-	<string name="TooltipOutboxNoTransfer">
-		Um ou mais objetos não podem ser vendidos ou transferidos
-	</string>
-	<string name="TooltipOutboxNotInInventory">
-		É possível colocar somente itens do seu inventário no Marketplace
-	</string>
-	<string name="TooltipOutboxLinked">
-		Não é possível colocar itens ou pastas vinculadas no Marketplace
-	</string>
-	<string name="TooltipOutboxCallingCard">
-		Não é possível colocar cartões de visitas no Marketplace
-	</string>
-	<string name="TooltipOutboxDragActive">
-		Não é possível mover uma listagem publicada
-	</string>
-	<string name="TooltipOutboxCannotMoveRoot">
-		Não é possível mover a pasta raiz das listagens do Marketplace
-	</string>
-	<string name="TooltipOutboxMixedStock">
-		Todos os itens em uma pasta de estoque têm o mesmo tipo e permissão
-	</string>
 	<string name="TooltipDragOntoOwnChild">
 		Não é possível mover uma pasta para seu filho
 	</string>
@@ -1399,29 +1357,11 @@ http://secondlife.com/support para ajuda ao resolver este problema.
 	<string name="FavoritesNoMatchingItems">
 		Arraste um marco para adicioná-lo aos seus favoritos.
 	</string>
-	<string name="MarketplaceNoMatchingItems">
-		Nenhum item correspondente encontrado. Verifique a ortografia de sua cadeia de pesquisa e tente novamente.
-	</string>
 	<string name="InventoryNoTexture">
 		Você não possui uma cópia desta textura no seu inventário
 	</string>
-	<string name="InventoryInboxNoItems">
-		Suas compras do Marketplace aparecerão aqui. Depois, você poderá arrastá-las para seu inventário para usá-las.
-	</string>
 	<string name="MarketplaceURL">
 		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
-	</string>
-	<string name="MarketplaceURL_CreateStore">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]/create_store
-	</string>
-	<string name="MarketplaceURL_Dashboard">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
-	</string>
-	<string name="MarketplaceURL_Imports">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/imports
-	</string>
-	<string name="MarketplaceURL_LearnMore">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
 	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		Abrir a janela com as opções do Jogo.
@@ -1432,125 +1372,8 @@ http://secondlife.com/support para ajuda ao resolver este problema.
 	<string name="InventoryPlaySoundTooltip">
 		Abrir a janela com as opções do Jogo.
 	</string>
-	<string name="InventoryOutboxNotMerchantTitle">
-		Qualquer um pode vender itens no Mercado.
-	</string>
-	<string name="InventoryOutboxNotMerchantTooltip"/>
-	<string name="InventoryOutboxNotMerchant">
-		Se você deseja se tornar um lojista, precisará [[MARKETPLACE_CREATE_STORE_URL] criar uma loja no Mercado].
-	</string>
-	<string name="InventoryOutboxNoItemsTitle">
-		Sua caixa de saída está vazia
-	</string>
-	<string name="InventoryOutboxNoItemsTooltip"/>
-	<string name="InventoryOutboxNoItems">
-		Arraste as pastas para estas áreas e então clique em &quot;Enviar para Mercado&quot; para listar os itens para venda no [[MARKETPLACE_DASHBOARD_URL] Mercado].
-	</string>
-	<string name="InventoryOutboxInitializingTitle">
-		Inicializando o Marketplace.
-	</string>
-	<string name="InventoryOutboxInitializing">
-		Estamos acessando sua conta na [loja [MARKETPLACE_CREATE_STORE_URL] do Marketplace].
-	</string>
-	<string name="InventoryOutboxErrorTitle">
-		Erros do Marketplace.
-	</string>
-	<string name="InventoryOutboxError">
-		A loja [[MARKETPLACE_CREATE_STORE_URL] no Marketplace] está retornando erros.
-	</string>
-	<string name="InventoryMarketplaceError">
-		Erro ao abrir as listagens do Marketplace.
-Se você continuar a receber essa mensagem, entre em contato com o suporte do Second Life para obter ajuda em http://support.secondlife.com
-	</string>
-	<string name="InventoryMarketplaceListingsNoItemsTitle">
-		Sua pasta Listagens do Marketplace está vazia.
-	</string>
-	<string name="InventoryMarketplaceListingsNoItems">
-		Arraste pastas para esta área para listá-las para venda no [Marketplace [MARKETPLACE_DASHBOARD_URL]].
-	</string>
 	<string name="InventoryItemsCount">
 		( [ITEMS_COUNT] Items )
-	</string>
-	<string name="Marketplace Validation Warning Stock">
-		a pasta de estoque deve estar em uma pasta de versões
-	</string>
-	<string name="Marketplace Validation Error Mixed Stock">
-		: Erro: todos os itens em uma pasta de estoque devem ser de cópia proibida e todos do mesmo tipo
-	</string>
-	<string name="Marketplace Validation Error Subfolder In Stock">
-		: Erro: a pasta de estoque não pode ter subpastas
-	</string>
-	<string name="Marketplace Validation Warning Empty">
-		: Aviso: a pasta não contém itens
-	</string>
-	<string name="Marketplace Validation Warning Create Stock">
-		: Aviso: criando pasta de estoque
-	</string>
-	<string name="Marketplace Validation Warning Create Version">
-		: Aviso: criando pasta de versões
-	</string>
-	<string name="Marketplace Validation Warning Move">
-		: Aviso: movendo itens
-	</string>
-	<string name="Marketplace Validation Warning Delete">
-		: Aviso: conteúdo da pasta transferido para pasta de estoque, removendo pasta vazia
-	</string>
-	<string name="Marketplace Validation Error Stock Item">
-		: Erro: itens de cópia proibida devem estar em uma pasta de estoque
-	</string>
-	<string name="Marketplace Validation Warning Unwrapped Item">
-		: Aviso: os itens devem estar em uma pasta de versões
-	</string>
-	<string name="Marketplace Validation Error">
-		: Erro:
-	</string>
-	<string name="Marketplace Validation Warning">
-		: Aviso:
-	</string>
-	<string name="Marketplace Validation Error Empty Version">
-		: Aviso: a pasta de versões deve conter pelo menos 1 item
-	</string>
-	<string name="Marketplace Validation Error Empty Stock">
-		: Aviso: a pasta de estoque deve conter pelo menos 1 item
-	</string>
-	<string name="Marketplace Validation No Error">
-		Não há erros ou avisos
-	</string>
-	<string name="Marketplace Error None">
-		Sem erros
-	</string>
-	<string name="Marketplace Error Prefix">
-		Erro:
-	</string>
-	<string name="Marketplace Error Not Merchant">
-		antes de enviar os itens para o Marketplace, é necessário que você se defina como um lojista (sem custos).
-	</string>
-	<string name="Marketplace Error Not Accepted">
-		Não é possível mover o item nessa pasta.
-	</string>
-	<string name="Marketplace Error Unsellable Item">
-		Este item não pode ser vendido no Marketplace.
-	</string>
-	<string name="MarketplaceNoID">
-		no Mkt ID
-	</string>
-	<string name="MarketplaceLive">
-		publicada
-	</string>
-	<string name="MarketplaceActive">
-		ativo
-	</string>
-	<string name="MarketplaceMax">
-		máx
-	</string>
-	<string name="MarketplaceStock">
-		estoque
-	</string>
-	<string name="MarketplaceNoStock">
-		esgotado
-	</string>
-	<string name="MarketplaceUpdating">
-		atualizando...
 	</string>
 	<string name="UploadFeeInfo">
 		A taxa é baseada em seu nível de inscrição. Níveis mais altos possuem taxas mais baixas. [https://secondlife.com/my/account/membership.php? Saiba mais]
@@ -5334,20 +5157,11 @@ Tente colocar o caminho do editor entre aspas.
 	<string name="Command_Map_Label">
 		Mapa
 	</string>
-	<string name="Command_Marketplace_Label">
-		Mercado
-	</string>
-	<string name="Command_MarketplaceListings_Label">
-		Marketplace
-	</string>
 	<string name="Command_MiniMap_Label">
 		Mini Mapa
 	</string>
 	<string name="Command_Move_Label">
 		Andar/correr/voar
-	</string>
-	<string name="Command_Outbox_Label">
-		Caixa de saída do lojista
 	</string>
 	<string name="Command_People_Label">
 		Pessoas
@@ -5424,20 +5238,11 @@ Tente colocar o caminho do editor entre aspas.
 	<string name="Command_Map_Tooltip">
 		Mapa-múndi
 	</string>
-	<string name="Command_Marketplace_Tooltip">
-		Faça compras
-	</string>
-	<string name="Command_MarketplaceListings_Tooltip">
-		Venda suas criações
-	</string>
 	<string name="Command_MiniMap_Tooltip">
 		Mostrar quem está aqui
 	</string>
 	<string name="Command_Move_Tooltip">
 		Movendo seu avatar
-	</string>
-	<string name="Command_Outbox_Tooltip">
-		Transferir itens para o seu mercado para venda
 	</string>
 	<string name="Command_People_Tooltip">
 		Amigos, grupos e pessoas próximas

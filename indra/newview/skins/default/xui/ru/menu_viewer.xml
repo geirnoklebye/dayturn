@@ -23,7 +23,6 @@
 			<menu_item_check label="Не беспокоить" name="Do Not Disturb"/>
 		</menu>
 		<menu_item_call label="Купить L$..." name="Buy and Sell L$"/>
-		<menu_item_call label="Списки товаров торгового центра..." name="MarketplaceListings"/>
 		<menu_item_call label="Информационная панель аккаунта..." name="Manage My Account"/>
 		<menu_item_call label="Настройки..." name="Preferences"/>
 		<menu_item_call label="Кнопки панели инструментов..." name="Toolbars"/>

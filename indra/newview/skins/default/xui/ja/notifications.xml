@@ -98,128 +98,11 @@
 		現在の衣類、身体部位の変更を保存しますか？
 		<usetemplate canceltext="キャンセル" name="yesnocancelbuttons" notext="保存しない" yestext="保存"/>
 	</notification>
-	<notification name="ConfirmNoCopyToOutbox">
-		これらのアイテムの 1 つまたは複数をマーチャントアウトボックスにコピーする許可がありません。移動するか、置き去りにすることはできます。
-		<usetemplate name="okcancelbuttons" notext="アイテムを移動しない" yestext="アイテムを移動"/>
-	</notification>
-	<notification name="OutboxFolderCreated">
-		マーチャントアウトボックスの最上位に転送した各アイテムにつき、それぞれ 1 つの新しいフォルダが作成されました。
-		<usetemplate ignoretext="新しいフォルダがマーチャントアウトボックス内に作成されました" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportComplete">
-		成功
-
-マーケットプレイスに正常に送信されたすべてのフォルダ
-		<usetemplate ignoretext="マーケットプレイスに送信されたすべてのフォルダ" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportHadErrors">
-		一部のフォルダは転送されませんでした
-
-一部のフォルダがマーケットプレイスに送信されたときにエラーが発生しました。これらのフォルダはまだマーチャントアウトボックス内にあります。
-
-詳細については、[[MARKETPLACE_IMPORTS_URL] エラーログ]をご覧ください。
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportFailed">
-		&apos;[ERROR_CODE]&apos; エラーで転送できませんでした
-
-システムまたはネットワークのエラーのため、フォルダはマーケットプレイスに送信されませんでした。後でもう一度お試しください。
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxInitFailed">
-		&apos;[ERROR_CODE]&apos; エラーでマーケットプレイスを初期化できませんでした
-
-システムまたはネットワークのエラーのため、マーケットプレイスの初期化に失敗しました。後でもう一度お試しください。
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="StockPasteFailed">
 		在庫フォルダへのコピーまたは移動がエラーにより失敗しました:        
 
 &apos;[ERROR_CODE]&apos;
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantPasteFailed">
-		マーケットプレイスのリストへのコピーまたは移動がエラーにより失敗しました:        
-
-&apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantTransactionFailed">
-		マーケットプレイスによる取引が次のエラーにより失敗しました:
-        
-[ERROR_REASON][ERROR_DESCRIPTION]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantUnprocessableEntity">
-		この製品をリストに表示できないか、バージョンフォルダを有効にできません。通常、これはリスト説明フォームに情報が不足しているために起こりますが、フォルダ構造のエラーが原因の場合もあります。リストを編集するか、リストフォルダにエラーがないか確認してください。
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantListingFailed">
-		マーケットプレイスへのリスト表示が次のエラーで失敗しました :
-        
-&apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantFolderActivationFailed">
-		このバージョンフォルダの有効化が次のエラーにより失敗しました :
-
-&apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantForceValidateListing">
-		リストを作成するために、リストするコンテンツの階層を固定しました。
-		<usetemplate ignoretext="リストの作成によりコンテンツの階層が修正されることを警告する" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantActiveChange">
-		この操作により、このリストの有効な内容が変更されます。続けますか？
-		<usetemplate ignoretext="マーケットプレイスで有効なリストを変更する前に確認する" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantMoveInventory">
-		マーケットプレイスのリストウィンドウにドラッグしたアイテムは元の場所からコピーされるのではなく、移動します。続けますか？
-		<usetemplate ignoretext="アイテムをインベントリからマーケットプレイスに移動する前に確認する" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmListingCutOrDelete">
-		リストフォルダを移動または削除すると、マーケットプレイスのリストが削除されます。マーケットプレイスのリストを維持する場合は、変更するバージョンフォルダの中身を移動または削除してください。続けますか？
-		<usetemplate ignoretext="マーケットプレイスからリストを移動または削除する前に確認する" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmCopyToMarketplace">
-		これらのアイテムの 1 つまたは複数をマーケットプレイスにコピーする権限がありません。移動するか、置き去りにすることはできます。
-		<usetemplate canceltext="取り消し" ignoretext="コピー付加アイテムを含む選択内容をマーケットプレイスへコピーする前に確認する" name="yesnocancelbuttons" notext="アイテムを移動しない" yestext="アイテムを移動"/>
-	</notification>
-	<notification name="ConfirmMerchantUnlist">
-		この操作により、このリストが削除されます。続けますか？
-		<usetemplate ignoretext="マーケットプレイスで有効なリストを削除する前に確認する" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantClearVersion">
-		この操作により、現在のリストのバージョンフォルダが無効になります。続けますか？
-		<usetemplate ignoretext="マーケットプレイスでリストのバージョンフォルダを無効にする前に確認する" name="okcancelignore" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingNotUpdated">
-		このリストをアップデートできませんでした。
-[[URL] ここをクリック] してマーケットプレイスで編集します。
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingCannotWear">
-		マーケットプレイスのリストフォルダにある衣服やボディパーツを着用できません。
-	</notification>
-	<notification name="AlertMerchantListingInvalidID">
-		リスト ID が無効です。
-	</notification>
-	<notification name="AlertMerchantListingActivateRequired">
-		このリストには複数のバージョンフォルダがあるか、バージョンフォルダがありません。後で、単独でバージョンフォルダを選択して有効にする必要があります。
-		<usetemplate ignoretext="複数のバージョンフォルダのあるリストを作成するときに、バージョンフォルダの有効化に関する警告が表示されます" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderSplit">
-		各種の在庫品目を別々の在庫フォルダに分けたため、フォルダはリストに表示できるように配置されています。
-		<usetemplate ignoretext="リストに表示する前に在庫フォルダが分割されると、警告が表示されます" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderEmpty">
-		在庫が空のため、リストを削除しました。もう一度リストを表示するには、在庫フォルダにユニットを追加する必要があります。
-		<usetemplate ignoretext="在庫フォルダが空のためにリストが表示されないと警告が表示されます" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantVersionFolderEmpty">
-		バージョンフォルダが空のため、リストを削除しました。もう一度リストを表示するには、バージョンフォルダにアイテムを追加する必要があります。
-		<usetemplate ignoretext="バージョンフォルダが空のためにリストが表示されないと警告が表示されます" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="WriteAnimationFail">
 		アニメーションデータの書き込みに問題があります。後でもう一度お試しください。
@@ -1984,9 +1867,6 @@ http://wiki.secondlife.com/wiki/Setting_your_display_name を参照してくだ�
 	<notification name="RegionEntryAccessBlocked">
 		訪問しようとしている地域（リージョン）には現在の環境設定を超えるコンテンツが含まれています。「ミー」 &gt; 「環境設定」 &gt; 「一般」を選択して、環境設定を変更できます。
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="SLM_UPDATE_FOLDER">
-		[MESSAGE]
 	</notification>
 	<notification name="RegionEntryAccessBlocked_AdultsOnlyContent">
 		訪問しようとしている地域（リージョン）には、成人のみアクセスできる [REGIONMATURITY] コンテンツが含まれています。

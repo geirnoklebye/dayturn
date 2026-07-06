@@ -23,7 +23,6 @@
 			<menu_item_check label="No molestar" name="Do Not Disturb"/>
 		</menu>
 		<menu_item_call label="Comprar L$..." name="Buy and Sell L$"/>
-		<menu_item_call label="Artículos del Mercado..." name="MarketplaceListings"/>
 		<menu_item_call label="Panel de control de la cuenta..." name="Manage My Account">
 			<menu_item_call.on_click name="ManageMyAccount_url" parameter="WebLaunchJoinNow,http://secondlife.com/account/index.php?lang=es"/>
 		</menu_item_call>

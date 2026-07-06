@@ -99,128 +99,11 @@ Asegúrate de que tu conexión a Internet está funcionando adecuadamente.
 		¿Guardar los cambios en las ropas o partes del cuerpo actuales?
 		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="No guardarlos" yestext="Guardarlos"/>
 	</notification>
-	<notification name="ConfirmNoCopyToOutbox">
-		No tienes permiso para copiar uno o varios de estos objetos en el Buzón de salida de comerciante. Puedes moverlos o dejártelos.
-		<usetemplate name="okcancelbuttons" notext="No mover objeto(s)" yestext="Mover objeto(s)"/>
-	</notification>
-	<notification name="OutboxFolderCreated">
-		Se ha creado una carpeta nueva para cada objeto que has transferido al nivel superior de tu Buzón de salida de comerciante.
-		<usetemplate ignoretext="Se ha creado una carpeta nueva en el Buzón de salida de comerciante" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportComplete">
-		Éxito
-
-Todas las carpetas se han enviado correctamente al Mercado.
-		<usetemplate ignoretext="Todas las carpetas enviadas al Mercado" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportHadErrors">
-		Algunas carpetas no se han transferido
-
-Han ocurrido errores al enviar algunas carpetas al Mercado. Dichas carpetas todavía están en tu Buzón de salida de comerciante.
-
-Puedes consultar más información en el [[MARKETPLACE_IMPORTS_URL] registro de errores].
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportFailed">
-		Error de la transferencia: &apos;[ERROR_CODE]&apos;
-
-No se han enviado carpetas al Mercado a causa de un error del sistema o de la red.  Vuelve a intentarlo más tarde.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxInitFailed">
-		Error de inicialización del Mercado: &apos;[ERROR_CODE]&apos;
-
-La inicialización del mercado ha fallado por un error del sistema o de la red.  Vuelve a intentarlo más tarde.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="StockPasteFailed">
 		Ha ocurrido el siguiente error al copiar o mover a la carpeta de stock:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantPasteFailed">
-		Ha ocurrido el siguiente error al copiar o mover a artículos del Mercado:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantTransactionFailed">
-		La transacción con el Mercado ha fallado por el siguiente error:
-        
-        [ERROR_REASON][ERROR_DESCRIPTION]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantUnprocessableEntity">
-		No hemos podido incluir este producto en tus artículos o activar la carpeta de versión. Normalmente esto ocurre porque falta información en el formulario de descripción de los artículos, aunque también puede deberse a errores en la estructura de carpetas. Puedes editar los artículos o comprobar si la carpeta de artículos tiene algún error.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantListingFailed">
-		Ha ocurrido el siguiente error en la lista de artículos del Mercado:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantFolderActivationFailed">
-		Ha ocurrido el siguiente error al activar esta carpeta de versión:
 
         &apos;[ERROR_CODE]&apos;
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantForceValidateListing">
-		Para crear tu lista de artículos, hemos corregido la jerarquía del contenido de la lista.
-		<usetemplate ignoretext="Recordarme que al crear una lista de artículos se modifica la jerarquía del contenido" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantActiveChange">
-		Esta acción cambiará el contenido activo de esta lista de artículos. ¿Quieres continuar?
-		<usetemplate ignoretext="Confirmar antes de que cambie una lista de artículos activa en el Mercado" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantMoveInventory">
-		Los artículos arrastrados a la ventana Artículos del mercado se mueven desde sus ubicaciones originales, no se copian. ¿Quieres continuar?
-		<usetemplate ignoretext="Confirmar antes de mover un artículo desde el inventario al Mercado" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmListingCutOrDelete">
-		Al mover o eliminar una carpeta de artículos, se eliminarán tus artículos del Mercado. Si deseas conservar los artículos del Mercado, mueve o elimina el contenido de la carpeta de versión que desees modificar. ¿Quieres continuar?
-		<usetemplate ignoretext="Confirmar antes de que mueva o elimine una lista de artículos del Mercado" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmCopyToMarketplace">
-		No tienes permiso para copiar uno o varios de estos artículos en el Mercado. Puedes moverlos o dejártelos.
-		<usetemplate canceltext="Cancelar" ignoretext="Confirmar cuando intente copiar una selección que contiene artículos que no se pueden copiar en el Mercado" name="yesnocancelbuttons" notext="No mover objeto(s)" yestext="Mover objeto(s)"/>
-	</notification>
-	<notification name="ConfirmMerchantUnlist">
-		Esta acción retirará esta lista de artículos. ¿Quieres continuar?
-		<usetemplate ignoretext="Confirmar antes de que retire una lista de artículos activa en el Mercado" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantClearVersion">
-		Esta acción desactivará la carpeta de versión de la lista de artículos actual. ¿Quieres continuar?
-		<usetemplate ignoretext="Confirmar antes de que desactive la carpeta de versión de una lista de artículos del Mercado" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingNotUpdated">
-		No se ha podido actualizar esta lista de artículos.
-[[URL] Haz clic aquí] para editarla en el Mercado.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingCannotWear">
-		No puedes ponerte prendas ni partes del cuerpo que se encuentren en la carpeta Artículos del mercado.
-	</notification>
-	<notification name="AlertMerchantListingInvalidID">
-		Id. de lista de artículos no válida
-	</notification>
-	<notification name="AlertMerchantListingActivateRequired">
-		Esta lista de artículos contiene varias carpetas de versión o ninguna. Tendrás que seleccionar y activar una por tu cuenta más tarde.
-		<usetemplate ignoretext="Mostrar una alerta de la activación de la carpeta de versión cuando cree una lista de artículos con varias carpetas de versión" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderSplit">
-		Hemos separado los artículos en stock de diferentes tipos en carpetas distintas, para que tu carpeta esté organizada de tal forma que podamos incluirla en el Mercado.
-		<usetemplate ignoretext="Mostrar alerta cuando la carpeta de stock se divida antes de incluirla en la lista" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderEmpty">
-		Hemos retirado tu lista de artículos porque el stock está vacío. Para volver a publicar tus artículos, añade más unidades a la carpeta de stock.
-		<usetemplate ignoretext="Mostrar alerta cuando una lista de artículos se retire porque la carpeta de stock está vacía" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantVersionFolderEmpty">
-		Hemos retirado tu lista de artículos porque la carpeta de versión está vacía. Para volver a publicar tus artículos, añade artículos a la carpeta de versión.
-		<usetemplate ignoretext="Mostrar una alerta cuando una lista de artículos se retire porque la carpeta de versión está vacía" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="WriteAnimationFail">
 		Hubo un problema al escribir los datos de la animación. Por favor, inténtalo más tarde.
@@ -1956,9 +1839,6 @@ Se cambiarán miles de regiones, y se provocará un colapso en el espacio del se
 	<notification name="RegionEntryAccessBlocked">
 		Tus preferencias de contenido actuales te impiden visitar la región que has seleccionado.  Puedes cambiar las preferencias en Yo &gt; Preferencias &gt; General.
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="SLM_UPDATE_FOLDER">
-		[MESSAGE]
 	</notification>
 	<notification name="RegionEntryAccessBlocked_AdultsOnlyContent">
 		La región que intentas visitar tiene un contenido [REGIONMATURITY], que solo es accesible para los adultos.

@@ -98,128 +98,11 @@ Verifique se a conexão à internet está funcionando.
 		Salvar modificações?
 		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Não salvar" yestext="Salvar"/>
 	</notification>
-	<notification name="ConfirmNoCopyToOutbox">
-		Você não possui permissão para copiar um ou mais destes itens para a Caixa de saída do lojista.  Você pode movê-los ou abandoná-los.
-		<usetemplate name="okcancelbuttons" notext="Não mover item(ns)" yestext="Mover item(ns)"/>
-	</notification>
-	<notification name="OutboxFolderCreated">
-		Uma nova pasta foi criada para cada item transferido para o nível superior de sua Caixa de saída do lojista.
-		<usetemplate ignoretext="Uma nova pasta foi criada na Caixa de saída do lojista" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportComplete">
-		Êxito
-
-Todas as pastas foram enviadas para o Mercado com êxito.
-		<usetemplate ignoretext="Todas as pastas enviadas para o Mercado" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportHadErrors">
-		Algumas pastas não foram transferidas
-
-Erro ao enviar algumas pastas para o Mercado.  Estas pastas ainda estão na sua Caixa de saída do lojista.
-
-Consulte o [[MARKETPLACE_IMPORTS_URL] log de erros] para mais informações.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportFailed">
-		Falha na transferência com o erro &apos;[ERROR_CODE]&apos;
-
-Nenhuma pasta foi enviada ao Marketplace devido a um erro do sistema ou da rede.  Tente novamente mais tarde.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxInitFailed">
-		Falha na inicialização do Marketplace com o erro &apos;[ERROR_CODE]&apos;
-
-Ocorreu uma falha na inicialização do Marketplace devido a um erro do sistema ou da rede.  Tente novamente mais tarde.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="StockPasteFailed">
 		Copiar ou mover para Pasta de estoque com falha com o erro:
         
         &apos;[ERROR_CODE]&apos;
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantPasteFailed">
-		Copiar ou mover para Listagens do Marketplace com falha com o erro:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantTransactionFailed">
-		Falha na transação com o Marketplace com o seguinte erro:
-        
-        [ERROR_REASON][ERROR_DESCRIPTION]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantUnprocessableEntity">
-		Não foi possível listar este produto ou ativar a pasta de versões. Geralmente, isso é causado por ausência de informações no formulário de descrição da listagem, mas pode ser causado por erros na estrutura de pastas. Edite a listagem ou verifique se há erros na pasta de listagem.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantListingFailed">
-		Falha ao listar no Marketplace com erro:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantFolderActivationFailed">
-		Falha ao ativar esta pasta de versões com erro:
-
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantForceValidateListing">
-		Para criar sua listagem, consertamos a hierarquia do conteúdo da sua listagem.
-		<usetemplate ignoretext="Avisar-me quando a criação de uma listagem consertar a hierarquia do conteúdo" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantActiveChange">
-		Esta ação alterará o conteúdo ativo desta listagem. Deseja continuar?
-		<usetemplate ignoretext="Confirmar antes de alterar uma listagem ativa no Marketplace" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantMoveInventory">
-		Os itens arrastados para a janela Listagens do Marketplace são movidos de seus locais originais e não copiados. Deseja continuar?
-		<usetemplate ignoretext="Confirmar antes de mover um item do inventário para o Marketplace" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmListingCutOrDelete">
-		Mover ou excluir uma pasta de listagem excluirá sua listagem do Marketplace. Se você deseja manter a listagem do Marketplace, mova ou exclua o conteúdo da pasta de versões que você deseja modificar. Deseja continuar?
-		<usetemplate ignoretext="Confirmar antes de mover ou excluir uma listagem do Marketplace" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmCopyToMarketplace">
-		Você não tem permissão para copiar um ou mais deste itens para o Marketplace. Você pode movê-los ou deixá-los para trás.
-		<usetemplate canceltext="Cancelar" ignoretext="Confirmar antes de tentar copiar uma seleção que contenha itens de cópia proibida para o Marketplace" name="yesnocancelbuttons" notext="Não mover item(ns)" yestext="Mover item(ns)"/>
-	</notification>
-	<notification name="ConfirmMerchantUnlist">
-		Esta ação removerá esta listagem. Deseja continuar?
-		<usetemplate ignoretext="Confirmar antes de remover uma listagem ativa no Marketplace" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantClearVersion">
-		Esta ação desativará a pasta de versões da listagem atual. Deseja continuar?
-		<usetemplate ignoretext="Confirmar antes de desativar a pasta de versões de uma listagem no Marketplace" name="okcancelignore" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingNotUpdated">
-		A listagem não pode ser atualizada.
-[[URL] Clique aqui] para editá-la no Marketplace.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingCannotWear">
-		Não é possível usar roupas ou partes do corpo que estejam na pasta Listagens do Marketplace.
-	</notification>
-	<notification name="AlertMerchantListingInvalidID">
-		ID de listagem inválida.
-	</notification>
-	<notification name="AlertMerchantListingActivateRequired">
-		Há várias pastas sem versão ou com várias versões nesta listagem. Você precisará selecionar e ativar uma delas separadamente mais tarde.
-		<usetemplate ignoretext="Alertar sobre a ativação da pasta de versões quando criar uma listagem com várias pastas de versões" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderSplit">
-		Separamos itens de estoque de tipos diferentes em pastas de estoque diferentes para que sua pasta fique organizada de maneira que possamos listá-la.
-		<usetemplate ignoretext="Alertar quando a pasta de estoque for dividida antes de ser listada" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderEmpty">
-		Removemos sua listagem porque o estoque está vazio. Você precisa adicionar mais unidades à pasta de estoque para que a listagem seja exibida novamente.
-		<usetemplate ignoretext="Alertar quando uma listagem não for listada porque a pasta de estoque está vazia" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantVersionFolderEmpty">
-		Removemos sua listagem porque a pasta de versões está vazia. Você precisa adicionar itens à pasta de versões para que a listagem seja exibida novamente.
-		<usetemplate ignoretext="Alertar quando uma listagem não for listada porque a pasta de versões está vazia" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="WriteAnimationFail">
 		Falha nos dados de inscrição de animação. Por favor, tente mais tarde.
@@ -1939,9 +1822,6 @@ Por favor, discuta com os seus proprietários de terreno conforme necessário. D
 	<notification name="RegionEntryAccessBlocked">
 		A região que você está tentando visitar tem conteúdo que excede suas preferências atuais.  Você pode alterar suas preferências acessando Eu &gt; Preferências &gt; Geral.
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="SLM_UPDATE_FOLDER">
-		[MESSAGE]
 	</notification>
 	<notification name="RegionEntryAccessBlocked_AdultsOnlyContent">
 		A região que você está tentando visitar tem conteúdo [REGIONMATURITY], acessível apenas para adultos.

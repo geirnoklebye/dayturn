@@ -89,7 +89,5 @@
 	<menu_item_call label="Edytuj" name="Wearable Edit" />
 	<menu_item_call label="Dodaj/dołącz" name="Wearable Add" />
 	<menu_item_call label="Zdejmij" name="Take Off" />
-	<menu_item_call label="Kopiuj do Skrzynki Kupca" name="Merchant Copy" />
-	<menu_item_call label="Wyślij na Marketplace" name="Marketplace Send" />
 	<menu_item_call label="--brak opcji--" name="--no options--" />
 </menu>

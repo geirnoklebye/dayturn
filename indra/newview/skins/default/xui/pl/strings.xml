@@ -391,30 +391,6 @@ Spróbuj zalogować się ponownie za minutę.
 		Nie możesz założyć folderu, który zawiera więcej niż [AMOUNT] przedmiotów. Możesz zmienić ten limit w Zaawansowane &gt; Pokaż ustawienia debugowania &gt; WearFolderLimit.
 	</string>
 	<string name="TooltipPrice" value="[AMOUNT]L$: "/>
-	<string name="TooltipOutboxDragToWorld">
-		Nie możesz rezzować obiektów w skrzynce nadawczej kupca
-	</string>
-	<string name="TooltipOutboxNoTransfer">
-		Jeden lub kilka z tych obiektów nie może zostać sprzedany / przetransferowany.
-	</string>
-	<string name="TooltipOutboxNotInInventory">
-		Twoja skrzynka nadawcza kupca akceptuje tylko przedmioty bezpośrednio z Twojej Szafy.
-	</string>
-	<string name="TooltipOutboxWorn">
-		Nie możesz umieszczać w skrzynce nadawczej kupca przedmiotów, które masz na sobie założone
-	</string>
-	<string name="TooltipOutboxCallingCard">
-		Nie możesz umieszczać wizytówek w skrzynce nadawczej kupca
-	</string>
-	<string name="TooltipOutboxFolderLevels">
-		Głębokość zagnieżdżonych folderów przekracza 3
-	</string>
-	<string name="TooltipOutboxTooManyFolders">
-		Ilość podfolderów w folderze najwyższego poziomu przekracza 20
-	</string>
-	<string name="TooltipOutboxTooManyObjects">
-		Ilość pozycji w folderze najwyższego poziomu przekracza 200
-	</string>
 	<string name="TooltipDragOntoOwnChild">
 		Nie możesz przenieść folderu do jego obiektu podrzędnego
 	</string>
@@ -1303,57 +1279,6 @@ Spróbuj zalogować się ponownie za minutę.
 	</string>
 	<string name="InventoryNoTexture">
 		Nie posiadasz kopii tej tekstury w swojej Szafie.
-	</string>
-	<string name="InventoryInboxNoItems">
-		Przedmioty zakupione na Marketplace pojawią się tutaj. Możesz następnie przeciągnąć je do głównej części Szafy.
-	</string>
-	<string name="InventoryOutboxNotMerchantTitle">
-		Każdy może sprzedawać przedmioty na Marketplace.
-	</string>
-	<string name="InventoryOutboxNotMerchant">
-		Jeśli chcesz zostać kupcem i sprzedawać przedmioty, to musisz najpierw [[MARKETPLACE_CREATE_STORE_URL] założyć sklep na Marketplace].
-	</string>
-	<string name="InventoryOutboxNoItemsTitle">
-		Twoja skrzynka nadawcza kupca jest pusta.
-	</string>
-	<string name="InventoryOutboxNoItems">
-		Przeciągnij foldery do tego obszaru i kliknij "Wyślij na Marketplace", aby dodać je na listę sprzedaży w [[MARKETPLACE_DASHBOARD_URL] Marketplace].
-	</string>
-	<string name="InventoryOutboxInitializingTitle">
-		Inicjalizacja Marketplace.
-	</string>
-	<string name="InventoryOutboxInitializing">
-		Uzyskiwanie dostępu do Twojego konta [[MARKETPLACE_CREATE_STORE_URL] sklepu na Marketplace].
-	</string>
-	<string name="InventoryOutboxErrorTitle">
-		Błędy Marketplace.
-	</string>
-	<string name="InventoryOutboxError">
-		[[MARKETPLACE_CREATE_STORE_URL] Sklep na Marketplace] zwraca błędy.
-	</string>
-	<string name="Marketplace Error None">
-		Brak błędów
-	</string>
-	<string name="Marketplace Error Not Merchant">
-		Błąd: Przed wysłaniem przedmiotów na Marketplace musisz zostać kupcem (darmowe).
-	</string>
-	<string name="Marketplace Error Empty Folder">
-		Błąd: Ten folder nie ma zawartości.
-	</string>
-	<string name="Marketplace Error Unassociated Products">
-		Błąd: Ta pozycja nie może zostać załadowana, ponieważ Twoje konto kupca ma zbyt wiele nieprzypisanych przedmiotów. Aby naprawić ten błąd zaloguj się na stronę Marketplace i zmniejsz ilość nieprzypisanych (unassociated) przedmiotów.
-	</string>
-	<string name="Marketplace Error Object Limit">
-		Błąd: Ta pozycja zawiera zbyt wiele elementów. Umieść przedmioty razem w pudełkach, aby zmniejszyć ich całkowitą liczbę do mniej niż 200.
-	</string>
-	<string name="Marketplace Error Folder Depth">
-		Błąd: Ta pozycja zawiera zbyt wiele zagnieżdżonych folderów. Zreorganizuj wszystko tak, aby były obecne maksymalnie 3 poziomy zagnieżdżonych folderów.
-	</string>
-	<string name="Marketplace Error Unsellable Item">
-		Błąd: Ta pozycja nie może być sprzedana na Marketplace.
-	</string>
-	<string name="Marketplace Error Internal Import">
-		Błąd: Wystąpił problem z tą pozycją. Spróbuj ponownie później.
 	</string>
 	<string name="Open landmarks">
 		Otwórz landmarki
@@ -4504,17 +4429,11 @@ Spróbuj załączyć ścieżkę do edytora w cytowaniu.
 	<string name="Command_Map_Label">
 		Mapa
 	</string>
-	<string name="Command_Marketplace_Label">
-		Marketplace
-	</string>
 	<string name="Command_MiniMap_Label">
 		Minimapa
 	</string>
 	<string name="Command_Move_Label">
 		Ruch
-	</string>
-	<string name="Command_Outbox_Label">
-		Skrzynka nadawcza kupca
 	</string>
 	<string name="Command_People_Label">
 		Ludzie
@@ -4582,17 +4501,11 @@ Spróbuj załączyć ścieżkę do edytora w cytowaniu.
 	<string name="Command_Map_Tooltip">
 		Mapa świata
 	</string>
-	<string name="Command_Marketplace_Tooltip">
-		Idź na zakupy
-	</string>
 	<string name="Command_MiniMap_Tooltip">
 		Pokaż ludzi w pobliżu
 	</string>
 	<string name="Command_Move_Tooltip">
 		Poruszanie Twoim awatarem
-	</string>
-	<string name="Command_Outbox_Tooltip">
-		Przenieś przedmioty na Marketplace, aby je sprzedać
 	</string>
 	<string name="Command_People_Tooltip">
 		Znajomi, grupy i ludzie w pobliżu

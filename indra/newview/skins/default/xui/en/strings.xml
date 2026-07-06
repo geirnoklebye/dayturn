@@ -260,20 +260,6 @@ If you feel this is an error, please contact support@secondlife.com</string>
 	<string name="TooltipDistance">Distance: [DISTANCE] m</string>
 	<string name="TooltipPosition">Position: [POSITION]</string>
 
-    <string name="TooltipOutboxDragToWorld">You can't rez items from the Marketplace Listings folder</string>
-    <string name="TooltipOutboxWorn">You can't put items you are wearing in the Marketplace Listings folder</string>
-    <string name="TooltipOutboxFolderLevels">Depth of nested folders exceeds [AMOUNT]. Decrease the depth of folders-within-folders; box items if necessary.</string>
-    <string name="TooltipOutboxTooManyFolders">Subfolder count exceeds [AMOUNT]. Decrease the number of folders in your listing; box items if necessary.</string>
-    <string name="TooltipOutboxTooManyObjects">Item count exceeds [AMOUNT]. In order to sell more than [AMOUNT] items in one listing, you must box some of them.</string>
-    <string name="TooltipOutboxTooManyStockItems">Stock items count exceeds [AMOUNT].</string>
-    <string name="TooltipOutboxCannotDropOnRoot">You can only drop items or folders in the ALL or UNASSOCIATED tabs. Please select one of those tabs and move your item(s) or folder(s) again.</string>
-	<string name="TooltipOutboxNoTransfer">One or more of these objects cannot be sold or transferred</string>
-	<string name="TooltipOutboxNotInInventory">You can only put items from your inventory on the marketplace</string>
-	<string name="TooltipOutboxLinked">You can't put linked items or folders on the marketplace</string>
-	<string name="TooltipOutboxCallingCard">You can't put calling cards on the marketplace</string>
-	<string name="TooltipOutboxDragActive">You can't move a listed listing</string>
-	<string name="TooltipOutboxCannotMoveRoot">You can't move the marketplace listings root folder</string>
-	<string name="TooltipOutboxMixedStock">All items in a stock folder must have the same type and permission</string>
 	<string name="TooltipOutfitNotInInventory">You can only put items or outfits from your personal inventory into "My outfits"</string>
 	<string name="TooltipCantCreateOutfit">One or more items can't be used inside "My outfits"</string>
 	
@@ -2340,86 +2326,12 @@ For AI Character: Get the closest navigable point to the point provided.
 	<string name="InventoryNoMatchingRecentItems">Didn't find what you're looking for? Try [secondlife:///app/inventory/filters Show filters].</string>	
 	<string name="PlacesNoMatchingItems">To add a place to your landmarks, click the star to the right of the location name.</string>
 	<string name="FavoritesNoMatchingItems">To add a place to your favorites, click the star to the right of the location name, then save the landmark to "Favorites bar".</string>
-	<string name="MarketplaceNoListing">You have no listings yet.</string>
-	<string name="MarketplaceNoMatchingItems">No items found. Check the spelling of your search string and try again.</string>
 	<string name="InventoryNoTexture">You do not have a copy of this texture in your inventory</string>
-	<string name="InventoryInboxNoItems">Your Marketplace purchases will appear here. You may then drag them into your inventory to use them.</string>
 	<string name="MarketplaceURL">https://marketplace.[MARKETPLACE_DOMAIN_NAME]/</string>
-	<string name="MarketplaceURL_CreateStore">http://community.secondlife.com/t5/English-Knowledge-Base/Selling-in-the-Marketplace/ta-p/700193#Section_.3</string>
-	<string name="MarketplaceURL_Dashboard">https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/dashboard</string>
-	<string name="MarketplaceURL_Imports">https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/imports</string>
-	<string name="MarketplaceURL_LearnMore">https://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more</string>
 	<string name="InventoryPlayAnimationTooltip">Open window with Play options.</string>
 	<string name="InventoryPlayGestureTooltip">Execute selected gesture in-world.</string>
 	<string name="InventoryPlaySoundTooltip">Open window with Play options.</string>
-	<string name="InventoryOutboxNotMerchantTitle">Anyone can sell items on the Marketplace.</string>
-	<string name="InventoryOutboxNotMerchantTooltip"></string>
-	<string name="InventoryOutboxNotMerchant">
-If you'd like to become a merchant, you'll need to [[MARKETPLACE_CREATE_STORE_URL] create a Marketplace store].
-	</string>
-	<string name="InventoryOutboxNoItemsTitle">Your outbox is empty.</string>
-	<string name="InventoryOutboxNoItemsTooltip"></string>
-	<string name="InventoryOutboxNoItems">
-Drag folders to this area and click "Send to Marketplace" to list them for sale on the [[MARKETPLACE_DASHBOARD_URL] Marketplace].
-	</string>
-	<string name="InventoryOutboxInitializingTitle">Initializing Marketplace.</string>
-	<string name="InventoryOutboxInitializingTooltip"></string>
-	<string name="InventoryOutboxInitializing">
-We are accessing your account on the [[MARKETPLACE_CREATE_STORE_URL] Marketplace store].
-	</string>
-	<string name="InventoryOutboxErrorTitle">Marketplace Errors.</string>
-	<string name="InventoryOutboxErrorTooltip"></string>
-	<string name="InventoryOutboxError">
-The [[MARKETPLACE_CREATE_STORE_URL] Marketplace store] is returning errors.
-	</string>
-	<string name="InventoryMarketplaceError">
-An error occurred while opening Marketplace Listings.
-If you continue to receive this message, please contact Second Life support for assistance at http://support.secondlife.com
-	</string>
-	<string name="InventoryMarketplaceConnectionError">
-Marketplace Listings failed to connect.
-If you continue to receive this message, please contact Second Life support for assistance at http://support.secondlife.com
-	</string>
-	<string name="InventoryMarketplaceConnectionErrorReason">
-Marketplace Listings failed to connect. Reason: [REASON]
-If you continue to receive this message, please contact Second Life support for assistance at http://support.secondlife.com
-	</string>
-	<string name="InventoryMarketplaceListingsNoItemsTitle">Your Marketplace Listings folder is empty.</string>
-	<string name="InventoryMarketplaceListingsNoItemsTooltip"></string>
-	<string name="InventoryMarketplaceListingsNoItems">
-        Drag folders to this area to list them for sale on the [[MARKETPLACE_DASHBOARD_URL] Marketplace].
-	</string>
 	<string name="InventoryItemsCount">( [ITEMS_COUNT] Items )</string>
-	<string name="Marketplace Validation Log"></string>
-	<string name="Marketplace Validation Warning Stock">stock folder must be contained by a version folder</string>
-	<string name="Marketplace Validation Error Mixed Stock">: Error: all items in a stock folder must be no-copy and of the same type</string>
-	<string name="Marketplace Validation Error Subfolder In Stock">: Error: stock folder cannot contain subfolders</string>
-	<string name="Marketplace Validation Warning Empty">: Warning: folder doesn't contain any items</string>
-	<string name="Marketplace Validation Warning Create Stock">: Warning: creating stock folder</string>
-	<string name="Marketplace Validation Warning Create Version">: Warning: creating version folder</string>
-	<string name="Marketplace Validation Warning Move">: Warning : moving items</string>
-	<string name="Marketplace Validation Warning Delete">: Warning: folder content transfered to stock folder, removing empty folder</string>
-	<string name="Marketplace Validation Error Stock Item">: Error: no-copy items must be contained by a stock folder</string>
-	<string name="Marketplace Validation Warning Unwrapped Item">: Warning: items must be contained by a version folder</string>
-	<string name="Marketplace Validation Error">: Error: </string>
-	<string name="Marketplace Validation Warning">: Warning: </string>
-	<string name="Marketplace Validation Error Empty Version">: Warning: version folder must contain at least 1 item</string>
-	<string name="Marketplace Validation Error Empty Stock">: Warning: stock folder must contain at least 1 item</string>
-
-    <string name="Marketplace Validation No Error">No errors or warnings to report</string>
-	<string name="Marketplace Error None">No errors</string>
-	<string name="Marketplace Error Prefix">Error: </string>
-	<string name="Marketplace Error Not Merchant">Before sending items to the Marketplace you will need to set yourself up as a merchant (free of charge).</string>
-	<string name="Marketplace Error Not Accepted">Cannot move item in that folder.</string>
-	<string name="Marketplace Error Unsellable Item">This item cannot be sold on the Marketplace.</string>
-
-	<string name="MarketplaceNoID">no Mkt ID</string>
-	<string name="MarketplaceLive">listed</string>
-	<string name="MarketplaceActive">active</string>
-	<string name="MarketplaceMax">max</string>
-	<string name="MarketplaceStock">stock</string>
-	<string name="MarketplaceNoStock">out of stock</string>
-	<string name="MarketplaceUpdating">updating...</string>
 
 	<string name="UploadFeeInfo">Fee is based on your subscription level. Higher levels are charged lower fees. [https://secondlife.com/my/account/membership.php? Learn more]</string>
 
@@ -4223,8 +4135,6 @@ name="Command_360_Capture_Label">360 snapshot</string>
   <string name="Command_HowTo_Label">Guidebook</string>
   <string name="Command_Inventory_Label">Inventory</string>
   <string name="Command_Map_Label">Map</string>
-  <string name="Command_Marketplace_Label">Marketplace</string>
-  <string name="Command_MarketplaceListings_Label">Marketplace</string>
   <string name="Command_MiniMap_Label">Mini-map</string>
   <string name="Command_Move_Label">Walk / run / fly</string>
   <string name="Command_NowPlaying_Label">Now Playing</string>
@@ -4263,8 +4173,6 @@ name="Command_360_Capture_Label">360 snapshot</string>
   <string name="Command_HowTo_Tooltip">How to do common tasks</string>
   <string name="Command_Inventory_Tooltip">View and use your belongings</string>
   <string name="Command_Map_Tooltip">Map of the world</string>
-  <string name="Command_Marketplace_Tooltip">Go shopping</string>
-  <string name="Command_MarketplaceListings_Tooltip">Sell your creation</string>
   <string name="Command_MiniMap_Tooltip">Show nearby people</string>
   <string name="Command_Move_Tooltip">Moving your avatar</string>
   <string name="Command_NowPlaying_Tooltip">Now playing on the parcel audio stream</string>

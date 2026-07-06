@@ -848,14 +848,6 @@
        function="Floater.Show"
        parameter="region_info" />
     </menu_item_call>
-    <menu_item_call
-     label="Marketplace Listings..."
-     name="MarketplaceListings"
-     only_in_sl="true">
-     <menu_item_call.on_click
-        function="Floater.ToggleOrBringToFront"
-        parameter="marketplace_listings" />
-    </menu_item_call>
     <menu_item_separator/>
     <menu
          create_jump_keys="true"

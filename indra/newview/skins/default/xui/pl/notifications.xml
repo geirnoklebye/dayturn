@@ -41,37 +41,6 @@ Upewnij się, że Twoje połączenie z internetem działa.
 		Zapisać zmiany dotyczące ubrania/części ciała?
 		<usetemplate canceltext="Anuluj" name="yesnocancelbuttons" notext="Nie zapisuj" yestext="Zapisz" />
 	</notification>
-	<notification name="ConfirmNoCopyToOutbox">
-		Nie masz uprawnień do kopiowania jednego lub więcej obiektów do Skrzynki Nadawczej Kupca. Możesz je przenieść lub pozostawić.
-		<usetemplate name="okcancelbuttons" notext="Nie przenoś" yestext="Przenieś" />
-	</notification>
-	<notification name="OutboxFolderCreated">
-		Nowy folder został stworzony dla każdego przedmiotu przeniesionego do głównego poziomu Skrzynki Nadawczej Kupca.
-		<usetemplate ignoretext="Nowy folder został stworzony w Skrzynce Nadawczej Kupca" name="okignore" />
-	</notification>
-	<notification name="OutboxImportComplete">
-		Powodzenie
-
-Wszystkie foldery zostały pomyślnie wysłane na Marketplace.
-		<usetemplate ignoretext="Wszystkie foldery wysłano na Marketplace" name="okignore" />
-	</notification>
-	<notification name="OutboxImportHadErrors">
-		Niektóre foldery nie zostały wysłane
-
-Wystąpiły błędy w wysyłaniu pewnych folderów na Marketplace. Są one ciągle obecne w Skrzynce Nadawczej Kupca.
-
-Zobacz [[MARKETPLACE_IMPORTS_URL] log błędów] aby uzyskać więcej informacji.
-	</notification>
-	<notification name="OutboxImportFailed">
-		Transfer nieudany, błąd &apos;[ERROR_CODE]&apos;
-
-Foldery nie zostały wysłane na Marketplace z powodu błędu sieci lub systemu. Spróbuj później.
-	</notification>
-	<notification name="OutboxInitFailed">
-		Inicjalizacja Marketplace nieudana, błąd &apos;[ERROR_CODE]&apos;
-
-Inicjalizacja Marketplace nieudana z powodu błędu sieci lub systemu. Spróbuj później.
-	</notification>
 	<notification name="WriteAnimationFail">
 		Problem w zapisywaniu danych animacji. Spróbuj ponownie za kilka minut.
 	</notification>

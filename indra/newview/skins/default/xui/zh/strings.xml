@@ -438,48 +438,6 @@ http://secondlife.com/viewer-access-faq
 	<string name="TooltipSLIcon">
 		這將連結到位於SecondLife.com或LindenLab.com官方網域的一個網頁。
 	</string>
-	<string name="TooltipOutboxDragToWorld">
-		你不能從 Marketplace 的刊登資料夾產生物件。
-	</string>
-	<string name="TooltipOutboxWorn">
-		你不能把正在穿戴的物件放到 Marketplace 的刊登資料夾
-	</string>
-	<string name="TooltipOutboxFolderLevels">
-		巢狀資料夾深度超過 [AMOUNT]。 請減少巢狀資料夾的深度，必要的話請把物件併整起來。
-	</string>
-	<string name="TooltipOutboxTooManyFolders">
-		子資料夾數目超過 [AMOUNT]。 請減少刊登的資料夾數目，必要的話請把物件併整起來。
-	</string>
-	<string name="TooltipOutboxTooManyObjects">
-		物件數目超過 [AMOUNT]。 若想在同一刊登中出售超過 [AMOUNT] 個物件，你需要把物件併整起來。
-	</string>
-	<string name="TooltipOutboxTooManyStockItems">
-		限量物件數目超過 [AMOUNT]。
-	</string>
-	<string name="TooltipOutboxCannotDropOnRoot">
-		你只能把物項或資料夾拖放到所有(ALL)或已取消聯結(UNASSOCIATED)頁籤。 請選取其中一個頁籤，再移動你的物項或資料夾。
-	</string>
-	<string name="TooltipOutboxNoTransfer">
-		至少一個物件無法出售或轉移
-	</string>
-	<string name="TooltipOutboxNotInInventory">
-		你只能將物件從收納區放到 Marketplace。
-	</string>
-	<string name="TooltipOutboxLinked">
-		你不能把聯結的物件或資料夾放到 Marketplace
-	</string>
-	<string name="TooltipOutboxCallingCard">
-		你不能把名片放到 Marketplace
-	</string>
-	<string name="TooltipOutboxDragActive">
-		已登出的刊登內容不得移動
-	</string>
-	<string name="TooltipOutboxCannotMoveRoot">
-		你不能移動 Marketplace 刊登的根目錄
-	</string>
-	<string name="TooltipOutboxMixedStock">
-		限量資料夾的所有物件必須是相同的類型和權限
-	</string>
 	<string name="TooltipDragOntoOwnChild">
 		資料夾不得移到其子資料夾底下
 	</string>
@@ -1436,29 +1394,11 @@ http://secondlife.com/support 求助解決問題。
 	<string name="FavoritesNoMatchingItems">
 		將一個地標拖曳到這裡，加進「我的最愛」。
 	</string>
-	<string name="MarketplaceNoMatchingItems">
-		找不到物項。 請檢查搜尋字串的拼寫，再試一次。
-	</string>
 	<string name="InventoryNoTexture">
 		你的收納區裡沒有這個材質的副本
 	</string>
-	<string name="InventoryInboxNoItems">
-		你從第二人生購物市集購買的物品將出現在這裡。 你可以把它們拖曳到你的收納區，開始使用。
-	</string>
 	<string name="MarketplaceURL">
 		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/
-	</string>
-	<string name="MarketplaceURL_CreateStore">
-		http://community.secondlife.com/t5/English-Knowledge-Base/Selling-in-the-Marketplace/ta-p/700193#Section_.4
-	</string>
-	<string name="MarketplaceURL_Dashboard">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/dashboard
-	</string>
-	<string name="MarketplaceURL_Imports">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/imports
-	</string>
-	<string name="MarketplaceURL_LearnMore">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
 	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		開啟「Play選項」視窗。
@@ -1469,125 +1409,8 @@ http://secondlife.com/support 求助解決問題。
 	<string name="InventoryPlaySoundTooltip">
 		開啟「Play選項」視窗。
 	</string>
-	<string name="InventoryOutboxNotMerchantTitle">
-		任何人都可在第二人生購物市集出售物品。
-	</string>
-	<string name="InventoryOutboxNotMerchantTooltip"/>
-	<string name="InventoryOutboxNotMerchant">
-		如果你想成為商家，你需要在第二人生購物市集[[MARKETPLACE_CREATE_STORE_URL]開設一間商店]。
-	</string>
-	<string name="InventoryOutboxNoItemsTitle">
-		你的發件匣目前是空的。
-	</string>
-	<string name="InventoryOutboxNoItemsTooltip"/>
-	<string name="InventoryOutboxNoItems">
-		將資料夾拖曳到這個區域，再點按「送往第二人生購物市集」，即可在[[MARKETPLACE_DASHBOARD_URL]第二人生購物市集]登列出售。
-	</string>
-	<string name="InventoryOutboxInitializingTitle">
-		正在初始化購物市集。
-	</string>
-	<string name="InventoryOutboxInitializing">
-		我們正在求取你的[[MARKETPLACE_CREATE_STORE_URL] 購物市集商店]帳戶。
-	</string>
-	<string name="InventoryOutboxErrorTitle">
-		購物市集出錯。
-	</string>
-	<string name="InventoryOutboxError">
-		[[MARKETPLACE_CREATE_STORE_URL] 購物市集商店]正傳回錯誤。
-	</string>
-	<string name="InventoryMarketplaceError">
-		開啟Marketplace刊登內容時發生錯誤。
-如果你繼續收到這個訊息，請到 http://support.secondlife.com 聯絡 Second Life 支援人員。
-	</string>
-	<string name="InventoryMarketplaceListingsNoItemsTitle">
-		你的 Marketplace 刊登資料夾是空的。
-	</string>
-	<string name="InventoryMarketplaceListingsNoItems">
-		將資料夾拖曳到這個區域，即可在[[MARKETPLACE_DASHBOARD_URL] Marketplace]刊登出售。
-	</string>
 	<string name="InventoryItemsCount">
 		（[ITEMS_COUNT]個物項）
-	</string>
-	<string name="Marketplace Validation Warning Stock">
-		限量資料夾必須放在版本資料夾裡
-	</string>
-	<string name="Marketplace Validation Error Mixed Stock">
-		：錯誤：限量資料夾的所有物件必須是「禁止複製」且同一類型
-	</string>
-	<string name="Marketplace Validation Error Subfolder In Stock">
-		：錯誤：限量資料夾不得含有子資料夾
-	</string>
-	<string name="Marketplace Validation Warning Empty">
-		：警告：資料夾裡沒有東西
-	</string>
-	<string name="Marketplace Validation Warning Create Stock">
-		：警告：新建限量資料夾
-	</string>
-	<string name="Marketplace Validation Warning Create Version">
-		：警告：新建版本資料夾
-	</string>
-	<string name="Marketplace Validation Warning Move">
-		：警告：移動物項
-	</string>
-	<string name="Marketplace Validation Warning Delete">
-		：警告：資料夾內容已轉移到限量資料夾，空的資料夾已移除
-	</string>
-	<string name="Marketplace Validation Error Stock Item">
-		：錯誤：「禁止複製」物件必須放在限量資料夾裡
-	</string>
-	<string name="Marketplace Validation Warning Unwrapped Item">
-		：警告：物項必須放在一個版本資料夾裡
-	</string>
-	<string name="Marketplace Validation Error">
-		：錯誤：
-	</string>
-	<string name="Marketplace Validation Warning">
-		：警告：
-	</string>
-	<string name="Marketplace Validation Error Empty Version">
-		：警告：版本資料夾必須包含至少一個物項
-	</string>
-	<string name="Marketplace Validation Error Empty Stock">
-		：警告：限量資料夾必須包含至少一個物項
-	</string>
-	<string name="Marketplace Validation No Error">
-		沒有需要報告的錯誤或警告
-	</string>
-	<string name="Marketplace Error None">
-		零錯誤
-	</string>
-	<string name="Marketplace Error Prefix">
-		錯誤：
-	</string>
-	<string name="Marketplace Error Not Merchant">
-		將物件移到 Marketplace 前，你必須取得商家的身份（免費）。
-	</string>
-	<string name="Marketplace Error Not Accepted">
-		無法移動該資料夾的物項。
-	</string>
-	<string name="Marketplace Error Unsellable Item">
-		此物項無法在 Marketplace 出售。
-	</string>
-	<string name="MarketplaceNoID">
-		沒有 Mkt ID
-	</string>
-	<string name="MarketplaceLive">
-		已刊登
-	</string>
-	<string name="MarketplaceActive">
-		使用中
-	</string>
-	<string name="MarketplaceMax">
-		最多
-	</string>
-	<string name="MarketplaceStock">
-		限量
-	</string>
-	<string name="MarketplaceNoStock">
-		缺貨
-	</string>
-	<string name="MarketplaceUpdating">
-		正在更新…
 	</string>
 	<string name="Open landmarks">
 		開啟地標
@@ -5453,20 +5276,11 @@ http://secondlife.com/support 求助解決問題。
 	<string name="Command_Map_Label">
 		地圖
 	</string>
-	<string name="Command_Marketplace_Label">
-		第二人生購物市集
-	</string>
-	<string name="Command_MarketplaceListings_Label">
-		Marketplace
-	</string>
 	<string name="Command_MiniMap_Label">
 		迷你地圖
 	</string>
 	<string name="Command_Move_Label">
 		行走 / 跑步 / 飛行
-	</string>
-	<string name="Command_Outbox_Label">
-		商家發件匣
 	</string>
 	<string name="Command_People_Label">
 		人群
@@ -5543,20 +5357,11 @@ http://secondlife.com/support 求助解決問題。
 	<string name="Command_Map_Tooltip">
 		世界地圖
 	</string>
-	<string name="Command_Marketplace_Tooltip">
-		前往購物
-	</string>
-	<string name="Command_MarketplaceListings_Tooltip">
-		出售你的創作物
-	</string>
 	<string name="Command_MiniMap_Tooltip">
 		顯示附近的人
 	</string>
 	<string name="Command_Move_Tooltip">
 		移動化身
-	</string>
-	<string name="Command_Outbox_Tooltip">
-		將物項轉移到第二人生購物市集待售
 	</string>
 	<string name="Command_People_Tooltip">
 		朋友、群組和附近的人

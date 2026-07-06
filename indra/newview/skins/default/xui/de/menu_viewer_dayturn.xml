@@ -98,7 +98,6 @@
     </menu>  
     <menu_item_call label="L$ kaufen"  name="Buy and Sell L$"/>
     <menu_item_call label="Region/Grundbesitz"  name="Region/Estate"/>
-    <menu_item_call label="Marktplatz-Auflistungen..."  name="MarketplaceListings"/>
     <menu label="Sonne"  name="Sun">
         <menu_item_call label="Sonnenaufgang"  name="Sunrise"/>
         <menu_item_call label="Mittag"  name="Noon"/>

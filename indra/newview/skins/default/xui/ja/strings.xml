@@ -441,48 +441,6 @@ support@secondlife.com にお問い合わせください。
 	<string name="TooltipSLIcon">
 		これは、SecondLife.com または LindenLab.com の公式ドメイン上のページにリンクします。
 	</string>
-	<string name="TooltipOutboxDragToWorld">
-		マーケットプレイスのリストフォルダからアイテムを Rez できません
-	</string>
-	<string name="TooltipOutboxWorn">
-		着ているアイテムをマーケットプレイスのリストフォルダに置くことはできません
-	</string>
-	<string name="TooltipOutboxFolderLevels">
-		ネスト入りフォルダの深さが [AMOUNT] 階層を超えています必要に応じてアイテムを箱に入れ、フォルダの階層を減らします。
-	</string>
-	<string name="TooltipOutboxTooManyFolders">
-		サブフォルダ数が [AMOUNT] 個を超えています。必要に応じてアイテムを箱に入れ、リストのフォルダ階層を減らします。
-	</string>
-	<string name="TooltipOutboxTooManyObjects">
-		アイテム数が [AMOUNT] 個を超えています。1 つのリスト内で [AMOUNT] 個を超えるアイテムを販売するためには、いくつかのアイテムを箱に入れる必要があります。
-	</string>
-	<string name="TooltipOutboxTooManyStockItems">
-		在庫アイテム数が [AMOUNT] 個を超えています。
-	</string>
-	<string name="TooltipOutboxCannotDropOnRoot">
-		アイテムまたはフォルダは「すべて」または「関連付けされていない」タブによってのみドロップできます。これらのタブのいずれかを選択してから、もう一度アイテムまたはフォルダを選択してください。
-	</string>
-	<string name="TooltipOutboxNoTransfer">
-		これらのオブジェクトの 1 つまたは複数は売り渡したり譲渡したりできないものです
-	</string>
-	<string name="TooltipOutboxNotInInventory">
-		アイテムはインベントリからマーケットプレイスへの移動のみできます
-	</string>
-	<string name="TooltipOutboxLinked">
-		リンクされた相手またはフォルダをマーケットプレイスに置くことはできません
-	</string>
-	<string name="TooltipOutboxCallingCard">
-		コーリングカードをマーケットプレイスに置くことはできません
-	</string>
-	<string name="TooltipOutboxDragActive">
-		表示されているリストを移動できません
-	</string>
-	<string name="TooltipOutboxCannotMoveRoot">
-		ルートフォルダをリストに表示するマーケットプレイスを移動できません
-	</string>
-	<string name="TooltipOutboxMixedStock">
-		在庫フォルダ内のアイテムはすべて同じ種類と権限でなければなりません
-	</string>
 	<string name="TooltipDragOntoOwnChild">
 		フォルダをその子フォルダに移動することはできません
 	</string>
@@ -1442,29 +1400,11 @@ support@secondlife.com にお問い合わせください。
 	<string name="FavoritesNoMatchingItems">
 		ここにランドマークをドラッグしてお気に入りに追加します。
 	</string>
-	<string name="MarketplaceNoMatchingItems">
-		アイテムが見つかりませんでした。検索文字列のスペルを確認して、もう一度やり直してください。
-	</string>
 	<string name="InventoryNoTexture">
 		インベントリ内にこのテクスチャのコピーがありません
 	</string>
-	<string name="InventoryInboxNoItems">
-		マーケットプレイスで購入した商品はここに表示されます。その後、アイテムをインベントリにドラッグすれば、それらのアイテムを使用できます。
-	</string>
 	<string name="MarketplaceURL">
 		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
-	</string>
-	<string name="MarketplaceURL_CreateStore">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]/create_store
-	</string>
-	<string name="MarketplaceURL_Dashboard">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
-	</string>
-	<string name="MarketplaceURL_Imports">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/merchants/store/imports
-	</string>
-	<string name="MarketplaceURL_LearnMore">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/learn_more
 	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		[再生] オプションでウィンドウを開ける。
@@ -1475,124 +1415,8 @@ support@secondlife.com にお問い合わせください。
 	<string name="InventoryPlaySoundTooltip">
 		[再生] オプションでウィンドウを開ける。
 	</string>
-	<string name="InventoryOutboxNotMerchantTitle">
-		マーケットプレイスでは誰でもアイテムを売ることができます。
-	</string>
-	<string name="InventoryOutboxNotMerchantTooltip"/>
-	<string name="InventoryOutboxNotMerchant">
-		マーチャントになりたい方は、[[MARKETPLACE_CREATE_STORE_URL] マーケットプレイスストアを作成]する必要があります。
-	</string>
-	<string name="InventoryOutboxNoItemsTitle">
-		アウトボックスは空です。
-	</string>
-	<string name="InventoryOutboxNoItemsTooltip"/>
-	<string name="InventoryOutboxNoItems">
-		[[MARKETPLACE_DASHBOARD_URL] マーケットプレイス]に販売するアイテムを一覧するには、フォルダをこのエリアにドラッグし、「マーケットプレイスに送信」をクリックします。
-	</string>
-	<string name="InventoryOutboxInitializingTitle">
-		マーケットプレイスの初期化。
-	</string>
-	<string name="InventoryOutboxInitializing">
-		[[MARKETPLACE_CREATE_STORE_URL] マーケットプレイス ストア] のアカウントにアクセスしています。
-	</string>
-	<string name="InventoryOutboxErrorTitle">
-		マーケットプレイス エラー。
-	</string>
-	<string name="InventoryOutboxError">
-		[[MARKETPLACE_CREATE_STORE_URL] マーケットプレイス ストア] がエラーを返しています。
-	</string>
-	<string name="InventoryMarketplaceError">
-		マーケットプレイスのリストを開くときにエラーが発生しました。引き続きこのメッセージを受信するには、Second Life のサポート (http://support.secondlife.com) にお問い合わせください
-	</string>
-	<string name="InventoryMarketplaceListingsNoItemsTitle">
-		マーケットプレイスのリストフォルダが空です。
-	</string>
-	<string name="InventoryMarketplaceListingsNoItems">
-		[[MARKETPLACE_DASHBOARD_URL] マーケットプレイス]に販売するアイテムを一覧するには、フォルダをこのエリアにドラッグします。
-	</string>
 	<string name="InventoryItemsCount">
 		（[ITEMS_COUNT] 個のアイテム）
-	</string>
-	<string name="Marketplace Validation Warning Stock">
-		バージョンフォルダに在庫フォルダが含まれなければなりません
-	</string>
-	<string name="Marketplace Validation Error Mixed Stock">
-		: エラー：在庫フォルダ内のすべてのアイテムはコピー不可で同じ種類でなければなりません
-	</string>
-	<string name="Marketplace Validation Error Subfolder In Stock">
-		: エラー：在庫フォルダにサブフォルダを含めることはできません
-	</string>
-	<string name="Marketplace Validation Warning Empty">
-		: 警告：フォルダにアイテムが含まれていません
-	</string>
-	<string name="Marketplace Validation Warning Create Stock">
-		: 警告：在庫フォルダを作成しています
-	</string>
-	<string name="Marketplace Validation Warning Create Version">
-		: 警告：バージョンフォルダ作成中
-	</string>
-	<string name="Marketplace Validation Warning Move">
-		: 警告：アイテム移動中
-	</string>
-	<string name="Marketplace Validation Warning Delete">
-		: 警告：フォルダの中身が在庫フォルダに移されました。空のフォルダを削除します
-	</string>
-	<string name="Marketplace Validation Error Stock Item">
-		: エラー：在庫フォルダにコピー不可アイテムを含める必要があります
-	</string>
-	<string name="Marketplace Validation Warning Unwrapped Item">
-		: 警告：バージョンフォルダにアイテムが含まれていなければなりません
-	</string>
-	<string name="Marketplace Validation Error">
-		: エラー：
-	</string>
-	<string name="Marketplace Validation Warning">
-		: 警告：
-	</string>
-	<string name="Marketplace Validation Error Empty Version">
-		: 警告：バージョンフォルダには、最低 1 アイテムが含まれなければなりません
-	</string>
-	<string name="Marketplace Validation Error Empty Stock">
-		: 警告：在庫フォルダには、最低 1 アイテムが含まれていなければなりません
-	</string>
-	<string name="Marketplace Validation No Error">
-		報告するエラーまたは警告はありません
-	</string>
-	<string name="Marketplace Error None">
-		エラーなし
-	</string>
-	<string name="Marketplace Error Prefix">
-		エラー：
-	</string>
-	<string name="Marketplace Error Not Merchant">
-		マーケットプレイスに商品を送る前に、あなた自身をマーチャント登録する必要があります（登録は無料です）。
-	</string>
-	<string name="Marketplace Error Not Accepted">
-		アイテムをそのフォルダに移動できません。
-	</string>
-	<string name="Marketplace Error Unsellable Item">
-		このアイテムをマーケットプレイスで販売することはできません。
-	</string>
-	<string name="MarketplaceNoID">
-		Mkt ID なし
-	</string>
-	<string name="MarketplaceLive">
-		リスト掲載済み
-	</string>
-	<string name="MarketplaceActive">
-		有効
-	</string>
-	<string name="MarketplaceMax">
-		最大
-	</string>
-	<string name="MarketplaceStock">
-		在庫
-	</string>
-	<string name="MarketplaceNoStock">
-		在庫なし
-	</string>
-	<string name="MarketplaceUpdating">
-		アップデート中...
 	</string>
 	<string name="UploadFeeInfo">
 		料金はサブスクリプションのレベルにより異なります。レベルが高いほど、料金が下がります。[https://secondlife.com/my/account/membership.php? 詳細]
@@ -5458,20 +5282,11 @@ www.secondlife.com から最新バージョンをダウンロードしてくだ�
 	<string name="Command_Map_Label">
 		地図
 	</string>
-	<string name="Command_Marketplace_Label">
-		マーケットプレイス
-	</string>
-	<string name="Command_MarketplaceListings_Label">
-		マーケットプレイス
-	</string>
 	<string name="Command_MiniMap_Label">
 		ミニマップ
 	</string>
 	<string name="Command_Move_Label">
 		歩行 / 走行 / 飛行
-	</string>
-	<string name="Command_Outbox_Label">
-		マーチャントアウトボックス
 	</string>
 	<string name="Command_People_Label">
 		人
@@ -5548,20 +5363,11 @@ www.secondlife.com から最新バージョンをダウンロードしてくだ�
 	<string name="Command_Map_Tooltip">
 		世界地図
 	</string>
-	<string name="Command_Marketplace_Tooltip">
-		ショッピングに出掛ける
-	</string>
-	<string name="Command_MarketplaceListings_Tooltip">
-		創作アイテムを販売します
-	</string>
 	<string name="Command_MiniMap_Tooltip">
 		近くの人を表示する
 	</string>
 	<string name="Command_Move_Tooltip">
 		アバターの移動
-	</string>
-	<string name="Command_Outbox_Tooltip">
-		販売用にアイテムをマーケットプレイスに転送
 	</string>
 	<string name="Command_People_Tooltip">
 		フレンド、グループ、近くの人

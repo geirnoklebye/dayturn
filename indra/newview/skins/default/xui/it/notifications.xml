@@ -99,128 +99,11 @@ Accertati che la tua connessione Internet stia funzionando correttamente.
 		Salva i cambiamenti all&apos;attuale parte del corpo/abito?
 		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Non salvare" yestext="Salva"/>
 	</notification>
-	<notification name="ConfirmNoCopyToOutbox">
-		Non hai l&apos;autorizzazione necessaria per copiare almeno uno di questi elementi nella casella in uscita del rivenditore.  Puoi spostarli o lasciarli indietro.
-		<usetemplate name="okcancelbuttons" notext="Non spostare gli oggetti" yestext="Sposta oggetti"/>
-	</notification>
-	<notification name="OutboxFolderCreated">
-		Una nuova cartella è stata creata per ciascun elemento trasferito nel livello superiore della casella in uscita del rivenditore.
-		<usetemplate ignoretext="Una nuova cartella è stata creata nella casella in uscita del rivenditore" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportComplete">
-		Successo
-
-Tutte le cartelle sono state inviate a Marketplace correttamente.
-		<usetemplate ignoretext="Tutte le cartelle inviate a Marketplace" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportHadErrors">
-		Alcune cartelle non sono state trasferite
-
-Si sono verificati degli errori durante l&apos;invio di alcune cartelle a Marketplace.  Tali cartelle sono ancora nella casella in uscita del rivenditore.
-
-Per ulteriori informazioni consulta il [[MARKETPLACE_IMPORTS_URL] registro errori].
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportFailed">
-		Trasferimento non riuscito, errore &apos;[ERROR_CODE]&apos;
-
-Nessuna cartella è stata inviata a Marketplace, a causa di un errore di sistema o di rete.  Riprova più tardi.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxInitFailed">
-		Inizializzazione Marketplace non riuscita, errore &apos;[ERROR_CODE]&apos;
-
-L&apos;inizializzazione con il Marketplace non ha avuto successo a causa di un errore di sistema o di rete.  Riprova più tardi.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="StockPasteFailed">
 		Impossibile copiare o spostare la cartella di magazzino a causa dell&apos;errore seguente:
         
         &apos;[ERROR_CODE]&apos;
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantPasteFailed">
-		Impossibile copiare o spostare gli annunci Marketplace a causa dell&apos;errore seguente:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantTransactionFailed">
-		La transazione in Marketplace non è riuscita a causa dell&apos;errore seguente:
-        
-        [ERROR_REASON][ERROR_DESCRIPTION]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantUnprocessableEntity">
-		Non siamo in grado di creare un annuncio per questo prodotto o di attivare la cartella di versione. Di solito la causa è la mancanza di informazioni nel modulo di descrizione dell&apos;annuncio, ma potrebbero esserci errori nella struttura delle cartelle. Modifica l&apos;annuncio oppure verifica che non ci siano problemi legati alla cartella dell&apos;annuncio.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantListingFailed">
-		Aggiunta annuncio a Marketplace non riuscita a causa dell&apos;errore seguente:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantFolderActivationFailed">
-		L&apos;attivazione di questa cartella di versione non è riuscita a causa dell&apos;errore:
-
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantForceValidateListing">
-		Per creare l&apos;annuncio, abbiamo corretto la gerarchia dei contenuti dell&apos;annuncio.
-		<usetemplate ignoretext="Avvisami se la gerarchia del contenuto viene corretta per creare un annuncio" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantActiveChange">
-		Questa azione cambierà il contenuto attivo di questo annuncio. Vuoi continuare?
-		<usetemplate ignoretext="Conferma prima di modificare un annuncio attivo su Marketplace" name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantMoveInventory">
-		Gli articoli trascinati nella finestra degli annunci di Marketplace vengono spostati dalle posizioni iniziali e non vengono copiati. Vuoi continuare?
-		<usetemplate ignoretext="Conferma prima di spostare un articolo dall&apos;inventario a Marketplace" name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmListingCutOrDelete">
-		Se sposti o elimini la cartella dell&apos;annuncio, l&apos;annuncio su Marketplace verrà eliminato. Per mantenere l&apos;annuncio su Marketplace, sposta o elimina i contenuti della cartella di versione da modificare. Vuoi continuare?
-		<usetemplate ignoretext="Conferma prima di spostare o eliminare un annuncio da Marketplace" name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmCopyToMarketplace">
-		Non hai l&apos;autorizzazione necessaria per copiare uno o più di questi articoli su Marketplace. Puoi spostarli o lasciarli dove si trovano.
-		<usetemplate canceltext="Annulla" ignoretext="Conferma prima di copiare nel Marketplace una selezione che contiene articoli per i quali non è consentita la copia" name="yesnocancelbuttons" notext="Non spostare gli articoli" yestext="Sposta articoli"/>
-	</notification>
-	<notification name="ConfirmMerchantUnlist">
-		Questa azione causa la rimozione dell&apos;annuncio. Vuoi continuare?
-		<usetemplate ignoretext="Conferma prima di rimuovere un annuncio attivo da Marketplace" name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantClearVersion">
-		Questa azione disattiverà la cartella di versione per l&apos;annuncio corrente. Vuoi continuare?
-		<usetemplate ignoretext="Conferma prima di disattivare la cartella di versione di un annuncio su Marketplace" name="okcancelignore" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingNotUpdated">
-		Impossibile aggiornare l&apos;annuncio.
-[[URL] Fai clic qui] per modificarlo in Marketplace.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingCannotWear">
-		Non puoi indossare vestiario o parti del corpo che sono nella cartella degli annunci di Marketplace.
-	</notification>
-	<notification name="AlertMerchantListingInvalidID">
-		ID annuncio non valido.
-	</notification>
-	<notification name="AlertMerchantListingActivateRequired">
-		Ci sono svariate cartelle di versione oppure nessuna cartella di versione in questo annuncio. In seguito dovrai selezionarne e attivarne una separatamente.
-		<usetemplate ignoretext="Avvisa riguardo all&apos;attivazione della cartella di versione quando creo un annuncio con varie cartelle di versione" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderSplit">
-		Abbiamo diviso gli articoli in magazzino di tipo diverso in cartelle di magazzino separate. In questo modo la tua cartella è ordinata per la pubblicazione nell&apos;annuncio.
-		<usetemplate ignoretext="Avverti quando la cartella di magazzino viene suddivisa prima della pubblicazione dell&apos;annuncio" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderEmpty">
-		L&apos;annuncio è stato rimosso perché il magazzino è esaurito. Aggiungi altre unità alla cartella di magazzino prima di pubblicare nuovamente l&apos;annuncio.
-		<usetemplate ignoretext="Avverti quando un annuncio viene rimosso perché la cartella di magazzino è vuota" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantVersionFolderEmpty">
-		L&apos;annuncio è stato rimosso perché la cartella della versione è vuota. Aggiungi elementi alla cartella della versione prima di pubblicare nuovamente l&apos;annuncio.
-		<usetemplate ignoretext="Avverti quando un annuncio non è elencato perché la cartella della versione è vuota" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="WriteAnimationFail">
 		C&apos;è stato un problema di scrittura dati dell&apos;animazione.  Riprova più tardi.
@@ -1950,9 +1833,6 @@ Cambierà migliaia di regioni e produrrà seri problemi ai vari server.
 	<notification name="RegionEntryAccessBlocked">
 		La regione che cerchi di visitare include contenuti che non corripondono al livello selezionato nelle preferenze.  Per cambiare le preferenze seleziona Io &gt; Preferenze &gt; Generale.
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="SLM_UPDATE_FOLDER">
-		[MESSAGE]
 	</notification>
 	<notification name="RegionEntryAccessBlocked_AdultsOnlyContent">
 		La regione che cerchi di visitare include contenuti [REGIONMATURITY] accessibili solo ad adulti.

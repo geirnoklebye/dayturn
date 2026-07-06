@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <menu name="Popup">
-	<menu_item_call label="新建刊登" name="Marketplace Create Listing"/>
-	<menu_item_call label="聯結刊登" name="Marketplace Associate Listing"/>
-	<menu_item_call label="取得（刷新）刊登" name="Marketplace Get Listing"/>
-	<menu_item_call label="檢查是否有誤" name="Marketplace Check Listing"/>
-	<menu_item_call label="編輯刊登" name="Marketplace Edit Listing"/>
-	<menu_item_call label="刊登" name="Marketplace List"/>
-	<menu_item_call label="停止刊登" name="Marketplace Unlist"/>
-	<menu_item_call label="啟用" name="Marketplace Activate"/>
-	<menu_item_call label="停用" name="Marketplace Deactivate"/>
 	<menu_item_call label="分享" name="Share"/>
 	<menu_item_call label="打開" name="Task Open"/>
 	<menu_item_call label="播放" name="Task Play"/>
@@ -111,7 +102,5 @@
 	<menu_item_call label="脫下" name="Take Off"/>
 	<menu_item_call label="僅套用到我自己" name="Settings Apply Local"/>
 	<menu_item_call label="套用到地段" name="Settings Apply Parcel"/>
-	<menu_item_call label="複製到 Marketplace 刊登" name="Marketplace Copy"/>
-	<menu_item_call label="移到 Marketplace 刊登" name="Marketplace Move"/>
 	<menu_item_call label="-- 無選項 --" name="--no options--"/>
 </menu>

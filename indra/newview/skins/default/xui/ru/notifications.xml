@@ -99,128 +99,11 @@
 		Сохранить изменения теперешней одежды/части тела?
 		<usetemplate canceltext="Отмена" name="yesnocancelbuttons" notext="Не сохранять" yestext="Сохранить"/>
 	</notification>
-	<notification name="ConfirmNoCopyToOutbox">
-		У вас нет прав на копирование этих предметов в папку «Торговые исходящие».  Переместите их или оставьте здесь.
-		<usetemplate name="okcancelbuttons" notext="Не перемещать предмет(ы)" yestext="Переместить предмет(ы)"/>
-	</notification>
-	<notification name="OutboxFolderCreated">
-		Для каждого предмета, перенесенного на верхний уровень папки «Торговые исходящие», создана новая папка.
-		<usetemplate ignoretext="В папке «Торговые исходящие» создана новая папка" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportComplete">
-		Успешно
-
-Все папки успешно отправлены в торговый центр.
-		<usetemplate ignoretext="Все папки отправлены в торговый центр" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportHadErrors">
-		Некоторые папки не перенесены
-
-Ошибки при отправке некоторых папок в торговый центр.  Эти папки остались в вашей папке «Торговые исходящие».
-
-Подробнее см. в [[MARKETPLACE_IMPORTS_URL] журнале ошибок].
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxImportFailed">
-		Не удалось передать, ошибка: «[ERROR_CODE]»
-
-Папки не отправлены в торговый центр из-за ошибки системы или сети.  Повторите попытку позже.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="OutboxInitFailed">
-		Не удалось инициализировать торговый центр, ошибка: «[ERROR_CODE]»
-
-Не удалось инициализировать торговый центр из-за ошибки системы или сети.  Повторите попытку позже.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
 	<notification name="StockPasteFailed">
 		Не удалось скопировать или переместить в папку запасов, ошибка:
         
         &apos;[ERROR_CODE]&apos;
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantPasteFailed">
-		Не удалось скопировать или переместить в списки товаров торгового центра, ошибка:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantTransactionFailed">
-		Не удалось выполнить транзакцию с торговым центром, ошибка:
-        
-        [ERROR_REASON][ERROR_DESCRIPTION]
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantUnprocessableEntity">
-		Не удалось опубликовать этот продукт или активировать папку версии. Обычно это происходит из-за отсутствия информации в форме описания списка, но также может быть связано с ошибками в структуре папки. Отредактируйте список или проверьте папку списка на отсутствие ошибок.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantListingFailed">
-		Не удалось опубликовать в торговом центре, ошибка:
-        
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantFolderActivationFailed">
-		Не удалось активировать эту папку версии, ошибка:
-
-        &apos;[ERROR_CODE]&apos;
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="MerchantForceValidateListing">
-		Для создания вашего списка была исправлена иерархия его содержимого.
-		<usetemplate ignoretext="Предупреждать об исправлении иерархии содержимого при создании списка" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantActiveChange">
-		Это действие вызовет изменение активного содержимого данного списка. Продолжить?
-		<usetemplate ignoretext="Подтверждать смену активного списка в торговом центре" name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantMoveInventory">
-		При перетаскивании в окно списков товаров торгового центра предметы перемещаются со своего исходного места, а не копируются. Продолжить?
-		<usetemplate ignoretext="Подтверждать перемещение предмета из инвентаря в торговый центр" name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmListingCutOrDelete">
-		В результате перемещения или удаления папки списка будет удален ваш список товаров в торговом центре. Если требуется сохранить список в торговом центре, переместите или удалите содержимое папки версии, которое необходимо изменить. Продолжить?
-		<usetemplate ignoretext="Подтверждать перемещение или удаление списка из торгового центра" name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmCopyToMarketplace">
-		У вас нет прав на копирование этих предметов в торговый центр. Переместите их или оставьте здесь.
-		<usetemplate canceltext="Отмена" ignoretext="Подтверждать попытку копирования некопируемых предметов в торговый центр" name="yesnocancelbuttons" notext="Не перемещать предмет(ы)" yestext="Переместить предмет(ы)"/>
-	</notification>
-	<notification name="ConfirmMerchantUnlist">
-		Это действие вызовет отмену публикации списка. Продолжить?
-		<usetemplate ignoretext="Подтверждать отмену публикации активного списка в торговом центре" name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="ConfirmMerchantClearVersion">
-		Это действие вызовет деактивацию папки версии текущего списка. Продолжить?
-		<usetemplate ignoretext="Подтверждать деактивирование папки версии списка в торговом центре" name="okcancelignore" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingNotUpdated">
-		Не удалось обновить этот список.
-[[URL] Щелкните здесь], чтобы изменить его в торговом центре.
-		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantListingCannotWear">
-		Нельзя надеть одежду или часть тела, если они находятся в папке списков товаров торгового центра.
-	</notification>
-	<notification name="AlertMerchantListingInvalidID">
-		Неверный идентификатор списка.
-	</notification>
-	<notification name="AlertMerchantListingActivateRequired">
-		В этом списке несколько папок версий или нет ни одной. Самостоятельно выберите и активируйте одну папку позже.
-		<usetemplate ignoretext="Предупреждать об активировании папки версии, если создан список с несколькими папками версий" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderSplit">
-		Предметы разных типов распределены по отдельным папкам запасов, поэтому папка систематизирована так, чтобы ее можно было опубликовать.
-		<usetemplate ignoretext="Предупреждать о разделении папки запасов перед публикацией" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantStockFolderEmpty">
-		Публикация вашего списка прекращена, так как папка запасов пуста. Добавьте предметы в папку запасов, чтобы опубликовать список снова.
-		<usetemplate ignoretext="Оповещать о неудавшейся публикации списка из-за того, что папка запасов пуста" name="okignore" yestext="OK"/>
-	</notification>
-	<notification name="AlertMerchantVersionFolderEmpty">
-		Публикация вашего списка прекращена, так как папка версии пуста. Добавьте предметы в папку версии, чтобы опубликовать список снова.
-		<usetemplate ignoretext="Оповещать о неудавшейся публикации списка из-за того, что папка версии пуста" name="okignore" yestext="OK"/>
 	</notification>
 	<notification name="WriteAnimationFail">
 		Ошибка при записи данных анимации. Повторите попытку позже.
@@ -1947,9 +1830,6 @@
 	<notification name="RegionEntryAccessBlocked">
 		Вы пытаетесь посетить регион, контент в котором не соответствует вашим настройкам.  Попробуйте изменить настройки в меню «Я &gt; Настройки &gt; Общие».
 		<usetemplate name="okbutton" yestext="OK"/>
-	</notification>
-	<notification name="SLM_UPDATE_FOLDER">
-		[MESSAGE]
 	</notification>
 	<notification name="RegionEntryAccessBlocked_AdultsOnlyContent">
 		Вы пытаетесь посетить регион, контент в котором имеет рейтинг [REGIONMATURITY] и предназначен только для взрослых.

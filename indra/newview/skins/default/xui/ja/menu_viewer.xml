@@ -23,7 +23,6 @@
 			<menu_item_check label="着信拒否" name="Do Not Disturb"/>
 		</menu>
 		<menu_item_call label="L$ の購入..." name="Buy and Sell L$"/>
-		<menu_item_call label="マーケティングプレイスのリスト..." name="MarketplaceListings"/>
 		<menu_item_call label="マイアカウント..." name="Manage My Account">
 			<menu_item_call.on_click name="ManageMyAccount_url" parameter="WebLaunchJoinNow,http://secondlife.com/account/index.php?lang=ja"/>
 		</menu_item_call>
