@@ -4455,8 +4455,6 @@ void LLAgent::onCapabilitiesReceivedAfterTeleport()
 	{
 		LL_WARNS("Teleport") << "called when agent region is null!" << LL_ENDL;
 	}
-
-    check_merchant_status();
 }
 
 

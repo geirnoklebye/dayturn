@@ -765,21 +765,6 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, bool drop,
 
 	if (!handled)
 	{
-		// Disallow drag and drop to 3D from the marketplace
-        const LLUUID marketplacelistings_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_MARKETPLACE_LISTINGS, false);
-		if (marketplacelistings_id.notNull())
-		{
-			for (S32 item_index = 0; item_index < (S32)mCargoIDs.size(); item_index++)
-			{
-				if (gInventory.isObjectDescendentOf(mCargoIDs[item_index], marketplacelistings_id))
-				{
-					*acceptance = ACCEPT_NO;
-					mToolTipMsg = LLTrans::getString("TooltipOutboxDragToWorld");
-					return;
-				}
-			}
-		}
-		
 		dragOrDrop3D( x, y, mask, drop, acceptance );
 	}
 }

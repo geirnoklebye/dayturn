@@ -45,7 +45,6 @@
 #include "llinventorypanel.h"
 #include "llfloaterpreviewtrash.h"
 #include "llnotificationsutil.h"
-#include "llmarketplacefunctions.h"
 #include "llwindow.h"
 #include "llviewercontrol.h"
 #include "llviewernetwork.h"
@@ -1362,12 +1361,6 @@ void LLInventoryModel::updateCategory(const LLViewerInventoryCategory* cat, U32 
 		{
 			mask |= LLInventoryObserver::LABEL;
 		}
-        // Under marketplace, category labels are quite complex and need extra upate
-        const LLUUID marketplace_id = findCategoryUUIDForType(LLFolderType::FT_MARKETPLACE_LISTINGS, false);
-        if (marketplace_id.notNull() && isObjectDescendentOf(cat->getUUID(), marketplace_id))
-        {
-			mask |= LLInventoryObserver::LABEL;
-        }
         old_cat->copyViewerCategory(cat);
 		addChangedMask(mask, cat->getUUID());
 	}
@@ -1934,14 +1927,6 @@ void LLInventoryModel::addChangedMask(U32 mask, const LLUUID& referent)
         else
         {
             mChangedItemIDs.insert(referent);
-        }
-
-        if (mask != LLInventoryObserver::LABEL)
-        {
-            // Fix me: From DD-81, probably shouldn't be here, instead
-            // should be somewhere in an observer or in
-            // LLMarketplaceInventoryObserver::onIdleProcessQueue
-            update_marketplace_category(referent, false);
         }
 
         if (mask & LLInventoryObserver::ADD)
@@ -3508,17 +3493,7 @@ void LLInventoryModel::processBulkUpdateInventory(LLMessageSystem* msg, void**)
 							   << tfolder->getUUID() << ") in " << tfolder->getParentUUID()
 							   << LL_ENDL;
         
-        // If the folder is a listing or a version folder, all we need to do is update the SLM data
-        int depth_folder = depth_nesting_in_marketplace(tfolder->getUUID());
-        if ((depth_folder == 1) || (depth_folder == 2))
-        {
-            // Trigger an SLM listing update
-            LLUUID listing_uuid = (depth_folder == 1 ? tfolder->getUUID() : tfolder->getParentUUID());
-            S32 listing_id = LLMarketplaceData::instance().getListingID(listing_uuid);
-            LLMarketplaceData::instance().getListing(listing_id);
-            // In that case, there is no item to update so no callback -> we skip the rest of the update
-        }
-		else if(tfolder->getUUID().notNull())
+		if(tfolder->getUUID().notNull())
 		{
 			folders.push_back(tfolder);
 			LLViewerInventoryCategory* folderp = gInventory.getCategory(tfolder->getUUID());

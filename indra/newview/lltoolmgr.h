@@ -55,10 +55,8 @@ public:
 	bool			inEdit();
 	bool			canEdit();
 	bool 			buildEnabledOrActive();
-    bool            canAccessMarketplace();
 	void			toggleBuildMode(const LLSD& sdname);
-	void			toggleMarketplace(const LLSD& sdname);
-	
+
 	/* Determines if we are in Build mode or not. */
 	bool			inBuildMode();
 

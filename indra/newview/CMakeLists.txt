@@ -299,13 +299,13 @@ set(viewer_SOURCE_FILES
     llfloaterimsession.cpp
     llfloaterimcontainer.cpp
     llfloaterinspect.cpp
+    llfloateritemproperties.cpp
     llfloaterjoystick.cpp
     llfloaterlagmeter.cpp
     llfloaterland.cpp
     llfloaterlandholdings.cpp
     llfloaterlinkreplace.cpp
     llfloaterloadprefpreset.cpp
-    llfloatermarketplacelistings.cpp
     llfloatermap.cpp
     llfloatermediasettings.cpp
     llfloatermemleak.cpp
@@ -429,8 +429,6 @@ set(viewer_SOURCE_FILES
     llmaniprotate.cpp
     llmanipscale.cpp
     llmaniptranslate.cpp
-    llmarketplacefunctions.cpp
-    llmarketplacenotifications.cpp
     llmaterialmgr.cpp
     llmediactrl.cpp
     llmediadataclient.cpp
@@ -493,8 +491,6 @@ set(viewer_SOURCE_FILES
     llpanellogin.cpp
     llpanelloginlistener.cpp
     llpanelmaininventory.cpp
-    llpanelmarketplaceinbox.cpp
-    llpanelmarketplaceinboxinventory.cpp
     llpanelmediasettingsgeneral.cpp
     llpanelmediasettingspermissions.cpp
     llpanelmediasettingssecurity.cpp
@@ -954,6 +950,7 @@ set(viewer_HEADER_FILES
     llfloaterimsession.h
     llfloaterimcontainer.h
     llfloaterinspect.h
+    llfloateritemproperties.h
     llfloaterjoystick.h
     llfloaterlagmeter.h
     llfloaterland.h
@@ -961,7 +958,6 @@ set(viewer_HEADER_FILES
     llfloaterlinkreplace.h
     llfloaterloadprefpreset.h
     llfloatermap.h
-    llfloatermarketplacelistings.h
     llfloatermediasettings.h
     llfloatermemleak.h
     llfloatermodelpreview.h
@@ -1082,8 +1078,6 @@ set(viewer_HEADER_FILES
     llmaniprotate.h
     llmanipscale.h
     llmaniptranslate.h
-    llmarketplacefunctions.h
-    llmarketplacenotifications.h
     llmaterialmgr.h
     llmediactrl.h
     llmediadataclient.h
@@ -1138,8 +1132,6 @@ set(viewer_HEADER_FILES
     llpanellogin.h
     llpanelloginlistener.h
     llpanelmaininventory.h
-    llpanelmarketplaceinbox.h
-    llpanelmarketplaceinboxinventory.h
     llpanelmediasettingsgeneral.h
     llpanelmediasettingspermissions.h
     llpanelmediasettingssecurity.h

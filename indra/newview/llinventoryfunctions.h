@@ -33,7 +33,9 @@
 #include "llhandle.h"
 #include "llwearabletype.h"
 
-// compute_stock_count() return error code
+// Marketplace stock count error codes (compute_stock_count() itself has been
+// removed from this file; these constants are still consumed elsewhere,
+// e.g. llinventorybridge.cpp / llfolderviewmodelinventory.cpp)
 const S32 COMPUTE_STOCK_INFINITE = -1;
 const S32 COMPUTE_STOCK_NOT_EVALUATED = -2;
 
@@ -70,11 +72,6 @@ void show_task_item_profile(const LLUUID& item_uuid, const LLUUID& object_id);
 void show_item_original(const LLUUID& item_uuid);
 void reset_inventory_filter();
 
-// Nudge the listing categories in the inventory to signal that their marketplace status changed
-void update_marketplace_category(const LLUUID& cat_id, bool perform_consistency_enforcement = true, bool skip_clear_listing = false);
-// Nudge all listing categories to signal that their marketplace status changed
-void update_all_marketplace_count();
-
 void rename_category(LLInventoryModel* model, const LLUUID& cat_id, const std::string& new_name);
 
 void copy_inventory_category(LLInventoryModel* model, LLViewerInventoryCategory* cat, const LLUUID& parent_id, const LLUUID& root_copy_id = LLUUID::null, bool move_no_copy_items = false);
@@ -84,16 +81,8 @@ void copy_inventory_category_content(const LLUUID& new_cat_uuid, LLInventoryMode
 // Generates a string containing the path to the item specified by item_id.
 void append_path(const LLUUID& id, std::string& path);
 
-typedef boost::function<void(std::string& validation_message, S32 depth, LLError::ELevel log_level)> validation_callback_t;
-
-bool can_move_item_to_marketplace(const LLInventoryCategory* root_folder, LLInventoryCategory* dest_folder, LLInventoryItem* inv_item, std::string& tooltip_msg, S32 bundle_size = 1, bool from_paste = false);
-bool can_move_folder_to_marketplace(const LLInventoryCategory* root_folder, LLInventoryCategory* dest_folder, LLInventoryCategory* inv_cat, std::string& tooltip_msg, S32 bundle_size = 1, bool check_items = true, bool from_paste = false);
-bool move_item_to_marketplacelistings(LLInventoryItem* inv_item, LLUUID dest_folder, bool copy = false);
-bool move_folder_to_marketplacelistings(LLInventoryCategory* inv_cat, const LLUUID& dest_folder, bool copy = false, bool move_no_copy_items = false);
-bool validate_marketplacelistings(LLInventoryCategory* inv_cat, validation_callback_t cb = NULL, bool fix_hierarchy = true, S32 depth = -1, bool notify_observers = true);
 S32  depth_nesting_in_marketplace(LLUUID cur_uuid);
 LLUUID nested_parent_id(LLUUID cur_uuid, S32 depth);
-S32 compute_stock_count(LLUUID cat_uuid, bool force_count = false);
 
 void change_item_parent(const LLUUID& item_id, const LLUUID& new_parent_id);
 void move_items_to_new_subfolder(const uuid_vec_t& selected_uuids, const std::string& folder_name);
@@ -470,20 +459,13 @@ public:
 
 struct LLInventoryAction
 {
-	static void doToSelected(LLInventoryModel* model, LLFolderView* root, const std::string& action, bool user_confirm = true);
-	static void callback_doToSelected(const LLSD& notification, const LLSD& response, class LLInventoryModel* model, class LLFolderView* root, const std::string& action);
-	static void callback_copySelected(const LLSD& notification, const LLSD& response, class LLInventoryModel* model, class LLFolderView* root, const std::string& action);
+	static void doToSelected(LLInventoryModel* model, LLFolderView* root, const std::string& action);
 	static void onItemsRemovalConfirmation(const LLSD& notification, const LLSD& response, LLHandle<LLFolderView> root);
 	static void removeItemFromDND(LLFolderView* root);
 
     static void saveMultipleTextures(const std::vector<std::string>& filenames, std::set<LLFolderViewItem*> selected_items, LLInventoryModel* model);
 
 	static const int sConfirmOnDeleteItemsNumber;
-
-private:
-	static void buildMarketplaceFolders(LLFolderView* root);
-	static void updateMarketplaceFolders();
-	static std::list<LLUUID> sMarketplaceFolders; // Marketplace folders that will need update once the action is completed
 };
 
 

@@ -42,7 +42,6 @@
 #include "llimagegl.h"
 #include "llkeyboard.h"
 #include "lllogininstance.h"
-#include "llmarketplacefunctions.h"
 #include "llmediaentry.h"
 #include "llmimetypes.h"
 #include "llmutelist.h"

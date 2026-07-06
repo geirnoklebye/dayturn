@@ -77,7 +77,6 @@
 #include "lltrans.h"
 #include "llcallingcard.h"
 #include "llslurl.h"			// IDEVO
-#include "llsidepanelinventory.h"
 //<FS:KC legacy profiles>
 #include "fsfloaterprofile.h"
 #include "llagentui.h"
@@ -1040,15 +1039,6 @@ std::set<LLUUID> LLAvatarActions::getInventorySelectedUUIDs(LLInventoryPanel* ac
 	if (active_panel)
 	{
 		inventory_selected= active_panel->getRootFolder()->getSelectionList();
-	}
-
-	if (inventory_selected.empty())
-	{
-		LLSidepanelInventory *sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-		if (sidepanel_inventory)
-		{
-			inventory_selected= sidepanel_inventory->getInboxSelectionList();
-		}
 	}
 
 	std::set<LLUUID> inventory_selected_uuids;

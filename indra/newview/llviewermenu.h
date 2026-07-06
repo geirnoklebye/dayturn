@@ -89,7 +89,6 @@ bool enable_attachment_touch(const LLUUID& idItem);
 bool enable_god_full(void* user_data);
 bool enable_god_liaison(void* user_data);
 bool enable_god_basic(void* user_data);
-void check_merchant_status(bool force = false);
 
 void exchange_callingcard(const LLUUID& dest_id);
 

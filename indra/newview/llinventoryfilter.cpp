@@ -35,7 +35,6 @@
 #include "llinventorymodel.h"
 #include "llinventorymodelbackgroundfetch.h"
 #include "llinventoryfunctions.h"
-#include "llmarketplacefunctions.h"
 #include "llregex.h"
 #include "llviewercontrol.h"
 #include "llfolderview.h"
@@ -197,9 +196,7 @@ bool LLInventoryFilter::checkFolder(const LLUUID& folder_id) const
 
 	// Marketplace folder filtering
     const U32 filterTypes = mFilterOps.mFilterTypes;
-    const U32 marketplace_filter = FILTERTYPE_MARKETPLACE_ACTIVE | FILTERTYPE_MARKETPLACE_INACTIVE |
-                                   FILTERTYPE_MARKETPLACE_UNASSOCIATED | FILTERTYPE_MARKETPLACE_LISTING_FOLDER |
-                                   FILTERTYPE_NO_MARKETPLACE_ITEMS;
+    const U32 marketplace_filter = FILTERTYPE_MARKETPLACE_LISTING_FOLDER | FILTERTYPE_NO_MARKETPLACE_ITEMS;
     if (filterTypes & marketplace_filter)
     {
         S32 depth = depth_nesting_in_marketplace(folder_id);
@@ -219,34 +216,8 @@ bool LLInventoryFilter::checkFolder(const LLUUID& folder_id) const
                 return false;
             }
         }
-        
-        if (depth > 0)
-        {
-            LLUUID listing_uuid = nested_parent_id(folder_id, depth);
-            if (filterTypes & FILTERTYPE_MARKETPLACE_ACTIVE)
-            {
-                if (!LLMarketplaceData::instance().getActivationState(listing_uuid))
-                {
-                    return false;
-                }
-            }
-            else if (filterTypes & FILTERTYPE_MARKETPLACE_INACTIVE)
-            {
-                if (!LLMarketplaceData::instance().isListed(listing_uuid) || LLMarketplaceData::instance().getActivationState(listing_uuid))
-                {
-                    return false;
-                }
-            }
-            else if (filterTypes & FILTERTYPE_MARKETPLACE_UNASSOCIATED)
-            {
-                if (LLMarketplaceData::instance().isListed(listing_uuid))
-                {
-                    return false;
-                }
-            }
-        }
     }
-    
+
 	// show folder links
 	LLViewerInventoryItem* item = gInventory.getItem(folder_id);
 	if (item && item->getActualType() == LLAssetType::AT_LINK_FOLDER)
@@ -757,21 +728,6 @@ void LLInventoryFilter::setFilterEmptySystemFolders()
 void LLInventoryFilter::setFilterWorn()
 {
     mFilterOps.mFilterTypes |= FILTERTYPE_WORN;
-}
-
-void LLInventoryFilter::setFilterMarketplaceActiveFolders()
-{
-	mFilterOps.mFilterTypes |= FILTERTYPE_MARKETPLACE_ACTIVE;
-}
-
-void LLInventoryFilter::setFilterMarketplaceInactiveFolders()
-{
-	mFilterOps.mFilterTypes |= FILTERTYPE_MARKETPLACE_INACTIVE;
-}
-
-void LLInventoryFilter::setFilterMarketplaceUnassociatedFolders()
-{
-	mFilterOps.mFilterTypes |= FILTERTYPE_MARKETPLACE_UNASSOCIATED;
 }
 
 void LLInventoryFilter::setFilterMarketplaceListingFolders(bool select_only_listing_folders)

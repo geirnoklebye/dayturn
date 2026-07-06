@@ -31,11 +31,8 @@
 
 class LLButton;
 class LLFolderViewItem;
-class LLInboxAddedObserver;
-class LLInventoryCategoriesObserver;
 class LLInventoryItem;
 class LLInventoryPanel;
-class LLLayoutPanel;
 class LLPanelMainInventory;
 class LLSidepanelItemInfo;
 class LLSidepanelTaskInfo;
@@ -46,25 +43,15 @@ public:
 	LLSidepanelInventory();
 	virtual ~LLSidepanelInventory();
 
-private:
-	void updateInbox();
-	
 public:
-	void observeInboxCreation();
-	void observeInboxModifications(const LLUUID& inboxID);
-
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
 
 	LLInventoryPanel* getActivePanel(); // Returns an active inventory panel, if any.
 	void selectAllItemsPanel();
-	LLInventoryPanel* getInboxPanel() const { return mInventoryPanelInbox.get(); }
 
 	LLPanelMainInventory* getMainInventoryPanel() const { return mPanelMainInventory; }
 	bool isMainInventoryPanelActive() const;
-
-	void clearSelections(bool clearMain, bool clearInbox);
-    std::set<LLFolderViewItem*> getInboxSelectionList();
 
 	void showItemInfoPanel();
 	void showTaskInfoPanel();
@@ -72,17 +59,6 @@ public:
 
 	// checks can share selected item(s)
 	bool canShare();
-
-	void onToggleInboxBtn();
-
-	void enableInbox(bool enabled);
-
-	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-	void refreshInboxVisibility();
-	
-	void openInbox();
-	
-	bool isInboxEnabled() const { return mInboxEnabled; }
 
 	void updateVerbs();
 
@@ -98,14 +74,11 @@ protected:
 
 	bool canWearSelected(); // check whether selected items can be worn
 
-	void onInboxChanged(const LLUUID& inbox_id);
-
 	//
 	// UI Elements
 	//
 private:
 	LLPanel*					mInventoryPanel; // Main inventory view
-	LLHandle<LLInventoryPanel>	mInventoryPanelInbox;
 	LLSidepanelItemInfo*		mItemPanel; // Individual item view
 	LLSidepanelTaskInfo*		mTaskPanel; // Individual in-world object view
 	LLPanelMainInventory*		mPanelMainInventory;
@@ -113,7 +86,6 @@ private:
 protected:
 	void 						onInfoButtonClicked();
 	void 						onShareButtonClicked();
-	void 						onShopButtonClicked();
 	void 						onWearButtonClicked();
 	void 						onPlayButtonClicked();
 	void 						onTeleportButtonClicked();
@@ -125,14 +97,6 @@ private:
 	LLButton*					mWearBtn;
 	LLButton*					mPlayBtn;
 	LLButton*					mTeleportBtn;
-	LLButton*					mShopBtn;
-
-	bool						mInboxEnabled;
-
-	LLInventoryCategoriesObserver* 	mCategoriesObserver;
-	LLInboxAddedObserver*			mInboxAddedObserver;
-
-	static bool					sInboxInitalized; // <FS:Ansariel> Inbox panel randomly shown on secondary inventory windows
 };
 
 #endif //LL_LLSIDEPANELINVENTORY_H

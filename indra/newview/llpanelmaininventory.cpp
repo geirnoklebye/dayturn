@@ -45,7 +45,6 @@
 #include "llfloaterreg.h"
 #include "llmenubutton.h"
 #include "lloutfitobserver.h"
-#include "llpanelmarketplaceinbox.h"
 #include "llpreviewtexture.h"
 #include "llresmgr.h"
 #include "llscrollcontainer.h"
@@ -268,9 +267,6 @@ bool LLPanelMainInventory::postBuild()
 		menu->getChild<LLMenuItemGL>("Upload Sound")->setLabelArg("[COST]", sound_upload_cost_str);
 		menu->getChild<LLMenuItemGL>("Upload Animation")->setLabelArg("[COST]", animation_upload_cost_str);
 	}
-
-	// Trigger callback for focus received so we can deselect items in inbox/outbox
-	LLFocusableElement::setFocusReceivedCallback(boost::bind(&LLPanelMainInventory::onFocusReceived, this));
 
 	return true;
 }
@@ -575,27 +571,6 @@ void LLPanelMainInventory::onClearSearch()
 		mActivePanel->getRootFolder()->scrollToShowSelection();
 	}
 	mFilterSubString = "";
-
-	// <FS:Ansariel> FIRE-22509: Only apply inbox filter on primary inventory window
-	//LLSidepanelInventory * sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-	//if (sidepanel_inventory)
-	//{
-	//	LLPanelMarketplaceInbox* inbox_panel = sidepanel_inventory->getChild<LLPanelMarketplaceInbox>("marketplace_inbox");
-	//	if (inbox_panel)
-	//	{
-	//		inbox_panel->onClearSearch();
-	//	}
-	//}
-	LLSidepanelInventory * sidepanel_inventory = getParentByType<LLSidepanelInventory>();
-	if (sidepanel_inventory && sidepanel_inventory->getInboxPanel())
-	{
-		LLPanelMarketplaceInbox* inbox_panel = sidepanel_inventory->getInboxPanel()->getParentByType<LLPanelMarketplaceInbox>();
-		if (inbox_panel)
-		{
-			inbox_panel->onClearSearch();
-		}
-	}
-	// </FS:Ansariel>
 }
 
 void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
@@ -627,27 +602,6 @@ void LLPanelMainInventory::onFilterEdit(const std::string& search_string )
 
 	// set new filter string
 	setFilterSubString(mFilterSubString);
-
-	// <FS:Ansariel> FIRE-22509: Only apply inbox filter on primary inventory window
-	//LLSidepanelInventory * sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-	//if (sidepanel_inventory)
-	//{
-	//	LLPanelMarketplaceInbox* inbox_panel = sidepanel_inventory->getChild<LLPanelMarketplaceInbox>("marketplace_inbox");
-	//	if (inbox_panel)
-	//	{
-	//		inbox_panel->onFilterEdit(search_string);
-	//	}
-	//}
-	LLSidepanelInventory * sidepanel_inventory = getParentByType<LLSidepanelInventory>();
-	if (sidepanel_inventory && sidepanel_inventory->getInboxPanel())
-	{
-		LLPanelMarketplaceInbox* inbox_panel = sidepanel_inventory->getInboxPanel()->getParentByType<LLPanelMarketplaceInbox>();
-		if (inbox_panel)
-		{
-			inbox_panel->onFilterEdit(search_string);
-		}
-	}
-	// </FS:Ansariel>
 }
 
 
@@ -843,18 +797,6 @@ void LLPanelMainInventory::updateItemcountText()
 	
     mCounterCtrl->setValue(text);
     mCounterCtrl->setToolTip(text);
-}
-
-void LLPanelMainInventory::onFocusReceived()
-{
-	LLSidepanelInventory *sidepanel_inventory =	LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-	if (!sidepanel_inventory)
-	{
-		LL_WARNS() << "Could not find Inventory Panel in My Inventory floater" << LL_ENDL;
-		return;
-	}
-
-	sidepanel_inventory->clearSelections(false, true);
 }
 
 void LLPanelMainInventory::setFilterTextFromFilter() 

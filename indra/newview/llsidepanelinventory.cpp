@@ -29,10 +29,8 @@
 
 #include "llagent.h"
 #include "llappearancemgr.h"
-#include "llappviewer.h"
 #include "llavataractions.h"
 #include "llbutton.h"
-#include "lldate.h"
 #include "llfirstuse.h"
 #include "llfloaterreg.h"
 #include "llfloatersidepanelcontainer.h"
@@ -41,13 +39,9 @@
 #include "llinventorybridge.h"
 #include "llinventoryfunctions.h"
 #include "llinventorymodel.h"
-#include "llinventorymodelbackgroundfetch.h"
-#include "llinventoryobserver.h"
 #include "llinventorypanel.h"
-#include "lllayoutstack.h"
 #include "lloutfitobserver.h"
 #include "llpanelmaininventory.h"
-#include "llpanelmarketplaceinbox.h"
 #include "llselectmgr.h"
 #include "llsidepaneliteminfo.h"
 #include "llsidepaneltaskinfo.h"
@@ -57,61 +51,10 @@
 #include "lltrans.h"
 #include "llviewermedia.h"
 #include "llviewernetwork.h"
-#include "llweb.h"
 
 #include "llfiltereditor.h"
 
 static LLPanelInjector<LLSidepanelInventory> t_inventory("sidepanel_inventory");
-
-//
-// Constants
-//
-
-// No longer want the inbox panel to auto-expand since it creates issues with the "new" tag time stamp
-#define AUTO_EXPAND_INBOX	0
-
-static const char * const INBOX_BUTTON_NAME = "inbox_btn";
-static const char * const INBOX_LAYOUT_PANEL_NAME = "inbox_layout_panel";
-static const char * const INVENTORY_LAYOUT_STACK_NAME = "inventory_layout_stack";
-static const char * const MARKETPLACE_INBOX_PANEL = "marketplace_inbox";
-
-bool LLSidepanelInventory::sInboxInitalized = false; // <FS:Ansariel> Inbox panel randomly shown on secondary inventory windows
-
-//
-// Helpers
-//
-class LLInboxAddedObserver : public LLInventoryCategoryAddedObserver
-{
-public:
-	LLInboxAddedObserver(LLSidepanelInventory * sidepanelInventory)
-		: LLInventoryCategoryAddedObserver()
-		, mSidepanelInventory(sidepanelInventory)
-	{
-	}
-	
-	void done()
-	{
-		for (cat_vec_t::iterator it = mAddedCategories.begin(); it != mAddedCategories.end(); ++it)
-		{
-			LLViewerInventoryCategory* added_category = *it;
-			
-			LLFolderType::EType added_category_type = added_category->getPreferredType();
-			
-			switch (added_category_type)
-			{
-				case LLFolderType::FT_INBOX:
-					mSidepanelInventory->enableInbox(true);
-					mSidepanelInventory->observeInboxModifications(added_category->getUUID());
-					break;
-				default:
-					break;
-			}
-		}
-	}
-	
-private:
-	LLSidepanelInventory * mSidepanelInventory;
-};
 
 //
 // Implementation
@@ -121,48 +64,12 @@ LLSidepanelInventory::LLSidepanelInventory()
 	: LLPanel()
 	, mItemPanel(nullptr)
 	, mPanelMainInventory(nullptr)
-	, mInboxEnabled(false)
-	, mCategoriesObserver(nullptr)
-	, mInboxAddedObserver(nullptr)
 {
 	//buildFromFile( "panel_inventory.xml"); // Called from LLRegisterPanelClass::defaultPanelClassBuilder()
 }
 
 LLSidepanelInventory::~LLSidepanelInventory()
 {
-	// <FS:Ansariel> FIRE-17603: Received Items button sometimes vanishing
-	//LLLayoutPanel* inbox_layout_panel = getChild<LLLayoutPanel>(INBOX_LAYOUT_PANEL_NAME);
-	LLLayoutPanel* inbox_layout_panel = findChild<LLLayoutPanel>(INBOX_LAYOUT_PANEL_NAME);
-	if (inbox_layout_panel)
-	{
-	// </FS:Ansariel>
-
-	// Save the InventoryMainPanelHeight in settings per account
-	gSavedPerAccountSettings.setS32("InventoryInboxHeight", inbox_layout_panel->getTargetDim());
-	// <FS:Ansariel> FIRE-17603: Received Items button sometimes vanishing
-	}
-	// </FS:Ansariel>
-
-	if (mCategoriesObserver && gInventory.containsObserver(mCategoriesObserver))
-	{
-		gInventory.removeObserver(mCategoriesObserver);
-	}
-	delete mCategoriesObserver;
-	
-	if (mInboxAddedObserver && gInventory.containsObserver(mInboxAddedObserver))
-	{
-		gInventory.removeObserver(mInboxAddedObserver);
-	}
-	delete mInboxAddedObserver;
-}
-
-void handleInventoryDisplayInboxChanged()
-{
-	LLSidepanelInventory* sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory");
-	if (sidepanel_inventory)
-	{
-		sidepanel_inventory->enableInbox(gSavedSettings.getbool("InventoryDisplayInbox"));
-	}
 }
 
 bool LLSidepanelInventory::postBuild()
@@ -176,9 +83,6 @@ bool LLSidepanelInventory::postBuild()
 		
 		mShareBtn = mInventoryPanel->getChild<LLButton>("share_btn");
 		mShareBtn->setClickedCallback(boost::bind(&LLSidepanelInventory::onShareButtonClicked, this));
-		
-		mShopBtn = mInventoryPanel->getChild<LLButton>("shop_btn");
-		mShopBtn->setClickedCallback(boost::bind(&LLSidepanelInventory::onShopButtonClicked, this));
 
 		mWearBtn = mInventoryPanel->getChild<LLButton>("wear_btn");
 		mWearBtn->setClickedCallback(boost::bind(&LLSidepanelInventory::onWearButtonClicked, this));
@@ -222,52 +126,6 @@ bool LLSidepanelInventory::postBuild()
 			back_btn->setClickedCallback(boost::bind(&LLSidepanelInventory::onBackButtonClicked, this));
 		}
 	}
-	
-	// Received items inbox setup
-	if (!sInboxInitalized) // <FS:Ansariel> Inbox panel randomly shown on secondary inventory window
-	{
-		// <FS:Ansariel> FIRE-17603: Received Items button sometimes vanishing
-		//LLLayoutStack* inv_stack = getChild<LLLayoutStack>(INVENTORY_LAYOUT_STACK_NAME);
-		LLLayoutStack* inv_stack = findChild<LLLayoutStack>(INVENTORY_LAYOUT_STACK_NAME);
-		if (inv_stack)
-		{
-		// </FS:Ansariel>
-
-		// Set up button states and callbacks
-		LLButton * inbox_button = getChild<LLButton>(INBOX_BUTTON_NAME);
-
-		inbox_button->setCommitCallback(boost::bind(&LLSidepanelInventory::onToggleInboxBtn, this));
-
-		// Get the previous inbox state from "InventoryInboxToggleState" setting.
-		bool is_inbox_collapsed = !inbox_button->getToggleState();
-
-		// Restore the collapsed inbox panel state
-		LLLayoutPanel* inbox_panel = getChild<LLLayoutPanel>(INBOX_LAYOUT_PANEL_NAME);
-		inv_stack->collapsePanel(inbox_panel, is_inbox_collapsed);
-		if (!is_inbox_collapsed)
-		{
-			inbox_panel->setTargetDim(gSavedPerAccountSettings.getS32("InventoryInboxHeight"));
-		}
-
-		// Set the inbox visible based on debug settings (final setting comes from http request below)
-		// <FS:Ansariel> FIRE-17603: Received Items button sometimes vanishing
-		//enableInbox(gSavedSettings.getbool("InventoryDisplayInbox"));
-		enableInbox(!gSavedSettings.getbool("FSShowInboxFolder") || gSavedSettings.getbool("FSAlwaysShowInboxButton"));
-		}
-		// </FS:Ansariel>
-
-		// Trigger callback for after login so we can setup to track inbox changes after initial inventory load
-		LLAppViewer::instance()->setOnLoginCompletedCallback(boost::bind(&LLSidepanelInventory::updateInbox, this));
-
-		// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-		gSavedSettings.getControl("FSShowInboxFolder")->getSignal()->connect(boost::bind(&LLSidepanelInventory::refreshInboxVisibility, this));
-		gSavedSettings.getControl("FSAlwaysShowInboxButton")->getSignal()->connect(boost::bind(&LLSidepanelInventory::refreshInboxVisibility, this));
-
-		sInboxInitalized = true; // <FS:Ansariel> Inbox panel randomly shown on secondary inventory window
-	}
-
-	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-	//gSavedSettings.getControl("InventoryDisplayInbox")->getCommitSignal()->connect(boost::bind(&handleInventoryDisplayInboxChanged));
 
 	// Update the verbs buttons state.
 	updateVerbs();
@@ -275,177 +133,10 @@ bool LLSidepanelInventory::postBuild()
 	return true;
 }
 
-void LLSidepanelInventory::updateInbox()
-{
-	//
-	// Track inbox folder changes
-	//
-	const LLUUID inbox_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX, true);
-	
-	// Set up observer to listen for creation of inbox if it doesn't exist
-	if (inbox_id.isNull())
-	{
-		observeInboxCreation();
-	}
-	// Set up observer for inbox changes, if we have an inbox already
-	else 
-	{
-        // Consolidate Received items
-        // We shouldn't have to do that but with a client/server system relying on a "well known folder" convention,
-        // things can get messy and conventions broken. This call puts everything back together in its right place.
-        gInventory.consolidateForType(inbox_id, LLFolderType::FT_INBOX);
-        
-		// Enable the display of the inbox if it exists
-		enableInbox(true);
-
-		observeInboxModifications(inbox_id);
-	}
-}
-
-void LLSidepanelInventory::observeInboxCreation()
-{
-	//
-	// Set up observer to track inbox folder creation
-	//
-	
-	if (mInboxAddedObserver == nullptr)
-	{
-		mInboxAddedObserver = new LLInboxAddedObserver(this);
-		
-		gInventory.addObserver(mInboxAddedObserver);
-	}
-}
-
-void LLSidepanelInventory::observeInboxModifications(const LLUUID& inboxID)
-{
-	//
-	// Silently do nothing if we already have an inbox inventory panel set up
-	// (this can happen multiple times on the initial session that creates the inbox)
-	//
-
-	if (mInventoryPanelInbox.get() != NULL)
-	{
-		return;
-	}
-
-	//
-	// Track inbox folder changes
-	//
-
-	if (inboxID.isNull())
-	{
-		LL_WARNS() << "Attempting to track modifications to non-existent inbox" << LL_ENDL;
-		return;
-	}
-
-	if (mCategoriesObserver == nullptr)
-	{
-		mCategoriesObserver = new LLInventoryCategoriesObserver();
-		gInventory.addObserver(mCategoriesObserver);
-	}
-
-	mCategoriesObserver->addCategory(inboxID, boost::bind(&LLSidepanelInventory::onInboxChanged, this, inboxID));
-
-	//
-	// Trigger a load for the entire contents of the Inbox
-	//
-
-	LLInventoryModelBackgroundFetch::instance().start(inboxID);
-
-	//
-	// Set up the inbox inventory view
-	//
-
-	LLPanelMarketplaceInbox * inbox = getChild<LLPanelMarketplaceInbox>(MARKETPLACE_INBOX_PANEL);
-    LLInventoryPanel* inventory_panel = inbox->setupInventoryPanel();
-	mInventoryPanelInbox = inventory_panel->getInventoryPanelHandle();
-}
-
-void LLSidepanelInventory::enableInbox(bool enabled)
-{
-	mInboxEnabled = enabled;
-	
-	LLLayoutPanel * inbox_layout_panel = getChild<LLLayoutPanel>(INBOX_LAYOUT_PANEL_NAME);
-	// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-	//inbox_layout_panel->setVisible(enabled);
-	inbox_layout_panel->setVisible(enabled && (!gSavedSettings.getbool("FSShowInboxFolder") || gSavedSettings.getbool("FSAlwaysShowInboxButton")));
-}
-
-// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-void LLSidepanelInventory::refreshInboxVisibility()
-{
-	enableInbox(mInboxEnabled);
-}
-// </FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-
-void LLSidepanelInventory::openInbox()
-{
-	if (mInboxEnabled)
-	{
-		getChild<LLButton>(INBOX_BUTTON_NAME)->setToggleState(true);
-		onToggleInboxBtn();
-	}
-}
-
-void LLSidepanelInventory::onInboxChanged(const LLUUID& inbox_id)
-{
-	// Trigger a load of the entire inbox so we always know the contents and their creation dates for sorting
-	LLInventoryModelBackgroundFetch::instance().start(inbox_id);
-
-#if AUTO_EXPAND_INBOX
-	// Expand the inbox since we have fresh items
-	if (mInboxEnabled)
-	{
-		getChild<LLButton>(INBOX_BUTTON_NAME)->setToggleState(true);
-		onToggleInboxBtn();
-	}
-#endif
-}
-
-void LLSidepanelInventory::onToggleInboxBtn()
-{
-	LLButton* inboxButton = getChild<LLButton>(INBOX_BUTTON_NAME);
-	LLLayoutPanel* inboxPanel = getChild<LLLayoutPanel>(INBOX_LAYOUT_PANEL_NAME);
-	LLLayoutStack* inv_stack = getChild<LLLayoutStack>(INVENTORY_LAYOUT_STACK_NAME);
-	
-	const bool inbox_expanded = inboxButton->getToggleState();
-	
-	// Expand/collapse the indicated panel
-	inv_stack->collapsePanel(inboxPanel, !inbox_expanded);
-
-	if (inbox_expanded)
-	{
-		inboxPanel->setTargetDim(gSavedPerAccountSettings.getS32("InventoryInboxHeight"));
-		if (inboxPanel->isInVisibleChain())
-	{
-		gSavedPerAccountSettings.setU32("LastInventoryInboxActivity", time_corrected());
-	}
-}
-	else
-	{
-		gSavedPerAccountSettings.setS32("InventoryInboxHeight", inboxPanel->getTargetDim());
-	}
-
-}
-
 void LLSidepanelInventory::onOpen(const LLSD& key)
 {
 	LLFirstUse::newInventory(false);
 	mPanelMainInventory->setFocusFilterEditor();
-#if AUTO_EXPAND_INBOX
-	// Expand the inbox if we have fresh items
-	LLPanelMarketplaceInbox * inbox = findChild<LLPanelMarketplaceInbox>(MARKETPLACE_INBOX_PANEL);
-	if (inbox && (inbox->getFreshItemCount() > 0))
-	{
-		getChild<LLButton>(INBOX_BUTTON_NAME)->setToggleState(true);
-		onToggleInboxBtn();
-	}
-#else
-	if (mInboxEnabled && getChild<LLButton>(INBOX_BUTTON_NAME)->getToggleState())
-	{
-		gSavedPerAccountSettings.setU32("LastInventoryInboxActivity", time_corrected());
-	}
-#endif
 
 	if(key.size() == 0)
 	{
@@ -491,25 +182,12 @@ void LLSidepanelInventory::onShareButtonClicked()
 	LLAvatarActions::shareWithAvatars(this);
 }
 
-void LLSidepanelInventory::onShopButtonClicked()
-{
-	LLWeb::loadURL(gSavedSettings.getString("MarketplaceURL"));
-}
-
 void LLSidepanelInventory::performActionOnSelection(const std::string &action)
 {
 	LLFolderViewItem* current_item = mPanelMainInventory->getActivePanel()->getRootFolder()->getCurSelectedItem();
 	if (!current_item)
 	{
-		if (mInventoryPanelInbox.get() && mInventoryPanelInbox.get()->getRootFolder())
-		{
-			current_item = mInventoryPanelInbox.get()->getRootFolder()->getCurSelectedItem();
-		}
-
-		if (!current_item)
-		{
-			return;
-		}
+		return;
 	}
 
 	static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->performAction(mPanelMainInventory->getActivePanel()->getModel(), action);
@@ -611,7 +289,6 @@ void LLSidepanelInventory::updateVerbs()
 	mPlayBtn->setToolTip(std::string(""));
  	mTeleportBtn->setVisible(false);
  	mTeleportBtn->setEnabled(false);
- 	mShopBtn->setVisible(true);
 
 	mShareBtn->setEnabled(canShare());
 
@@ -630,31 +307,26 @@ void LLSidepanelInventory::updateVerbs()
 		case LLInventoryType::IT_ATTACHMENT:
 			mWearBtn->setVisible(true);
 			mWearBtn->setEnabled(canWearSelected());
-		 	mShopBtn->setVisible(false);
 			break;
 		case LLInventoryType::IT_SOUND:
 			mPlayBtn->setVisible(true);
 			mPlayBtn->setEnabled(true);
 			mPlayBtn->setToolTip(LLTrans::getString("InventoryPlaySoundTooltip"));
-			mShopBtn->setVisible(false);
 			break;
 		case LLInventoryType::IT_GESTURE:
 			mPlayBtn->setVisible(true);
 			mPlayBtn->setEnabled(true);
 			mPlayBtn->setToolTip(LLTrans::getString("InventoryPlayGestureTooltip"));
-			mShopBtn->setVisible(false);
 			break;
 		case LLInventoryType::IT_ANIMATION:
 			mPlayBtn->setVisible(true);
 			mPlayBtn->setEnabled(true);
 			mPlayBtn->setEnabled(true);
 			mPlayBtn->setToolTip(LLTrans::getString("InventoryPlayAnimationTooltip"));
-			mShopBtn->setVisible(false);
 			break;
 		case LLInventoryType::IT_LANDMARK:
 			mTeleportBtn->setVisible(true);
 			mTeleportBtn->setEnabled(true);
-		 	mShopBtn->setVisible(false);
 			break;
 		default:
 			break;
@@ -663,17 +335,13 @@ void LLSidepanelInventory::updateVerbs()
 
 bool LLSidepanelInventory::canShare()
 {
-	LLInventoryPanel* inbox = mInventoryPanelInbox.get();
-
 	// Avoid flicker in the Recent tab while inventory is being loaded.
-	if ( (!inbox || !inbox->getRootFolder() || inbox->getRootFolder()->getSelectionList().empty())
-		&& (mPanelMainInventory && !mPanelMainInventory->getActivePanel()->getRootFolder()->hasVisibleChildren()) )
+	if (mPanelMainInventory && !mPanelMainInventory->getActivePanel()->getRootFolder()->hasVisibleChildren())
 	{
 		return false;
 	}
 
-	return ( (mPanelMainInventory ? LLAvatarActions::canShareSelectedItems(mPanelMainInventory->getActivePanel()) : false)
-			|| (inbox ? LLAvatarActions::canShareSelectedItems(inbox) : false) );
+	return mPanelMainInventory ? LLAvatarActions::canShareSelectedItems(mPanelMainInventory->getActivePanel()) : false;
 }
 
 
@@ -703,18 +371,10 @@ LLInventoryItem *LLSidepanelInventory::getSelectedItem()
         return NULL;
     }
 	LLFolderViewItem* current_item = root->getCurSelectedItem();
-	
+
 	if (!current_item)
 	{
-		if (mInventoryPanelInbox.get() && mInventoryPanelInbox.get()->getRootFolder())
-		{
-			current_item = mInventoryPanelInbox.get()->getRootFolder()->getCurSelectedItem();
-		}
-
-		if (!current_item)
-		{
-			return nullptr;
-		}
+		return nullptr;
 	}
 	const LLUUID &item_id = static_cast<LLFolderViewModelItemInventory*>(current_item->getViewModelItem())->getUUID();
 	LLInventoryItem *item = gInventory.getItem(item_id);
@@ -723,19 +383,8 @@ LLInventoryItem *LLSidepanelInventory::getSelectedItem()
 
 U32 LLSidepanelInventory::getSelectedCount()
 {
-	int count = 0;
-
 	std::set<LLFolderViewItem*> selection_list = mPanelMainInventory->getActivePanel()->getRootFolder()->getSelectionList();
-	count += selection_list.size();
-
-	if ((count == 0) && mInboxEnabled && mInventoryPanelInbox.get() && mInventoryPanelInbox.get()->getRootFolder())
-	{
-		selection_list = mInventoryPanelInbox.get()->getRootFolder()->getSelectionList();
-
-		count += selection_list.size();
-	}
-
-	return count;
+	return selection_list.size();
 }
 
 LLInventoryPanel *LLSidepanelInventory::getActivePanel()
@@ -767,38 +416,6 @@ void LLSidepanelInventory::selectAllItemsPanel()
 bool LLSidepanelInventory::isMainInventoryPanelActive() const
 {
 	return mInventoryPanel->getVisible();
-}
-
-void LLSidepanelInventory::clearSelections(bool clearMain, bool clearInbox)
-{
-	if (clearMain)
-	{
-		LLInventoryPanel * inv_panel = getActivePanel();
-		
-		if (inv_panel)
-		{
-			inv_panel->getRootFolder()->clearSelection();
-		}
-	}
-	
-	if (clearInbox && mInboxEnabled && mInventoryPanelInbox.get())
-	{
-		mInventoryPanelInbox.get()->getRootFolder()->clearSelection();
-	}
-	
-	updateVerbs();
-}
-
-std::set<LLFolderViewItem*> LLSidepanelInventory::getInboxSelectionList()
-{
-	std::set<LLFolderViewItem*> inventory_selected_uuids;
-	
-	if (mInboxEnabled && mInventoryPanelInbox.get() && mInventoryPanelInbox.get()->getRootFolder())
-	{
-		inventory_selected_uuids = mInventoryPanelInbox.get()->getRootFolder()->getSelectionList();
-	}
-	
-	return inventory_selected_uuids;
 }
 
 void LLSidepanelInventory::cleanup()

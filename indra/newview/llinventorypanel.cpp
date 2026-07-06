@@ -322,8 +322,8 @@ void LLInventoryPanel::initFromParams(const LLInventoryPanel::Params& params)
 		// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 		//getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_INBOX));
 	}
-    // hide marketplace listing box, unless we are a marketplace panel
-	if (!gSavedSettings.getbool("InventoryOutboxMakeVisible") && !mParams.use_marketplace_folders)
+    // hide marketplace listing box
+	if (!gSavedSettings.getbool("InventoryOutboxMakeVisible"))
 	{
 		getFilter().setFilterCategoryTypes(getFilter().getFilterCategoryTypes() & ~(1ULL << LLFolderType::FT_MARKETPLACE_LISTINGS));
     }
@@ -1082,7 +1082,7 @@ LLFolderViewItem* LLInventoryPanel::buildViewsTree(const LLUUID& id,
   				(objectp->getActualType() != LLAssetType::AT_LINK_FOLDER))
   			{
   				LLInvFVBridge* new_listener = mInvFVBridgeBuilder->createBridge(LLAssetType::AT_CATEGORY,
-                                            (mParams.use_marketplace_folders ? LLAssetType::AT_MARKETPLACE_FOLDER : LLAssetType::AT_CATEGORY),
+                                            LLAssetType::AT_CATEGORY,
   																				LLInventoryType::IT_CATEGORY,
   																				this,
                                                                                 &mInventoryViewModel,
@@ -1818,7 +1818,6 @@ void LLInventoryPanel::openInventoryPanelAndSetSelection(bool auto_open, const L
 	sidepanel_inventory->showInventoryPanel();
 
 	bool in_inbox = (gInventory.isObjectDescendentOf(obj_id, gInventory.findCategoryUUIDForType(LLFolderType::FT_INBOX)));
-	bool show_inbox = gSavedSettings.getbool("FSShowInboxFolder"); // <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
 
 	if (!in_inbox && (main_panel || !sidepanel_inventory->getMainInventoryPanel()->isRecentItemsPanelSelected()))
 	{
@@ -1835,30 +1834,12 @@ void LLInventoryPanel::openInventoryPanelAndSetSelection(bool auto_open, const L
 			reset_inventory_filter();
 		}
 
-		// <FS:Ansariel> Optional hiding of Received Items folder aka Inbox
-		//if (in_inbox)
-		if (in_inbox && !show_inbox)
-		// </FS:Ansariel>
+		LLFloater* floater_inventory = LLFloaterReg::getInstance("inventory");
+		if (floater_inventory)
 		{
-			LLSidepanelInventory* sidepanel_inventory = LLFloaterSidePanelContainer::getPanel<LLSidepanelInventory>("inventory"); // <FS:Ansariel> Use correct inventory floater
-			LLInventoryPanel * inventory_panel = NULL;
-				sidepanel_inventory->openInbox();
-				inventory_panel = sidepanel_inventory->getInboxPanel();
-
-			if (inventory_panel)
-			{
-				inventory_panel->setSelection(obj_id, take_keyboard_focus);
-			}
+			floater_inventory->setFocus(true);
 		}
-		else
-		{
-			LLFloater* floater_inventory = LLFloaterReg::getInstance("inventory");
-			if (floater_inventory)
-			{
-				floater_inventory->setFocus(true);
-			}
-			active_panel->setSelection(obj_id, take_keyboard_focus);
-		}
+		active_panel->setSelection(obj_id, take_keyboard_focus);
 	}
 }
 

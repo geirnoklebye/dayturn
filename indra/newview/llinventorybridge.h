@@ -78,8 +78,6 @@ public:
 	virtual ~LLInvFVBridge() {}
 
 	bool canShare() const;
-	bool canListOnMarketplace() const;
-	bool canListOnMarketplaceNow() const;
 
 	//--------------------------------------------------------------------
 	// LLInvFVBridge functionality
@@ -152,9 +150,6 @@ protected:
 	virtual void addDeleteContextMenuOptions(menuentry_vec_t &items,
 											 menuentry_vec_t &disabled_items);
 	virtual void addOpenRightClickMenuOption(menuentry_vec_t &items);
-	virtual void addMarketplaceContextMenuOptions(U32 flags,
-											 menuentry_vec_t &items,
-											 menuentry_vec_t &disabled_items);
 	virtual void addLinkReplaceMenuOption(menuentry_vec_t& items,
 										  menuentry_vec_t& disabled_items);
 
@@ -169,9 +164,6 @@ protected:
 
 	bool isAgentInventory() const; // false if lost or in the inventory library
 	bool isCOFFolder() const;       // true if COF or descendant of
-	bool isInboxFolder() const;     // true if COF or descendant of   marketplace inbox
-
-	bool isMarketplaceListingsFolder() const;     // true if descendant of Marketplace listings folder
 
 	virtual bool isItemPermissive() const;
 	static void changeItemParent(LLInventoryModel* model,
@@ -284,8 +276,6 @@ public:
 		
 	bool dragItemIntoFolder(LLInventoryItem* inv_item, bool drop, std::string& tooltip_msg, bool user_confirm = true);
 	bool dragCategoryIntoFolder(LLInventoryCategory* inv_category, bool drop, std::string& tooltip_msg, bool is_link = false, bool user_confirm = true);
-    void callback_dropItemIntoFolder(const LLSD& notification, const LLSD& response, LLInventoryItem* inv_item);
-    void callback_dropCategoryIntoFolder(const LLSD& notification, const LLSD& response, LLInventoryCategory* inv_category);
 
     virtual void buildDisplayName() const;
 
@@ -380,9 +370,7 @@ public:
 
 protected:
     void outfitFolderCreatedCallback(LLUUID cat_source_id, LLUUID cat_dest_id);
-    void callback_pasteFromClipboard(const LLSD& notification, const LLSD& response);
     void perform_pasteFromClipboard();
-    void gatherMessage(std::string& message, S32 depth, LLError::ELevel log_level);
     LLUIImagePtr getFolderIcon(bool is_open) const;
 
 	bool							mCallingCards;
@@ -390,7 +378,6 @@ protected:
 	bool							mIsLoading;
 	bool							mShowDescendantsCount;
 	LLTimer							mTimeSinceRequestStart;
-    std::string                     mMessage;
 	LLRootHandle<LLFolderBridge> mHandle;
 };
 
@@ -715,32 +702,7 @@ public:
 };
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Marketplace Inventory Panel related classes
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-class LLMarketplaceFolderBridge : public LLFolderBridge
-{
-public:
-    // Overloads some display related methods specific to folders in a marketplace floater context
-	LLMarketplaceFolderBridge(LLInventoryPanel* inventory,
-							  LLFolderView* root,
-                              const LLUUID& uuid);
-    
-	virtual LLUIImagePtr getIcon() const;
-	virtual LLUIImagePtr getIconOpen() const;
-	virtual std::string getLabelSuffix() const;
-	virtual LLFontGL::StyleFlags getLabelStyle() const;
-    
-private:
-    LLUIImagePtr getMarketplaceFolderIcon(bool is_open) const;
-    // Those members are mutable because they are cached variablse to speed up display, not a state variables
-    mutable S32 m_depth;
-    mutable S32 m_stockCountCache;
-};
-
-
-void rez_attachment(LLViewerInventoryItem* item, 
+void rez_attachment(LLViewerInventoryItem* item,
 					LLViewerJointAttachment* attachment,
 					bool replace = false);
 
@@ -764,8 +726,6 @@ void hide_context_entries(LLMenuGL& menu,
 // Helper functions to classify actions.
 bool isAddAction(const std::string& action);
 bool isRemoveAction(const std::string& action);
-bool isMarketplaceCopyAction(const std::string& action);
-bool isMarketplaceSendAction(const std::string& action);
 
 class LLFolderViewGroupedItemBridge: public LLFolderViewGroupedItemModel
 {

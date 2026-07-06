@@ -130,7 +130,6 @@ protected:
 	bool isSaveTextureEnabled(const LLSD& userdata);
 	void updateItemcountText();
 
-	void onFocusReceived();
 	void onSelectSearchType();
 	void updateSearchTypeCombo();
 

@@ -101,7 +101,6 @@
 // [/SL:KB]
 #include "llpanelblockedlist.h"
 #include "llpanelmaininventory.h"
-#include "llmarketplacefunctions.h"
 #include "llmoveview.h"
 #include "llnavigationbar.h"
 #include "llparcel.h"
@@ -417,44 +416,6 @@ void initialize_menus();
 //
 // Break up groups of more than 6 items with separators
 //-----------------------------------------------------------------------------
-
-void set_merchant_SLM_menu()
-{
-    // All other cases (new merchant, not merchant, migrated merchant): show the new Marketplace Listings menu and enable the tool
-    gMenuHolder->getChild<LLView>("MarketplaceListings")->setVisible(true);
-    LLCommand* command = LLCommandManager::instance().getCommand("marketplacelistings");
-    gToolBarView->enableCommand(command->id(), true);
-
-    const LLUUID marketplacelistings_id = gInventory.findCategoryUUIDForType(LLFolderType::FT_MARKETPLACE_LISTINGS, false);
-    if (marketplacelistings_id.isNull())
-    {
-        U32 mkt_status = LLMarketplaceData::instance().getSLMStatus();
-        bool is_merchant = (mkt_status == MarketplaceStatusCodes::MARKET_PLACE_MERCHANT) || (mkt_status == MarketplaceStatusCodes::MARKET_PLACE_MIGRATED_MERCHANT);
-        if (is_merchant)
-        {
-            gInventory.findCategoryUUIDForType(LLFolderType::FT_MARKETPLACE_LISTINGS, true);
-            LL_WARNS("SLM") << "Creating the marketplace listings folder for a merchant" << LL_ENDL;
-        }
-    }
-}
-
-void check_merchant_status(bool force)
-{
-    if (force)
-    {
-        // Reset the SLM status: we actually want to check again, that's the point of calling check_merchant_status()
-        LLMarketplaceData::instance().setSLMStatus(MarketplaceStatusCodes::MARKET_PLACE_NOT_INITIALIZED);
-    }
-    // Hide SLM related menu item
-    gMenuHolder->getChild<LLView>("MarketplaceListings")->setVisible(false);
-
-    // Also disable the toolbar button for Marketplace Listings
-    LLCommand* command = LLCommandManager::instance().getCommand("marketplacelistings");
-    gToolBarView->enableCommand(command->id(), false);
-
-    // Launch an SLM test connection to get the merchant status
-    LLMarketplaceData::instance().initializeSLM(boost::bind(&set_merchant_SLM_menu));
-}
 
 void init_menus()
 {
@@ -10527,8 +10488,6 @@ void initialize_menus()
 	view_listener_t::addMenu(new LLAvatarResetSkeletonAndAnimations(), "Avatar.ResetSkeletonAndAnimations");
 	view_listener_t::addMenu(new LLAvatarResetSelfSkeletonAndAnimations(), "Avatar.ResetSelfSkeletonAndAnimations");
 
-	commit.add("Avatar.OpenMarketplace", boost::bind(&LLWeb::loadURLExternal, gSavedSettings.getString("MarketplaceURL")));
-	
 	view_listener_t::addMenu(new LLAvatarEnableAddFriend(), "Avatar.EnableAddFriend");
 	view_listener_t::addMenu(new LLAvatarEnableRemoveFriend(), "Avatar.EnableRemoveFriend");
 

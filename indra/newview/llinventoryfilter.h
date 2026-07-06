@@ -82,7 +82,7 @@ public:
 		SO_DATE = 0x1,						// Sort inventory by date
 		SO_FOLDERS_BY_NAME = 0x1 << 1,		// Force folder sort by name
 		SO_SYSTEM_FOLDERS_TO_TOP = 0x1 << 2,// Force system folders to be on top
-		SO_FOLDERS_BY_WEIGHT = 0x1 << 3,    // Force folder sort by weight, usually, amount of some elements in their descendants
+		SO_FOLDERS_BY_WEIGHT = 0x1 << 3,    // Unused: was Marketplace stock-count sort; compute_stock_count() removed with Merchant Outbox. Bit kept reserved (may be persisted in InventorySortOrder settings) but no longer read or set anywhere.
 	};
 
 	enum ESearchType
@@ -218,9 +218,6 @@ public:
 	void				setFilterEmptySystemFolders();
 	void				removeFilterEmptySystemFolders(); // <FS:Ansariel> Optional hiding of empty system folders
 	void				setFilterWorn();
-	void				setFilterMarketplaceActiveFolders();
-	void				setFilterMarketplaceInactiveFolders();
-	void				setFilterMarketplaceUnassociatedFolders();
 	void				setFilterMarketplaceListingFolders(bool select_only_listing_folders);
 	void				setFilterNoMarketplaceFolder();
 	void				updateFilterTypes(U64 types, U64& current_types);

@@ -102,7 +102,6 @@ public:
 		Optional<bool>						suppress_folder_menu;
 		Optional<bool>						show_root_folder;
 		Optional<bool>						allow_drop_on_root;
-		Optional<bool>						use_marketplace_folders;
 		Optional<LLScrollContainer::Params>	scroll;
 		Optional<bool>						accepts_drag_and_drop;
 		Optional<LLFolderView::Params>		folder_view;
@@ -126,7 +125,6 @@ public:
             show_empty_message("show_empty_message", true),
             show_root_folder("show_root_folder", false),
             allow_drop_on_root("allow_drop_on_root", true),
-            use_marketplace_folders("use_marketplace_folders", false),
 			scroll("scroll"),
 			accepts_drag_and_drop("accepts_drag_and_drop"),
 			folder_view("folder_view"),
