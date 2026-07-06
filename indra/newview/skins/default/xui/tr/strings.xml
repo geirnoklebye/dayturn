@@ -1401,9 +1401,6 @@ http://secondlife.com/support adresini ziyaret edin.
 	<string name="InventoryNoTexture">
 		Envanterinizde bu dokunun kopyası yok
 	</string>
-	<string name="MarketplaceURL">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
-	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		Pencereyi Oyun seçenekleri ile birlikte açın.
 	</string>

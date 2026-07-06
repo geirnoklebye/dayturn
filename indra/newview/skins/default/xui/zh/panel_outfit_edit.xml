@@ -38,12 +38,6 @@
 			<button label="穿上物品" name="plus_btn"/>
 		</layout_panel>
 	</layout_stack>
-	<panel name="no_add_wearables_button_bar">
-		<button name="shop_btn_1" tool_tip="前往第二人生購物市集。 你也可選擇你穿著中的一個物件，再點按這裡察看其他同類物件。"/>
-	</panel>
-	<panel name="add_wearables_button_bar">
-		<button name="shop_btn_2" tool_tip="前往第二人生購物市集。 你也可選擇你穿著中的一個物件，再點按這裡察看其他同類物件。"/>
-	</panel>
 	<panel name="save_revert_button_bar">
 		<layout_stack name="button_bar_ls">
 			<layout_panel name="save_btn_lp">

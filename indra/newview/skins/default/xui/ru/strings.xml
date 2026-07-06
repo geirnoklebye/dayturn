@@ -1401,9 +1401,6 @@ support@secondlife.com.
 	<string name="InventoryNoTexture">
 		В вашем инвентаре нет копии этой текстуры
 	</string>
-	<string name="MarketplaceURL">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
-	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		Откройте окно с настройками игры.
 	</string>

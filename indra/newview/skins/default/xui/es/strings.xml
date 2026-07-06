@@ -1392,9 +1392,6 @@ http://secondlife.com/support para obtener ayuda sobre cómo solucionar este pro
 	<string name="InventoryNoTexture">
 		No tienes en tu inventario una copia de esta textura
 	</string>
-	<string name="MarketplaceURL">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
-	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		Abrir la ventana con las opciones del Juego
 	</string>

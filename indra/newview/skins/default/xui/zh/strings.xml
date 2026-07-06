@@ -1397,9 +1397,6 @@ http://secondlife.com/support 求助解決問題。
 	<string name="InventoryNoTexture">
 		你的收納區裡沒有這個材質的副本
 	</string>
-	<string name="MarketplaceURL">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/
-	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		開啟「Play選項」視窗。
 	</string>

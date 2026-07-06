@@ -38,12 +38,6 @@
 			<button label="アイテムを装着" name="plus_btn"/>
 		</layout_panel>
 	</layout_stack>
-	<panel name="no_add_wearables_button_bar">
-		<button name="shop_btn_1" tool_tip="「SL マーケットプレイス」ページをご覧ください。また、いま着用しているアイテムを選択してここをクリックすると、それに似たアイテムが表示されます。"/>
-	</panel>
-	<panel name="add_wearables_button_bar">
-		<button name="shop_btn_2" tool_tip="「SL マーケットプレイス」ページをご覧ください。また、いま着用しているアイテムを選択してここをクリックすると、それに似たアイテムが表示されます。"/>
-	</panel>
 	<panel name="save_revert_button_bar">
 		<layout_stack name="button_bar_ls">
 			<layout_panel name="save_btn_lp">

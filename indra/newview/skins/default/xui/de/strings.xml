@@ -1412,9 +1412,6 @@ besuchen Sie bitte http://secondlife.com/support
 	<string name="InventoryNoTexture">
 		Sie haben keine Kopie dieser Textur in Ihrem Inventar.
 	</string>
-	<string name="MarketplaceURL">
-		https://marketplace.[MARKETPLACE_DOMAIN_NAME]/
-	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		Fenster mit Spieloptionen öffnen.
 	</string>

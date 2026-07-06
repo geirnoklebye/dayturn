@@ -38,12 +38,6 @@
 			<button label="Porter l&apos;article" name="plus_btn"/>
 		</layout_panel>
 	</layout_stack>
-	<panel name="no_add_wearables_button_bar">
-		<button name="shop_btn_1" tool_tip="Visiter la Place du marché SL. Vous pouvez également sélectionner quelque chose que vous portez, puis cliquer ici pour consulter d&apos;autres articles similaires."/>
-	</panel>
-	<panel name="add_wearables_button_bar">
-		<button name="shop_btn_2" tool_tip="Visiter la Place du marché SL. Vous pouvez également sélectionner quelque chose que vous portez, puis cliquer ici pour consulter d&apos;autres articles similaires."/>
-	</panel>
 	<panel name="save_revert_button_bar">
 		<layout_stack name="button_bar_ls">
 			<layout_panel name="save_btn_lp">

@@ -1403,9 +1403,6 @@ support@secondlife.com にお問い合わせください。
 	<string name="InventoryNoTexture">
 		インベントリ内にこのテクスチャのコピーがありません
 	</string>
-	<string name="MarketplaceURL">
-		http://marketplace.[MARKETPLACE_DOMAIN_NAME]
-	</string>
 	<string name="InventoryPlayAnimationTooltip">
 		[再生] オプションでウィンドウを開ける。
 	</string>
