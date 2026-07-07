@@ -71,14 +71,13 @@ const std::string WORN_ITEMS("Worn Items");
 
 static LLPanelInjector<LLPanelMainInventory> t_inventory("panel_main_inventory");
 
-void on_file_loaded_for_save(bool success, 
+void on_file_loaded_for_save(bool success,
 							 LLViewerFetchedTexture *src_vi,
 							 LLImageRaw* src, 
 							 LLImageRaw* aux_src, 
 							 S32 discard_level,
 							 bool final,
-							 void* userdata);;
-
+							 void* userdata);
 
 ///----------------------------------------------------------------------------
 /// LLFloaterInventoryFinder
@@ -255,8 +254,18 @@ bool LLPanelMainInventory::postBuild()
 
 	initListCommandsHandlers();
 
-	// *TODO:Get the cost info from the server
-	const std::string upload_cost("10");
+	S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+	std::string upload_cost;
+    // <FS:AW opensim support>
+    if (!gIsInSecondLife)
+	{
+		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : "free";
+	}
+	else
+    // <FS:AW opensim support>
+	{
+		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
+	}
 
 	LLMenuGL* menu = (LLMenuGL*)mMenuAddHandle.get();
 	if (menu)
@@ -1423,7 +1432,7 @@ void LLPanelMainInventory::onCustomAction(const LLSD& userdata)
 	if (command_name == "include_links")
 	{
 		mActivePanel->getFilter().toggleSearchVisibilityLinks();
-	}		
+	}
 }
 
 void LLPanelMainInventory::onVisibilityChange( bool new_visibility )
@@ -1640,7 +1649,6 @@ bool LLPanelMainInventory::isFilterLinksChecked(const LLSD& userdata)
 }
 // ## Zi: Filter Links Menu
 
-
 bool LLPanelMainInventory::handleDragAndDropToTrash(bool drop, EDragAndDropType cargo_type, EAcceptance* accept)
 {
 	*accept = ACCEPT_NO;
@@ -1657,56 +1665,36 @@ bool LLPanelMainInventory::handleDragAndDropToTrash(bool drop, EDragAndDropType 
 
 void LLPanelMainInventory::setUploadCostIfNeeded()
 {
-	// *NOTE dzaporozhan
-	// Upload cost is set in process_economy_data() (llviewermessage.cpp). But since we
-	// have two instances of Inventory panel at the moment(and two instances of context menu),
-	// call to gMenuHolder->childSetLabelArg() sets upload cost only for one of the instances.
+    // *NOTE dzaporozhan
+    // Upload cost is set in process_economy_data() (llviewermessage.cpp). But since we
+    // have two instances of Inventory panel at the moment(and two instances of context menu),
+    // call to gMenuHolder->childSetLabelArg() sets upload cost only for one of the instances.
 
-	LLMenuGL* menu = (LLMenuGL*)mMenuAddHandle.get();
-	if(mNeedUploadCost && menu)
-	{
-		if (!gIsInSecondLife)
-		{
-			LLMenuItemBranchGL* upload_menu = menu->findChild<LLMenuItemBranchGL>("upload");
-			if(upload_menu)
-			{
-				S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
-				std::string upload_cost;
+    LLMenuGL* menu = (LLMenuGL*)mMenuAddHandle.get();
+    if(mNeedUploadCost && menu)
+    {
+        LLMenuItemBranchGL* upload_menu = menu->findChild<LLMenuItemBranchGL>("upload");
+        if(upload_menu)
+        {
+            S32 cost = LLGlobalEconomy::getInstance()->getPriceUpload();
+            std::string upload_cost;
+            // <FS:AW opensim support>
+            if (!gIsInSecondLife)
+            {
+                upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : "free";
+            }
+            else
+                // <FS:AW opensim support>
+            {
+                upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
+            }
 
-				upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : LLTrans::getString("free");
-
-				upload_menu->getChild<LLView>("Upload Image")->setLabelArg("[COST]", upload_cost);
-				upload_menu->getChild<LLView>("Upload Sound")->setLabelArg("[COST]", upload_cost);
-				upload_menu->getChild<LLView>("Upload Animation")->setLabelArg("[COST]", upload_cost);
-				upload_menu->getChild<LLView>("Bulk Upload")->setLabelArg("[COST]", upload_cost);
-			}
-		}
-		else
-		{
-			LLMenuItemBranchGL* upload_menu = menu->findChild<LLMenuItemBranchGL>("upload");
-			if(upload_menu)
-			{
-				S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
-				std::string cost_str;
-
-				// getPriceUpload() returns -1 if no data available yet.
-				if(upload_cost >= 0)
-				{
-					mNeedUploadCost = false;
-					cost_str = llformat("%d", upload_cost);
-				}
-				else
-				{
-					cost_str = llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
-				}
-
-				upload_menu->getChild<LLView>("Upload Image")->setLabelArg("[COST]", cost_str);
-				upload_menu->getChild<LLView>("Upload Sound")->setLabelArg("[COST]", cost_str);
-				upload_menu->getChild<LLView>("Upload Animation")->setLabelArg("[COST]", cost_str);
-				upload_menu->getChild<LLView>("Bulk Upload")->setLabelArg("[COST]", cost_str);
-			}
-		}
-	}
+            upload_menu->getChild<LLView>("Upload Image")->setLabelArg("[COST]", upload_cost);
+            upload_menu->getChild<LLView>("Upload Sound")->setLabelArg("[COST]", upload_cost);
+            upload_menu->getChild<LLView>("Upload Animation")->setLabelArg("[COST]", upload_cost);
+            upload_menu->getChild<LLView>("Bulk Upload")->setLabelArg("[COST]", upload_cost);
+        }
+    }
 }
 
 bool LLPanelMainInventory::hasSettingsInventory()
