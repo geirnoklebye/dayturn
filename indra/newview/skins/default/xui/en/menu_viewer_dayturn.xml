@@ -524,8 +524,6 @@
     </menu>
 <!-- END OF AVATAR MENU -->
     
-
-
 <!-- START OF WORLD MENU -->    
   <menu
    create_jump_keys="true"
@@ -1411,8 +1409,6 @@
   </menu>
 <!-- END OF BUILD MENU -->   
   
-
-
 <!-- START OF VIEW MENU -->    
     <menu
      create_jump_keys="true"
