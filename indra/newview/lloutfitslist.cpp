@@ -35,7 +35,7 @@
 #include "llaccordionctrltab.h"
 #include "llagentwearables.h"
 #include "llappearancemgr.h"
-#include "llagentbenefits.h"
+#include "lleconomy.h"
 #include "llfloatersidepanelcontainer.h"
 #include "llinventoryfunctions.h"
 #include "llinventorymodel.h"
@@ -1264,7 +1264,7 @@ bool LLOutfitListGearMenuBase::onEnable(LLSD::String param)
 
 bool LLOutfitListGearMenuBase::onVisible(LLSD::String param)
 {
-	getMenu()->getChild<LLUICtrl>("upload_photo")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefits::instance().getTextureUploadCost()));
+	getMenu()->getChild<LLUICtrl>("upload_photo")->setLabelArg("[UPLOAD_COST]", std::to_string(LLGlobalEconomy::getInstance()->getPriceUpload()));
     const LLUUID& selected_outfit_id = getSelectedOutfitID();
     if (selected_outfit_id.isNull()) // no selection or invalid outfit selected
     {

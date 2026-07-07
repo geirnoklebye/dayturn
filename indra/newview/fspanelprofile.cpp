@@ -51,7 +51,6 @@
 //#include "fsdata.h"
 #include "fspanelprofileclassifieds.h"
 #include "llagent.h" //gAgent
-#include "llagentbenefits.h"
 #include "llagentpicksinfo.h"
 #include "llavataractions.h"
 #include "llavatarpropertiesprocessor.h"

@@ -33,7 +33,7 @@
 #include "llstatusbar.h" // can_afford_transaction()
 #include "llnotificationsutil.h"
 #include "lloutfitgallery.h"
-#include "llagentbenefits.h"
+#include "lleconomy.h"
 #include "llviewercontrol.h"
 
 LLSimpleSnapshotFloaterView* gSimpleSnapshotFloaterView = NULL;
@@ -147,7 +147,7 @@ LLFloaterSimpleSnapshot::~LLFloaterSimpleSnapshot()
 
 bool LLFloaterSimpleSnapshot::postBuild()
 {
-    getChild<LLUICtrl>("save_btn")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefits::instance().getTextureUploadCost()));
+    getChild<LLUICtrl>("save_btn")->setLabelArg("[UPLOAD_COST]", std::to_string(LLGlobalEconomy::getInstance()->getPriceUpload()));
 
     childSetAction("new_snapshot_btn", ImplBase::onClickNewSnapshot, this);
     childSetAction("save_btn", boost::bind(&LLFloaterSimpleSnapshot::onSend, this));
@@ -257,7 +257,7 @@ void LLFloaterSimpleSnapshot::onCancel()
 
 void LLFloaterSimpleSnapshot::onSend()
 {
-    S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
+    S32 expected_upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
     if (can_afford_transaction(expected_upload_cost))
     {
         saveTexture();
