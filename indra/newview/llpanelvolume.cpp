@@ -31,6 +31,7 @@
 
 // linden library includes
 #include "llclickaction.h"
+#include "lleconomy.h"
 #include "llerror.h"
 #include "llfontgl.h"
 #include "llflexibleobject.h"

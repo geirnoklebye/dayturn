@@ -31,6 +31,7 @@
 #include "llbvhloader.h"
 #include "lldatapacker.h"
 #include "lldir.h"
+#include "lleconomy.h"
 #include "llnotificationsutil.h"
 #include "llfilesystem.h"
 #include "llapr.h"

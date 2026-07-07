@@ -52,7 +52,6 @@
 #include "mean_collision_data.h"
 
 #include "llagent.h"
-#include "llagentbenefits.h"
 #include "llagentcamera.h"
 #include "llcallingcard.h"
 #include "llbuycurrencyhtml.h"
@@ -923,7 +922,7 @@ bool join_group_response(const LLSD& notification, const LLSD& response)
 	if(option == 0 && !group_id.isNull())
 	{
 		// check for promotion or demotion.
-		S32 max_groups = LLAgentBenefits::instance().getGroupMembershipLimit();
+		S32 max_groups = gMaxAgentGroups;
 		if(gAgent.isInGroup(group_id)) ++max_groups;
 
 		if(gAgent.mGroups.size() < max_groups)
@@ -5627,7 +5626,7 @@ void process_economy_data(LLMessageSystem *msg, void** /*user_data*/)
 		std::string upload_cost;
 
 		upload_cost = cost > 0 ? llformat("%s%d", "L$", cost) : LLTrans::getString("free");
-		
+
 		LL_INFOS_ONCE("Economy") << Tea::wrapCurrency("EconomyData message arrived; upload cost is L$") << upload_cost << LL_ENDL;
 
 		gMenuHolder->getChild<LLUICtrl>("Upload Image")->setLabelArg("[COST]",  upload_cost);

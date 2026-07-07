@@ -30,7 +30,6 @@
 
 // project includes
 #include "llagent.h"
-#include "llagentbenefits.h"
 #include "llagentcamera.h"
 #include "llfilepicker.h"
 #include "llfloaterreg.h"
@@ -436,8 +435,7 @@ const void upload_bulk(const std::vector<std::string>& filenames, LLFilePicker::
 	//
 	// Also fix single upload to charge first, then refund
 
-	// FIXME PREMIUM - upload_cost should be per-file, depends on asset type
-	S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
+	S32 expected_upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 	for (std::vector<std::string>::const_iterator in_iter = filenames.begin(); in_iter != filenames.end(); ++in_iter)
 	{
 		std::string filename = (*in_iter);

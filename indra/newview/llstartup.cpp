@@ -259,6 +259,7 @@ static LLVector3 gAgentStartLookAt(1.0f, 0.f, 0.f);
 static std::string gAgentStartLocation = "safe";
 static bool mLoginStatePastUI = false;
 
+const S32 DEFAULT_MAX_AGENT_GROUPS = 42;
 const F32 STATE_AGENT_WAIT_TIMEOUT = 240; //seconds
 const S32 MAX_SEED_CAP_ATTEMPTS_BEFORE_LOGIN = 3; // Give region 3 chances
 
@@ -1919,6 +1920,8 @@ bool idle_startup()
 			send_complete_agent_movement(regionp->getHost());
 			gAssetStorage->setUpstream(regionp->getHost());
 			gCacheName->setUpstream(regionp->getHost());
+			msg->newMessageFast(_PREHASH_EconomyDataRequest);
+			gAgent.sendReliableMessage();
 		}
 
         // It is entirely possible that we may get the friends list _before_ we have the callbacks registered to process that.
@@ -4123,6 +4126,9 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
         LL_DEBUGS("OS_SETTINGS") << "no search url in login response" << LL_ENDL;
     }
 
+	gMaxAgentGroups = LLAgentBenefits::instance().getGroupMembershipLimit();
+	LL_INFOS("LLStartup") << "gMaxAgentGroups set from agent benefits: "
+						  << gMaxAgentGroups << LL_ENDL;
 
 	bool success = false;
 	// JC: gesture loading done below, when we have an asset system

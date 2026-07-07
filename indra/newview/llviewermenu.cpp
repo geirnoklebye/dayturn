@@ -140,6 +140,7 @@
 #include "lluilistener.h"
 #include "llappearancemgr.h"
 #include "lltrans.h"
+#include "lleconomy.h"
 #include "lltoolgrab.h"
 #include "llview.h"
 #include "llwindow.h"

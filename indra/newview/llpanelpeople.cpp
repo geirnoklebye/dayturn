@@ -47,7 +47,6 @@
 #include "llaccordionctrl.h"
 #include "llaccordionctrltab.h"
 #include "llagent.h"
-#include "llagentbenefits.h"
 #include "llavataractions.h"
 #include "llavatarlist.h"
 #include "llavatarlistitem.h"
@@ -106,9 +105,10 @@ static const std::string COLLAPSED_BY_USER  = "collapsed_by_user";
 //MK
 //mk
 
-// FIXME PREMIUM - these should come from package info, once viewer is receiving it all.
 const S32 BASE_MAX_AGENT_GROUPS = 42;
 const S32 PREMIUM_MAX_AGENT_GROUPS = 60;
+
+extern S32 gMaxAgentGroups;
 
 /** Comparator for comparing avatar items by last interaction date */
 class LLAvatarItemRecentComparator : public LLAvatarItemComparator
@@ -671,7 +671,7 @@ bool LLPanelPeople::postBuild()
 	getChild<LLFilterEditor>("groups_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("recent_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 
-	if(LLAgentBenefits::instance().getGroupMembershipLimit() < max_premium)
+	if(gMaxAgentGroups < max_premium)
 	{
 		getChild<LLTextBox>("groupcount")->setText(getString("GroupCountWithInfo"));
 		getChild<LLTextBox>("groupcount")->setURLClickedCallback(boost::bind(&LLPanelPeople::onGroupLimitInfo, this));
@@ -1236,12 +1236,11 @@ void LLPanelPeople::updateButtons()
 		groups_panel->getChildView("minus_btn")->setEnabled(item_selected && selected_id.notNull()); // a real group selected
 
 		U32 groups_count = gAgent.mGroups.size();
-		S32 max_groups = LLAgentBenefits::instance().getGroupMembershipLimit();
-		U32 groups_remaining = max_groups > groups_count ? max_groups - groups_count : 0;
+		U32 groups_ramaining = gMaxAgentGroups > groups_count ? gMaxAgentGroups - groups_count : 0;
 		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[COUNT]", llformat("%d", groups_count));
-		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[REMAINING]", llformat("%d", groups_remaining));
+		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[REMAINING]", llformat("%d", groups_ramaining));
 //MK
-		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[MAX]", llformat("%d", max_groups));
+		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[MAX]", llformat("%d", gMaxAgentGroups));
 //mk
 	}
 	else
@@ -1462,7 +1461,6 @@ void LLPanelPeople::onFilterEdit(const std::string& search_string)
 	}
 }
 
-// FIXME PREMIUM this should be coming from LLAgentBenefits info about the various packages.
 void LLPanelPeople::onGroupLimitInfo()
 {
 	LLSD args;

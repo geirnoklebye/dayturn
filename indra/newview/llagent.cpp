@@ -32,7 +32,6 @@
 #include "pipeline.h"
 
 #include "llagentaccess.h"
-#include "llagentbenefits.h"
 #include "llagentcamera.h"
 #include "llagentlistener.h"
 #include "llagentwearables.h"
@@ -3231,7 +3230,7 @@ bool LLAgent::setUserGroupFlags(const LLUUID& group_id, bool accept_notices, boo
 
 bool LLAgent::canJoinGroups() const
 {
-	return (S32)mGroups.size() < LLAgentBenefits::instance().getGroupMembershipLimit();
+	return (S32)mGroups.size() < gMaxAgentGroups;
 }
 
 LLQuaternion LLAgent::getHeadRotation()

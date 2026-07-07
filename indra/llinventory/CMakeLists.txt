@@ -19,8 +19,8 @@ include_directories(
 
 set(llinventory_SOURCE_FILES
     llcategory.cpp
-	lleconomy.cpp
-	llfoldertype.cpp
+    lleconomy.cpp
+    llfoldertype.cpp
     llinventory.cpp
     llinventorydefines.cpp
     llinventorysettings.cpp

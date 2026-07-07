@@ -30,6 +30,7 @@
 #include "llpanelobject.h"
 
 // linden library includes
+#include "lleconomy.h"
 #include "llerror.h"
 #include "llfontgl.h"
 #include "llpermissionsflags.h"

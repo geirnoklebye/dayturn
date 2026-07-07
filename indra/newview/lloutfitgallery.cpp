@@ -35,6 +35,7 @@
 #include "llaccordionctrltab.h"
 #include "llappearancemgr.h"
 #include "llagentbenefits.h"
+#include "lleconomy.h"
 #include "llerror.h"
 #include "llfilepicker.h"
 #include "llfloaterperms.h"

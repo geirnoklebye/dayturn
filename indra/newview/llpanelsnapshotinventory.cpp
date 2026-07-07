@@ -27,6 +27,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llcombobox.h"
+#include "lleconomy.h"
 #include "llsidetraypanelcontainer.h"
 #include "llspinctrl.h"
 
@@ -36,8 +37,6 @@
 #include "llviewercontrol.h" // gSavedSettings
 #include "llstatusbar.h"	// can_afford_transaction()
 #include "llnotificationsutil.h"
-
-#include "llagentbenefits.h"
 
 /**
  * The panel provides UI for saving snapshot as an inventory texture.
@@ -155,7 +154,7 @@ void LLPanelSnapshotInventory::onResolutionCommit(LLUICtrl* ctrl)
 
 void LLPanelSnapshotInventoryBase::onSend()
 {
-    S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
+    S32 expected_upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
     if (can_afford_transaction(expected_upload_cost))
     {
         if (mSnapshotFloater)
@@ -191,7 +190,7 @@ bool LLPanelOutfitSnapshotInventory::postBuild()
 // virtual
 void LLPanelOutfitSnapshotInventory::onOpen(const LLSD& key)
 {
-    getChild<LLUICtrl>("hint_lbl")->setTextArg("[UPLOAD_COST]", llformat("%d", LLAgentBenefits::instance().getTextureUploadCost()));
+    getChild<LLUICtrl>("hint_lbl")->setTextArg("[UPLOAD_COST]", llformat("%d", LLGlobalEconomy::getInstance()->getPriceUpload()));
     LLPanelSnapshot::onOpen(key);
 }
 

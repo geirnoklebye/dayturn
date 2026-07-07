@@ -46,12 +46,12 @@
 #include "llnotificationsutil.h"
 #include "lluictrlfactory.h"
 #include "llstring.h"
+#include "lleconomy.h"
 #include "llpermissions.h"
 
 // linden includes
 #include "llassetstorage.h"
 #include "llinventorytype.h"
-#include "llagentbenefits.h"
 
 const S32 PREVIEW_LINE_HEIGHT = 19;
 const S32 PREVIEW_BORDER_WIDTH = 2;
@@ -123,8 +123,7 @@ bool LLFloaterNameDesc::postBuild()
 	// Cancel button
 	getChild<LLUICtrl>("cancel_btn")->setCommitCallback(boost::bind(&LLFloaterNameDesc::onBtnCancel, this));
 
-	// FIXME PREMIUM - depends - what are we uploading here?
-	getChild<LLUICtrl>("ok_btn")->setLabelArg("[AMOUNT]", llformat("%d", LLAgentBenefits::instance().getTextureUploadCost()));
+	getChild<LLUICtrl>("ok_btn")->setLabelArg("[AMOUNT]", llformat("%d", LLGlobalEconomy::getInstance()->getPriceUpload() ));
 	
 	setDefaultBtn("ok_btn");
 	
@@ -163,7 +162,7 @@ void LLFloaterNameDesc::onBtnOK( )
 	getChildView("ok_btn")->setEnabled(false); // don't allow inadvertent extra uploads
 	
 	LLAssetStorage::LLStoreAssetCallback callback;
-	S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost(); // kinda hack - assumes that unsubclassed LLFloaterNameDesc is only used for uploading chargeable assets, which it is right now (it's only used unsubclassed for the sound upload dialog, and THAT should be a subclass).
+	S32 expected_upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload(); // kinda hack - assumes that unsubclassed LLFloaterNameDesc is only used for uploading chargeable assets, which it is right now (it's only used unsubclassed for the sound upload dialog, and THAT should be a subclass).
     if (can_afford_transaction(expected_upload_cost))
     {
         void *nruserdata = nullptr;

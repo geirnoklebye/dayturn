@@ -1663,6 +1663,11 @@ bool LLPanelMainInventory::handleDragAndDropToTrash(bool drop, EDragAndDropType 
 
 void LLPanelMainInventory::setUploadCostIfNeeded()
 {
+	// *NOTE dzaporozhan
+	// Upload cost is set in process_economy_data() (llviewermessage.cpp). But since we
+	// have two instances of Inventory panel at the moment(and two instances of context menu),
+	// call to gMenuHolder->childSetLabelArg() sets upload cost only for one of the instances.
+
 	LLMenuGL* menu = (LLMenuGL*)mMenuAddHandle.get();
 	if(mNeedUploadCost && menu)
 	{

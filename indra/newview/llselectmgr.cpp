@@ -35,6 +35,7 @@
 #include "llcachename.h"
 #include "llavatarnamecache.h"
 #include "lldbstrings.h"
+#include "lleconomy.h"
 #include "llgl.h"
 #include "llmediaentry.h"
 #include "llrender.h"
