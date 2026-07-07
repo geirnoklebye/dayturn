@@ -389,7 +389,7 @@ bool LLPanelGroupGeneral::apply(std::string& mesg)
 			}
 
 			LLSD args;
-			args["COST"] = LLAgentBenefitsMgr::current().getCreateGroupCost();
+			args["COST"] = LLAgentBenefits::instance().getCreateGroupCost();
 			LLNotificationsUtil::add("CreateGroupCost",  args, LLSD(), boost::bind(&LLPanelGroupGeneral::createGroupCallback, this, _1, _2));
 
 			return false;

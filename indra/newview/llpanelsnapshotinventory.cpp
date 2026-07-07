@@ -155,7 +155,7 @@ void LLPanelSnapshotInventory::onResolutionCommit(LLUICtrl* ctrl)
 
 void LLPanelSnapshotInventoryBase::onSend()
 {
-    S32 expected_upload_cost = LLAgentBenefitsMgr::current().getTextureUploadCost();
+    S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
     if (can_afford_transaction(expected_upload_cost))
     {
         if (mSnapshotFloater)
@@ -191,7 +191,7 @@ bool LLPanelOutfitSnapshotInventory::postBuild()
 // virtual
 void LLPanelOutfitSnapshotInventory::onOpen(const LLSD& key)
 {
-    getChild<LLUICtrl>("hint_lbl")->setTextArg("[UPLOAD_COST]", llformat("%d", LLAgentBenefitsMgr::current().getTextureUploadCost()));
+    getChild<LLUICtrl>("hint_lbl")->setTextArg("[UPLOAD_COST]", llformat("%d", LLAgentBenefits::instance().getTextureUploadCost()));
     LLPanelSnapshot::onOpen(key);
 }
 

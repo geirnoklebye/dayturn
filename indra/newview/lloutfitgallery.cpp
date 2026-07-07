@@ -1221,7 +1221,7 @@ bool LLOutfitGalleryContextMenu::onEnable(LLSD::String param)
 
 bool LLOutfitGalleryContextMenu::onVisible(LLSD::String param)
 {
-	mMenuHandle.get()->getChild<LLUICtrl>("upload_photo")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefitsMgr::current().getTextureUploadCost()));
+	mMenuHandle.get()->getChild<LLUICtrl>("upload_photo")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefits::instance().getTextureUploadCost()));
     if ("remove_photo" == param)
     {
         LLOutfitGallery* gallery = dynamic_cast<LLOutfitGallery*>(mOutfitList);
@@ -1518,7 +1518,7 @@ void LLOutfitGallery::uploadOutfitImage(const std::vector<std::string>& filename
             return;
         }
 
-        S32 expected_upload_cost = LLAgentBenefitsMgr::current().getTextureUploadCost();
+        S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
         void *nruserdata = NULL;
         nruserdata = (void *)&outfit_id;
 

@@ -147,7 +147,7 @@ LLFloaterSimpleSnapshot::~LLFloaterSimpleSnapshot()
 
 bool LLFloaterSimpleSnapshot::postBuild()
 {
-    getChild<LLUICtrl>("save_btn")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefitsMgr::current().getTextureUploadCost()));
+    getChild<LLUICtrl>("save_btn")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefits::instance().getTextureUploadCost()));
 
     childSetAction("new_snapshot_btn", ImplBase::onClickNewSnapshot, this);
     childSetAction("save_btn", boost::bind(&LLFloaterSimpleSnapshot::onSend, this));
@@ -257,7 +257,7 @@ void LLFloaterSimpleSnapshot::onCancel()
 
 void LLFloaterSimpleSnapshot::onSend()
 {
-    S32 expected_upload_cost = LLAgentBenefitsMgr::current().getTextureUploadCost();
+    S32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
     if (can_afford_transaction(expected_upload_cost))
     {
         saveTexture();

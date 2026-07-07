@@ -106,6 +106,10 @@ static const std::string COLLAPSED_BY_USER  = "collapsed_by_user";
 //MK
 //mk
 
+// FIXME PREMIUM - these should come from package info, once viewer is receiving it all.
+const S32 BASE_MAX_AGENT_GROUPS = 42;
+const S32 PREMIUM_MAX_AGENT_GROUPS = 60;
+
 /** Comparator for comparing avatar items by last interaction date */
 class LLAvatarItemRecentComparator : public LLAvatarItemComparator
 {
@@ -650,14 +654,24 @@ void LLPanelPeople::removePicker()
 
 bool LLPanelPeople::postBuild()
 {
-	S32 max_premium = LLAgentBenefitsMgr::get("Premium").getGroupMembershipLimit();
+	// FIXME PREMIUM - need to get premium vs. basic info via BaaS
+	S32 max_premium = PREMIUM_MAX_AGENT_GROUPS; 
+	if (gAgent.getRegion())
+	{
+		LLSD features;
+		gAgent.getRegion()->getSimulatorFeatures(features);
+		if (features.has("MaxAgentGroupsPremium"))
+		{
+			max_premium = features["MaxAgentGroupsPremium"].asInteger();
+		}
+	}
 
 	getChild<LLFilterEditor>("nearby_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("friends_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("groups_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("recent_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 
-	if(LLAgentBenefitsMgr::current().getGroupMembershipLimit() < max_premium)
+	if(LLAgentBenefits::instance().getGroupMembershipLimit() < max_premium)
 	{
 		getChild<LLTextBox>("groupcount")->setText(getString("GroupCountWithInfo"));
 		getChild<LLTextBox>("groupcount")->setURLClickedCallback(boost::bind(&LLPanelPeople::onGroupLimitInfo, this));
@@ -1222,7 +1236,7 @@ void LLPanelPeople::updateButtons()
 		groups_panel->getChildView("minus_btn")->setEnabled(item_selected && selected_id.notNull()); // a real group selected
 
 		U32 groups_count = gAgent.mGroups.size();
-		S32 max_groups = LLAgentBenefitsMgr::current().getGroupMembershipLimit();
+		S32 max_groups = LLAgentBenefits::instance().getGroupMembershipLimit();
 		U32 groups_remaining = max_groups > groups_count ? max_groups - groups_count : 0;
 		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[COUNT]", llformat("%d", groups_count));
 		groups_panel->getChild<LLUICtrl>("groupcount")->setTextArg("[REMAINING]", llformat("%d", groups_remaining));
@@ -1448,26 +1462,30 @@ void LLPanelPeople::onFilterEdit(const std::string& search_string)
 	}
 }
 
+// FIXME PREMIUM this should be coming from LLAgentBenefits info about the various packages.
 void LLPanelPeople::onGroupLimitInfo()
 {
 	LLSD args;
 
-	S32 max_basic = LLAgentBenefitsMgr::get("Base").getGroupMembershipLimit();
-	S32 max_premium = LLAgentBenefitsMgr::get("Premium").getGroupMembershipLimit();
-	
+	S32 max_basic = BASE_MAX_AGENT_GROUPS;
+	S32 max_premium = PREMIUM_MAX_AGENT_GROUPS;
+	if (gAgent.getRegion())
+	{
+		LLSD features;
+		gAgent.getRegion()->getSimulatorFeatures(features);
+		if (features.has("MaxAgentGroupsBasic"))
+		{
+			max_basic = features["MaxAgentGroupsBasic"].asInteger();
+		}
+		if (features.has("MaxAgentGroupsPremium"))
+		{
+			max_premium = features["MaxAgentGroupsPremium"].asInteger();
+		}
+	}
 	args["MAX_BASIC"] = max_basic;
 	args["MAX_PREMIUM"] = max_premium;
 
-	if (LLAgentBenefitsMgr::has("Premium_Plus"))
-	{
-		S32 max_premium_plus = LLAgentBenefitsMgr::get("Premium_Plus").getGroupMembershipLimit();
-		args["MAX_PREMIUM_PLUS"] = max_premium_plus;
-		LLNotificationsUtil::add("GroupLimitInfoPlus", args);
-	}
-	else
-	{
-		LLNotificationsUtil::add("GroupLimitInfo", args);
-	}	
+	LLNotificationsUtil::add("GroupLimitInfo", args);
 }
 
 void LLPanelPeople::onTabSelected(const LLSD& param)

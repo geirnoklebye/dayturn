@@ -63,7 +63,7 @@ LLPanelSnapshot::LLPanelSnapshot()
 // virtual
 bool LLPanelSnapshot::postBuild()
 {
-	getChild<LLUICtrl>("save_btn")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefitsMgr::current().getTextureUploadCost()));
+	getChild<LLUICtrl>("save_btn")->setLabelArg("[UPLOAD_COST]", std::to_string(LLAgentBenefits::instance().getTextureUploadCost()));
 	getChild<LLUICtrl>(getImageSizeComboName())->setCommitCallback(boost::bind(&LLPanelSnapshot::onResolutionComboCommit, this, _1));
     if (!getWidthSpinnerName().empty())
     {

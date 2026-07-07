@@ -127,7 +127,7 @@ FSFloaterImport::~FSFloaterImport()
 
 bool FSFloaterImport::postBuild()
 {
-	if (LLAgentBenefitsMgr::current().getTextureUploadCost() == 0 
+	if (LLAgentBenefits::instance().getTextureUploadCost() == 0 
 		|| gAgent.getRegion()->getCentralBakeVersion() > 0)
 	{
 		getChild<LLCheckBoxCtrl>("temp_asset")->setVisible(false);   
@@ -522,7 +522,7 @@ void FSFloaterImport::onClickBtnImport()
 		
 		if (!getChild<LLCheckBoxCtrl>("temp_asset")->get())
 		{
-			U32 expected_upload_cost = mTexturesTotal * (U32)LLAgentBenefitsMgr::current().getTextureUploadCost();
+			U32 expected_upload_cost = mTexturesTotal * (U32)LLAgentBenefits::instance().getTextureUploadCost();
 			if(!(can_afford_transaction(expected_upload_cost)))
 			{
 				LLStringUtil::format_map_t args;
@@ -592,7 +592,7 @@ void FSFloaterImport::onClickCheckBoxUploadAsset()
 	{
 		getChild<LLCheckBoxCtrl>("temp_asset")->setEnabled(true);
 		LLUIString stats = getString("upload_cost");
-		stats.setArg("[COST]", llformat("%u", ((mTexturesTotal * LLAgentBenefitsMgr::current().getTextureUploadCost()) +  (mSoundsTotal * LLAgentBenefitsMgr::current().getSoundUploadCost()) + (mAnimsTotal * LLAgentBenefitsMgr::current().getAnimationUploadCost())) ));
+		stats.setArg("[COST]", llformat("%u", ((mTexturesTotal * LLAgentBenefits::instance().getTextureUploadCost()) +  (mSoundsTotal * LLAgentBenefits::instance().getSoundUploadCost()) + (mAnimsTotal * LLAgentBenefits::instance().getAnimationUploadCost())) ));
 		getChild<LLTextBox>("file_status_text")->setText(stats.getString());
 	}
 	else
@@ -615,7 +615,7 @@ void FSFloaterImport::onClickCheckBoxTempAsset()
 	else
 	{
 		LLUIString stats = getString("upload_cost");
-		stats.setArg("[COST]", llformat("%u", ((mTexturesTotal * LLAgentBenefitsMgr::current().getTextureUploadCost()) +  (mSoundsTotal * LLAgentBenefitsMgr::current().getSoundUploadCost()) + (mAnimsTotal * LLAgentBenefitsMgr::current().getAnimationUploadCost())) ));
+		stats.setArg("[COST]", llformat("%u", ((mTexturesTotal * LLAgentBenefits::instance().getTextureUploadCost()) +  (mSoundsTotal * LLAgentBenefits::instance().getSoundUploadCost()) + (mAnimsTotal * LLAgentBenefits::instance().getAnimationUploadCost())) ));
 		getChild<LLTextBox>("file_status_text")->setText(stats.getString());
 	}
 }
@@ -1201,7 +1201,7 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 	bool new_file_agent_inventory = false;
 	LLWearableType::EType wearable_type = (LLWearableType::EType)NO_INV_SUBTYPE;
 	std::string perms_prefix = "";
-	U32 expected_upload_cost = LLAgentBenefitsMgr::current().getTextureUploadCost();
+	U32 expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
 
 	if (name.empty())
 	{
@@ -1222,7 +1222,7 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 		{
 			url = gAgent.getRegion()->getCapability("NewFileAgentInventory");
 			new_file_agent_inventory = true;
-			expected_upload_cost = LLAgentBenefitsMgr::current().getTextureUploadCost();
+			expected_upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
 		}
 		LLTrace::add(LLStatViewer::UPLOAD_TEXTURE,1);
 	}
@@ -1241,7 +1241,7 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 		{
 			url = gAgent.getRegion()->getCapability("NewFileAgentInventory");
 			new_file_agent_inventory = true;
-			expected_upload_cost = LLAgentBenefitsMgr::current().getSoundUploadCost();
+			expected_upload_cost = LLAgentBenefits::instance().getSoundUploadCost();
 			LLTrace::add(LLStatViewer::UPLOAD_SOUND,1);
 		}
 		
@@ -1362,7 +1362,7 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 		{
 			url = gAgent.getRegion()->getCapability("NewFileAgentInventory");
 			new_file_agent_inventory = true;
-			expected_upload_cost = LLAgentBenefitsMgr::current().getAnimationUploadCost();
+			expected_upload_cost = LLAgentBenefits::instance().getAnimationUploadCost();
 			LLTrace::add(LLStatViewer::ANIMATION_UPLOADS,1);
 		}
 	}
@@ -1478,13 +1478,13 @@ void FSFloaterImport::uploadAsset(LLUUID asset_id, LLUUID inventory_item)
 	switch (asset_type)
 	{
 		case LLAssetType::AT_TEXTURE:
-			data->mExpectedUploadCost = LLAgentBenefitsMgr::current().getTextureUploadCost();
+			data->mExpectedUploadCost = LLAgentBenefits::instance().getTextureUploadCost();
 			break;
 		case LLAssetType::AT_ANIMATION:
-			data->mExpectedUploadCost = LLAgentBenefitsMgr::current().getAnimationUploadCost();
+			data->mExpectedUploadCost = LLAgentBenefits::instance().getAnimationUploadCost();
 			break;
 		case LLAssetType::AT_SOUND:
-			data->mExpectedUploadCost = LLAgentBenefitsMgr::current().getSoundUploadCost();
+			data->mExpectedUploadCost = LLAgentBenefits::instance().getSoundUploadCost();
 			break;
 		default:
 			data->mExpectedUploadCost = 0;
@@ -1986,13 +1986,13 @@ void uploadCoroutine( LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t &a_httpAdapter
 			switch (asset_type)
 			{
 				case LLAssetType::AT_TEXTURE:
-					upload_price = LLAgentBenefitsMgr::current().getTextureUploadCost();
+					upload_price = LLAgentBenefits::instance().getTextureUploadCost();
 					break;
 				case LLAssetType::AT_ANIMATION:
-					upload_price = LLAgentBenefitsMgr::current().getAnimationUploadCost();
+					upload_price = LLAgentBenefits::instance().getAnimationUploadCost();
 					break;
 				case LLAssetType::AT_SOUND:
-					upload_price = LLAgentBenefitsMgr::current().getSoundUploadCost();
+					upload_price = LLAgentBenefits::instance().getSoundUploadCost();
 					break;
 				default:
 					upload_price = 0;

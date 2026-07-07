@@ -258,7 +258,6 @@ static std::string gFirstSimSeedCap;
 static LLVector3 gAgentStartLookAt(1.0f, 0.f, 0.f);
 static std::string gAgentStartLocation = "safe";
 static bool mLoginStatePastUI = false;
-static bool mBenefitsSuccessfullyInit = false;
 
 const F32 STATE_AGENT_WAIT_TIMEOUT = 240; //seconds
 const S32 MAX_SEED_CAP_ATTEMPTS_BEFORE_LOGIN = 3; // Give region 3 chances
@@ -289,7 +288,6 @@ void general_cert_done(const LLSD& notification, const LLSD& response);
 void trust_cert_done(const LLSD& notification, const LLSD& response);
 void apply_udp_blacklist(const std::string& csv);
 bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y);
-void on_benefits_failed_callback(const LLSD& notification, const LLSD& response);
 void transition_back_to_login_panel(const std::string& emsg);
 // <FS:KC> FIRE-18250: Option to disable default eye movement
 void update_static_eyes();
@@ -2575,11 +2573,6 @@ bool idle_startup()
 		set_startup_status(1.0, "", "");
 		display_startup();
 
-		if (!mBenefitsSuccessfullyInit)
-		{
-			LLNotificationsUtil::add("FailedToGetBenefits", LLSD(), LLSD(), boost::bind(on_benefits_failed_callback, _1, _2));
-		}
-
 		// Let the map know about the inventory.
 		LLFloaterWorldMap* floater_world_map = LLFloaterWorldMap::getInstance();
 		if(floater_world_map)
@@ -3681,63 +3674,15 @@ void apply_udp_blacklist(const std::string& csv)
 	
 }
 
-void on_benefits_failed_callback(const LLSD& notification, const LLSD& response)
-{
-	LL_WARNS("Benefits") << "Failed to load benefits information" << LL_ENDL; 
-}
-
-bool init_benefits(LLSD& response)
-{
-	bool succ = true;
-
-	std::string package_name = response["account_type"].asString();
-	const LLSD& benefits_sd = response["account_level_benefits"];
-	if (!LLAgentBenefitsMgr::init(package_name, benefits_sd) ||
-		!LLAgentBenefitsMgr::initCurrent(package_name, benefits_sd))
-	{
-		succ = false;
-	}
-	else
-	{
-		LL_DEBUGS("Benefits") << "Initialized current benefits, level " << package_name << " from " << benefits_sd << LL_ENDL;
-	}
-	const LLSD& packages_sd = response["premium_packages"];
-	for(LLSD::map_const_iterator package_iter = packages_sd.beginMap();
-		package_iter != packages_sd.endMap();
-		++package_iter)
-	{
-		std::string package_name = package_iter->first;
-		const LLSD& benefits_sd = package_iter->second["benefits"];
-		if (LLAgentBenefitsMgr::init(package_name, benefits_sd))
-		{
-			LL_DEBUGS("Benefits") << "Initialized benefits for package " << package_name << " from " << benefits_sd << LL_ENDL;
-		}
-		else
-		{
-			LL_WARNS("Benefits") << "Failed init for package " << package_name << " from " << benefits_sd << LL_ENDL;
-			succ = false;
-		}
-	}
-
-	if (!LLAgentBenefitsMgr::has("Base"))
-	{
-		LL_WARNS("Benefits") << "Benefits info did not include required package Base" << LL_ENDL;
-		succ = false;
-	}
-	if (!LLAgentBenefitsMgr::has("Premium"))
-	{
-		LL_WARNS("Benefits") << "Benefits info did not include required package Premium" << LL_ENDL;
-		succ = false;
-	}
-
-	return succ;
-}
-
 bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y)
 {
 	LLSD response = LLLoginInstance::getInstance()->getResponse();
 
-	mBenefitsSuccessfullyInit = init_benefits(response);
+	LL_DEBUGS("Benefits") << "login success response:" << response << LL_ENDL;
+	if (!LLAgentBenefits::instance().init(response["account_level_benefits"]))
+	{
+		LL_ERRS() << "Benefits error" << LL_ENDL;
+	}
 
 	std::string text(response["udp_blacklist"]);
 	if(!text.empty())
