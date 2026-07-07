@@ -3678,7 +3678,7 @@ bool process_login_success_response(U32 &first_sim_size_x, U32 &first_sim_size_y
 {
 	LLSD response = LLLoginInstance::getInstance()->getResponse();
 
-	LL_DEBUGS("Benefits") << "login success response:" << response << LL_ENDL;
+	//LL_INFOS() << "login success response:" << ll_pretty_print_sd(response) << LL_ENDL;
 	if (!LLAgentBenefits::instance().init(response["account_level_benefits"]))
 	{
 		LL_ERRS() << "Benefits error" << LL_ENDL;
