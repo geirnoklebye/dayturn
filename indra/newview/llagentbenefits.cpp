@@ -32,7 +32,6 @@ LLAgentBenefits::LLAgentBenefits():
 	m_animation_upload_cost(-1),
 	m_attachment_limit(-1),
 	m_group_membership_limit(-1),
-	m_picks_limit(-1),
 	m_sound_upload_cost(-1),
 	m_texture_upload_cost(-1)
 {
@@ -82,10 +81,6 @@ bool LLAgentBenefits::init(const LLSD& benefits_sd)
 	{
 		return false;
 	}
-	if (!get_required_S32(benefits_sd, "picks_limit", m_picks_limit))
-	{
-		return false;
-	}
 	if (!get_required_S32(benefits_sd, "sound_upload_cost", m_sound_upload_cost))
 	{
 		return false;
@@ -123,11 +118,6 @@ S32 LLAgentBenefits::getCreateGroupCost() const
 S32 LLAgentBenefits::getGroupMembershipLimit() const
 {
 	return m_group_membership_limit;
-}
-
-S32 LLAgentBenefits::getPicksLimit() const
-{
-	return m_picks_limit;
 }
 
 S32 LLAgentBenefits::getSoundUploadCost() const
