@@ -1545,7 +1545,7 @@ function="World.EnvPreset"
             function="File.VisibleUploadModel"/>
             </menu_item_call>
 	   <menu_item_call
-             label="Bulk..."
+             label="Bulk (L$[COST] per file)..."
              layout="topleft"
              name="Bulk Upload">
                 <menu_item_call.on_visible

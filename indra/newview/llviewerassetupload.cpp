@@ -383,11 +383,9 @@ LLSD LLNewFileResourceUploadInfo::exportTempFile()
     std::string filename = gDirUtilp->getTempFilename();
 
     std::string exten = gDirUtilp->getExtension(getFileName());
+    U32 codec = LLImageBase::getCodecFromExtension(exten);
 
     LLAssetType::EType assetType = LLAssetType::AT_NONE;
-	U32 codec = IMG_CODEC_INVALID;
-	bool found_type = findAssetTypeAndCodecOfExtension(exten, assetType, codec);
-
     std::string errorMessage;
     std::string errorLabel;
 
@@ -404,16 +402,10 @@ LLSD LLNewFileResourceUploadInfo::exportTempFile()
         errorLabel = "NoFileExtension";
         error = true;
     }
-    else if (!found_type)
-    {
-        // Unknown extension
-        errorMessage = llformat(LLTrans::getString("UnknownFileExtension").c_str(), exten.c_str());
-        errorLabel = "ErrorMessage";
-        error = true;;
-    }
-    else if (assetType == LLAssetType::AT_TEXTURE)
+    else if (codec != IMG_CODEC_INVALID)
     {
         // It's an image file, the upload procedure is the same for all
+        assetType = LLAssetType::AT_TEXTURE;
         if (!LLViewerTextureList::createUploadFile(getFileName(), filename, codec))
         {
             errorMessage = llformat("Problem with file %s:\n\n%s\n",
@@ -422,8 +414,9 @@ LLSD LLNewFileResourceUploadInfo::exportTempFile()
             error = true;
         }
     }
-    else if (assetType == LLAssetType::AT_SOUND)
+    else if (exten == "wav")
     {
+        assetType = LLAssetType::AT_SOUND;  // tag it as audio
         S32 encodeResult = 0;
 
         LL_INFOS() << "Attempting to encode wav as an ogg file" << LL_ENDL;
@@ -513,7 +506,7 @@ LLSD LLNewFileResourceUploadInfo::exportTempFile()
         // Unknown extension
         errorMessage = llformat(LLTrans::getString("UnknownFileExtension").c_str(), exten.c_str());
         errorLabel = "ErrorMessage";
-        error = true;;
+        error = TRUE;;
     }
 
     if (error)
