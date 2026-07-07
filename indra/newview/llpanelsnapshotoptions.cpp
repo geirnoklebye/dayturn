@@ -33,14 +33,12 @@
 #include "llfloatersnapshot.h" // FIXME: create a snapshot model
 #include "llfloaterreg.h"
 
-#include "llagentbenefits.h"
-
-
 /**
  * Provides several ways to save a snapshot.
  */
 class LLPanelSnapshotOptions
 :	public LLPanel
+,	public LLEconomyObserver
 {
 	LOG_CLASS(LLPanelSnapshotOptions);
 
@@ -49,6 +47,7 @@ public:
 	~LLPanelSnapshotOptions();
 	/*virtual*/ bool postBuild();
 	/*virtual*/ void onOpen(const LLSD& key);
+	/*virtual*/ void onEconomyDataChange() { updateUploadCost(); }
 
 private:
 	void updateUploadCost();
@@ -69,10 +68,12 @@ LLPanelSnapshotOptions::LLPanelSnapshotOptions()
 	mCommitCallbackRegistrar.add("Snapshot.SaveToEmail",		boost::bind(&LLPanelSnapshotOptions::onSaveToEmail,		this));
 	mCommitCallbackRegistrar.add("Snapshot.SaveToInventory",	boost::bind(&LLPanelSnapshotOptions::onSaveToInventory,	this));
 	mCommitCallbackRegistrar.add("Snapshot.SaveToComputer",		boost::bind(&LLPanelSnapshotOptions::onSaveToComputer,	this));
+	LLGlobalEconomy::getInstance()->addObserver(this);
 }
 
 LLPanelSnapshotOptions::~LLPanelSnapshotOptions()
 {
+	LLGlobalEconomy::getInstance()->removeObserver(this);
 }
 
 // virtual
@@ -90,7 +91,7 @@ void LLPanelSnapshotOptions::onOpen(const LLSD& key)
 
 void LLPanelSnapshotOptions::updateUploadCost()
 {
-	S32 upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
+	S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 	getChild<LLUICtrl>("save_to_inventory_btn")->setLabelArg("[AMOUNT]", llformat("%d", upload_cost));
 }
 

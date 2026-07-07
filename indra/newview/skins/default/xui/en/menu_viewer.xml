@@ -1503,7 +1503,7 @@ function="World.EnvPreset"
                  function="File.EnableUpload" />
                 <menu_item_call.on_visible
                  function="Upload.CalculateCosts"
-                 parameter="Upload Image,texture" />
+                 parameter="Upload Image" />
             </menu_item_call>
             <menu_item_call
              label="Sound (L$[COST])..."
@@ -1516,7 +1516,7 @@ function="World.EnvPreset"
                  function="File.EnableUpload" />
                 <menu_item_call.on_visible
                  function="Upload.CalculateCosts"
-                 parameter="Upload Sound,sound" />
+                 parameter="Upload Sound" />
             </menu_item_call>
             <menu_item_call
              label="Animation (L$[COST])..."
@@ -1529,7 +1529,7 @@ function="World.EnvPreset"
                  function="File.EnableUpload" />
                 <menu_item_call.on_visible
                  function="Upload.CalculateCosts"
-                 parameter="Upload Animation,animation" />
+                 parameter="Upload Animation" />
             </menu_item_call>
             <menu_item_call
            label="Model..."
@@ -1548,9 +1548,6 @@ function="World.EnvPreset"
              label="Bulk (L$[COST] per file)..."
              layout="topleft"
              name="Bulk Upload">
-                <menu_item_call.on_visible
-                 function="Upload.CalculateCosts"
-                 parameter="Bulk Upload,texture" />
                 <menu_item_call.on_click
                  function="File.UploadBulk"
                  parameter="" />

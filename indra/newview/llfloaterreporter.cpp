@@ -101,6 +101,7 @@ public:
 
     virtual LLSD        prepareUpload();
     virtual LLSD        generatePostBody();
+    virtual S32         getEconomyUploadCost();
     virtual LLUUID      finishUpload(LLSD &result);
 
     virtual bool        showInventoryPanel() const { return false; }
@@ -125,6 +126,11 @@ LLSD LLARScreenShotUploader::prepareUpload()
 LLSD LLARScreenShotUploader::generatePostBody()
 {   // The report was pregenerated and passed in the constructor.
     return mReport;
+}
+
+S32 LLARScreenShotUploader::getEconomyUploadCost()
+{   // Abuse report screen shots do not cost anything to upload.
+    return 0;
 }
 
 LLUUID LLARScreenShotUploader::finishUpload(LLSD &result)

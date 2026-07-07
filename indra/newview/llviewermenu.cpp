@@ -46,7 +46,6 @@
 // newview includes
 #include "llagent.h"
 #include "llagentaccess.h"
-#include "llagentbenefits.h"
 #include "llagentcamera.h"
 #include "llagentui.h"
 #include "llagentwearables.h"
@@ -150,7 +149,6 @@
 #include "fsfloaterexport.h"
 #include "daeexport.h"
 #include <boost/regex.hpp>
-#include <boost/algorithm/string.hpp>
 #include "llcleanup.h"
 #include "llviewershadermgr.h"
 // Firestorm includes
@@ -527,15 +525,13 @@ void init_menus()
 	else
     // <FS:AW optional opensim support>
 	{
+		// Assume L$10 for now, the server will tell us the real cost at login
 		// *TODO:Also fix cost in llfolderview.cpp for Inventory menus
-		const std::string texture_upload_cost_str = std::to_string(LLAgentBenefits::instance().getTextureUploadCost());
-		const std::string sound_upload_cost_str = std::to_string(LLAgentBenefits::instance().getSoundUploadCost());
-		const std::string animation_upload_cost_str = std::to_string(LLAgentBenefits::instance().getAnimationUploadCost());
-		gMenuHolder->childSetLabelArg("Upload Image", "[COST]", texture_upload_cost_str);
-		gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", sound_upload_cost_str);
-		gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", animation_upload_cost_str);
-		// FIXME PREMIUM - do we need to handle non-texture bulk uploads?
-		gMenuHolder->childSetLabelArg("Bulk Upload", "[COST]", texture_upload_cost_str);
+		const std::string upload_cost("10");
+		gMenuHolder->childSetLabelArg("Upload Image", "[COST]", upload_cost);
+		gMenuHolder->childSetLabelArg("Upload Sound", "[COST]", upload_cost);
+		gMenuHolder->childSetLabelArg("Upload Animation", "[COST]", upload_cost);
+		gMenuHolder->childSetLabelArg("Bulk Upload", "[COST]", upload_cost);
 	}
 	
 	gAttachSubMenu = gMenuBarView->findChildMenuByName("Attach Object", true);
@@ -9868,31 +9864,18 @@ class LLUploadCostCalculator : public view_listener_t
 
 	bool handleEvent(const LLSD& userdata)
 	{
-		std::vector<std::string> fields;
-		std::string str = userdata.asString(); 
-		boost::split(fields, str, boost::is_any_of(","));
-		if (fields.size()<1)
-		{
-			return false;
-		}
-		std::string menu_name = fields[0];
-		std::string asset_type_str = "texture";
-		if (fields.size()>1)
-		{
-			asset_type_str = fields[1];
-		}
-		LL_DEBUGS("Benefits") << "userdata " << userdata << " menu_name " << menu_name << " asset_type_str " << asset_type_str << LL_ENDL;
-		calculateCost(asset_type_str);
+		std::string menu_name = userdata.asString();
 		gMenuHolder->childSetLabelArg(menu_name, "[COST]", mCostStr);
 
 		return true;
 	}
 
-	void calculateCost(const std::string& asset_type_str);
+	void calculateCost();
 
 public:
 	LLUploadCostCalculator()
 	{
+		calculateCost();
 	}
 };
 
@@ -9918,24 +9901,19 @@ class LLToggleUIHints : public view_listener_t
 	}
 };
 
-void LLUploadCostCalculator::calculateCost(const std::string& asset_type_str)
+void LLUploadCostCalculator::calculateCost()
 {
-	// FIXME PREMIUM reasonable default?
-	S32 upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
+	S32 upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 
-	if (asset_type_str == "texture")
+	// getPriceUpload() returns -1 if no data available yet.
+	if(upload_cost >= 0)
 	{
-		upload_cost = LLAgentBenefits::instance().getTextureUploadCost();
+		mCostStr = llformat("%d", upload_cost);
 	}
-	else if (asset_type_str == "animation")
+	else
 	{
-		upload_cost = LLAgentBenefits::instance().getAnimationUploadCost();
+		mCostStr = llformat("%d", gSavedSettings.getU32("DefaultUploadCost"));
 	}
-	else if (asset_type_str == "sound")
-	{
-		upload_cost = LLAgentBenefits::instance().getSoundUploadCost();
-	}
-	mCostStr = std::to_string(upload_cost);
 }
 
 void show_navbar_context_menu(LLView* ctrl, S32 x, S32 y)
@@ -10098,7 +10076,6 @@ void initialize_menus()
 
 	enable.add("displayViewerEventRecorderMenuItems",boost::bind(&LLViewerEventRecorder::displayViewerEventRecorderMenuItems,&LLViewerEventRecorder::instance()));
 
-	// FIXME PREMIUM these need to be distinguished by asset type - see menu_viewer.xml
 	view_listener_t::addEnable(new LLUploadCostCalculator(), "Upload.CalculateCosts");
 
 	enable.add("Conversation.IsConversationLoggingAllowed", boost::bind(&LLFloaterIMContainer::isConversationLoggingAllowed));

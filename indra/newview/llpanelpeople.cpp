@@ -654,7 +654,6 @@ void LLPanelPeople::removePicker()
 
 bool LLPanelPeople::postBuild()
 {
-	// FIXME PREMIUM - need to get premium vs. basic info via BaaS
 	S32 max_premium = PREMIUM_MAX_AGENT_GROUPS; 
 	if (gAgent.getRegion())
 	{

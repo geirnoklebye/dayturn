@@ -52,8 +52,6 @@ private:
 	S32 m_group_membership_limit;
 	S32 m_sound_upload_cost;
 	S32 m_texture_upload_cost;
-
-	bool m_initalized;
 };
 
 #endif

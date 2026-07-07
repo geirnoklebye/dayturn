@@ -174,6 +174,22 @@ void LLResourceUploadInfo::logPreparedUpload()
         "Asset Type: " << LLAssetType::lookup(mAssetType) << LL_ENDL;
 }
 
+S32 LLResourceUploadInfo::getEconomyUploadCost()
+{
+    // Update L$ and ownership credit information
+    // since it probably changed on the server
+    if (getAssetType() == LLAssetType::AT_TEXTURE ||
+        getAssetType() == LLAssetType::AT_SOUND ||
+        getAssetType() == LLAssetType::AT_ANIMATION ||
+        getAssetType() == LLAssetType::AT_MESH)
+    {
+        return LLGlobalEconomy::instance().getPriceUpload();
+    }
+
+    return 0;
+}
+
+
 LLUUID LLResourceUploadInfo::finishUpload(LLSD &result)
 {
     if (getFolderId().isNull())
@@ -819,7 +835,7 @@ void LLViewerAssetUpload::AssetInventoryUploadCoproc(LLCoreHttpUtil::HttpCorouti
             result["success"] = LLSD::Boolean((ulstate == "complete") && status);
         }
 
-        S32 uploadPrice = result["upload_price"].asInteger();
+        S32 uploadPrice = result["upload_price"].asInteger();//uploadInfo->getEconomyUploadCost();
 
         if (uploadPrice > 0)
         {

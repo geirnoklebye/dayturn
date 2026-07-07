@@ -38,7 +38,6 @@
 #include "llstring.h"
 
 #include "llagent.h"
-#include "llagentbenefits.h"
 #include "llanimationstates.h"
 #include "llbbox.h"
 #include "llbutton.h"
@@ -1014,7 +1013,7 @@ void LLFloaterBvhPreview::onBtnOK(void* userdata)
 			{
 				std::string name = floaterp->getChild<LLUICtrl>("name_form")->getValue().asString();
 				std::string desc = floaterp->getChild<LLUICtrl>("description_form")->getValue().asString();
-				S32 expected_upload_cost = LLAgentBenefits::instance().getAnimationUploadCost();
+				S32 expected_upload_cost = LLGlobalEconomy::getInstance()->getPriceUpload();
 
                 LLResourceUploadInfo::ptr_t assetUploadInfo = std::make_shared<LLResourceUploadInfo>(
                     floaterp->mTransactionID, LLAssetType::AT_ANIMATION,
