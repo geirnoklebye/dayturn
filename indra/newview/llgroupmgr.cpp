@@ -45,7 +45,7 @@
 #include "lltransactiontypes.h"
 #include "llstatusbar.h"
 #include "llviewerwindow.h"
-#include "llpanelgroupcreate.h"
+#include "llpanelgroup.h"
 #include "llgroupactions.h"
 #include "llnotificationsutil.h"
 #include "lluictrlfactory.h"
@@ -1460,7 +1460,7 @@ void LLGroupMgr::processCreateGroupReply(LLMessageSystem* msg, void ** data)
 
 		gAgent.mGroups.push_back(gd);
 
-		LLPanelGroupCreate::refreshCreatedGroup(group_id);
+		LLPanelGroup::refreshCreatedGroup(group_id);
 		//FIXME
 		//LLFloaterGroupInfo::closeCreateGroup();
 		//LLFloaterGroupInfo::showFromUUID(group_id,"roles_tab");

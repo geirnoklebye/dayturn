@@ -75,10 +75,8 @@ public:
 	static bool init(const std::string& package, const LLSD& benefits_sd);
 	static bool initCurrent(const std::string& package, const LLSD& benefits_sd);
 	static bool has(const std::string& package);
-	static bool isCurrent(const std::string& package);
 
 private:
-	std::string     mCurrentName;
 	LLAgentBenefits mCurrent;
 	LLAgentBenefits mDefault;
 	std::map<std::string, LLAgentBenefits> mPackageMap;
