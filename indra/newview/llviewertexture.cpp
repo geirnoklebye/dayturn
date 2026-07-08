@@ -4002,21 +4002,8 @@ void LLViewerMediaTexture::setPlaying(bool playing)
 
 		for(std::list< LLFace* >::iterator iter = mMediaFaceList.begin(); iter!= mMediaFaceList.end(); ++iter)
 		{
-            LLFace* facep = *iter;
-/* PBR materials not implemented in this viewer #1943
-            const LLTextureEntry* te = facep->getTextureEntry();
-            if (te->getGLTFMaterial())
-            {
-                // PBR material, switch emissive and basecolor
-                switchTexture(LLRender::EMISSIVE_MAP, *iter);
-                switchTexture(LLRender::BASECOLOR_MAP, *iter);
-            }
-            else
- */
-            {
-                // blinn-phong material, switch diffuse map only
-                switchTexture(LLRender::DIFFUSE_MAP, *iter);
-            }
+            // This viewer version only implements blinn-phong material, switch diffuse map only #1943
+            switchTexture(LLRender::DIFFUSE_MAP, *iter);
 		}
 	}
 	else //stop playing this media
