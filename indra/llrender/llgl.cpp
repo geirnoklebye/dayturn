@@ -647,9 +647,17 @@ bool LLGLManager::initGL()
 #endif
 
 #if LL_DARWIN
-	if (mGLVendor.find("APPLE") != std::string::npos)
+	if (old_vram > 0)
 	{
 		// Apple Silicon uses unified memory; Metal query will refine this at startup.
+		// Trust VRAM already detected via a real hardware query (CGLQueryRendererInfo
+		// on macOS, LLDXHardware on Windows) over the coarse vendor guesses below.
+		mVRAM = old_vram;
+		LL_INFOS("RenderInit") << "Using previously detected VRAM: " << mVRAM << LL_ENDL;
+	}
+	else if (mGLVendor.find("APPLE") != std::string::npos)
+	{
+		// Detection failed; fall back to a coarse guess.
 		mVRAM = 1024;
 		LL_INFOS("RenderInit") << "Setting VRAM for Apple Silicon to: " << mVRAM << LL_ENDL;
 	}
@@ -675,17 +683,6 @@ bool LLGLManager::initGL()
 	}
 #endif
 
-
-	if (mVRAM < 256 && old_vram > 0)
-	{
-		// fall back to old method
-		// Note: on Windows value will be from LLDXHardware.
-		// Either received via dxdiag or via WMI by id from dxdiag.
-		mVRAM = old_vram;
-
-		// <FS:Ansariel> VRAM detection logging
-		LL_WARNS("RenderInit") << "VRAM detected via MemInfo OpenGL extension most likely broken. Reverting to " << mVRAM << " MB" << LL_ENDL;
-	}
 
 	stop_glerror();
 

@@ -1426,7 +1426,22 @@ S32Megabytes LLViewerTextureList::getMaxVideoRamSetting(bool get_recommended, fl
 		max_texmem = llmax(max_texmem, getMinVideoRamSetting());
 	}
 	// </FS:Ansariel>
-	
+
+	if (get_recommended && clamp_upper_limit)
+	{
+		// Reserve headroom below whatever ceiling max_texmem just landed on
+		// (gMaxVideoRam, system RAM, or mem_multiplier - whichever bound). A
+		// high-VRAM card's raw*0.75 headroom gets swallowed by the gMaxVideoRam
+		// clamp above before it can take effect, so the reservation has to be
+		// applied after that clamp too, or the recommended default collapses
+		// back to the same value as the slider max on any card whose VRAM
+		// exceeds gMaxVideoRam. Only the real recommended-default call
+		// (clamp_upper_limit=true) gets this; the internal uncapped-ceiling
+		// call used elsewhere to bound vb_mem must stay untouched.
+		max_texmem = max_texmem - (max_texmem / 4);
+		max_texmem = llmax(max_texmem, getMinVideoRamSetting());
+	}
+
 	return max_texmem;
 }
 
@@ -1511,14 +1526,15 @@ void LLViewerTextureList::updateMaxResidentTexMem(S32Megabytes mem)
 	
 // <FS:Ansariel> Texture memory management
 	//mMaxTotalTextureMemInMegaBytes = mMaxResidentTexMemInMegaBytes * 2;
-	if (mMaxResidentTexMemInMegaBytes > gMaxVideoRam / 2)
-	{
-		mMaxTotalTextureMemInMegaBytes = gMaxVideoRam + (S32Megabytes)(mMaxResidentTexMemInMegaBytes * 0.25f);
-	}
-	else
-	{
-		mMaxTotalTextureMemInMegaBytes = mMaxResidentTexMemInMegaBytes * 2;
-	}
+	// The original >gMaxVideoRam/2 branch (gMaxVideoRam + resident*0.25) always
+	// overshoots gMaxVideoRam by ~19% once resident crosses that threshold,
+	// while the <=gMaxVideoRam/2 branch is mathematically bounded at
+	// gMaxVideoRam by construction (resident*2 <= gMaxVideoRam there). Capping
+	// both at gMaxVideoRam keeps the same resident*2 behavior for the bounded
+	// case and removes the overshoot for the other, instead of the total
+	// exceeding the tier's own ceiling on cards where that ceiling represents
+	// actual physical VRAM (e.g. low-end cards with no headroom above it).
+	mMaxTotalTextureMemInMegaBytes = llmin(mMaxResidentTexMemInMegaBytes * 2, gMaxVideoRam);
 // </FS:Ansariel>
 
 	//system mem
