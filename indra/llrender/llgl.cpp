@@ -574,7 +574,9 @@ bool LLGLManager::initGL()
 	initExtensions();
 	stop_glerror();
 
+#if LL_DARWIN
 	S32 old_vram = mVRAM;
+#endif
 	mVRAM = 0;
 
 #if LL_WINDOWS
