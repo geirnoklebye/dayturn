@@ -143,6 +143,7 @@ namespace {
 					mFile.sync_with_stdio(false);
 				}
 			}
+			this->showMultiline(true);
 		}
 
 		~RecordToFile()

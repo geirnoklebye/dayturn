@@ -2375,16 +2375,39 @@ void LLViewerRegion::getSimulatorFeatures(LLSD& sim_features) const
 
 }
 
+static void streamSimulatorFeatures(std::ostream& s, const LLSD& sd, S32 depth = 0)
+{
+	std::string indent(depth * 4, ' ');
+	for (LLSD::map_const_iterator iter = sd.beginMap(); iter != sd.endMap(); ++iter)
+	{
+		const std::string& key = iter->first;
+		const LLSD& value = iter->second;
+		if (value.isMap())
+		{
+			s << indent << key << ":\n";
+			streamSimulatorFeatures(s, value, depth + 1);
+		}
+		else if (value.isBoolean())
+		{
+			s << indent << key << ": " << (value.asBoolean() ? "true" : "false") << "\n";
+		}
+		else
+		{
+			s << indent << key << ": " << value.asString() << "\n";
+		}
+	}
+}
+
 void LLViewerRegion::setSimulatorFeatures(const LLSD& sim_features)
 {
 	std::stringstream str;
-	
-	LLSDSerialize::toPrettyXML(sim_features, str);
-	LL_INFOS() << "region " << getName() << " "  << str.str() << LL_ENDL;
+
+	streamSimulatorFeatures(str, sim_features);
+	LL_INFOS() << "region " << getName() << " simulator features:\n" << str.str() << LL_ENDL;
 	mSimulatorFeatures = sim_features;
 
 	setSimulatorFeaturesReceived(true);
-	
+
 }
 
 //this is called when the parent is not cacheable.
