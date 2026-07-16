@@ -1433,6 +1433,7 @@ if (DARWIN)
   
   # This should be compiled with the viewer.
   LIST(APPEND viewer_SOURCE_FILES llappdelegate-objc.mm)
+  LIST(APPEND viewer_HEADER_FILES llappdelegate-objc.h)
   set_source_files_properties(
     llappdelegate-objc.mm
     PROPERTIES

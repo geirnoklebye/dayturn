@@ -26,7 +26,6 @@
 
 #import "llopenglview-objc.h"
 #import "llwindowmacosx-objc.h"
-#import "llappdelegate-objc.h"
 
 extern bool gRetinaSupport;
 
@@ -471,13 +470,14 @@ attributedStringInfo getSegments(NSAttributedString *str)
     if (acceptsText &&
         !mMarkedTextAllowed &&
         !(mModifiers & (NSEventModifierFlagControl | NSEventModifierFlagCommand)) &&  // commands don't invoke InputWindow
-        ![(LLAppDelegate*)[NSApp delegate] romanScript] &&
+        ![(id<LLAppDelegateProtocol>)[NSApp delegate] romanScript] &&
         ch > ' ' &&
         ch != NSDeleteCharacter &&
         (ch < 0xF700 || ch > 0xF8FF))  // 0xF700-0xF8FF: reserved for function keys on the keyboard(from NSEvent.h)
     {
-        [(LLAppDelegate*)[NSApp delegate] showInputWindow:true withEvent:theEvent];
-    } else
+        [(id<LLAppDelegateProtocol>)[NSApp delegate] showInputWindow:true withEvent:theEvent];
+    } 
+    else
     {
         [[self inputContext] handleEvent:theEvent];
     }

@@ -29,7 +29,6 @@
 #include <errno.h>
 #include "llopenglview-objc.h"
 #include "llwindowmacosx-objc.h"
-#include "llappdelegate-objc.h"
 
 /*
  * These functions are broken out into a separate file because the
@@ -368,7 +367,7 @@ void removeGLView(GLViewRef viewRef)
 
 void setupInputWindow(NSWindowRef window, GLViewRef glview)
 {
-    [[(LLAppDelegate*)[NSApp delegate] inputView] setGLView:(__bridge LLOpenGLView*)glview];
+    [[(id<LLAppDelegateProtocol>)[NSApp delegate] inputView] setGLView:(__bridge LLOpenGLView*)glview];
 }
 
 void commitCurrentPreedit(GLViewRef glView)
@@ -383,7 +382,7 @@ void allowDirectMarkedTextInput(bool allow, GLViewRef glView)
 
 NSWindowRef getMainAppWindow()
 {
-	LLNSWindow *winRef = [(LLAppDelegate*)[[NSApplication sharedApplication] delegate] window];
+	LLNSWindow *winRef = [(id<LLAppDelegateProtocol>)[[NSApplication sharedApplication] delegate] window];
 	
 	[winRef setAcceptsMouseMovedEvents:TRUE];
     return (NSWindowRef)CFBridgingRetain(winRef);

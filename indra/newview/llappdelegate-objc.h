@@ -30,18 +30,20 @@
 @interface LLApplication : NSApplication
 @end
 
-@interface LLAppDelegate : NSObject <NSApplicationDelegate> {
+@interface LLAppDelegate : NSObject <NSApplicationDelegate, LLAppDelegateProtocol> {
 	LLNSWindow __unsafe_unretained *window;
 	NSWindow __unsafe_unretained *inputWindow;
 	LLNonInlineTextView __unsafe_unretained *inputView;
 	NSTimer *frameTimer;
 	NSString *currentInputLanguage;
     std::string secondLogPath;
+    IBOutlet NSMenu __unsafe_unretained *mainMenu;
 }
 
 @property (assign) IBOutlet LLNSWindow *window;
 @property (assign) IBOutlet NSWindow *inputWindow;
 @property (assign) IBOutlet LLNonInlineTextView *inputView;
+@property (unsafe_unretained) IBOutlet NSMenu *mainMenu;
 
 @property (retain) NSString *currentInputLanguage;
 

@@ -82,6 +82,19 @@
 
 @end
 
+// Minimal surface of LLAppDelegate (indra/newview/llappdelegate-objc.h) that
+// llwindow needs to reach via [NSApp delegate]. Keeps llwindow from depending
+// on the newview-level header, which grows with app/menu-bar concerns.
+@protocol LLAppDelegateProtocol <NSObject>
+
+@property (assign) IBOutlet LLNSWindow *window;
+@property (assign) IBOutlet LLNonInlineTextView *inputView;
+
+- (void) showInputWindow:(bool)show withEvent:(NSEvent*)textEvent;
+- (bool) romanScript;
+
+@end
+
 @interface NSScreen (PointConversion)
 
 /*
