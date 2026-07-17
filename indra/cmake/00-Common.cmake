@@ -61,7 +61,7 @@ if (DARWIN)
   add_definitions(-DLL_DARWIN=1)
   set(CMAKE_CXX_LINK_FLAGS "-Wl,-headerpad_max_install_names,-search_paths_first,-rpath,@loader_path/../Frameworks")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
-  set(DARWIN_extra_cstar_flags "-Wbool-conversion -Wno-unused-local-typedef -Wno-deprecated-declarations -Wobjc-signed-char-bool-implicit-int-conversion -Woverloaded-virtual")
+  set(DARWIN_extra_cstar_flags "-Wbool-conversion -Wno-unused-local-typedef -Wno-deprecated-declarations -Wobjc-signed-char-bool-implicit-int-conversion -Woverloaded-virtual -Wno-deprecated-builtins")
   # Ensure that CMAKE_CXX_FLAGS has the correct -g debug information format --
   # see Variables.cmake.
   string(REPLACE "-gdwarf-2" "-g${CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT}"
@@ -80,7 +80,7 @@ if (DARWIN)
 
   # required for clang-15/xcode-15 since our boost package still uses deprecated std::unary_function/binary_function
   # see https://developer.apple.com/documentation/xcode-release-notes/xcode-15-release-notes#C++-Standard-Library
-  # add_compile_definitions(_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
+  add_compile_definitions(_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
 
   if (CMAKE_CXX_COMPILER MATCHES ".*clang")
     set(CMAKE_COMPILER_IS_CLANGXX 1)
