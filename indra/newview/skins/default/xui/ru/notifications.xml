@@ -1621,17 +1621,6 @@
 		Достигнуто максимальное количество групп. Выйдите из другой группы, прежде чем вступать в эту или создавать новую группу.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		Резиденты с Базовым аккаунтом могут присоединиться к [MAX_BASIC] группам.
-Премиум аккаунт разрешает до [MAX_PREMIUM]. [https://secondlife.com/my/account/membership.php? Узнайте больше или расширьте свой аккаунт]
-		<usetemplate name="okbutton" yestext="Закрыть"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		Резиденты с Базовым аккаунтом могут присоединиться к [MAX_BASIC] группам.
-Премиум аккаунт разрешает до [MAX_PREMIUM]. Премиум Плюс аккаунт разрешает до [MAX_PREMIUM_PLUS]. 
-[https://secondlife.com/my/account/membership.php? Узнайте больше или расширьте свой аккаунт]
-		<usetemplate name="okbutton" yestext="Закрыть"/>
-	</notification>
 	<notification name="KickUser">
 		Выбросить этого жителя с таким сообщением?
 		<form name="form">

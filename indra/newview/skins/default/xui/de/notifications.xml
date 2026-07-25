@@ -1636,17 +1636,6 @@ Diese Gruppe verlassen?
 		Sie haben die maximale Anzahl an Gruppen erreicht. Bitte verlassen Sie eine Gruppe bevor Sie einer neuen beitreten oder eine neue Gruppe bilden.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		Einwohner mit Basic-Mitgliedschaft können bis zu [MAX_BASIC] Gruppen beitreten.
-Premium-Mitgliedschaften erlauben bis zu [MAX_PREMIUM]. [https://secondlife.com/my/account/membership.php? Mehr Informationen oder Upgrade]
-		<usetemplate name="okbutton" yestext="Schließen"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		Einwohner mit Basic-Mitgliedschaft können bis zu [MAX_BASIC] Gruppen beitreten.
-Premium-Mitgliedschaften erlauben bis zu [MAX_PREMIUM]. Premium-Plus-Mitgliedschaften 
-erlauben bis zu [MAX_PREMIUM_PLUS]. [https://secondlife.com/my/account/membership.php? Mehr Informationen oder Upgrade]
-		<usetemplate name="okbutton" yestext="Schließen"/>
-	</notification>
 	<notification name="KickUser">
 		Beim Hinauswerfen dieses Benutzers welche Meldung anzeigen?
 		<form name="form">

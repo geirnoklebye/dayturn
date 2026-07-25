@@ -1628,17 +1628,6 @@ Haz clic en OK para instalar.
 		Has superado tu número máximo de grupos. Por favor, sal de al menos uno de ellos antes de crear uno nuevo o entrar en alguno.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		Los residentes con membresías Básicas pueden unirse a hasta [MAX_BASIC] grupos.
-Las membresías Premium permiten hasta [MAX_PREMIUM]. [https://secondlife.com/my/account/membership.php? Aprende más al respecto o mejora tu membresía]
-		<usetemplate name="okbutton" yestext="Cerrar"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		Los residentes con membresías Básicas pueden unirse a hasta [MAX_BASIC] cinco grupos.
-Las membresías Premium permiten hasta [MAX_PREMIUM]. Las membresías Premium Plus permiten 
-hasta [MAX_PREMIUM_PLUS]. [https://secondlife.com/my/account/membership.php? Aprende más al respecto o mejora tu membresía]
-		<usetemplate name="okbutton" yestext="Cerrar"/>
-	</notification>
 	<notification name="KickUser">
 		¿Con qué mensaje quieres expulsar a este Residente?
 		<form name="form">

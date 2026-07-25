@@ -1656,17 +1656,6 @@ https://secondlife.com/support/downloads/ からダウンロードしてくだ�
 		加入できるグループの最大限に達しました。 新しくグループに参加、または作成する前に、どれかグループから抜けてください。
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		ベーシック会員の住民は、最大 [MAX_BASIC] グループまで参加することができます。
-プレミアム会員は、最大 [MAX_PREMIUM] まで可能です。[https://secondlife.com/my/account/membership.php? 詳細、またはアップグレード]
-		<usetemplate name="okbutton" yestext="閉じる"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		ベーシック会員の住民は、最大 [MAX_BASIC] グループまで参加することができます。
-プレミアム会員は、最大 [MAX_PREMIUM] まで可能です。プレミアムプラス会員は、最大 [MAX_PREMIUM_PLUS] まで可能です。
-[https://secondlife.com/my/account/membership.php? 詳細、またはアップグレード]
-		<usetemplate name="okbutton" yestext="閉じる"/>
-	</notification>
 	<notification name="KickUser">
 		どのようなメッセージを添えてこの住人を追い出しますか？
 		<form name="form">

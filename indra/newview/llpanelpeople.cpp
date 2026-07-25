@@ -102,11 +102,6 @@ static const std::string RECENT_TAB_NAME	= "recent_panel";
 //static const std::string BLOCKED_TAB_NAME	= "blocked_panel"; // blocked avatars
 static const std::string CONTACT_SETS_TAB_NAME = "contact_sets_panel";	// [FS:CR] Contact sets
 static const std::string COLLAPSED_BY_USER  = "collapsed_by_user";
-//MK
-//mk
-
-const S32 BASE_MAX_AGENT_GROUPS = 42;
-const S32 PREMIUM_MAX_AGENT_GROUPS = 60;
 
 extern S32 gMaxAgentGroups;
 
@@ -654,27 +649,10 @@ void LLPanelPeople::removePicker()
 
 bool LLPanelPeople::postBuild()
 {
-	S32 max_premium = PREMIUM_MAX_AGENT_GROUPS; 
-	if (gAgent.getRegion())
-	{
-		LLSD features;
-		gAgent.getRegion()->getSimulatorFeatures(features);
-		if (features.has("MaxAgentGroupsPremium"))
-		{
-			max_premium = features["MaxAgentGroupsPremium"].asInteger();
-		}
-	}
-
 	getChild<LLFilterEditor>("nearby_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("friends_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("groups_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
 	getChild<LLFilterEditor>("recent_filter_input")->setCommitCallback(boost::bind(&LLPanelPeople::onFilterEdit, this, _2));
-
-	if(gMaxAgentGroups < max_premium)
-	{
-		getChild<LLTextBox>("groupcount")->setText(getString("GroupCountWithInfo"));
-		getChild<LLTextBox>("groupcount")->setURLClickedCallback(boost::bind(&LLPanelPeople::onGroupLimitInfo, this));
-	}
 
 	mTabContainer = getChild<LLTabContainer>("tabs");
 	mTabContainer->setCommitCallback(boost::bind(&LLPanelPeople::onTabSelected, this, _2));
@@ -1458,31 +1436,6 @@ void LLPanelPeople::onFilterEdit(const std::string& search_string)
 	{
 		mRecentList->setNameFilter(filter);
 	}
-}
-
-void LLPanelPeople::onGroupLimitInfo()
-{
-	LLSD args;
-
-	S32 max_basic = BASE_MAX_AGENT_GROUPS;
-	S32 max_premium = PREMIUM_MAX_AGENT_GROUPS;
-	if (gAgent.getRegion())
-	{
-		LLSD features;
-		gAgent.getRegion()->getSimulatorFeatures(features);
-		if (features.has("MaxAgentGroupsBasic"))
-		{
-			max_basic = features["MaxAgentGroupsBasic"].asInteger();
-		}
-		if (features.has("MaxAgentGroupsPremium"))
-		{
-			max_premium = features["MaxAgentGroupsPremium"].asInteger();
-		}
-	}
-	args["MAX_BASIC"] = max_basic;
-	args["MAX_PREMIUM"] = max_premium;
-
-	LLNotificationsUtil::add("GroupLimitInfo", args);
 }
 
 void LLPanelPeople::onTabSelected(const LLSD& param)

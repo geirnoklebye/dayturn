@@ -1622,17 +1622,6 @@ Gruptan ayrılmak istiyor musunuz?
 		Maksimum grup sayısına eriştiniz. Lütfen yeni bir gruba katılmadan ya da yeni bir grup oluşturmadan önce grupların bazılarından ayrılın.
 		<usetemplate name="okbutton" yestext="Tamam"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		Temel üyelikler [MAX_BASIC]'a kadar katılım sağlayabilir.
-Premium üyelikler [MAX_PREMIUM] 'a kadar izinlidir. [https://secondlife.com/my/account/membership.php? Daha fazla bilgi alın ya da üyeiliğinizi yükseltin]
-		<usetemplate name="okbutton" yestext="Kapat"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		Temel üyelik sahibi yerleşimciler [MAX_BASIC]'a kadar olan gruplara katılabilir.
-Premium üyeler [MAX_PREMIUM] 'a kadar izinlidir. Premium Plus üyeler [MAX_PREMIUM_PLUS] 'a kadar izinlidir. 
-[https://secondlife.com/my/account/membership.php? Daha fazla bilgi alın ya da üyeiliğinizi yükseltin]
-		<usetemplate name="okbutton" yestext="Kapat"/>
-	</notification>
 	<notification name="KickUser">
 		Bu Sakin hangi iletiyle çıkarılsın?
 		<form name="form">

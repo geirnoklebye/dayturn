@@ -1612,17 +1612,6 @@ Deseja prosseguir?
 		Você atingiu o limite máximo de grupos. Sai de um grupo para entrar ou criar outro.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		Residentes com o plano Básico podem participar de até [MAX_BASIC] grupos.
-O plano Premium permite até [MAX_PREMIUM]. [https://secondlife.com/my/account/membership.php? Saiba mais ou faça um upgrade]
-		<usetemplate name="okbutton" yestext="Fechar"/>
-	</notification>
-		<notification name="GroupLimitInfoPlus">
-			Residentes com o plano Básico podem participar de até [MAX_BASIC] grupos.
-O plano Premium permite até [MAX_PREMIUM]. O plano Premium Plus permite até [MAX_PREMIUM_PLUS]. 
-[https://secondlife.com/my/account/membership.php? Saiba mais ou faça um upgrade]
-			<usetemplate name="okbutton" yestext="Fechar"/>
-	</notification>
 	<notification name="KickUser">
 		Chutar este residente com qual mensagem?
 		<form name="form">

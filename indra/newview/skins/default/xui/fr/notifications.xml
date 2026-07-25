@@ -1619,17 +1619,6 @@ Quitter le groupe ?
 		Vous avez atteint le nombre de groupes maximum. Vous devez en quitter un avant d&apos;en rejoindre ou d&apos;en créer un nouveau.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		Les résidents ayant une adhésion de base peuvent s'inscrire à [MAX_BASIC] groupes maximum.
-Les adhésions premium permettent jusqu'à [MAX_PREMIUM]. [https://secondlife.com/my/account/membership.php? En savoir plus ou actualiser]
-		<usetemplate name="okbutton" yestext="Fermer"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		Les résidents ayant une adhésion de base peuvent s'inscrire à [MAX_BASIC] groupes maximum.
-Les adhésions premium permettent jusqu'à [MAX_PREMIUM]. Les adhésions à Premium Plus permettent 
-jusqu'à [MAX_PREMIUM_PLUS]. [https://secondlife.com/my/account/membership.php? En savoir plus ou actualiser]
-		<usetemplate name="okbutton" yestext="Fermer"/>
-	</notification>
 	<notification name="KickUser">
 		Éjecter ce résident avec quel message ?
 		<form name="form">

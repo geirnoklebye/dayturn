@@ -1623,17 +1623,6 @@ Vuoi cancellare quell&apos;elemento?
 		Hai raggiunto il numero massimo di gruppi. Per favore abbandona almeno un gruppo prima di aderire o crearne uno nuovo.
 		<usetemplate name="okbutton" yestext="OK"/>
 	</notification>
-	<notification name="GroupLimitInfo">
-		I residenti con un'iscrizione Base possono aderire fino a [MAX_BASIC] gruppi.
-Le iscrizioni Premium consentono fino a [MAX_PREMIUM]. [https://secondlife.com/my/account/membership.php? Per saperne di più o per l'aggiornamento]
-		<usetemplate name="okbutton" yestext="Chiudi"/>
-	</notification>
-	<notification name="GroupLimitInfoPlus">
-		I residenti con un'iscrizione Base possono aderire fino a [MAX_BASIC] gruppi.
-Le iscrizioni Premium consentono fino a [MAX_PREMIUM]. Le iscrizioni Premium Plus 
-consentono fino a [MAX_PREMIUM_PLUS]. [https://secondlife.com/my/account/membership.php? Per saperne di più o per l'aggiornamento]
-		<usetemplate name="okbutton" yestext="Chiudi"/>
-	</notification>
 	<notification name="KickUser">
 		Espelli questo residente con quale messaggio?
 		<form name="form">
