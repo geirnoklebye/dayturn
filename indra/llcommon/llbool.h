@@ -24,6 +24,8 @@
 #ifndef LL_BOOL_H
 #define LL_BOOL_H
 
+//Original LL definition of BOOL, FALSE and TRUE kept for historic reference, but disabled.
+
 /* 
 typedef signed int		BOOL;
 // definition moved from stdtypes.h
