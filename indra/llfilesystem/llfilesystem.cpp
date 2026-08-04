@@ -1,6 +1,6 @@
 /**
- * @file filesystem.h
- * @brief Simulate local file system operations.
+ * @file filesystem.cpp
+ * @brief Implementation of local file system operations.
  * @Note The initial implementation does actually use standard C++
  *       file operations but eventually, there will be another
  *       layer that caches and manages file meta data too.
