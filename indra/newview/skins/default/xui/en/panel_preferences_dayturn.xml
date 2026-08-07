@@ -3,7 +3,7 @@
     border="true"
     follows="all"
     height="430"
-    label="Kokua"
+    label="Dayturn"
     layout="topleft"
     left="102"
     name="dayturn_viewer"
@@ -127,7 +127,6 @@
          width="270"
          control_name="FSAdvancedWorldmapRegionInfo"
          tool_tip="Shows additional region information on the World Map (avatar count and maturity level)."/>
-        
         <check_box
          follows="left|top"
          height="16"
@@ -361,8 +360,8 @@
             follows="left|top"
             height="20"
             left="60"
-            increment="1"
-            initial_value="362394"
+			increment="1" 
+			initial_value="362394" 
             max_val="2147483647"
             min_val="1"
             mouse_opaque="true"
