@@ -118,11 +118,18 @@ std::unique_ptr<std::string> doSaveDialog(const std::string* file,
     NSString *fileName = [NSString stringWithCString:file->c_str() encoding:[NSString defaultCStringEncoding]];
     
     std::unique_ptr<std::string> outfile;
-    NSURL *url = [NSURL fileURLWithPath:fileName];
     [panel setNameFieldStringValue: fileName];
-    [panel setDirectoryURL: url];
-    if([panel runModal] == 
-       NSFileHandlingPanelOKButton) 
+
+    // Let AppKit restore the directory it last used; only pick a default when
+    // it has no stored location yet.
+    NSURL *last_url = [[NSUserDefaults standardUserDefaults] URLForKey:@"NSNavLastRootDirectory"];
+    if(!last_url)
+    {
+        NSURL *downloads_url = [[NSFileManager defaultManager] URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask].firstObject;
+        [panel setDirectoryURL:downloads_url];
+    }
+
+    if([panel runModal] == NSFileHandlingPanelOKButton)
     {
         NSURL* url = [panel URL];
         NSString* p = [url path];
