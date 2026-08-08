@@ -2534,9 +2534,20 @@ void LLAppearanceMgr::updateAppearanceFromCOF(bool enforce_item_restrictions,
 	LLViewerInventoryCategory *cof = gInventory.getCategory(current_outfit_id);
 	if (!gInventory.isCategoryComplete(current_outfit_id))
 	{
-		LL_WARNS() << "COF info is not complete. Version " << cof->getVersion()
-				<< " descendent_count " << cof->getDescendentCount()
-				<< " viewer desc count " << cof->getViewerDescendentCount() << LL_ENDL;
+		// isCategoryComplete() also returns false when the category is missing
+		// from the model entirely, so cof may be null here. Common on accounts
+		// whose COF has not been fetched yet.
+		if (cof)
+		{
+			LL_WARNS() << "COF info is not complete. Version " << cof->getVersion()
+					<< " descendent_count " << cof->getDescendentCount()
+					<< " viewer desc count " << cof->getViewerDescendentCount() << LL_ENDL;
+		}
+		else
+		{
+			LL_WARNS() << "COF category " << current_outfit_id
+					<< " not found in inventory model" << LL_ENDL;
+		}
 	}
 	if(!wear_items.size())
 	{
