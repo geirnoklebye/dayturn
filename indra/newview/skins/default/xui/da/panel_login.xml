@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <panel name="panel_login">
-	<panel.string name="forgot_password_url">
-		http://secondlife.com/account/request.php
-	</panel.string>
 	<layout_stack name="login_widgets">
 		<layout_panel name="login">
 			<text name="log_in_text">
@@ -29,9 +26,6 @@
 		<layout_panel name="links_login_panel">
 			<text name="login_help">
 				Hjælp til login
-			</text>
-			<text name="forgot_password_text">
-				Har du glemt brugernavn eller password?
 			</text>
 			<button label="Log på" name="connect_btn"/>
 			<check_box label="Husk password" name="remember_check"/>

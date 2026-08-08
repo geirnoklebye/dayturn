@@ -102,8 +102,6 @@ private:
 	static void onClickConnect(bool commit_fields = true);
 	static void onClickSelectGrid(void*);
 	static void onClickVersion(void*);
-	static void onClickForgotPassword(void*);
-	static void onClickSignUp(void*);
 	static void onUserNameTextEnty(void*);
 	static void onUserListCommit(void*);
 	static void onRememberUserCheck(void*);
@@ -128,7 +126,6 @@ private:
 	static bool		sCapslockDidNotification;
     bool            mHtmlAvailable;
     std::string     mLoginPage;
-    bool			mFirstLoginThisInstall;
     
     static bool sCredentialSet;
 

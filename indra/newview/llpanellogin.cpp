@@ -49,7 +49,6 @@
 #include "llsecapi.h"
 #include "llstartup.h"
 #include "lltabcontainer.h"
-#include "lltextbox.h"
 #include "llui.h"
 #include "lluiconstants.h"
 #include "llslurl.h"
@@ -61,7 +60,6 @@
 #include "llviewernetwork.h"
 #include "llviewerwindow.h"			// to link into child list
 #include "lluictrlfactory.h"
-#include "llweb.h"
 #include "llmediactrl.h"
 #include "llrootview.h"
 
@@ -188,7 +186,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mCallback(callback),
 	mCallbackData(cb_data),
     mListener(std::make_unique<LLPanelLoginListener>(this)),
-	mFirstLoginThisInstall(gSavedSettings.getbool("FirstLoginThisInstall")),
 	mUsernameLength(0),
 	mPasswordLength(0),
 	mLocationLength(0),
@@ -207,14 +204,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 		login_holder->addChild(this);
 	}
 
-	if (mFirstLoginThisInstall)
-	{
-		buildFromFile( "panel_login_first.xml");
-	}
-	else
-	{
-		buildFromFile( "panel_login.xml");
-	}
+	buildFromFile( "panel_login.xml");
 
 	reshape(rect.getWidth(), rect.getHeight());
 
@@ -223,46 +213,41 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	// STEAM-14: When user presses Enter with this field in focus, initiate login
 	password_edit->setCommitCallback(boost::bind(&LLPanelLogin::onClickConnect, false));
 
-	// change z sort of clickable text to be behind buttons
-	sendChildToBack(getChildView("forgot_password_text"));
-	sendChildToBack(getChildView("sign_up_text"));
-
 	childSetAction("select_grids_btn", onClickSelectGrid, this);
 
     std::string current_grid = LLGridManager::getInstance()->getGrid();
-    if (!mFirstLoginThisInstall)
-    {
-        LLComboBox* favorites_combo = getChild<LLComboBox>("start_location_combo");
-        updateLocationSelectorsVisibility(); // separate so that it can be called from preferences
-        favorites_combo->setReturnCallback(boost::bind(&LLPanelLogin::onClickConnect, false));
-        favorites_combo->setFocusLostCallback(boost::bind(&LLPanelLogin::onLocationSLURL, this));
+    
+	LLComboBox* favorites_combo = getChild<LLComboBox>("start_location_combo");
+	updateLocationSelectorsVisibility(); // separate so that it can be called from preferences
+	favorites_combo->setReturnCallback(boost::bind(&LLPanelLogin::onClickConnect, false));
+	favorites_combo->setFocusLostCallback(boost::bind(&LLPanelLogin::onLocationSLURL, this));
 
-        LLComboBox* server_choice_combo = getChild<LLComboBox>("server_combo");
-        server_choice_combo->setCommitCallback(boost::bind(&LLPanelLogin::onSelectServer, this));
+	LLComboBox* server_choice_combo = getChild<LLComboBox>("server_combo");
+	server_choice_combo->setCommitCallback(boost::bind(&LLPanelLogin::onSelectServer, this));
 
-        // Load all of the grids, sorted, and then add a bar and the current grid at the top
-        server_choice_combo->removeall();
+	// Load all of the grids, sorted, and then add a bar and the current grid at the top
+	server_choice_combo->removeall();
 
 
-        std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();
-        for (std::map<std::string, std::string>::iterator grid_choice = known_grids.begin();
-            grid_choice != known_grids.end();
-            grid_choice++)
-        {
-            if (!grid_choice->first.empty() && current_grid != grid_choice->first)
-            {
-                LL_DEBUGS("AppInit") << "adding " << grid_choice->first << LL_ENDL;
-                server_choice_combo->add(grid_choice->second, grid_choice->first);
-            }
-        }
-        server_choice_combo->sortByName();
+	std::map<std::string, std::string> known_grids = LLGridManager::getInstance()->getKnownGrids();
+	for (std::map<std::string, std::string>::iterator grid_choice = known_grids.begin();
+		grid_choice != known_grids.end();
+		grid_choice++)
+	{
+		if (!grid_choice->first.empty() && current_grid != grid_choice->first)
+		{
+			LL_DEBUGS("AppInit") << "adding " << grid_choice->first << LL_ENDL;
+			server_choice_combo->add(grid_choice->second, grid_choice->first);
+		}
+	}
+	server_choice_combo->sortByName();
 
-        LL_DEBUGS("AppInit") << "adding current " << current_grid << LL_ENDL;
-        server_choice_combo->add(LLGridManager::getInstance()->getGridLabel(),
-            current_grid,
-            ADD_TOP);
-        server_choice_combo->selectFirstItem();
-    }
+	LL_DEBUGS("AppInit") << "adding current " << current_grid << LL_ENDL;
+	server_choice_combo->add(LLGridManager::getInstance()->getGridLabel(),
+		current_grid,
+		ADD_TOP);
+	server_choice_combo->selectFirstItem();
+
 
 	LLSLURL start_slurl(LLStartUp::getStartSLURL());
 	// The StartSLURL might have been set either by an explicit command-line
@@ -310,12 +295,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	std::string channel = LLVersionInfo::instance().getChannel();
 	std::string version = stringize(LLVersionInfo::instance().getShortVersion(), " (",
 									LLVersionInfo::instance().getBuild(), ')');
-	
-	LLTextBox* forgot_password_text = getChild<LLTextBox>("forgot_password_text");
-	forgot_password_text->setClickedCallback(onClickForgotPassword, NULL);
-
-	LLTextBox* sign_up_text = getChild<LLTextBox>("sign_up_text");
-	sign_up_text->setClickedCallback(onClickSignUp, NULL);
 
 	// get the web browser control
 	LLMediaCtrl* web_browser = getChild<LLMediaCtrl>("login_html");
@@ -338,14 +317,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 void LLPanelLogin::addFavoritesToStartLocation()
 {
-    if (mFirstLoginThisInstall)
-    {
-        // first login panel has no favorites, just update name length and buttons
-        std::string user_defined_name = getChild<LLComboBox>("username_combo")->getSimple();
-        mUsernameLength = user_defined_name.length();
-        updateLoginButtons();
-        return;
-    }
 
 	// Clear the combo.
 	LLComboBox* combo = getChild<LLComboBox>("start_location_combo");
@@ -566,16 +537,9 @@ void LLPanelLogin::resetFields()
         // function is used to reset list in case of changes by external sources
         return;
     }
-    if (sInstance->mFirstLoginThisInstall)
-    {
-        // no list to populate
-        LL_WARNS() << "Shouldn't happen, user should have no ability to modify list on first install" << LL_ENDL;
-    }
-    else
-    {
-        LLPointer<LLCredential> cred = gSecAPIHandler->loadCredential(LLGridManager::getInstance()->getGrid());
-        sInstance->populateUserList(cred);
-    }
+    
+	LLPointer<LLCredential> cred = gSecAPIHandler->loadCredential(LLGridManager::getInstance()->getGrid());
+	sInstance->populateUserList(cred);
 }
 
 // static
@@ -593,7 +557,6 @@ void LLPanelLogin::setFields(LLPointer<LLCredential> credential)
 
 	if(identifier.has("type") && (std::string)identifier["type"] == "agent") 
 	{
-		// not nessesary for panel_login.xml, needed for panel_login_first.xml
 		std::string firstname = identifier["first_name"].asString();
 		std::string lastname = identifier["last_name"].asString();
 	    std::string login_id = firstname;
@@ -782,7 +745,6 @@ void LLPanelLogin::updateLocationCombo( bool force_visible )
     sInstance->getChildView("start_location_text")->setVisible(show_start);
 
     bool show_server = gSavedSettings.getbool("ForceShowGrid");
-    sInstance->getChildView("server_combo_text")->setVisible( show_server);
     sInstance->getChildView("server_combo")->setVisible( show_server);
 
     if (show_server)
@@ -1097,24 +1059,6 @@ void LLPanelLogin::onClickVersion(void*)
 	LLFloaterReg::showInstance("sl_about"); 
 }
 
-//static
-void LLPanelLogin::onClickForgotPassword(void*)
-{
-	if (sInstance )
-	{
-		LLWeb::loadURLExternal(sInstance->getString( "forgot_password_url" ));
-	}
-}
-
-//static
-void LLPanelLogin::onClickSignUp(void*)
-{
-	if (sInstance)
-	{
-		LLWeb::loadURLExternal(sInstance->getString("sign_up_url"));
-	}
-}
-
 // static
 void LLPanelLogin::onUserNameTextEnty(void*)
 {
@@ -1163,8 +1107,7 @@ void LLPanelLogin::onRememberUserCheck(void*)
         LLComboBox* user_combo(sInstance->getChild<LLComboBox>("username_combo"));
 
         bool remember = remember_name->getValue().asBoolean();
-        if (!sInstance->mFirstLoginThisInstall
-            && user_combo->getCurrentIndex() != -1
+        if (user_combo->getCurrentIndex() != -1
             && !remember)
         {
             remember = true;
@@ -1257,7 +1200,6 @@ void LLPanelLogin::updateServer()
 			// Want to vanish not only create_new_account_btn, but also the
 			// title text over it, so turn on/off the whole layout_panel element.
 			sInstance->getChild<LLLayoutPanel>("links")->setVisible(system_grid);
-			sInstance->getChildView("forgot_password_text")->setVisible(system_grid);
 
 			// grid changed so show new splash screen (possibly)
 			loadLoginPage();
@@ -1279,17 +1221,14 @@ void LLPanelLogin::updateLoginButtons()
 
 	login_btn->setEnabled(mUsernameLength != 0 && mPasswordLength != 0);
 
-	if (!mFirstLoginThisInstall)
+	LLComboBox* user_combo = getChild<LLComboBox>("username_combo");
+	LLCheckBoxCtrl* remember_name = getChild<LLCheckBoxCtrl>("remember_name");
+	if (user_combo->getCurrentIndex() != -1)
 	{
-		LLComboBox* user_combo = getChild<LLComboBox>("username_combo");
-		LLCheckBoxCtrl* remember_name = getChild<LLCheckBoxCtrl>("remember_name");
-		if (user_combo->getCurrentIndex() != -1)
-		{
-			remember_name->setValue(true);
-			LLCheckBoxCtrl* remember_pass = getChild<LLCheckBoxCtrl>("remember_password");
-			remember_pass->setEnabled(true);
-		} // Note: might be good idea to do "else remember_name->setValue(mRememberedState)" but it might behave 'weird' to user
-	}
+		remember_name->setValue(true);
+		LLCheckBoxCtrl* remember_pass = getChild<LLCheckBoxCtrl>("remember_password");
+		remember_pass->setEnabled(true);
+	} // Note: might be good idea to do "else remember_name->setValue(mRememberedState)" but it might behave 'weird' to user
 }
 
 void LLPanelLogin::populateUserList(LLPointer<LLCredential> credential)
