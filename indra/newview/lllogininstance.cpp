@@ -619,14 +619,25 @@ std::string construct_start_string()
         {
             // a startup URL was specified
             LLVector3 position = start_slurl.getPosition();
-            // NOTE - do not xml escape here, will get escaped properly later by LLSD::asXMLRPCValue()
-            // see secondlife/viewer#2395
-            start =
+            // The '&' separators have to reach the server as XML entities. Upstream
+            // dropped the escaping here (secondlife/viewer#2395) because their
+            // request is built through LLSD::asXMLRPCValue(), which escapes on the
+            // way out. This viewer serialises through xmlrpc-epi, which does not,
+            // so without escaping the request body is malformed, the server cannot
+            // deserialise it, and login fails with a bare 404.
+            //
+            // This is not a gap waiting on a port. OpenSim is keeping XML-RPC login
+            // and is not adopting LL's replacement, so xmlrpc-epi stays here and the
+            // escaping has to stay with it. Do not re-apply viewer#2395 when merging
+            // from upstream.
+            // Compare LLSLURL::getLoginString(), which builds the same string.
+            std::string unescaped_start =
             STRINGIZE(  "uri:"
                       << start_slurl.getRegion() << "&"
                         << position[VX] << "&"
                         << position[VY] << "&"
                         << position[VZ]);
+            start = xml_escape_string(unescaped_start);
             break;
         }
         case LLSLURL::HOME_LOCATION:
