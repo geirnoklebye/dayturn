@@ -11,7 +11,6 @@
 	<check_box label="私のオンライン状態を確認できるのは、フレンドとグループだけ" name="online_visibility"/>
 	<check_box label="フレンドとグループ以外からはコールと IM を受信しない" name="voice_call_friends_only_check"/>
 	<check_box label="コールが終了したら自動的にマイクのスイッチを切る" name="auto_disengage_mic_check"/>
-	<check_box label="ログイン時にお気に入りのランドマークを表示（「開始地点」ドロップダウンメニュー経由）" name="favorites_on_login_check"/>
 	<text name="Logs:">
 		チャットログ：
 	</text>

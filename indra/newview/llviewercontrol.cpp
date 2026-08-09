@@ -68,6 +68,7 @@
 #include "llrender.h"
 #include "llnavigationbar.h"
 #include "llnotificationsutil.h"
+#include "llfavoritesbar.h"
 #include "llfloatertools.h"
 #include "llpaneloutfitsinventory.h"
 #include "llpanellogin.h"
@@ -140,6 +141,33 @@ static bool handleAvatarHoverOffsetChanged(const LLSD& newvalue)
 	if (isAgentAvatarValid())
 	{
 		gAgentAvatarp->setHoverIfRegionEnabled();
+	}
+	return true;
+}
+
+static bool handleShowFavoritesOnLoginChanged(const LLSD& newvalue)
+{
+	// There is no longer a checkbox for this in Preferences; it is reachable
+	// only as a debug setting. Keep the side effects the checkbox used to have,
+	// so that turning it on records the landmark names and locations right away
+	// while the region data needed to resolve them is still warm, and turning it
+	// off takes that data back off disk instead of leaving it there until some
+	// later save happens to rewrite the file.
+	//
+	// The commit signal also fires when the per-account settings file is read at
+	// login, which is not the user changing anything. Only react once we are
+	// actually in world, which is also the only time the favourites are loaded
+	// and there is something to save or remove.
+	if (LLStartUp::getStartupState() < STATE_STARTED)
+	{
+		return true;
+	}
+
+	bool show = newvalue.asBoolean();
+	LLFavoritesOrderStorage::instance().showFavoritesOnLoginChanged(show);
+	if (show)
+	{
+		LLNotificationsUtil::add("FavoritesOnLogin");
 	}
 	return true;
 }
@@ -888,6 +916,7 @@ void settings_setup_listeners()
 	setting_setup_signal_listener(gSavedSettings, "RenderAutoMuteByteLimit", handleRenderAutoMuteByteLimitChanged);
 
     setting_setup_signal_listener(gSavedPerAccountSettings, "AvatarHoverOffsetZ", handleAvatarHoverOffsetChanged);
+    setting_setup_signal_listener(gSavedPerAccountSettings, "ShowFavoritesOnLogin", handleShowFavoritesOnLoginChanged);
 }
 
 #if TEST_CACHED_CONTROL

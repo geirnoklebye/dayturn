@@ -84,9 +84,6 @@ public:
 	/// to be called from LLStartUp::setStartSLURL
 	static void onUpdateStartSLURL(const LLSLURL& new_start_slurl);
 
-	// called from prefs when initializing panel
-	static bool getShowFavorites();
-
 	// extract name from cred in a format apropriate for username field
 	static std::string getUserName(LLPointer<LLCredential> &cred);
 

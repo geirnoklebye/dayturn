@@ -97,9 +97,6 @@ public:
 	// translate user's do not disturb response message according to current locale if message is default, otherwise do nothing
 	static void initDoNotDisturbResponse();
 
-	// update Show Favorites checkbox
-	static void updateShowFavoritesCheckbox(bool val);
-
 	void processProperties( void* pData, EAvatarProcessorType type );
 	void saveAvatarProperties( void );
     static void saveAvatarPropertiesCoro(const std::string url, bool allow_publish);
@@ -303,8 +300,6 @@ private:
 	static void showFriendsOnlyWarning(LLUICtrl*, const LLSD&);
     //for  "Allow Multiple Viewers"
     static void showMultipleViewersWarning(LLUICtrl*, const LLSD&);
-	//for "Show my Favorite Landmarks at Login"
-	static void handleFavoritesOnLoginChanged(LLUICtrl* checkbox, const LLSD& value);
 
 	static void toggleMuteWhenMinimized();
 	typedef std::map<std::string, LLColor4> string_color_map_t;

@@ -27,10 +27,6 @@
 		<combo_box.item label="General, Moderate oraz Adult" name="Desired_Adult" />
 		<combo_box.item label="General oraz Moderate" name="Desired_Mature" />
 	</combo_box>
-	<check_box label="Pokaż moje ulubione landmarki przy logowaniu" name="favorites_on_login_check" />
-	<text name="favorites_check_extra_text">
-		(Inni używający tego komputera również będą je widzieć)
-	</text>
 	<check_box label="Pokaż na ekranie logowania" name="show_location_checkbox" />
 	<text name="name_tags_textbox">
 		Imiona:

@@ -980,16 +980,6 @@ void LLFloaterPreference::initDoNotDisturbResponse()
 		}
 	}
 
-//static 
-void LLFloaterPreference::updateShowFavoritesCheckbox(bool val)
-{
-	LLFloaterPreference* instance = LLFloaterReg::findTypedInstance<LLFloaterPreference>("preferences");
-	if (instance)
-	{
-		instance->getChild<LLUICtrl>("favorites_on_login_check")->setValue(val);
-	}	
-}
-
 void LLFloaterPreference::setHardwareDefaults()
 {
 	std::string preset_graphic_active = gSavedSettings.getString("PresetGraphicActive");
@@ -1941,7 +1931,6 @@ void LLFloaterPreference::setPersonalInfo(const std::string& visibility)
 	getChild<LLUICtrl>("online_visibility")->setValue(mOriginalHideOnlineStatus); 	 
 	getChild<LLUICtrl>("online_visibility")->setLabelArg("[DIR_VIS]", mDirectoryVisibility);
 
-	getChildView("favorites_on_login_check")->setEnabled(true);
 	getChildView("log_path_button")->setEnabled(true);
 	getChildView("chat_font_size")->setEnabled(true);
 	getChildView("conversation_log_combo")->setEnabled(true);
@@ -2519,12 +2508,6 @@ bool LLPanelPreference::postBuild()
 	{
 		getChild<LLCheckBoxCtrl>("allow_multiple_viewer_check")->setCommitCallback(boost::bind(&showMultipleViewersWarning, _1, _2));
 	}
-	if (hasChild("favorites_on_login_check", true))
-	{
-		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setCommitCallback(boost::bind(&handleFavoritesOnLoginChanged, _1, _2));
-		bool show_favorites_at_login = LLPanelLogin::getShowFavorites();
-		getChild<LLCheckBoxCtrl>("favorites_on_login_check")->setValue(show_favorites_at_login);
-	}
 	if (hasChild("mute_chb_label", true))
 	{
 		getChild<LLTextBox>("mute_chb_label")->setShowCursorHand(false);
@@ -2635,18 +2618,6 @@ void LLPanelPreference::showFriendsOnlyWarning(LLUICtrl* checkbox, const LLSD& v
 		if (checkbox->getValue())
 		{
 			LLNotificationsUtil::add("FriendsAndGroupsOnly");
-		}
-	}
-}
-
-void LLPanelPreference::handleFavoritesOnLoginChanged(LLUICtrl* checkbox, const LLSD& value)
-{
-	if (checkbox)
-	{
-		LLFavoritesOrderStorage::instance().showFavoritesOnLoginChanged(checkbox->getValue().asBoolean());
-		if(checkbox->getValue())
-		{
-			LLNotificationsUtil::add("FavoritesOnLogin");
 		}
 	}
 }

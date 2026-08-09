@@ -11,7 +11,6 @@
 	<check_box label="Только друзья и группы видят, когда я на связи" name="online_visibility"/>
 	<check_box label="Только друзья и группы могут звонить мне и отправлять IM" name="voice_call_friends_only_check"/>
 	<check_box label="Отключать микрофон по окончании разговора" name="auto_disengage_mic_check"/>
-	<check_box label="Показывать любимые закладки при входе (в меню «Место старта»)" name="favorites_on_login_check"/>
 	<text name="Logs:">
 		Журналы чатов:
 	</text>

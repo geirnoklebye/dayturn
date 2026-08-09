@@ -361,6 +361,8 @@ void LLPanelLogin::addFavoritesToStartLocation()
 	}
 	LLSDSerialize::fromXML(fav_llsd, file);
 
+	const std::string login_grid = LLGridManager::getInstance()->getGrid();
+
 	for (LLSD::map_const_iterator iter = fav_llsd.beginMap();
 		iter != fav_llsd.endMap(); ++iter)
 	{
@@ -374,10 +376,10 @@ void LLPanelLogin::addFavoritesToStartLocation()
 			continue;
 		}
 
-		combo->addSeparator();
 		LL_DEBUGS() << "Loading favorites for " << iter->first << LL_ENDL;
 		LLSD user_llsd = iter->second;
         bool update_password_setting = true;
+		bool added_separator = false;
 		for (LLSD::array_const_iterator iter1 = user_llsd.beginArray();
 			iter1 != user_llsd.endArray(); ++iter1)
 		{
@@ -392,16 +394,51 @@ void LLPanelLogin::addFavoritesToStartLocation()
                 update_password_setting = false;
             }
 
+			// Records have taken several shapes over the years: id only, which
+			// carries no location at all; name with an empty slurl, written when
+			// the landmark could not be resolved at save time; and name with a
+			// slurl in whichever form the writing viewer used - hop://,
+			// secondlife:// or an http location. Offer only what can actually be
+			// logged in to, and drop the rest silently rather than let it fail
+			// later in the login sequence.
             std::string label = (*iter1)["name"].asString();
 			std::string value = (*iter1)["slurl"].asString();
-			if(label != "" && value != "")
+			if (label.empty() || value.empty())
 			{
-				mShowFavorites = true;
-				combo->add(label, value);
-				if ( LLStartUp::getStartSLURL().getSLURLString() == value)
-				{
-					combo->selectByValue(value);
-				}
+				continue;
+			}
+
+			LLSLURL slurl(value);
+			if (slurl.getType() != LLSLURL::LOCATION)
+			{
+				LL_DEBUGS() << "Skipping favorite '" << label << "': not a location" << LL_ENDL;
+				continue;
+			}
+
+			// A landmark on another grid can never be a login location: login
+			// always lands on the grid being logged in to, and a hypergrid
+			// destination is only reachable by teleport once in world. Probing
+			// resolves whatever the slurl named - host name, grid nick or label -
+			// to the grid list key, and yields an empty string for a grid we do
+			// not know, which the same test skips.
+			if (LLGridManager::getInstance()->getGridByProbing(slurl.getGrid()) != login_grid)
+			{
+				LL_DEBUGS() << "Skipping favorite '" << label << "': " << slurl.getGrid()
+							<< " is not the login grid" << LL_ENDL;
+				continue;
+			}
+
+			if (!added_separator)
+			{
+				combo->addSeparator();
+				added_separator = true;
+			}
+
+			mShowFavorites = true;
+			combo->add(label, value);
+			if ( LLStartUp::getStartSLURL().getSLURLString() == value)
+			{
+				combo->selectByValue(value);
 			}
 		}
         if (update_password_setting)
@@ -1405,11 +1442,6 @@ void LLPanelLogin::onLocationSLURL()
 	LLStartUp::setStartSLURL(location); // calls onUpdateStartSLURL, above 
 }
 
-// static
-bool LLPanelLogin::getShowFavorites()
-{
-	return gSavedPerAccountSettings.getbool("ShowFavoritesOnLogin");
-}
 
 // static
 std::string LLPanelLogin::getUserName(LLPointer<LLCredential> &cred)
