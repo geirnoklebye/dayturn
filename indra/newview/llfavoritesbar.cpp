@@ -1829,22 +1829,32 @@ void LLFavoritesOrderStorage::removeFavoritesRecordOfUser(const std::string &use
             {
                 LLSD user_llsd = fav_llsd[user];
 
-                if ((user_llsd.beginArray() != user_llsd.endArray()) && user_llsd.beginArray()->has("id"))
+                // Reduce every entry carrying an inventory item id down to just
+                // that id - the favourites bar needs it to restore its ordering -
+                // and drop the landmark names and slurls, which is the point of
+                // turning the option off.
+                //
+                // Test each entry rather than only the first. saveFavoritesRecord()
+                // writes the save_password flag ahead of the favourites, and that
+                // entry has no id, so looking at the head alone sent every record
+                // down the erase path below and took the bar ordering with it.
+                // Entries without an id are left alone: save_password is password
+                // state and not this function's business.
+                bool kept_any = false;
+                for (LLSD::array_iterator iter = user_llsd.beginArray(); iter != user_llsd.endArray(); ++iter)
                 {
-                    for (LLSD::array_iterator iter = user_llsd.beginArray(); iter != user_llsd.endArray(); ++iter)
+                    if (iter->has("id"))
                     {
                         LLSD value;
                         value["id"] = iter->get("id").asUUID();
                         iter->assign(value);
+                        kept_any = true;
                     }
+                }
+
+                if (kept_any)
+                {
                     fav_llsd[user] = user_llsd;
-                    llofstream file;
-                    file.open(filename.c_str());
-                    if (file.is_open())
-                    {
-                        LLSDSerialize::toPrettyXML(fav_llsd, file);
-                        file.close();
-                    }
                 }
                 else
                 {
@@ -1888,22 +1898,32 @@ void LLFavoritesOrderStorage::removeFavoritesRecordOfUser()
             {
             	LLSD user_llsd = fav_llsd[av_name.getUserName()];
 
-            	if ((user_llsd.beginArray()!= user_llsd.endArray()) && user_llsd.beginArray()->has("id"))
+            	// Reduce every entry carrying an inventory item id down to just
+            	// that id - the favourites bar needs it to restore its ordering -
+            	// and drop the landmark names and slurls, which is the point of
+            	// turning the option off.
+            	//
+            	// Test each entry rather than only the first. saveFavoritesRecord()
+            	// writes the save_password flag ahead of the favourites, and that
+            	// entry has no id, so looking at the head alone sent every record
+            	// down the erase path below and took the bar ordering with it.
+            	// Entries without an id are left alone: save_password is password
+            	// state and not this function's business.
+            	bool kept_any = false;
+            	for (LLSD::array_iterator iter = user_llsd.beginArray();iter != user_llsd.endArray(); ++iter)
             	{
-            		for (LLSD::array_iterator iter = user_llsd.beginArray();iter != user_llsd.endArray(); ++iter)
+            		if (iter->has("id"))
             		{
             			LLSD value;
             			value["id"]= iter->get("id").asUUID();
             			iter->assign(value);
+            			kept_any = true;
             		}
+            	}
+
+            	if (kept_any)
+            	{
             		fav_llsd[av_name.getUserName()] = user_llsd;
-            		llofstream file;
-            		file.open(filename.c_str());
-            		if ( file.is_open() )
-            		{
-            				LLSDSerialize::toPrettyXML(fav_llsd, file);
-            				file.close();
-            		}
             	}
             	else
             	{
