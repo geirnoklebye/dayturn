@@ -26,16 +26,25 @@
  *    for file reads and automatically as part of the file writes.
  * 3/ The purge algorithm collects a list of all files in the
  *    directory, sorts them by date of last access (write) and then
- *    deletes any files based on age until the total size of all
- *    the files is less than the maximum size specified.
+ *    deletes the oldest files until the total size of all the files
+ *    is back below the low water mark (see below).
  * 4/ An LLSingleton idiom is used since there will only ever be
  *    a single cache and we want to access it from numerous places.
- * 5/ Performance on my modest system seems very acceptable. For
- *    example, in testing, I was able to purge a directory of
- *    10,000 files, deleting about half of them in ~ 1700ms. For
- *    the same sized directory of files, writing the last updated
- *    time to each took less than 600ms indicating that this
- *    important part of the mechanism has almost no overhead.
+ *
+ * Two deliberate departures from Linden Lab's implementation:
+ *
+ * a/ Files are sharded across 16 subdirectories named 0-f, chosen by the
+ *    first hex digit of the ID. A single flat directory holding tens of
+ *    thousands of entries makes the full-directory scans below markedly
+ *    slower. Every scan here must therefore use a recursive iterator: a
+ *    plain directory_iterator sees only the shard directories themselves
+ *    and no cache file ever again, which fails silently - the cache grows
+ *    without bound, clearCache() becomes a no-op, and the About box reports
+ *    0% used.
+ * b/ Purging is governed by a high and a low water mark rather than
+ *    trimming to exactly the maximum size on every pass. Trimming to the
+ *    limit means the very next asset written puts the cache back over it,
+ *    so a full-ish cache is rescanned and re-trimmed continuously.
  *
  * $LicenseInfo:firstyear=2009&license=viewerlgpl$
  * Second Life Viewer Source Code
@@ -103,12 +112,16 @@ class LLDiskCache :
          * Worth pointing out that this function used to be in LLFileSystem but
          * so many things had to be pushed back there to accomodate it, that I
          * decided to move it here.  Still not sure that's completely right.
+         *
+         * The returned path includes the shard subdirectory - see the note on
+         * sharding in the file comment above.
          */
         static const std::string metaDataToFilepath(const LLUUID& id, LLAssetType::EType at);
 
         /**
-         * Purge the oldest items in the cache so that the combined size of all files
-         * is no bigger than mMaxSizeBytes.
+         * If the combined size of all the files in the cache exceeds the high
+         * water mark, purge the oldest items until it is back under the low
+         * water mark. Does nothing if the cache is below the high water mark.
          *
          * WARNING: purge() is called by LLPurgeDiskCacheThread. As such it must
          * NOT touch any LLDiskCache data without introducing and locking a mutex!
@@ -120,9 +133,13 @@ class LLDiskCache :
         void purge();
 
         /**
-         * Clear the cache by removing all the files in the specified cache
-         * directory individually. Only the files that contain a prefix defined
-         * by mCacheFilenamePrefix will be removed.
+         * Clear the cache by removing all the files in the cache directory
+         * individually. Only files carrying one of the cache filename prefixes
+         * are removed, so a cache directory mistakenly pointed at something
+         * else is left alone. Unlike the other scans here this one also matches
+         * the prefix used before the cache was sharded, which is how a
+         * DiskCacheVersion bump clears out an earlier generation of the cache -
+         * see LLAppViewer::getDiskCacheVersion().
          */
         void clearCache();
 
@@ -139,11 +156,18 @@ class LLDiskCache :
          */
         uintmax_t dirFileSize(const std::string& dir);
 
+        /**
+         * Create the cache directory and its shard subdirectories if they do
+         * not already exist.
+         */
+        void createCacheDirs(const std::string& cache_dir);
+
     private:
         /**
-         * The maximum size of the cache in bytes. After purge is called, the
-         * total size of the cache files in the cache directory will be
-         * less than this value
+         * The maximum size of the cache in bytes. The high and low water marks
+         * are both expressed as percentages of this value, so after a purge
+         * the total size of the cache files will be at the low water mark
+         * rather than at this value
          */
         uintmax_t mMaxSizeBytes;
 
