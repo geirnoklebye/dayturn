@@ -34,6 +34,8 @@
 #include "llassettype.h"
 #include "lldiskcache.h"
 
+#include <ctime>
+
 class LLFileSystem
 {
     public:
@@ -58,7 +60,9 @@ class LLFileSystem
          * file in the cache is read (not written) so that the last time the file was
          * accessed is up to date (This is used in the mechanism for purging the cache)
          */
-        void updateFileAccessTime(const std::string& file_path);
+        // last_write_time is passed in by the caller, which has already stat'ed
+        // the file to check it exists - see the constructor.
+        void updateFileAccessTime(const std::string& file_path, std::time_t last_write_time);
 
         static bool getExists(const LLUUID& file_id, const LLAssetType::EType file_type);
         static bool removeFile(const LLUUID& file_id, const LLAssetType::EType file_type, int suppress_error = 0);

@@ -30,6 +30,7 @@
 #include "linden_common.h"
 
 #include "lldir.h"
+#include "llfile.h"
 #include "llfilesystem.h"
 #include "lldiskcache.h"
 
@@ -61,10 +62,16 @@ LLFileSystem::LLFileSystem(const LLUUID& file_id, const LLAssetType::EType file_
         // even though we are reading and not writing because this is the
         // way the cache works - it relies on a valid "last accessed time" for
         // each file so it knows how to remove the oldest, unused files
-        bool exists = gDirUtilp->fileExists(filename);
-        if (exists)
+        //
+        // One stat serves both purposes: it tells us the file exists, and it
+        // carries the mtime updateFileAccessTime() needs in order to decide
+        // whether a rewrite is due. This used to be two stats - one via
+        // gDirUtilp->fileExists(), then another inside updateFileAccessTime() -
+        // on a path that runs for every asset read.
+        llstat st;
+        if (LLFile::stat(filename, &st) == 0)
         {
-            updateFileAccessTime(filename);
+            updateFileAccessTime(filename, st.st_mtime);
         }
     }
 }
@@ -74,11 +81,15 @@ bool LLFileSystem::getExists(const LLUUID& file_id, const LLAssetType::EType fil
 {
     const std::string filename = LLDiskCache::metaDataToFilepath(file_id, file_type);
 
-    llifstream file(filename, std::ios::binary);
-    if (file.is_open())
+    // One stat answers all three questions asked here - does it exist, is it a
+    // regular file, is it non-empty. This used to be three separate calls, so
+    // three stats, and the result is not cached anywhere: getSize() routes
+    // through getFileSize() on every call, and callers ask repeatedly (seek()
+    // asks per seek; llxfer_vfile asks three times in one function).
+    llstat st;
+    if (LLFile::stat(filename, &st) == 0 && S_ISREG(st.st_mode))
     {
-        file.seekg(0, std::ios::end);
-        return file.tellg() > 0;
+        return st.st_size > 0;
     }
     return false;
 }
@@ -120,15 +131,13 @@ S32 LLFileSystem::getFileSize(const LLUUID& file_id, const LLAssetType::EType fi
 {
     const std::string filename = LLDiskCache::metaDataToFilepath(file_id, file_type);
 
-    S32 file_size = 0;
-    llifstream file(filename, std::ios::binary);
-    if (file.is_open())
+    // As getExists() above: one stat instead of three.
+    llstat st;
+    if (LLFile::stat(filename, &st) == 0 && S_ISREG(st.st_mode))
     {
-        file.seekg(0, std::ios::end);
-        file_size = static_cast<S32>(file.tellg());
+        return static_cast<S32>(st.st_size);
     }
-
-    return file_size;
+    return 0;
 }
 
 bool LLFileSystem::read(U8* buffer, S32 bytes)
@@ -316,7 +325,7 @@ bool LLFileSystem::remove() const
 }
 
 
-void LLFileSystem::updateFileAccessTime(const std::string& file_path)
+void LLFileSystem::updateFileAccessTime(const std::string& file_path, std::time_t last_write_time)
 {
     /**
      * Threshold in time_t units that is used to decide if the last access time
@@ -332,47 +341,26 @@ void LLFileSystem::updateFileAccessTime(const std::string& file_path)
     // current time
     const std::time_t cur_time = std::time(nullptr);
 
-    boost::system::error_code ec;
+    // delta between cur time and last time the file was written. The caller has
+    // already stat'ed the file to establish that it exists, so it hands us the
+    // mtime rather than making us read it back a second time - see the
+    // constructor, which is on the per-asset read path.
+    const std::time_t delta_time = cur_time - last_write_time;
+
+    // we only write the new value if the time in time_threshold has elapsed
+    // before the last one
+    if (delta_time > time_threshold)
+    {
+        boost::system::error_code ec;
 #if LL_WINDOWS
-    // file last write time
-    const std::time_t last_write_time = boost::filesystem::last_write_time(utf8str_to_utf16str(file_path), ec);
-    if (ec.failed())
-    {
-        LL_WARNS() << "Failed to read last write time for cache file " << file_path << ": " << ec.message() << LL_ENDL;
-        return;
-    }
-
-    // delta between cur time and last time the file was written
-    const std::time_t delta_time = cur_time - last_write_time;
-
-    // we only write the new value if the time in time_threshold has elapsed
-    // before the last one
-    if (delta_time > time_threshold)
-    {
         boost::filesystem::last_write_time(ll_convert<std::wstring>(file_path), cur_time, ec);
-    }
 #else
-    // file last write time
-    const std::time_t last_write_time = boost::filesystem::last_write_time(file_path, ec);
-    if (ec.failed())
-    {
-        LL_WARNS() << "Failed to read last write time for cache file " << file_path << ": " << ec.message() << LL_ENDL;
-        return;
-    }
-
-    // delta between cur time and last time the file was written
-    const std::time_t delta_time = cur_time - last_write_time;
-
-    // we only write the new value if the time in time_threshold has elapsed
-    // before the last one
-    if (delta_time > time_threshold)
-    {
         boost::filesystem::last_write_time(file_path, cur_time, ec);
-    }
 #endif
 
-    if (ec.failed())
-    {
-        LL_WARNS() << "Failed to update last write time for cache file " << file_path << ": " << ec.message() << LL_ENDL;
+        if (ec.failed())
+        {
+            LL_WARNS() << "Failed to update last write time for cache file " << file_path << ": " << ec.message() << LL_ENDL;
+        }
     }
 }
