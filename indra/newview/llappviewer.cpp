@@ -4543,7 +4543,25 @@ U32 LLAppViewer::getObjectCacheVersion()
 {
 	// Viewer object cache version, change if object update
 	// format changes. JC
-	const U32 INDRA_OBJECT_CACHE_VERSION = 15;
+	//
+	// 16 here, and deliberately still 15 in dayturn-viewer. Do NOT "fix" this by
+	// making them match. The two viewers share a cache directory on the
+	// development machine, and their object cache formats have diverged while
+	// both claimed version 15 - so each read the other's objectcache as valid,
+	// which produced a real post-login crash in appearance handling.
+	//
+	// Unlike DiskCacheVersion, which lives in the shared settings file and must
+	// therefore stay in step between the two, this number is written into the
+	// object cache's own header (LLVOCache::initCache -> mMetaInfo.mVersion) and
+	// checked against the file. Equal values there mean each viewer trusts the
+	// other's cache; unequal values are what makes it reject a foreign one. The
+	// guard only works if they differ.
+	//
+	// The cost is that switching viewers discards the object cache and rebuilds
+	// it, so regions rez slowly on the first visit afterwards. That is accepted:
+	// an automatic rebuild is a better failure mode than a crash needing a manual
+	// cache clear, and only a developer running both ever pays it.
+	const U32 INDRA_OBJECT_CACHE_VERSION = 16;
 
 	return INDRA_OBJECT_CACHE_VERSION;
 }
