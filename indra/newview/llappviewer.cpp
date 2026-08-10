@@ -4504,6 +4504,41 @@ U32 LLAppViewer::getTextureCacheVersion()
 }
 
 //static
+U32 LLAppViewer::getDiskCacheVersion()
+{
+	// Viewer disk cache version, change if the disk cache format changes.
+	// A mismatch against the stored DiskCacheVersion setting purges the cache;
+	// see initCache(). There is deliberately no migration code - it is a cache,
+	// so a format change throws the whole thing away and lets it regenerate.
+	// Set when the cache became sharded across 16 subdirectories and the
+	// filename prefix changed from sl_cache to dt_cache: nothing reads entries
+	// written by an earlier build any more, and no scan in LLDiskCache would
+	// have matched them, so they have to be cleared out once.
+	//
+	// This must stay in step with dayturn-viewer's value. That viewer shares
+	// this machine's settings and cache directories, so it also shares the one
+	// DiskCacheVersion setting. If the two constants disagree each viewer sees
+	// the other's number as a mismatch and purges everything on every
+	// alternating launch. Matching them is honest rather than a workaround:
+	// metaDataToFilepath(), the prefix, the shard characters and the water
+	// marks are all identical between the two, so the on-disk format really is
+	// the same version. Bump both together, or give the two viewers separate
+	// directories and let the numbers diverge deliberately.
+	//
+	// 3 rather than 2 because a purge at 2 did not actually happen. clearCache()
+	// removed the entry its recursive_directory_iterator was standing on, which
+	// ended the walk after a single file - so every purge since the cache was
+	// sharded cleared one file and reported nothing. Anyone already carrying
+	// DiskCacheVersion 2 therefore still has whatever was in their cache, and no
+	// amount of clearing it by hand removed any of it. On the dayturn-viewer
+	// side that includes assets truncated by the LLFileSystem WRITE bug. The
+	// bump forces the purge that version 2 was supposed to perform.
+	const U32 DISK_CACHE_VERSION = 3;
+
+	return DISK_CACHE_VERSION ;
+}
+
+//static
 U32 LLAppViewer::getObjectCacheVersion() 
 {
 	// Viewer object cache version, change if object update
@@ -4544,6 +4579,19 @@ bool LLAppViewer::initCache()
 		{
 			gSavedSettings.setS32("LocalCacheVersion", LLAppViewer::getTextureCacheVersion());
 		}
+	}
+
+	if (!read_only && gSavedSettings.getS32("DiskCacheVersion") != (S32)LLAppViewer::getDiskCacheVersion())
+	{
+		// See getDiskCacheVersion(). Note that setting the flag is what actually
+		// does the work: a version number on its own purges nothing. The disk
+		// cache itself is emptied by the LLDiskCache::clearCache() call further
+		// down, which mPurgeCache selects.
+		LL_INFOS("AppCache") << "Disk cache version mismatch, cache needs purging" << LL_ENDL;
+		mPurgeCache = true;
+		// STORM-1141 force purgeAllTextures to get called to prevent a crash here.
+		texture_cache_mismatch = true;
+		gSavedSettings.setS32("DiskCacheVersion", LLAppViewer::getDiskCacheVersion());
 	}
 
 	if(!read_only)
