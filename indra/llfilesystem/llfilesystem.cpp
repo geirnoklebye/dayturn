@@ -181,16 +181,24 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
 
     bool success = false;
 
+    // Note: every branch below flushes and then checks the stream state before
+    // reporting success. Writes are buffered, so a failure (a full disk, most
+    // obviously) does not necessarily surface at the write() call itself, and
+    // claiming success for a write that never landed puts a truncated asset in
+    // the cache that later reads will happily serve.
     if (mMode == APPEND)
     {
         llofstream ofs(filename, std::ios::app | std::ios::binary);
         if (ofs)
         {
             ofs.write(reinterpret_cast<const char*>(buffer), bytes);
+            ofs.flush();
 
-            mPosition = static_cast<S32>(ofs.tellp());
-
-            success = true;
+            if (ofs.good())
+            {
+                mPosition = static_cast<S32>(ofs.tellp());
+                success = true;
+            }
         }
     }
     else if (mMode == READ_WRITE)
@@ -201,8 +209,13 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
         {
             ofs.seekp(mPosition, std::ios::beg);
             ofs.write(reinterpret_cast<const char*>(buffer), bytes);
-            mPosition += bytes;
-            success = true;
+            ofs.flush();
+
+            if (ofs.good())
+            {
+                mPosition += bytes;
+                success = true;
+            }
         }
         else
         {
@@ -211,8 +224,13 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
             if (ofs.is_open())
             {
                 ofs.write(reinterpret_cast<const char*>(buffer), bytes);
-                mPosition += bytes;
-                success = true;
+                ofs.flush();
+
+                if (ofs.good())
+                {
+                    mPosition += bytes;
+                    success = true;
+                }
             }
         }
     }
@@ -222,10 +240,13 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
         if (ofs)
         {
             ofs.write(reinterpret_cast<const char*>(buffer), bytes);
+            ofs.flush();
 
-            mPosition += bytes;
-
-            success = true;
+            if (ofs.good())
+            {
+                mPosition += bytes;
+                success = true;
+            }
         }
     }
 
