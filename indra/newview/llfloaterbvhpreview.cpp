@@ -1006,6 +1006,10 @@ void LLFloaterBvhPreview::onBtnOK(void* userdata)
 		LLDataPackerBinaryBuffer dp(buffer, file_size);
 		if (motionp->serialize(dp))
 		{
+			// APPEND adds to whatever is already there, so clear any stale
+			// entry first - previewing the same motion twice would otherwise
+			// serialize it on top of the earlier copy.
+			LLFileSystem::removeFile(motionp->getID(), LLAssetType::AT_ANIMATION, ENOENT);
 			LLFileSystem file(motionp->getID(), LLAssetType::AT_ANIMATION, LLFileSystem::APPEND);
 
 			S32 size = dp.getCurrentSize();

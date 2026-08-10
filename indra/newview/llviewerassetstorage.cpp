@@ -293,6 +293,11 @@ void LLViewerAssetStorage::storeAssetData(
         legacy->mUpCallback = callback;
         legacy->mUserData = user_data;
 
+        // APPEND, not WRITE: LLFileSystem::write() reopens the file on every
+        // call and WRITE mode truncates it each time, so this chunked copy
+        // would leave nothing but the final chunk. Clear any stale entry
+        // first, since APPEND adds to whatever is already there.
+        LLFileSystem::removeFile(asset_id, asset_type, ENOENT);
         LLFileSystem file(asset_id, asset_type, LLFileSystem::APPEND);
 
         const S32 buf_size = 65536;

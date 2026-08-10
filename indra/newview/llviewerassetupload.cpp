@@ -544,6 +544,11 @@ LLSD LLNewFileResourceUploadInfo::exportTempFile()
     infile.open(filename, LL_APR_RB, NULL, &file_size);
     if (infile.getFileHandle())
     {
+        // APPEND, not WRITE: LLFileSystem::write() reopens the file on every
+        // call and WRITE mode truncates it each time, so this chunked copy
+        // would leave nothing but the final chunk. Clear any stale entry
+        // first, since APPEND adds to whatever is already there.
+        LLFileSystem::removeFile(getAssetId(), assetType, ENOENT);
         LLFileSystem file(getAssetId(), assetType, LLFileSystem::APPEND);
 
         const S32 buf_size = 65536;
