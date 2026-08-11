@@ -312,28 +312,23 @@ public:
 			const F32 lpriority = lhsp->getDecodePriority();
 			const F32 rpriority = rhsp->getDecodePriority();
 
-			// <FS:ND> FIRE-4482
-			// It is hard to say why FIRE-4482 is really happenening. There are a few things that could cause it
-			//
-			// 1) Image not in texturelist: Then !image->isInImageList() would have caused to error out a few lines before. isInImageList should always be properly set IMO.
-			// 2) The set is bad, due to multithreading and race conditions: The set is only every access from one thread.
-			// 3) The ordering operator does not adhere to the requirement of strict weak ordering: This can be possible, due to float rounding and precision.
-			//
-			// 1&2 seem to be ruled out (can one ever be sure :)?), so it is viable to test 3 by rewriting this operator.
-			
-			// if (lpriority > rpriority) // higher priority
-			// 	return true;
-			// if (lpriority < rpriority)
-			// 	return false;
-			// return lhsp < rhsp;
-
-			F32 fDiff = lpriority-rpriority;
-
-			if( llabs( fDiff ) < 0.001 ) // Very small difference, don't take the risk and just compare the pointers.
-				return lhsp < rhsp;
-			else return fDiff > 0;
-
-			// </FS:ND>
+			// This was an epsilon band (Firestorm FIRE-4482), removed 2026-08-11.
+			// An epsilon band is not a strict weak ordering: "approximately equal"
+			// is not transitive, so no choice of epsilon makes it valid. With
+			// priorities 0.0000, 0.0009, 0.0018 and ascending addresses it yielded
+			// a < b, b < c, c < a -- a cycle, and undefined behaviour in the
+			// std::set it orders (LLViewerTextureList::mImageList). The hazard is
+			// silent -- the per-frame erase discards its return value, so a failed
+			// lookup is never logged. Churn from small priority deltas is already
+			// suppressed by the 20% hysteresis gate; both of those live in
+			// LLViewerTextureList::updateImagesDecodePriorities().
+			// NaN is handled at the writer, in LLViewerFetchedTexture::setDecodePriority().
+			// See doc/texture_priority_comparator_fix.md
+			if (lpriority > rpriority) // higher priority
+				return true;
+			if (lpriority < rpriority)
+				return false;
+			return lhsp < rhsp;
 		}
 	};
 
