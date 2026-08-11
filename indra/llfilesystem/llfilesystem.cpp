@@ -245,9 +245,22 @@ bool LLFileSystem::write(const U8* buffer, S32 bytes)
     }
     else
     {
-        llofstream ofs(filename, std::ios::binary);
+        // Truncate only on the first write to this handle. This method reopens the
+        // file on every call, so opening with ios::out unconditionally would discard
+        // everything written so far while mPosition advanced regardless -- leaving
+        // tell() plausible and the file wrong. A chunked writer therefore ended up
+        // with only its final write on disk. Single-write callers, which are all the
+        // others in this tree, still truncate exactly as before.
+        const bool truncate = (mPosition == 0);
+        llofstream ofs(filename, truncate ? std::ios::binary
+                                          : (std::ios::in | std::ios::binary));
         if (ofs)
         {
+            if (!truncate)
+            {
+                ofs.seekp(mPosition, std::ios::beg);
+            }
+
             ofs.write(reinterpret_cast<const char*>(buffer), bytes);
             ofs.flush();
 
