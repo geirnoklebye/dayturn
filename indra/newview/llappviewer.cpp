@@ -4247,7 +4247,7 @@ void LLAppViewer::removeMarkerFiles()
 		if (mMarkerFile.getFileHandle())
 		{
 			mMarkerFile.close() ;
-            LLFile::remove( mLogoutMarkerFileName );
+            LLFile::remove( mMarkerFileName );
 			LL_DEBUGS("MarkerFile") << "removed exec marker '"<<mMarkerFileName<<"'"<< LL_ENDL;
 		}
 		else
@@ -5642,7 +5642,9 @@ void LLAppViewer::createErrorMarker(eLastExecEvent error_code) const
             file.close();
         }
     }
-}bool LLAppViewer::errorMarkerExists() const
+}
+
+bool LLAppViewer::errorMarkerExists() const
 {
     std::string error_marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS, ERROR_MARKER_FILE_NAME);
     return LLFile::isfile(error_marker_file);

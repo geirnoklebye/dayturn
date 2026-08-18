@@ -1237,7 +1237,7 @@ void LLVOCache::removeFromCache(HeaderEntryInfo* entry)
 
 	std::string filename;
 	getObjectCacheFilename(entry->mHandle, filename);
-    LL_WARNS("VOCache") << "Removing object cache for handle " << entry->mHandle << "Filename: " << filename << LL_ENDL;
+    LL_DEBUGS("VOCache") << "Removing object cache for handle " << entry->mHandle << " Filename: " << filename << LL_ENDL;
     LLFile::remove(filename);
 	entry->mTime = INVALID_TIME ;
 	updateEntry(entry) ; //update the head file.
