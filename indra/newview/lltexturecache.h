@@ -147,11 +147,9 @@ public:
 	U32 getEntries() { return mHeaderEntriesInfo.mEntries; }
 	U32 getMaxEntries() { return sCacheMaxEntries; };
 	bool isInCache(const LLUUID& id) ;
-	bool isInLocal(const LLUUID& id) ; //not thread safe at the moment
 
 protected:
 	// Accessed by LLTextureCacheWorker
-	std::string getLocalFileName(const LLUUID& id);
 	std::string getTextureFileName(const LLUUID& id);
 	void addCompleted(Responder* responder, bool success);
 	

@@ -305,7 +305,6 @@ private:
 	enum e_state
 	{
 		INIT = 0,
-		LOCAL = 1,
 		CACHE = 2,
 		HEADER = 3,
 		BODY = 4
@@ -332,96 +331,13 @@ bool LLTextureCacheRemoteWorker::doRead()
 	bool done = false;
 	S32 idx = -1;
 
-	S32 local_size = 0;
-	std::string local_filename;
-	
-	// First state / stage : find out if the file is local
+	// First state / stage : the remote worker always reads from the cache. The
+	// local-file probe that used to stand here was disabled upstream behind an
+	// #if 0 whose live branch asserted mState == CACHE, so the LOCAL state it fed
+	// was already unreachable. Local files are read by LLTextureCacheLocalFileWorker.
 	if (mState == INIT)
 	{
-#if 0
-		std::string filename = mCache->getLocalFileName(mID);	
-		// Is it a JPEG2000 file? 
-		{
-			local_filename = filename + ".j2c";
-            local_size = (S32)LLFile::size(local_filename);
-			if (local_size > 0)
-			{
-				mImageFormat = IMG_CODEC_J2C;
-			}
-		}
-		// If not, is it a jpeg file?
-		if (local_size == 0)
-		{
-			local_filename = filename + ".jpg";
-            local_size = (S32)LLFile::size(local_filename);
-			if (local_size > 0)
-			{
-				mImageFormat = IMG_CODEC_JPEG;
-				mDataSize = local_size; // Only a complete .jpg file is valid
-			}
-		}
-		// Hmm... What about a targa file? (used for UI texture mostly)
-		if (local_size == 0)
-		{
-			local_filename = filename + ".tga";
-            local_size = (S32)LLFile::size(local_filename);
-			if (local_size > 0)
-			{
-				mImageFormat = IMG_CODEC_TGA;
-				mDataSize = local_size; // Only a complete .tga file is valid
-			}
-		}
-		// Determine the next stage: if we found a file, then LOCAL else CACHE
-		mState = (local_size > 0 ? LOCAL : CACHE);
-
-		llassert_always(mState == CACHE) ;
-#else
 		mState = CACHE;
-#endif
-	}
-
-	// Second state / stage : if the file is local, load it and leave
-	if (!done && (mState == LOCAL))
-	{
-		llassert(local_size != 0);	// we're assuming there is a non empty local file here...
-		if (!mDataSize || mDataSize > local_size)
-		{
-			mDataSize = local_size;
-		}
-		// Allocate read buffer
-		mReadData = (U8*)ll_aligned_malloc_16(mDataSize);
-
-		if (mReadData)
-		{
-			S32 bytes_read = LLAPRFile::readEx( local_filename,
-												mReadData,
-												mOffset,
-												mDataSize,
-												mCache->getLocalAPRFilePool());
-
-			if (bytes_read != mDataSize)
-			{
- 				LL_WARNS() << "Error reading file from local cache: " << local_filename
- 						<< " Bytes: " << mDataSize << " Offset: " << mOffset
- 					<< " / " << mDataSize << LL_ENDL;
-				mDataSize = 0;
-				ll_aligned_free_16(mReadData);
-				mReadData = nullptr;
-			}
-			else
-			{
-				mImageSize = local_size;
-				mImageLocal = true;
-			}
-		}
-		else
-		{
- 			LL_WARNS() << "Error allocating memory for cache: " << local_filename
- 					<< " of size: " << mDataSize << LL_ENDL;
-			mDataSize = 0;
-		}
-		// We're done...
-		done = true;
 	}
 
 	// Second state / stage : identify the cache or not...
@@ -912,17 +828,6 @@ size_t LLTextureCache::update(F32 max_time_ms)
 	return res;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// search for local copy of UUID-based image file
-std::string LLTextureCache::getLocalFileName(const LLUUID& id)
-{
-	// Does not include extension
-	std::string idstr = id.asString();
-	// TODO: should we be storing cached textures in skin directory?
-	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_LOCAL_ASSETS, idstr);
-	return filename;
-}
-
 std::string LLTextureCache::getTextureFileName(const LLUUID& id)
 {
 	std::string idstr = id.asString();
@@ -938,46 +843,6 @@ bool LLTextureCache::isInCache(const LLUUID& id)
 	id_map_t::const_iterator iter = mHeaderIDMap.find(id);
 	
 	return (iter != mHeaderIDMap.end()) ;
-}
-
-//debug
-bool LLTextureCache::isInLocal(const LLUUID& id)
-{
-	S32 local_size = 0;
-	std::string local_filename;
-	
-	std::string filename = getLocalFileName(id);	
-	// Is it a JPEG2000 file? 
-	{
-		local_filename = filename + ".j2c";
-        local_size = (S32)LLFile::size(local_filename);
-		if (local_size > 0)
-		{
-			return true ;
-		}
-	}
-		
-	// If not, is it a jpeg file?		
-	{
-		local_filename = filename + ".jpg";
-        local_size = (S32)LLFile::size(local_filename);
-		if (local_size > 0)
-		{
-			return true ;
-		}
-	}
-		
-	// Hmm... What about a targa file? (used for UI texture mostly)		
-	{
-		local_filename = filename + ".tga";
-        local_size = (S32)LLFile::size(local_filename);
-		if (local_size > 0)
-		{
-			return true ;
-		}
-	}
-		
-	return false ;
 }
 //////////////////////////////////////////////////////////////////////////////
 
