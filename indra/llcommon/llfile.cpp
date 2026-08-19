@@ -1058,11 +1058,15 @@ std::filesystem::file_status LLFile::getStatus(const std::string& filename, bool
     std::filesystem::file_status status;
     if (dontFollowSymLink)
     {
-        status = std::filesystem::status(file_path, ec);
+        // symlink_status() reports the link itself; status() resolves it. The
+        // two were the wrong way round here, which left the default path not
+        // following symlinks - so isfile() on a symlink to a regular file was
+        // false - and made islink(), which passes true, unable to ever see one.
+        status = std::filesystem::symlink_status(file_path, ec);
     }
     else
     {
-        status = std::filesystem::symlink_status(file_path, ec);
+        status = std::filesystem::status(file_path, ec);
     }
     warnif("getattr", filename, ec, suppress_warning);
     return status;

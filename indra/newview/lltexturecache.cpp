@@ -493,7 +493,11 @@ bool LLTextureCacheRemoteWorker::doRead()
 	if (!done && (mState == BODY))
 	{
 		std::string filename = mCache->getTextureFileName(mID);
-        S32 filesize = (S32)LLFile::size(filename);
+        // LLFile::size() reports -1 for a missing file where the LLAPRFile::size()
+        // this replaced reported 0. Everything below treats the value as a byte
+        // count, and -1 is truthy: a missing body file would enter the branch and
+        // size the read buffer one byte short of the header data memcpy'd into it.
+        S32 filesize = (S32)llmax(LLFile::size(filename), (S64)0);
 
 		if (filesize && (filesize + TEXTURE_CACHE_ENTRY_SIZE) > mOffset)
 		{
@@ -1831,7 +1835,11 @@ void LLTextureCache::purgeTextures(bool validate)
 				std::string filename = getTextureFileName(entries[idx].mID);
 				LL_DEBUGS("TextureCache") << "Validating: " << filename << "Size: " << entries[idx].mBodySize << LL_ENDL;
 				// mHeaderAPRFilePoolp because this is under header mutex in main thread
-                S32 bodysize = (S32)LLFile::size(filename);
+                // As in doRead() above: normalise the -1 LLFile::size() reports for
+                // a missing file back to 0, or every entry with no body file - the
+                // normal state for a texture that fits in the header record - fails
+                // this comparison and gets purged.
+                S32 bodysize = (S32)llmax(LLFile::size(filename), (S64)0);
 				if (bodysize != entries[idx].mBodySize)
 				{
 					LL_WARNS("TextureCache") << "TEXTURE CACHE BODY HAS BAD SIZE: " << bodysize << " != " << entries[idx].mBodySize << filename << LL_ENDL;

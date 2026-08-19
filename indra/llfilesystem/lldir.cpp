@@ -92,6 +92,8 @@ LLDir::~LLDir()
 
 std::vector<std::string> LLDir::getFilesInDir(const std::string &dirname)
 {
+    // Returns a vector of bare entry names, not full paths - every caller
+    // rebuilds the full path itself as dirname + entry.
     std::filesystem::path p = LLFile::utf8StringToPath(dirname);
     std::vector<std::string> v;
     
@@ -105,7 +107,7 @@ std::vector<std::string> LLDir::getFilesInDir(const std::string &dirname)
         {
             if (std::filesystem::is_regular_file(dir_itr->status()))
             {
-                v.push_back(dir_itr->path().string());
+                v.push_back(dir_itr->path().filename().string());
             }
         }
     }
