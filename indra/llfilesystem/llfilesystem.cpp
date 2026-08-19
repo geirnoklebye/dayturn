@@ -81,8 +81,17 @@ bool LLFileSystem::getExists(const LLUUID& file_id, const LLAssetType::EType fil
 {
     const std::string filename = LLDiskCache::metaDataToFilepath(file_id, file_type);
 
-    // not only test for existence but for the file to be not empty
-    return LLFile::size(filename) > 0;
+    // One stat answers all three questions asked here - does it exist, is it a
+    // regular file, is it non-empty. This used to be three separate calls, so
+    // three stats, and the result is not cached anywhere: getSize() routes
+    // through getFileSize() on every call, and callers ask repeatedly (seek()
+    // asks per seek; llxfer_vfile asks three times in one function).
+    llstat st;
+    if (LLFile::stat(filename, &st) == 0 && S_ISREG(st.st_mode))
+    {
+        return st.st_size > 0;
+    }
+    return false;
 }
 
 // static
@@ -119,7 +128,13 @@ S32 LLFileSystem::getFileSize(const LLUUID& file_id, const LLAssetType::EType fi
 {
     const std::string filename = LLDiskCache::metaDataToFilepath(file_id, file_type);
 
-    return (S32)LLFile::size(filename);
+    // As getExists() above: one stat instead of three.
+    llstat st;
+    if (LLFile::stat(filename, &st) == 0 && S_ISREG(st.st_mode))
+    {
+        return static_cast<S32>(st.st_size);
+    }
+    return 0;
 }
 
 bool LLFileSystem::read(U8* buffer, S32 bytes)
