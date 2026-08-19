@@ -33,6 +33,9 @@
 #include "stringize.h"
 
 #if LL_WINDOWS
+// Pulls winsock2.h in ahead of windows.h and keeps the conflicting winsock.h out. Gives us
+// CreateFileW(), ReadFile(), SetFilePointerEx(), LockFileEx() and the ERROR_* codes below.
+#include "llwin32headerslean.h"
 #include <fcntl.h>
 #else
 #include <errno.h>

@@ -35,18 +35,37 @@
  * Attempts to mostly mirror the POSIX style IO functions.
  */
 
+#include <cstdint>
 #include <fstream>
 #include <filesystem>
 #include <sys/stat.h>
 
 #if LL_WINDOWS
-#include <windows.h>
+// Deliberately do NOT include <windows.h> here. linden_common.h includes this header, so
+// whatever is pulled in here ends up in virtually every translation unit of the viewer.
+// A plain <windows.h> drags in the Winsock 1.1 winsock.h, which then collides with
+// winsock2.h/ws2def.h in every source file that includes those later on, giving a
+// 'sockaddr' redefinition and a pile of AF_*/SO_* macro redefinition warnings-as-errors.
+// This header only needs the handle type, which is spelled out by hand below, and
+// llfile.cpp includes llwin32headerslean.h for the Win32 API declarations it uses.
 // The Windows version of stat function and stat data structure are called _stat64
 // We use _stat64 here to support 64-bit st_size and time_t values
 typedef struct _stat64 llstat;
 #else
 #include <sys/types.h>
 typedef struct stat llstat;
+#endif
+
+// The Windows CRT does not provide the POSIX st_mode test macros, so supply them for the
+// callers that inspect an llstat directly rather than paying for a second filesystem call
+// (see LLFileSystem::getExists() and ::getFileSize()). The #ifndef guards make these a
+// no-op on Mac and Linux, where <sys/stat.h> already declares them.
+#ifndef S_ISREG
+# define S_ISREG(x) (((x) & S_IFMT) == S_IFREG)
+#endif
+
+#ifndef S_ISDIR
+# define S_ISDIR(x) (((x) & S_IFMT) == S_IFDIR)
 #endif
 
 typedef FILE LLFILE;
@@ -366,8 +385,11 @@ public:
 
 private:
 #if LL_WINDOWS
-    typedef HANDLE        llfile_handle_t;
-    const llfile_handle_t InvalidHandle = INVALID_HANDLE_VALUE;
+    // Spelled out rather than using HANDLE/INVALID_HANDLE_VALUE so that this header does
+    // not have to include <windows.h>, see the note further up. The Windows SDK declares
+    // 'typedef PVOID HANDLE' and '#define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)'
+    typedef void*         llfile_handle_t;
+    const llfile_handle_t InvalidHandle = reinterpret_cast<llfile_handle_t>(static_cast<std::intptr_t>(-1));
 #else
     typedef int           llfile_handle_t;
     const llfile_handle_t InvalidHandle = -1;
