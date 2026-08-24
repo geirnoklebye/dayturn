@@ -1524,25 +1524,18 @@ void LLTextEditor::pasteHelper(bool is_primary)
 		deleteSelection(true);
 	}
 
-	// Clean up string (replace tabs and remove characters that our fonts don't support).
-	LLWString clean_string(paste);
-	cleanStringForPaste(clean_string);
+    // Clean up string (replace tabs and remove characters that our fonts don't support).
+    LLWString clean_string(paste);
+    cleanStringForPaste(clean_string);
 
-	// <FS:ND> FIRE-4885; Truncate the text to mMaxTextByteLength.
-	// Can safely do this here, otherwise it would done in '::insert', which is bad for performance, as ::insert is called once per line.
-	// In theory text already in the editor should be taken into account too, but then text that would be overwriten would have to be considered aswell.
-	if ( wstring_utf8_length(clean_string) > mMaxTextByteLength )
-		clean_string = utf8str_to_wstring( utf8str_truncate( wstring_to_utf8str(clean_string), mMaxTextByteLength ) );
-	// </FS:ND>
+    // Insert the new text into the existing text.
 
-	// Insert the new text into the existing text.
+    //paste text with linebreaks.
+    pasteTextWithLinebreaks(clean_string);
 
-	//paste text with linebreaks.
-	pasteTextWithLinebreaks(clean_string);
+    deselect();
 
-	deselect();
-
-	onKeyStroke();
+    onKeyStroke();
 }
 
 
@@ -1557,8 +1550,8 @@ void LLTextEditor::cleanStringForPaste(LLWString & clean_string)
 	if( mAllowEmbeddedItems )
 	{
 		const llwchar LF = 10;
-		S32 len = clean_string.length();
-		for( S32 i = 0; i < len; i++ )
+		auto len = clean_string.length();
+		for( size_t i = 0; i < len; i++ )
 		{
 			llwchar wc = clean_string[i];
 			if( (wc < LLFontFreetype::FIRST_CHAR) && (wc != LF) )
@@ -1579,36 +1572,24 @@ void LLTextEditor::pasteTextWithLinebreaks(LLWString & clean_string)
 	std::basic_string<llwchar>::size_type start = 0;
 	std::basic_string<llwchar>::size_type pos = clean_string.find('\n',start);
 	
-	while((pos != -1) && (pos != clean_string.length() -1))
+    while (pos != std::basic_string<llwchar>::npos)
 	{
-		if(pos!=start)
+        if (pos != start)
 		{
 			std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,pos-start);
 			setCursorPos(mCursorPos + insert(mCursorPos, str, true, LLTextSegmentPtr()));
 		}
-		addLineBreakChar(true);			// Add a line break and group with the next addition.
+        const bool trailing_linebreak = (pos == clean_string.length() - 1);
+        addLineBreakChar(!trailing_linebreak);
 
 		start = pos+1;
 		pos = clean_string.find('\n',start);
 	}
 
-	// <FS:Ansariel> FIRE-4314: Paste from clipboard shows block character if last character is a linefeed
-	if (pos != start && pos == clean_string.length() - 1)
-	{
-		std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,clean_string.length()-start-1);
-		setCursorPos(mCursorPos + insert(mCursorPos, str, true, LLTextSegmentPtr()));
-		addLineBreakChar(false);
-	}
-	else if (pos != start)
-	//if (pos != start)
-	// </FS:Ansariel>
+    if (start < clean_string.length())
 	{
 		std::basic_string<llwchar> str = std::basic_string<llwchar>(clean_string,start,clean_string.length()-start);
 		setCursorPos(mCursorPos + insert(mCursorPos, str, false, LLTextSegmentPtr()));
-	}
-	else
-	{
-		addLineBreakChar(false);		// Add a line break and end the grouping.
 	}
 }
 
