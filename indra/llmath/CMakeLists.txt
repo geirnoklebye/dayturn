@@ -4,13 +4,13 @@ project(llmath)
 
 include(00-Common)
 include(LLCommon)
-include(LLMeshOptimizer)
+include(MESHOPTIMIZER)
 include(Boost)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
     ${LLCOMMON_SYSTEM_INCLUDE_DIRS}
-    ${LLMESHOPTIMIZER_INCLUDE_DIRS}
+    ${MESHOPTIMIZER_INCLUDE_DIRS}
     )
 
 set(llmath_SOURCE_FILES
@@ -23,6 +23,7 @@ set(llmath_SOURCE_FILES
     llline.cpp
     llmatrix3a.cpp
     llmatrix4a.cpp
+    llmeshoptimizer.cpp
     llmodularmath.cpp
     lloctree.cpp
     llperlin.cpp
@@ -65,6 +66,7 @@ set(llmath_HEADER_FILES
     llmath.h
     llmatrix3a.h
     llmatrix3a.inl
+    llmeshoptimizer.h
     llmodularmath.h
     lloctree.h
     llperlin.h
@@ -110,7 +112,7 @@ add_library (llmath ${llmath_SOURCE_FILES})
 
 target_link_libraries(llmath
     ${LLCOMMON_LIBRARIES}
-    ${LLMESHOPTIMIZER_LIBRARIES}
+    ${MESHOPTIMIZER_LIBRARIES}
     )
 
 # Add tests

@@ -55,7 +55,6 @@ set(cmake_SOURCE_FILES
     LLInventory.cmake
     LLLogin.cmake
     LLMath.cmake
-    LLMeshOptimizer.cmake
     LLMessage.cmake
     LLPhysicsExtensions.cmake
     LLPlugin.cmake

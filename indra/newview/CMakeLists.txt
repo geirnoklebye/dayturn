@@ -30,7 +30,6 @@ include(LLImageJ2COJ)
 include(LLInventory)
 include(LLLogin)
 include(LLMath)
-include(LLMeshOptimizer)
 include(LLMessage)
 include(LLPhysicsExtensions)
 include(LLPlugin)
@@ -83,7 +82,6 @@ include_directories(
     ${LLIMAGE_INCLUDE_DIRS}
     ${LLINVENTORY_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
-    ${LLMESHOPTIMIZER_INCLUDE_DIRS}
     ${LLMESSAGE_INCLUDE_DIRS}
     ${LLPHYSICSEXTENSIONS_INCLUDE_DIRS}
     ${LLPLUGIN_INCLUDE_DIRS}
@@ -2050,7 +2048,6 @@ target_link_libraries(${VIEWER_BINARY_NAME}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
     ${LLINVENTORY_LIBRARIES}
-    ${LLMESHOPTIMIZER_LIBRARIES}
     ${LLMESSAGE_LIBRARIES}
     ${LLPLUGIN_LIBRARIES}
     ${LLPRIMITIVE_LIBRARIES}
