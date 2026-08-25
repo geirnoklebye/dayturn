@@ -79,7 +79,7 @@ std::unique_ptr<std::vector<std::string>> doLoadDialog(const std::vector<std::st
         result = [panel runModal];
     }
     
-    if (result == NSFileHandlingPanelOKButton)
+    if (result == NSModalResponseOK)
     {
         NSArray *filesToOpen = [panel URLs];
         NSUInteger count = [filesToOpen count];

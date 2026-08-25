@@ -872,7 +872,7 @@ attributedStringInfo getSegments(NSAttributedString *str)
 	if(currentScreen)
 	{
 		NSPoint windowPoint = [view convertPoint:point toView:nil];
-		NSPoint screenPoint = [[view window] convertBaseToScreen:windowPoint];
+		NSPoint screenPoint = [[view window] convertPointToScreen:windowPoint];
 		NSPoint flippedScreenPoint = [currentScreen flipPoint:screenPoint];
 		flippedScreenPoint.y += [currentScreen frame].origin.y;
 		
