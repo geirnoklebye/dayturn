@@ -1009,17 +1009,6 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 			{
 				gSky.mVOGroundp->setRegion(regionp);
 			}
-
-            if (regionp->capabilitiesReceived())
-            {
-                regionp->requestSimulatorFeatures();
-                LLAppViewer::instance()->updateNameLookupUrl(regionp);
-            }
-            else
-            {
-                regionp->setCapabilitiesReceivedCallback(LLAgent::capabilityReceivedCallback);
-            }
-
 		}
 		else
 		{
@@ -1098,6 +1087,20 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 		// Need to handle via callback after caps arrive.
 		LL_INFOS("Avatar_bake") << "Using local baking" << LL_ENDL;	
 		mRegionp->setCapabilitiesReceivedCallback(boost::bind(&LLAgent::handleServerBakeRegionTransition,this,_1));
+	}
+
+	// Ask for SimulatorFeatures. This used to sit in the region-change branch
+	// above, so the region we logged in to never fetched them at all and every
+	// OpenSimExtras consumer -- say-range, grid name, grid URL -- silently used
+	// its fallback until the first region crossing or teleport. // SL-9671 to be fixed
+	if (mRegionp->capabilitiesReceived())
+	{
+		mRegionp->requestSimulatorFeatures();
+        LLAppViewer::instance()->updateNameLookupUrl(regionp);
+	}
+	else
+	{
+        regionp->setCapabilitiesReceivedCallback(LLAgent::capabilityReceivedCallback);
 	}
 
     LL_DEBUGS("AgentLocation") << "Calling RegionChanged callbacks" << LL_ENDL;
